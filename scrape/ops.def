@@ -1,0 +1,4569 @@
+module array_ops
+function BatchToSpace ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input crops,
+  int64 block_size
+function BatchToSpaceND ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input block_shape,
+  ::tensorflow::Input crops
+function Bitcast ::tensorflow::Output output
+  ::tensorflow::Input input,
+  DataType type
+function BroadcastDynamicShape ::tensorflow::Output r0
+  ::tensorflow::Input s0,
+  ::tensorflow::Input s1
+function BroadcastTo ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input shape
+function CheckNumerics ::tensorflow::Output output
+  ::tensorflow::Input tensor,
+  StringPiece message
+function Concat ::tensorflow::Output output
+  ::tensorflow::InputList values,
+  ::tensorflow::Input axis
+function ConjugateTranspose ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input perm
+function DebugGradientIdentity ::tensorflow::Output output
+  ::tensorflow::Input input
+function DebugGradientRefIdentity ::tensorflow::Output output
+  ::tensorflow::Input input
+function DeepCopy ::tensorflow::Output y
+  ::tensorflow::Input x
+function DepthToSpace ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 block_size
+function DepthToSpace ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 block_size,
+  const DepthToSpace::Attrs & attrs
+function DepthToSpace::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Dequantize ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input min_range,
+  ::tensorflow::Input max_range
+function Dequantize ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input min_range,
+  ::tensorflow::Input max_range,
+  const Dequantize::Attrs & attrs
+function Dequantize::Attrs::Mode ::tensorflow::Output output
+  StringPiece x
+function Diag ::tensorflow::Output output
+  ::tensorflow::Input diagonal
+function DiagPart ::tensorflow::Output diagonal
+  ::tensorflow::Input input
+function EditDistance ::tensorflow::Output output
+  ::tensorflow::Input hypothesis_indices,
+  ::tensorflow::Input hypothesis_values,
+  ::tensorflow::Input hypothesis_shape,
+  ::tensorflow::Input truth_indices,
+  ::tensorflow::Input truth_values,
+  ::tensorflow::Input truth_shape
+function EditDistance ::tensorflow::Output output
+  ::tensorflow::Input hypothesis_indices,
+  ::tensorflow::Input hypothesis_values,
+  ::tensorflow::Input hypothesis_shape,
+  ::tensorflow::Input truth_indices,
+  ::tensorflow::Input truth_values,
+  ::tensorflow::Input truth_shape,
+  const EditDistance::Attrs & attrs
+function EditDistance::Attrs::Normalize ::tensorflow::Output output
+  bool x
+function Empty ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype
+function Empty ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype,
+  const Empty::Attrs & attrs
+function Empty::Attrs::Init ::tensorflow::Output output
+  bool x
+function EnsureShape ::tensorflow::Output output
+  ::tensorflow::Input input,
+  PartialTensorShape shape
+function ExpandDims ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function ExtractImagePatches ::tensorflow::Output patches
+  ::tensorflow::Input images,
+  const gtl::ArraySlice< int > & ksizes,
+  const gtl::ArraySlice< int > & strides,
+  const gtl::ArraySlice< int > & rates,
+  StringPiece padding
+function ExtractVolumePatches ::tensorflow::Output patches
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksizes,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function FakeQuantWithMinMaxArgs ::tensorflow::Output outputs
+  ::tensorflow::Input inputs
+function FakeQuantWithMinMaxArgs ::tensorflow::Output outputs
+  ::tensorflow::Input inputs,
+  const FakeQuantWithMinMaxArgs::Attrs & attrs
+function FakeQuantWithMinMaxArgs::Attrs::Max ::tensorflow::Output outputs
+  float x
+function FakeQuantWithMinMaxArgs::Attrs::Min ::tensorflow::Output outputs
+  float x
+function FakeQuantWithMinMaxArgs::Attrs::NarrowRange ::tensorflow::Output outputs
+  bool x
+function FakeQuantWithMinMaxArgs::Attrs::NumBits ::tensorflow::Output outputs
+  int64 x
+function FakeQuantWithMinMaxArgsGradient ::tensorflow::Output backprops
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs
+function FakeQuantWithMinMaxArgsGradient ::tensorflow::Output backprops
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs,
+  const FakeQuantWithMinMaxArgsGradient::Attrs & attrs
+function FakeQuantWithMinMaxArgsGradient::Attrs::Max ::tensorflow::Output backprops
+  float x
+function FakeQuantWithMinMaxArgsGradient::Attrs::Min ::tensorflow::Output backprops
+  float x
+function FakeQuantWithMinMaxArgsGradient::Attrs::NarrowRange ::tensorflow::Output backprops
+  bool x
+function FakeQuantWithMinMaxArgsGradient::Attrs::NumBits ::tensorflow::Output backprops
+  int64 x
+function FakeQuantWithMinMaxVars ::tensorflow::Output outputs
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max
+function FakeQuantWithMinMaxVars ::tensorflow::Output outputs
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max,
+  const FakeQuantWithMinMaxVars::Attrs & attrs
+function FakeQuantWithMinMaxVars::Attrs::NarrowRange ::tensorflow::Output outputs
+  bool x
+function FakeQuantWithMinMaxVars::Attrs::NumBits ::tensorflow::Output outputs
+  int64 x
+function FakeQuantWithMinMaxVarsGradient ::tensorflow::Output backprops_wrt_input
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max
+function FakeQuantWithMinMaxVarsGradient ::tensorflow::Output backprops_wrt_input
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max,
+  const FakeQuantWithMinMaxVarsGradient::Attrs & attrs
+function FakeQuantWithMinMaxVarsGradient::Attrs::NarrowRange ::tensorflow::Output backprops_wrt_input
+  bool x
+function FakeQuantWithMinMaxVarsGradient::Attrs::NumBits ::tensorflow::Output backprops_wrt_input
+  int64 x
+function FakeQuantWithMinMaxVarsPerChannel ::tensorflow::Output outputs
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max
+function FakeQuantWithMinMaxVarsPerChannel ::tensorflow::Output outputs
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max,
+  const FakeQuantWithMinMaxVarsPerChannel::Attrs & attrs
+function FakeQuantWithMinMaxVarsPerChannel::Attrs::NarrowRange ::tensorflow::Output outputs
+  bool x
+function FakeQuantWithMinMaxVarsPerChannel::Attrs::NumBits ::tensorflow::Output outputs
+  int64 x
+function FakeQuantWithMinMaxVarsPerChannelGradient ::tensorflow::Output backprops_wrt_input
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max
+function FakeQuantWithMinMaxVarsPerChannelGradient ::tensorflow::Output backprops_wrt_input
+  ::tensorflow::Input gradients,
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max,
+  const FakeQuantWithMinMaxVarsPerChannelGradient::Attrs & attrs
+function FakeQuantWithMinMaxVarsPerChannelGradient::Attrs::NarrowRange ::tensorflow::Output backprops_wrt_input
+  bool x
+function FakeQuantWithMinMaxVarsPerChannelGradient::Attrs::NumBits ::tensorflow::Output backprops_wrt_input
+  int64 x
+function Fill ::tensorflow::Output output
+  ::tensorflow::Input dims,
+  ::tensorflow::Input value
+function Gather ::tensorflow::Output output
+  ::tensorflow::Input params,
+  ::tensorflow::Input indices
+function Gather ::tensorflow::Output output
+  ::tensorflow::Input params,
+  ::tensorflow::Input indices,
+  const Gather::Attrs & attrs
+function Gather::Attrs::ValidateIndices ::tensorflow::Output output
+  bool x
+function GatherNd ::tensorflow::Output output
+  ::tensorflow::Input params,
+  ::tensorflow::Input indices
+function GatherV2 ::tensorflow::Output output
+  ::tensorflow::Input params,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input axis
+function GuaranteeConst ::tensorflow::Output output
+  ::tensorflow::Input input
+function Identity ::tensorflow::Output output
+  ::tensorflow::Input input
+function IdentityN ::tensorflow::OutputList output
+  ::tensorflow::InputList input
+function ImmutableConst ::tensorflow::Output tensor
+  DataType dtype,
+  PartialTensorShape shape,
+  StringPiece memory_region_name
+function InplaceAdd ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input i,
+  ::tensorflow::Input v
+function InplaceSub ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input i,
+  ::tensorflow::Input v
+function InplaceUpdate ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input i,
+  ::tensorflow::Input v
+function InvertPermutation ::tensorflow::Output y
+  ::tensorflow::Input x
+function MatrixBandPart ::tensorflow::Output band
+  ::tensorflow::Input input,
+  ::tensorflow::Input num_lower,
+  ::tensorflow::Input num_upper
+function MatrixDiag ::tensorflow::Output output
+  ::tensorflow::Input diagonal
+function MatrixDiagPart ::tensorflow::Output diagonal
+  ::tensorflow::Input input
+function MatrixSetDiag ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input diagonal
+function MirrorPad ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input paddings,
+  StringPiece mode
+function OneHot ::tensorflow::Output output
+  ::tensorflow::Input indices,
+  ::tensorflow::Input depth,
+  ::tensorflow::Input on_value,
+  ::tensorflow::Input off_value
+function OneHot ::tensorflow::Output output
+  ::tensorflow::Input indices,
+  ::tensorflow::Input depth,
+  ::tensorflow::Input on_value,
+  ::tensorflow::Input off_value,
+  const OneHot::Attrs & attrs
+function OneHot::Attrs::Axis ::tensorflow::Output output
+  int64 x
+function OnesLike ::tensorflow::Output y
+  ::tensorflow::Input x
+function QuantizedReshape ::tensorflow::Output output_min
+  ::tensorflow::Input tensor,
+  ::tensorflow::Input shape,
+  ::tensorflow::Input input_min,
+  ::tensorflow::Input input_max
+function Rank ::tensorflow::Output output
+  ::tensorflow::Input input
+function Reshape ::tensorflow::Output output
+  ::tensorflow::Input tensor,
+  ::tensorflow::Input shape
+function ResourceStridedSliceAssign 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input value
+function ResourceStridedSliceAssign 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input value,
+  const ResourceStridedSliceAssign::Attrs & attrs
+function ResourceStridedSliceAssign::Attrs::BeginMask 
+  int64 x
+function ResourceStridedSliceAssign::Attrs::EllipsisMask 
+  int64 x
+function ResourceStridedSliceAssign::Attrs::EndMask 
+  int64 x
+function ResourceStridedSliceAssign::Attrs::NewAxisMask 
+  int64 x
+function ResourceStridedSliceAssign::Attrs::ShrinkAxisMask 
+  int64 x
+function Reverse ::tensorflow::Output output
+  ::tensorflow::Input tensor,
+  ::tensorflow::Input axis
+function ReverseSequence ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input seq_lengths,
+  int64 seq_dim
+function ReverseSequence ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input seq_lengths,
+  int64 seq_dim,
+  const ReverseSequence::Attrs & attrs
+function ReverseSequence::Attrs::BatchDim ::tensorflow::Output output
+  int64 x
+function ScatterNd ::tensorflow::Output output
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  ::tensorflow::Input shape
+function ScatterNdNonAliasingAdd ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function SetDiff1D ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function SetDiff1D ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  const SetDiff1D::Attrs & attrs
+function SetDiff1D::Attrs::OutIdx ::tensorflow::Output out
+  DataType x
+function Shape ::tensorflow::Output output
+  ::tensorflow::Input input
+function Shape ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Shape::Attrs & attrs
+function Shape::Attrs::OutType ::tensorflow::Output output
+  DataType x
+function ShapeN ::tensorflow::OutputList output
+  ::tensorflow::InputList input
+function ShapeN ::tensorflow::OutputList output
+  ::tensorflow::InputList input,
+  const ShapeN::Attrs & attrs
+function ShapeN::Attrs::OutType ::tensorflow::OutputList output
+  DataType x
+function Size ::tensorflow::Output output
+  ::tensorflow::Input input
+function Size ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Size::Attrs & attrs
+function Size::Attrs::OutType ::tensorflow::Output output
+  DataType x
+function Slice ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input size
+function Snapshot ::tensorflow::Output output
+  ::tensorflow::Input input
+function SpaceToBatch ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input paddings,
+  int64 block_size
+function SpaceToBatchND ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input block_shape,
+  ::tensorflow::Input paddings
+function SpaceToDepth ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 block_size
+function SpaceToDepth ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 block_size,
+  const SpaceToDepth::Attrs & attrs
+function SpaceToDepth::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Split ::tensorflow::OutputList output
+  ::tensorflow::Input axis,
+  ::tensorflow::Input value,
+  int64 num_split
+function SplitV ::tensorflow::OutputList output
+  ::tensorflow::Input value,
+  ::tensorflow::Input size_splits,
+  ::tensorflow::Input axis,
+  int64 num_split
+function Squeeze ::tensorflow::Output output
+  ::tensorflow::Input input
+function Squeeze ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Squeeze::Attrs & attrs
+function Squeeze::Attrs::Axis ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function StopGradient ::tensorflow::Output output
+  ::tensorflow::Input input
+function StridedSlice ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides
+function StridedSlice ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  const StridedSlice::Attrs & attrs
+function StridedSlice::Attrs::BeginMask ::tensorflow::Output output
+  int64 x
+function StridedSlice::Attrs::EllipsisMask ::tensorflow::Output output
+  int64 x
+function StridedSlice::Attrs::EndMask ::tensorflow::Output output
+  int64 x
+function StridedSlice::Attrs::NewAxisMask ::tensorflow::Output output
+  int64 x
+function StridedSlice::Attrs::ShrinkAxisMask ::tensorflow::Output output
+  int64 x
+function StridedSliceAssign ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input value
+function StridedSliceAssign ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input value,
+  const StridedSliceAssign::Attrs & attrs
+function StridedSliceAssign::Attrs::BeginMask ::tensorflow::Output output_ref
+  int64 x
+function StridedSliceAssign::Attrs::EllipsisMask ::tensorflow::Output output_ref
+  int64 x
+function StridedSliceAssign::Attrs::EndMask ::tensorflow::Output output_ref
+  int64 x
+function StridedSliceAssign::Attrs::NewAxisMask ::tensorflow::Output output_ref
+  int64 x
+function StridedSliceAssign::Attrs::ShrinkAxisMask ::tensorflow::Output output_ref
+  int64 x
+function StridedSliceGrad ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input dy
+function StridedSliceGrad ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input begin,
+  ::tensorflow::Input end,
+  ::tensorflow::Input strides,
+  ::tensorflow::Input dy,
+  const StridedSliceGrad::Attrs & attrs
+function StridedSliceGrad::Attrs::BeginMask ::tensorflow::Output output
+  int64 x
+function StridedSliceGrad::Attrs::EllipsisMask ::tensorflow::Output output
+  int64 x
+function StridedSliceGrad::Attrs::EndMask ::tensorflow::Output output
+  int64 x
+function StridedSliceGrad::Attrs::NewAxisMask ::tensorflow::Output output
+  int64 x
+function StridedSliceGrad::Attrs::ShrinkAxisMask ::tensorflow::Output output
+  int64 x
+function Tile ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input multiples
+function Transpose ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input perm
+function Unique ::tensorflow::Output y
+  ::tensorflow::Input x
+function Unique ::tensorflow::Output y
+  ::tensorflow::Input x,
+  const Unique::Attrs & attrs
+function Unique::Attrs::OutIdx ::tensorflow::Output y
+  DataType x
+function UniqueV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis
+function UniqueV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis,
+  const UniqueV2::Attrs & attrs
+function UniqueV2::Attrs::OutIdx ::tensorflow::Output y
+  DataType x
+function UniqueWithCounts ::tensorflow::Output y
+  ::tensorflow::Input x
+function UniqueWithCounts ::tensorflow::Output y
+  ::tensorflow::Input x,
+  const UniqueWithCounts::Attrs & attrs
+function UniqueWithCounts::Attrs::OutIdx ::tensorflow::Output y
+  DataType x
+function UniqueWithCountsV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis
+function UniqueWithCountsV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis,
+  const UniqueWithCountsV2::Attrs & attrs
+function UniqueWithCountsV2::Attrs::OutIdx ::tensorflow::Output y
+  DataType x
+function UnravelIndex ::tensorflow::Output output
+  ::tensorflow::Input indices,
+  ::tensorflow::Input dims
+function Unstack ::tensorflow::OutputList output
+  ::tensorflow::Input value,
+  int64 num
+function Unstack ::tensorflow::OutputList output
+  ::tensorflow::Input value,
+  int64 num,
+  const Unstack::Attrs & attrs
+function Unstack::Attrs::Axis ::tensorflow::OutputList output
+  int64 x
+function Where ::tensorflow::Output index
+  ::tensorflow::Input condition
+function ZerosLike ::tensorflow::Output y
+  ::tensorflow::Input x
+module candidate_sampling_ops
+function AllCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique
+function AllCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  const AllCandidateSampler::Attrs & attrs
+function AllCandidateSampler::Attrs::Seed ::tensorflow::Output true_expected_count
+  int64 x
+function AllCandidateSampler::Attrs::Seed2 ::tensorflow::Output true_expected_count
+  int64 x
+function ComputeAccidentalHits ::tensorflow::Output weights
+  ::tensorflow::Input true_classes,
+  ::tensorflow::Input sampled_candidates,
+  int64 num_true
+function ComputeAccidentalHits ::tensorflow::Output weights
+  ::tensorflow::Input true_classes,
+  ::tensorflow::Input sampled_candidates,
+  int64 num_true,
+  const ComputeAccidentalHits::Attrs & attrs
+function ComputeAccidentalHits::Attrs::Seed ::tensorflow::Output weights
+  int64 x
+function ComputeAccidentalHits::Attrs::Seed2 ::tensorflow::Output weights
+  int64 x
+function FixedUnigramCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max
+function FixedUnigramCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max,
+  const FixedUnigramCandidateSampler::Attrs & attrs
+function FixedUnigramCandidateSampler::Attrs::Distortion ::tensorflow::Output true_expected_count
+  float x
+function FixedUnigramCandidateSampler::Attrs::NumReservedIds ::tensorflow::Output true_expected_count
+  int64 x
+function FixedUnigramCandidateSampler::Attrs::NumShards ::tensorflow::Output true_expected_count
+  int64 x
+function FixedUnigramCandidateSampler::Attrs::Seed ::tensorflow::Output true_expected_count
+  int64 x
+function FixedUnigramCandidateSampler::Attrs::Seed2 ::tensorflow::Output true_expected_count
+  int64 x
+function FixedUnigramCandidateSampler::Attrs::Shard ::tensorflow::Output true_expected_count
+  int64 x
+function FixedUnigramCandidateSampler::Attrs::Unigrams ::tensorflow::Output true_expected_count
+  const gtl::ArraySlice< float > & x
+function FixedUnigramCandidateSampler::Attrs::VocabFile ::tensorflow::Output true_expected_count
+  StringPiece x
+function LearnedUnigramCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max
+function LearnedUnigramCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max,
+  const LearnedUnigramCandidateSampler::Attrs & attrs
+function LearnedUnigramCandidateSampler::Attrs::Seed ::tensorflow::Output true_expected_count
+  int64 x
+function LearnedUnigramCandidateSampler::Attrs::Seed2 ::tensorflow::Output true_expected_count
+  int64 x
+function LogUniformCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max
+function LogUniformCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max,
+  const LogUniformCandidateSampler::Attrs & attrs
+function LogUniformCandidateSampler::Attrs::Seed ::tensorflow::Output true_expected_count
+  int64 x
+function LogUniformCandidateSampler::Attrs::Seed2 ::tensorflow::Output true_expected_count
+  int64 x
+function UniformCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max
+function UniformCandidateSampler ::tensorflow::Output true_expected_count
+  ::tensorflow::Input true_classes,
+  int64 num_true,
+  int64 num_sampled,
+  bool unique,
+  int64 range_max,
+  const UniformCandidateSampler::Attrs & attrs
+function UniformCandidateSampler::Attrs::Seed ::tensorflow::Output true_expected_count
+  int64 x
+function UniformCandidateSampler::Attrs::Seed2 ::tensorflow::Output true_expected_count
+  int64 x
+module control_flow_ops
+function Abort 
+function Abort 
+  const Abort::Attrs & attrs
+function Abort::Attrs::ErrorMsg 
+  StringPiece x
+function Abort::Attrs::ExitWithoutError 
+  bool x
+function ControlTrigger 
+function LoopCond ::tensorflow::Output output
+  ::tensorflow::Input input
+function Merge ::tensorflow::Output value_index
+  ::tensorflow::InputList inputs
+function NextIteration ::tensorflow::Output output
+  ::tensorflow::Input data
+function RefNextIteration ::tensorflow::Output output
+  ::tensorflow::Input data
+function RefSelect ::tensorflow::Output output
+  ::tensorflow::Input index,
+  ::tensorflow::InputList inputs
+function RefSwitch ::tensorflow::Output output_true
+  ::tensorflow::Input data,
+  ::tensorflow::Input pred
+function Switch ::tensorflow::Output output_true
+  ::tensorflow::Input data,
+  ::tensorflow::Input pred
+module data_flow_ops
+function AccumulatorApplyGradient 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input local_step,
+  ::tensorflow::Input gradient
+function AccumulatorNumAccumulated ::tensorflow::Output num_accumulated
+  ::tensorflow::Input handle
+function AccumulatorSetGlobalStep 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input new_global_step
+function AccumulatorTakeGradient ::tensorflow::Output average
+  ::tensorflow::Input handle,
+  ::tensorflow::Input num_required,
+  DataType dtype
+function Barrier ::tensorflow::Output handle
+  const DataTypeSlice & component_types
+function Barrier ::tensorflow::Output handle
+  const DataTypeSlice & component_types,
+  const Barrier::Attrs & attrs
+function Barrier::Attrs::Capacity ::tensorflow::Output handle
+  int64 x
+function Barrier::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function Barrier::Attrs::Shapes ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & x
+function Barrier::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function BarrierClose 
+  ::tensorflow::Input handle
+function BarrierClose 
+  ::tensorflow::Input handle,
+  const BarrierClose::Attrs & attrs
+function BarrierClose::Attrs::CancelPendingEnqueues 
+  bool x
+function BarrierIncompleteSize ::tensorflow::Output size
+  ::tensorflow::Input handle
+function BarrierInsertMany 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input keys,
+  ::tensorflow::Input values,
+  int64 component_index
+function BarrierReadySize ::tensorflow::Output size
+  ::tensorflow::Input handle
+function BarrierTakeMany ::tensorflow::Output keys
+  ::tensorflow::Input handle,
+  ::tensorflow::Input num_elements,
+  const DataTypeSlice & component_types
+function BarrierTakeMany ::tensorflow::Output keys
+  ::tensorflow::Input handle,
+  ::tensorflow::Input num_elements,
+  const DataTypeSlice & component_types,
+  const BarrierTakeMany::Attrs & attrs
+function BarrierTakeMany::Attrs::AllowSmallBatch ::tensorflow::Output keys
+  bool x
+function BarrierTakeMany::Attrs::TimeoutMs ::tensorflow::Output keys
+  int64 x
+function BarrierTakeMany::Attrs::WaitForIncomplete ::tensorflow::Output keys
+  bool x
+function ConditionalAccumulator ::tensorflow::Output handle
+  DataType dtype,
+  PartialTensorShape shape
+function ConditionalAccumulator ::tensorflow::Output handle
+  DataType dtype,
+  PartialTensorShape shape,
+  const ConditionalAccumulator::Attrs & attrs
+function ConditionalAccumulator::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function ConditionalAccumulator::Attrs::ReductionType ::tensorflow::Output handle
+  StringPiece x
+function ConditionalAccumulator::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function DeleteSessionTensor 
+  ::tensorflow::Input handle
+function DynamicPartition ::tensorflow::OutputList outputs
+  ::tensorflow::Input data,
+  ::tensorflow::Input partitions,
+  int64 num_partitions
+function DynamicStitch ::tensorflow::Output merged
+  ::tensorflow::InputList indices,
+  ::tensorflow::InputList data
+function FIFOQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types
+function FIFOQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types,
+  const FIFOQueue::Attrs & attrs
+function FIFOQueue::Attrs::Capacity ::tensorflow::Output handle
+  int64 x
+function FIFOQueue::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function FIFOQueue::Attrs::Shapes ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & x
+function FIFOQueue::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function GetSessionHandle ::tensorflow::Output handle
+  ::tensorflow::Input value
+function GetSessionHandleV2 ::tensorflow::Output handle
+  ::tensorflow::Input value
+function GetSessionTensor ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  DataType dtype
+function MapClear 
+  const DataTypeSlice & dtypes
+function MapClear 
+  const DataTypeSlice & dtypes,
+  const MapClear::Attrs & attrs
+function MapClear::Attrs::Capacity 
+  int64 x
+function MapClear::Attrs::Container 
+  StringPiece x
+function MapClear::Attrs::MemoryLimit 
+  int64 x
+function MapClear::Attrs::SharedName 
+  StringPiece x
+function MapIncompleteSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes
+function MapIncompleteSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes,
+  const MapIncompleteSize::Attrs & attrs
+function MapIncompleteSize::Attrs::Capacity ::tensorflow::Output size
+  int64 x
+function MapIncompleteSize::Attrs::Container ::tensorflow::Output size
+  StringPiece x
+function MapIncompleteSize::Attrs::MemoryLimit ::tensorflow::Output size
+  int64 x
+function MapIncompleteSize::Attrs::SharedName ::tensorflow::Output size
+  StringPiece x
+function MapPeek 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function MapPeek 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const MapPeek::Attrs & attrs
+function MapPeek::Attrs::Capacity 
+  int64 x
+function MapPeek::Attrs::Container 
+  StringPiece x
+function MapPeek::Attrs::MemoryLimit 
+  int64 x
+function MapPeek::Attrs::SharedName 
+  StringPiece x
+function MapSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes
+function MapSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes,
+  const MapSize::Attrs & attrs
+function MapSize::Attrs::Capacity ::tensorflow::Output size
+  int64 x
+function MapSize::Attrs::Container ::tensorflow::Output size
+  StringPiece x
+function MapSize::Attrs::MemoryLimit ::tensorflow::Output size
+  int64 x
+function MapSize::Attrs::SharedName ::tensorflow::Output size
+  StringPiece x
+function MapStage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  ::tensorflow::InputList values,
+  const DataTypeSlice & dtypes
+function MapStage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  ::tensorflow::InputList values,
+  const DataTypeSlice & dtypes,
+  const MapStage::Attrs & attrs
+function MapStage::Attrs::Capacity 
+  int64 x
+function MapStage::Attrs::Container 
+  StringPiece x
+function MapStage::Attrs::MemoryLimit 
+  int64 x
+function MapStage::Attrs::SharedName 
+  StringPiece x
+function MapUnstage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function MapUnstage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const MapUnstage::Attrs & attrs
+function MapUnstage::Attrs::Capacity 
+  int64 x
+function MapUnstage::Attrs::Container 
+  StringPiece x
+function MapUnstage::Attrs::MemoryLimit 
+  int64 x
+function MapUnstage::Attrs::SharedName 
+  StringPiece x
+function MapUnstageNoKey ::tensorflow::Output key
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function MapUnstageNoKey ::tensorflow::Output key
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const MapUnstageNoKey::Attrs & attrs
+function MapUnstageNoKey::Attrs::Capacity ::tensorflow::Output key
+  int64 x
+function MapUnstageNoKey::Attrs::Container ::tensorflow::Output key
+  StringPiece x
+function MapUnstageNoKey::Attrs::MemoryLimit ::tensorflow::Output key
+  int64 x
+function MapUnstageNoKey::Attrs::SharedName ::tensorflow::Output key
+  StringPiece x
+function OrderedMapClear 
+  const DataTypeSlice & dtypes
+function OrderedMapClear 
+  const DataTypeSlice & dtypes,
+  const OrderedMapClear::Attrs & attrs
+function OrderedMapClear::Attrs::Capacity 
+  int64 x
+function OrderedMapClear::Attrs::Container 
+  StringPiece x
+function OrderedMapClear::Attrs::MemoryLimit 
+  int64 x
+function OrderedMapClear::Attrs::SharedName 
+  StringPiece x
+function OrderedMapIncompleteSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes
+function OrderedMapIncompleteSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes,
+  const OrderedMapIncompleteSize::Attrs & attrs
+function OrderedMapIncompleteSize::Attrs::Capacity ::tensorflow::Output size
+  int64 x
+function OrderedMapIncompleteSize::Attrs::Container ::tensorflow::Output size
+  StringPiece x
+function OrderedMapIncompleteSize::Attrs::MemoryLimit ::tensorflow::Output size
+  int64 x
+function OrderedMapIncompleteSize::Attrs::SharedName ::tensorflow::Output size
+  StringPiece x
+function OrderedMapPeek 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function OrderedMapPeek 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const OrderedMapPeek::Attrs & attrs
+function OrderedMapPeek::Attrs::Capacity 
+  int64 x
+function OrderedMapPeek::Attrs::Container 
+  StringPiece x
+function OrderedMapPeek::Attrs::MemoryLimit 
+  int64 x
+function OrderedMapPeek::Attrs::SharedName 
+  StringPiece x
+function OrderedMapSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes
+function OrderedMapSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes,
+  const OrderedMapSize::Attrs & attrs
+function OrderedMapSize::Attrs::Capacity ::tensorflow::Output size
+  int64 x
+function OrderedMapSize::Attrs::Container ::tensorflow::Output size
+  StringPiece x
+function OrderedMapSize::Attrs::MemoryLimit ::tensorflow::Output size
+  int64 x
+function OrderedMapSize::Attrs::SharedName ::tensorflow::Output size
+  StringPiece x
+function OrderedMapStage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  ::tensorflow::InputList values,
+  const DataTypeSlice & dtypes
+function OrderedMapStage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  ::tensorflow::InputList values,
+  const DataTypeSlice & dtypes,
+  const OrderedMapStage::Attrs & attrs
+function OrderedMapStage::Attrs::Capacity 
+  int64 x
+function OrderedMapStage::Attrs::Container 
+  StringPiece x
+function OrderedMapStage::Attrs::MemoryLimit 
+  int64 x
+function OrderedMapStage::Attrs::SharedName 
+  StringPiece x
+function OrderedMapUnstage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function OrderedMapUnstage 
+  ::tensorflow::Input key,
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const OrderedMapUnstage::Attrs & attrs
+function OrderedMapUnstage::Attrs::Capacity 
+  int64 x
+function OrderedMapUnstage::Attrs::Container 
+  StringPiece x
+function OrderedMapUnstage::Attrs::MemoryLimit 
+  int64 x
+function OrderedMapUnstage::Attrs::SharedName 
+  StringPiece x
+function OrderedMapUnstageNoKey ::tensorflow::Output key
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes
+function OrderedMapUnstageNoKey ::tensorflow::Output key
+  ::tensorflow::Input indices,
+  const DataTypeSlice & dtypes,
+  const OrderedMapUnstageNoKey::Attrs & attrs
+function OrderedMapUnstageNoKey::Attrs::Capacity ::tensorflow::Output key
+  int64 x
+function OrderedMapUnstageNoKey::Attrs::Container ::tensorflow::Output key
+  StringPiece x
+function OrderedMapUnstageNoKey::Attrs::MemoryLimit ::tensorflow::Output key
+  int64 x
+function OrderedMapUnstageNoKey::Attrs::SharedName ::tensorflow::Output key
+  StringPiece x
+function PaddingFIFOQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types
+function PaddingFIFOQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types,
+  const PaddingFIFOQueue::Attrs & attrs
+function PaddingFIFOQueue::Attrs::Capacity ::tensorflow::Output handle
+  int64 x
+function PaddingFIFOQueue::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function PaddingFIFOQueue::Attrs::Shapes ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & x
+function PaddingFIFOQueue::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function ParallelDynamicStitch ::tensorflow::Output merged
+  ::tensorflow::InputList indices,
+  ::tensorflow::InputList data
+function PriorityQueue ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & shapes
+function PriorityQueue ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & shapes,
+  const PriorityQueue::Attrs & attrs
+function PriorityQueue::Attrs::Capacity ::tensorflow::Output handle
+  int64 x
+function PriorityQueue::Attrs::ComponentTypes ::tensorflow::Output handle
+  const DataTypeSlice & x
+function PriorityQueue::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function PriorityQueue::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function QueueClose 
+  ::tensorflow::Input handle
+function QueueClose 
+  ::tensorflow::Input handle,
+  const QueueClose::Attrs & attrs
+function QueueClose::Attrs::CancelPendingEnqueues 
+  bool x
+function QueueDequeue 
+  ::tensorflow::Input handle,
+  const DataTypeSlice & component_types
+function QueueDequeue 
+  ::tensorflow::Input handle,
+  const DataTypeSlice & component_types,
+  const QueueDequeue::Attrs & attrs
+function QueueDequeue::Attrs::TimeoutMs 
+  int64 x
+function QueueDequeueMany 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input n,
+  const DataTypeSlice & component_types
+function QueueDequeueMany 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input n,
+  const DataTypeSlice & component_types,
+  const QueueDequeueMany::Attrs & attrs
+function QueueDequeueMany::Attrs::TimeoutMs 
+  int64 x
+function QueueDequeueUpTo 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input n,
+  const DataTypeSlice & component_types
+function QueueDequeueUpTo 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input n,
+  const DataTypeSlice & component_types,
+  const QueueDequeueUpTo::Attrs & attrs
+function QueueDequeueUpTo::Attrs::TimeoutMs 
+  int64 x
+function QueueEnqueue 
+  ::tensorflow::Input handle,
+  ::tensorflow::InputList components
+function QueueEnqueue 
+  ::tensorflow::Input handle,
+  ::tensorflow::InputList components,
+  const QueueEnqueue::Attrs & attrs
+function QueueEnqueue::Attrs::TimeoutMs 
+  int64 x
+function QueueEnqueueMany 
+  ::tensorflow::Input handle,
+  ::tensorflow::InputList components
+function QueueEnqueueMany 
+  ::tensorflow::Input handle,
+  ::tensorflow::InputList components,
+  const QueueEnqueueMany::Attrs & attrs
+function QueueEnqueueMany::Attrs::TimeoutMs 
+  int64 x
+function QueueIsClosed ::tensorflow::Output is_closed
+  ::tensorflow::Input handle
+function QueueIsClosedV2 ::tensorflow::Output is_closed
+  ::tensorflow::Input handle
+function QueueSize ::tensorflow::Output size
+  ::tensorflow::Input handle
+function RandomShuffleQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types
+function RandomShuffleQueue ::tensorflow::Output handle
+  const DataTypeSlice & component_types,
+  const RandomShuffleQueue::Attrs & attrs
+function RandomShuffleQueue::Attrs::Capacity ::tensorflow::Output handle
+  int64 x
+function RandomShuffleQueue::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function RandomShuffleQueue::Attrs::MinAfterDequeue ::tensorflow::Output handle
+  int64 x
+function RandomShuffleQueue::Attrs::Seed ::tensorflow::Output handle
+  int64 x
+function RandomShuffleQueue::Attrs::Seed2 ::tensorflow::Output handle
+  int64 x
+function RandomShuffleQueue::Attrs::Shapes ::tensorflow::Output handle
+  const gtl::ArraySlice< PartialTensorShape > & x
+function RandomShuffleQueue::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function RecordInput ::tensorflow::Output records
+  StringPiece file_pattern
+function RecordInput ::tensorflow::Output records
+  StringPiece file_pattern,
+  const RecordInput::Attrs & attrs
+function RecordInput::Attrs::BatchSize ::tensorflow::Output records
+  int64 x
+function RecordInput::Attrs::CompressionType ::tensorflow::Output records
+  StringPiece x
+function RecordInput::Attrs::FileBufferSize ::tensorflow::Output records
+  int64 x
+function RecordInput::Attrs::FileParallelism ::tensorflow::Output records
+  int64 x
+function RecordInput::Attrs::FileRandomSeed ::tensorflow::Output records
+  int64 x
+function RecordInput::Attrs::FileShuffleShiftRatio ::tensorflow::Output records
+  float x
+function SparseAccumulatorApplyGradient 
+  ::tensorflow::Input handle,
+  ::tensorflow::Input local_step,
+  ::tensorflow::Input gradient_indices,
+  ::tensorflow::Input gradient_values,
+  ::tensorflow::Input gradient_shape,
+  bool has_known_shape
+function SparseAccumulatorTakeGradient ::tensorflow::Output values
+  ::tensorflow::Input handle,
+  ::tensorflow::Input num_required,
+  DataType dtype
+function SparseConditionalAccumulator ::tensorflow::Output handle
+  DataType dtype,
+  PartialTensorShape shape
+function SparseConditionalAccumulator ::tensorflow::Output handle
+  DataType dtype,
+  PartialTensorShape shape,
+  const SparseConditionalAccumulator::Attrs & attrs
+function SparseConditionalAccumulator::Attrs::Container ::tensorflow::Output handle
+  StringPiece x
+function SparseConditionalAccumulator::Attrs::ReductionType ::tensorflow::Output handle
+  StringPiece x
+function SparseConditionalAccumulator::Attrs::SharedName ::tensorflow::Output handle
+  StringPiece x
+function Stage 
+  ::tensorflow::InputList values
+function Stage 
+  ::tensorflow::InputList values,
+  const Stage::Attrs & attrs
+function Stage::Attrs::Capacity 
+  int64 x
+function Stage::Attrs::Container 
+  StringPiece x
+function Stage::Attrs::MemoryLimit 
+  int64 x
+function Stage::Attrs::SharedName 
+  StringPiece x
+function StageClear 
+  const DataTypeSlice & dtypes
+function StageClear 
+  const DataTypeSlice & dtypes,
+  const StageClear::Attrs & attrs
+function StageClear::Attrs::Capacity 
+  int64 x
+function StageClear::Attrs::Container 
+  StringPiece x
+function StageClear::Attrs::MemoryLimit 
+  int64 x
+function StageClear::Attrs::SharedName 
+  StringPiece x
+function StagePeek 
+  ::tensorflow::Input index,
+  const DataTypeSlice & dtypes
+function StagePeek 
+  ::tensorflow::Input index,
+  const DataTypeSlice & dtypes,
+  const StagePeek::Attrs & attrs
+function StagePeek::Attrs::Capacity 
+  int64 x
+function StagePeek::Attrs::Container 
+  StringPiece x
+function StagePeek::Attrs::MemoryLimit 
+  int64 x
+function StagePeek::Attrs::SharedName 
+  StringPiece x
+function StageSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes
+function StageSize ::tensorflow::Output size
+  const DataTypeSlice & dtypes,
+  const StageSize::Attrs & attrs
+function StageSize::Attrs::Capacity ::tensorflow::Output size
+  int64 x
+function StageSize::Attrs::Container ::tensorflow::Output size
+  StringPiece x
+function StageSize::Attrs::MemoryLimit ::tensorflow::Output size
+  int64 x
+function StageSize::Attrs::SharedName ::tensorflow::Output size
+  StringPiece x
+function TensorArray ::tensorflow::Output handle
+  ::tensorflow::Input size,
+  DataType dtype
+function TensorArray ::tensorflow::Output handle
+  ::tensorflow::Input size,
+  DataType dtype,
+  const TensorArray::Attrs & attrs
+function TensorArray::Attrs::ClearAfterRead ::tensorflow::Output handle
+  bool x
+function TensorArray::Attrs::DynamicSize ::tensorflow::Output handle
+  bool x
+function TensorArray::Attrs::ElementShape ::tensorflow::Output handle
+  PartialTensorShape x
+function TensorArray::Attrs::IdenticalElementShapes ::tensorflow::Output handle
+  bool x
+function TensorArray::Attrs::TensorArrayName ::tensorflow::Output handle
+  StringPiece x
+function TensorArrayClose 
+  ::tensorflow::Input handle
+function TensorArrayConcat ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  ::tensorflow::Input flow_in,
+  DataType dtype
+function TensorArrayConcat ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  ::tensorflow::Input flow_in,
+  DataType dtype,
+  const TensorArrayConcat::Attrs & attrs
+function TensorArrayConcat::Attrs::ElementShapeExcept0 ::tensorflow::Output value
+  PartialTensorShape x
+function TensorArrayGather ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input flow_in,
+  DataType dtype
+function TensorArrayGather ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input flow_in,
+  DataType dtype,
+  const TensorArrayGather::Attrs & attrs
+function TensorArrayGather::Attrs::ElementShape ::tensorflow::Output value
+  PartialTensorShape x
+function TensorArrayGrad ::tensorflow::Output grad_handle
+  ::tensorflow::Input handle,
+  ::tensorflow::Input flow_in,
+  StringPiece source
+function TensorArrayGradWithShape ::tensorflow::Output grad_handle
+  ::tensorflow::Input handle,
+  ::tensorflow::Input flow_in,
+  ::tensorflow::Input shape_to_prepend,
+  StringPiece source
+function TensorArrayRead ::tensorflow::Output value
+  ::tensorflow::Input handle,
+  ::tensorflow::Input index,
+  ::tensorflow::Input flow_in,
+  DataType dtype
+function TensorArrayScatter ::tensorflow::Output flow_out
+  ::tensorflow::Input handle,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input value,
+  ::tensorflow::Input flow_in
+function TensorArraySize ::tensorflow::Output size
+  ::tensorflow::Input handle,
+  ::tensorflow::Input flow_in
+function TensorArraySplit ::tensorflow::Output flow_out
+  ::tensorflow::Input handle,
+  ::tensorflow::Input value,
+  ::tensorflow::Input lengths,
+  ::tensorflow::Input flow_in
+function TensorArrayWrite ::tensorflow::Output flow_out
+  ::tensorflow::Input handle,
+  ::tensorflow::Input index,
+  ::tensorflow::Input value,
+  ::tensorflow::Input flow_in
+function Unstage 
+  const DataTypeSlice & dtypes
+function Unstage 
+  const DataTypeSlice & dtypes,
+  const Unstage::Attrs & attrs
+function Unstage::Attrs::Capacity 
+  int64 x
+function Unstage::Attrs::Container 
+  StringPiece x
+function Unstage::Attrs::MemoryLimit 
+  int64 x
+function Unstage::Attrs::SharedName 
+  StringPiece x
+module image_ops
+function AdjustContrast ::tensorflow::Output output
+  ::tensorflow::Input images,
+  ::tensorflow::Input contrast_factor
+function AdjustHue ::tensorflow::Output output
+  ::tensorflow::Input images,
+  ::tensorflow::Input delta
+function AdjustSaturation ::tensorflow::Output output
+  ::tensorflow::Input images,
+  ::tensorflow::Input scale
+function CropAndResize ::tensorflow::Output crops
+  ::tensorflow::Input image,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind,
+  ::tensorflow::Input crop_size
+function CropAndResize ::tensorflow::Output crops
+  ::tensorflow::Input image,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind,
+  ::tensorflow::Input crop_size,
+  const CropAndResize::Attrs & attrs
+function CropAndResize::Attrs::ExtrapolationValue ::tensorflow::Output crops
+  float x
+function CropAndResize::Attrs::Method ::tensorflow::Output crops
+  StringPiece x
+function CropAndResizeGradBoxes ::tensorflow::Output output
+  ::tensorflow::Input grads,
+  ::tensorflow::Input image,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind
+function CropAndResizeGradBoxes ::tensorflow::Output output
+  ::tensorflow::Input grads,
+  ::tensorflow::Input image,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind,
+  const CropAndResizeGradBoxes::Attrs & attrs
+function CropAndResizeGradBoxes::Attrs::Method ::tensorflow::Output output
+  StringPiece x
+function CropAndResizeGradImage ::tensorflow::Output output
+  ::tensorflow::Input grads,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind,
+  ::tensorflow::Input image_size,
+  DataType T
+function CropAndResizeGradImage ::tensorflow::Output output
+  ::tensorflow::Input grads,
+  ::tensorflow::Input boxes,
+  ::tensorflow::Input box_ind,
+  ::tensorflow::Input image_size,
+  DataType T,
+  const CropAndResizeGradImage::Attrs & attrs
+function CropAndResizeGradImage::Attrs::Method ::tensorflow::Output output
+  StringPiece x
+function DecodeAndCropJpeg ::tensorflow::Output image
+  ::tensorflow::Input contents,
+  ::tensorflow::Input crop_window
+function DecodeAndCropJpeg ::tensorflow::Output image
+  ::tensorflow::Input contents,
+  ::tensorflow::Input crop_window,
+  const DecodeAndCropJpeg::Attrs & attrs
+function DecodeAndCropJpeg::Attrs::AcceptableFraction ::tensorflow::Output image
+  float x
+function DecodeAndCropJpeg::Attrs::Channels ::tensorflow::Output image
+  int64 x
+function DecodeAndCropJpeg::Attrs::DctMethod ::tensorflow::Output image
+  StringPiece x
+function DecodeAndCropJpeg::Attrs::FancyUpscaling ::tensorflow::Output image
+  bool x
+function DecodeAndCropJpeg::Attrs::Ratio ::tensorflow::Output image
+  int64 x
+function DecodeAndCropJpeg::Attrs::TryRecoverTruncated ::tensorflow::Output image
+  bool x
+function DecodeBmp ::tensorflow::Output image
+  ::tensorflow::Input contents
+function DecodeBmp ::tensorflow::Output image
+  ::tensorflow::Input contents,
+  const DecodeBmp::Attrs & attrs
+function DecodeBmp::Attrs::Channels ::tensorflow::Output image
+  int64 x
+function DecodeGif ::tensorflow::Output image
+  ::tensorflow::Input contents
+function DecodeJpeg ::tensorflow::Output image
+  ::tensorflow::Input contents
+function DecodeJpeg ::tensorflow::Output image
+  ::tensorflow::Input contents,
+  const DecodeJpeg::Attrs & attrs
+function DecodeJpeg::Attrs::AcceptableFraction ::tensorflow::Output image
+  float x
+function DecodeJpeg::Attrs::Channels ::tensorflow::Output image
+  int64 x
+function DecodeJpeg::Attrs::DctMethod ::tensorflow::Output image
+  StringPiece x
+function DecodeJpeg::Attrs::FancyUpscaling ::tensorflow::Output image
+  bool x
+function DecodeJpeg::Attrs::Ratio ::tensorflow::Output image
+  int64 x
+function DecodeJpeg::Attrs::TryRecoverTruncated ::tensorflow::Output image
+  bool x
+function DecodePng ::tensorflow::Output image
+  ::tensorflow::Input contents
+function DecodePng ::tensorflow::Output image
+  ::tensorflow::Input contents,
+  const DecodePng::Attrs & attrs
+function DecodePng::Attrs::Channels ::tensorflow::Output image
+  int64 x
+function DecodePng::Attrs::Dtype ::tensorflow::Output image
+  DataType x
+function DrawBoundingBoxes ::tensorflow::Output output
+  ::tensorflow::Input images,
+  ::tensorflow::Input boxes
+function EncodeJpeg ::tensorflow::Output contents
+  ::tensorflow::Input image
+function EncodeJpeg ::tensorflow::Output contents
+  ::tensorflow::Input image,
+  const EncodeJpeg::Attrs & attrs
+function EncodeJpeg::Attrs::ChromaDownsampling ::tensorflow::Output contents
+  bool x
+function EncodeJpeg::Attrs::DensityUnit ::tensorflow::Output contents
+  StringPiece x
+function EncodeJpeg::Attrs::Format ::tensorflow::Output contents
+  StringPiece x
+function EncodeJpeg::Attrs::OptimizeSize ::tensorflow::Output contents
+  bool x
+function EncodeJpeg::Attrs::Progressive ::tensorflow::Output contents
+  bool x
+function EncodeJpeg::Attrs::Quality ::tensorflow::Output contents
+  int64 x
+function EncodeJpeg::Attrs::XDensity ::tensorflow::Output contents
+  int64 x
+function EncodeJpeg::Attrs::XmpMetadata ::tensorflow::Output contents
+  StringPiece x
+function EncodeJpeg::Attrs::YDensity ::tensorflow::Output contents
+  int64 x
+function EncodePng ::tensorflow::Output contents
+  ::tensorflow::Input image
+function EncodePng ::tensorflow::Output contents
+  ::tensorflow::Input image,
+  const EncodePng::Attrs & attrs
+function EncodePng::Attrs::Compression ::tensorflow::Output contents
+  int64 x
+function ExtractGlimpse ::tensorflow::Output glimpse
+  ::tensorflow::Input input,
+  ::tensorflow::Input size,
+  ::tensorflow::Input offsets
+function ExtractGlimpse ::tensorflow::Output glimpse
+  ::tensorflow::Input input,
+  ::tensorflow::Input size,
+  ::tensorflow::Input offsets,
+  const ExtractGlimpse::Attrs & attrs
+function ExtractGlimpse::Attrs::Centered ::tensorflow::Output glimpse
+  bool x
+function ExtractGlimpse::Attrs::Normalized ::tensorflow::Output glimpse
+  bool x
+function ExtractGlimpse::Attrs::UniformNoise ::tensorflow::Output glimpse
+  bool x
+function ExtractJpegShape ::tensorflow::Output image_shape
+  ::tensorflow::Input contents
+function ExtractJpegShape ::tensorflow::Output image_shape
+  ::tensorflow::Input contents,
+  const ExtractJpegShape::Attrs & attrs
+function ExtractJpegShape::Attrs::OutputType DataType tensorflow::ops::ExtractJpegShape::Attrs::output_type_ = DT_INT32
+  DataType x
+function HSVToRGB ::tensorflow::Output output
+  ::tensorflow::Input images
+function QuantizedResizeBilinear ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max
+function QuantizedResizeBilinear ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  ::tensorflow::Input min,
+  ::tensorflow::Input max,
+  const QuantizedResizeBilinear::Attrs & attrs
+function QuantizedResizeBilinear::Attrs::AlignCorners ::tensorflow::Output resized_images
+  bool x
+function RGBToHSV ::tensorflow::Output output
+  ::tensorflow::Input images
+function ResizeArea ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size
+function ResizeArea ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  const ResizeArea::Attrs & attrs
+function ResizeArea::Attrs::AlignCorners ::tensorflow::Output resized_images
+  bool x
+function ResizeBicubic ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size
+function ResizeBicubic ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  const ResizeBicubic::Attrs & attrs
+function ResizeBicubic::Attrs::AlignCorners ::tensorflow::Output resized_images
+  bool x
+function ResizeBilinear ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size
+function ResizeBilinear ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  const ResizeBilinear::Attrs & attrs
+function ResizeBilinear::Attrs::AlignCorners ::tensorflow::Output resized_images
+  bool x
+function ResizeNearestNeighbor ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size
+function ResizeNearestNeighbor ::tensorflow::Output resized_images
+  ::tensorflow::Input images,
+  ::tensorflow::Input size,
+  const ResizeNearestNeighbor::Attrs & attrs
+function ResizeNearestNeighbor::Attrs::AlignCorners ::tensorflow::Output resized_images
+  bool x
+function SampleDistortedBoundingBox ::tensorflow::Output size
+  ::tensorflow::Input image_size,
+  ::tensorflow::Input bounding_boxes
+function SampleDistortedBoundingBox ::tensorflow::Output size
+  ::tensorflow::Input image_size,
+  ::tensorflow::Input bounding_boxes,
+  const SampleDistortedBoundingBox::Attrs & attrs
+function SampleDistortedBoundingBox::Attrs::AreaRange ::tensorflow::Output size
+  const gtl::ArraySlice< float > & x
+function SampleDistortedBoundingBox::Attrs::AspectRatioRange ::tensorflow::Output size
+  const gtl::ArraySlice< float > & x
+function SampleDistortedBoundingBox::Attrs::MaxAttempts ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBox::Attrs::MinObjectCovered ::tensorflow::Output size
+  float x
+function SampleDistortedBoundingBox::Attrs::Seed ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBox::Attrs::Seed2 ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBox::Attrs::UseImageIfNoBoundingBoxes ::tensorflow::Output size
+  bool x
+function SampleDistortedBoundingBoxV2 ::tensorflow::Output size
+  ::tensorflow::Input image_size,
+  ::tensorflow::Input bounding_boxes,
+  ::tensorflow::Input min_object_covered
+function SampleDistortedBoundingBoxV2 ::tensorflow::Output size
+  ::tensorflow::Input image_size,
+  ::tensorflow::Input bounding_boxes,
+  ::tensorflow::Input min_object_covered,
+  const SampleDistortedBoundingBoxV2::Attrs & attrs
+function SampleDistortedBoundingBoxV2::Attrs::AreaRange ::tensorflow::Output size
+  const gtl::ArraySlice< float > & x
+function SampleDistortedBoundingBoxV2::Attrs::AspectRatioRange ::tensorflow::Output size
+  const gtl::ArraySlice< float > & x
+function SampleDistortedBoundingBoxV2::Attrs::MaxAttempts ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBoxV2::Attrs::Seed ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBoxV2::Attrs::Seed2 ::tensorflow::Output size
+  int64 x
+function SampleDistortedBoundingBoxV2::Attrs::UseImageIfNoBoundingBoxes ::tensorflow::Output size
+  bool x
+module io_ops
+function FixedLengthRecordReader ::tensorflow::Output reader_handle
+  int64 record_bytes
+function FixedLengthRecordReader ::tensorflow::Output reader_handle
+  int64 record_bytes,
+  const FixedLengthRecordReader::Attrs & attrs
+function FixedLengthRecordReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function FixedLengthRecordReader::Attrs::Encoding ::tensorflow::Output reader_handle
+  StringPiece x
+function FixedLengthRecordReader::Attrs::FooterBytes ::tensorflow::Output reader_handle
+  int64 x
+function FixedLengthRecordReader::Attrs::HeaderBytes ::tensorflow::Output reader_handle
+  int64 x
+function FixedLengthRecordReader::Attrs::HopBytes ::tensorflow::Output reader_handle
+  int64 x
+function FixedLengthRecordReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function IdentityReader ::tensorflow::Output reader_handle
+function IdentityReader ::tensorflow::Output reader_handle
+  const IdentityReader::Attrs & attrs
+function IdentityReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function IdentityReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function LMDBReader ::tensorflow::Output reader_handle
+function LMDBReader ::tensorflow::Output reader_handle
+  const LMDBReader::Attrs & attrs
+function LMDBReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function LMDBReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function MatchingFiles ::tensorflow::Output filenames
+  ::tensorflow::Input pattern
+function MergeV2Checkpoints 
+  ::tensorflow::Input checkpoint_prefixes,
+  ::tensorflow::Input destination_prefix
+function MergeV2Checkpoints 
+  ::tensorflow::Input checkpoint_prefixes,
+  ::tensorflow::Input destination_prefix,
+  const MergeV2Checkpoints::Attrs & attrs
+function MergeV2Checkpoints::Attrs::DeleteOldDirs 
+  bool x
+function ReadFile ::tensorflow::Output contents
+  ::tensorflow::Input filename
+function ReaderNumRecordsProduced ::tensorflow::Output records_produced
+  ::tensorflow::Input reader_handle
+function ReaderNumWorkUnitsCompleted ::tensorflow::Output units_completed
+  ::tensorflow::Input reader_handle
+function ReaderRead ::tensorflow::Output value
+  ::tensorflow::Input reader_handle,
+  ::tensorflow::Input queue_handle
+function ReaderReadUpTo ::tensorflow::Output values
+  ::tensorflow::Input reader_handle,
+  ::tensorflow::Input queue_handle,
+  ::tensorflow::Input num_records
+function ReaderReset 
+  ::tensorflow::Input reader_handle
+function ReaderRestoreState 
+  ::tensorflow::Input reader_handle,
+  ::tensorflow::Input state
+function ReaderSerializeState ::tensorflow::Output state
+  ::tensorflow::Input reader_handle
+function Restore ::tensorflow::Output tensor
+  ::tensorflow::Input file_pattern,
+  ::tensorflow::Input tensor_name,
+  DataType dt
+function Restore ::tensorflow::Output tensor
+  ::tensorflow::Input file_pattern,
+  ::tensorflow::Input tensor_name,
+  DataType dt,
+  const Restore::Attrs & attrs
+function Restore::Attrs::PreferredShard ::tensorflow::Output tensor
+  int64 x
+function RestoreSlice ::tensorflow::Output tensor
+  ::tensorflow::Input file_pattern,
+  ::tensorflow::Input tensor_name,
+  ::tensorflow::Input shape_and_slice,
+  DataType dt
+function RestoreSlice ::tensorflow::Output tensor
+  ::tensorflow::Input file_pattern,
+  ::tensorflow::Input tensor_name,
+  ::tensorflow::Input shape_and_slice,
+  DataType dt,
+  const RestoreSlice::Attrs & attrs
+function RestoreSlice::Attrs::PreferredShard ::tensorflow::Output tensor
+  int64 x
+function RestoreV2 
+  ::tensorflow::Input prefix,
+  ::tensorflow::Input tensor_names,
+  ::tensorflow::Input shape_and_slices,
+  const DataTypeSlice & dtypes
+function Save 
+  ::tensorflow::Input filename,
+  ::tensorflow::Input tensor_names,
+  ::tensorflow::InputList data
+function SaveSlices 
+  ::tensorflow::Input filename,
+  ::tensorflow::Input tensor_names,
+  ::tensorflow::Input shapes_and_slices,
+  ::tensorflow::InputList data
+function SaveV2 
+  ::tensorflow::Input prefix,
+  ::tensorflow::Input tensor_names,
+  ::tensorflow::Input shape_and_slices,
+  ::tensorflow::InputList tensors
+function ShardedFilename ::tensorflow::Output filename
+  ::tensorflow::Input basename,
+  ::tensorflow::Input shard,
+  ::tensorflow::Input num_shards
+function ShardedFilespec ::tensorflow::Output filename
+  ::tensorflow::Input basename,
+  ::tensorflow::Input num_shards
+function TFRecordReader ::tensorflow::Output reader_handle
+function TFRecordReader ::tensorflow::Output reader_handle
+  const TFRecordReader::Attrs & attrs
+function TFRecordReader::Attrs::CompressionType ::tensorflow::Output reader_handle
+  StringPiece x
+function TFRecordReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function TFRecordReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function TextLineReader ::tensorflow::Output reader_handle
+function TextLineReader ::tensorflow::Output reader_handle
+  const TextLineReader::Attrs & attrs
+function TextLineReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function TextLineReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function TextLineReader::Attrs::SkipHeaderLines ::tensorflow::Output reader_handle
+  int64 x
+function WholeFileReader ::tensorflow::Output reader_handle
+function WholeFileReader ::tensorflow::Output reader_handle
+  const WholeFileReader::Attrs & attrs
+function WholeFileReader::Attrs::Container ::tensorflow::Output reader_handle
+  StringPiece x
+function WholeFileReader::Attrs::SharedName ::tensorflow::Output reader_handle
+  StringPiece x
+function WriteFile 
+  ::tensorflow::Input filename,
+  ::tensorflow::Input contents
+module logging_ops
+function Assert 
+  ::tensorflow::Input condition,
+  ::tensorflow::InputList data
+function Assert 
+  ::tensorflow::Input condition,
+  ::tensorflow::InputList data,
+  const Assert::Attrs & attrs
+function Assert::Attrs::Summarize 
+  int64 x
+function HistogramSummary ::tensorflow::Output summary
+  ::tensorflow::Input tag,
+  ::tensorflow::Input values
+function MergeSummary ::tensorflow::Output summary
+  ::tensorflow::InputList inputs
+function Print ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::InputList data
+function Print ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::InputList data,
+  const Print::Attrs & attrs
+function Print::Attrs::FirstN ::tensorflow::Output output
+  int64 x
+function Print::Attrs::Message ::tensorflow::Output output
+  StringPiece x
+function Print::Attrs::Summarize ::tensorflow::Output output
+  int64 x
+function PrintV2 
+  ::tensorflow::Input input
+function PrintV2 
+  ::tensorflow::Input input,
+  const PrintV2::Attrs & attrs
+function PrintV2::Attrs::OutputStream StringPiece tensorflow::ops::PrintV2::Attrs::output_stream_ = "stderr"
+  StringPiece x
+function ScalarSummary ::tensorflow::Output summary
+  ::tensorflow::Input tags,
+  ::tensorflow::Input values
+function TensorSummary ::tensorflow::Output summary
+  ::tensorflow::Input tensor
+function TensorSummary ::tensorflow::Output summary
+  ::tensorflow::Input tensor,
+  const TensorSummary::Attrs & attrs
+function TensorSummary::Attrs::Description ::tensorflow::Output summary
+  StringPiece x
+function TensorSummary::Attrs::DisplayName ::tensorflow::Output summary
+  StringPiece x
+function TensorSummary::Attrs::Labels ::tensorflow::Output summary
+  const gtl::ArraySlice< string > & x
+function TensorSummaryV2 ::tensorflow::Output summary
+  ::tensorflow::Input tag,
+  ::tensorflow::Input tensor,
+  ::tensorflow::Input serialized_summary_metadata
+function Timestamp ::tensorflow::Output ts
+module math_ops
+function Abs ::tensorflow::Output y
+  ::tensorflow::Input x
+function AccumulateNV2 ::tensorflow::Output sum
+  ::tensorflow::InputList inputs,
+  PartialTensorShape shape
+function Acos ::tensorflow::Output y
+  ::tensorflow::Input x
+function Acosh ::tensorflow::Output y
+  ::tensorflow::Input x
+function Add ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function AddN ::tensorflow::Output sum
+  ::tensorflow::InputList inputs
+function AddV2 ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function All ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function All ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const All::Attrs & attrs
+function All::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function Angle ::tensorflow::Output output
+  ::tensorflow::Input input
+function Angle ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Angle::Attrs & attrs
+function Angle::Attrs::Tout ::tensorflow::Output output
+  DataType x
+function Any ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Any ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Any::Attrs & attrs
+function Any::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function ApproximateEqual ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function ApproximateEqual ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  const ApproximateEqual::Attrs & attrs
+function ApproximateEqual::Attrs::Tolerance ::tensorflow::Output z
+  float x
+function ArgMax ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input dimension
+function ArgMax ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input dimension,
+  const ArgMax::Attrs & attrs
+function ArgMax::Attrs::OutputType DataType tensorflow::ops::ArgMax::Attrs::output_type_ = DT_INT64
+  DataType x
+function ArgMin ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input dimension
+function ArgMin ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input dimension,
+  const ArgMin::Attrs & attrs
+function ArgMin::Attrs::OutputType DataType tensorflow::ops::ArgMin::Attrs::output_type_ = DT_INT64
+  DataType x
+function Asin ::tensorflow::Output y
+  ::tensorflow::Input x
+function Asinh ::tensorflow::Output y
+  ::tensorflow::Input x
+function Atan ::tensorflow::Output y
+  ::tensorflow::Input x
+function Atan2 ::tensorflow::Output z
+  ::tensorflow::Input y,
+  ::tensorflow::Input x
+function Atanh ::tensorflow::Output y
+  ::tensorflow::Input x
+function BatchMatMul ::tensorflow::Output output
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function BatchMatMul ::tensorflow::Output output
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  const BatchMatMul::Attrs & attrs
+function BatchMatMul::Attrs::AdjX ::tensorflow::Output output
+  bool x
+function BatchMatMul::Attrs::AdjY ::tensorflow::Output output
+  bool x
+function BesselI0e ::tensorflow::Output y
+  ::tensorflow::Input x
+function BesselI1e ::tensorflow::Output y
+  ::tensorflow::Input x
+function Betainc ::tensorflow::Output z
+  ::tensorflow::Input a,
+  ::tensorflow::Input b,
+  ::tensorflow::Input x
+function Bincount ::tensorflow::Output bins
+  ::tensorflow::Input arr,
+  ::tensorflow::Input size,
+  ::tensorflow::Input weights
+function Bucketize ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< float > & boundaries
+function Cast ::tensorflow::Output y
+  ::tensorflow::Input x,
+  DataType DstT
+function Cast ::tensorflow::Output y
+  ::tensorflow::Input x,
+  DataType DstT,
+  const Cast::Attrs & attrs
+function Cast::Attrs::Truncate ::tensorflow::Output y
+  bool x
+function Ceil ::tensorflow::Output y
+  ::tensorflow::Input x
+function ClipByValue ::tensorflow::Output output
+  ::tensorflow::Input t,
+  ::tensorflow::Input clip_value_min,
+  ::tensorflow::Input clip_value_max
+function CompareAndBitpack ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input threshold
+function Complex ::tensorflow::Output out
+  ::tensorflow::Input real,
+  ::tensorflow::Input imag
+function Complex ::tensorflow::Output out
+  ::tensorflow::Input real,
+  ::tensorflow::Input imag,
+  const Complex::Attrs & attrs
+function Complex::Attrs::Tout ::tensorflow::Output out
+  DataType x
+function ComplexAbs ::tensorflow::Output y
+  ::tensorflow::Input x
+function ComplexAbs ::tensorflow::Output y
+  ::tensorflow::Input x,
+  const ComplexAbs::Attrs & attrs
+function ComplexAbs::Attrs::Tout ::tensorflow::Output y
+  DataType x
+function Conj ::tensorflow::Output output
+  ::tensorflow::Input input
+function Cos ::tensorflow::Output y
+  ::tensorflow::Input x
+function Cosh ::tensorflow::Output y
+  ::tensorflow::Input x
+function Cross ::tensorflow::Output product
+  ::tensorflow::Input a,
+  ::tensorflow::Input b
+function Cumprod ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis
+function Cumprod ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis,
+  const Cumprod::Attrs & attrs
+function Cumprod::Attrs::Exclusive ::tensorflow::Output out
+  bool x
+function Cumprod::Attrs::Reverse ::tensorflow::Output out
+  bool x
+function Cumsum ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis
+function Cumsum ::tensorflow::Output out
+  ::tensorflow::Input x,
+  ::tensorflow::Input axis,
+  const Cumsum::Attrs & attrs
+function Cumsum::Attrs::Exclusive ::tensorflow::Output out
+  bool x
+function Cumsum::Attrs::Reverse ::tensorflow::Output out
+  bool x
+function Digamma ::tensorflow::Output y
+  ::tensorflow::Input x
+function Div ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function DivNoNan ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Equal ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Erf ::tensorflow::Output y
+  ::tensorflow::Input x
+function Erfc ::tensorflow::Output y
+  ::tensorflow::Input x
+function Exp ::tensorflow::Output y
+  ::tensorflow::Input x
+function Expm1 ::tensorflow::Output y
+  ::tensorflow::Input x
+function Floor ::tensorflow::Output y
+  ::tensorflow::Input x
+function FloorDiv ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function FloorMod ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Greater ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function GreaterEqual ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function HistogramFixedWidth ::tensorflow::Output out
+  ::tensorflow::Input values,
+  ::tensorflow::Input value_range,
+  ::tensorflow::Input nbins
+function HistogramFixedWidth ::tensorflow::Output out
+  ::tensorflow::Input values,
+  ::tensorflow::Input value_range,
+  ::tensorflow::Input nbins,
+  const HistogramFixedWidth::Attrs & attrs
+function HistogramFixedWidth::Attrs::Dtype ::tensorflow::Output out
+  DataType x
+function Igamma ::tensorflow::Output z
+  ::tensorflow::Input a,
+  ::tensorflow::Input x
+function Igammac ::tensorflow::Output z
+  ::tensorflow::Input a,
+  ::tensorflow::Input x
+function Imag ::tensorflow::Output output
+  ::tensorflow::Input input
+function Imag ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Imag::Attrs & attrs
+function Imag::Attrs::Tout ::tensorflow::Output output
+  DataType x
+function Inv ::tensorflow::Output y
+  ::tensorflow::Input x
+function IsFinite ::tensorflow::Output y
+  ::tensorflow::Input x
+function IsInf ::tensorflow::Output y
+  ::tensorflow::Input x
+function IsNan ::tensorflow::Output y
+  ::tensorflow::Input x
+function Less ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function LessEqual ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Lgamma ::tensorflow::Output y
+  ::tensorflow::Input x
+function LinSpace ::tensorflow::Output output
+  ::tensorflow::Input start,
+  ::tensorflow::Input stop,
+  ::tensorflow::Input num
+function Log ::tensorflow::Output y
+  ::tensorflow::Input x
+function Log1p ::tensorflow::Output y
+  ::tensorflow::Input x
+function LogicalAnd ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function LogicalNot ::tensorflow::Output y
+  ::tensorflow::Input x
+function LogicalOr ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function MatMul ::tensorflow::Output product
+  ::tensorflow::Input a,
+  ::tensorflow::Input b
+function MatMul ::tensorflow::Output product
+  ::tensorflow::Input a,
+  ::tensorflow::Input b,
+  const MatMul::Attrs & attrs
+function MatMul::Attrs::TransposeA ::tensorflow::Output product
+  bool x
+function MatMul::Attrs::TransposeB ::tensorflow::Output product
+  bool x
+function Max ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Max ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Max::Attrs & attrs
+function Max::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function Maximum ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Mean ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Mean ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Mean::Attrs & attrs
+function Mean::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function Min ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Min ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Min::Attrs & attrs
+function Min::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function Minimum ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Mod ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Multiply ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Negate ::tensorflow::Output y
+  ::tensorflow::Input x
+function NotEqual ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Polygamma ::tensorflow::Output z
+  ::tensorflow::Input a,
+  ::tensorflow::Input x
+function Pow ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Prod ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Prod ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Prod::Attrs & attrs
+function Prod::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function QuantizeDownAndShrinkRange ::tensorflow::Output output_min
+  ::tensorflow::Input input,
+  ::tensorflow::Input input_min,
+  ::tensorflow::Input input_max,
+  DataType out_type
+function QuantizedAdd ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  ::tensorflow::Input min_x,
+  ::tensorflow::Input max_x,
+  ::tensorflow::Input min_y,
+  ::tensorflow::Input max_y
+function QuantizedAdd ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  ::tensorflow::Input min_x,
+  ::tensorflow::Input max_x,
+  ::tensorflow::Input min_y,
+  ::tensorflow::Input max_y,
+  const QuantizedAdd::Attrs & attrs
+function QuantizedMatMul ::tensorflow::Output out
+  ::tensorflow::Input a,
+  ::tensorflow::Input b,
+  ::tensorflow::Input min_a,
+  ::tensorflow::Input max_a,
+  ::tensorflow::Input min_b,
+  ::tensorflow::Input max_b
+function QuantizedMatMul ::tensorflow::Output out
+  ::tensorflow::Input a,
+  ::tensorflow::Input b,
+  ::tensorflow::Input min_a,
+  ::tensorflow::Input max_a,
+  ::tensorflow::Input min_b,
+  ::tensorflow::Input max_b,
+  const QuantizedMatMul::Attrs & attrs
+function QuantizedMatMul::Attrs::Tactivation DataType tensorflow::ops::QuantizedMatMul::Attrs::Toutput_ = DT_QINT32
+  DataType x
+function QuantizedMatMul::Attrs::TransposeA TF_MUST_USE_RESULT Attrs tensorflow::ops::QuantizedMatMul::Attrs::Toutput(
+  DataType x
+)
+  bool x
+function QuantizedMatMul::Attrs::TransposeB TF_MUST_USE_RESULT Attrs tensorflow::ops::QuantizedMatMul::Attrs::Toutput(
+  DataType x
+)
+  bool x
+function QuantizedMul ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  ::tensorflow::Input min_x,
+  ::tensorflow::Input max_x,
+  ::tensorflow::Input min_y,
+  ::tensorflow::Input max_y
+function QuantizedMul ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y,
+  ::tensorflow::Input min_x,
+  ::tensorflow::Input max_x,
+  ::tensorflow::Input min_y,
+  ::tensorflow::Input max_y,
+  const QuantizedMul::Attrs & attrs
+function Range ::tensorflow::Output output
+  ::tensorflow::Input start,
+  ::tensorflow::Input limit,
+  ::tensorflow::Input delta
+function Real ::tensorflow::Output output
+  ::tensorflow::Input input
+function Real ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const Real::Attrs & attrs
+function Real::Attrs::Tout ::tensorflow::Output output
+  DataType x
+function RealDiv ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Reciprocal ::tensorflow::Output y
+  ::tensorflow::Input x
+function RequantizationRange ::tensorflow::Output output_min
+  ::tensorflow::Input input,
+  ::tensorflow::Input input_min,
+  ::tensorflow::Input input_max
+function Rint ::tensorflow::Output y
+  ::tensorflow::Input x
+function Round ::tensorflow::Output y
+  ::tensorflow::Input x
+function Rsqrt ::tensorflow::Output y
+  ::tensorflow::Input x
+function SegmentMax ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids
+function SegmentMean ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids
+function SegmentMin ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids
+function SegmentProd ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids
+function SegmentSum ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids
+function Sigmoid ::tensorflow::Output y
+  ::tensorflow::Input x
+function Sign ::tensorflow::Output y
+  ::tensorflow::Input x
+function Sin ::tensorflow::Output y
+  ::tensorflow::Input x
+function Sinh ::tensorflow::Output y
+  ::tensorflow::Input x
+function SparseMatMul ::tensorflow::Output product
+  ::tensorflow::Input a,
+  ::tensorflow::Input b
+function SparseMatMul ::tensorflow::Output product
+  ::tensorflow::Input a,
+  ::tensorflow::Input b,
+  const SparseMatMul::Attrs & attrs
+function SparseMatMul::Attrs::AIsSparse ::tensorflow::Output product
+  bool x
+function SparseMatMul::Attrs::BIsSparse ::tensorflow::Output product
+  bool x
+function SparseMatMul::Attrs::TransposeA ::tensorflow::Output product
+  bool x
+function SparseMatMul::Attrs::TransposeB ::tensorflow::Output product
+  bool x
+function SparseSegmentMean ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids
+function SparseSegmentMeanWithNumSegments ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function SparseSegmentSqrtN ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids
+function SparseSegmentSqrtNWithNumSegments ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function SparseSegmentSum ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids
+function SparseSegmentSumWithNumSegments ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function Sqrt ::tensorflow::Output y
+  ::tensorflow::Input x
+function Square ::tensorflow::Output y
+  ::tensorflow::Input x
+function SquaredDifference ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Subtract ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Sum ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis
+function Sum ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input axis,
+  const Sum::Attrs & attrs
+function Sum::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function Tan ::tensorflow::Output y
+  ::tensorflow::Input x
+function Tanh ::tensorflow::Output y
+  ::tensorflow::Input x
+function TruncateDiv ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function TruncateMod ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function UnsortedSegmentMax ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function UnsortedSegmentMin ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function UnsortedSegmentProd ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function UnsortedSegmentSum ::tensorflow::Output output
+  ::tensorflow::Input data,
+  ::tensorflow::Input segment_ids,
+  ::tensorflow::Input num_segments
+function Where3 ::tensorflow::Output output
+  ::tensorflow::Input condition,
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Xdivy ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Xlogy ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input y
+function Zeta ::tensorflow::Output z
+  ::tensorflow::Input x,
+  ::tensorflow::Input q
+module nn_ops
+function AvgPool ::tensorflow::Output output
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function AvgPool ::tensorflow::Output output
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const AvgPool::Attrs & attrs
+function AvgPool::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function AvgPool3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function AvgPool3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const AvgPool3D::Attrs & attrs
+function AvgPool3D::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function AvgPool3DGrad ::tensorflow::Output output
+  ::tensorflow::Input orig_input_shape,
+  ::tensorflow::Input grad,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function AvgPool3DGrad ::tensorflow::Output output
+  ::tensorflow::Input orig_input_shape,
+  ::tensorflow::Input grad,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const AvgPool3DGrad::Attrs & attrs
+function AvgPool3DGrad::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function BiasAdd ::tensorflow::Output output
+  ::tensorflow::Input value,
+  ::tensorflow::Input bias
+function BiasAdd ::tensorflow::Output output
+  ::tensorflow::Input value,
+  ::tensorflow::Input bias,
+  const BiasAdd::Attrs & attrs
+function BiasAdd::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function BiasAddGrad ::tensorflow::Output output
+  ::tensorflow::Input out_backprop
+function BiasAddGrad ::tensorflow::Output output
+  ::tensorflow::Input out_backprop,
+  const BiasAddGrad::Attrs & attrs
+function BiasAddGrad::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv2D::Attrs & attrs
+function Conv2D::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv2D::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Conv2D::Attrs::UseCudnnOnGpu ::tensorflow::Output output
+  bool x
+function Conv2DBackpropFilter ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv2DBackpropFilter ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv2DBackpropFilter::Attrs & attrs
+function Conv2DBackpropFilter::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv2DBackpropFilter::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Conv2DBackpropFilter::Attrs::UseCudnnOnGpu ::tensorflow::Output output
+  bool x
+function Conv2DBackpropInput ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv2DBackpropInput ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv2DBackpropInput::Attrs & attrs
+function Conv2DBackpropInput::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv2DBackpropInput::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Conv2DBackpropInput::Attrs::UseCudnnOnGpu ::tensorflow::Output output
+  bool x
+function Conv3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv3D::Attrs & attrs
+function Conv3D::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv3D::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Conv3DBackpropFilterV2 ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv3DBackpropFilterV2 ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv3DBackpropFilterV2::Attrs & attrs
+function Conv3DBackpropFilterV2::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv3DBackpropFilterV2::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Conv3DBackpropInputV2 ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function Conv3DBackpropInputV2 ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const Conv3DBackpropInputV2::Attrs & attrs
+function Conv3DBackpropInputV2::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function Conv3DBackpropInputV2::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function DataFormatDimMap ::tensorflow::Output y
+  ::tensorflow::Input x
+function DataFormatDimMap ::tensorflow::Output y
+  ::tensorflow::Input x,
+  const DataFormatDimMap::Attrs & attrs
+function DataFormatDimMap::Attrs::DstFormat ::tensorflow::Output y
+  StringPiece x
+function DataFormatDimMap::Attrs::SrcFormat ::tensorflow::Output y
+  StringPiece x
+function DataFormatVecPermute ::tensorflow::Output y
+  ::tensorflow::Input x
+function DataFormatVecPermute ::tensorflow::Output y
+  ::tensorflow::Input x,
+  const DataFormatVecPermute::Attrs & attrs
+function DataFormatVecPermute::Attrs::DstFormat ::tensorflow::Output y
+  StringPiece x
+function DataFormatVecPermute::Attrs::SrcFormat ::tensorflow::Output y
+  StringPiece x
+function DepthwiseConv2dNative ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function DepthwiseConv2dNative ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const DepthwiseConv2dNative::Attrs & attrs
+function DepthwiseConv2dNative::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function DepthwiseConv2dNative::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function DepthwiseConv2dNativeBackpropFilter ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function DepthwiseConv2dNativeBackpropFilter ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter_sizes,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const DepthwiseConv2dNativeBackpropFilter::Attrs & attrs
+function DepthwiseConv2dNativeBackpropFilter::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function DepthwiseConv2dNativeBackpropFilter::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function DepthwiseConv2dNativeBackpropInput ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function DepthwiseConv2dNativeBackpropInput ::tensorflow::Output output
+  ::tensorflow::Input input_sizes,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const DepthwiseConv2dNativeBackpropInput::Attrs & attrs
+function DepthwiseConv2dNativeBackpropInput::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function DepthwiseConv2dNativeBackpropInput::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function Dilation2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  const gtl::ArraySlice< int > & strides,
+  const gtl::ArraySlice< int > & rates,
+  StringPiece padding
+function Dilation2DBackpropFilter ::tensorflow::Output filter_backprop
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  const gtl::ArraySlice< int > & rates,
+  StringPiece padding
+function Dilation2DBackpropInput ::tensorflow::Output in_backprop
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input out_backprop,
+  const gtl::ArraySlice< int > & strides,
+  const gtl::ArraySlice< int > & rates,
+  StringPiece padding
+function Elu ::tensorflow::Output activations
+  ::tensorflow::Input features
+function FractionalAvgPool ::tensorflow::Output row_pooling_sequence
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< float > & pooling_ratio
+function FractionalAvgPool ::tensorflow::Output row_pooling_sequence
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< float > & pooling_ratio,
+  const FractionalAvgPool::Attrs & attrs
+function FractionalAvgPool::Attrs::Deterministic ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalAvgPool::Attrs::Overlapping ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalAvgPool::Attrs::PseudoRandom ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalAvgPool::Attrs::Seed ::tensorflow::Output row_pooling_sequence
+  int64 x
+function FractionalAvgPool::Attrs::Seed2 ::tensorflow::Output row_pooling_sequence
+  int64 x
+function FractionalMaxPool ::tensorflow::Output row_pooling_sequence
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< float > & pooling_ratio
+function FractionalMaxPool ::tensorflow::Output row_pooling_sequence
+  ::tensorflow::Input value,
+  const gtl::ArraySlice< float > & pooling_ratio,
+  const FractionalMaxPool::Attrs & attrs
+function FractionalMaxPool::Attrs::Deterministic ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalMaxPool::Attrs::Overlapping ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalMaxPool::Attrs::PseudoRandom ::tensorflow::Output row_pooling_sequence
+  bool x
+function FractionalMaxPool::Attrs::Seed ::tensorflow::Output row_pooling_sequence
+  int64 x
+function FractionalMaxPool::Attrs::Seed2 ::tensorflow::Output row_pooling_sequence
+  int64 x
+function FusedBatchNorm ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input offset,
+  ::tensorflow::Input mean,
+  ::tensorflow::Input variance
+function FusedBatchNorm ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input offset,
+  ::tensorflow::Input mean,
+  ::tensorflow::Input variance,
+  const FusedBatchNorm::Attrs & attrs
+function FusedBatchNorm::Attrs::DataFormat ::tensorflow::Output y
+  StringPiece x
+function FusedBatchNorm::Attrs::Epsilon ::tensorflow::Output y
+  float x
+function FusedBatchNorm::Attrs::IsTraining ::tensorflow::Output y
+  bool x
+function FusedBatchNormGrad ::tensorflow::Output x_backprop
+  ::tensorflow::Input y_backprop,
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input reserve_space_1,
+  ::tensorflow::Input reserve_space_2
+function FusedBatchNormGrad ::tensorflow::Output x_backprop
+  ::tensorflow::Input y_backprop,
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input reserve_space_1,
+  ::tensorflow::Input reserve_space_2,
+  const FusedBatchNormGrad::Attrs & attrs
+function FusedBatchNormGrad::Attrs::DataFormat ::tensorflow::Output x_backprop
+  StringPiece x
+function FusedBatchNormGrad::Attrs::Epsilon ::tensorflow::Output x_backprop
+  float x
+function FusedBatchNormGrad::Attrs::IsTraining ::tensorflow::Output x_backprop
+  bool x
+function FusedBatchNormGradV2 ::tensorflow::Output x_backprop
+  ::tensorflow::Input y_backprop,
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input reserve_space_1,
+  ::tensorflow::Input reserve_space_2
+function FusedBatchNormGradV2 ::tensorflow::Output x_backprop
+  ::tensorflow::Input y_backprop,
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input reserve_space_1,
+  ::tensorflow::Input reserve_space_2,
+  const FusedBatchNormGradV2::Attrs & attrs
+function FusedBatchNormGradV2::Attrs::DataFormat ::tensorflow::Output x_backprop
+  StringPiece x
+function FusedBatchNormGradV2::Attrs::Epsilon ::tensorflow::Output x_backprop
+  float x
+function FusedBatchNormGradV2::Attrs::IsTraining ::tensorflow::Output x_backprop
+  bool x
+function FusedBatchNormV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input offset,
+  ::tensorflow::Input mean,
+  ::tensorflow::Input variance
+function FusedBatchNormV2 ::tensorflow::Output y
+  ::tensorflow::Input x,
+  ::tensorflow::Input scale,
+  ::tensorflow::Input offset,
+  ::tensorflow::Input mean,
+  ::tensorflow::Input variance,
+  const FusedBatchNormV2::Attrs & attrs
+function FusedBatchNormV2::Attrs::DataFormat ::tensorflow::Output y
+  StringPiece x
+function FusedBatchNormV2::Attrs::Epsilon ::tensorflow::Output y
+  float x
+function FusedBatchNormV2::Attrs::IsTraining ::tensorflow::Output y
+  bool x
+function FusedPadConv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input paddings,
+  ::tensorflow::Input filter,
+  StringPiece mode,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function FusedResizeAndPadConv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input size,
+  ::tensorflow::Input paddings,
+  ::tensorflow::Input filter,
+  StringPiece mode,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function FusedResizeAndPadConv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input size,
+  ::tensorflow::Input paddings,
+  ::tensorflow::Input filter,
+  StringPiece mode,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const FusedResizeAndPadConv2D::Attrs & attrs
+function FusedResizeAndPadConv2D::Attrs::ResizeAlignCorners ::tensorflow::Output output
+  bool x
+function InTopK ::tensorflow::Output precision
+  ::tensorflow::Input predictions,
+  ::tensorflow::Input targets,
+  int64 k
+function InTopKV2 ::tensorflow::Output precision
+  ::tensorflow::Input predictions,
+  ::tensorflow::Input targets,
+  ::tensorflow::Input k
+function L2Loss ::tensorflow::Output output
+  ::tensorflow::Input t
+function LRN ::tensorflow::Output output
+  ::tensorflow::Input input
+function LRN ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const LRN::Attrs & attrs
+function LRN::Attrs::Alpha ::tensorflow::Output output
+  float x
+function LRN::Attrs::Beta ::tensorflow::Output output
+  float x
+function LRN::Attrs::Bias ::tensorflow::Output output
+  float x
+function LRN::Attrs::DepthRadius ::tensorflow::Output output
+  int64 x
+function LogSoftmax ::tensorflow::Output logsoftmax
+  ::tensorflow::Input logits
+function MaxPool ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function MaxPool ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const MaxPool::Attrs & attrs
+function MaxPool::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function MaxPool3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function MaxPool3D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const MaxPool3D::Attrs & attrs
+function MaxPool3D::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function MaxPoolGradGradWithArgmax ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input argmax,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function MaxPoolV2 ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input ksize,
+  ::tensorflow::Input strides,
+  StringPiece padding
+function MaxPoolV2 ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input ksize,
+  ::tensorflow::Input strides,
+  StringPiece padding,
+  const MaxPoolV2::Attrs & attrs
+function MaxPoolV2::Attrs::DataFormat ::tensorflow::Output output
+  StringPiece x
+function MaxPoolWithArgmax ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function MaxPoolWithArgmax ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const MaxPoolWithArgmax::Attrs & attrs
+function MaxPoolWithArgmax::Attrs::Targmax ::tensorflow::Output output
+  DataType x
+function NthElement ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input n
+function NthElement ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input n,
+  const NthElement::Attrs & attrs
+function NthElement::Attrs::Reverse ::tensorflow::Output values
+  bool x
+function QuantizedAvgPool ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input min_input,
+  ::tensorflow::Input max_input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function QuantizedBatchNormWithGlobalNormalization ::tensorflow::Output result_min
+  ::tensorflow::Input t,
+  ::tensorflow::Input t_min,
+  ::tensorflow::Input t_max,
+  ::tensorflow::Input m,
+  ::tensorflow::Input m_min,
+  ::tensorflow::Input m_max,
+  ::tensorflow::Input v,
+  ::tensorflow::Input v_min,
+  ::tensorflow::Input v_max,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input beta_min,
+  ::tensorflow::Input beta_max,
+  ::tensorflow::Input gamma,
+  ::tensorflow::Input gamma_min,
+  ::tensorflow::Input gamma_max,
+  DataType out_type,
+  float variance_epsilon,
+  bool scale_after_normalization
+function QuantizedBiasAdd ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input bias,
+  ::tensorflow::Input min_input,
+  ::tensorflow::Input max_input,
+  ::tensorflow::Input min_bias,
+  ::tensorflow::Input max_bias,
+  DataType out_type
+function QuantizedConv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input min_input,
+  ::tensorflow::Input max_input,
+  ::tensorflow::Input min_filter,
+  ::tensorflow::Input max_filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function QuantizedConv2D ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input filter,
+  ::tensorflow::Input min_input,
+  ::tensorflow::Input max_input,
+  ::tensorflow::Input min_filter,
+  ::tensorflow::Input max_filter,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding,
+  const QuantizedConv2D::Attrs & attrs
+function QuantizedConv2D::Attrs::Dilations ::tensorflow::Output output
+  const gtl::ArraySlice< int > & x
+function QuantizedConv2D::Attrs::OutType ::tensorflow::Output output
+  DataType x
+function QuantizedMaxPool ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input min_input,
+  ::tensorflow::Input max_input,
+  const gtl::ArraySlice< int > & ksize,
+  const gtl::ArraySlice< int > & strides,
+  StringPiece padding
+function QuantizedRelu ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features
+function QuantizedRelu ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features,
+  const QuantizedRelu::Attrs & attrs
+function QuantizedRelu::Attrs::OutType ::tensorflow::Output min_activations
+  DataType x
+function QuantizedRelu6 ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features
+function QuantizedRelu6 ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features,
+  const QuantizedRelu6::Attrs & attrs
+function QuantizedRelu6::Attrs::OutType ::tensorflow::Output min_activations
+  DataType x
+function QuantizedReluX ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input max_value,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features
+function QuantizedReluX ::tensorflow::Output min_activations
+  ::tensorflow::Input features,
+  ::tensorflow::Input max_value,
+  ::tensorflow::Input min_features,
+  ::tensorflow::Input max_features,
+  const QuantizedReluX::Attrs & attrs
+function QuantizedReluX::Attrs::OutType ::tensorflow::Output min_activations
+  DataType x
+function Relu ::tensorflow::Output activations
+  ::tensorflow::Input features
+function Relu6 ::tensorflow::Output activations
+  ::tensorflow::Input features
+function Selu ::tensorflow::Output activations
+  ::tensorflow::Input features
+function Softmax ::tensorflow::Output softmax
+  ::tensorflow::Input logits
+function SoftmaxCrossEntropyWithLogits ::tensorflow::Output loss
+  ::tensorflow::Input features,
+  ::tensorflow::Input labels
+function Softplus ::tensorflow::Output activations
+  ::tensorflow::Input features
+function Softsign ::tensorflow::Output activations
+  ::tensorflow::Input features
+function SparseSoftmaxCrossEntropyWithLogits ::tensorflow::Output loss
+  ::tensorflow::Input features,
+  ::tensorflow::Input labels
+function TopK ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input k
+function TopK ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input k,
+  const TopK::Attrs & attrs
+function TopK::Attrs::Sorted ::tensorflow::Output values
+  bool x
+module no_op
+function NoOp 
+module parsing_ops
+function DecodeCSV ::tensorflow::OutputList output
+  ::tensorflow::Input records,
+  ::tensorflow::InputList record_defaults
+function DecodeCSV ::tensorflow::OutputList output
+  ::tensorflow::Input records,
+  ::tensorflow::InputList record_defaults,
+  const DecodeCSV::Attrs & attrs
+function DecodeCSV::Attrs::FieldDelim ::tensorflow::OutputList output
+  StringPiece x
+function DecodeCSV::Attrs::NaValue ::tensorflow::OutputList output
+  StringPiece x
+function DecodeCSV::Attrs::SelectCols ::tensorflow::OutputList output
+  const gtl::ArraySlice< int > & x
+function DecodeCSV::Attrs::UseQuoteDelim ::tensorflow::OutputList output
+  bool x
+function DecodeCompressed ::tensorflow::Output output
+  ::tensorflow::Input bytes
+function DecodeCompressed ::tensorflow::Output output
+  ::tensorflow::Input bytes,
+  const DecodeCompressed::Attrs & attrs
+function DecodeCompressed::Attrs::CompressionType ::tensorflow::Output output
+  StringPiece x
+function DecodeJSONExample ::tensorflow::Output binary_examples
+  ::tensorflow::Input json_examples
+function DecodeRaw ::tensorflow::Output output
+  ::tensorflow::Input bytes,
+  DataType out_type
+function DecodeRaw ::tensorflow::Output output
+  ::tensorflow::Input bytes,
+  DataType out_type,
+  const DecodeRaw::Attrs & attrs
+function DecodeRaw::Attrs::LittleEndian ::tensorflow::Output output
+  bool x
+function ParseExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::Input names,
+  ::tensorflow::InputList sparse_keys,
+  ::tensorflow::InputList dense_keys,
+  ::tensorflow::InputList dense_defaults,
+  const DataTypeSlice & sparse_types,
+  const gtl::ArraySlice< PartialTensorShape > & dense_shapes
+function ParseSequenceExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::Input debug_name,
+  ::tensorflow::InputList context_dense_defaults,
+  const gtl::ArraySlice< string > & feature_list_dense_missing_assumed_empty,
+  const gtl::ArraySlice< string > & context_sparse_keys,
+  const gtl::ArraySlice< string > & context_dense_keys,
+  const gtl::ArraySlice< string > & feature_list_sparse_keys,
+  const gtl::ArraySlice< string > & feature_list_dense_keys
+function ParseSequenceExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::Input debug_name,
+  ::tensorflow::InputList context_dense_defaults,
+  const gtl::ArraySlice< string > & feature_list_dense_missing_assumed_empty,
+  const gtl::ArraySlice< string > & context_sparse_keys,
+  const gtl::ArraySlice< string > & context_dense_keys,
+  const gtl::ArraySlice< string > & feature_list_sparse_keys,
+  const gtl::ArraySlice< string > & feature_list_dense_keys,
+  const ParseSequenceExample::Attrs & attrs
+function ParseSequenceExample::Attrs::ContextDenseShapes 
+  const gtl::ArraySlice< PartialTensorShape > & x
+function ParseSequenceExample::Attrs::ContextSparseTypes 
+  const DataTypeSlice & x
+function ParseSequenceExample::Attrs::FeatureListDenseShapes 
+  const gtl::ArraySlice< PartialTensorShape > & x
+function ParseSequenceExample::Attrs::FeatureListDenseTypes 
+  const DataTypeSlice & x
+function ParseSequenceExample::Attrs::FeatureListSparseTypes 
+  const DataTypeSlice & x
+function ParseSequenceExample::Attrs::NcontextDense 
+  int64 x
+function ParseSequenceExample::Attrs::NcontextSparse 
+  int64 x
+function ParseSequenceExample::Attrs::NfeatureListDense 
+  int64 x
+function ParseSequenceExample::Attrs::NfeatureListSparse 
+  int64 x
+function ParseSingleExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::InputList dense_defaults,
+  int64 num_sparse,
+  const gtl::ArraySlice< string > & sparse_keys,
+  const gtl::ArraySlice< string > & dense_keys,
+  const DataTypeSlice & sparse_types,
+  const gtl::ArraySlice< PartialTensorShape > & dense_shapes
+function ParseSingleSequenceExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::Input feature_list_dense_missing_assumed_empty,
+  ::tensorflow::InputList context_sparse_keys,
+  ::tensorflow::InputList context_dense_keys,
+  ::tensorflow::InputList feature_list_sparse_keys,
+  ::tensorflow::InputList feature_list_dense_keys,
+  ::tensorflow::InputList context_dense_defaults,
+  ::tensorflow::Input debug_name
+function ParseSingleSequenceExample 
+  ::tensorflow::Input serialized,
+  ::tensorflow::Input feature_list_dense_missing_assumed_empty,
+  ::tensorflow::InputList context_sparse_keys,
+  ::tensorflow::InputList context_dense_keys,
+  ::tensorflow::InputList feature_list_sparse_keys,
+  ::tensorflow::InputList feature_list_dense_keys,
+  ::tensorflow::InputList context_dense_defaults,
+  ::tensorflow::Input debug_name,
+  const ParseSingleSequenceExample::Attrs & attrs
+function ParseSingleSequenceExample::Attrs::ContextDenseShapes 
+  const gtl::ArraySlice< PartialTensorShape > & x
+function ParseSingleSequenceExample::Attrs::ContextSparseTypes 
+  const DataTypeSlice & x
+function ParseSingleSequenceExample::Attrs::FeatureListDenseShapes 
+  const gtl::ArraySlice< PartialTensorShape > & x
+function ParseSingleSequenceExample::Attrs::FeatureListDenseTypes 
+  const DataTypeSlice & x
+function ParseSingleSequenceExample::Attrs::FeatureListSparseTypes 
+  const DataTypeSlice & x
+function ParseTensor ::tensorflow::Output output
+  ::tensorflow::Input serialized,
+  DataType out_type
+function SerializeTensor ::tensorflow::Output serialized
+  ::tensorflow::Input tensor
+function StringToNumber ::tensorflow::Output output
+  ::tensorflow::Input string_tensor
+function StringToNumber ::tensorflow::Output output
+  ::tensorflow::Input string_tensor,
+  const StringToNumber::Attrs & attrs
+function StringToNumber::Attrs::OutType ::tensorflow::Output output
+  DataType x
+module random_ops
+function Multinomial ::tensorflow::Output output
+  ::tensorflow::Input logits,
+  ::tensorflow::Input num_samples
+function Multinomial ::tensorflow::Output output
+  ::tensorflow::Input logits,
+  ::tensorflow::Input num_samples,
+  const Multinomial::Attrs & attrs
+function Multinomial::Attrs::OutputDtype DataType tensorflow::ops::Multinomial::Attrs::output_dtype_ = DT_INT64
+  DataType x
+function Multinomial::Attrs::Seed DataType tensorflow::ops::Multinomial::Attrs::output_dtype_ = DT_INT64
+  int64 x
+function Multinomial::Attrs::Seed2 DataType tensorflow::ops::Multinomial::Attrs::output_dtype_ = DT_INT64
+  int64 x
+function ParameterizedTruncatedNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input means,
+  ::tensorflow::Input stdevs,
+  ::tensorflow::Input minvals,
+  ::tensorflow::Input maxvals
+function ParameterizedTruncatedNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input means,
+  ::tensorflow::Input stdevs,
+  ::tensorflow::Input minvals,
+  ::tensorflow::Input maxvals,
+  const ParameterizedTruncatedNormal::Attrs & attrs
+function ParameterizedTruncatedNormal::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function ParameterizedTruncatedNormal::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomGamma ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input alpha
+function RandomGamma ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input alpha,
+  const RandomGamma::Attrs & attrs
+function RandomGamma::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomGamma::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype
+function RandomNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype,
+  const RandomNormal::Attrs & attrs
+function RandomNormal::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomNormal::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomPoissonV2 ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input rate
+function RandomPoissonV2 ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input rate,
+  const RandomPoissonV2::Attrs & attrs
+function RandomPoissonV2::Attrs::Dtype ::tensorflow::Output output
+  DataType x
+function RandomPoissonV2::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomPoissonV2::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomShuffle ::tensorflow::Output output
+  ::tensorflow::Input value
+function RandomShuffle ::tensorflow::Output output
+  ::tensorflow::Input value,
+  const RandomShuffle::Attrs & attrs
+function RandomShuffle::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomShuffle::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomUniform ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype
+function RandomUniform ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype,
+  const RandomUniform::Attrs & attrs
+function RandomUniform::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomUniform::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function RandomUniformInt ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input minval,
+  ::tensorflow::Input maxval
+function RandomUniformInt ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  ::tensorflow::Input minval,
+  ::tensorflow::Input maxval,
+  const RandomUniformInt::Attrs & attrs
+function RandomUniformInt::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function RandomUniformInt::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+function TruncatedNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype
+function TruncatedNormal ::tensorflow::Output output
+  ::tensorflow::Input shape,
+  DataType dtype,
+  const TruncatedNormal::Attrs & attrs
+function TruncatedNormal::Attrs::Seed ::tensorflow::Output output
+  int64 x
+function TruncatedNormal::Attrs::Seed2 ::tensorflow::Output output
+  int64 x
+module sparse_ops
+function AddManySparseToTensorsMap ::tensorflow::Output sparse_handles
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape
+function AddManySparseToTensorsMap ::tensorflow::Output sparse_handles
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape,
+  const AddManySparseToTensorsMap::Attrs & attrs
+function AddManySparseToTensorsMap::Attrs::Container ::tensorflow::Output sparse_handles
+  StringPiece x
+function AddManySparseToTensorsMap::Attrs::SharedName ::tensorflow::Output sparse_handles
+  StringPiece x
+function AddSparseToTensorsMap ::tensorflow::Output sparse_handle
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape
+function AddSparseToTensorsMap ::tensorflow::Output sparse_handle
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape,
+  const AddSparseToTensorsMap::Attrs & attrs
+function AddSparseToTensorsMap::Attrs::Container ::tensorflow::Output sparse_handle
+  StringPiece x
+function AddSparseToTensorsMap::Attrs::SharedName ::tensorflow::Output sparse_handle
+  StringPiece x
+function DeserializeManySparse ::tensorflow::Output sparse_values
+  ::tensorflow::Input serialized_sparse,
+  DataType dtype
+function DeserializeSparse ::tensorflow::Output sparse_values
+  ::tensorflow::Input serialized_sparse,
+  DataType dtype
+function SerializeManySparse ::tensorflow::Output serialized_sparse
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape
+function SerializeManySparse ::tensorflow::Output serialized_sparse
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape,
+  const SerializeManySparse::Attrs & attrs
+function SerializeManySparse::Attrs::OutType ::tensorflow::Output serialized_sparse
+  DataType x
+function SerializeSparse ::tensorflow::Output serialized_sparse
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape
+function SerializeSparse ::tensorflow::Output serialized_sparse
+  ::tensorflow::Input sparse_indices,
+  ::tensorflow::Input sparse_values,
+  ::tensorflow::Input sparse_shape,
+  const SerializeSparse::Attrs & attrs
+function SerializeSparse::Attrs::OutType ::tensorflow::Output serialized_sparse
+  DataType x
+function SparseAdd ::tensorflow::Output sum_values
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b_indices,
+  ::tensorflow::Input b_values,
+  ::tensorflow::Input b_shape,
+  ::tensorflow::Input thresh
+function SparseAddGrad ::tensorflow::Output b_val_grad
+  ::tensorflow::Input backprop_val_grad,
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input b_indices,
+  ::tensorflow::Input sum_indices
+function SparseConcat ::tensorflow::Output output_values
+  ::tensorflow::InputList indices,
+  ::tensorflow::InputList values,
+  ::tensorflow::InputList shapes,
+  int64 concat_dim
+function SparseDenseCwiseAdd ::tensorflow::Output output
+  ::tensorflow::Input sp_indices,
+  ::tensorflow::Input sp_values,
+  ::tensorflow::Input sp_shape,
+  ::tensorflow::Input dense
+function SparseDenseCwiseDiv ::tensorflow::Output output
+  ::tensorflow::Input sp_indices,
+  ::tensorflow::Input sp_values,
+  ::tensorflow::Input sp_shape,
+  ::tensorflow::Input dense
+function SparseDenseCwiseMul ::tensorflow::Output output
+  ::tensorflow::Input sp_indices,
+  ::tensorflow::Input sp_values,
+  ::tensorflow::Input sp_shape,
+  ::tensorflow::Input dense
+function SparseFillEmptyRows ::tensorflow::Output reverse_index_map
+  ::tensorflow::Input indices,
+  ::tensorflow::Input values,
+  ::tensorflow::Input dense_shape,
+  ::tensorflow::Input default_value
+function SparseFillEmptyRowsGrad ::tensorflow::Output d_values
+  ::tensorflow::Input reverse_index_map,
+  ::tensorflow::Input grad_values
+function SparseReduceMax ::tensorflow::Output output
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes
+function SparseReduceMax ::tensorflow::Output output
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes,
+  const SparseReduceMax::Attrs & attrs
+function SparseReduceMax::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function SparseReduceMaxSparse ::tensorflow::Output output_values
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes
+function SparseReduceMaxSparse ::tensorflow::Output output_values
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes,
+  const SparseReduceMaxSparse::Attrs & attrs
+function SparseReduceMaxSparse::Attrs::KeepDims ::tensorflow::Output output_values
+  bool x
+function SparseReduceSum ::tensorflow::Output output
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes
+function SparseReduceSum ::tensorflow::Output output
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes,
+  const SparseReduceSum::Attrs & attrs
+function SparseReduceSum::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function SparseReduceSumSparse ::tensorflow::Output output_values
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes
+function SparseReduceSumSparse ::tensorflow::Output output_values
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input reduction_axes,
+  const SparseReduceSumSparse::Attrs & attrs
+function SparseReduceSumSparse::Attrs::KeepDims ::tensorflow::Output output_values
+  bool x
+function SparseReorder ::tensorflow::Output output_values
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_values,
+  ::tensorflow::Input input_shape
+function SparseReshape ::tensorflow::Output output_shape
+  ::tensorflow::Input input_indices,
+  ::tensorflow::Input input_shape,
+  ::tensorflow::Input new_shape
+function SparseSlice ::tensorflow::Output output_values
+  ::tensorflow::Input indices,
+  ::tensorflow::Input values,
+  ::tensorflow::Input shape,
+  ::tensorflow::Input start,
+  ::tensorflow::Input size
+function SparseSoftmax ::tensorflow::Output output
+  ::tensorflow::Input sp_indices,
+  ::tensorflow::Input sp_values,
+  ::tensorflow::Input sp_shape
+function SparseSparseMaximum ::tensorflow::Output output_values
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b_indices,
+  ::tensorflow::Input b_values,
+  ::tensorflow::Input b_shape
+function SparseSparseMinimum ::tensorflow::Output output_values
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b_indices,
+  ::tensorflow::Input b_values,
+  ::tensorflow::Input b_shape
+function SparseSplit ::tensorflow::OutputList output_values
+  ::tensorflow::Input split_dim,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input values,
+  ::tensorflow::Input shape,
+  int64 num_split
+function SparseTensorDenseAdd ::tensorflow::Output output
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b
+function SparseTensorDenseMatMul ::tensorflow::Output product
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b
+function SparseTensorDenseMatMul ::tensorflow::Output product
+  ::tensorflow::Input a_indices,
+  ::tensorflow::Input a_values,
+  ::tensorflow::Input a_shape,
+  ::tensorflow::Input b,
+  const SparseTensorDenseMatMul::Attrs & attrs
+function SparseTensorDenseMatMul::Attrs::AdjointA ::tensorflow::Output product
+  bool x
+function SparseTensorDenseMatMul::Attrs::AdjointB ::tensorflow::Output product
+  bool x
+function TakeManySparseFromTensorsMap ::tensorflow::Output sparse_values
+  ::tensorflow::Input sparse_handles,
+  DataType dtype
+function TakeManySparseFromTensorsMap ::tensorflow::Output sparse_values
+  ::tensorflow::Input sparse_handles,
+  DataType dtype,
+  const TakeManySparseFromTensorsMap::Attrs & attrs
+function TakeManySparseFromTensorsMap::Attrs::Container ::tensorflow::Output sparse_values
+  StringPiece x
+function TakeManySparseFromTensorsMap::Attrs::SharedName ::tensorflow::Output sparse_values
+  StringPiece x
+module state_ops
+function Assign ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value
+function Assign ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value,
+  const Assign::Attrs & attrs
+function Assign::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function Assign::Attrs::ValidateShape ::tensorflow::Output output_ref
+  bool x
+function AssignAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value
+function AssignAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value,
+  const AssignAdd::Attrs & attrs
+function AssignAdd::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function AssignSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value
+function AssignSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input value,
+  const AssignSub::Attrs & attrs
+function AssignSub::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function CountUpTo ::tensorflow::Output output
+  ::tensorflow::Input ref,
+  int64 limit
+function DestroyTemporaryVariable ::tensorflow::Output value
+  ::tensorflow::Input ref,
+  StringPiece var_name
+function IsVariableInitialized ::tensorflow::Output is_initialized
+  ::tensorflow::Input ref
+function ResourceCountUpTo ::tensorflow::Output output
+  ::tensorflow::Input resource,
+  int64 limit,
+  DataType T
+function ResourceScatterNdAdd 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ResourceScatterNdAdd 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ResourceScatterNdAdd::Attrs & attrs
+function ResourceScatterNdAdd::Attrs::UseLocking 
+  bool x
+function ResourceScatterNdUpdate 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ResourceScatterNdUpdate 
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ResourceScatterNdUpdate::Attrs & attrs
+function ResourceScatterNdUpdate::Attrs::UseLocking 
+  bool x
+function ScatterAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterAdd::Attrs & attrs
+function ScatterAdd::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterDiv ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterDiv ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterDiv::Attrs & attrs
+function ScatterDiv::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterMax ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterMax ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterMax::Attrs & attrs
+function ScatterMax::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterMin ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterMin ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterMin::Attrs & attrs
+function ScatterMin::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterMul ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterMul ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterMul::Attrs & attrs
+function ScatterMul::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterNdAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterNdAdd ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterNdAdd::Attrs & attrs
+function ScatterNdAdd::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterNdSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterNdSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterNdSub::Attrs & attrs
+function ScatterNdSub::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterNdUpdate ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterNdUpdate ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterNdUpdate::Attrs & attrs
+function ScatterNdUpdate::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterSub ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterSub::Attrs & attrs
+function ScatterSub::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function ScatterUpdate ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates
+function ScatterUpdate ::tensorflow::Output output_ref
+  ::tensorflow::Input ref,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input updates,
+  const ScatterUpdate::Attrs & attrs
+function ScatterUpdate::Attrs::UseLocking ::tensorflow::Output output_ref
+  bool x
+function TemporaryVariable ::tensorflow::Output ref
+  PartialTensorShape shape,
+  DataType dtype
+function TemporaryVariable ::tensorflow::Output ref
+  PartialTensorShape shape,
+  DataType dtype,
+  const TemporaryVariable::Attrs & attrs
+function TemporaryVariable::Attrs::VarName ::tensorflow::Output ref
+  StringPiece x
+function Variable ::tensorflow::Output ref
+  PartialTensorShape shape,
+  DataType dtype
+function Variable ::tensorflow::Output ref
+  PartialTensorShape shape,
+  DataType dtype,
+  const Variable::Attrs & attrs
+function Variable::Attrs::Container ::tensorflow::Output ref
+  StringPiece x
+function Variable::Attrs::SharedName ::tensorflow::Output ref
+  StringPiece x
+module string_ops
+function AsString ::tensorflow::Output output
+  ::tensorflow::Input input
+function AsString ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const AsString::Attrs & attrs
+function AsString::Attrs::Fill ::tensorflow::Output output
+  StringPiece x
+function AsString::Attrs::Precision ::tensorflow::Output output
+  int64 x
+function AsString::Attrs::Scientific ::tensorflow::Output output
+  bool x
+function AsString::Attrs::Shortest ::tensorflow::Output output
+  bool x
+function AsString::Attrs::Width ::tensorflow::Output output
+  int64 x
+function DecodeBase64 ::tensorflow::Output output
+  ::tensorflow::Input input
+function EncodeBase64 ::tensorflow::Output output
+  ::tensorflow::Input input
+function EncodeBase64 ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const EncodeBase64::Attrs & attrs
+function EncodeBase64::Attrs::Pad ::tensorflow::Output output
+  bool x
+function ReduceJoin ::tensorflow::Output output
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input reduction_indices
+function ReduceJoin ::tensorflow::Output output
+  ::tensorflow::Input inputs,
+  ::tensorflow::Input reduction_indices,
+  const ReduceJoin::Attrs & attrs
+function ReduceJoin::Attrs::KeepDims ::tensorflow::Output output
+  bool x
+function ReduceJoin::Attrs::Separator ::tensorflow::Output output
+  StringPiece x
+function RegexFullMatch ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input pattern
+function RegexReplace ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input pattern,
+  ::tensorflow::Input rewrite
+function RegexReplace ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input pattern,
+  ::tensorflow::Input rewrite,
+  const RegexReplace::Attrs & attrs
+function RegexReplace::Attrs::ReplaceGlobal ::tensorflow::Output output
+  bool x
+function StringFormat ::tensorflow::Output output
+  ::tensorflow::InputList inputs
+function StringFormat ::tensorflow::Output output
+  ::tensorflow::InputList inputs,
+  const StringFormat::Attrs & attrs
+function StringFormat::Attrs::Placeholder ::tensorflow::Output output
+  StringPiece x
+function StringFormat::Attrs::Summarize ::tensorflow::Output output
+  int64 x
+function StringFormat::Attrs::Template ::tensorflow::Output output
+  StringPiece x
+function StringJoin ::tensorflow::Output output
+  ::tensorflow::InputList inputs
+function StringJoin ::tensorflow::Output output
+  ::tensorflow::InputList inputs,
+  const StringJoin::Attrs & attrs
+function StringJoin::Attrs::Separator ::tensorflow::Output output
+  StringPiece x
+function StringLength ::tensorflow::Output output
+  ::tensorflow::Input input
+function StringLength ::tensorflow::Output output
+  ::tensorflow::Input input,
+  const StringLength::Attrs & attrs
+function StringLength::Attrs::Unit ::tensorflow::Output output
+  StringPiece x
+function StringSplit ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input delimiter
+function StringSplit ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input delimiter,
+  const StringSplit::Attrs & attrs
+function StringSplit::Attrs::SkipEmpty ::tensorflow::Output values
+  bool x
+function StringSplitV2 ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input sep
+function StringSplitV2 ::tensorflow::Output values
+  ::tensorflow::Input input,
+  ::tensorflow::Input sep,
+  const StringSplitV2::Attrs & attrs
+function StringSplitV2::Attrs::Maxsplit ::tensorflow::Output values
+  int64 x
+function StringStrip ::tensorflow::Output output
+  ::tensorflow::Input input
+function StringToHashBucket ::tensorflow::Output output
+  ::tensorflow::Input string_tensor,
+  int64 num_buckets
+function StringToHashBucketFast ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 num_buckets
+function StringToHashBucketStrong ::tensorflow::Output output
+  ::tensorflow::Input input,
+  int64 num_buckets,
+  const gtl::ArraySlice< int > & key
+function Substr ::tensorflow::Output output
+  ::tensorflow::Input input,
+  ::tensorflow::Input pos,
+  ::tensorflow::Input len
+function UnicodeScript ::tensorflow::Output output
+  ::tensorflow::Input input
+module training_ops
+function ApplyAdadelta ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ApplyAdadelta ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ApplyAdadelta::Attrs & attrs
+function ApplyAdadelta::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad
+function ApplyAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  const ApplyAdagrad::Attrs & attrs
+function ApplyAdagrad::Attrs::UpdateSlots ::tensorflow::Output out
+  bool x
+function ApplyAdagrad::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyAdagradDA ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step
+function ApplyAdagradDA ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step,
+  const ApplyAdagradDA::Attrs & attrs
+function ApplyAdagradDA::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyAdam ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input v,
+  ::tensorflow::Input beta1_power,
+  ::tensorflow::Input beta2_power,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input beta1,
+  ::tensorflow::Input beta2,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ApplyAdam ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input v,
+  ::tensorflow::Input beta1_power,
+  ::tensorflow::Input beta2_power,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input beta1,
+  ::tensorflow::Input beta2,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ApplyAdam::Attrs & attrs
+function ApplyAdam::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyAdam::Attrs::UseNesterov ::tensorflow::Output out
+  bool x
+function ApplyAddSign ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad
+function ApplyAddSign ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad,
+  const ApplyAddSign::Attrs & attrs
+function ApplyAddSign::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyCenteredRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ApplyCenteredRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ApplyCenteredRMSProp::Attrs & attrs
+function ApplyCenteredRMSProp::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyFtrl ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power
+function ApplyFtrl ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power,
+  const ApplyFtrl::Attrs & attrs
+function ApplyFtrl::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyFtrlV2 ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power
+function ApplyFtrlV2 ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power,
+  const ApplyFtrlV2::Attrs & attrs
+function ApplyFtrlV2::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input delta
+function ApplyGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input delta,
+  const ApplyGradientDescent::Attrs & attrs
+function ApplyGradientDescent::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyMomentum ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input momentum
+function ApplyMomentum ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input momentum,
+  const ApplyMomentum::Attrs & attrs
+function ApplyMomentum::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyMomentum::Attrs::UseNesterov ::tensorflow::Output out
+  bool x
+function ApplyPowerSign ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input logbase,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad
+function ApplyPowerSign ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input logbase,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad,
+  const ApplyPowerSign::Attrs & attrs
+function ApplyPowerSign::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyProximalAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad
+function ApplyProximalAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  const ApplyProximalAdagrad::Attrs & attrs
+function ApplyProximalAdagrad::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyProximalGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input delta
+function ApplyProximalGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input delta,
+  const ApplyProximalGradientDescent::Attrs & attrs
+function ApplyProximalGradientDescent::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ApplyRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ApplyRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ApplyRMSProp::Attrs & attrs
+function ApplyRMSProp::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function ResourceApplyAdadelta 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ResourceApplyAdadelta 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ResourceApplyAdadelta::Attrs & attrs
+function ResourceApplyAdadelta::Attrs::UseLocking 
+  bool x
+function ResourceApplyAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad
+function ResourceApplyAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  const ResourceApplyAdagrad::Attrs & attrs
+function ResourceApplyAdagrad::Attrs::UpdateSlots 
+  bool x
+function ResourceApplyAdagrad::Attrs::UseLocking 
+  bool x
+function ResourceApplyAdagradDA 
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step
+function ResourceApplyAdagradDA 
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step,
+  const ResourceApplyAdagradDA::Attrs & attrs
+function ResourceApplyAdagradDA::Attrs::UseLocking 
+  bool x
+function ResourceApplyAdam 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input v,
+  ::tensorflow::Input beta1_power,
+  ::tensorflow::Input beta2_power,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input beta1,
+  ::tensorflow::Input beta2,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ResourceApplyAdam 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input v,
+  ::tensorflow::Input beta1_power,
+  ::tensorflow::Input beta2_power,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input beta1,
+  ::tensorflow::Input beta2,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ResourceApplyAdam::Attrs & attrs
+function ResourceApplyAdam::Attrs::UseLocking 
+  bool x
+function ResourceApplyAdam::Attrs::UseNesterov 
+  bool x
+function ResourceApplyAddSign 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad
+function ResourceApplyAddSign 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad,
+  const ResourceApplyAddSign::Attrs & attrs
+function ResourceApplyAddSign::Attrs::UseLocking 
+  bool x
+function ResourceApplyCenteredRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ResourceApplyCenteredRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ResourceApplyCenteredRMSProp::Attrs & attrs
+function ResourceApplyCenteredRMSProp::Attrs::UseLocking 
+  bool x
+function ResourceApplyFtrl 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power
+function ResourceApplyFtrl 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power,
+  const ResourceApplyFtrl::Attrs & attrs
+function ResourceApplyFtrl::Attrs::UseLocking 
+  bool x
+function ResourceApplyFtrlV2 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power
+function ResourceApplyFtrlV2 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power,
+  const ResourceApplyFtrlV2::Attrs & attrs
+function ResourceApplyFtrlV2::Attrs::UseLocking 
+  bool x
+function ResourceApplyGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input delta
+function ResourceApplyGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input delta,
+  const ResourceApplyGradientDescent::Attrs & attrs
+function ResourceApplyGradientDescent::Attrs::UseLocking 
+  bool x
+function ResourceApplyMomentum 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input momentum
+function ResourceApplyMomentum 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input momentum,
+  const ResourceApplyMomentum::Attrs & attrs
+function ResourceApplyMomentum::Attrs::UseLocking 
+  bool x
+function ResourceApplyMomentum::Attrs::UseNesterov 
+  bool x
+function ResourceApplyPowerSign 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input logbase,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad
+function ResourceApplyPowerSign 
+  ::tensorflow::Input var,
+  ::tensorflow::Input m,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input logbase,
+  ::tensorflow::Input sign_decay,
+  ::tensorflow::Input beta,
+  ::tensorflow::Input grad,
+  const ResourceApplyPowerSign::Attrs & attrs
+function ResourceApplyPowerSign::Attrs::UseLocking 
+  bool x
+function ResourceApplyProximalAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad
+function ResourceApplyProximalAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  const ResourceApplyProximalAdagrad::Attrs & attrs
+function ResourceApplyProximalAdagrad::Attrs::UseLocking 
+  bool x
+function ResourceApplyProximalGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input delta
+function ResourceApplyProximalGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input delta,
+  const ResourceApplyProximalGradientDescent::Attrs & attrs
+function ResourceApplyProximalGradientDescent::Attrs::UseLocking 
+  bool x
+function ResourceApplyRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad
+function ResourceApplyRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  const ResourceApplyRMSProp::Attrs & attrs
+function ResourceApplyRMSProp::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyAdadelta 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyAdadelta 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyAdadelta::Attrs & attrs
+function ResourceSparseApplyAdadelta::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyAdagrad::Attrs & attrs
+function ResourceSparseApplyAdagrad::Attrs::UpdateSlots 
+  bool x
+function ResourceSparseApplyAdagrad::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyAdagradDA 
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step
+function ResourceSparseApplyAdagradDA 
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step,
+  const ResourceSparseApplyAdagradDA::Attrs & attrs
+function ResourceSparseApplyAdagradDA::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyCenteredRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyCenteredRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyCenteredRMSProp::Attrs & attrs
+function ResourceSparseApplyCenteredRMSProp::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyFtrl 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power
+function ResourceSparseApplyFtrl 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power,
+  const ResourceSparseApplyFtrl::Attrs & attrs
+function ResourceSparseApplyFtrl::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyFtrlV2 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power
+function ResourceSparseApplyFtrlV2 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power,
+  const ResourceSparseApplyFtrlV2::Attrs & attrs
+function ResourceSparseApplyFtrlV2::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyMomentum 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input momentum
+function ResourceSparseApplyMomentum 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input momentum,
+  const ResourceSparseApplyMomentum::Attrs & attrs
+function ResourceSparseApplyMomentum::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyMomentum::Attrs::UseNesterov 
+  bool x
+function ResourceSparseApplyProximalAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyProximalAdagrad 
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyProximalAdagrad::Attrs & attrs
+function ResourceSparseApplyProximalAdagrad::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyProximalGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyProximalGradientDescent 
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyProximalGradientDescent::Attrs & attrs
+function ResourceSparseApplyProximalGradientDescent::Attrs::UseLocking 
+  bool x
+function ResourceSparseApplyRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function ResourceSparseApplyRMSProp 
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const ResourceSparseApplyRMSProp::Attrs & attrs
+function ResourceSparseApplyRMSProp::Attrs::UseLocking 
+  bool x
+function SparseApplyAdadelta ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyAdadelta ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input accum_update,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyAdadelta::Attrs & attrs
+function SparseApplyAdadelta::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyAdagrad::Attrs & attrs
+function SparseApplyAdagrad::Attrs::UpdateSlots ::tensorflow::Output out
+  bool x
+function SparseApplyAdagrad::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyAdagradDA ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step
+function SparseApplyAdagradDA ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input gradient_accumulator,
+  ::tensorflow::Input gradient_squared_accumulator,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input global_step,
+  const SparseApplyAdagradDA::Attrs & attrs
+function SparseApplyAdagradDA::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyCenteredRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyCenteredRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input mg,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyCenteredRMSProp::Attrs & attrs
+function SparseApplyCenteredRMSProp::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyFtrl ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power
+function SparseApplyFtrl ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input lr_power,
+  const SparseApplyFtrl::Attrs & attrs
+function SparseApplyFtrl::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyFtrlV2 ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power
+function SparseApplyFtrlV2 ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input linear,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input l2_shrinkage,
+  ::tensorflow::Input lr_power,
+  const SparseApplyFtrlV2::Attrs & attrs
+function SparseApplyFtrlV2::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyMomentum ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input momentum
+function SparseApplyMomentum ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  ::tensorflow::Input momentum,
+  const SparseApplyMomentum::Attrs & attrs
+function SparseApplyMomentum::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyMomentum::Attrs::UseNesterov ::tensorflow::Output out
+  bool x
+function SparseApplyProximalAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyProximalAdagrad ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input accum,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyProximalAdagrad::Attrs & attrs
+function SparseApplyProximalAdagrad::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyProximalGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyProximalGradientDescent ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input alpha,
+  ::tensorflow::Input l1,
+  ::tensorflow::Input l2,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyProximalGradientDescent::Attrs & attrs
+function SparseApplyProximalGradientDescent::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+function SparseApplyRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices
+function SparseApplyRMSProp ::tensorflow::Output out
+  ::tensorflow::Input var,
+  ::tensorflow::Input ms,
+  ::tensorflow::Input mom,
+  ::tensorflow::Input lr,
+  ::tensorflow::Input rho,
+  ::tensorflow::Input momentum,
+  ::tensorflow::Input epsilon,
+  ::tensorflow::Input grad,
+  ::tensorflow::Input indices,
+  const SparseApplyRMSProp::Attrs & attrs
+function SparseApplyRMSProp::Attrs::UseLocking ::tensorflow::Output out
+  bool x
+module user_ops
+function Fact ::tensorflow::Output fact
