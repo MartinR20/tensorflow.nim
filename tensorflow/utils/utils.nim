@@ -12,6 +12,11 @@ const
 type 
   cppstring* {.header:"<string>", importcpp:"std::string".} = object
 
+proc newCPPString(str: ptr char): cppstring {.header:"<string>", importcpp:"std::string(#)".}
+
+proc newCPPString(str: string): cppstring = 
+  return newCPPString(unsafeAddr(str[0]))
+
 proc size*(str: cppstring): clong {.importcpp: "(long)#.size()".}
 
 
@@ -26,6 +31,7 @@ export client_session,
        memory,
        vector,
        cppstring,
+       newCPPString,
        size,
        c_str,
        print
