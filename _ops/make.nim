@@ -2,6 +2,8 @@ import strutils
 import tables
 import sequtils
 
+#TODO: refactor
+
 let def = readFile("../scrape/ops.def")
 var lastFile: File
 var lastLine = ""
@@ -9,17 +11,16 @@ var lastLine = ""
 let outLookUp = {"::tensorflow::Output":"Out", "::tensorflow::OutputList":"OutList"}.newTable
 let inLookUp = {"::tensorflow::Input":"Out",
                 "const gtl::ArraySlice< float >":"ArraySlice[float]", 
-                "const gtl::ArraySlice< PartialTensorShape >":"ArraySlice[PartialTensorShape]",
+                "const gtl::ArraySlice< PartialTensorShape >":"ArraySlice[TensorShape]",
                 "int64":"int",
                 "const gtl::ArraySlice< string >":"ArraySlice[cppstring]",
                 "const gtl::ArraySlice< int >":"ArraySlice[int]",
                 "DataType":"DType",
-                "PartialTensorShape":"PartialTensorShape",
+                "PartialTensorShape":"TensorShape",
                 "::tensorflow::InputList":"InList",
                 "const DataTypeSlice":"DType",
                 "StringPiece":"cppstring"
                }.newTable
-
 
 var outType = ""
 var outName = ""
@@ -93,7 +94,10 @@ for line in def.split("\n"):
         if(varName[^1] == ','):
             lastFile.write(varName[0..^2] & ": " & dtype & ", ")
         else:
-            if outType != "":
+            if outType == "OutList":
+                lastFile.write(varName & ": " & dtype & "): " & outType & " {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(*@).output\".}\n")
+                lastFile.writeLine("")
+            elif outType != "":
                 lastFile.write(varName & ": " & dtype & "): " & outType & " {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(*@)\".}\n")
                 lastFile.writeLine("")
             else:
