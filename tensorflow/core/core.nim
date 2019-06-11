@@ -3,17 +3,21 @@ import sequtils
 ## TensorShape related definitions
 
 type
-  TensorShape* {.header: memory,
-                 header: tensor,
-                 importcpp: "std::shared_ptr<tensorflow::TensorShape>" .} = object
+  TensorShape* {.header: tensor,
+                 importcpp: "tensorflow::PartialTensorShape" .} = object
 
 
-proc newTensorShape*(dims: openArray[int], len: int) : TensorShape {.header: memory,
-                                                                     header: tensor,
-                                                                     importcpp: "[](int64_t dims[], int l){ auto shape = std::make_shared<tensorflow::TensorShape>();  for(int i = 0; i < l; i++) shape->AddDim((int)dims[i]); return shape; }((int64_t*)#,#)".}
+proc inewTensorShape(dims: openArray[int], len: int, shape: TensorShape) {.header: tensor,
+                                                                           importcpp: "tensorflow::PartialTensorShape::MakePartialShape(#, #, &#)".}
+
+proc newTensorShape(dims: openArray[int]): TensorShape =
+  let tshape = TensorShape()
+  inewTensorShape(dims, dims.len, tshape)
+  return tshape
 
 proc toCPPStr(ten: TensorShape): cppstring {.header: "<sstream>",
-                                             importcpp: "[&]() {std::stringstream s; s << (*#); return s.str(); }()".}
+                                             header: tensor,
+                                             importcpp: "[&]() {std::stringstream s; s << #; return s.str(); }()".}
 
 proc toStr*(ten: TensorShape) : string = 
   var cppstr = toCPPStr(ten)
@@ -73,16 +77,14 @@ proc copyF*[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto t
 proc copyI*[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; int64_t* a = (int64_t*)#; auto eigen_ten = tmp->flat<float>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (float)a[j]".}
 
 
-proc shape*(ten: Tensor) : TensorShape {.header:memory,
-                                         header: tensor, 
-                                         importcpp:"std::make_shared<tensorflow::TensorShape>(std::move(#->shape()))".}
+proc shape*(ten: Tensor) : TensorShape {.header: tensor, 
+                                         importcpp:"#->shape()".}
 
-proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: memory,
-                                                            header: tensor,
-                                                            importcpp: "std::make_shared<tensorflow::Tensor>(#, *#)".}
+proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: tensor,
+                                                             importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
 
 proc newTensor*(dtype: DType, shape: openArray[int]) : Tensor =
-  let sh = newTensorShape(shape, shape.len)
+  let sh = newTensorShape(shape)
   return newTensor(dtype, sh)
 
 proc `$@`*[N,T](arr: array[N,T]): Tensor = 
@@ -120,6 +122,7 @@ proc newTensor*[N,T](arr: array[N,T]) : Tensor =
   else: raise newException(OSError, "Type not supported!")
   return ten
 
+# TODO: clean up this hack
 proc newTensor(s: int) : Tensor {.header: memory,
                                   header: tensor,
                                   importcpp: "[&](){ auto _x = std::make_shared<tensorflow::Tensor>(tensorflow::DT_INT32, tensorflow::TensorShape()); _x->scalar<int>()(0) = (int)#; return _x; }()".}
@@ -157,6 +160,19 @@ type
   OutList* {.header: std_ops,
              importcpp: "tensorflow::OutputList".} = object
 
+## Output related definitions
+type
+  InList* {.header: std_ops,
+            header: memory,
+            importcpp: "std::shared_ptr<tensorflow::InputList>".} = object
+
+proc newInList(tens: openArray[Tensor], len: int): InList {.header:std_ops, 
+                                                            header:vector,
+                                                            header:memory,
+                                                            importcpp:"[&]() { auto _args = #; int _len = #; std::vector<tensorflow::Input> _vec; for(int i = 0; i < _len; i++) _vec.emplace_back(tensorflow::Input(*_args[i])); return std::make_shared<tensorflow::InputList>(_vec); }()".}
+
+proc newInList(tens: varargs[Tensor]): InList =
+  return newInList(tens, tens.len)
 
 ## Scope related definitions
 type
@@ -227,6 +243,8 @@ export TensorShape,
        `[]`,
        Out,
        OutList,
+       InList,
+       newInList,
        Scope,
        newRootScope,
        runSession,
