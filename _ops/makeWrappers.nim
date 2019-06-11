@@ -4,7 +4,7 @@ import tables
 import sequtils
 
 let forbidden = ["make.nim", "makeWrappers.nim", "structs.nim"]
-let toWrap = ["InList", "cppstring", "PartialTensorShape", "ArraySlice[cppstring]", "ArraySlice[PartialTensorShape]", "attr"]
+let toWrap = ["InList", "cppstring", "ArraySlice[cppstring]", "attr"]
 
 let structFile = readFile("structs.nim")
 
@@ -18,6 +18,7 @@ for line in structFile.split("\n")[0..^2]:
     else:
         if currName != "":
             structs[currName] = currSeq
+            currSeq = @[]
 
         let nameEnd = line[5..^1].find(" ")
         currName = line[5..nameEnd+4]
@@ -58,18 +59,68 @@ for file in walkFiles("*.nim"):
                         let newLine = line.replace("InList", "OutList")
                         currFile.writeLine(newLine)
 
-                    elif wrapType == "cppstring":
+                    elif wrapType == "cppstring" or wrapType == "ArraySlice[cppstring]":
                         let start = line.find("(")
                         let last = line.find(")")
                         let curly = line.find("{")
 
-                        var (names, types) = getArgs(line[start..last])
+                        var (names, types) = getArgs(line[start..last]) 
 
                         let pos = types.find("cppstring")
                         let strname = names[pos]
-                        names[pos] = "cppstr"
+
+                        if wrapType == "cppstring":
+                            names[pos] = "cppstr"
+                        else:
+                            names[pos] = "cppSlice"
 
                         currFile.writeLine(line[0..curly-1].replace("cppstring", "string"))
-                        currFile.writeLine("  let cppstr = newCPPString(" & strname & ")")
+                        
+                        if wrapType == "cppstring":
+                            currFile.writeLine("  let cppstr = newCPPString(" & strname & ")")
+                        else:
+                            currFile.writeLine("  let cppSlice = newArraySlice(" & strname & ")")
+
+                        currFile.writeLine("  return " & line[5..start-1] & "(" & names.join(", ") & ")" & line[last+1..curly-1])
+
+                    elif wrapType == "attr":
+                        let start = line.find("(")
+                        let last = line.find(")")
+                        let curly = line.find("{")
+
+                        var (names, types) = getArgs(line[start..last]) 
+                        
+                        let pos = names.find("attrs") 
+                        let attrs = structs[types[pos]]
+
+                        currFile.write("proc " & line[5..start-1] & "(")
+
+                        for i in 0..names.len-2:
+                            currFile.write(names[i] & ": " & types[i] & ", ")
+
+                        var attrNames: seq[string] = @[] 
+                        var attrTypes: seq[string] = @[]
+
+                        for i,attr in attrs:
+                            let split = attr.split(": ")
+
+                            let name = split[0]
+                            let dtype = split[1]
+                            
+                            attrNames.add(name)
+                            attrTypes.add(dtype)
+
+                            if i+1 != attrs.len:
+                                currFile.write(name & " = none(" & dtype & "), ")
+                            else:
+                                currFile.write(name & " = none(" & dtype & ")")
+
+                        currFile.write(")" & line[last+1..curly-2] & " =\n")
+                        currFile.writeLine("  let attrs = " & types[^1] & "()")
+                        
+                        for attr in attrNames:
+                            currFile.writeLine("  if " & attr & ".isSome: attrs." & attr & " = " & attr & ".some")
+
                         currFile.writeLine("  return " & line[5..start-1] & "(" & names.join(", ") & ")")
+                        
 
