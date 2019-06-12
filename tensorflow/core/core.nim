@@ -202,8 +202,6 @@ proc irunSession(sess: Session, graph: Out, outputs: TensorVec) {.header: client
 proc irunSession(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
                                                                       importcpp: "TF_CHECK_OK((*#).Run(#, &#))".}
 
-## other
-
 proc runSession*(root:Scope, graph: Out) : TensorVec =
   var outputs: TensorVec
 
@@ -218,18 +216,55 @@ proc runSession*(root:Scope, graph: OutList) : TensorVec =
 
   return outputs
 
+## ArraySlice related definitions
+
+#[
+  ArraySlice is a wrapper around the tensorflow::gtl::ArraySlice class
+  which itself is a wrapper around the absl::Span type from the abseil C++ Library. 
+
+  This particular wrapper should work with every type except for the Tensor type because
+  with the curret Version interfacing with C++ Methods would be pretty dirty due the fact
+  that the Tensor type exposed by this library only is a pointer to a C++ Tensor. Now given
+  the fact that it is not needed right now it probably will not be implemented soon.
+
+  For implemention details see:
+  https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h
+]#
 type
   ArraySlice*{.header: tensor,
                importcpp: "tensorflow::gtl::ArraySlice<'0>".}[T] = object
 
+#[
+  C++ Constructor Wrapper using a hack because the imported template argument is 
+  transformed to the whole type plus the template argument instead of only the template
+  argument. (meaning: tensorflow::gtl::ArraySlice<float> instead of float)
+]#
 proc inewArraySlice[T](data: openArray[T], len: int): ArraySlice[T] {.header: tensor,
                                                                       importcpp: "'0(#, #)".}
 
+#[
+  Constructor exposed to nim interface rasing an exception when called with the Tensor type due 
+  the reason described in the type definition.
+]#
 proc newArraySlice*[T](data: openArray[T]): ArraySlice[T] = 
   if data is openArray[Tensor]:
-    raise newException("DataType Tensor is not allowed for ArraySlice!")
+    raise newException(Exception, "DataType Tensor is not allowed for ArraySlice!")
 
-  inewArraySlice(data, data.len)
+  return inewArraySlice(data, data.len)
+
+proc `[]`*[T](slice: ArraySlice[T], idx: int): T {.importcpp: "#[#]".}
+
+proc size*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
+
+proc newArraySlice*[cppstring](sliceString: ArraySlice[string]): ArraySlice[cppstring] = 
+  var buffer: seq[cppstring] = @[]
+
+  for i in 0..sliceString.size()-1: 
+    buffer.add(newCPPString(sliceString[i]))
+  
+  let sliceCPPStr = newArraySlice(buffer)
+
+  return sliceCPPStr
 
 export TensorShape,
        newTensorShape,
