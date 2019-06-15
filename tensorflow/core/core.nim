@@ -74,7 +74,7 @@ proc toValueStr*(ten: Tensor) : string =
 
 proc copyF*[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; double* a = (double*)#; auto eigen_ten = tmp->flat<float>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (float)a[j]".}
 
-proc copyI*[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; int64_t* a = (int64_t*)#; auto eigen_ten = tmp->flat<float>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (float)a[j]".}
+proc copyI*[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; int64_t* a = (int64_t*)#; auto eigen_ten = tmp->flat<int>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (int)a[j]".}
 
 
 proc shape*(ten: Tensor) : TensorShape {.header: tensor, 
