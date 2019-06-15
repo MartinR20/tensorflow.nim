@@ -19,7 +19,7 @@ proc toCPPStr(ten: TensorShape): cppstring {.header: "<sstream>",
                                              header: tensor,
                                              importcpp: "[&]() {std::stringstream s; s << #; return s.str(); }()".}
 
-proc toStr*(ten: TensorShape) : string = 
+proc `$`*(ten: TensorShape) : string = 
   var cppstr = toCPPStr(ten)
   var cstr = newString(cppstr.size())
 
@@ -56,7 +56,7 @@ proc toValueCPPStr(ten: Tensor): cppstring {.header: "<sstream>",
                                              importcpp: "[&]() {std::stringstream s; s << #->SummarizeValue(100, true); return s.str(); }()" .} 
 
 
-proc toStr*(ten: Tensor) : string =
+proc `$`*(ten: Tensor) : string =
   var cppstr = toCPPStr(ten)
   var cstr = newString(cppstr.size())
 
@@ -268,7 +268,7 @@ proc newArraySlice*[cppstring](sliceString: ArraySlice[string]): ArraySlice[cpps
 
 export TensorShape,
        newTensorShape,
-       toStr,
+       `$`,
        DType,
        Tensor,
        newTensor,
