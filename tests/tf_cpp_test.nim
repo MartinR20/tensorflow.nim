@@ -1,25 +1,150 @@
 import ../tensorflow/tensorflow
+import options
 
-let rt1 = newRootScope()
+proc tensorShape_test() = 
+    let tshape = newTensorShape([2,2])
 
-let a = rt1.Const([[1,3],[1,3],[1,3]])
-#let b = rt.Const([[3,1,3],[3,1,3]])
+    echo tshape
 
-#let c = rt.MatMul(b, a)
-let c = rt1.MatMul(rt1.Transpose(a), a)
+tensorShape_test()
 
-let outputs = rt1.runSession(c)
+proc tensor_test() =
+    let ten = newTensor([1,2,3,4,5,6])
+    let scalar = newTensor(0)
 
-echo outputs[0].toValueStr()
+    echo ten
+    echo scalar
 
+    echo ten.shape
+    echo scalar.shape
 
+tensor_test()
 
-let rt2 = newRootScope()
+proc arraySlice_test() =
+    let aSlice = newArraySlice(["text", "btext", "textc"])
 
-let inpList = newTensorVec($@[1], $@[2], $@[0], $@[4])
+    echo aSlice[0]
+    echo aSlice[1]
+    echo aSlice[2]
 
-let d = rt2.ShapeN(inpList)
+    let bSlice = newArraySlice[cppstring](aSlice)
 
-let outputs2 = rt2.runSession(d)
+    bSlice[0].print()
+    bSlice[1].print()
+    bSlice[2].print()
 
-echo outputs2[0].toValueStr()
+arraySlice_test()
+
+proc basicOp_test() =
+    let rt = newRootScope()
+
+    let a = rt.Const([[1.0,3.0],
+                      [1.0,3.0],
+                      [1.0,3.0]])
+
+    
+
+    let c = rt.MatMul(rt.Transpose(a), a)
+
+    let outputs = rt.runSession(c)
+
+    echo outputs[0]
+
+basicOp_test()
+
+proc inputListOp_test() = 
+    let rt = newRootScope()
+
+    let inpList = newInList($@[1], $@[2], $@[0], $@[4])
+
+    let d = rt.ShapeN(inpList)
+
+    let outputs = rt.runSession(d)
+
+    echo outputs[0]
+
+inputListOp_test()
+
+proc attrOp_test() =
+    let rt = newRootScope()
+
+    let a = rt.Const([[0,1,2,3],[3,2,1,0]])
+
+    let d = rt.Unstack(a, 2)
+
+    let outputs = rt.runSession(d)
+
+    echo outputs[0]
+
+attrOp_test()
+
+proc rawDense_test() = 
+    let rt = newRootScope()
+
+    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+
+    let w0 = rt.RandomNormal(rt.Const([10, 10]), TF_FLOAT, some(0), some(0))
+    let b0 = rt.RandomNormal(rt.Const([1,10]), TF_FLOAT, some(0), some(0))
+
+    let h0 = rt.Relu(rt.Add(rt.MatMul(input, w0), b0))
+
+    let w1 = rt.RandomNormal(rt.Const([10, 10]), TF_FLOAT, some(0), some(0))
+    let b1 = rt.RandomNormal(rt.Const([1,10]), TF_FLOAT, some(0), some(0))
+
+    let h1 = rt.Softmax(rt.Add(rt.MatMul(h0, w1), b1))
+
+    let outputs = rt.runSession(h1)
+
+    echo outputs[0]
+
+rawDense_test()
+
+proc dense_test() = 
+    var proto: seq[Layer] = @[]
+
+    proto.newDense(10, 20)
+    proto.newActivation(Relu)
+    proto.newDense(20, 30)
+    proto.newActivation(Relu)
+    proto.newDense(30, 20)
+    proto.newActivation(Relu)
+    proto.newDense(20, 10)
+    proto.newActivation(Softmax)
+
+    let rt = newRootScope()
+
+    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+
+    let model = proto.build(rt, input)
+
+    let outputs = rt.runSession(model)
+
+    echo outputs[0] 
+
+dense_test()
+
+proc AE_test() = 
+    var proto: seq[Layer] = @[]
+
+    proto.newDense(10, 4)
+    proto.newActivation(Relu)
+    proto.newDense(4, 4)
+    proto.newActivation(Relu)
+    proto.newDense(4, 10)
+    proto.newActivation(Softmax)
+
+    let rt = newRootScope()
+
+    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+
+    let model = proto.build(rt, input)
+
+    let outputs = rt.runSession(model)
+
+    echo outputs[0] 
+
+AE_test()
