@@ -1,5 +1,6 @@
 {.passC: "-isystem /usr/local/include/tensorflow -isystem /usr/local/include/tensorflow/bazel-genfiles -isystem /usr/local/include/tensorflow/bazel-genfiles/genfiles -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/absl -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/eigen -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/gemmlowp -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/nsync/public -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/gen/protobuf-host/include -std=c++11".} 
 {.passL: "-Wl,-rpath,/usr/local/lib/tensorflow_cc /usr/local/lib/tensorflow_cc/libtensorflow_cc.so -ldl -lpthread /usr/local/lib/tensorflow_cc/libprotobuf.a".}
+{.hint[XDeclaredButNotUsed]:off.}
 
 const
   client_session = "<tensorflow/cc/client/client_session.h>"
@@ -7,7 +8,6 @@ const
   tensor = "<tensorflow/core/framework/tensor.h>"
   memory = "<memory>"
   vector = "<vector>"
-
 
 type 
   cppstring* {.header:"<string>", importcpp:"std::string".} = object
