@@ -26,6 +26,7 @@ for i in tds:
             let name = text[17..^1].strip()
             let link = ($e[0])[bounds[0]+1..bounds[1]-1]
 
+            sleep(350)
             let code = parseHtml(client.getContent("https://www.tensorflow.org/" & link)).findAll("pre")
             var output: string
 
@@ -46,18 +47,16 @@ for i in tds:
                         echo dtype
 
                         if dtype.find("attrs") != -1:
+                            sleep(350)
                             let struct = parseHtml(client.getContent("https://www.tensorflow.org/" & link[0..^6].replace("class", "struct") & "/attrs")).findAll("pre")
 
-                            for hit in struct:
-                                if ($hit).find("output") != -1:
-                                    output = hit.innerText()
-                                elif ($hit).find(name) != -1:
+                            for hit in struct: 
+                                if ($hit).find(name) != -1:
                                     let splited = hit.innerText().split("\n")[0..^2]
 
                                     for i, e in splited:
                                         if(i == 0):
                                             let space_sep = e.split(" ")[2][17..^2]
-                                            echo "function " & space_sep & " " & output
+                                            echo "function " & space_sep
                                         else:
                                             echo e
-            sleep(350)
