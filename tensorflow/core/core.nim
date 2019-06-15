@@ -1,5 +1,8 @@
 import ../utils/utils
 import sequtils
+import typeinfo
+{.hint[XDeclaredButNotUsed]:off.}
+
 ## TensorShape related definitions
 
 type
@@ -108,18 +111,28 @@ proc prod*(s: seq[int]): int =
     res *= it
   return res
 
-proc baseType[T](x:T) : T = 
-  return x
+proc getAnyKind[T](x: var T): AnyKind = 
+  return x.toAny.kind
 
-proc baseType[N,T](arr: array[N,T]) : untyped = 
-  return baseType(arr[0])
+proc getAnyKind[N,T](arr: var array[N,T]): AnyKind = 
+  return getAnyKind(arr[0])
 
 proc newTensor*[N,T](arr: array[N,T]) : Tensor =
   let sh = getShape(arr)
-  let ten = newTensor(TF_FLOAT, sh)
-  if baseType(arr) is float64: ten.copyF(unsafeAddr(arr[0]), prod(sh) - 1, 0)
-  elif baseType(arr) is int: ten.copyI(unsafeAddr(arr[0]), prod(sh) - 1, 0)
+  var ten: Tensor 
+  var forkind = arr
+  let kind = getAnyKind(forkind)
+
+  if kind == akFloat:
+    ten = newTensor(TF_FLOAT, sh) 
+    ten.copyF(unsafeAddr(arr[0]), prod(sh) - 1, 0)
+  
+  elif kind == akInt: 
+    ten = newTensor(TF_INT32, sh) 
+    ten.copyI(unsafeAddr(arr[0]), prod(sh) - 1, 0)
+  
   else: raise newException(OSError, "Type not supported!")
+  
   return ten
 
 # TODO: clean up this hack
