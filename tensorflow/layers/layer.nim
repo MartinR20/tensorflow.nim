@@ -3,6 +3,7 @@ import ../core/core
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Layer* = ref object of RootObj
+    train*: seq[Variable]
 
 method `$`*(layer: Layer): string {.base.} = "Layer"
 
