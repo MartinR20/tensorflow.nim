@@ -2,29 +2,34 @@ import options
 import ../ops/ops
 import ../core/core
 import ./layer
+import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Dense* = ref object of Layer
     inFeatures*: int
     outFeatures*: int
     bias*: bool
-    weightVals*: Out
-    biasVals*: Out
 
-method `$`*(layer: Dense): string = "Dense"
+method `$`*(layer: Dense): string = "Dense(in:" & $layer.inFeatures & 
+                                        ", out:" & $layer.outFeatures & ")"
 
 method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out = 
-    layer.weightVals = root.RandomNormal(root.Const([layer.inFeatures, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+    layer.train = @[]
+
+    let w = root.RandomNormal(root.Const([layer.inFeatures, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+
+    layer.train.add(root.newVariable(w, newTensorShape([layer.inFeatures, layer.outFeatures]), TF_FLOAT))
 
     if not layer.bias:
         return proc(rt: Scope, input: Out): Out = 
-                    return rt.MatMul(input, layer.weightVals)
+                    return rt.MatMul(input, layer.train[0].vvar)
 
     else:
-        layer.biasVals = root.RandomNormal(root.Const([1, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+        let b = root.RandomNormal(root.Const([1, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+        layer.train.add(root.newVariable(b, newTensorShape([1, layer.outFeatures]), TF_FLOAT))
         
         return proc(rt: Scope, input: Out): Out = 
-                    rt.Add(rt.MatMul(input, layer.weightVals), layer.biasVals)
+                    rt.Add(rt.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
 
 proc newDense(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = none(bool)) =
     var dense = new Dense
