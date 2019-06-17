@@ -291,6 +291,16 @@ proc `[]`*[T](slice: ArraySlice[T], idx: int): T {.importcpp: "#[#]".}
 
 proc size*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
 
+proc `$`[T](slice: ArraySlice[T]): string =
+  var str = "["
+  let sz = slice.size()
+
+  for i in 0..sz-2:
+    str &= $slice[i] & ", "
+
+  str &= $slice[sz-1] & "]"
+  str
+
 proc newArraySlice*[cppstring](sliceString: ArraySlice[string]): ArraySlice[cppstring] = 
   var buffer: seq[cppstring] = @[]
 
