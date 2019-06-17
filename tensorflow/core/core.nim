@@ -140,6 +140,11 @@ proc newTensor(s: int) : Tensor {.header: memory,
                                   header: tensor,
                                   importcpp: "[&](){ auto _x = std::make_shared<tensorflow::Tensor>(tensorflow::DT_INT32, tensorflow::TensorShape()); _x->scalar<int>()(0) = (int)#; return _x; }()".}
 
+proc newTensor(s: float) : Tensor {.header: memory,
+                                    header: tensor,
+                                    importcpp: "[&](){ auto _x = std::make_shared<tensorflow::Tensor>(tensorflow::DT_FLOAT, tensorflow::TensorShape()); _x->scalar<float>()(0) = (float)#; return _x; }()".}
+
+
 ## TensorVec related definitions
 type
   TensorVec* {.header: vector,

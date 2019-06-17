@@ -17,6 +17,9 @@ proc Const[N,T](root: Scope, arr: array[N, T]) : Out =
 proc Const(root: Scope, i: int) : Out =
   return root.Const(newTensor(i))
 
+proc Const(root: Scope, i: float) : Out =
+  return root.Const(newTensor(i))
+
 proc `-`(root: Scope, A, B: Out): Out =
   return Subtract(root, A, B)
 
