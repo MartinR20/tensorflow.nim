@@ -311,6 +311,13 @@ proc newArraySlice*[cppstring](sliceString: ArraySlice[string]): ArraySlice[cpps
 
   return sliceCPPStr
 
+## Gradient Related definitions
+proc addSymbolicGradients(root: Scope, outputs, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
+
+proc addSymbolicGradients(root: Scope, outputs: Out, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
+
+proc addSymbolicGradients(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
+
 export TensorShape,
        newTensorShape,
        `$`,
@@ -331,4 +338,5 @@ export TensorShape,
        runSession,
        ArraySlice,
        newArraySlice,
-       `$@`
+       `$@`,
+       addSymbolicGradients
