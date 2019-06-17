@@ -178,6 +178,23 @@ type
   OutList* {.header: std_ops,
              importcpp: "tensorflow::OutputList".} = object
 
+proc newOutList(outs: openArray[Out], len: int): OutList {.header:std_ops, 
+                                                           header:vector,
+                                                           importcpp:"[&]() { auto _args = (tensorflow::Output*)&#[0]; int _len = #; std::vector<tensorflow::Output> _vec(_args, _args + _len); return _vec; }()".}
+
+proc newOutList(outs: varargs[Out]): OutList =
+  return newOutList(outs, outs.len)
+
+proc `[]`(outs: OutList, idx: int): Out {.importcpp:"#[#]".}
+ 
+proc size(outs: OutList): int {.importcpp:"#.size()".}
+
+iterator items(outs: OutList): Out =
+  var i = 0
+  while i <= outs.size()-1:
+    yield outs[i]
+    inc i
+
 ## Output related definitions
 type
   InList* {.header: std_ops,
@@ -296,6 +313,7 @@ export TensorShape,
        `[]`,
        Out,
        OutList,
+       newOutList,
        InList,
        newInList,
        Scope,
