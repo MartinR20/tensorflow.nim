@@ -42,9 +42,9 @@ proc iEnsureShape(root: Scope, input: Out, shape: TensorShape): Out {.header:std
 
 proc iExpandDims(root: Scope, input: Out, axis: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ExpandDims(*#, #, #)".}
 
-proc iExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::ExtractImagePatches(*#, #, #, #, #, #)".}
+proc iExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::ExtractImagePatches(*#, #, #, #, #, #)".}
 
-proc iExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::ExtractVolumePatches(*#, #, #, #, #)".}
+proc iExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::ExtractVolumePatches(*#, #, #, #, #)".}
 
 proc iFakeQuantWithMinMaxArgs(root: Scope, inputs: Out, attrs: FakeQuantWithMinMaxArgsAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::FakeQuantWithMinMaxArgs(*#, #, #)".}
 
@@ -259,17 +259,17 @@ proc EnsureShape(root: Scope, input: Out, shape: TensorShape): Out =
 proc ExpandDims(root: Scope, input: Out, axis: Out): Out =
   iExpandDims(root, input, axis)
 
-proc ExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out =
+proc ExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out =
   iExtractImagePatches(root, images, ksizes, strides, rates, padding)
 
-proc ExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], rates: ArraySlice[int], padding: string): Out =
+proc ExtractImagePatches(root: Scope, images: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], rates: ArraySlice[cint], padding: string): Out =
   let cppstr5 = newCPPString(padding)
   return ExtractImagePatches(root, images, ksizes, strides, rates, cppstr5)
 
-proc ExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out =
+proc ExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out =
   iExtractVolumePatches(root, input, ksizes, strides, padding)
 
-proc ExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[int], strides: ArraySlice[int], padding: string): Out =
+proc ExtractVolumePatches(root: Scope, input: Out, ksizes: ArraySlice[cint], strides: ArraySlice[cint], padding: string): Out =
   let cppstr4 = newCPPString(padding)
   return ExtractVolumePatches(root, input, ksizes, strides, cppstr4)
 
@@ -576,7 +576,7 @@ proc SplitV(root: Scope, value: Out, size_splits: Out, axis: Out, num_split: int
 proc Squeeze(root: Scope, input: Out, attrs: SqueezeAttrs): Out =
   iSqueeze(root, input, attrs)
 
-proc Squeeze(root: Scope, input: Out, axis = none(ArraySlice[int])): Out =
+proc Squeeze(root: Scope, input: Out, axis = none(ArraySlice[cint])): Out =
   var attrs = SqueezeAttrs()
 
   if axis.isSome:

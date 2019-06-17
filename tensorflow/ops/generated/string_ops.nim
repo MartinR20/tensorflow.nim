@@ -32,7 +32,7 @@ proc iStringToHashBucket(root: Scope, string_tensor: Out, num_buckets: int): Out
 
 proc iStringToHashBucketFast(root: Scope, input: Out, num_buckets: int): Out {.header:std_ops, importcpp:"tensorflow::ops::StringToHashBucketFast(*#, #, #)".}
 
-proc iStringToHashBucketStrong(root: Scope, input: Out, num_buckets: int, key: ArraySlice[int]): Out {.header:std_ops, importcpp:"tensorflow::ops::StringToHashBucketStrong(*#, #, #, #)".}
+proc iStringToHashBucketStrong(root: Scope, input: Out, num_buckets: int, key: ArraySlice[cint]): Out {.header:std_ops, importcpp:"tensorflow::ops::StringToHashBucketStrong(*#, #, #, #)".}
 
 proc iSubstr(root: Scope, input: Out, pos: Out, len: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::Substr(*#, #, #, #)".}
 
@@ -190,7 +190,7 @@ proc StringToHashBucket(root: Scope, string_tensor: Out, num_buckets: int): Out 
 proc StringToHashBucketFast(root: Scope, input: Out, num_buckets: int): Out =
   iStringToHashBucketFast(root, input, num_buckets)
 
-proc StringToHashBucketStrong(root: Scope, input: Out, num_buckets: int, key: ArraySlice[int]): Out =
+proc StringToHashBucketStrong(root: Scope, input: Out, num_buckets: int, key: ArraySlice[cint]): Out =
   iStringToHashBucketStrong(root, input, num_buckets, key)
 
 proc Substr(root: Scope, input: Out, pos: Out, len: Out): Out =

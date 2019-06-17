@@ -31,7 +31,7 @@ proc DecodeCSV(root: Scope, records: Out, record_defaults: InList, attrs: Decode
 
 proc DecodeCSV(root: Scope, records: Out, record_defaults: OutList, attrs: DecodeCSVAttrs): OutList {.header:std_ops, importcpp:"tensorflow::ops::DecodeCSV(*#, #, #, #).output".}
 
-proc DecodeCSV(root: Scope, records: Out, record_defaults: InList, fieldDelim = none(string), naValue = none(string), selectCols = none(ArraySlice[int]), useQuoteDelim = none(bool)): OutList =
+proc DecodeCSV(root: Scope, records: Out, record_defaults: InList, fieldDelim = none(string), naValue = none(string), selectCols = none(ArraySlice[cint]), useQuoteDelim = none(bool)): OutList =
   var attrs = DecodeCSVAttrs()
 
   if fieldDelim.isSome:
@@ -45,7 +45,7 @@ proc DecodeCSV(root: Scope, records: Out, record_defaults: InList, fieldDelim = 
 
   return DecodeCSV(root, records, record_defaults, attrs)
 
-proc DecodeCSV(root: Scope, records: Out, record_defaults: OutList, fieldDelim = none(string), naValue = none(string), selectCols = none(ArraySlice[int]), useQuoteDelim = none(bool)): OutList =
+proc DecodeCSV(root: Scope, records: Out, record_defaults: OutList, fieldDelim = none(string), naValue = none(string), selectCols = none(ArraySlice[cint]), useQuoteDelim = none(bool)): OutList =
   var attrs = DecodeCSVAttrs()
 
   if fieldDelim.isSome:

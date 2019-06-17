@@ -4,43 +4,43 @@ import ./structs
 import options
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc iAvgPool(root: Scope, value: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPoolAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool(*#, #, #, #, #, #)".}
+proc iAvgPool(root: Scope, value: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPoolAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool(*#, #, #, #, #, #)".}
 
-proc iAvgPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPool3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool3D(*#, #, #, #, #, #)".}
+proc iAvgPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPool3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool3D(*#, #, #, #, #, #)".}
 
-proc iAvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPool3DGradAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool3DGrad(*#, #, #, #, #, #, #)".}
+proc iAvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPool3DGradAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::AvgPool3DGrad(*#, #, #, #, #, #, #)".}
 
 proc iBiasAdd(root: Scope, value: Out, bias: Out, attrs: BiasAddAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::BiasAdd(*#, #, #, #)".}
 
 proc iBiasAddGrad(root: Scope, out_backprop: Out, attrs: BiasAddGradAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::BiasAddGrad(*#, #, #)".}
 
-proc iConv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2D(*#, #, #, #, #, #)".}
+proc iConv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2D(*#, #, #, #, #, #)".}
 
-proc iConv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DBackpropFilterAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2DBackpropFilter(*#, #, #, #, #, #, #)".}
+proc iConv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DBackpropFilterAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2DBackpropFilter(*#, #, #, #, #, #, #)".}
 
-proc iConv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DBackpropInputAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2DBackpropInput(*#, #, #, #, #, #, #)".}
+proc iConv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DBackpropInputAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv2DBackpropInput(*#, #, #, #, #, #, #)".}
 
-proc iConv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3D(*#, #, #, #, #, #)".}
+proc iConv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3D(*#, #, #, #, #, #)".}
 
-proc iConv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DBackpropFilterV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3DBackpropFilterV2(*#, #, #, #, #, #, #)".}
+proc iConv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DBackpropFilterV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3DBackpropFilterV2(*#, #, #, #, #, #, #)".}
 
-proc iConv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DBackpropInputV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3DBackpropInputV2(*#, #, #, #, #, #, #)".}
+proc iConv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DBackpropInputV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Conv3DBackpropInputV2(*#, #, #, #, #, #, #)".}
 
 proc iDataFormatDimMap(root: Scope, x: Out, attrs: DataFormatDimMapAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DataFormatDimMap(*#, #, #)".}
 
 proc iDataFormatVecPermute(root: Scope, x: Out, attrs: DataFormatVecPermuteAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DataFormatVecPermute(*#, #, #)".}
 
-proc iDepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNative(*#, #, #, #, #, #)".}
+proc iDepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNative(*#, #, #, #, #, #)".}
 
-proc iDepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropFilter(*#, #, #, #, #, #, #)".}
+proc iDepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropFilter(*#, #, #, #, #, #, #)".}
 
-proc iDepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropInput(*#, #, #, #, #, #, #)".}
+proc iDepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropInput(*#, #, #, #, #, #, #)".}
 
-proc iDilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2D(*#, #, #, #, #, #)".}
+proc iDilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2D(*#, #, #, #, #, #)".}
 
-proc iDilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2DBackpropFilter(*#, #, #, #, #, #, #)".}
+proc iDilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2DBackpropFilter(*#, #, #, #, #, #, #)".}
 
-proc iDilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2DBackpropInput(*#, #, #, #, #, #, #)".}
+proc iDilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::Dilation2DBackpropInput(*#, #, #, #, #, #, #)".}
 
 proc iElu(root: Scope, features: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::Elu(*#, #)".}
 
@@ -56,9 +56,9 @@ proc iFusedBatchNormGradV2(root: Scope, y_backprop: Out, x: Out, scale: Out, res
 
 proc iFusedBatchNormV2(root: Scope, x: Out, scale: Out, offset: Out, mean: Out, variance: Out, attrs: FusedBatchNormV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::FusedBatchNormV2(*#, #, #, #, #, #, #)".}
 
-proc iFusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::FusedPadConv2D(*#, #, #, #, #, #, #)".}
+proc iFusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::FusedPadConv2D(*#, #, #, #, #, #, #)".}
 
-proc iFusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[int], padding: cppstring, attrs: FusedResizeAndPadConv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::FusedResizeAndPadConv2D(*#, #, #, #, #, #, #, #, #)".}
+proc iFusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[cint], padding: cppstring, attrs: FusedResizeAndPadConv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::FusedResizeAndPadConv2D(*#, #, #, #, #, #, #, #, #)".}
 
 proc iInTopK(root: Scope, predictions: Out, targets: Out, k: int): Out {.header:std_ops, importcpp:"tensorflow::ops::InTopK(*#, #, #, #)".}
 
@@ -70,27 +70,27 @@ proc iLRN(root: Scope, input: Out, attrs: LRNAttrs): Out {.header:std_ops, impor
 
 proc iLogSoftmax(root: Scope, logits: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::LogSoftmax(*#, #)".}
 
-proc iMaxPool(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPoolAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPool(*#, #, #, #, #, #)".}
+proc iMaxPool(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPoolAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPool(*#, #, #, #, #, #)".}
 
-proc iMaxPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPool3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPool3D(*#, #, #, #, #, #)".}
+proc iMaxPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPool3DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPool3D(*#, #, #, #, #, #)".}
 
-proc iMaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPoolGradGradWithArgmax(*#, #, #, #, #, #, #)".}
+proc iMaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPoolGradGradWithArgmax(*#, #, #, #, #, #, #)".}
 
 proc iMaxPoolV2(root: Scope, input: Out, ksize: Out, strides: Out, padding: cppstring, attrs: MaxPoolV2Attrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPoolV2(*#, #, #, #, #, #)".}
 
-proc iMaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPoolWithArgmaxAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPoolWithArgmax(*#, #, #, #, #, #)".}
+proc iMaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPoolWithArgmaxAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::MaxPoolWithArgmax(*#, #, #, #, #, #)".}
 
 proc iNthElement(root: Scope, input: Out, n: Out, attrs: NthElementAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::NthElement(*#, #, #, #)".}
 
-proc iQuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedAvgPool(*#, #, #, #, #, #, #)".}
+proc iQuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedAvgPool(*#, #, #, #, #, #, #)".}
 
 proc iQuantizedBatchNormWithGlobalNormalization(root: Scope, t: Out, t_min: Out, t_max: Out, m: Out, m_min: Out, m_max: Out, v: Out, v_min: Out, v_max: Out, beta: Out, beta_min: Out, beta_max: Out, gamma: Out, gamma_min: Out, gamma_max: Out, out_type: core.DType, variance_epsilon: float, scale_after_normalization: bool): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedBatchNormWithGlobalNormalization(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)".}
 
 proc iQuantizedBiasAdd(root: Scope, input: Out, bias: Out, min_input: Out, max_input: Out, min_bias: Out, max_bias: Out, out_type: core.DType): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedBiasAdd(*#, #, #, #, #, #, #, #)".}
 
-proc iQuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: QuantizedConv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedConv2D(*#, #, #, #, #, #, #, #, #, #)".}
+proc iQuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: QuantizedConv2DAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedConv2D(*#, #, #, #, #, #, #, #, #, #)".}
 
-proc iQuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedMaxPool(*#, #, #, #, #, #, #)".}
+proc iQuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedMaxPool(*#, #, #, #, #, #, #)".}
 
 proc iQuantizedRelu(root: Scope, features: Out, min_features: Out, max_features: Out, attrs: QuantizedReluAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::QuantizedRelu(*#, #, #, #, #)".}
 
@@ -116,14 +116,14 @@ proc iSparseSoftmaxCrossEntropyWithLogits(root: Scope, features: Out, labels: Ou
 
 proc iTopK(root: Scope, input: Out, k: Out, attrs: TopKAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::TopK(*#, #, #, #)".}
 
-proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPoolAttrs): Out =
+proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPoolAttrs): Out =
   iAvgPool(root, value, ksize, strides, padding, attrs)
 
-proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: AvgPoolAttrs): Out =
+proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: AvgPoolAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return AvgPool(root, value, ksize, strides, cppstr4, attrs)
 
-proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, dataFormat = none(string)): Out =
+proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string)): Out =
   var attrs = AvgPoolAttrs()
 
   if dataFormat.isSome:
@@ -131,14 +131,14 @@ proc AvgPool(root: Scope, value: Out, ksize: ArraySlice[int], strides: ArraySlic
 
   return AvgPool(root, value, ksize, strides, padding, attrs)
 
-proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPool3DAttrs): Out =
+proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPool3DAttrs): Out =
   iAvgPool3D(root, input, ksize, strides, padding, attrs)
 
-proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: AvgPool3DAttrs): Out =
+proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: AvgPool3DAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return AvgPool3D(root, input, ksize, strides, cppstr4, attrs)
 
-proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, dataFormat = none(string)): Out =
+proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string)): Out =
   var attrs = AvgPool3DAttrs()
 
   if dataFormat.isSome:
@@ -146,14 +146,14 @@ proc AvgPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySl
 
   return AvgPool3D(root, input, ksize, strides, padding, attrs)
 
-proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: AvgPool3DGradAttrs): Out =
+proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: AvgPool3DGradAttrs): Out =
   iAvgPool3DGrad(root, orig_input_shape, grad, ksize, strides, padding, attrs)
 
-proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: AvgPool3DGradAttrs): Out =
+proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: AvgPool3DGradAttrs): Out =
   let cppstr5 = newCPPString(padding)
   return AvgPool3DGrad(root, orig_input_shape, grad, ksize, strides, cppstr5, attrs)
 
-proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, dataFormat = none(string)): Out =
+proc AvgPool3DGrad(root: Scope, orig_input_shape: Out, grad: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string)): Out =
   var attrs = AvgPool3DGradAttrs()
 
   if dataFormat.isSome:
@@ -183,14 +183,14 @@ proc BiasAddGrad(root: Scope, out_backprop: Out, dataFormat = none(string)): Out
 
   return BiasAddGrad(root, out_backprop, attrs)
 
-proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DAttrs): Out =
+proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DAttrs): Out =
   iConv2D(root, input, filter, strides, padding, attrs)
 
-proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: string, attrs: Conv2DAttrs): Out =
+proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: string, attrs: Conv2DAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return Conv2D(root, input, filter, strides, cppstr4, attrs)
 
-proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int]), useCudnnOnGpu = none(bool)): Out =
+proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint]), useCudnnOnGpu = none(bool)): Out =
   var attrs = Conv2DAttrs()
 
   if dataFormat.isSome:
@@ -202,14 +202,14 @@ proc Conv2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padd
 
   return Conv2D(root, input, filter, strides, padding, attrs)
 
-proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DBackpropFilterAttrs): Out =
+proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DBackpropFilterAttrs): Out =
   iConv2DBackpropFilter(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: Conv2DBackpropFilterAttrs): Out =
+proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: Conv2DBackpropFilterAttrs): Out =
   let cppstr5 = newCPPString(padding)
   return Conv2DBackpropFilter(root, input, filter_sizes, out_backprop, strides, cppstr5, attrs)
 
-proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int]), useCudnnOnGpu = none(bool)): Out =
+proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint]), useCudnnOnGpu = none(bool)): Out =
   var attrs = Conv2DBackpropFilterAttrs()
 
   if dataFormat.isSome:
@@ -221,14 +221,14 @@ proc Conv2DBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backpr
 
   return Conv2DBackpropFilter(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv2DBackpropInputAttrs): Out =
+proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv2DBackpropInputAttrs): Out =
   iConv2DBackpropInput(root, input_sizes, filter, out_backprop, strides, padding, attrs)
 
-proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: Conv2DBackpropInputAttrs): Out =
+proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: Conv2DBackpropInputAttrs): Out =
   let cppstr5 = newCPPString(padding)
   return Conv2DBackpropInput(root, input_sizes, filter, out_backprop, strides, cppstr5, attrs)
 
-proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int]), useCudnnOnGpu = none(bool)): Out =
+proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint]), useCudnnOnGpu = none(bool)): Out =
   var attrs = Conv2DBackpropInputAttrs()
 
   if dataFormat.isSome:
@@ -240,14 +240,14 @@ proc Conv2DBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backpro
 
   return Conv2DBackpropInput(root, input_sizes, filter, out_backprop, strides, padding, attrs)
 
-proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DAttrs): Out =
+proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DAttrs): Out =
   iConv3D(root, input, filter, strides, padding, attrs)
 
-proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: string, attrs: Conv3DAttrs): Out =
+proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: string, attrs: Conv3DAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return Conv3D(root, input, filter, strides, cppstr4, attrs)
 
-proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = Conv3DAttrs()
 
   if dataFormat.isSome:
@@ -257,14 +257,14 @@ proc Conv3D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padd
 
   return Conv3D(root, input, filter, strides, padding, attrs)
 
-proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DBackpropFilterV2Attrs): Out =
+proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DBackpropFilterV2Attrs): Out =
   iConv3DBackpropFilterV2(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: Conv3DBackpropFilterV2Attrs): Out =
+proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: Conv3DBackpropFilterV2Attrs): Out =
   let cppstr5 = newCPPString(padding)
   return Conv3DBackpropFilterV2(root, input, filter_sizes, out_backprop, strides, cppstr5, attrs)
 
-proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = Conv3DBackpropFilterV2Attrs()
 
   if dataFormat.isSome:
@@ -274,14 +274,14 @@ proc Conv3DBackpropFilterV2(root: Scope, input: Out, filter_sizes: Out, out_back
 
   return Conv3DBackpropFilterV2(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: Conv3DBackpropInputV2Attrs): Out =
+proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: Conv3DBackpropInputV2Attrs): Out =
   iConv3DBackpropInputV2(root, input_sizes, filter, out_backprop, strides, padding, attrs)
 
-proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: Conv3DBackpropInputV2Attrs): Out =
+proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: Conv3DBackpropInputV2Attrs): Out =
   let cppstr5 = newCPPString(padding)
   return Conv3DBackpropInputV2(root, input_sizes, filter, out_backprop, strides, cppstr5, attrs)
 
-proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc Conv3DBackpropInputV2(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = Conv3DBackpropInputV2Attrs()
 
   if dataFormat.isSome:
@@ -317,14 +317,14 @@ proc DataFormatVecPermute(root: Scope, x: Out, dstFormat = none(string), srcForm
 
   return DataFormatVecPermute(root, x, attrs)
 
-proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeAttrs): Out =
+proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeAttrs): Out =
   iDepthwiseConv2dNative(root, input, filter, strides, padding, attrs)
 
-proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: string, attrs: DepthwiseConv2dNativeAttrs): Out =
+proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: string, attrs: DepthwiseConv2dNativeAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return DepthwiseConv2dNative(root, input, filter, strides, cppstr4, attrs)
 
-proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = DepthwiseConv2dNativeAttrs()
 
   if dataFormat.isSome:
@@ -334,14 +334,14 @@ proc DepthwiseConv2dNative(root: Scope, input: Out, filter: Out, strides: ArrayS
 
   return DepthwiseConv2dNative(root, input, filter, strides, padding, attrs)
 
-proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out =
+proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out =
   iDepthwiseConv2dNativeBackpropFilter(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out =
+proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: DepthwiseConv2dNativeBackpropFilterAttrs): Out =
   let cppstr5 = newCPPString(padding)
   return DepthwiseConv2dNativeBackpropFilter(root, input, filter_sizes, out_backprop, strides, cppstr5, attrs)
 
-proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = DepthwiseConv2dNativeBackpropFilterAttrs()
 
   if dataFormat.isSome:
@@ -351,14 +351,14 @@ proc DepthwiseConv2dNativeBackpropFilter(root: Scope, input: Out, filter_sizes: 
 
   return DepthwiseConv2dNativeBackpropFilter(root, input, filter_sizes, out_backprop, strides, padding, attrs)
 
-proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out =
+proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out =
   iDepthwiseConv2dNativeBackpropInput(root, input_sizes, filter, out_backprop, strides, padding, attrs)
 
-proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: string, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out =
+proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: string, attrs: DepthwiseConv2dNativeBackpropInputAttrs): Out =
   let cppstr5 = newCPPString(padding)
   return DepthwiseConv2dNativeBackpropInput(root, input_sizes, filter, out_backprop, strides, cppstr5, attrs)
 
-proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[int])): Out =
+proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string), dilations = none(ArraySlice[cint])): Out =
   var attrs = DepthwiseConv2dNativeBackpropInputAttrs()
 
   if dataFormat.isSome:
@@ -368,24 +368,24 @@ proc DepthwiseConv2dNativeBackpropInput(root: Scope, input_sizes: Out, filter: O
 
   return DepthwiseConv2dNativeBackpropInput(root, input_sizes, filter, out_backprop, strides, padding, attrs)
 
-proc Dilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out =
+proc Dilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out =
   iDilation2D(root, input, filter, strides, rates, padding)
 
-proc Dilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: string): Out =
+proc Dilation2D(root: Scope, input: Out, filter: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: string): Out =
   let cppstr5 = newCPPString(padding)
   return Dilation2D(root, input, filter, strides, rates, cppstr5)
 
-proc Dilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out =
+proc Dilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out =
   iDilation2DBackpropFilter(root, input, filter, out_backprop, strides, rates, padding)
 
-proc Dilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: string): Out =
+proc Dilation2DBackpropFilter(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: string): Out =
   let cppstr6 = newCPPString(padding)
   return Dilation2DBackpropFilter(root, input, filter, out_backprop, strides, rates, cppstr6)
 
-proc Dilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: cppstring): Out =
+proc Dilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: cppstring): Out =
   iDilation2DBackpropInput(root, input, filter, out_backprop, strides, rates, padding)
 
-proc Dilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[int], rates: ArraySlice[int], padding: string): Out =
+proc Dilation2DBackpropInput(root: Scope, input: Out, filter: Out, out_backprop: Out, strides: ArraySlice[cint], rates: ArraySlice[cint], padding: string): Out =
   let cppstr6 = newCPPString(padding)
   return Dilation2DBackpropInput(root, input, filter, out_backprop, strides, rates, cppstr6)
 
@@ -490,23 +490,23 @@ proc FusedBatchNormV2(root: Scope, x: Out, scale: Out, offset: Out, mean: Out, v
 
   return FusedBatchNormV2(root, x, scale, offset, mean, variance, attrs)
 
-proc FusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[int], padding: cppstring): Out =
+proc FusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[cint], padding: cppstring): Out =
   iFusedPadConv2D(root, input, paddings, filter, mode, strides, padding)
 
-proc FusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: string, strides: ArraySlice[int], padding: string): Out =
+proc FusedPadConv2D(root: Scope, input: Out, paddings: Out, filter: Out, mode: string, strides: ArraySlice[cint], padding: string): Out =
   let cppstr4 = newCPPString(mode)
   let cppstr6 = newCPPString(padding)
   return FusedPadConv2D(root, input, paddings, filter, cppstr4, strides, cppstr6)
 
-proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[int], padding: cppstring, attrs: FusedResizeAndPadConv2DAttrs): Out =
+proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[cint], padding: cppstring, attrs: FusedResizeAndPadConv2DAttrs): Out =
   iFusedResizeAndPadConv2D(root, input, size, paddings, filter, mode, strides, padding, attrs)
 
-proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: string, strides: ArraySlice[int], padding: string, attrs: FusedResizeAndPadConv2DAttrs): Out =
+proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: string, strides: ArraySlice[cint], padding: string, attrs: FusedResizeAndPadConv2DAttrs): Out =
   let cppstr5 = newCPPString(mode)
   let cppstr7 = newCPPString(padding)
   return FusedResizeAndPadConv2D(root, input, size, paddings, filter, cppstr5, strides, cppstr7, attrs)
 
-proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[int], padding: cppstring, resizeAlignCorners = none(bool)): Out =
+proc FusedResizeAndPadConv2D(root: Scope, input: Out, size: Out, paddings: Out, filter: Out, mode: cppstring, strides: ArraySlice[cint], padding: cppstring, resizeAlignCorners = none(bool)): Out =
   var attrs = FusedResizeAndPadConv2DAttrs()
 
   if resizeAlignCorners.isSome:
@@ -543,14 +543,14 @@ proc LRN(root: Scope, input: Out, alpha = none(float), beta = none(float), bias 
 proc LogSoftmax(root: Scope, logits: Out): Out =
   iLogSoftmax(root, logits)
 
-proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPoolAttrs): Out =
+proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPoolAttrs): Out =
   iMaxPool(root, input, ksize, strides, padding, attrs)
 
-proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: MaxPoolAttrs): Out =
+proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: MaxPoolAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return MaxPool(root, input, ksize, strides, cppstr4, attrs)
 
-proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, dataFormat = none(string)): Out =
+proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string)): Out =
   var attrs = MaxPoolAttrs()
 
   if dataFormat.isSome:
@@ -558,14 +558,14 @@ proc MaxPool(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlic
 
   return MaxPool(root, input, ksize, strides, padding, attrs)
 
-proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPool3DAttrs): Out =
+proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPool3DAttrs): Out =
   iMaxPool3D(root, input, ksize, strides, padding, attrs)
 
-proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: MaxPool3DAttrs): Out =
+proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: MaxPool3DAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return MaxPool3D(root, input, ksize, strides, cppstr4, attrs)
 
-proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, dataFormat = none(string)): Out =
+proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, dataFormat = none(string)): Out =
   var attrs = MaxPool3DAttrs()
 
   if dataFormat.isSome:
@@ -573,10 +573,10 @@ proc MaxPool3D(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySl
 
   return MaxPool3D(root, input, ksize, strides, padding, attrs)
 
-proc MaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out =
+proc MaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out =
   iMaxPoolGradGradWithArgmax(root, input, grad, argmax, ksize, strides, padding)
 
-proc MaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string): Out =
+proc MaxPoolGradGradWithArgmax(root: Scope, input: Out, grad: Out, argmax: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string): Out =
   let cppstr6 = newCPPString(padding)
   return MaxPoolGradGradWithArgmax(root, input, grad, argmax, ksize, strides, cppstr6)
 
@@ -595,14 +595,14 @@ proc MaxPoolV2(root: Scope, input: Out, ksize: Out, strides: Out, padding: cppst
 
   return MaxPoolV2(root, input, ksize, strides, padding, attrs)
 
-proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, attrs: MaxPoolWithArgmaxAttrs): Out =
+proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, attrs: MaxPoolWithArgmaxAttrs): Out =
   iMaxPoolWithArgmax(root, input, ksize, strides, padding, attrs)
 
-proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string, attrs: MaxPoolWithArgmaxAttrs): Out =
+proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string, attrs: MaxPoolWithArgmaxAttrs): Out =
   let cppstr4 = newCPPString(padding)
   return MaxPoolWithArgmax(root, input, ksize, strides, cppstr4, attrs)
 
-proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring, targmax = none(core.DType)): Out =
+proc MaxPoolWithArgmax(root: Scope, input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring, targmax = none(core.DType)): Out =
   var attrs = MaxPoolWithArgmaxAttrs()
 
   if targmax.isSome:
@@ -621,10 +621,10 @@ proc NthElement(root: Scope, input: Out, n: Out, reverse = none(bool)): Out =
 
   return NthElement(root, input, n, attrs)
 
-proc QuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out =
+proc QuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out =
   iQuantizedAvgPool(root, input, min_input, max_input, ksize, strides, padding)
 
-proc QuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string): Out =
+proc QuantizedAvgPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string): Out =
   let cppstr6 = newCPPString(padding)
   return QuantizedAvgPool(root, input, min_input, max_input, ksize, strides, cppstr6)
 
@@ -634,14 +634,14 @@ proc QuantizedBatchNormWithGlobalNormalization(root: Scope, t: Out, t_min: Out, 
 proc QuantizedBiasAdd(root: Scope, input: Out, bias: Out, min_input: Out, max_input: Out, min_bias: Out, max_bias: Out, out_type: core.DType): Out =
   iQuantizedBiasAdd(root, input, bias, min_input, max_input, min_bias, max_bias, out_type)
 
-proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[int], padding: cppstring, attrs: QuantizedConv2DAttrs): Out =
+proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[cint], padding: cppstring, attrs: QuantizedConv2DAttrs): Out =
   iQuantizedConv2D(root, input, filter, min_input, max_input, min_filter, max_filter, strides, padding, attrs)
 
-proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[int], padding: string, attrs: QuantizedConv2DAttrs): Out =
+proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[cint], padding: string, attrs: QuantizedConv2DAttrs): Out =
   let cppstr8 = newCPPString(padding)
   return QuantizedConv2D(root, input, filter, min_input, max_input, min_filter, max_filter, strides, cppstr8, attrs)
 
-proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[int], padding: cppstring, dilations = none(ArraySlice[int]), outType = none(core.DType)): Out =
+proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_input: Out, min_filter: Out, max_filter: Out, strides: ArraySlice[cint], padding: cppstring, dilations = none(ArraySlice[cint]), outType = none(core.DType)): Out =
   var attrs = QuantizedConv2DAttrs()
 
   if dilations.isSome:
@@ -651,10 +651,10 @@ proc QuantizedConv2D(root: Scope, input: Out, filter: Out, min_input: Out, max_i
 
   return QuantizedConv2D(root, input, filter, min_input, max_input, min_filter, max_filter, strides, padding, attrs)
 
-proc QuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: cppstring): Out =
+proc QuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: cppstring): Out =
   iQuantizedMaxPool(root, input, min_input, max_input, ksize, strides, padding)
 
-proc QuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[int], strides: ArraySlice[int], padding: string): Out =
+proc QuantizedMaxPool(root: Scope, input: Out, min_input: Out, max_input: Out, ksize: ArraySlice[cint], strides: ArraySlice[cint], padding: string): Out =
   let cppstr6 = newCPPString(padding)
   return QuantizedMaxPool(root, input, min_input, max_input, ksize, strides, cppstr6)
 

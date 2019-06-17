@@ -128,7 +128,7 @@ proc DataFormat(spaceToDepthAttrs: SpaceToDepthAttrs, dataFormat: cppstring): Sp
 
 type SqueezeAttrs {.header: std_ops, importcpp:"tensorflow::ops::Squeeze::Attrs".} = object
 
-proc Axis(squeezeAttrs: SqueezeAttrs, axis: ArraySlice[int]): SqueezeAttrs {.header: std_ops, importcpp:"#.Axis(#)".}
+proc Axis(squeezeAttrs: SqueezeAttrs, axis: ArraySlice[cint]): SqueezeAttrs {.header: std_ops, importcpp:"#.Axis(#)".}
 
 
 type StridedSliceAttrs {.header: std_ops, importcpp:"tensorflow::ops::StridedSlice::Attrs".} = object
@@ -1053,7 +1053,7 @@ type Conv2DAttrs {.header: std_ops, importcpp:"tensorflow::ops::Conv2D::Attrs".}
 
 proc DataFormat(conv2DAttrs: Conv2DAttrs, dataFormat: cppstring): Conv2DAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv2DAttrs: Conv2DAttrs, dilations: ArraySlice[int]): Conv2DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv2DAttrs: Conv2DAttrs, dilations: ArraySlice[cint]): Conv2DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 proc UseCudnnOnGpu(conv2DAttrs: Conv2DAttrs, useCudnnOnGpu: bool): Conv2DAttrs {.header: std_ops, importcpp:"#.UseCudnnOnGpu(#)".}
 
@@ -1062,7 +1062,7 @@ type Conv2DBackpropFilterAttrs {.header: std_ops, importcpp:"tensorflow::ops::Co
 
 proc DataFormat(conv2DBackpropFilterAttrs: Conv2DBackpropFilterAttrs, dataFormat: cppstring): Conv2DBackpropFilterAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv2DBackpropFilterAttrs: Conv2DBackpropFilterAttrs, dilations: ArraySlice[int]): Conv2DBackpropFilterAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv2DBackpropFilterAttrs: Conv2DBackpropFilterAttrs, dilations: ArraySlice[cint]): Conv2DBackpropFilterAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 proc UseCudnnOnGpu(conv2DBackpropFilterAttrs: Conv2DBackpropFilterAttrs, useCudnnOnGpu: bool): Conv2DBackpropFilterAttrs {.header: std_ops, importcpp:"#.UseCudnnOnGpu(#)".}
 
@@ -1071,7 +1071,7 @@ type Conv2DBackpropInputAttrs {.header: std_ops, importcpp:"tensorflow::ops::Con
 
 proc DataFormat(conv2DBackpropInputAttrs: Conv2DBackpropInputAttrs, dataFormat: cppstring): Conv2DBackpropInputAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv2DBackpropInputAttrs: Conv2DBackpropInputAttrs, dilations: ArraySlice[int]): Conv2DBackpropInputAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv2DBackpropInputAttrs: Conv2DBackpropInputAttrs, dilations: ArraySlice[cint]): Conv2DBackpropInputAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 proc UseCudnnOnGpu(conv2DBackpropInputAttrs: Conv2DBackpropInputAttrs, useCudnnOnGpu: bool): Conv2DBackpropInputAttrs {.header: std_ops, importcpp:"#.UseCudnnOnGpu(#)".}
 
@@ -1080,21 +1080,21 @@ type Conv3DAttrs {.header: std_ops, importcpp:"tensorflow::ops::Conv3D::Attrs".}
 
 proc DataFormat(conv3DAttrs: Conv3DAttrs, dataFormat: cppstring): Conv3DAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv3DAttrs: Conv3DAttrs, dilations: ArraySlice[int]): Conv3DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv3DAttrs: Conv3DAttrs, dilations: ArraySlice[cint]): Conv3DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type Conv3DBackpropFilterV2Attrs {.header: std_ops, importcpp:"tensorflow::ops::Conv3DBackpropFilterV2::Attrs".} = object
 
 proc DataFormat(conv3DBackpropFilterV2Attrs: Conv3DBackpropFilterV2Attrs, dataFormat: cppstring): Conv3DBackpropFilterV2Attrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv3DBackpropFilterV2Attrs: Conv3DBackpropFilterV2Attrs, dilations: ArraySlice[int]): Conv3DBackpropFilterV2Attrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv3DBackpropFilterV2Attrs: Conv3DBackpropFilterV2Attrs, dilations: ArraySlice[cint]): Conv3DBackpropFilterV2Attrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type Conv3DBackpropInputV2Attrs {.header: std_ops, importcpp:"tensorflow::ops::Conv3DBackpropInputV2::Attrs".} = object
 
 proc DataFormat(conv3DBackpropInputV2Attrs: Conv3DBackpropInputV2Attrs, dataFormat: cppstring): Conv3DBackpropInputV2Attrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(conv3DBackpropInputV2Attrs: Conv3DBackpropInputV2Attrs, dilations: ArraySlice[int]): Conv3DBackpropInputV2Attrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(conv3DBackpropInputV2Attrs: Conv3DBackpropInputV2Attrs, dilations: ArraySlice[cint]): Conv3DBackpropInputV2Attrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type DataFormatDimMapAttrs {.header: std_ops, importcpp:"tensorflow::ops::DataFormatDimMap::Attrs".} = object
@@ -1115,21 +1115,21 @@ type DepthwiseConv2dNativeAttrs {.header: std_ops, importcpp:"tensorflow::ops::D
 
 proc DataFormat(depthwiseConv2dNativeAttrs: DepthwiseConv2dNativeAttrs, dataFormat: cppstring): DepthwiseConv2dNativeAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(depthwiseConv2dNativeAttrs: DepthwiseConv2dNativeAttrs, dilations: ArraySlice[int]): DepthwiseConv2dNativeAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(depthwiseConv2dNativeAttrs: DepthwiseConv2dNativeAttrs, dilations: ArraySlice[cint]): DepthwiseConv2dNativeAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type DepthwiseConv2dNativeBackpropFilterAttrs {.header: std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropFilter::Attrs".} = object
 
 proc DataFormat(depthwiseConv2dNativeBackpropFilterAttrs: DepthwiseConv2dNativeBackpropFilterAttrs, dataFormat: cppstring): DepthwiseConv2dNativeBackpropFilterAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(depthwiseConv2dNativeBackpropFilterAttrs: DepthwiseConv2dNativeBackpropFilterAttrs, dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropFilterAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(depthwiseConv2dNativeBackpropFilterAttrs: DepthwiseConv2dNativeBackpropFilterAttrs, dilations: ArraySlice[cint]): DepthwiseConv2dNativeBackpropFilterAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type DepthwiseConv2dNativeBackpropInputAttrs {.header: std_ops, importcpp:"tensorflow::ops::DepthwiseConv2dNativeBackpropInput::Attrs".} = object
 
 proc DataFormat(depthwiseConv2dNativeBackpropInputAttrs: DepthwiseConv2dNativeBackpropInputAttrs, dataFormat: cppstring): DepthwiseConv2dNativeBackpropInputAttrs {.header: std_ops, importcpp:"#.DataFormat(#)".}
 
-proc Dilations(depthwiseConv2dNativeBackpropInputAttrs: DepthwiseConv2dNativeBackpropInputAttrs, dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropInputAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(depthwiseConv2dNativeBackpropInputAttrs: DepthwiseConv2dNativeBackpropInputAttrs, dilations: ArraySlice[cint]): DepthwiseConv2dNativeBackpropInputAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 
 type FractionalAvgPoolAttrs {.header: std_ops, importcpp:"tensorflow::ops::FractionalAvgPool::Attrs".} = object
@@ -1237,7 +1237,7 @@ proc Reverse(nthElementAttrs: NthElementAttrs, reverse: bool): NthElementAttrs {
 
 type QuantizedConv2DAttrs {.header: std_ops, importcpp:"tensorflow::ops::QuantizedConv2D::Attrs".} = object
 
-proc Dilations(quantizedConv2DAttrs: QuantizedConv2DAttrs, dilations: ArraySlice[int]): QuantizedConv2DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
+proc Dilations(quantizedConv2DAttrs: QuantizedConv2DAttrs, dilations: ArraySlice[cint]): QuantizedConv2DAttrs {.header: std_ops, importcpp:"#.Dilations(#)".}
 
 proc OutType(quantizedConv2DAttrs: QuantizedConv2DAttrs, outType: core.DType): QuantizedConv2DAttrs {.header: std_ops, importcpp:"#.OutType(#)".}
 
@@ -1268,7 +1268,7 @@ proc FieldDelim(decodeCSVAttrs: DecodeCSVAttrs, fieldDelim: cppstring): DecodeCS
 
 proc NaValue(decodeCSVAttrs: DecodeCSVAttrs, naValue: cppstring): DecodeCSVAttrs {.header: std_ops, importcpp:"#.NaValue(#)".}
 
-proc SelectCols(decodeCSVAttrs: DecodeCSVAttrs, selectCols: ArraySlice[int]): DecodeCSVAttrs {.header: std_ops, importcpp:"#.SelectCols(#)".}
+proc SelectCols(decodeCSVAttrs: DecodeCSVAttrs, selectCols: ArraySlice[cint]): DecodeCSVAttrs {.header: std_ops, importcpp:"#.SelectCols(#)".}
 
 proc UseQuoteDelim(decodeCSVAttrs: DecodeCSVAttrs, useQuoteDelim: bool): DecodeCSVAttrs {.header: std_ops, importcpp:"#.UseQuoteDelim(#)".}
 
