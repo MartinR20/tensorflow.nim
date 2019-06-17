@@ -6,6 +6,7 @@ const
   client_session = "<tensorflow/cc/client/client_session.h>"
   std_ops = "<tensorflow/cc/ops/standard_ops.h>"
   tensor = "<tensorflow/core/framework/tensor.h>"
+  gradients = "<tensorflow/cc/framework/gradients.h>"
   memory = "<memory>"
   vector = "<vector>"
 
@@ -28,6 +29,7 @@ proc print*(str: cppstring) {.header: "<iostream>",
 export client_session,
        std_ops,
        tensor,
+       gradients,
        memory,
        vector,
        cppstring,
