@@ -6,7 +6,11 @@ import ./layer,
        ./avgpool,
        ./dropout,
        ./optim,
-       ./reshape
+       ./reshape,
+       ./loss,
+       ./branch,
+       ./concat,
+       ./inline
 
 export layer,
        dense,
@@ -16,4 +20,9 @@ export layer,
        avgpool,
        dropout,
        optim,
-       reshape
+       reshape,
+       loss,
+       branch,
+       concat,
+       inline
+       
