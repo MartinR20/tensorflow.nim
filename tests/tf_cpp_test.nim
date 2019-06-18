@@ -1,6 +1,6 @@
 import ../tensorflow/tensorflow
 import options
-
+#[
 proc tensorShape_test() = 
     let tshape = newTensorShape([2,2])
 
@@ -111,13 +111,14 @@ proc dense_test() =
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    let model = proto.build(rt, input, newAdam())
+    echo proto
 
-    let outputs = rt.runSession(model)
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+
+    let model = rt.fit(input, rt.ZerosLike(input))
+
+    let outputs = rt.runSession(rt.eval(input))
     echo outputs[0] 
-
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
 
 dense_test()
 
@@ -137,13 +138,14 @@ proc AE_test() =
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    let model = proto.build(rt, input, newAdam())
+    echo proto
 
-    let outputs = rt.runSession(model)
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+
+    let model = rt.fit(input, rt.ZerosLike(input))
+
+    let outputs = rt.runSession(rt.eval(input))
     echo outputs[0] 
-
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
 
 AE_test()
 
@@ -183,13 +185,17 @@ proc conv2d_test() =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
 
-    var model = proto.build(rt, input, newAdam())
+    var (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let outputs = rt.runSession(model)
+    let zeros = rt.ZerosLike(rt.Const(newTensor(TF_FLOAT, newTensorShape([1,64]))))
+    var model = rt.fit(input, zeros)
+
+    for i in 0..3:
+        model = rt.fit(input, zeros)
+        discard rt.runSession(model)
+
+    let outputs = rt.runSession(rt.eval(input))
     echo outputs[0]
-    
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
 
 conv2d_test()
 
@@ -221,13 +227,12 @@ proc maxpool_test() =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
 
-    let model = proto.build(rt, input, newAdam())
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    
+    let model = rt.eval(input)
 
     let outputs = rt.runSession(model)
     echo outputs[0]
-
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
 
 maxpool_test()
 
@@ -259,13 +264,12 @@ proc avgpool_test() =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
 
-    let model = proto.build(rt, input, newAdam())
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    
+    let model = rt.eval(input)
 
     let outputs = rt.runSession(model)
     echo outputs[0]
-
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
 
 avgpool_test()
 
@@ -297,12 +301,157 @@ proc dropout_test() =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
 
-    let model = proto.build(rt, input, newAdam())
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+
+    let model = rt.eval(input)
 
     let outputs = rt.runSession(model)
     echo outputs[0]
 
-    let outputs1 = rt.runSession(model)
-    echo outputs1[0]
-
 dropout_test()
+]#
+
+proc branch_concat_test() = 
+    var proto: seq[Layer] = @[]
+
+    proto.newBranch()
+    proto.newDense(10, 10)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(10, 10)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newConcat(1)
+
+    proto.newBranch()
+    proto.newDense(20, 2)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(20, 2)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(20, 2)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(20, 2)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(20, 2)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newConcat(1)
+
+    #proto.newDense(10, 10)
+    #proto.newActivation(Softmax)
+
+    let rt = newRootScope()
+
+    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+
+    echo proto
+
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+
+    let model = rt.eval(input)
+
+    let outputs = rt.runSession(model)
+    echo outputs[0] 
+
+branch_concat_test()
+
+#[
+proc inception_resnet_v2_test() = 
+    proc block35(proto: var seq[Layer], inChannels: int, scale: float) =
+        var residual: Out
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            residual = input
+                            input)
+
+        proto.newBranch()
+        proto.newConv2d(inChannels, 32, [1, 1], [1, 1])
+        proto.newEndBranch()
+
+        proto.newBranch()
+        proto.newConv2d(inChannels, 32, [1, 1], [1, 1])
+        proto.newConv2d(32, 32, [3, 3], [1, 1])
+        proto.newEndBranch()
+
+        proto.newBranch()
+        proto.newConv2d(inChannels, 32, [1, 1], [1, 1])
+        proto.newConv2d(32, 48, [3, 3], [1, 1])
+        proto.newConv2d(48, 64, [3, 3], [1, 1])
+        proto.newEndBranch()
+
+        proto.newConcat(3)
+
+        #[
+        proto.newConv2d(inChannels, inChannels, [1, 1], [1, 1])
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            return rt.Add(residual, rt.Multiply(input, rt.Const(scale))))
+
+        proto.newActivation(Relu)
+        ]#
+
+    let rt = newRootScope()
+
+    let input = rt.Const(newTensor(TF_FLOAT, newTensorShape([1,480,640,3])))
+
+    var proto: seq[Layer] = @[]
+
+    proto.newConv2d(3, 32, [3, 3], [2, 2])
+    proto.newConv2d(32, 32, [3, 3], [1, 1])
+    proto.newConv2d(32, 64, [3, 3], [1, 1])
+    proto.newMaxPool([3, 3], [2, 2])
+    proto.newConv2d(64, 80, [1, 1], [1, 1])
+    proto.newConv2d(80, 192, [3, 3], [1, 1])
+    proto.newMaxPool([3, 3], [2, 2])
+
+    proto.newBranch()
+    proto.newConv2d(192, 96, [1, 1], [1, 1])
+    proto.newEndBranch()
+    
+    proto.newBranch()
+    proto.newConv2d(192, 48, [1, 1], [1, 1])
+    proto.newConv2d(48, 64, [5, 5], [1, 1])
+    proto.newEndBranch()
+    
+    proto.newBranch()
+    proto.newConv2d(192, 64, [1, 1], [1, 1])
+    proto.newConv2d(64, 96, [3, 3], [1, 1])
+    proto.newConv2d(96, 96, [3, 3], [1, 1])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newAvgPool([3, 3], [1, 1])
+    proto.newConv2d(192, 64, [1, 1], [1, 1])
+    proto.newEndBranch()
+    
+    proto.newConcat(3)
+
+    proto.block35(320, 0.17)
+    
+    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+
+    let model = rt.eval(input)
+
+    let outputs = rt.runSession(model)
+    echo outputs[0]
+
+inception_resnet_v2_test()
+]#
