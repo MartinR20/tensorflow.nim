@@ -10,8 +10,7 @@ type Branch* = ref object of Layer
 method `$`*(layer: Branch): string = "Branch()"
 
 method make(layer: Branch, root: Scope): proc(rt: Scope, input: Out): Out = 
-    return proc(rt: Scope, input: Out): Out = 
-                return Out()
+    raise newException(ValueError, "Yout not supposed to call `make` on a branch Layer")
 
 method isBranch(layer: Branch): bool = true
 
@@ -31,8 +30,7 @@ type EndBranch* = ref object of Layer
 method `$`*(layer: EndBranch): string = "EndBranch()"
 
 method make(layer: EndBranch, root: Scope): proc(rt: Scope, input: Out): Out = 
-    return proc(rt: Scope, input: Out): Out = 
-                return Out()
+    raise newException(ValueError, "Yout not supposed to call `make` on a branch Layer")
 
 method isBranch(layer: EndBranch): bool = true
 
