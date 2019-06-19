@@ -19,15 +19,32 @@ method makeJoin(layer: Layer, root: Scope): (proc(rt: Scope, input: OutList): Ou
 
 method isBranch(layer: Layer): bool {.base.} = false
 
+method isJoin(layer: Layer): bool {.base.} = false
+
 method getBranchSwitch(layer: Layer): bool {.base.} = 
     raise newException(ValueError, "Trying to call `getBranchSwitch` for none branchlayer")
+
+proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]], 
+                          joinFunc: proc(rt: Scope, input: OutList): Out): proc(rt: Scope, input: Out): Out{.closure.} =
+
+                    return proc(rt: Scope, input: Out): Out{.closure.} =
+                            var branchOut: seq[Out]
+
+                            for branch in branches:
+                                var outp = branch[0](rt, input)
+
+                                for f in branch[1..^1]:
+                                    outp = rt.f(outp)
+
+                                branchOut.add(outp)
+
+                            return joinFunc(rt, newOutList(branchOut))
 
 proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out): OutList, proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
+    var start: seq[int] # stack to track of index in branchFuncs
     var vars: seq[Variable]
-    var lastWasBranch = false
-    var inBranch = false
 
     for layer in layers:
 
@@ -35,39 +52,33 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             let switch = getBranchSwitch(layer)
             
             if switch:
-                inBranch = true
                 branchFuncs.add(@[])
+
+                start.add(branchFuncs.len)
             else:
-                inBranch = false
-        
-        else:           
-            if not inBranch and lastWasBranch:
-                let joinFunc = layer.makeJoin(root)
+                start.delete(start.len-1, start.len-1)
 
-                proc branchFunc(rt: Scope, input: Out): Out{.closure.} =
-                    var branchOut: seq[Out]
+        else:
+            var ffunc: proc(rt: Scope, input: Out): Out
 
-                    for branch in branchFuncs:
-                        var outp = branch[0](rt, input)
+            if isJoin(layer):
+                var a = 0
+                if start.len != 0: a = start[^1]
 
-                        for f in branch[1..^1]:
-                            outp = rt.f(outp)
+                var b = branchFuncs.len-1
 
-                        branchOut.add(outp)
-
-                    return joinFunc(rt, newOutList(branchOut))
-
-                funcs.add(branchFunc)
-                branchFuncs = @[]
-
-            elif inBranch:
-                branchFuncs[^1].add(layer.make(root))
+                ffunc = branchFuncs[a..b].makeBranch(layer.makeJoin(root))
+                branchFuncs.delete(a, b)
 
             else:
-                funcs.add(layer.make(root))
-            
-            vars = vars.concat(layer.train)     
-            lastWasBranch = inBranch       
+                ffunc = layer.make(root)
+
+            if start.len > 0:
+                branchFuncs[^1].add(ffunc)
+            else:
+                funcs.add(ffunc)
+
+        vars = vars.concat(layer.train)  
 
     proc eval(rt: Scope, X: Out): Out{.closure.} =
         var outp = funcs[0](rt, X)
