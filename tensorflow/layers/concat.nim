@@ -15,6 +15,8 @@ method makeJoin(layer: Concat, root: Scope): proc(rt: Scope, input: OutList): Ou
     return proc(rt: Scope, input: OutList): Out =
                 return rt.Concat(input, axis)
 
+method isJoin(layer: Concat): bool = true
+
 proc newConcat(model: var seq[Layer], axis: int) =
     var concat = new Concat
     
