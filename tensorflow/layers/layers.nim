@@ -10,7 +10,8 @@ import ./layer,
        ./loss,
        ./branch,
        ./concat,
-       ./inline
+       ./inline,
+       ./flatten
 
 export layer,
        dense,
@@ -24,5 +25,6 @@ export layer,
        loss,
        branch,
        concat,
-       inline
+       inline,
+       flatten
        
