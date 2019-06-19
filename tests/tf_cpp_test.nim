@@ -309,8 +309,9 @@ proc dropout_test() =
     echo outputs[0]
 
 dropout_test()
-]#
 
+]#
+#[
 proc branch_concat_test() = 
     var proto: seq[Layer] = @[]
 
@@ -326,11 +327,8 @@ proc branch_concat_test() =
 
     proto.newConcat(1)
 
-    proto.newBranch()
-    proto.newDense(20, 2)
-    proto.newActivation(Relu)
-    proto.newEndBranch()
-
+    proto.newBranch() #level 2
+    
     proto.newBranch()
     proto.newDense(20, 2)
     proto.newActivation(Relu)
@@ -353,8 +351,29 @@ proc branch_concat_test() =
 
     proto.newConcat(1)
 
-    #proto.newDense(10, 10)
-    #proto.newActivation(Softmax)
+    proto.newEndBranch() #level 2
+
+
+    proto.newBranch() #level 2
+
+    proto.newBranch()
+    proto.newDense(20, 1)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newDense(20, 1)
+    proto.newActivation(Relu)
+    proto.newEndBranch()
+
+    proto.newConcat(1)
+
+    proto.newEndBranch() #level 2
+
+    proto.newConcat(1)
+
+    proto.newDense(10, 10)
+    proto.newActivation(Softmax)
 
     let rt = newRootScope()
 
@@ -372,8 +391,8 @@ proc branch_concat_test() =
     echo outputs[0] 
 
 branch_concat_test()
+]#
 
-#[
 proc inception_resnet_v2_test() = 
     proc block35(proto: var seq[Layer], inChannels: int, scale: float) =
         var residual: Out
@@ -399,14 +418,64 @@ proc inception_resnet_v2_test() =
 
         proto.newConcat(3)
 
-        #[
-        proto.newConv2d(inChannels, inChannels, [1, 1], [1, 1])
+        proto.newConv2d(128, inChannels, [1, 1], [1, 1])
 
         proto.newInline(proc(rt: Scope, input: Out): Out = 
                             return rt.Add(residual, rt.Multiply(input, rt.Const(scale))))
 
         proto.newActivation(Relu)
-        ]#
+
+    proc block17(proto: var seq[Layer], inChannels: int, scale: float) =
+        var residual: Out
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            residual = input
+                            input)
+                            
+        proto.newBranch()
+        proto.newConv2d(inChannels, 192, [1, 1], [1, 1])
+        proto.newEndBranch()
+
+        proto.newBranch()
+        proto.newConv2d(inChannels, 128, [1, 1], [1, 1])
+        proto.newConv2d(128, 160, [1, 7], [1, 1])
+        proto.newConv2d(160, 192, [7, 1], [1, 1])
+        proto.newEndBranch()
+
+        proto.newConcat(3)
+
+        proto.newConv2d(384, inChannels, [1, 1], [1, 1])
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            return rt.Add(residual, rt.Multiply(input, rt.Const(scale))))
+
+        proto.newActivation(Relu)
+
+    proc block8(proto: var seq[Layer], inChannels: int, scale: float) =
+        var residual: Out
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            residual = input
+                            input)
+                            
+        proto.newBranch()
+        proto.newConv2d(inChannels, 192, [1, 1], [1, 1])
+        proto.newEndBranch()
+
+        proto.newBranch()
+        proto.newConv2d(inChannels, 192, [1, 1], [1, 1])
+        proto.newConv2d(192, 224, [1, 3], [1, 1])
+        proto.newConv2d(224, 256, [3, 1], [1, 1])
+        proto.newEndBranch()
+
+        proto.newConcat(3)
+
+        proto.newConv2d(448, inChannels, [1, 1], [1, 1])
+
+        proto.newInline(proc(rt: Scope, input: Out): Out = 
+                            return rt.Add(residual, rt.Multiply(input, rt.Const(scale))))
+
+        proto.newActivation(Relu)
 
     let rt = newRootScope()
 
@@ -445,7 +514,71 @@ proc inception_resnet_v2_test() =
     proto.newConcat(3)
 
     proto.block35(320, 0.17)
-    
+
+    proto.newBranch()
+    proto.newConv2d(320, 384, [3, 3], [1, 1])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newConv2d(320, 256, [1, 1], [1, 1])
+    proto.newConv2d(256, 256, [3, 3], [1, 1])
+    proto.newConv2d(256, 384, [3, 3], [1, 1])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newMaxPool([3, 3], [1, 1])
+    proto.newEndBranch()
+
+    proto.newConcat(3)
+
+    proto.block17(1088, 0.10)
+
+    proto.newBranch()
+
+    proto.newBranch()
+    proto.newConv2d(1088, 256, [1, 1], [1, 1])
+    proto.newConv2d(256, 384, [3, 3], [2, 2])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newConv2d(1088, 256, [1, 1], [1, 1])
+    proto.newConv2d(256, 288, [3, 3], [2, 2])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newConv2d(1088, 256, [1, 1], [1, 1])
+    proto.newConv2d(256, 288, [3, 3], [1, 1])
+    proto.newConv2d(288, 320, [3, 3], [2, 2])
+    proto.newEndBranch()
+
+    proto.newBranch()
+    proto.newMaxPool([3, 3], [2, 2])
+    proto.newEndBranch()
+
+    proto.newConcat(3)
+
+    proto.block8(2080, 0.2)
+
+    proto.newConv2d(2080, 1536, [1, 1], [1, 1])
+    proto.newAvgPool([8, 8], [3, 3])
+    proto.newReshape([1, 215040])
+    proto.newDropout(0.8)
+    proto.newDense(215040, 10) 
+
+    proto.newEndBranch()
+
+    proto.newBranch()
+
+    proto.newAvgPool([5, 5], [3, 3])
+    proto.newConv2d(1088, 128, [1, 1], [1, 1])
+    proto.newConv2d(128, 768, [5, 5], [1, 1])
+    proto.newReshape([1, 414720])
+    proto.newDense(414720, 10) 
+
+    proto.newEndBranch()
+
+    proto.newConcat(1)
+
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
     let model = rt.eval(input)
@@ -454,4 +587,3 @@ proc inception_resnet_v2_test() =
     echo outputs[0]
 
 inception_resnet_v2_test()
-]#
