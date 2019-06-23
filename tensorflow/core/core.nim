@@ -144,6 +144,18 @@ proc newTensor(s: float) : Tensor {.header: memory,
                                     header: tensor,
                                     importcpp: "[&](){ auto _x = std::make_shared<tensorflow::Tensor>(tensorflow::DT_FLOAT, tensorflow::TensorShape()); _x->scalar<float>()(0) = (float)#; return _x; }()".}
 
+type
+  Flat*[T] {.header: tensor,
+          importcpp: "tensorflow::TTypes<'0, 1>::Flat".} = object
+
+
+proc flat*(ten: Tensor, T: type): Flat[T] {.importcpp:"#->flat<'2>()".}
+
+proc size*[T](flat: Flat[T]): int {.importcpp:"#.size()".}
+
+proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"#(#)".}
+
+proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"#(#) = #".}
 
 ## TensorVec related definitions
 type
@@ -325,6 +337,9 @@ export TensorShape,
        Tensor,
        newTensor,
        shape,
+       Flat,
+       flat,
+       `[]=`,
        TensorVec,
        size,
        `[]`,
