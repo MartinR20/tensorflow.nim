@@ -7,6 +7,8 @@ const
   std_ops = "<tensorflow/cc/ops/standard_ops.h>"
   tensor = "<tensorflow/core/framework/tensor.h>"
   gradients = "<tensorflow/cc/framework/gradients.h>"
+  shape_inference = "<tensorflow/core/framework/shape_inference.h>"
+  op_kernel = "<tensorflow/core/framework/op_kernel.h>"
   memory = "<memory>"
   vector = "<vector>"
 
@@ -30,6 +32,8 @@ export client_session,
        std_ops,
        tensor,
        gradients,
+       shape_inference,
+       op_kernel,
        memory,
        vector,
        cppstring,

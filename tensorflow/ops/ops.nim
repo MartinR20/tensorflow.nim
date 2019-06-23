@@ -17,6 +17,7 @@ import ./generated/array_ops,
        ./generated/structs,
        ./generated/training_ops,
        ./generated/user_ops,
+       ./newop/newop,
        ./custom_ops,
        ./templates
 
@@ -39,5 +40,6 @@ export array_ops,
        structs,
        training_ops,
        user_ops,
+       newop,
        custom_ops,
        templates
