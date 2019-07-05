@@ -1,3 +1,7 @@
+const paths = readLines("../tensorflow/ops/newop/TFPaths.txt", 2)
+{.passC: paths[0].} 
+{.passL: paths[1].}
+
 import ../../core/core
 import ../../utils/utils
 import macros
@@ -25,8 +29,8 @@ type
                        importcpp: "tensorflow::KernelDefBuilder".} = object
 
 const
-    CPU: cstring = "CPU"
-    GPU: cstring = "GPU"
+    CPU: string = "CPU"
+    GPU: string = "GPU"
 
 template MakeOpType(name, cname, compute) = 
     type 
@@ -193,6 +197,7 @@ export CPU,
        deprecated,
        doc,
        tfexport,
+       tables,
        lookUp,
        InferenceContext,
        setShapeFn,
