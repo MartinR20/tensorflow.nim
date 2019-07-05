@@ -43,7 +43,7 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
 proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out): OutList, proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
-    var start: seq[int] # stack to track of index in branchFuncs
+    var start: seq[int] # stack to track index in branchFuncs
     var vars: seq[Variable]
 
     for layer in layers:
