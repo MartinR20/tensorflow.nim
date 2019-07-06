@@ -12,21 +12,34 @@ const
   memory = "<memory>"
   vector = "<vector>"
 
+  ## header definitions used across the library
+
 type 
   cppstring* {.header:"<string>", importcpp:"std::string".} = object
 
-proc newCPPString(str: ptr char): cppstring {.header:"<string>", importcpp:"std::string(#)".}
+    ## thin wrapper around a cppstring only for internal use
 
-proc newCPPString(str: string): cppstring = 
+proc newCPPString*(str: ptr char): cppstring {.header:"<string>", importcpp:"std::string(#)".}
+
+  ## create cppstring from char pointer
+
+proc newCPPString*(str: string): cppstring = 
   return newCPPString(unsafeAddr(str[0]))
+
+  ## create cppstring from nim string
 
 proc size*(str: cppstring): clong {.importcpp: "(long)#.size()".}
 
+  ## get the size of a cppstring
 
 proc c_str*(str: cppstring) : static[ptr cchar] {.importcpp: "(char*)#.c_str()".}
 
+  ## convert the cppstring to c char array
+
 proc print*(str: cppstring) {.header: "<iostream>",
                               importcpp: "std::cout << # << \"\\n\"".}
+
+  ## print the content of the cppstring
 
 export client_session,
        std_ops,

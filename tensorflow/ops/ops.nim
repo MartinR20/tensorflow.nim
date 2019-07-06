@@ -14,12 +14,9 @@ import ./generated/array_ops,
        ./generated/sparse_ops,
        ./generated/state_ops,
        ./generated/string_ops,
-       ./generated/structs,
        ./generated/training_ops,
        ./generated/user_ops,
-       ./newop/newop,
-       ./custom_ops,
-       ./templates
+       ./custom_ops
 
 export array_ops,
        candidate_sampling_ops,
@@ -37,9 +34,6 @@ export array_ops,
        sparse_ops,
        state_ops,
        string_ops,
-       structs,
        training_ops,
        user_ops,
-       newop,
-       custom_ops,
-       templates
+       custom_ops

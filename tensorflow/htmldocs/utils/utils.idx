@@ -1,0 +1,6 @@
+cppstring	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#cppstring	utils: cppstring	
+newCPPString	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,ptr.char	utils: newCPPString(str: ptr char): cppstring	
+newCPPString	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,string	utils: newCPPString(str: string): cppstring	
+size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#size,cppstring	utils: size(str: cppstring): clong	
+c_str	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#c_str,cppstring	utils: c_str(str: cppstring): static[ptr cchar]	
+print	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#print,cppstring	utils: print(str: cppstring)	

@@ -1,9 +1,7 @@
-import ./utils/utils,
-       ./core/core,
+import ./core/core,
        ./ops/ops,
        ./layers/layers
 
-export utils,
-       core,
+export core,
        ops,
        layers

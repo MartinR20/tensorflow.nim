@@ -1,0 +1,2 @@
+-I/home/notroot/.local/lib/python3.6/site-packages/tensorflow/include -D_GLIBCXX_USE_CXX11_ABI=0
+-L/home/notroot/.local/lib/python3.6/site-packages/tensorflow -ltensorflow_framework
