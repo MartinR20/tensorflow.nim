@@ -1,14 +1,23 @@
 import ../tensorflow/tensorflow
+import ../tensorflow/utils/utils
 import options
-#[
-proc tensorShape_test() = 
+import macros
+import times
+
+macro test(x: untyped): untyped =
+  let name = $name(x)
+  let node = nnkCommand.newTree(newIdentNode("echo"), parseStmt("\"\\n\" & $now() & \" \" & \"" & $name(x) & ":\""))
+  insert(body(x), 0, node)
+  x
+
+proc tensorShape_test() {.test.} = 
     let tshape = newTensorShape([2,2])
 
     echo tshape
 
 tensorShape_test()
 
-proc tensor_test() =
+proc tensor_test() {.test.} =
     let ten = newTensor([1,2,3,4,5,6])
     let scalar = newTensor(0)
 
@@ -20,7 +29,7 @@ proc tensor_test() =
 
 tensor_test()
 
-proc arraySlice_test() =
+proc arraySlice_test() {.test.} =
     let aSlice = newArraySlice(["text", "btext", "textc"])
 
     echo aSlice[0]
@@ -35,7 +44,7 @@ proc arraySlice_test() =
 
 arraySlice_test()
 
-proc basicOp_test() =
+proc basicOp_test() {.test.} =
     let rt = newRootScope()
 
     let a = rt.Const([[1.0,3.0],
@@ -49,7 +58,28 @@ proc basicOp_test() =
 
 basicOp_test()
 
-proc inputListOp_test() = 
+proc var_test() {.test.} =
+    let rt = newRootScope()
+
+    let v = rt.newVariable(rt.Const([[2.0,2.0], [2.0,2.0]]), newTensorShape([2, 2]), TF_FLOAT)
+
+    let m = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
+
+    let nv = rt.Assign(v, m)
+
+    let x = rt.runSession(nv)
+
+    let mm = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
+
+    let nnv = rt.Assign(v, mm)
+
+    let outputs = rt.runSession(nnv)
+
+    echo outputs[0]
+
+var_test()
+
+proc inputListOp_test() {.test.} =  
     let rt = newRootScope()
 
     let inpList = newInList($@[1], $@[2], $@[0], $@[4])
@@ -61,7 +91,7 @@ proc inputListOp_test() =
 
 inputListOp_test()
 
-proc attrOp_test() =
+proc attrOp_test() {.test.} = 
     let rt = newRootScope()
 
     let a = rt.Const([[0,1,2,3],[3,2,1,0]])
@@ -73,7 +103,7 @@ proc attrOp_test() =
 
 attrOp_test()
 
-proc rawDense_test() = 
+proc rawDense_test() {.test.} =  
     let rt = newRootScope()
 
     let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
@@ -93,36 +123,32 @@ proc rawDense_test() =
 
 rawDense_test()
 
-proc dense_test() = 
+proc dense_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newDense(10, 20)
-    proto.newActivation(Relu)
-    proto.newDense(20, 30)
-    proto.newActivation(Relu)
-    proto.newDense(30, 20)
     proto.newActivation(Relu)
     proto.newDense(20, 10)
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
-
-    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
-
-    echo proto
-
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let model = rt.fit(input, rt.ZerosLike(input))
+    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    let outputs = rt.runSession(rt.eval(input))
-    echo outputs[0] 
+    var training = rt.fit(input, rt.ZerosLike(input))
+    
+    for _ in 0..20:
+        discard rt.runSession(training)
+
+    let test = rt.eval(input)
+    let output = rt.runSession(test)
+
+    echo output[0]
 
 dense_test()
 
-proc AE_test() = 
+proc AE_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newDense(10, 4)
@@ -138,8 +164,6 @@ proc AE_test() =
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    echo proto
-
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
     let model = rt.fit(input, rt.ZerosLike(input))
@@ -149,7 +173,7 @@ proc AE_test() =
 
 AE_test()
 
-proc conv2d_test() = 
+proc conv2d_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newConv2d(1, 2, [3, 3], [2, 2])
@@ -161,8 +185,6 @@ proc conv2d_test() =
     proto.newReshape([1, 64])
     proto.newDense(64,64)
     proto.newActivation(Softmax)
-
-    echo proto
 
     let rt = newRootScope()
 
@@ -199,12 +221,10 @@ proc conv2d_test() =
 
 conv2d_test()
 
-proc maxpool_test() = 
+proc maxpool_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newMaxPool([3, 3], [3, 3])
-
-    echo proto
 
     let rt = newRootScope()
 
@@ -236,12 +256,10 @@ proc maxpool_test() =
 
 maxpool_test()
 
-proc avgpool_test() = 
+proc avgpool_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newAvgPool([3, 3], [3, 3])
-
-    echo proto
 
     let rt = newRootScope()
 
@@ -273,12 +291,10 @@ proc avgpool_test() =
 
 avgpool_test()
 
-proc dropout_test() = 
+proc dropout_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newDropout(0.4)
-
-    echo proto
 
     let rt = newRootScope()
 
@@ -310,9 +326,7 @@ proc dropout_test() =
 
 dropout_test()
 
-]#
-#[
-proc branch_concat_test() = 
+proc branch_concat_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
     proto.newBranch()
@@ -381,8 +395,6 @@ proc branch_concat_test() =
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    echo proto
-
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
     let model = rt.eval(input)
@@ -391,9 +403,8 @@ proc branch_concat_test() =
     echo outputs[0] 
 
 branch_concat_test()
-]#
-
-proc inception_resnet_v2_test() = 
+#[
+proc inception_resnet_v2_test() {.test.} =  
     proc block35(proto: var seq[Layer], inChannels: int, scale: float) =
         var residual: Out
 
@@ -513,7 +524,8 @@ proc inception_resnet_v2_test() =
     
     proto.newConcat(3)
 
-    proto.block35(320, 0.17)
+    for i in 0..9:
+        proto.block35(320, 0.17)
 
     proto.newBranch()
     proto.newConv2d(320, 384, [3, 3], [1, 1])
@@ -530,8 +542,9 @@ proc inception_resnet_v2_test() =
     proto.newEndBranch()
 
     proto.newConcat(3)
-
-    proto.block17(1088, 0.10)
+    
+    for i in 0..19:
+        proto.block17(1088, 0.10)
 
     proto.newBranch()
 
@@ -557,7 +570,8 @@ proc inception_resnet_v2_test() =
 
     proto.newConcat(3)
 
-    proto.block8(2080, 0.2)
+    for i in 0..9:
+        proto.block8(2080, 0.2)
 
     proto.newConv2d(2080, 1536, [1, 1], [1, 1])
     proto.newAvgPool([8, 8], [3, 3])
@@ -587,3 +601,4 @@ proc inception_resnet_v2_test() =
     echo outputs[0]
 
 inception_resnet_v2_test()
+]#
