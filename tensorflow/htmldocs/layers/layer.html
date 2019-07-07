@@ -817,8 +817,7 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#Layer"
     title="Layer = ref object of RootObj
-  train*: seq[Variable] ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
-                      ## Variables append them to the train sequence."><wbr />Layer<span class="attachedType"></span></a></li>
+  train*: seq[Variable]"><wbr />Layer<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -869,12 +868,11 @@ function main() {
 <dl class="item">
 <a id="Layer"></a>
 <dt><pre><a href="layer.html#Layer"><span class="Identifier">Layer</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">RootObj</span>
-  <span class="Identifier">train</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">Variable</span><span class="Other">]</span> <span class="Comment">## Base Layer to inherit from when creating a new Layer. If your layer contains trainable </span>
-                      <span class="Comment">## Variables append them to the train sequence.</span>
-  </pre></dt>
+  <span class="Identifier">train</span><span class="Operator">*</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">Variable</span><span class="Other">]</span>
+</pre></dt>
 <dd>
 
-
+Base Layer to inherit from when creating a new Layer. If your layer contains trainable Variables append them to the train sequence.
 
 </dd>
 
@@ -949,7 +947,7 @@ The isJoin method is now required to be overloaded for every custom JoinLayer. T
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-07 13:50:25 UTC</small>
+        <small>Made with Nim. Generated: 2019-07-07 13:59:06 UTC</small>
       </div>
     </div>
   </div>

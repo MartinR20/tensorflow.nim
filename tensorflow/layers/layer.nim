@@ -10,10 +10,10 @@ import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Layer* = ref object of RootObj
-    train*: seq[Variable]
-
     ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
     ## Variables append them to the train sequence.
+
+    train*: seq[Variable]
 
 method `$`*(layer: Layer): string {.base.} = "Layer"
 
