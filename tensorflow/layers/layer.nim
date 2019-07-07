@@ -1,5 +1,31 @@
 ## This is the base Layer type everything else inherits from. It defines how all layers behave by the
 ## supplied methods.
+##
+## Example:
+##
+## .. code:: nim
+##
+##    type AddValue = ref object of Layer
+##        value: float
+##    
+##    method `$`(layer: AddValue): string = "AddValue"
+##    
+##    method make(layer: AddValue, root: Scope): proc(rt: Scope, input: Out): Out = 
+##        # in this context use root as Scope
+##        # this is only the setup context preparing your computation
+##        let value = root.Const(addvalue.value)
+##    
+##        return proc(rt: Scope, input: Out): Out = 
+##                    # here use rt as Scope
+##                    # this is the proc that will be used in the fit/eval methods
+##                    return rt.Add(input, value)
+##    
+##    proc newAddOne*(model: var seq[Layer], value: float) =
+##        var addvalue = new AddValue
+##        
+##        addvalue.value = value
+##    
+##        model.add(value)
 
 import sequtils
 import ../ops/ops
