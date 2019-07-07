@@ -1,4 +1,5 @@
-## This is the base Layer type everything else inherits from defining with its methods how all layers behave.
+## This is the base Layer type everything else inherits from. It defines with how all layers behave by the
+## supplied methods.
 
 import sequtils
 import ../ops/ops
@@ -11,8 +12,8 @@ import ./variable
 type Layer* = ref object of RootObj
     train*: seq[Variable]
 
-        ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
-        ## Variables append them to the train sequence.
+    ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
+    ## Variables append them to the train sequence.
 
 method `$`*(layer: Layer): string {.base.} = "Layer"
 

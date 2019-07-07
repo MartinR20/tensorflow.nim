@@ -1,4 +1,4 @@
-## The layers api is keras like approach to building models giving you the opportunity for fast model 
+## The layers api is a keras like approach to building models giving you the opportunity for fast model 
 ## building and prototyping. Beware this interface will recieve drastic changes.
 ##
 ## .. code:: nim

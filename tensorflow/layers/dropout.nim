@@ -1,4 +1,4 @@
-## The Dropout Layer basically turns on and off neurons at random with the given rate. Which basically means
+## The Dropout Layer basically turns on and off neurons at random with the given rate. Which means
 ## that at a dropout rate of 0.4 40% of the neurons are "shutoff".
 ##
 ## Example:

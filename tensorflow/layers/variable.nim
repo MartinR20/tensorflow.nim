@@ -1,5 +1,5 @@
 ## A Variable is used to create memory that is persitent across sessions. Meaning they don't lose
-## their values across different Sessions. This important for everything that is trainable like 
+## their values across different Sessions. This is important for everything that is trainable like 
 ## weights.
 ##
 ## Example:

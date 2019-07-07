@@ -1,5 +1,5 @@
 ## The Loss type is the base type for all loss functions. If you would like to create your own just inherit from it
-## and overload the make method as well as creating a constructor.
+## and overload the make method as well as create a constructor.
 ##
 
 import options

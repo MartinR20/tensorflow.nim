@@ -1,5 +1,5 @@
 ## The Conv2d Layer applies a 2D convolution operation with the given inChannels, outChannels, 
-## kernelsize, stride and padding
+## kernelsize, stride and padding.
 ##
 ## Example:
 ##

@@ -1,9 +1,9 @@
-## The Inline and InlineJoin Layer are made to give the opportuinity of adding custom operations not in
+## The Inline and InlineJoin Layer are made to give you the opportuinity of adding custom operations not in
 ## the layers api. 
 ##
 ## In case of the Inline Layer you pass a procedure with the given signature `proc(rt: Scope, input: Out): Out`.
-## The rt value is as usual the current scope and the input value is the output from the last layer. So to 
-## perform an easy multiplication you would do something like the following:
+## The rt value is the current scope and the input value is the output from the last layer. So to perform an 
+## easy multiplication you would do something like the following:
 ##
 ## .. code:: nim
 ##

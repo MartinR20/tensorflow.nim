@@ -1,5 +1,5 @@
 ## The Optim type is the base type for all optimizers. If you would like to create your own just inherit from it
-## and overload the make method as well as creating a constructor. For now only the Adam optimizer is available
+## and overload the make method as well as create a constructor. For now only the Adam optimizer is available
 ## but others are following.
 ##
 
