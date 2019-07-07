@@ -1,2 +1,1 @@
-AvgPool	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/avgpool.html#AvgPool	avgpool: AvgPool	
-`$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/avgpool.html#$.e,AvgPool	avgpool: `$`(layer: AvgPool): string	
+newAvgPool	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/avgpool.html#newAvgPool,seq[T][Layer],array[,int],array[,int]	avgpool: newAvgPool(model: var seq[Layer]; kernel: array[0 .. 1, int];\n           strides: array[0 .. 1, int]; padding = none(string);\n           dataFormat = none(string))	

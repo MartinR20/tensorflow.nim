@@ -1,3 +1,5 @@
+## This is the base Layer type everything else inherits from defining with its methods how all layers behave.
+
 import sequtils
 import ../ops/ops
 import ../core/core
@@ -9,20 +11,38 @@ import ./variable
 type Layer* = ref object of RootObj
     train*: seq[Variable]
 
+        ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
+        ## Variables append them to the train sequence.
+
 method `$`*(layer: Layer): string {.base.} = "Layer"
 
-method make(layer: Layer, root: Scope): (proc(rt: Scope, input: Out): Out) {.base.} = 
+    ## String conversion method to give your Layer a string representation when the model is printed.
+
+method make*(layer: Layer, root: Scope): (proc(rt: Scope, input: Out): Out) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for your Layer")
 
-method makeJoin(layer: Layer, root: Scope): (proc(rt: Scope, input: OutList): Out) {.base.} = 
+    ## The make method is intended for all the setup of your layer like creating variables or 
+    ## doing operations that require a scope. This method should be overloaded for all non JoinLayers.
+
+method makeJoin*(layer: Layer, root: Scope): (proc(rt: Scope, input: OutList): Out) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `makeJoin` for your Layer or use a Joinfunction when branching")
+
+    ## The makeJoin method is intended for all the setup of your JoinLayer that requires a scope. 
+    ## This method should be overloaded for all JoinLayers.
 
 method isBranch(layer: Layer): bool {.base.} = false
 
-method isJoin(layer: Layer): bool {.base.} = false
+    ## The isBranch method indicates wether a layer is a branch layer.
+
+method isJoin*(layer: Layer): bool {.base.} = false
+
+    ## The isJoin method is now required to be overloaded for every custom JoinLayer. This will change in the
+    ## future so that this method becomes obsolete and there will instead exsist a JoinLayer to inherit from.
 
 method getBranchSwitch(layer: Layer): bool {.base.} = 
     raise newException(ValueError, "Trying to call `getBranchSwitch` for none branchlayer")
+
+    ## The getBranchSwitch method indicates wether a branch layer opens or closes a branch.
 
 proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]], 
                           joinFunc: proc(rt: Scope, input: OutList): Out): proc(rt: Scope, input: Out): Out{.closure.} =
@@ -39,6 +59,8 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
                                 branchOut.add(outp)
 
                             return joinFunc(rt, newOutList(branchOut))
+
+    ## a mini compile method for branches
 
 proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out): OutList, proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
@@ -118,6 +140,23 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             return newOutList(output)
 
         return (fit,eval)
+
+    ## The compile procedure is the function that turns your model into an actual sequence of operations and returns
+    ## a fit and eval method to train your model and afterward evaluate its performence. Beware this interface will
+    ## recieve drastic changes.
+    ##
+    ## Example:
+    ##
+    ## .. code:: nim
+    ##
+    ##    var proto: seq[Layer] = @[]
+    ##
+    ##    proto.newDense(10, 10)
+    ##    proto.newActivation(Softmax)
+    ##    
+    ##    let rt = newRootScope()
+    ##    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    ##
 
 export Layer,
        `$`,

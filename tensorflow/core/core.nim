@@ -1,3 +1,6 @@
+## The core module implements all the necessary ground work needed to construct a computation graph interface
+## with and manipulate tensors. 
+
 import ../utils/utils
 import sequtils
 import typeinfo
@@ -15,7 +18,7 @@ type
 proc inewTensorShape(dims: openArray[int], len: int, shape: TensorShape) {.header: tensor,
                                                                            importcpp: "tensorflow::PartialTensorShape::MakePartialShape(#, #, &#)".}
   ## C++ Constructor Wrapper creating a new TensorShape.
-
+  ##
   ## Args:
   ##  dims: Array of ints describing the dimensions of the Tensor.
   ##  len: Length of the dims Array.

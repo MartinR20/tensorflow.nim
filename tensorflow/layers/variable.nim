@@ -1,16 +1,38 @@
+## A Variable is used to create memory that is persitent across sessions. Meaning they don't lose
+## their values across different Sessions. This important for everything that is trainable like 
+## weights.
+##
+## Example:
+##
+## .. code:: nim
+##    
+##    let rt = newRootScope()
+##
+##    rt.newVariable(rt.Const(0), newTensorShape([]), TF_FLOAT)
+
 import ../core/core
 import ../ops/ops
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Variable* = object
+type Variable = ref object
   vvar*: Out
   shape*: TensorShape
 
-proc newVariable(root: Scope, value: Out, shape: TensorShape, dtype: DType): Variable =
-  let rref = root.Variable(shape, dtype)
-  let vvar = root.Assign(rref, value)
+proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType): Variable =
+  let v = new Variable
 
-  return Variable(vvar: vvar, shape: shape)
+  let rref = root.Variable(shape, dtype)
+
+  v.shape = shape
+  v.vvar = root.Assign(rref, value)
+
+  return v
+
+proc Assign(rt: Scope, v: Variable, value: Out): Out = 
+  let x = rt.Assign(v.vvar, value)
+  v.vvar = x
+  return x
 
 export Variable,
-       newVariable
+       newVariable,
+       Assign

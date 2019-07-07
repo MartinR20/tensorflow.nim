@@ -1,4 +1,3 @@
-Inline	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#Inline	inline: Inline	
-`$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#$.e,Inline	inline: `$`(layer: Inline): string	
-InlineJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#InlineJoin	inline: InlineJoin	
-`$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#$.e,InlineJoin	inline: `$`(layer: InlineJoin): string	
+newInline	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#newInline,seq[T][Layer],proc(Scope,Out)	inline: newInline(model: var seq[Layer]; inlineFunc: proc (rt: Scope; input: Out): Out)	
+isJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#isJoin.e,InlineJoin	inline: isJoin(layer: InlineJoin): bool	
+newInlineJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/inline.html#newInlineJoin,seq[T][Layer],proc(Scope,OutList)	inline: newInlineJoin(model: var seq[Layer];\n              inlineFunc: proc (rt: Scope; input: OutList): Out)	

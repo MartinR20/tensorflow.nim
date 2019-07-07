@@ -1,0 +1,7 @@
+Optim	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#Optim	optim: Optim	
+make	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#make.e,Optim,Scope	optim: make(optim: Optim; root: Scope): (proc (rt: Scope; input: seq[Variable]; grads: OutList): OutList)	
+newAdadelta	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdadelta	optim: newAdadelta(lr, rho, epsilon, decay = none(float)): Adadelta	
+newAdagrad	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdagrad	optim: newAdagrad(lr, epsilon, decay = none(float)): Adagrad	
+newAdam	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdam	optim: newAdam(lr, beta1, beta2, epsilon, decay = none(float); amsgrad = none(bool)): Adam	
+newRMSProp	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newRMSProp	optim: newRMSProp(lr, rho, epsilon, decay = none(float)): RMSProp	
+newSGD	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newSGD	optim: newSGD(lr, momentum, decay = none(float); nesterov = none(bool)): SGD	

@@ -1,3 +1,14 @@
+## The Dense Layer is a fully connected layer with given inFeatures and outFeatures.
+##
+## Example:
+##
+## .. code:: nim
+##
+##    var proto: seq[Layer] = @[]
+##
+##    # a new Dense Layer with 10 input features and 20 output features.
+##    proto.newDense(10, 20)
+
 import options
 import ../ops/ops
 import ../core/core
@@ -5,12 +16,12 @@ import ./layer
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Dense* = ref object of Layer
+type Dense = ref object of Layer
     inFeatures*: int
     outFeatures*: int
     bias*: bool
 
-method `$`*(layer: Dense): string = "Dense(in:" & $layer.inFeatures & 
+method `$`(layer: Dense): string = "Dense(in:" & $layer.inFeatures & 
                                         ", out:" & $layer.outFeatures & ")"
 
 method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out = 
@@ -31,7 +42,7 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
         return proc(rt: Scope, input: Out): Out = 
                     rt.Add(rt.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
 
-proc newDense(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = none(bool)) =
+proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = none(bool)) =
     var dense = new Dense
     
     dense.inFeatures = inFeatures

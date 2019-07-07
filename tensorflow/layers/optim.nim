@@ -1,21 +1,31 @@
+## The Optim type is the base type for all optimizers. If you would like to create your own just inherit from it
+## and overload the make method as well as creating a constructor. For now only the Adam optimizer is available
+## but others are following.
+##
+
 import options
 import ../ops/ops
 import ../core/core
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Optim = ref object of RootObj
+type Optim* = ref object of RootObj
 
-method make(optim: Optim, root: Scope): (proc(rt: Scope, input: seq[Variable], grads: OutList): OutList) {.base.} = 
+        ## The base type for all optimizers.
+
+method make*(optim: Optim, root: Scope): (proc(rt: Scope, input: seq[Variable], grads: OutList): OutList) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for your optim")
 
-type Adadelta = ref object of Optim
-    lr: float
-    rho: float
-    epsilon: float
-    decay: float
+    ## The make method is intended for all the setup of your optimizer that requires a scope and should
+    ## be overloaded for all optimizers functions.
 
-proc newAdadelta(lr, rho, epsilon, decay = none(float)): Adadelta =
+type Adadelta = ref object of Optim
+    lr*: float
+    rho*: float
+    epsilon*: float
+    decay*: float
+
+proc newAdadelta*(lr, rho, epsilon, decay = none(float)): Adadelta =
     let adadelta = new Adadelta
 
     if lr.isSome:
@@ -41,11 +51,11 @@ proc newAdadelta(lr, rho, epsilon, decay = none(float)): Adadelta =
     return adadelta
 
 type Adagrad = ref object of Optim
-    lr: float
-    epsilon: float
-    decay: float
+    lr*: float
+    epsilon*: float
+    decay*: float
 
-proc newAdagrad(lr, epsilon, decay = none(float)): Adagrad =
+proc newAdagrad*(lr, epsilon, decay = none(float)): Adagrad =
     let adagrad = new Adagrad
 
     if lr.isSome:
@@ -67,16 +77,16 @@ proc newAdagrad(lr, epsilon, decay = none(float)): Adagrad =
 
 
 type Adam = ref object of Optim
-    lr: float
-    beta1: float
-    beta2: float
-    epsilon: float
-    decay: float
-    amsgrad: bool
-    m: seq[Out]
-    v: seq[Out]
+    lr*: float
+    beta1*: float
+    beta2*: float
+    epsilon*: float
+    decay*: float
+    amsgrad*: bool
+    m*: seq[Out]
+    v*: seq[Out]
 
-proc newAdam(lr, beta1, beta2, epsilon, decay = none(float), amsgrad = none(bool)): Adam =
+proc newAdam*(lr, beta1, beta2, epsilon, decay = none(float), amsgrad = none(bool)): Adam =
     let adam = new Adam
 
     if lr.isSome:
@@ -135,12 +145,12 @@ method make(optim: Adam, root: Scope): (proc(rt: Scope, input: seq[Variable], gr
                 return newOutList(outps)
 
 type RMSProp = ref object of Optim
-    lr: float
-    rho: float
-    epsilon: float
-    decay: float
+    lr*: float
+    rho*: float
+    epsilon*: float
+    decay*: float
 
-proc newRMSProp(lr, rho, epsilon, decay = none(float)): RMSProp =
+proc newRMSProp*(lr, rho, epsilon, decay = none(float)): RMSProp =
     let rmsprop = new RMSProp
 
     if lr.isSome:
@@ -167,12 +177,12 @@ proc newRMSProp(lr, rho, epsilon, decay = none(float)): RMSProp =
 
 
 type SGD = ref object of Optim
-    lr: float
-    momentum: float
-    decay: float
-    nesterov: bool
+    lr*: float
+    momentum*: float
+    decay*: float
+    nesterov*: bool
 
-proc newSGD(lr, momentum, decay = none(float), nesterov = none(bool)): SGD = 
+proc newSGD*(lr, momentum, decay = none(float), nesterov = none(bool)): SGD = 
     let sgd = new SGD
 
     if lr.isSome:

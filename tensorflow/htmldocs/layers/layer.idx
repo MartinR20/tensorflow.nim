@@ -1,2 +1,6 @@
 Layer	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#Layer	layer: Layer	
 `$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#$.e,Layer	layer: `$`(layer: Layer): string	
+make	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#make.e,Layer,Scope	layer: make(layer: Layer; root: Scope): (proc (rt: Scope; input: Out): Out)	
+makeJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#makeJoin.e,Layer,Scope	layer: makeJoin(layer: Layer; root: Scope): (proc (rt: Scope; input: OutList): Out)	
+isJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#isJoin.e,Layer	layer: isJoin(layer: Layer): bool	
+compile	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#compile,seq[T][Layer],Scope,Loss,Optim	layer: compile(layers: seq[Layer]; root: Scope; loss: Loss; optim: Optim): (\n    proc (rt: Scope; X, Y: Out): OutList, proc (rt: Scope; X: Out): Out)	

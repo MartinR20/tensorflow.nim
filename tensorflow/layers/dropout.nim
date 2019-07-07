@@ -1,14 +1,26 @@
+## The Dropout Layer basically turns on and off neurons at random with the given rate. Which basically means
+## that at a dropout rate of 0.4 40% of the neurons are "shutoff".
+##
+## Example:
+##
+## .. code:: nim
+##
+##    var proto: seq[Layer] = @[]
+##
+##    # a Dropoutlayer with a dropoutrate of 0.4.
+##    proto.newDropout(0.4)
+
 import options
 import ../ops/ops
 import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Dropout* = ref object of Layer
+type Dropout = ref object of Layer
     rate*: float
     shape*: Out
 
-method `$`*(layer: Dropout): string = "Dropout(rate:" & $layer.rate & ")"
+method `$`(layer: Dropout): string = "Dropout(rate:" & $layer.rate & ")"
 
 method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out = 
         let rrate = root.Const(layer.rate)
@@ -23,7 +35,7 @@ method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out =
 
                     return rt.Multiply(rt.Multiply(input, scale), rt.Cast(mask, TF_FLOAT))
 
-proc newDropout(model: var seq[Layer], rate: float) =
+proc newDropout*(model: var seq[Layer], rate: float) =
     var dropout = new Dropout
 
     dropout.rate = rate    

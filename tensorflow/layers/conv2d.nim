@@ -1,12 +1,25 @@
+## The Conv2d Layer applies a 2D convolution operation with the given inChannels, outChannels, 
+## kernelsize, stride and padding
+##
+## Example:
+##
+## .. code:: nim
+##
+##    var proto: seq[Layer] = @[]
+##
+##    # convolution with 3 inChannels, 3 outChannels, a 3x3 kernelsize and a 2x2 stride
+##    proto.newConv2d(3, 3, [3, 3], [2, 2])
+
 import options
 import ../utils/utils
 import ../ops/ops
+import ../ops/generated/structs
 import ../core/core
 import ./layer
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Conv2d* = ref object of Layer
+type Conv2d = ref object of Layer
     inChannels: int
     outChannels: int
     kernel: array[0..1, int]
@@ -16,7 +29,7 @@ type Conv2d* = ref object of Layer
     dilations: array[0..3, cint]
     useCudnnOnGpu: bool
     
-method `$`*(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels & 
+method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels & 
                                              ", out:" & $layer.outChannels & 
                                              ", kernel:" & $layer.kernel & 
                                              ", strides:" & $layer.strides[1..^2] & ")"
@@ -42,15 +55,15 @@ method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out =
                                  padding, 
                                  attrs)
 
-proc newConv2d(model: var seq[Layer], 
-               inChannels: int,
-               outChannels: int,
-               kernel: array[0..1, int], 
-               strides: array[0..1, int], 
-               padding= none(string), 
-               dataFormat = none(string), 
-               dilations = none(array[0..1, int]), 
-               useCudnnOnGpu = none(bool)) =
+proc newConv2d*(model: var seq[Layer], 
+                inChannels: int,
+                outChannels: int,
+                kernel: array[0..1, int], 
+                strides: array[0..1, int], 
+                padding= none(string), 
+                dataFormat = none(string), 
+                dilations = none(array[0..1, int]), 
+                useCudnnOnGpu = none(bool)) =
 
     var conv2d = new Conv2d
 

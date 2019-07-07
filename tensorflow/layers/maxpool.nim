@@ -1,17 +1,29 @@
+## The MaxPool Layer performs a max pooling operation with the given kernelsize, stride and pooling.
+##
+## Example:
+##
+## .. code:: nim
+##    
+##    var proto: seq[Layer] = @[]
+##
+##    # max pooling with kernelsize 3x3 and stride 3x3
+##    proto.newMaxPool([3, 3], [3, 3])
+
 import options
 import ../utils/utils
 import ../ops/ops
+import ../ops/generated/structs
 import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type MaxPool* = ref object of Layer
+type MaxPool = ref object of Layer
     kernel: array[0..3, cint]
     strides: array[0..3, cint]
     padding: string
     dataFormat: string
 
-method `$`*(layer: MaxPool): string = "MaxPool(kernel:" & $layer.kernel[1..^2] & 
+method `$`(layer: MaxPool): string = "MaxPool(kernel:" & $layer.kernel[1..^2] & 
                                             ", strides:" & $layer.strides[1..^2] & ")"
 
 method make(layer: MaxPool, root: Scope): proc(rt: Scope, input: Out): Out = 
@@ -31,7 +43,7 @@ method make(layer: MaxPool, root: Scope): proc(rt: Scope, input: Out): Out =
                                  padding, 
                                  attrs)
 
-proc newMaxPool(model: var seq[Layer], 
+proc newMaxPool*(model: var seq[Layer], 
                 kernel: array[0..1, int], 
                 strides: array[0..1, int], 
                 padding= none(string), 

@@ -1,2 +1,1 @@
-Dropout	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dropout.html#Dropout	dropout: Dropout	
-`$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dropout.html#$.e,Dropout	dropout: `$`(layer: Dropout): string	
+newDropout	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dropout.html#newDropout,seq[T][Layer],float	dropout: newDropout(model: var seq[Layer]; rate: float)	
