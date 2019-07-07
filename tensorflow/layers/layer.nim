@@ -1,4 +1,4 @@
-## This is the base Layer type everything else inherits from. It defines with how all layers behave by the
+## This is the base Layer type everything else inherits from. It defines how all layers behave by the
 ## supplied methods.
 
 import sequtils
