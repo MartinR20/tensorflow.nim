@@ -391,6 +391,18 @@ proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor {.header: memory,
                                                        header: tensor,
                                                        importcpp: "std::make_shared<tensorflow::Tensor>(std::move(#[#]))".}
 
+iterator items*(tens: TensorVec): Tensor =
+  var i: cint = 0
+  while i <= tens.size()-1:
+    yield tens[i]
+    inc i
+
+  ## Iterator over the Tensor objects a TensorVec is holding.
+  ## 
+  ## Args:
+  ##   tens: The TensorVec it is applied on.
+  ## Returns:
+  ##   The Tensor objects one by one.
 
 ## Output related definitions
 type
