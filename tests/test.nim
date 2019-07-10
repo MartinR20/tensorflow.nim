@@ -136,15 +136,9 @@ proc dense_test() {.test.} =
 
     let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
 
-    var training = rt.fit(input, rt.ZerosLike(input))
-    
-    for _ in 0..20:
-        discard rt.runSession(training)
+    let zeros = rt.ZerosLike(input)
 
-    let test = rt.eval(input)
-    let output = rt.runSession(test)
-
-    echo output[0]
+    rt.fit(input, zeros, 3)
 
 dense_test()
 
@@ -166,10 +160,7 @@ proc AE_test() {.test.} =
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let model = rt.fit(input, rt.ZerosLike(input))
-
-    let outputs = rt.runSession(rt.eval(input))
-    echo outputs[0] 
+    rt.fit(input, rt.ZerosLike(input), 5)
 
 AE_test()
 
@@ -209,15 +200,8 @@ proc conv2d_test() {.test.} =
 
     var (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let zeros = rt.ZerosLike(rt.Const(newTensor(TF_FLOAT, newTensorShape([1,64]))))
-    var model = rt.fit(input, zeros)
-
-    for i in 0..3:
-        model = rt.fit(input, zeros)
-        discard rt.runSession(model)
-
-    let outputs = rt.runSession(rt.eval(input))
-    echo outputs[0]
+    let zeros = rt.ZerosLike(input)
+    rt.fit(input, zeros, 3)
 
 conv2d_test()
 
@@ -403,6 +387,7 @@ proc branch_concat_test() {.test.} =
     echo outputs[0] 
 
 branch_concat_test()
+
 #[
 proc inception_resnet_v2_test() {.test.} =  
     proc block35(proto: var seq[Layer], inChannels: int, scale: float) =

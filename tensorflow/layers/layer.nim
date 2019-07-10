@@ -89,7 +89,7 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
 
     ## a mini compile method for branches
 
-proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out): OutList, proc(rt: Scope, X: Out): Out) = 
+proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out, epochs: int), proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
@@ -127,7 +127,7 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             else:
                 funcs.add(ffunc)
 
-        vars = vars.concat(layer.train)  
+        vars = vars.concat(layer.train)
 
     proc eval(rt: Scope, X: Out): Out{.closure.} =
         var outp = funcs[0](rt, X)
@@ -140,31 +140,41 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
     if vars.len == 0:
         echo "Warning: No Layer with trainable Variables added to model fit method only a dummy!"
 
-        proc fit(rt: Scope, X, Y: Out): OutList{.closure.} = 
+        proc fit(rt: Scope, X, Y: Out, epochs: int) {.closure.} = 
             raise newException(ValueError, "Attempted to use unusable dummy method!")
 
         return (fit, eval)
     
     else:
-        let varsAsOutList = newOutList(vars.map(proc(vvar: Variable): Out = vvar.vvar))
         let opt = optim.make(root)
         let lloss = loss.make(root)
 
-        proc fit(rt: Scope, X, Y: Out): OutList{.closure.} =
-            var outp = eval(rt, X)
+        proc fit(rt: Scope, X, Y: Out, epochs: int) {.closure.} =
+            for i in 0..epochs-1:
+                var outp = eval(rt, X)
 
-            outp = lloss(rt, outp, Y)
+                outp = lloss(rt, outp, Y)
 
-            var grads: OutList
-            rt.addSymbolicGradients(outp, varsAsOutList, grads)
+                let varsAsOutList = newOutList(vars.map(proc(vvar: Variable): Out = vvar.vvar))
 
-            let update = opt(rt, vars, grads)
-            var output: seq[Out]
+                var grads: OutList
+                rt.addSymbolicGradients(outp, varsAsOutList, grads)
 
-            for i in 0..update.size()-1:
-                output.add(rt.Assign(vars[i].vvar, update[i]))
+                let update = opt(rt, vars, grads)
 
-            return newOutList(output)
+                for i in 0..vars.len-1:
+                    discard rt.Assign(vars[i], update[i])
+
+            let varsAsOutList = newOutList(vars.map(proc(vvar: Variable): Out = vvar.vvar))
+
+            let output = rt.runSession(varsAsOutList)
+            
+            echo "vars: "
+            for o in output:
+                echo o
+
+            echo "eval: "
+            echo rt.runSession(rt.eval(X))[0]
 
         return (fit,eval)
 
