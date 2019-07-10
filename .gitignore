@@ -6,3 +6,6 @@
 
 # Unignore all dirs
 !*/
+
+include
+lib
