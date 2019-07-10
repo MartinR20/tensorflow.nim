@@ -1,5 +1,11 @@
-{.passC: "-isystem /usr/local/include/tensorflow -isystem /usr/local/include/tensorflow/bazel-genfiles -isystem /usr/local/include/tensorflow/bazel-genfiles/genfiles -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/absl -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/eigen -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/gemmlowp -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/downloads/nsync/public -isystem /usr/local/include/tensorflow/tensorflow/contrib/makefile/gen/protobuf-host/include -std=c++11".} 
-{.passL: "-Wl,-rpath,/usr/local/lib/tensorflow_cc /usr/local/lib/tensorflow_cc/libtensorflow_cc.so -ldl -lpthread /usr/local/lib/tensorflow_cc/libprotobuf.a".}
+{.passC: "-I../tensorflow/utils/include/tensorflow " &
+         "-I../tensorflow/utils/include/genfiles " &
+         "-I../tensorflow/utils/include/absl " &
+         "-I../tensorflow/utils/include/eigen " &
+         "-I../tensorflow/utils/include/protobuf " &
+         "-std=c++11".} 
+#TODO: librarys have to be installed into /usr/local/lib
+{.passL: "-L/usr/local/lib -ltensorflow_cc -lprotobuf -ldl -lpthread".}
 {.hint[XDeclaredButNotUsed]:off.}
 
 const
