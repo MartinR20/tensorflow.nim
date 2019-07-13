@@ -1,11 +1,14 @@
-{.passC: "-I../include/tensorflow " &
-         "-I../include/genfiles " &
-         "-I../include/absl " &
-         "-I../include/eigen " &
-         "-I../include/protobuf " &
+when defined linux:
+  const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/include/"
+  const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
+
+{.passC: "-I" & includeDir & "tensorflow " &
+         "-I" & includeDir & "genfiles " &
+         "-I" & includeDir & "absl " &
+         "-I" & includeDir & "eigen " &
+         "-I" & includeDir & "protobuf " &
          "-std=c++11".} 
-#TODO: librarys have to be installed into /usr/local/lib
-{.passL: "-L../lib -ltensorflow_cc -lprotobuf -ldl -lpthread".}
+{.passL: "-L" & libDir & " -ltensorflow_cc -lprotobuf -ldl -lpthread".}
 {.hint[XDeclaredButNotUsed]:off.}
 
 const

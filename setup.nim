@@ -5,7 +5,7 @@ import os
 
 var client = newHttpClient()
 
-let platform = "linux-x86_64"
+let platform = paramStr(1)
 let linksJson = client.getContent("http://tensorflownim-libs.herokuapp.com/?platform=" & platform)
 let links = parseJson(linksJson)
 
@@ -22,11 +22,11 @@ proc install(dir: string, compressedName: string, displayName: string) =
     # removing archive
     removeFile(dir & compressedName)
 
-let installLibDir = "./lib/" 
+let installLibDir = "./tensorflow/lib/" 
 
 install(installLibDir, platform & ".tar.gz", "tensorflow library")
 
-let installIncludeDir = "./include/"
+let installIncludeDir = "./tensorflow/include/"
 
 install(installIncludeDir, "include.tar.gz", "include files")
 

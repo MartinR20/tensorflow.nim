@@ -4,13 +4,11 @@
 
 ## Installation
 
-To install the current version use:
+To install the current version use (currently only on linux):
 
 ```sh
-nimble install https://github.com/MartinR20/tensorflow.nim
+nimble install https://github.com/MartinR20/tensorflow.nim.git
 ```
-
-**But beware** it will build tensorflow from source (for now)
 
 ## Usage
 
