@@ -1,11 +1,11 @@
-{.passC: "-I../tensorflow/utils/include/tensorflow " &
-         "-I../tensorflow/utils/include/genfiles " &
-         "-I../tensorflow/utils/include/absl " &
-         "-I../tensorflow/utils/include/eigen " &
-         "-I../tensorflow/utils/include/protobuf " &
+{.passC: "-I../include/tensorflow " &
+         "-I../include/genfiles " &
+         "-I../include/absl " &
+         "-I../include/eigen " &
+         "-I../include/protobuf " &
          "-std=c++11".} 
 #TODO: librarys have to be installed into /usr/local/lib
-{.passL: "-L/usr/local/lib -ltensorflow_cc -lprotobuf -ldl -lpthread".}
+{.passL: "-L../lib -ltensorflow_cc -lprotobuf -ldl -lpthread".}
 {.hint[XDeclaredButNotUsed]:off.}
 
 const
