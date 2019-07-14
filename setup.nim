@@ -26,6 +26,7 @@ let links = waitFor getDownloadLinks(platform)
 
 proc onProgressChanged(total, progress, speed: int64) {.async.} =
     let progressInMB = cast[int](progress div 1000000)
+    let totalInMB = cast[int](total div 1000000)
 
     stdout.eraseLine
 
@@ -33,7 +34,7 @@ proc onProgressChanged(total, progress, speed: int64) {.async.} =
         # only display progress bar when total is available
         var content = "[            ] "
         
-        for i in 1..(progressInMB.float / total.float * 10).int:
+        for i in 1..(progressInMB.float / totalInMB.float * 10).int:
             content[cast[int](i)] = '#'
 
         stdout.write(content)
