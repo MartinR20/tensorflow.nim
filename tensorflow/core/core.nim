@@ -288,6 +288,98 @@ proc `[]`[T](arr: cArray[T], i: int): T {.importcpp:"#[#]".}
 
 proc `[]=`[T](arr: cArray[T], i: int, val: T) {.importcpp:"#[#] = #".}
 
+## Flat related definitions
+type
+  Flat*[T] {.header: tensor,
+          importcpp: "tensorflow::TTypes<'0>::Flat".} = object
+    ## The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
+
+proc flat*[T](flat: Flat[T], ten: Tensor) {.importcpp:"# = #->flat<'0>()".}
+
+  ## A method returning the flat buffer of a Tensor with the given type.
+  ## 
+  ## Args:
+  ##   flat: A Flat variable to initalize.
+  ##   ten: The tensor it is applied on.
+  ## Returns:
+  ##   A new Flat object "referencing" the data of the Tensor.
+
+proc size*[T](flat: Flat[T]): int {.importcpp:"#.size()".}
+
+  ## Size method to get the number of elements in the Flat object.
+  ## 
+  ## Args:
+  ##   flat: The Flat object it is applied on.
+  ## Returns:
+  ##   The number of elements.
+
+proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"#(#)".}
+
+proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"#(#) = #".}
+
+
+## Matirx related definitions
+type
+  Matirx*[T] {.header: tensor,
+               importcpp: "tensorflow::TTypes<'0>::Matirx".} = object
+    ## The Matrx Type is a way of accessing the underlying memory of a tensor as a Matirx.
+
+proc matirx*[T](mat: Matirx[T], ten: Tensor) {.importcpp:"# = #->matrix<'0>()".}
+
+  ## A method returning the Matirx from a Tensor with the given type.
+  ## 
+  ## Args:
+  ##   mat: A Matrix variable to initalize.
+  ##   ten: The tensor it is applied on.
+  ## Returns:
+  ##   A new Flat object "referencing" the data of the Tensor.
+
+proc `[]`*[T](flat: Matirx[T], i: int, j: int): T {.importcpp:"#(#, #)".}
+
+proc `[]=`*[T](flat: Matirx[T], i: int, j: int, val: T) {.importcpp:"#(#, #) = #".}
+
+
+## Scalar related definitions
+type
+  Scalar*[T] {.header: tensor,
+               importcpp: "tensorflow::TTypes<'0>::Scalar".} = object
+    ## The Scalar Type is a way of accessing the underlying memory of a tensor as a Scalar.
+
+proc scalar*[T](scal: Scalar[T], ten: Tensor) {.importcpp:"# = #->scalar<'0>()".}
+
+  ## A method returning the Scalar from a Tensor with the given type.
+  ## 
+  ## Args:
+  ##   scal: A Scalar variable to initalize.
+  ##   ten: The tensor it is applied on.
+  ## Returns:
+  ##   A new Scalar object "referencing" the data of the Tensor.
+
+proc `set`*[T](flat: Scalar[T], val: T) {.importcpp:"#(0) = #".}
+
+proc get*[T](flat: Scalar[T]): T {.importcpp:"#(0)".}
+
+## TensorMap related definitions
+type
+  TensorMap*[T, N] {.header: tensor,
+                  importcpp: "tensorflow::TTypes<'0, '1>::Matirx".} = object
+    ## The TensorMap Type is a way of accessing the underlying memory of a tensor as a tensor.
+
+proc tensorMap*[T, N](map: TensorMap[T, N], ten: Tensor) {.importcpp:"# = #->tensor<'0, '1>()".}
+
+  ## A method returning the TensorMap from a Tensor with the given type.
+  ## 
+  ## Args:
+  ##   map: A TensorMap variable to initalize.
+  ##   ten: The tensor it is applied on.
+  ## Returns:
+  ##   A new TensorMap object "referencing" the data of the Tensor.
+
+proc `[]`*[T, N](map: TensorMap[T, N], idxs: varargs[int]): T {.importcpp:"[](){ auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); return _map(_idx); }()".}
+
+proc `[]=`*[T, N](map: TensorMap[T, N], idxs: varargs[int], val: T) {.importcpp:"auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); _map(_idx) = #;".}
+
+
 proc newTensor*[N,T](arr: array[N,T]): Tensor =
   let baseEl = arr.getBaseEl
   type baseType = baseEl.type
@@ -338,35 +430,6 @@ proc newTensor*(s: float) : Tensor {.header: memory,
   ##   s: The scalar value for the Tensor.
   ## Returns:
   ##   A new scalar Tensor with given value.
-
-## Flat related definitions
-type
-  Flat*[T] {.header: tensor,
-          importcpp: "tensorflow::TTypes<'0>::Flat".} = object
-    ## The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
-
-proc flat*[T](flat: Flat[T], ten: Tensor) {.importcpp:"# = #->flat<'0>()".}
-
-  ## A method returning the flat buffer of a Tensor with the given type.
-  ## 
-  ## Args:
-  ##   ten: The tensor it is applied on.
-  ##   T: The type the returned Flat object should have.
-  ## Returns:
-  ##   A new Flat object "referencing" the data of the Tensor.
-
-proc size*[T](flat: Flat[T]): int {.importcpp:"#.size()".}
-
-  ## Size method to get the number of elements in the Flat object.
-  ## 
-  ## Args:
-  ##   flat: The Flat object it is applied on.
-  ## Returns:
-  ##   The number of elements.
-
-proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"#(#)".}
-
-proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"#(#) = #".}
 
 ## TensorVec related definitions
 type
@@ -714,6 +777,14 @@ export TensorShape,
        shape,
        Flat,
        flat,
+       Matrix,
+       matrix,
+       Scalar,
+       scalar,
+       set,
+       get,
+       TensorMap,
+       tensorMap,
        `[]=`,
        TensorVec,
        size,
