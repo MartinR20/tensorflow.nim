@@ -3,7 +3,9 @@
 
 import ../utils/utils
 import sequtils
-import typeinfo
+import typetraits
+import tables
+#import complex
 {.hint[XDeclaredButNotUsed]:off.}
 
 ## TensorShape related definitions
@@ -142,26 +144,6 @@ proc toValueStr*(ten: Tensor) : string =
   ## Returns:
   ##   A new string representing the first 100 Values of the Tensor.
 
-proc copyF[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; double* a = (double*)#; auto eigen_ten = tmp->flat<float>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (float)a[j]".}
-
-  ## A Method to copy data into a float Tensor.
-  ## 
-  ## Args:
-  ##   ten: The Tensor it is applied on.
-  ##   arr: A pointer to the data buffer that should be copied.
-  ##   len: The length of the data buffer.
-  ##   offset: An offset that specifies how much data from the start should not be copied.
-
-proc copyI[T](ten: Tensor, arr: ptr T, len:int, offset:int) {.importcpp:"auto tmp = #; int64_t* a = (int64_t*)#; auto eigen_ten = tmp->flat<int>().data(); for(int j = #; j > (#-1); j--) eigen_ten[j] = (int)a[j]".}
-  
-  ## A Method to copy data into an integer Tensor.
-  ## 
-  ## Args:
-  ##   ten: The Tensor it is applied on.
-  ##   arr: A pointer to the data buffer that should be copied.
-  ##   len: The length of the data buffer.
-  ##   offset: An offset that specifies how much data from the start should not be copied.
-
 proc shape*(ten: Tensor) : TensorShape {.header: tensor, 
                                          importcpp:"#->shape()".}
 
@@ -250,8 +232,7 @@ proc prod(s: seq[int]): int =
   ## Returns:
   ##   The product of the given sequence.
 
-proc getAnyKind[T](x: var T): AnyKind = 
-  return x.toAny.kind
+template getBaseEl[T](arr: T): T = arr
 
   ## A recursive method for getting the base type of an Array. This is the last function call stopping the
   ## recursion when it is not an array anymore but a value instead.
@@ -261,33 +242,71 @@ proc getAnyKind[T](x: var T): AnyKind =
   ## Returns:
   ##   The type of the value.
 
-proc getAnyKind[N,T](arr: var array[N,T]): AnyKind = 
-  return getAnyKind(arr[0])
+template getBaseEl[N,T](arr: array[N,T]): untyped = getBaseEl(arr[0])
 
-  ## A recursive method for getting the base type of an Array.
+  ## A recursive method for getting the base element with the base type of an Array. 
+  ## ([[[[0,0],[1,1]]]], array[0..0, array[0..0, array[0..1, array[0..1, int]]]] -> 0 int)
   ## 
   ## Args:
   ##   arr: The array you want the base type from.
   ## Returns:
   ##   The base type of the array.
 
-proc newTensor*[N,T](arr: array[N,T]) : Tensor =
-  let sh = getShape(arr)
-  var ten: Tensor 
-  var forkind = arr
-  let kind = getAnyKind(forkind)
 
-  if kind == akFloat:
-    ten = newTensor(TF_FLOAT, sh) 
-    ten.copyF(unsafeAddr(arr[0]), prod(sh) - 1, 0)
-  
-  elif kind == akInt: 
-    ten = newTensor(TF_INT32, sh) 
-    ten.copyI(unsafeAddr(arr[0]), prod(sh) - 1, 0)
-  
+const typeLookUp = {
+  "float32"                  : TF_FLOAT,
+  "float64"                  : TF_DOUBLE, 
+  "int32"                    : TF_INT32,
+  "uint8"                    : TF_UINT8,
+  "int16"                    : TF_INT16,
+  "int8"                     : TF_INT8, 
+  "cppstring"                : TF_STRING, 
+  "Complex[system.float64]"  : TF_COMPLEX64,
+  "int64"                    : TF_INT64, 
+  "bool"                     : TF_BOOL, 
+  "uint16"                   : TF_UINT16, 
+  "uint32"                   : TF_UINT32,
+  "uint64"                   : TF_UINT64
+  #TF_COMPLEX128, 
+  #TF_QINT8, 
+  #TF_QUINT8,           
+  #TF_QINT32,           
+  #TF_BFLOAT16,         .
+  #TF_QINT16,           
+  #TF_QUINT16,          
+  #TF_HALF, 
+  #TF_RESOURCE, 
+  #TF_VARIANT,
+}.toTable
+
+type 
+  cArray[T] {.importcpp:"'0*".} = object
+
+proc cArrayFromPtr[T](nimPtr: ptr T): cArray[T] {.importcpp:"#".}
+
+proc `[]`[T](arr: cArray[T], i: int): T {.importcpp:"#[#]".}
+
+proc `[]=`[T](arr: cArray[T], i: int, val: T) {.importcpp:"#[#] = #".}
+
+proc newTensor*[N,T](arr: array[N,T]): Tensor =
+  let baseEl = arr.getBaseEl
+  type baseType = baseEl.type
+
+  if typeLookUp.hasKey(baseType.name):
+    let sh = getShape(arr)
+    let ten = newTensor(typeLookUp[baseType.name], sh) 
+
+    var buf: Flat[baseType]
+    buf.flat(ten)
+    let baseElPtr = cArrayFromPtr(unsafeAddr(baseEl))
+
+    # copy incomming data
+    for i in 0..prod(sh)-1:
+      buf[i] = baseElPtr[i]
+
+    return ten
+
   else: raise newException(OSError, "Type not supported!")
-  
-  return ten
 
   ## Convinience Tensor Constructor constructing a Tensor from a data array. This method for now just suports the
   ## float and int type. These get converted to int32 and float32 types on the c++ level.
@@ -323,10 +342,10 @@ proc newTensor*(s: float) : Tensor {.header: memory,
 ## Flat related definitions
 type
   Flat*[T] {.header: tensor,
-          importcpp: "tensorflow::TTypes<'0, 1>::Flat".} = object
+          importcpp: "tensorflow::TTypes<'0>::Flat".} = object
     ## The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
 
-proc flat*(ten: Tensor, T: type): Flat[T] {.importcpp:"#->flat<'2>()".}
+proc flat*[T](flat: Flat[T], ten: Tensor) {.importcpp:"# = #->flat<'0>()".}
 
   ## A method returning the flat buffer of a Tensor with the given type.
   ## 
