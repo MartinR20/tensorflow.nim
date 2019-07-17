@@ -25,7 +25,7 @@
 ##
 ##    # concatonate the results of the branches along the fist axis
 ##    proto.newInlineJoin(proc(rt: Scope, input: OutList): Out = 
-##                             return rt.Concat(input, rt.Const(1)) )
+##                             return rt.Concat(input, rt.Const(1, int32)) )
 
 import options
 import ../ops/ops

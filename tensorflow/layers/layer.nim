@@ -46,7 +46,7 @@ method `$`*(layer: Layer): string {.base.} = "Layer"
     ## String conversion method to give your Layer a string representation when the model is printed.
 
 method make*(layer: Layer, root: Scope): (proc(rt: Scope, input: Out): Out) {.base.} = 
-    raise newException(ValueError, "Not Implemented. Please overload `make` for your Layer")
+    raise newException(ValueError, "Not Implemented. Please overload `make` for Layer " & $layer & ".")
 
     ## The make method is intended for all the setup of your layer like creating variables or 
     ## doing operations that require a scope. This method should be overloaded for all non JoinLayers.

@@ -15,21 +15,21 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Reshape[N,T] = ref object of Layer
-    shape*: array[N,T]
+type Reshape[N,int] = ref object of Layer
+    shape*: array[N,int]
 
-method `$`[N,T](layer: Reshape[N,T]): string = "Reshape(shape:" & $layer.shape & ")"
+method `$`[N,int](layer: Reshape[N,int]): string = "Reshape(shape:" & $layer.shape & ")"
 
-method make[N,T](layer: Reshape[N,T], root: Scope): proc(rt: Scope, input: Out): Out = 
-        let shape = root.Const(layer.shape)
+method make[N,int](layer: Reshape[N,int], root: Scope): proc(rt: Scope, input: Out): Out = 
+        let shape = root.Const(layer.shape, int32)
 
         return proc(rt: Scope, input: Out): Out = 
                     return rt.Reshape(input, shape)
 
-proc newReshape*[N,T](model: var seq[Layer], shape: array[N,T]) =
-    var reshape = new Reshape[N,T]
+proc newReshape*[N,int](model: var seq[Layer], shape: array[N,int]) =
+    var reshape = new Reshape[N,int]
 
-    reshape.shape = shape    
+    reshape.shape = shape
 
     model.add(reshape)
 

@@ -10,7 +10,7 @@
 ##    let rt = newRootScope()
 ##    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 ##    
-##    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+##    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 ##    
 ##    var training = rt.fit(input, rt.ZerosLike(input))
 ##    

@@ -8,7 +8,7 @@ proc ZeroOut(ctx: ptr OpKernelContext) {.input:"to_zero: int32",
                                                         return ok(),
                                          tfexport:CPU.} =
   let input_tensor  = ctx.input(0)
-  let input = input_tensor.flat(cint)
+  let input = flat[int32](input_tensor, 0)
 
   var output_tensor: Tensor
   OP_REQUIRES_OK(ctx, ctx.allocate_output(0, input_tensor.shape(), output_tensor))

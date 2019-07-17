@@ -27,7 +27,7 @@ method `$`(layer: Dense): string = "Dense(in:" & $layer.inFeatures &
 method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out = 
     layer.train = @[]
 
-    let w = root.RandomNormal(root.Const([layer.inFeatures, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+    let w = root.RandomNormal(root.Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
 
     layer.train.add(root.newVariable(w, newTensorShape([layer.inFeatures, layer.outFeatures]), TF_FLOAT))
 
@@ -36,7 +36,7 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
                     return rt.MatMul(input, layer.train[0].vvar)
 
     else:
-        let b = root.RandomNormal(root.Const([1, layer.outFeatures]), TF_FLOAT, some(0), some(0))
+        let b = root.RandomNormal(root.Const([1, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
         layer.train.add(root.newVariable(b, newTensorShape([1, layer.outFeatures]), TF_FLOAT))
         
         return proc(rt: Scope, input: Out): Out = 

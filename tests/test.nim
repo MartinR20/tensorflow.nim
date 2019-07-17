@@ -18,7 +18,7 @@ proc tensorShape_test() {.test.} =
 tensorShape_test()
 
 proc tensor_test() {.test.} =
-    let ten = newTensor([1,2,3,4,5,6])
+    let ten = newTensor([[1,2,3,4,5,6]])
     let scalar = newTensor(0)
 
     echo ten
@@ -49,7 +49,7 @@ proc basicOp_test() {.test.} =
 
     let a = rt.Const([[1.0,3.0],
                       [1.0,3.0],
-                      [1.0,3.0]])
+                      [1.0,3.0]], float32)
 
     let c = rt.MatMul(rt.Transpose(a), a)
 
@@ -61,7 +61,7 @@ basicOp_test()
 proc var_test() {.test.} =
     let rt = newRootScope()
 
-    let v = rt.newVariable(rt.Const([[2.0,2.0], [2.0,2.0]]), newTensorShape([2, 2]), TF_FLOAT)
+    let v = rt.newVariable(rt.Const([[2,2], [2,2]], float32), newTensorShape([2, 2]), TF_FLOAT)
 
     let m = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
 
@@ -94,7 +94,7 @@ inputListOp_test()
 proc attrOp_test() {.test.} = 
     let rt = newRootScope()
 
-    let a = rt.Const([[0,1,2,3],[3,2,1,0]])
+    let a = rt.Const([[0,1,2,3],[3,2,1,0]], int32)
 
     let d = rt.Unstack(a, 2)
 
@@ -106,15 +106,16 @@ attrOp_test()
 proc rawDense_test() {.test.} =  
     let rt = newRootScope()
 
-    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+    let input = rt.Const([[1, 2, 4, 2, 3, 
+                           5, 6, 3, 4, 1]], float32)
 
-    let w0 = rt.RandomNormal(rt.Const([10, 10]), TF_FLOAT, some(0), some(0))
-    let b0 = rt.RandomNormal(rt.Const([1,10]), TF_FLOAT, some(0), some(0))
+    let w0 = rt.RandomNormal(rt.Const([10, 10], int32), TF_FLOAT, some(0), some(0))
+    let b0 = rt.RandomNormal(rt.Const([1,10], int32), TF_FLOAT, some(0), some(0))
 
     let h0 = rt.Relu(rt.Add(rt.MatMul(input, w0), b0))
 
-    let w1 = rt.RandomNormal(rt.Const([10, 10]), TF_FLOAT, some(0), some(0))
-    let b1 = rt.RandomNormal(rt.Const([1,10]), TF_FLOAT, some(0), some(0))
+    let w1 = rt.RandomNormal(rt.Const([10, 10], int32), TF_FLOAT, some(0), some(0))
+    let b1 = rt.RandomNormal(rt.Const([1,10], int32), TF_FLOAT, some(0), some(0))
 
     let h1 = rt.Softmax(rt.Add(rt.MatMul(h0, w1), b1))
 
@@ -134,7 +135,7 @@ proc dense_test() {.test.} =
     let rt = newRootScope()
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+    let input = rt.Const([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
 
     let zeros = rt.ZerosLike(input)
 
@@ -156,7 +157,7 @@ proc AE_test() {.test.} =
 
     let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
@@ -196,7 +197,7 @@ proc conv2d_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
-                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
+                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
     var (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
@@ -229,7 +230,7 @@ proc maxpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
-                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
+                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
     
@@ -264,7 +265,7 @@ proc avgpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
-                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
+                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
     
@@ -299,7 +300,7 @@ proc dropout_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
-                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]])
+                           [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
@@ -377,7 +378,7 @@ proc branch_concat_test() {.test.} =
 
     let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 

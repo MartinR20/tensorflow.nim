@@ -14,20 +14,25 @@ proc Const*(root: Scope, A: Tensor) : Out {.header: std_ops,
 
   ## Construct a constant value from a Tensor
 
-proc Const*[N,T](root: Scope, arr: array[N, T]) : Out =
+proc Const*[N,M](root: Scope, arr: array[N, M]) : Out =
   return root.Const(newTensor(arr))
 
-  ## Construct a constant value from an array holding data
+  ## Construct a constant value from an array holding data with the dtype of the array
 
-proc Const*(root: Scope, i: int) : Out =
-  return root.Const(newTensor(i))
+proc Const*[N,M](root: Scope, arr: array[N, M], T: type) : Out =
+  return root.Const(newTensor(arr, T))
 
-  ## Construct a constant scalar of type int
+  ## Construct a constant value from an array holding data with the given type
 
-proc Const*(root: Scope, i: float) : Out =
-  return root.Const(newTensor(i))
+proc Const*[T](root: Scope, val: T) : Out =
+  return root.Const(newTensor(val))
 
-  ## Construct a constant scalar of type float
+  ## Construct a constant scalar of the input type
+
+proc Const*[N](root: Scope, val: N, T: type) : Out =
+  return root.Const(newTensor(val, T))
+
+  ## Construct a constant scalar of the given type
 
 proc `-`(root: Scope, A, B: Out): Out =
   return Subtract(root, A, B)
@@ -37,7 +42,7 @@ proc `@`(root: Scope, A, B: Out): Out =
 
 proc Transpose*(root: Scope, A: Out) : Out =
   let rank = root.Rank(A)
-  return root.Transpose(A, root.Subtract(root.Subtract(rank, root.Const(1)), root.Range(root.Const(0), rank, root.Const(1))))
+  return root.Transpose(A, root.Subtract(root.Subtract(rank, root.Const(1, int32)), root.Range(root.Const(0, int32), rank, root.Const(1, int32))))
 
   ## Transpose that removes the need of providing a permutation for the normally expected result
 

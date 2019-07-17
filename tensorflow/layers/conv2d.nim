@@ -35,7 +35,7 @@ method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels &
                                              ", strides:" & $layer.strides[1..^2] & ")"
 
 method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out = 
-    let filter = root.RandomNormal(root.Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels]), TF_FLOAT, some(0), some(0))
+    let filter = root.RandomNormal(root.Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32), TF_FLOAT, some(0), some(0))
     layer.train.add(root.newVariable(filter, newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels]), TF_FLOAT)) 
 
     let strides = newArraySlice(layer.strides)

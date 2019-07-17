@@ -122,12 +122,12 @@ proc newAdam*(lr, beta1, beta2, epsilon, decay = none(float), amsgrad = none(boo
     return adam
 
 method make(optim: Adam, root: Scope): (proc(rt: Scope, input: seq[Variable], grads: OutList): OutList) = 
-    let beta1Power = root.Const(optim.beta1)
-    let beta2Power = root.Const(optim.beta2)
-    let lr = root.Const(optim.lr)
-    let beta1 = root.Const(1.0)
-    let beta2 = root.Const(1.0)
-    let epsilon = root.Const(optim.epsilon)
+    let beta1Power = root.Const(optim.beta1, float32)
+    let beta2Power = root.Const(optim.beta2, float32)
+    let lr = root.Const(optim.lr, float32)
+    let beta1 = root.Const(1.0, float32)
+    let beta2 = root.Const(1.0, float32)
+    let epsilon = root.Const(optim.epsilon, float32)
 
     return proc(rt: Scope, input: seq[Variable], grads: OutList): OutList = 
                 var outps: seq[Out]
