@@ -1,5 +1,5 @@
 TensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#TensorShape	core: TensorShape	
-newTensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorShape,openArray[int]	core: newTensorShape(dims: openArray[int]): TensorShape	
+newTensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorShape,openArray[SomeInteger]	core: newTensorShape(dims: openArray[SomeInteger]): TensorShape	
 `$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,TensorShape	core: `$`(shape: TensorShape): string	
 DType	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#DType	core: DType	
 Tensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Tensor	core: Tensor	
@@ -9,18 +9,28 @@ shape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,TensorShape	core: newTensor(dtype: DType; shape: TensorShape): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,openArray[int]	core: newTensor(dtype: DType; shape: openArray[int]): Tensor	
 `$@`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$@,array[N,T]	core: `$@`[N, T](arr: array[N, T]): Tensor	
-newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,array[N,T]	core: newTensor[N, T](arr: array[N, T]): Tensor	
-newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,int	core: newTensor(s: int): Tensor	
-newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,float	core: newTensor(s: float): Tensor	
 Flat	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Flat	core: Flat	
-flat	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#flat,Tensor,type	core: flat(ten: Tensor; T: type): Flat[T]	
+flat	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#flat,Tensor,T	core: flat[T](ten: Tensor; x: T): Flat[T]	
 size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#size,Flat[T]	core: size[T](flat: Flat[T]): int	
 `[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],Flat[T],int	core: `[]`[T](flat: Flat[T]; i: int): T	
 `[]=`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[]=,Flat[T],int,T	core: `[]=`[T](flat: Flat[T]; i: int; val: T)	
+Matrix	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Matrix	core: Matrix	
+matrix	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#matrix,Tensor,T	core: matrix[T](ten: Tensor; x: T): Matrix[T]	
+`[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],Matrix[T],int,int	core: `[]`[T](flat: Matrix[T]; i: int; j: int): T	
+`[]=`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[]=,Matrix[T],int,int,T	core: `[]=`[T](flat: Matrix[T]; i: int; j: int; val: T)	
+Scalar	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Scalar	core: Scalar	
+scalar	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#scalar,Tensor,T	core: scalar[T](ten: Tensor; x: T): Scalar[T]	
+set	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#set,Scalar[T],T	core: set[T](flat: Scalar[T]; val: T)	
+get	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#get,Scalar[T]	core: get[T](flat: Scalar[T]): T	
+newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,array[N,M],type	core: newTensor[N, M](arr: array[N, M]; T: type): Tensor	
+newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,array[N,T]	core: newTensor[N, T](arr: array[N, T]): Tensor	
+newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,N,type	core: newTensor[N](scal: N; T: type): Tensor	
+newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,T	core: newTensor[T](scal: T): Tensor	
 TensorVec	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#TensorVec	core: TensorVec	
 newTensorVec	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorVec,varargs[Tensor]	core: newTensorVec(args: varargs[Tensor]): TensorVec	
 size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#size,TensorVec	core: size(tensorVec: TensorVec): int	
 `[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],TensorVec,cint	core: `[]`(tensorVec: TensorVec; idx: cint): Tensor	
+items	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#items.i,TensorVec	core: items(tens: TensorVec): Tensor	
 Out	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Out	core: Out	
 OutList	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#OutList	core: OutList	
 newOutList	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newOutList,varargs[Out]	core: newOutList(outs: varargs[Out]): OutList	

@@ -1,1 +1,1 @@
-newReshape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/reshape.html#newReshape,seq[T][Layer],array[N,T]	reshape: newReshape[N, T](model: var seq[Layer]; shape: array[N, T])	
+newReshape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/reshape.html#newReshape,seq[T][Layer],array[N,int]	reshape: newReshape[N, int](model: var seq[Layer]; shape: array[N, int])	

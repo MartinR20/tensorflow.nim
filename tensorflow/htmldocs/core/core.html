@@ -836,7 +836,13 @@ function main() {
         importcpp: &quot;std::shared_ptr&lt;tensorflow::Tensor&gt;&quot;.} = object"><wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Flat"
     title="Flat[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
-         importcpp: &quot;tensorflow::TTypes&lt;\&apos;0, 1&gt;::Flat&quot;.} = object"><wbr />Flat<span class="attachedType"></span></a></li>
+         importcpp: &quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\&apos;0&gt;::Flat&gt;&quot;.} = object"><wbr />Flat<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Matrix"
+    title="Matrix[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
+           importcpp: &quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\&apos;0&gt;::Matrix&gt;&quot;.} = object"><wbr />Matrix<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Scalar"
+    title="Scalar[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
+           importcpp: &quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\&apos;0&gt;::Scalar&gt;&quot;.} = object"><wbr />Scalar<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#TensorVec"
     title="TensorVec {.header: &quot;&lt;vector&gt;&quot;, header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
            importcpp: &quot;std::vector&lt;tensorflow::Tensor&gt;&quot;.} = object"><wbr />Tensor<wbr />Vec<span class="attachedType"></span></a></li>
@@ -863,8 +869,8 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#newTensorShape%2CopenArray%5Bint%5D"
-    title="newTensorShape(dims: openArray[int]): TensorShape"><wbr />new<wbr />Tensor<wbr />Shape<span class="attachedType"></span></a></li>
+      <li><a class="reference" href="#newTensorShape%2CopenArray%5BSomeInteger%5D"
+    title="newTensorShape(dims: openArray[SomeInteger]): TensorShape"><wbr />new<wbr />Tensor<wbr />Shape<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%24%2CTensorShape"
     title="`$`(shape: TensorShape): string"><wbr />`$`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%24%2CTensor"
@@ -879,20 +885,34 @@ function main() {
     title="newTensor(dtype: DType; shape: openArray[int]): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%24%40%2Carray%5BN%2CT%5D"
     title="`$@`[N, T](arr: array[N, T]): Tensor"><wbr />`$@`<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#newTensor%2Carray%5BN%2CT%5D"
-    title="newTensor[N, T](arr: array[N, T]): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#newTensor%2Cint"
-    title="newTensor(s: int): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#newTensor%2Cfloat"
-    title="newTensor(s: float): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#flat%2CTensor%2Ctype"
-    title="flat(ten: Tensor; T: type): Flat[T]"><wbr />flat<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#flat%2CTensor%2CT"
+    title="flat[T](ten: Tensor; x: T): Flat[T]"><wbr />flat<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#size%2CFlat%5BT%5D"
     title="size[T](flat: Flat[T]): int"><wbr />size<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CFlat%5BT%5D%2Cint"
     title="`[]`[T](flat: Flat[T]; i: int): T"><wbr />`[]`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%3D%2CFlat%5BT%5D%2Cint%2CT"
     title="`[]=`[T](flat: Flat[T]; i: int; val: T)"><wbr />`[]=`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#matrix%2CTensor%2CT"
+    title="matrix[T](ten: Tensor; x: T): Matrix[T]"><wbr />matrix<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%2CMatrix%5BT%5D%2Cint%2Cint"
+    title="`[]`[T](flat: Matrix[T]; i: int; j: int): T"><wbr />`[]`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2CMatrix%5BT%5D%2Cint%2Cint%2CT"
+    title="`[]=`[T](flat: Matrix[T]; i: int; j: int; val: T)"><wbr />`[]=`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#scalar%2CTensor%2CT"
+    title="scalar[T](ten: Tensor; x: T): Scalar[T]"><wbr />scalar<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#set%2CScalar%5BT%5D%2CT"
+    title="set[T](flat: Scalar[T]; val: T)"><wbr />set<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#get%2CScalar%5BT%5D"
+    title="get[T](flat: Scalar[T]): T"><wbr />get<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newTensor%2Carray%5BN%2CM%5D%2Ctype"
+    title="newTensor[N, M](arr: array[N, M]; T: type): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newTensor%2Carray%5BN%2CT%5D"
+    title="newTensor[N, T](arr: array[N, T]): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newTensor%2CN%2Ctype"
+    title="newTensor[N](scal: N; T: type): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newTensor%2CT"
+    title="newTensor[T](scal: T): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensorVec%2Cvarargs%5BTensor%5D"
     title="newTensorVec(args: varargs[Tensor]): TensorVec"><wbr />new<wbr />Tensor<wbr />Vec<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#size%2CTensorVec"
@@ -933,7 +953,9 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#15" id="65">Iterators</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#items.i%2COutList"
+      <li><a class="reference" href="#items.i%2CTensorVec"
+    title="items(tens: TensorVec): Tensor"><wbr />items<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#items.i%2COutList"
     title="items(outs: OutList): Out"><wbr />items<span class="attachedType"></span></a></li>
 
   </ul>
@@ -951,7 +973,7 @@ function main() {
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc">The core module implements all the necessary ground work needed to construct a computation graph interface with and manipulate tensors. TensorShape related definitionsTensor related definitionsFlat related definitionsTensorVec related definitionsOutput related definitionsOutList related definitionsInList related definitionsScope related definitionsSession related definitionsArraySlice related definitionsGradient Related definitions</p>
+  <p class="module-desc">The core module implements all the necessary ground work needed to construct a computation graph interface with and manipulate tensors. TensorShape related definitionsTensor related definitionsFlat related definitionsMatrix related definitionsScalar related definitionsTensorVec related definitionsOutput related definitionsOutList related definitionsInList related definitionsScope related definitionsSession related definitionsArraySlice related definitionsGradient Related definitions</p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
@@ -998,11 +1020,29 @@ The Tensor Type is really a shared pointer to a Tensor. This makes it a whole lo
 </dd>
 <a id="Flat"></a>
 <dt><pre><a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
-         <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::TTypes&lt;\'0, 1&gt;::Flat&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+         <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\'0&gt;::Flat&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
   </pre></dt>
 <dd>
 
 The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
+
+</dd>
+<a id="Matrix"></a>
+<dt><pre><a href="core.html#Matrix"><span class="Identifier">Matrix</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
+           <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\'0&gt;::Matrix&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+The Matrx Type is a way of accessing the underlying memory of a tensor as a Matirx.
+
+</dd>
+<a id="Scalar"></a>
+<dt><pre><a href="core.html#Scalar"><span class="Identifier">Scalar</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
+           <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::TTypes&lt;\'0&gt;::Scalar&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+The Scalar Type is a way of accessing the underlying memory of a tensor as a Scalar.
 
 </dd>
 <a id="TensorVec"></a>
@@ -1087,8 +1127,8 @@ The Session Type is a wrapper around the c++ ClientSession which is the part whe
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="newTensorShape,openArray[int]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTensorShape%2CopenArray%5Bint%5D"><span class="Identifier">newTensorShape</span></a><span class="Other">(</span><span class="Identifier">dims</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="newTensorShape,openArray[SomeInteger]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensorShape%2CopenArray%5BSomeInteger%5D"><span class="Identifier">newTensorShape</span></a><span class="Other">(</span><span class="Identifier">dims</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a></pre></dt>
 <dd>
 
 TensorShape Constructor.<dl class="docutils"><dt>Args:</dt>
@@ -1185,50 +1225,12 @@ Shorthand for creating a Tensor from an array.<dl class="docutils"><dt>Args:</dt
 
 
 </dd>
-<a id="newTensor,array[N,T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Carray%5BN%2CT%5D"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
-<dd>
-
-Convinience Tensor Constructor constructing a Tensor from a data array. This method for now just suports the float and int type. These get converted to int32 and float32 types on the c++ level.<dl class="docutils"><dt>Args:</dt>
-<dd>arr: The array a Tensor should be constructed from.</dd>
-<dt>Returns:</dt>
-<dd>A new Tensor with the given data.</dd>
-</dl>
-
-
-</dd>
-<a id="newTensor,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Cint"><span class="Identifier">newTensor</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span>
-                             <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;[&amp;](){ auto _x = std::make_shared&lt;tensorflow::Tensor&gt;(tensorflow::DT_INT32, tensorflow::TensorShape()); _x-&gt;scalar&lt;int&gt;()(0) = (int)#; return _x; }()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Tensor Constructor for integer scalar values.<dl class="docutils"><dt>Args:</dt>
-<dd>s: The scalar value for the Tensor.</dd>
-<dt>Returns:</dt>
-<dd>A new scalar Tensor with given value.</dd>
-</dl>
-
-
-</dd>
-<a id="newTensor,float"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Cfloat"><span class="Identifier">newTensor</span></a><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span>
-                               <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;[&amp;](){ auto _x = std::make_shared&lt;tensorflow::Tensor&gt;(tensorflow::DT_FLOAT, tensorflow::TensorShape()); _x-&gt;scalar&lt;float&gt;()(0) = (float)#; return _x; }()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Tensor Constructor for float scalar values.<dl class="docutils"><dt>Args:</dt>
-<dd>s: The scalar value for the Tensor.</dd>
-<dt>Returns:</dt>
-<dd>A new scalar Tensor with given value.</dd>
-</dl>
-
-
-</dd>
-<a id="flat,Tensor,type"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#flat%2CTensor%2Ctype"><span class="Identifier">flat</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;flat&lt;\'2&gt;()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="flat,Tensor,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#flat%2CTensor%2CT"><span class="Identifier">flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::TTypes&lt;\'2&gt;::Flat&gt;(std::move(#-&gt;flat&lt;\'2&gt;()))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 A method returning the flat buffer of a Tensor with the given type.<dl class="docutils"><dt>Args:</dt>
-<dd>ten: The tensor it is applied on. T: The type the returned Flat object should have.</dd>
+<dd>flat: A Flat variable to initalize. ten: The tensor it is applied on.</dd>
 <dt>Returns:</dt>
 <dd>A new Flat object &quot;referencing&quot; the data of the Tensor.</dd>
 </dl>
@@ -1236,7 +1238,7 @@ A method returning the flat buffer of a Tensor with the given type.<dl class="do
 
 </dd>
 <a id="size,Flat[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2CFlat%5BT%5D"><span class="Identifier">size</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#size%2CFlat%5BT%5D"><span class="Identifier">size</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Size method to get the number of elements in the Flat object.<dl class="docutils"><dt>Args:</dt>
@@ -1248,16 +1250,106 @@ Size method to get the number of elements in the Flat object.<dl class="docutils
 
 </dd>
 <a id="[],Flat[T],int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CFlat%5BT%5D%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#(#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CFlat%5BT%5D%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
 
 </dd>
 <a id="[]=,Flat[T],int,T"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CFlat%5BT%5D%2Cint%2CT"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#(#) = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CFlat%5BT%5D%2Cint%2CT"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#) = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+
+
+</dd>
+<a id="matrix,Tensor,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#matrix%2CTensor%2CT"><span class="Identifier">matrix</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::TTypes&lt;\'2&gt;::Matrix&gt;(std::move(#-&gt;matrix&lt;\'2&gt;()))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A method returning the Matrix from a Tensor with the given type.<dl class="docutils"><dt>Args:</dt>
+<dd>mat: A Matrix variable to initalize. ten: The tensor it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A new Flat object &quot;referencing&quot; the data of the Tensor.</dd>
+</dl>
+
+
+</dd>
+<a id="[],Matrix[T],int,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CMatrix%5BT%5D%2Cint%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#, #)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="[]=,Matrix[T],int,int,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CMatrix%5BT%5D%2Cint%2Cint%2CT"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#, #) = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="scalar,Tensor,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#scalar%2CTensor%2CT"><span class="Identifier">scalar</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::TTypes&lt;\'2&gt;::Scalar&gt;(std::move(#-&gt;scalar&lt;\'2&gt;()))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A method returning the Scalar from a Tensor with the given type.<dl class="docutils"><dt>Args:</dt>
+<dd>scal: A Scalar variable to initalize. ten: The tensor it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A new Scalar object &quot;referencing&quot; the data of the Tensor.</dd>
+</dl>
+
+
+</dd>
+<a id="set,Scalar[T],T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#set%2CScalar%5BT%5D%2CT"><span class="Identifier">set</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(0) = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="get,Scalar[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#get%2CScalar%5BT%5D"><span class="Identifier">get</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(0)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="newTensor,array[N,M],type"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Carray%5BN%2CM%5D%2Ctype"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="newTensor,array[N,T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Carray%5BN%2CT%5D"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
+<dd>
+
+Convinience Tensor Constructor copying data from an array into a Tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>arr: The array a Tensor should be constructed from.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor with the given data.</dd>
+</dl>
+
+
+</dd>
+<a id="newTensor,N,type"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2CN%2Ctype"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">scal</span><span class="Other">:</span> <span class="Identifier">N</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="newTensor,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2CT"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">scal</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
+<dd>
+
+Convinience Tensor Constructor copying the given scalar into a Tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>arr: The array a Tensor should be constructed from.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor with the given data.</dd>
+</dl>
 
 
 </dd>
@@ -1453,6 +1545,18 @@ Method for getting the gradient of a sequence of operations applied to the input
 <div class="section" id="15">
 <h1><a class="toc-backref" href="#15">Iterators</a></h1>
 <dl class="item">
+<a id="items.i,TensorVec"></a>
+<dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2CTensorVec"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">tens</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Iterator over the Tensor objects a TensorVec is holding.<dl class="docutils"><dt>Args:</dt>
+<dd>tens: The TensorVec it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>The Tensor objects one by one.</dd>
+</dl>
+
+
+</dd>
 <a id="items.i,OutList"></a>
 <dt><pre><span class="Keyword">iterator</span> <a href="#items.i%2COutList"><span class="Identifier">items</span></a><span class="Other">(</span><span class="Identifier">outs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
@@ -1470,7 +1574,7 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="../utils/utils.html#size"><span class="Identifier">size</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>
+<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a>, <a href="core.html#matrix"><span class="Identifier">matrix</span></a>, <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a>, <a href="core.html#scalar"><span class="Identifier">scalar</span></a>, <a href="core.html#set"><span class="Identifier">set</span></a>, <a href="core.html#get"><span class="Identifier">get</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="../utils/utils.html#size"><span class="Identifier">size</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>
 </dl></div>
 
   </div>
@@ -1480,7 +1584,7 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-07 13:46:48 UTC</small>
+        <small>Made with Nim. Generated: 2019-07-17 19:20:36 UTC</small>
       </div>
     </div>
   </div>

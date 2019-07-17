@@ -12,13 +12,10 @@
 ##    
 ##    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 ##    
-##    var training = rt.fit(input, rt.ZerosLike(input))
+##    let model = rt.fit(input, rt.ZerosLike(input), 5)
+##    let outputs = rt.runSession(model)
 ##    
-##    for _ in 0..20:
-##        discard rt.runSession(training)
-##    
-##    let test = rt.eval(input)
-##    let output = rt.runSession(test)
+##    echo outputs[0] 
 ##
 
 import ./layer,

@@ -21,7 +21,7 @@ let rt = newRootScope()
 
 let a = rt.Const([[1.0,3.0],
                   [1.0,3.0],
-                  [1.0,3.0]])
+                  [1.0,3.0]], float32)
 
 let b = rt.MatMul(rt.Transpose(a), a)
 
@@ -31,7 +31,6 @@ echo outputs[0]
 
 A keras like api (but more on the functional side) that allows for fast model building and prototyping:
 
-[//]: # (TODO: fix this example)
 ```nim
 import tensorflow
 
@@ -45,9 +44,9 @@ proto.newActivation(Softmax)
 let rt = newRootScope()
 let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]])
+let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-let model = rt.fit(input, rt.ZerosLike(input))
+let model = rt.fit(input, rt.ZerosLike(input), 5)
 let outputs = rt.runSession(model)
 
 echo outputs[0] 
@@ -66,7 +65,7 @@ proc ZeroOut(ctx: ptr OpKernelContext) {.input:"to_zero: int32",
                                                         return ok(),
                                          tfexport:CPU.} =
   let input_tensor  = ctx.input(0)
-  let input = input_tensor.flat(cint)
+  let input = flat[int32](input_tensor, 0)
 
   var output_tensor: Tensor
   OP_REQUIRES_OK(ctx, ctx.allocate_output(0, input_tensor.shape(), output_tensor))
@@ -89,3 +88,5 @@ getting compiled to a shared library as you would expect with this command:
 nim cpp --app:lib FOO.nim
 ```
 
+## Doc
+The doc is available under the following link: [a relative link](./tensorflow/htmldocs/tensorflow.html)

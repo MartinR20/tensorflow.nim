@@ -826,7 +826,7 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#compile%2Cseq%5BT%5D%5BLayer%5D%2CScope%2CLoss%2COptim"
     title="compile(layers: seq[Layer]; root: Scope; loss: Loss; optim: Optim): (
-    proc (rt: Scope; X, Y: Out): OutList, proc (rt: Scope; X: Out): Out)"><wbr />compile<span class="attachedType">Layer</span></a></li>
+    proc (rt: Scope; X, Y: Out; epochs: int), proc (rt: Scope; X: Out): Out)"><wbr />compile<span class="attachedType">Layer</span></a></li>
 
   </ul>
 </li>
@@ -904,7 +904,7 @@ Base Layer to inherit from when creating a new Layer. If your layer contains tra
 <dl class="item">
 <a id="compile,seq[T][Layer],Scope,Loss,Optim"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#compile%2Cseq%5BT%5D%5BLayer%5D%2CScope%2CLoss%2COptim"><span class="Identifier">compile</span></a><span class="Other">(</span><span class="Identifier">layers</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><a href="layer.html#Layer"><span class="Identifier">Layer</span></a><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a><span class="Other">;</span> <span class="Identifier">optim</span><span class="Other">:</span> <a href="optim.html#Optim"><span class="Identifier">Optim</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span>
-    <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">X</span><span class="Other">,</span> <span class="Identifier">Y</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">,</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">X</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">X</span><span class="Other">,</span> <span class="Identifier">Y</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">epochs</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">,</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">X</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
@@ -969,7 +969,7 @@ The isJoin method is now required to be overloaded for every custom JoinLayer. T
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-07 14:17:00 UTC</small>
+        <small>Made with Nim. Generated: 2019-07-17 19:20:56 UTC</small>
       </div>
     </div>
   </div>

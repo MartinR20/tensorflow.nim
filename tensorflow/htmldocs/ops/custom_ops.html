@@ -819,12 +819,14 @@ function main() {
     title="Const(root: Scope; A: Out): Out"><wbr />Const<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Const%2CScope%2CTensor"
     title="Const(root: Scope; A: Tensor): Out"><wbr />Const<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#Const%2CScope%2Carray%5BN%2CT%5D"
-    title="Const[N, T](root: Scope; arr: array[N, T]): Out"><wbr />Const<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#Const%2CScope%2Cint"
-    title="Const(root: Scope; i: int): Out"><wbr />Const<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#Const%2CScope%2Cfloat"
-    title="Const(root: Scope; i: float): Out"><wbr />Const<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Const%2CScope%2Carray%5BN%2CM%5D"
+    title="Const[N, M](root: Scope; arr: array[N, M]): Out"><wbr />Const<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Const%2CScope%2Carray%5BN%2CM%5D%2Ctype"
+    title="Const[N, M](root: Scope; arr: array[N, M]; T: type): Out"><wbr />Const<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Const%2CScope%2CT"
+    title="Const[T](root: Scope; val: T): Out"><wbr />Const<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Const%2CScope%2CN%2Ctype"
+    title="Const[N](root: Scope; val: N; T: type): Out"><wbr />Const<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Transpose%2CScope%2COut"
     title="Transpose(root: Scope; A: Out): Out"><wbr />Transpose<span class="attachedType"></span></a></li>
 
@@ -868,29 +870,36 @@ Construct a constant value from Out object
 Construct a constant value from a Tensor
 
 </dd>
-<a id="Const,Scope,array[N,T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2Carray%5BN%2CT%5D"><span class="Identifier">Const</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a></pre></dt>
+<a id="Const,Scope,array[N,M]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2Carray%5BN%2CM%5D"><span class="Identifier">Const</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a></pre></dt>
 <dd>
 
-Construct a constant value from an array holding data
+Construct a constant value from an array holding data with the dtype of the array
 
 </dd>
-<a id="Const,Scope,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2Cint"><span class="Identifier">Const</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="Const,Scope,array[N,M],type"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2Carray%5BN%2CM%5D%2Ctype"><span class="Identifier">Const</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a></pre></dt>
 <dd>
 
-Construct a constant scalar of type int
+Construct a constant value from an array holding data with the given type
 
 </dd>
-<a id="Const,Scope,float"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2Cfloat"><span class="Identifier">Const</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="Const,Scope,T"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2CT"><span class="Identifier">Const</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a></pre></dt>
 <dd>
 
-Construct a constant scalar of type float
+Construct a constant scalar of the input type
+
+</dd>
+<a id="Const,Scope,N,type"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#Const%2CScope%2CN%2Ctype"><span class="Identifier">Const</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">N</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a></pre></dt>
+<dd>
+
+Construct a constant scalar of the given type
 
 </dd>
 <a id="Transpose,Scope,Out"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#Transpose%2CScope%2COut"><span class="Identifier">Transpose</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">A</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#Transpose%2CScope%2COut"><span class="Identifier">Transpose</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">A</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Transpose that removes the need of providing a permutation for the normally expected result
@@ -901,7 +910,7 @@ Transpose that removes the need of providing a permutation for the normally expe
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Transpose"><span class="Identifier">Transpose</span></a>, <a href="generated/array_ops.html#Transpose"><span class="Identifier">Transpose</span></a>
+<a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Const"><span class="Identifier">Const</span></a>, <a href="custom_ops.html#Transpose"><span class="Identifier">Transpose</span></a>, <a href="generated/array_ops.html#Transpose"><span class="Identifier">Transpose</span></a>
 </dl></div>
 
   </div>
@@ -911,7 +920,7 @@ Transpose that removes the need of providing a permutation for the normally expe
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-07 13:46:54 UTC</small>
+        <small>Made with Nim. Generated: 2019-07-17 19:20:49 UTC</small>
       </div>
     </div>
   </div>
