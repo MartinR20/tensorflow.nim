@@ -89,4 +89,4 @@ nim cpp --app:lib FOO.nim
 ```
 
 ## Doc
-The doc is available under the following link: [a relative link](./tensorflow/htmldocs/tensorflow.html)
+The doc is available under the following link: [documentation](https://martinr20.github.io/tensorflow.nim/tensorflow.html)
