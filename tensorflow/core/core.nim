@@ -66,6 +66,10 @@ proc `$`*(shape: TensorShape) : string =
   ## Returns:
   ##   A new cppstring representing of the TensorShape.
 
+proc `[]`*(shape: TensorShape, i: int32): int32 {.importcpp:"#[#]".}
+
+proc dim_size*(shape: TensorShape, i: int32): int32 {.importcpp:"#.dim_size(#)".}
+
 type
   DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
     TF_FLOAT = 1, TF_DOUBLE = 2, TF_INT32 = 3, ##  Int32 tensors are always in 'host' memory.
@@ -826,6 +830,7 @@ proc addSymbolicGradients(root: Scope, outputs, inputs: Out, gradOutputs: OutLis
 
 export TensorShape,
        newTensorShape,
+       dim_size,
        `$`,
        DType,
        Tensor,
