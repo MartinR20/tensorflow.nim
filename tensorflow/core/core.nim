@@ -597,7 +597,6 @@ type
          importcpp: "tensorflow::Output".} = object
     ## The Out Type is a pure wrapper around the c++ Output type.
 
-
 ## OutList related definitions
 type
   OutList* {.header: std_ops,
@@ -715,6 +714,21 @@ proc ok*(scope: Scope) : bool {.importcpp: "#->ok()".}
   ##   scope: The Scope that should be checked.
   ## Returns:
   ##   Wether an error occured in the given Scope.
+
+proc inewSubScope(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->NewSubScope(#)))".}
+
+proc newSubScope(rt: Scope, name: string): Scope =
+  rt.inewSubScope(newCPPString(name))
+
+type 
+  GraphDef {.importcpp:"tensorflow::GraphDef".} = object
+
+proc itoGraphDef(rt: Scope, graph: GraphDef) {.importcpp:"#->ToGraphDef(&#)".}
+
+proc toGraphDef(rt: Scope): GraphDef =
+  var graph: GraphDef
+  rt.itoGraphDef(graph)
+  return graph
 
 ## Session related definitions
 type
@@ -905,7 +919,9 @@ export TensorShape,
        Scope,
        newRootScope,
        runSession,
+       newSubScope,
        ArraySlice,
        newArraySlice,
        `$@`,
-       addSymbolicGradients
+       GraphDef,
+       toGraphDef,
