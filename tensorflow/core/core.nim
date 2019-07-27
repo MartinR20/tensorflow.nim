@@ -742,7 +742,7 @@ type
     ##   ClientSession foo;
     ## which is excatly what the nim compiler does.
 
-proc inewSession(scope: Scope): Session {.header: memory,
+proc newSession(scope: Scope): Session {.header: memory,
                                          header: client_session,
                                          importcpp: "std::make_shared<tensorflow::ClientSession>(*#)".}
 
@@ -752,41 +752,6 @@ proc inewSession(scope: Scope): Session {.header: memory,
   ##   scope: The Scope from which a Sessino shall be created.
   ## Returns:
   ##   A Session object that can be run to perform the Computations.
-
-proc irunSession(sess: Session, graph: Out, outputs: TensorVec) {.header: client_session,
-                                                                  importcpp: "TF_CHECK_OK((*#).Run({#}, &#))".}
-
-  ## A private Method to run a Session.
-  ## 
-  ## Args:
-  ##   sess: That should be used to run computations.
-  ##   graph: The Out/ OutList representing the computations that should be performed.
-  ##   outputs: A not constructed TensorVec holding the result after the computations.
-
-proc irunSession(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
-                                                                      importcpp: "TF_CHECK_OK((*#).Run(#, &#))".}
-
-proc runSession*(scope:Scope, graph: Out) : TensorVec =
-  var outputs: TensorVec
-
-  irunSession(inewSession(scope), graph, outputs)
-
-  return outputs
-
-  ## A Method to run computations previously definied.
-  ## 
-  ## Args:
-  ##   scope: The current Scope object under which the operations where definied.
-  ##   graph: The Out/ OutList representing the computations that should be performed.
-  ## Returns:
-  ##   outputs: A TensorVec holding the result of the computations.
-
-proc runSession*(scope:Scope, graph: OutList) : TensorVec =
-  var outputs: TensorVec
-
-  irunSession(inewSession(scope), graph, outputs)
-
-  return outputs
 
 ## ArraySlice related definitions
 
@@ -887,6 +852,53 @@ proc addSymbolicGradients(root: Scope, outputs: Out, inputs, gradOutputs: OutLis
 
 proc addSymbolicGradients(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
 
+type FeedDict {.header:"<unordered_map>",
+                importcpp:"std::unordered_map<tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash>".} = object
+
+proc `[]=`*(feed: FeedDict, placeholder: Out, ten: Tensor) {.importcpp:"#.insert({#, *#})".}
+
+proc clear(feed: FeedDict) {.importcpp:"#.clear()".}
+
+proc runSession(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) {.header: client_session,
+                                                                                importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, &#))".}
+
+proc runSession(sess: Session, graph: Out, outputs: TensorVec) {.header: client_session,
+                                                                  importcpp: "TF_CHECK_OK((*#).Run({#}, &#))".}
+
+  ## A private Method to run a Session.
+  ## 
+  ## Args:
+  ##   sess: That should be used to run computations.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   outputs: A not constructed TensorVec holding the result after the computations.
+
+proc runSession(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorVec) {.header: client_session,
+                                                                                     importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, &#))".}
+
+proc runSession(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
+                                                                      importcpp: "TF_CHECK_OK((*#).Run(#, &#))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   scope: The current Scope object under which the operations where definied.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ## Returns:
+  ##   outputs: A TensorVec holding the result of the computations.
+
+proc runSessionVoid(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
+                                                                 importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))".}
+
+proc runSessionVoid(sess: Session, graph: Out) {.header: client_session,
+                                                 importcpp: "TF_CHECK_OK(#->Run({#}, nullptr))".}
+
+proc runSessionVoid(sess: Session, feed: FeedDict, graph: OutList) {.header: client_session,
+                                                                     importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, #, nullptr))".}
+
+proc runSessionVoid(sess: Session, graph: OutList) {.header: client_session,
+                                                    importcpp: "TF_CHECK_OK(#->Run(#, nullptr))".}
+
+
 export TensorShape,
        newTensorShape,
        dim_size,
@@ -918,7 +930,9 @@ export TensorShape,
        newInList,
        Scope,
        newRootScope,
+       newSession,
        runSession,
+       runSessionVoid,
        newSubScope,
        ArraySlice,
        newArraySlice,
@@ -927,3 +941,5 @@ export TensorShape,
        GraphDef,
        toGraphDef,
        typeLookUp,
+       FeedDict,
+       clear
