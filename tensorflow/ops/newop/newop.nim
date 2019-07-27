@@ -172,6 +172,40 @@ macro doc(str: string, x: untyped): untyped =
     lookUp[$name(x)] &= ".Doc(" & $str & ")"
   x
 
+macro grad(x: untyped): untyped =
+  var exportName = $name(x) & "Grad"
+
+  var funbody = body(x) 
+  var funheader = parseStmt("proc " & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "\".}")
+
+  funheader[0].del(funheader[0].len-1, 1)
+  insert(funheader[0], funheader[0].len, funbody)
+  insert(funheader, 0, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\"" & $name(x) & "\", " & exportName & ")\".}"))
+
+  if not grad_included:
+    var includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
+    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    grad_included = true
+
+  return funheader
+
+macro nograd(x: untyped): untyped =
+  let register = parseStmt("{.emit:\"REGISTER_NO_GRADIENT_OP(\\\"" & $name(x) & "\\\");\".}")
+
+  if not grad_included:
+    const includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
+  
+    let res = newStmtList(
+      parseStmt("{.emit:\"" & includes & "\".}")[0],
+      register[0]
+    )
+
+    grad_included = true
+
+    return res
+  
+  else:
+    return register
 
 proc set_output(ctx: ptr InferenceContext, i: int, status: Status) {.header: std_ops,
                                                                      importcpp: "#->set_output(#, #)".}
@@ -240,4 +274,6 @@ export CPU,
        OpKernelContext,
        input,
        allocate_output,
-       OP_REQUIRES_OK
+       OP_REQUIRES_OK,
+       nograd,
+       grad
