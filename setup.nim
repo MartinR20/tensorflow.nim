@@ -6,7 +6,7 @@ import terminal
 
 var platform = paramStr(1)
 
-if existsDir("/colabtools"):
+if existsDir("/content/sample_data"):
     platform &= "-gpu"
 else:
     while true:
