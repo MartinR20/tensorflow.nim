@@ -16,22 +16,21 @@ import ../ops/ops
 
 type Variable = ref object
   vvar*: Out
+  assign*: Out
   shape*: TensorShape
+  name*: string
 
-proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType): Variable =
+proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, name = "Variable"): Variable =
+  let rootNamed = root.newSubScope(name)
   let v = new Variable
+  v.name = name
 
-  let rref = root.Variable(shape, dtype)
+  v.vvar = rootNamed.Variable(shape, dtype)
 
   v.shape = shape
-  v.vvar = root.Assign(rref, value)
+  v.assign = rootNamed.Assign(v.vvar, value)
 
   return v
-
-proc Assign(rt: Scope, v: Variable, value: Out): Out = 
-  let x = rt.Assign(v.vvar, value)
-  v.vvar = x
-  return x
 
 export Variable,
        newVariable,
