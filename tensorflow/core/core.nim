@@ -19,7 +19,7 @@ type
     ## use for it. It is only casted into on the c++ level when a Tensor is constructed. 
 
 
-proc inewTensorShape(dims: openArray[SomeInteger], len: int, shape: TensorShape) {.header: tensor,
+proc inewTensorShape(dims: openArray[int], len: int, shape: TensorShape) {.header: tensor,
                                                                            importcpp: "tensorflow::PartialTensorShape::MakePartialShape(#, #, &#)".}
   ## C++ Constructor Wrapper creating a new TensorShape.
   ##
@@ -28,7 +28,7 @@ proc inewTensorShape(dims: openArray[SomeInteger], len: int, shape: TensorShape)
   ##  len: Length of the dims Array.
   ##  shape: The Shape that is supposed to represent these dimensions.  
 
-proc newTensorShape*(dims: openArray[SomeInteger]): TensorShape =
+proc newTensorShape*(dims: openArray[int]): TensorShape =
   let tshape = TensorShape()
   inewTensorShape(dims, dims.len, tshape)
   return tshape
