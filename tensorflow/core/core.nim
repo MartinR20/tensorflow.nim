@@ -160,6 +160,28 @@ proc shape*(ten: Tensor) : TensorShape {.header: tensor,
   ## Returns:
   ##   The Shape of the Tensor.
 
+proc dtype*(ten: Tensor) : DType {.header: tensor, 
+                                   importcpp:"#->dtype()".}
+
+  ## A Method to get the dtype of a Tensor.
+  ## 
+  ## Args:
+  ##   ten: The Tensor it is applied on.
+  ## Returns:
+  ##   The Dtype of the Tensor.
+
+proc slice*(ten: Tensor, start: int, stop: int): Tensor 
+  {.header: tensor,
+    header: memory,
+    importcpp:"std::make_shared<tensorflow::Tensor>(std::move(#->Slice(#, #)))".}
+
+  ## A Method to get the dtype of a Tensor.
+  ## 
+  ## Args:
+  ##   ten: The Tensor it is applied on.
+  ## Returns:
+  ##   The Dtype of the Tensor.
+
 proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: tensor,
                                                              importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
 
@@ -836,6 +858,7 @@ export TensorShape,
        Tensor,
        newTensor,
        shape,
+       dtype,
        Flat,
        flat,
        Matrix,
