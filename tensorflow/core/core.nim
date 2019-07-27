@@ -524,6 +524,18 @@ proc newTensor*[T](scal: T): Tensor =
   ## Returns:
   ##   A new Tensor with the given data.
 
+proc readBytes*(ten: Tensor, file: string, start: int, len: static[int]) =
+  var readFile: File
+
+  if not readFile.open(file, fmRead): 
+    raise newException(OSError, "Error opening file `" & file & "`!")
+
+  readFile.setFilePos(start)
+
+  var buf = flat[uint8](ten, 0).asPtr()
+  
+  echo "read " & $readFile.readBuffer(buf, len) & "b"
+
 ## TensorVec related definitions
 type
   TensorVec* {.header: vector,
