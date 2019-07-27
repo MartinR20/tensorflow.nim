@@ -2,7 +2,6 @@ import ../core/core,
        ../utils/utils,
        ./generated/array_ops,
        ./generated/math_ops,
-       ./newop/newop,
        typetraits
 {.hint[XDeclaredButNotUsed]:off.}
 

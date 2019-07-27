@@ -857,28 +857,67 @@ function main() {
   <li><a class="reference" href="#Scope"
     title="Scope {.header: &quot;&lt;memory&gt;&quot;, header: &quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;,
        importcpp: &quot;std::shared_ptr&lt;tensorflow::Scope&gt;&quot;.} = object"><wbr />Scope<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#GraphDef"
+    title="GraphDef {.importcpp: &quot;tensorflow::GraphDef&quot;.} = object"><wbr />Graph<wbr />Def<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Session"
     title="Session {.header: &quot;&lt;memory&gt;&quot;, header: &quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;,
          importcpp: &quot;std::shared_ptr&lt;tensorflow::ClientSession&gt;&quot;.} = object"><wbr />Session<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#ArraySlice"
     title="ArraySlice[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
                importcpp: &quot;tensorflow::gtl::ArraySlice&lt;\&apos;0&gt;&quot;.} = object"><wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#SummaryWriter"
+    title="SummaryWriter {.header: &quot;&lt;memory&gt;&quot;,
+               header: &quot;&lt;tensorflow/core/util/events_writer.h&gt;&quot;,
+               importcpp: &quot;std::shared_ptr&lt;tensorflow::EventsWriter&gt;&quot;.} = object"><wbr />Summary<wbr />Writer<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#FeedDict"
+    title="FeedDict {.header: &quot;&lt;unordered_map&gt;&quot;, importcpp: &quot;std::unordered_map&lt;tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash&gt;&quot;.} = object"><wbr />Feed<wbr />Dict<span class="attachedType"></span></a></li>
+
+  </ul>
+</li>
+<li>
+  <a class="reference reference-toplevel" href="#10" id="60">Consts</a>
+  <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#typeLookUp"
+    title="typeLookUp = (data: [(-4614159243323379904, &quot;float64&quot;, TF_DOUBLE),
+                  (-2739862865808591071, &quot;int8&quot;, TF_INT8),
+                  (33188475921878178, &quot;int&quot;, TF_INT64),
+                  (-1189276492920949342, &quot;cppstring&quot;, TF_STRING),
+                  (-702223058298538785, &quot;uint32&quot;, TF_UINT32),
+                  (6266069944901530469, &quot;int32&quot;, TF_INT32), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0),
+                  (-702223337687262168, &quot;uint64&quot;, TF_UINT64), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0),
+                  (6266068912858587659, &quot;int16&quot;, TF_INT16), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0),
+                  (0, &quot;&quot;, 0), (-4614159234508289521, &quot;float32&quot;, TF_FLOAT),
+                  (0, &quot;&quot;, 0), (-3324656118568007631, &quot;float&quot;, TF_DOUBLE),
+                  (-3948959670323788526, &quot;bool&quot;, TF_BOOL), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0),
+                  (0, &quot;&quot;, 0), (0, &quot;&quot;, 0), (-8586076309203210729, &quot;uint8&quot;, TF_UINT8),
+                  (0, &quot;&quot;, 0), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0), (0, &quot;&quot;, 0),
+                  (-702227330349649860, &quot;uint16&quot;, TF_UINT16),
+                  (6266071985704255133, &quot;int64&quot;, TF_INT64), (0, &quot;&quot;, 0), (
+    5028981172786252543, &quot;Complex[system.float64]&quot;, TF_COMPLEX64)], counter: 15)"><wbr />type<wbr />Look<wbr />Up<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#newTensorShape%2CopenArray%5BSomeInteger%5D"
-    title="newTensorShape(dims: openArray[SomeInteger]): TensorShape"><wbr />new<wbr />Tensor<wbr />Shape<span class="attachedType"></span></a></li>
+      <li><a class="reference" href="#newTensorShape%2CopenArray%5Bint%5D"
+    title="newTensorShape(dims: openArray[int]): TensorShape"><wbr />new<wbr />Tensor<wbr />Shape<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%24%2CTensorShape"
     title="`$`(shape: TensorShape): string"><wbr />`$`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%2CTensorShape%2Cint32"
+    title="`[]`(shape: TensorShape; i: int32): int32"><wbr />`[]`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#dim_size%2CTensorShape%2Cint32"
+    title="dim_size(shape: TensorShape; i: int32): int32"><wbr />dim_<wbr />size<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%24%2CTensor"
     title="`$`(ten: Tensor): string"><wbr />`$`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#toValueStr%2CTensor"
     title="toValueStr(ten: Tensor): string"><wbr />to<wbr />Value<wbr />Str<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#shape%2CTensor"
     title="shape(ten: Tensor): TensorShape"><wbr />shape<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#dtype%2CTensor"
+    title="dtype(ten: Tensor): DType"><wbr />dtype<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#slice%2CTensor%2Cint%2Cint"
+    title="slice(ten: Tensor; start: int; stop: int): Tensor"><wbr />slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2CDType%2CTensorShape"
     title="newTensor(dtype: DType; shape: TensorShape): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2CDType%2CopenArray%5Bint%5D"
@@ -889,10 +928,14 @@ function main() {
     title="flat[T](ten: Tensor; x: T): Flat[T]"><wbr />flat<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#size%2CFlat%5BT%5D"
     title="size[T](flat: Flat[T]): int"><wbr />size<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#asPtr%2CFlat%5BT%5D"
+    title="asPtr[T](flat: Flat[T]): ptr T"><wbr />as<wbr />Ptr<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CFlat%5BT%5D%2Cint"
     title="`[]`[T](flat: Flat[T]; i: int): T"><wbr />`[]`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%3D%2CFlat%5BT%5D%2Cint%2CT"
     title="`[]=`[T](flat: Flat[T]; i: int; val: T)"><wbr />`[]=`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#mean%2CFlat%5BT%5D"
+    title="mean[T](flat: Flat[T]): T"><wbr />mean<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#matrix%2CTensor%2CT"
     title="matrix[T](ten: Tensor; x: T): Matrix[T]"><wbr />matrix<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CMatrix%5BT%5D%2Cint%2Cint"
@@ -909,10 +952,14 @@ function main() {
     title="newTensor[N, M](arr: array[N, M]; T: type): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2Carray%5BN%2CT%5D"
     title="newTensor[N, T](arr: array[N, T]): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newTensor%2Cstring"
+    title="newTensor(scal: string): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2CN%2Ctype"
     title="newTensor[N](scal: N; T: type): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2CT"
     title="newTensor[T](scal: T): Tensor"><wbr />new<wbr />Tensor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#readBytes%2CTensor%2Cstring%2Cint%2Cstatic%5Bint%5D"
+    title="readBytes(ten: Tensor; file: string; start: int; len: static[int])"><wbr />read<wbr />Bytes<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensorVec%2Cvarargs%5BTensor%5D"
     title="newTensorVec(args: varargs[Tensor]): TensorVec"><wbr />new<wbr />Tensor<wbr />Vec<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#size%2CTensorVec"
@@ -931,10 +978,12 @@ function main() {
     title="newRootScope(): Scope"><wbr />new<wbr />Root<wbr />Scope<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#ok%2CScope"
     title="ok(scope: Scope): bool"><wbr />ok<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#runSession%2CScope%2COut"
-    title="runSession(scope: Scope; graph: Out): TensorVec"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#runSession%2CScope%2COutList"
-    title="runSession(scope: Scope; graph: OutList): TensorVec"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newSubScope%2CScope%2Cstring"
+    title="newSubScope(rt: Scope; name: string): Scope"><wbr />new<wbr />Sub<wbr />Scope<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#toGraphDef%2CScope"
+    title="toGraphDef(rt: Scope): GraphDef"><wbr />to<wbr />Graph<wbr />Def<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newSession%2CScope"
+    title="newSession(scope: Scope): Session"><wbr />new<wbr />Session<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newArraySlice%2CopenArray%5BT%5D"
     title="newArraySlice[T](data: openArray[T]): ArraySlice[T]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CArraySlice%5BT%5D%2Cint"
@@ -947,6 +996,37 @@ function main() {
     title="newArraySlice[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#addSymbolicGradients%2CScope%2COutList%2COutList%2COutList"
     title="addSymbolicGradients(root: Scope; outputs, inputs, gradOutputs: OutList)"><wbr />add<wbr />Symbolic<wbr />Gradients<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#addSymbolicGradients%2CScope%2COut%2COutList%2COutList"
+    title="addSymbolicGradients(root: Scope; outputs: Out; inputs, gradOutputs: OutList)"><wbr />add<wbr />Symbolic<wbr />Gradients<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#addSymbolicGradients%2CScope%2COut%2COut%2COutList"
+    title="addSymbolicGradients(root: Scope; outputs, inputs: Out; gradOutputs: OutList)"><wbr />add<wbr />Symbolic<wbr />Gradients<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newSummaryWriter%2Cstring"
+    title="newSummaryWriter(dir: string): SummaryWriter"><wbr />new<wbr />Summary<wbr />Writer<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#write_grapdef%2CSummaryWriter%2CGraphDef"
+    title="write_grapdef(summaryWriter: SummaryWriter; grah: GraphDef)"><wbr />write_<wbr />grapdef<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#write_scalar%2CSummaryWriter%2Cfloat64%2Cint64%2Cstring%2Cfloat32"
+    title="write_scalar(summaryWriter: SummaryWriter; wall_time: float64; step: int64;
+             tag: string; value: float32)"><wbr />write_<wbr />scalar<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2CFeedDict%2COut%2CTensor"
+    title="`[]=`(feed: FeedDict; placeholder: Out; ten: Tensor)"><wbr />`[]=`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#clear%2CFeedDict"
+    title="clear(feed: FeedDict)"><wbr />clear<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2CFeedDict%2COut%2CTensorVec"
+    title="runSession(sess: Session; feed: FeedDict; graph: Out; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2COut%2CTensorVec"
+    title="runSession(sess: Session; graph: Out; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2CFeedDict%2COutList%2CTensorVec"
+    title="runSession(sess: Session; feed: FeedDict; graph: OutList; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2COutList%2CTensorVec"
+    title="runSession(sess: Session; graph: OutList; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSessionVoid%2CSession%2CFeedDict%2COut"
+    title="runSessionVoid(sess: Session; feed: FeedDict; graph: Out)"><wbr />run<wbr />Session<wbr />Void<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSessionVoid%2CSession%2COut"
+    title="runSessionVoid(sess: Session; graph: Out)"><wbr />run<wbr />Session<wbr />Void<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSessionVoid%2CSession%2CFeedDict%2COutList"
+    title="runSessionVoid(sess: Session; feed: FeedDict; graph: OutList)"><wbr />run<wbr />Session<wbr />Void<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSessionVoid%2CSession%2COutList"
+    title="runSessionVoid(sess: Session; graph: OutList)"><wbr />run<wbr />Session<wbr />Void<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -1097,6 +1177,14 @@ The Scope Type is a wrapper around the c++ Scope which is basically the &quot;re
 
 
 </dd>
+<a id="GraphDef"></a>
+<dt><pre><a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::GraphDef&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+Type that holds the representation of the computation graph.
+
+</dd>
 <a id="Session"></a>
 <dt><pre><a href="core.html#Session"><span class="Identifier">Session</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
          <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::ClientSession&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
@@ -1122,13 +1210,58 @@ The Session Type is a wrapper around the c++ ClientSession which is the part whe
 
 
 </dd>
+<a id="SummaryWriter"></a>
+<dt><pre><a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span>
+               <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/util/events_writer.h&gt;&quot;</span><span class="Other">,</span>
+               <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::EventsWriter&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+A Object used to log your outputs to a Tensorboard readable file.
+
+</dd>
+<a id="FeedDict"></a>
+<dt><pre><a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;unordered_map&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::unordered_map&lt;tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+A map linking a Out from a Placeholder op to an actual tensor.
+
+</dd>
+
+</dl></div>
+<div class="section" id="10">
+<h1><a class="toc-backref" href="#10">Consts</a></h1>
+<dl class="item">
+<a id="typeLookUp"></a>
+<dt><pre><a href="core.html#typeLookUp"><span class="Identifier">typeLookUp</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">(</span><span class="DecNumber">-4614159243323379904</span><span class="Other">,</span> <span class="StringLit">&quot;float64&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_DOUBLE</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-2739862865808591071</span><span class="Other">,</span> <span class="StringLit">&quot;int8&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT8</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">33188475921878178</span><span class="Other">,</span> <span class="StringLit">&quot;int&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT64</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-1189276492920949342</span><span class="Other">,</span> <span class="StringLit">&quot;cppstring&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_STRING</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-702223058298538785</span><span class="Other">,</span> <span class="StringLit">&quot;uint32&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_UINT32</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">6266069944901530469</span><span class="Other">,</span> <span class="StringLit">&quot;int32&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT32</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-702223337687262168</span><span class="Other">,</span> <span class="StringLit">&quot;uint64&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_UINT64</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">6266068912858587659</span><span class="Other">,</span> <span class="StringLit">&quot;int16&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT16</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">-4614159234508289521</span><span class="Other">,</span> <span class="StringLit">&quot;float32&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_FLOAT</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">-3324656118568007631</span><span class="Other">,</span> <span class="StringLit">&quot;float&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_DOUBLE</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-3948959670323788526</span><span class="Other">,</span> <span class="StringLit">&quot;bool&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_BOOL</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">-8586076309203210729</span><span class="Other">,</span> <span class="StringLit">&quot;uint8&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_UINT8</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">-702227330349649860</span><span class="Other">,</span> <span class="StringLit">&quot;uint16&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_UINT16</span><span class="Other">)</span><span class="Other">,</span>
+                  <span class="Other">(</span><span class="DecNumber">6266071985704255133</span><span class="Other">,</span> <span class="StringLit">&quot;int64&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT64</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span>
+    <span class="DecNumber">5028981172786252543</span><span class="Other">,</span> <span class="StringLit">&quot;Complex[system.float64]&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_COMPLEX64</span><span class="Other">)</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">counter</span><span class="Other">:</span> <span class="DecNumber">15</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="newTensorShape,openArray[SomeInteger]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newTensorShape%2CopenArray%5BSomeInteger%5D"><span class="Identifier">newTensorShape</span></a><span class="Other">(</span><span class="Identifier">dims</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">SomeInteger</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a></pre></dt>
+<a id="newTensorShape,openArray[int]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensorShape%2CopenArray%5Bint%5D"><span class="Identifier">newTensorShape</span></a><span class="Other">(</span><span class="Identifier">dims</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 TensorShape Constructor.<dl class="docutils"><dt>Args:</dt>
@@ -1147,6 +1280,25 @@ String conversion for TensorShapes.<dl class="docutils"><dt>Args:</dt>
 <dd>shape: The TensorShape it is applied on.</dd>
 <dt>Returns:</dt>
 <dd>A new cppstring representing of the TensorShape.</dd>
+</dl>
+
+
+</dd>
+<a id="[],TensorShape,int32"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CTensorShape%2Cint32"><span class="Identifier">`[]`</span></a><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int32</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#[#]&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="dim_size,TensorShape,int32"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#dim_size%2CTensorShape%2Cint32"><span class="Identifier">dim_size</span></a><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int32</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int32</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.dim_size(#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Gets the size of the provided dimension.<dl class="docutils"><dt>Args:</dt>
+<dd>shape: The TensorShape it is applied on. i: dimension index.</dd>
+<dt>Returns:</dt>
+<dd>The size of the dimension.</dd>
 </dl>
 
 
@@ -1184,6 +1336,32 @@ A Method to get the shape of a Tensor.<dl class="docutils"><dt>Args:</dt>
 <dd>ten: The Tensor it is applied on.</dd>
 <dt>Returns:</dt>
 <dd>The Shape of the Tensor.</dd>
+</dl>
+
+
+</dd>
+<a id="dtype,Tensor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#dtype%2CTensor"><span class="Identifier">dtype</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#DType"><span class="Identifier">DType</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
+                             <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;dtype()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to get the dtype of a Tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>ten: The Tensor it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>The Dtype of the Tensor.</dd>
+</dl>
+
+
+</dd>
+<a id="slice,Tensor,int,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#slice%2CTensor%2Cint%2Cint"><span class="Identifier">slice</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">stop</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::Tensor&gt;(std::move(#-&gt;Slice(#, #)))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to get the dtype of a Tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>ten: The Tensor it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>The Dtype of the Tensor.</dd>
 </dl>
 
 
@@ -1249,6 +1427,18 @@ Size method to get the number of elements in the Flat object.<dl class="docutils
 
 
 </dd>
+<a id="asPtr,Flat[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#asPtr%2CFlat%5BT%5D"><span class="Identifier">asPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;data()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Proc converting the Flat type to raw buffer.<dl class="docutils"><dt>Args:</dt>
+<dd>flat: The Flat object it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A pointer to the Flat buffer memory.</dd>
+</dl>
+
+
+</dd>
 <a id="[],Flat[T],int"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CFlat%5BT%5D%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
@@ -1260,6 +1450,18 @@ Size method to get the number of elements in the Flat object.<dl class="docutils
 <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CFlat%5BT%5D%2Cint%2CT"><span class="Identifier">`[]=`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(*#)(#) = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+
+
+</dd>
+<a id="mean,Flat[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#mean%2CFlat%5BT%5D"><span class="Identifier">mean</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span></pre></dt>
+<dd>
+
+Calculates the mean of all elements in the buffer.<dl class="docutils"><dt>Args:</dt>
+<dd>flat: The Flat object it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>Returns the mean.</dd>
+</dl>
 
 
 </dd>
@@ -1319,6 +1521,11 @@ A method returning the Scalar from a Tensor with the given type.<dl class="docut
 <dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Carray%5BN%2CM%5D%2Ctype"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">arr</span><span class="Other">:</span> <span class="Identifier">array</span><span class="Other">[</span><span class="Identifier">N</span><span class="Other">,</span> <span class="Identifier">M</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
 <dd>
 
+Convinience Tensor Constructor copying data from an array into a Tensor and converting the data to the given type.<dl class="docutils"><dt>Args:</dt>
+<dd>arr: The array a Tensor should be constructed from. T: The type the Tensor should have.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor with the given data.</dd>
+</dl>
 
 
 </dd>
@@ -1334,10 +1541,27 @@ Convinience Tensor Constructor copying data from an array into a Tensor.<dl clas
 
 
 </dd>
+<a id="newTensor,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2Cstring"><span class="Identifier">newTensor</span></a><span class="Other">(</span><span class="Identifier">scal</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">KeyError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Convinience Tensor Constructor to create a string tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>scal: A string scalar.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor with the given string scalar.</dd>
+</dl>
+
+
+</dd>
 <a id="newTensor,N,type"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#newTensor%2CN%2Ctype"><span class="Identifier">newTensor</span></a><span class="Other">[</span><span class="Identifier">N</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">scal</span><span class="Other">:</span> <span class="Identifier">N</span><span class="Other">;</span> <span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">type</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a></pre></dt>
 <dd>
 
+Convinience Tensor Constructor copying the given scalar into a Tensor and converting it to the given type.<dl class="docutils"><dt>Args:</dt>
+<dd>scal: The array a Tensor should be constructed from. T: Type to convert to.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor with the given data.</dd>
+</dl>
 
 
 </dd>
@@ -1346,9 +1570,21 @@ Convinience Tensor Constructor copying data from an array into a Tensor.<dl clas
 <dd>
 
 Convinience Tensor Constructor copying the given scalar into a Tensor.<dl class="docutils"><dt>Args:</dt>
-<dd>arr: The array a Tensor should be constructed from.</dd>
+<dd>scal: The array a Tensor should be constructed from.</dd>
 <dt>Returns:</dt>
 <dd>A new Tensor with the given data.</dd>
+</dl>
+
+
+</dd>
+<a id="readBytes,Tensor,string,int,static[int]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#readBytes%2CTensor%2Cstring%2Cint%2Cstatic%5Bint%5D"><span class="Identifier">readBytes</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">file</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">start</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">len</span><span class="Other">:</span> <span class="Identifier">static</span><span class="Other">[</span><span class="Identifier">int</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
+<dd>
+
+Proc to read a byte file directly into the underlying databuffer of a Tensor.<dl class="docutils"><dt>Args:</dt>
+<dd>ten: The tensor to write to. file: The name of the file to read. start: The position to start reading from. len: The number of bytes to read.</dd>
+<dt>Returns:</dt>
+<dd>A new Tensor holding the files content.</dd>
 </dl>
 
 
@@ -1452,22 +1688,29 @@ Method to check if an error occured in the context of a Scope object.<dl class="
 
 
 </dd>
-<a id="runSession,Scope,Out"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CScope%2COut"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">scope</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="newSubScope,Scope,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newSubScope%2CScope%2Cstring"><span class="Identifier">newSubScope</span></a><span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-A Method to run computations previously definied.<dl class="docutils"><dt>Args:</dt>
-<dd>scope: The current Scope object under which the operations where definied. graph: The Out/ OutList representing the computations that should be performed.</dd>
-<dt>Returns:</dt>
-<dd>outputs: A TensorVec holding the result of the computations.</dd>
-</dl>
-
+Returns a Subscope with the given name. This is useful for visualization in tensorboard.
 
 </dd>
-<a id="runSession,Scope,OutList"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CScope%2COutList"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">scope</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="toGraphDef,Scope"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#toGraphDef%2CScope"><span class="Identifier">toGraphDef</span></a><span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+Get a graphdef from a Scope.
+
+</dd>
+<a id="newSession,Scope"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newSession%2CScope"><span class="Identifier">newSession</span></a><span class="Other">(</span><span class="Identifier">scope</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::ClientSession&gt;(*#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Constructor for the Session type.<dl class="docutils"><dt>Args:</dt>
+<dd>scope: The Scope from which a Sessino shall be created.</dd>
+<dt>Returns:</dt>
+<dd>A Session object that can be run to perform the Computations.</dd>
+</dl>
 
 
 </dd>
@@ -1540,6 +1783,156 @@ Method for getting the gradient of a sequence of operations applied to the input
 
 
 </dd>
+<a id="addSymbolicGradients,Scope,Out,OutList,OutList"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#addSymbolicGradients%2CScope%2COut%2COutList%2COutList"><span class="Identifier">addSymbolicGradients</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">inputs</span><span class="Other">,</span> <span class="Identifier">gradOutputs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/framework/gradients.h&gt;&quot;</span><span class="Other">,</span>
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="addSymbolicGradients,Scope,Out,Out,OutList"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#addSymbolicGradients%2CScope%2COut%2COut%2COutList"><span class="Identifier">addSymbolicGradients</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">,</span> <span class="Identifier">inputs</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">gradOutputs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/framework/gradients.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="newSummaryWriter,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newSummaryWriter%2Cstring"><span class="Identifier">newSummaryWriter</span></a><span class="Other">(</span><span class="Identifier">dir</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+creates a new SummaryWriter writing to the given directory
+
+</dd>
+<a id="write_grapdef,SummaryWriter,GraphDef"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#write_grapdef%2CSummaryWriter%2CGraphDef"><span class="Identifier">write_grapdef</span></a><span class="Other">(</span><span class="Identifier">summaryWriter</span><span class="Other">:</span> <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a><span class="Other">;</span> <span class="Identifier">grah</span><span class="Other">:</span> <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/util/events_writer.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::Event event; auto _writer = #; event.set_graph_def(#.SerializeAsString()); _writer-&gt;WriteEvent(event);&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+writes the given GraphDef to the logs.
+
+</dd>
+<a id="write_scalar,SummaryWriter,float64,int64,string,float32"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#write_scalar%2CSummaryWriter%2Cfloat64%2Cint64%2Cstring%2Cfloat32"><span class="Identifier">write_scalar</span></a><span class="Other">(</span><span class="Identifier">summaryWriter</span><span class="Other">:</span> <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a><span class="Other">;</span> <span class="Identifier">wall_time</span><span class="Other">:</span> <span class="Identifier">float64</span><span class="Other">;</span> <span class="Identifier">step</span><span class="Other">:</span> <span class="Identifier">int64</span><span class="Other">;</span>
+                 <span class="Identifier">tag</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">float32</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Writes a Scalar to the logs.<dl class="docutils"><dt>Args:</dt>
+<dd>summaryWriter: The SummaryWriter it is applied on. wall_time: Time it is written at. step: The step it was written at. tag: The name of the scalar. value: The value of the scalar.</dd>
+</dl>
+
+
+</dd>
+<a id="[]=,FeedDict,Out,Tensor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2CFeedDict%2COut%2CTensor"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">placeholder</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.insert({#, *#})&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="clear,FeedDict"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#clear%2CFeedDict"><span class="Identifier">clear</span></a><span class="Other">(</span><span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.clear()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Remove all items from the dict.
+
+</dd>
+<a id="runSession,Session,FeedDict,Out,TensorVec"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2CFeedDict%2COut%2CTensorVec"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. feed: The FeedDict linking Out and Tensor. graph: The Out/ OutList representing the computations that should be performed. outputs: A TensorVec holding the result of the computations.</dd>
+</dl>
+
+
+</dd>
+<a id="runSession,Session,Out,TensorVec"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2COut%2CTensorVec"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK((*#).Run({#}, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. graph: The Out/ OutList representing the computations that should be performed. outputs: A TensorVec holding the result of the computations.</dd>
+</dl>
+
+
+</dd>
+<a id="runSession,Session,FeedDict,OutList,TensorVec"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2CFeedDict%2COutList%2CTensorVec"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. feed: The FeedDict linking Out and Tensor. graph: The Out/ OutList representing the computations that should be performed. outputs: A TensorVec holding the result of the computations.</dd>
+</dl>
+
+
+</dd>
+<a id="runSession,Session,OutList,TensorVec"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2COutList%2CTensorVec"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">;</span> <span class="Identifier">outputs</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK((*#).Run(#, &amp;#))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. graph: The Out/ OutList representing the computations that should be performed. outputs: A TensorVec holding the result of the computations.</dd>
+</dl>
+
+
+</dd>
+<a id="runSessionVoid,Session,FeedDict,Out"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSessionVoid%2CSession%2CFeedDict%2COut"><span class="Identifier">runSessionVoid</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(#-&gt;Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied without returning the output.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. feed: The FeedDict linking Out and Tensor. graph: The Out/ OutList representing the computations that should be performed.</dd>
+</dl>
+
+
+</dd>
+<a id="runSessionVoid,Session,Out"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSessionVoid%2CSession%2COut"><span class="Identifier">runSessionVoid</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(#-&gt;Run({#}, nullptr))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied without returning the output.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. graph: The Out/ OutList representing the computations that should be performed.</dd>
+</dl>
+
+
+</dd>
+<a id="runSessionVoid,Session,FeedDict,OutList"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSessionVoid%2CSession%2CFeedDict%2COutList"><span class="Identifier">runSessionVoid</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(#-&gt;Run((tensorflow::ClientSession::FeedType)#, #, nullptr))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied without returning the output.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. feed: The FeedDict linking Out and Tensor. graph: The Out/ OutList representing the computations that should be performed.</dd>
+</dl>
+
+
+</dd>
+<a id="runSessionVoid,Session,OutList"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSessionVoid%2CSession%2COutList"><span class="Identifier">runSessionVoid</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(#-&gt;Run(#, nullptr))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+A Method to run computations previously definied without returning the output.<dl class="docutils"><dt>Args:</dt>
+<dd>sess: The Session returned from the current Scope. graph: The Out/ OutList representing the computations that should be performed.</dd>
+</dl>
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="15">
@@ -1574,7 +1967,7 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a>, <a href="core.html#matrix"><span class="Identifier">matrix</span></a>, <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a>, <a href="core.html#scalar"><span class="Identifier">scalar</span></a>, <a href="core.html#set"><span class="Identifier">set</span></a>, <a href="core.html#get"><span class="Identifier">get</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="../utils/utils.html#size"><span class="Identifier">size</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>
+<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#dim_size"><span class="Identifier">dim_size</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#dtype"><span class="Identifier">dtype</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#mean"><span class="Identifier">mean</span></a>, <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a>, <a href="core.html#matrix"><span class="Identifier">matrix</span></a>, <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a>, <a href="core.html#scalar"><span class="Identifier">scalar</span></a>, <a href="core.html#set"><span class="Identifier">set</span></a>, <a href="core.html#get"><span class="Identifier">get</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="../utils/utils.html#size"><span class="Identifier">size</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#newSession"><span class="Identifier">newSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#newSubScope"><span class="Identifier">newSubScope</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a>, <a href="core.html#toGraphDef"><span class="Identifier">toGraphDef</span></a>, <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a>, <a href="core.html#newSummaryWriter"><span class="Identifier">newSummaryWriter</span></a>, <a href="core.html#write_grapdef"><span class="Identifier">write_grapdef</span></a>, <a href="core.html#write_scalar"><span class="Identifier">write_scalar</span></a>, <a href="core.html#typeLookUp"><span class="Identifier">typeLookUp</span></a>, <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a>, <a href="core.html#clear"><span class="Identifier">clear</span></a>
 </dl></div>
 
   </div>
@@ -1584,7 +1977,7 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-17 19:20:36 UTC</small>
+        <small>Made with Nim. Generated: 2019-07-27 14:37:49 UTC</small>
       </div>
     </div>
   </div>

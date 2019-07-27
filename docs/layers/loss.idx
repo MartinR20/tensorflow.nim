@@ -1,3 +1,4 @@
 Loss	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#Loss	loss: Loss	
 make	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#make.e,Loss,Scope	loss: make(loss: Loss; root: Scope): (proc (rt: Scope; y_true, y_pred: Out): Out)	
 newMSE	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#newMSE	loss: newMSE(): MSE	
+newCrossEntropy	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#newCrossEntropy	loss: newCrossEntropy(): CrossEntropy	

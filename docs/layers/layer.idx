@@ -3,4 +3,3 @@ Layer	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow
 make	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#make.e,Layer,Scope	layer: make(layer: Layer; root: Scope): (proc (rt: Scope; input: Out): Out)	
 makeJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#makeJoin.e,Layer,Scope	layer: makeJoin(layer: Layer; root: Scope): (proc (rt: Scope; input: OutList): Out)	
 isJoin	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#isJoin.e,Layer	layer: isJoin(layer: Layer): bool	
-compile	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/layer.html#compile,seq[T][Layer],Scope,Loss,Optim	layer: compile(layers: seq[Layer]; root: Scope; loss: Loss; optim: Optim): (\n    proc (rt: Scope; X, Y: Out; epochs: int), proc (rt: Scope; X: Out): Out)	

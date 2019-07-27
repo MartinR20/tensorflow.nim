@@ -1,19 +1,25 @@
 TensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#TensorShape	core: TensorShape	
-newTensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorShape,openArray[SomeInteger]	core: newTensorShape(dims: openArray[SomeInteger]): TensorShape	
+newTensorShape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorShape,openArray[int]	core: newTensorShape(dims: openArray[int]): TensorShape	
 `$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,TensorShape	core: `$`(shape: TensorShape): string	
+`[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],TensorShape,int32	core: `[]`(shape: TensorShape; i: int32): int32	
+dim_size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#dim_size,TensorShape,int32	core: dim_size(shape: TensorShape; i: int32): int32	
 DType	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#DType	core: DType	
 Tensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Tensor	core: Tensor	
 `$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,Tensor	core: `$`(ten: Tensor): string	
 toValueStr	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#toValueStr,Tensor	core: toValueStr(ten: Tensor): string	
 shape	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#shape,Tensor	core: shape(ten: Tensor): TensorShape	
+dtype	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#dtype,Tensor	core: dtype(ten: Tensor): DType	
+slice	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#slice,Tensor,int,int	core: slice(ten: Tensor; start: int; stop: int): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,TensorShape	core: newTensor(dtype: DType; shape: TensorShape): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,openArray[int]	core: newTensor(dtype: DType; shape: openArray[int]): Tensor	
 `$@`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$@,array[N,T]	core: `$@`[N, T](arr: array[N, T]): Tensor	
 Flat	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Flat	core: Flat	
 flat	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#flat,Tensor,T	core: flat[T](ten: Tensor; x: T): Flat[T]	
 size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#size,Flat[T]	core: size[T](flat: Flat[T]): int	
+asPtr	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#asPtr,Flat[T]	core: asPtr[T](flat: Flat[T]): ptr T	
 `[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],Flat[T],int	core: `[]`[T](flat: Flat[T]; i: int): T	
 `[]=`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[]=,Flat[T],int,T	core: `[]=`[T](flat: Flat[T]; i: int; val: T)	
+mean	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#mean,Flat[T]	core: mean[T](flat: Flat[T]): T	
 Matrix	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Matrix	core: Matrix	
 matrix	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#matrix,Tensor,T	core: matrix[T](ten: Tensor; x: T): Matrix[T]	
 `[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],Matrix[T],int,int	core: `[]`[T](flat: Matrix[T]; i: int; j: int): T	
@@ -22,10 +28,13 @@ Scalar	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflo
 scalar	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#scalar,Tensor,T	core: scalar[T](ten: Tensor; x: T): Scalar[T]	
 set	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#set,Scalar[T],T	core: set[T](flat: Scalar[T]; val: T)	
 get	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#get,Scalar[T]	core: get[T](flat: Scalar[T]): T	
+typeLookUp	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#typeLookUp	core: typeLookUp	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,array[N,M],type	core: newTensor[N, M](arr: array[N, M]; T: type): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,array[N,T]	core: newTensor[N, T](arr: array[N, T]): Tensor	
+newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,string	core: newTensor(scal: string): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,N,type	core: newTensor[N](scal: N; T: type): Tensor	
 newTensor	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,T	core: newTensor[T](scal: T): Tensor	
+readBytes	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#readBytes,Tensor,string,int,static[int]	core: readBytes(ten: Tensor; file: string; start: int; len: static[int])	
 TensorVec	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#TensorVec	core: TensorVec	
 newTensorVec	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorVec,varargs[Tensor]	core: newTensorVec(args: varargs[Tensor]): TensorVec	
 size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#size,TensorVec	core: size(tensorVec: TensorVec): int	
@@ -42,9 +51,11 @@ newInList	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensor
 Scope	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Scope	core: Scope	
 newRootScope	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newRootScope	core: newRootScope(): Scope	
 ok	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#ok,Scope	core: ok(scope: Scope): bool	
+newSubScope	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newSubScope,Scope,string	core: newSubScope(rt: Scope; name: string): Scope	
+GraphDef	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#GraphDef	core: GraphDef	
+toGraphDef	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#toGraphDef,Scope	core: toGraphDef(rt: Scope): GraphDef	
 Session	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Session	core: Session	
-runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Scope,Out	core: runSession(scope: Scope; graph: Out): TensorVec	
-runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Scope,OutList	core: runSession(scope: Scope; graph: OutList): TensorVec	
+newSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newSession,Scope	core: newSession(scope: Scope): Session	
 ArraySlice	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#ArraySlice	core: ArraySlice	
 newArraySlice	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newArraySlice,openArray[T]	core: newArraySlice[T](data: openArray[T]): ArraySlice[T]	
 `[]`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],ArraySlice[T],int	core: `[]`[T](slice: ArraySlice[T]; idx: int): T	
@@ -52,3 +63,20 @@ size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/
 `$`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,ArraySlice[T]	core: `$`[T](slice: ArraySlice[T]): string	
 newArraySlice	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newArraySlice,ArraySlice[string]	core: newArraySlice[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]	
 addSymbolicGradients	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#addSymbolicGradients,Scope,OutList,OutList,OutList	core: addSymbolicGradients(root: Scope; outputs, inputs, gradOutputs: OutList)	
+addSymbolicGradients	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#addSymbolicGradients,Scope,Out,OutList,OutList	core: addSymbolicGradients(root: Scope; outputs: Out; inputs, gradOutputs: OutList)	
+addSymbolicGradients	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#addSymbolicGradients,Scope,Out,Out,OutList	core: addSymbolicGradients(root: Scope; outputs, inputs: Out; gradOutputs: OutList)	
+SummaryWriter	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#SummaryWriter	core: SummaryWriter	
+newSummaryWriter	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newSummaryWriter,string	core: newSummaryWriter(dir: string): SummaryWriter	
+write_grapdef	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#write_grapdef,SummaryWriter,GraphDef	core: write_grapdef(summaryWriter: SummaryWriter; grah: GraphDef)	
+write_scalar	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#write_scalar,SummaryWriter,float64,int64,string,float32	core: write_scalar(summaryWriter: SummaryWriter; wall_time: float64; step: int64;\n             tag: string; value: float32)	
+FeedDict	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#FeedDict	core: FeedDict	
+`[]=`	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[]=,FeedDict,Out,Tensor	core: `[]=`(feed: FeedDict; placeholder: Out; ten: Tensor)	
+clear	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#clear,FeedDict	core: clear(feed: FeedDict)	
+runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,Out,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: Out; outputs: TensorVec)	
+runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,Out,TensorVec	core: runSession(sess: Session; graph: Out; outputs: TensorVec)	
+runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,OutList,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: OutList; outputs: TensorVec)	
+runSession	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,OutList,TensorVec	core: runSession(sess: Session; graph: OutList; outputs: TensorVec)	
+runSessionVoid	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,Out	core: runSessionVoid(sess: Session; feed: FeedDict; graph: Out)	
+runSessionVoid	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,Out	core: runSessionVoid(sess: Session; graph: Out)	
+runSessionVoid	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,OutList	core: runSessionVoid(sess: Session; feed: FeedDict; graph: OutList)	
+runSessionVoid	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,OutList	core: runSessionVoid(sess: Session; graph: OutList)	
