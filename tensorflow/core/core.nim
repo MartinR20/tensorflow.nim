@@ -335,7 +335,7 @@ proc mean*[T](flat: Flat[T]) : T =
   for i in 0..size-1:
     sum += flat[i]
 
-  sum / size.T 
+  return sum / size.T 
 
   ## Calculates the mean of all elements in the buffer.
   ## 
@@ -773,7 +773,7 @@ proc ok*(scope: Scope) : bool {.importcpp: "#->ok()".}
 proc inewSubScope(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->NewSubScope(#)))".}
 
 proc newSubScope*(rt: Scope, name: string): Scope =
-  rt.inewSubScope(newCPPString(name))
+  return rt.inewSubScope(newCPPString(name))
 
   ## Returns a Subscope with the given name.
   ## This is useful for visualization in tensorboard.
@@ -873,7 +873,7 @@ proc `$`*[T](slice: ArraySlice[T]): string =
     str &= $slice[i] & ", "
 
   str &= $slice[sz-1] & "]"
-  str
+  return str
 
   ## Method for string conversion.
   ## 

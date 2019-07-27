@@ -8,6 +8,7 @@ var platform = paramStr(1)
 
 if existsDir("/content/sample_data"):
     platform &= "-gpu"
+    echo "Detected Colab defaulting to gpu installation!"
 else:
     while true:
         echo "Install with gpu support? [y/n]"
