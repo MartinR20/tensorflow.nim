@@ -1,7 +1,9 @@
 import ../core/core,
        ../utils/utils,
        ./generated/array_ops,
-       ./generated/math_ops
+       ./generated/math_ops,
+       ./newop/newop,
+       typetraits
 {.hint[XDeclaredButNotUsed]:off.}
 
 proc Const*(root: Scope, A: Out) : Out {.header: std_ops,
@@ -34,6 +36,12 @@ proc Const*[N](root: Scope, val: N, T: type) : Out =
 
   ## Construct a constant scalar of the given type
 
+proc Cast(root: Scope, ten: Out, T: type): Out =
+  root.Cast(ten, typeLookUp[T.name])
+
+proc Placeholder(root: Scope, dtype: core.DType): Out {.header: std_ops,
+                                                        importcpp: "tensorflow::ops::Placeholder(*#, #)".} 
+
 proc `-`(root: Scope, A, B: Out): Out =
   return Subtract(root, A, B)
 
@@ -46,7 +54,13 @@ proc Transpose*(root: Scope, A: Out) : Out =
 
   ## Transpose that removes the need of providing a permutation for the normally expected result
 
+proc ClipByValue(root: Scope, t: Out, clip_value_min: float, clip_value_max: float): Out =
+  return root.Minimum(root.Maximum(t, root.Const(clip_value_min, float32)), root.Const(clip_value_max, float32))
+
 export Const,
+       Cast,
+       Placeholder,
+       ClipByValue,
        #`-`,
        #`@`,
        Transpose
