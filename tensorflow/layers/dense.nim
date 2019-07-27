@@ -26,21 +26,27 @@ method `$`(layer: Dense): string = "Dense(in:" & $layer.inFeatures &
 
 method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out = 
     layer.train = @[]
+    let shortLayerName = "Dense_" & $layer.outFeatures
+    let rootNamed = root.newSubScope(shortLayerName & "_setup")
 
-    let w = root.RandomNormal(root.Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
+    let w = rootNamed.RandomNormal(rootNamed.Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
 
-    layer.train.add(root.newVariable(w, newTensorShape([layer.inFeatures, layer.outFeatures]), TF_FLOAT))
+    layer.train.add(rootNamed.newVariable(w, newTensorShape([layer.inFeatures, layer.outFeatures]), TF_FLOAT, "weights"))
 
     if not layer.bias:
         return proc(rt: Scope, input: Out): Out = 
-                    return rt.MatMul(input, layer.train[0].vvar)
+                    let rtNamed = rt.newSubScope(shortLayerName)
+
+                    rtNamed.MatMul(input, layer.train[0].vvar)
 
     else:
-        let b = root.RandomNormal(root.Const([1, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
-        layer.train.add(root.newVariable(b, newTensorShape([1, layer.outFeatures]), TF_FLOAT))
+        let b = rootNamed.RandomNormal(rootNamed.Const([1, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
+        layer.train.add(rootNamed.newVariable(b, newTensorShape([1, layer.outFeatures]), TF_FLOAT, "bias"))
         
         return proc(rt: Scope, input: Out): Out = 
-                    rt.Add(rt.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
+                    let rtNamed = rt.newSubScope(shortLayerName)
+
+                    rtNamed.Add(rtNamed.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
 
 proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = none(bool)) =
     var dense = new Dense

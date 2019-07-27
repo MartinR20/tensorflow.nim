@@ -21,10 +21,13 @@ type Reshape[N,int] = ref object of Layer
 method `$`[N,int](layer: Reshape[N,int]): string = "Reshape(shape:" & $layer.shape & ")"
 
 method make[N,int](layer: Reshape[N,int], root: Scope): proc(rt: Scope, input: Out): Out = 
-        let shape = root.Const(layer.shape, int32)
+        let rootNamed = root.newSubScope("Reshape_setup")
+        let shape = rootNamed.Const(layer.shape, int32)
 
         return proc(rt: Scope, input: Out): Out = 
-                    return rt.Reshape(input, shape)
+                    let rtNamed = rt.newSubScope("Reshape")
+
+                    return rtNamed.Reshape(input, shape)
 
 proc newReshape*[N,int](model: var seq[Layer], shape: array[N,int]) =
     var reshape = new Reshape[N,int]

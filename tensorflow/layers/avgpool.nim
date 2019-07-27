@@ -33,6 +33,7 @@ method make(layer: AvgPool, root: Scope): proc(rt: Scope, input: Out): Out =
     let padding = newCPPString(layer.padding)
 
     return proc(rt: Scope, input: Out): Out =
+                let rtNamed = rt.newSubScope("AvgPool_" & $kernel[1] & "x" & $kernel[2])
                 # TODO: make cppstring not go out of scope in the wrapper
                 var attrs = AvgPoolAttrs()
                 attrs = attrs.DataFormat(newCPPString(layer.dataFormat))
