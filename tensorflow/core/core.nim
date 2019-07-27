@@ -447,7 +447,7 @@ proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
     when T.name == "cppstring":
       var buf = flat[cppstring](ten, newCPPString(" "))
     else:
-    var buf = flat[T](ten, 0)
+      var buf = flat[T](ten, 0)
 
     var baseElPtr: cArray[M.ttype]
     cArrayFromNim(baseElPtr, arr)
@@ -470,7 +470,7 @@ proc newTensor*[N,T](arr: array[N,T]): Tensor =
     when T.ttype.name == "cppstring":
       var buf = flat[cppstring](ten, newCPPString(" "))
     else:
-    var buf = flat[T.ttype](ten, 0)
+      var buf = flat[T.ttype](ten, 0)
 
     var baseElPtr: cArray[T.ttype]
     cArrayFromNim(baseElPtr, arr)
@@ -626,7 +626,7 @@ proc newOutList*(outs: varargs[Out]): OutList =
   ##   An OutList with the given Out objects.
 
 proc `[]`*(outs: OutList, idx: int): Out {.importcpp:"#[#]".}
- 
+
 proc size*(outs: OutList): int {.importcpp:"#.size()".}
 
   ## Method to get the size of an OutList.
@@ -852,6 +852,26 @@ proc addSymbolicGradients(root: Scope, outputs: Out, inputs, gradOutputs: OutLis
 
 proc addSymbolicGradients(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
 
+type SummaryWriter {.header:memory,
+                     header:writer,
+                     importcpp:"std::shared_ptr<tensorflow::EventsWriter>".} = object
+
+proc inewSummaryWriter(file: cppstring): SummaryWriter {.header:memory,
+                                                         header:writer,
+                                                         importcpp:"std::make_shared<tensorflow::EventsWriter>(#)".}
+
+proc newSummaryWriter(file: string): SummaryWriter = inewSummaryWriter(newCPPString(file))
+
+proc write_grapdef(summaryWriter: SummaryWriter, grah: GraphDef) {.header:writer,
+                                                                   importcpp:"tensorflow::Event event; auto _writer = #; event.set_graph_def(#.SerializeAsString()); _writer->WriteEvent(event);".}
+
+
+proc iwrite_scalar(summaryWriter: SummaryWriter, wall_time: float64, step: int64, tag: cppstring, value: float32) {.header:writer,
+                                                                                                                    importcpp:"tensorflow::Event event; auto _writer = #; event.set_wall_time(#); event.set_step(#); tensorflow::Summary::Value* summ_val = event.mutable_summary()->add_value(); summ_val->set_tag(#); summ_val->set_simple_value(#); _writer->WriteEvent(event);".}
+
+proc write_scalar(summaryWriter: SummaryWriter, wall_time: float64, step: int64, tag: string, value: float32) =
+  iwrite_scalar(summaryWriter, wall_time, step, newCPPString(tag), value)
+
 type FeedDict {.header:"<unordered_map>",
                 importcpp:"std::unordered_map<tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash>".} = object
 
@@ -940,6 +960,10 @@ export TensorShape,
        addSymbolicGradients,
        GraphDef,
        toGraphDef,
+       SummaryWriter,
+       newSummaryWriter,
+       write_grapdef,
+       write_scalar,
        typeLookUp,
        FeedDict,
        clear

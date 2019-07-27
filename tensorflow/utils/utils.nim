@@ -20,6 +20,7 @@ const
   op_kernel = "<tensorflow/core/framework/op_kernel.h>"
   memory = "<memory>"
   vector = "<vector>"
+  writer = "<tensorflow/core/util/events_writer.h>"
 
   ## header definitions used across the library
 
@@ -58,6 +59,7 @@ export client_session,
        op_kernel,
        memory,
        vector,
+       writer,
        cppstring,
        newCPPString,
        size,
