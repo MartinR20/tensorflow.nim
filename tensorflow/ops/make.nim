@@ -164,4 +164,4 @@ for line in def.split("\n"):
                 
         
 
-lastFile.write("root: Scope) {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(*@)\".}\n")
+lastFile.write("root: Scope): Out {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(*@)\".}\n")
