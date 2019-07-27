@@ -70,6 +70,14 @@ proc `[]`*(shape: TensorShape, i: int32): int32 {.importcpp:"#[#]".}
 
 proc dim_size*(shape: TensorShape, i: int32): int32 {.importcpp:"#.dim_size(#)".}
 
+  ## Gets the size of the provided dimension.
+  ## 
+  ## Args:
+  ##   shape: The TensorShape it is applied on. 
+  ##   i: dimension index.
+  ## Returns:
+  ##   The size of the dimension.
+
 type
   DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
     TF_FLOAT = 1, TF_DOUBLE = 2, TF_INT32 = 3, ##  Int32 tensors are always in 'host' memory.
@@ -307,7 +315,14 @@ proc size*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
   ## Returns:
   ##   The number of elements.
 
-proc asPtr[T](flat: Flat[T]): ptr T {.importcpp:"#->data()".}
+proc asPtr*[T](flat: Flat[T]): ptr T {.importcpp:"#->data()".}
+
+  ## Proc converting the Flat type to raw buffer.
+  ## 
+  ## Args:
+  ##   flat: The Flat object it is applied on.
+  ## Returns:
+  ##   A pointer to the Flat buffer memory.
 
 proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"(*#)(#)".}
 
@@ -321,6 +336,13 @@ proc mean*[T](flat: Flat[T]) : T =
     sum += flat[i]
 
   sum / size.T 
+
+  ## Calculates the mean of all elements in the buffer.
+  ## 
+  ## Args:
+  ##   flat: The Flat object it is applied on.
+  ## Returns:
+  ##   Returns the mean.
 
 ## Matrix related definitions
 type
@@ -386,7 +408,7 @@ proc `[]`*[T, N](map: TensorMap[T, N], idxs: varargs[int]): T {.importcpp:"[](){
 proc `[]=`*[T, N](map: TensorMap[T, N], idxs: varargs[int], val: T) {.importcpp:"auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); _map->(_idx) = #;".}
 ]#
 
-const typeLookUp = {
+const typeLookUp* = {
   "float"                    : TF_DOUBLE,
   "float32"                  : TF_FLOAT,
   "float64"                  : TF_DOUBLE, 
@@ -460,6 +482,14 @@ proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
 
   else: raise newException(OSError, "Type not supported!")
 
+  ## Convinience Tensor Constructor copying data from an array into a Tensor and converting the data to the given type. 
+  ## 
+  ## Args:
+  ##   arr: The array a Tensor should be constructed from.
+  ##   T: The type the Tensor should have.
+  ## Returns:
+  ##   A new Tensor with the given data.
+
 proc newTensor*[N,T](arr: array[N,T]): Tensor =
   let baseEl = getBaseEl(arr)
 
@@ -497,6 +527,13 @@ proc newTensor*(scal: string): Tensor =
 
   return ten
 
+  ## Convinience Tensor Constructor to create a string tensor. 
+  ## 
+  ## Args:
+  ##   scal: A string scalar.
+  ## Returns:
+  ##   A new Tensor with the given string scalar.
+
 proc newTensor*[N](scal: N, T: type): Tensor =
   if typeLookUp.hasKey(T.name):
     let ten = newTensor(typeLookUp[T.name], []) 
@@ -506,6 +543,14 @@ proc newTensor*[N](scal: N, T: type): Tensor =
     return ten
 
   else: raise newException(OSError, "Type not supported!")
+
+  ## Convinience Tensor Constructor copying the given scalar into a Tensor and converting it to the given type. 
+  ## 
+  ## Args:
+  ##   scal: The array a Tensor should be constructed from.
+  ##   T: Type to convert to.
+  ## Returns:
+  ##   A new Tensor with the given data.
 
 proc newTensor*[T](scal: T): Tensor =
   if typeLookUp.hasKey(T.name):
@@ -520,7 +565,7 @@ proc newTensor*[T](scal: T): Tensor =
   ## Convinience Tensor Constructor copying the given scalar into a Tensor. 
   ## 
   ## Args:
-  ##   arr: The array a Tensor should be constructed from.
+  ##   scal: The array a Tensor should be constructed from.
   ## Returns:
   ##   A new Tensor with the given data.
 
@@ -535,6 +580,16 @@ proc readBytes*(ten: Tensor, file: string, start: int, len: static[int]) =
   var buf = flat[uint8](ten, 0).asPtr()
   
   echo "read " & $readFile.readBuffer(buf, len) & "b"
+
+  ## Proc to read a byte file directly into the underlying databuffer of a Tensor. 
+  ## 
+  ## Args:
+  ##   ten: The tensor to write to.
+  ##   file: The name of the file to read.
+  ##   start: The position to start reading from.
+  ##   len: The number of bytes to read.
+  ## Returns:
+  ##   A new Tensor holding the files content.
 
 ## TensorVec related definitions
 type
@@ -717,18 +772,25 @@ proc ok*(scope: Scope) : bool {.importcpp: "#->ok()".}
 
 proc inewSubScope(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->NewSubScope(#)))".}
 
-proc newSubScope(rt: Scope, name: string): Scope =
+proc newSubScope*(rt: Scope, name: string): Scope =
   rt.inewSubScope(newCPPString(name))
 
+  ## Returns a Subscope with the given name.
+  ## This is useful for visualization in tensorboard.
+
 type 
-  GraphDef {.importcpp:"tensorflow::GraphDef".} = object
+  GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
+
+    ## Type that holds the representation of the computation graph.
 
 proc itoGraphDef(rt: Scope, graph: GraphDef) {.importcpp:"#->ToGraphDef(&#)".}
 
-proc toGraphDef(rt: Scope): GraphDef =
+proc toGraphDef*(rt: Scope): GraphDef =
   var graph: GraphDef
   rt.itoGraphDef(graph)
   return graph
+
+  ## Get a graphdef from a Scope.
 
 ## Session related definitions
 type
@@ -742,9 +804,9 @@ type
     ##   ClientSession foo;
     ## which is excatly what the nim compiler does.
 
-proc newSession(scope: Scope): Session {.header: memory,
-                                         header: client_session,
-                                         importcpp: "std::make_shared<tensorflow::ClientSession>(*#)".}
+proc newSession*(scope: Scope): Session {.header: memory,
+                                          header: client_session,
+                                          importcpp: "std::make_shared<tensorflow::ClientSession>(*#)".}
 
   ## Constructor for the Session type.
   ## 
@@ -848,76 +910,136 @@ proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {
   ##   inputs: A list of outputs or single output containing the variables a gradient should be computed for.
   ##   gradOutputs: A list of outputs containing the computed gradients.
 
-proc addSymbolicGradients(root: Scope, outputs: Out, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
+proc addSymbolicGradients*(root: Scope, outputs: Out, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
 
-proc addSymbolicGradients(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
+proc addSymbolicGradients*(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
 
-type SummaryWriter {.header:memory,
-                     header:writer,
-                     importcpp:"std::shared_ptr<tensorflow::EventsWriter>".} = object
+type 
+  SummaryWriter* {.header:memory,
+                   header:writer,
+                   importcpp:"std::shared_ptr<tensorflow::EventsWriter>".} = object
 
-proc inewSummaryWriter(file: cppstring): SummaryWriter {.header:memory,
+    ## A Object used to log your outputs to a Tensorboard readable file.
+
+proc inewSummaryWriter(dir: cppstring): SummaryWriter {.header:memory,
                                                          header:writer,
                                                          importcpp:"std::make_shared<tensorflow::EventsWriter>(#)".}
 
-proc newSummaryWriter(file: string): SummaryWriter = inewSummaryWriter(newCPPString(file))
+proc newSummaryWriter*(dir: string): SummaryWriter = inewSummaryWriter(newCPPString(dir))
 
-proc write_grapdef(summaryWriter: SummaryWriter, grah: GraphDef) {.header:writer,
+  ## creates a new SummaryWriter writing to the given directory
+
+proc write_grapdef*(summaryWriter: SummaryWriter, grah: GraphDef) {.header:writer,
                                                                    importcpp:"tensorflow::Event event; auto _writer = #; event.set_graph_def(#.SerializeAsString()); _writer->WriteEvent(event);".}
 
+  ## writes the given GraphDef to the logs.
 
 proc iwrite_scalar(summaryWriter: SummaryWriter, wall_time: float64, step: int64, tag: cppstring, value: float32) {.header:writer,
                                                                                                                     importcpp:"tensorflow::Event event; auto _writer = #; event.set_wall_time(#); event.set_step(#); tensorflow::Summary::Value* summ_val = event.mutable_summary()->add_value(); summ_val->set_tag(#); summ_val->set_simple_value(#); _writer->WriteEvent(event);".}
 
-proc write_scalar(summaryWriter: SummaryWriter, wall_time: float64, step: int64, tag: string, value: float32) =
+proc write_scalar*(summaryWriter: SummaryWriter, wall_time: float64, step: int64, tag: string, value: float32) =
   iwrite_scalar(summaryWriter, wall_time, step, newCPPString(tag), value)
 
-type FeedDict {.header:"<unordered_map>",
-                importcpp:"std::unordered_map<tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash>".} = object
+  ## Writes a Scalar to the logs.
+  ## 
+  ## Args:
+  ##   summaryWriter: The SummaryWriter it is applied on.
+  ##   wall_time: Time it is written at.
+  ##   step: The step it was written at.
+  ##   tag: The name of the scalar.
+  ##   value: The value of the scalar.
+
+type 
+  FeedDict* {.header:"<unordered_map>",
+              importcpp:"std::unordered_map<tensorflow::Output, tensorflow::Input::Initializer, tensorflow::OutputHash>".} = object
+
+    ## A map linking a Out from a Placeholder op to an actual tensor.
 
 proc `[]=`*(feed: FeedDict, placeholder: Out, ten: Tensor) {.importcpp:"#.insert({#, *#})".}
 
-proc clear(feed: FeedDict) {.importcpp:"#.clear()".}
+proc clear*(feed: FeedDict) {.importcpp:"#.clear()".}
 
-proc runSession(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) {.header: client_session,
+  ## Remove all items from the dict.
+
+proc runSession*(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) {.header: client_session,
                                                                                 importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, &#))".}
 
-proc runSession(sess: Session, graph: Out, outputs: TensorVec) {.header: client_session,
-                                                                  importcpp: "TF_CHECK_OK((*#).Run({#}, &#))".}
-
-  ## A private Method to run a Session.
+  ## A Method to run computations previously definied.
   ## 
   ## Args:
-  ##   sess: That should be used to run computations.
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
   ##   graph: The Out/ OutList representing the computations that should be performed.
-  ##   outputs: A not constructed TensorVec holding the result after the computations.
+  ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, graph: Out, outputs: TensorVec) {.header: client_session,
+                                                                  importcpp: "TF_CHECK_OK((*#).Run({#}, &#))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   outputs: A TensorVec holding the result of the computations.
+
+proc runSession*(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorVec) {.header: client_session,
                                                                                      importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, &#))".}
 
-proc runSession(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   outputs: A TensorVec holding the result of the computations.
+
+proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
                                                                       importcpp: "TF_CHECK_OK((*#).Run(#, &#))".}
 
   ## A Method to run computations previously definied.
   ## 
   ## Args:
-  ##   scope: The current Scope object under which the operations where definied.
+  ##   sess: The Session returned from the current Scope.
   ##   graph: The Out/ OutList representing the computations that should be performed.
-  ## Returns:
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSessionVoid(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
                                                                  importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))".}
 
-proc runSessionVoid(sess: Session, graph: Out) {.header: client_session,
+  ## A Method to run computations previously definied without returning the output.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+
+proc runSessionVoid*(sess: Session, graph: Out) {.header: client_session,
                                                  importcpp: "TF_CHECK_OK(#->Run({#}, nullptr))".}
 
-proc runSessionVoid(sess: Session, feed: FeedDict, graph: OutList) {.header: client_session,
+  ## A Method to run computations previously definied without returning the output.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList) {.header: client_session,
                                                                      importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, #, nullptr))".}
 
-proc runSessionVoid(sess: Session, graph: OutList) {.header: client_session,
+  ## A Method to run computations previously definied without returning the output.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+
+proc runSessionVoid*(sess: Session, graph: OutList) {.header: client_session,
                                                     importcpp: "TF_CHECK_OK(#->Run(#, nullptr))".}
 
+  ## A Method to run computations previously definied without returning the output.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
 
 export TensorShape,
        newTensorShape,
