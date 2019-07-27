@@ -6,6 +6,7 @@ import sequtils
 import typetraits
 import tables
 import macros
+import complex
 #import complex
 {.hint[XDeclaredButNotUsed]:off.}
 
