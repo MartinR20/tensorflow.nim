@@ -30,6 +30,7 @@
 import sequtils
 import ../ops/ops
 import ../core/core
+import ../utils/utils
 import ./loss
 import ./optim
 import ./variable
@@ -89,7 +90,7 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
 
     ## a mini compile method for branches
 
-proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Out, epochs: int), proc(rt: Scope, X: Out): Out) = 
+proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Tensor, epochs: int, batch = 32), proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
@@ -127,54 +128,71 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             else:
                 funcs.add(ffunc)
 
-        vars = vars.concat(layer.train)
+        for i in 0..layer.train.len-1:
+            vars.add(layer.train[i])
 
     proc eval(rt: Scope, X: Out): Out{.closure.} =
-        var outp = funcs[0](rt, X)
+        let rtNamed = rt.newSubScope("eval")
+
+        var outp = funcs[0](rtNamed, X)
 
         for f in funcs[1..^1]:
-            outp = rt.f(outp)
+            outp = rtNamed.f(outp)
 
         return outp
 
     if vars.len == 0:
         echo "Warning: No Layer with trainable Variables added to model fit method only a dummy!"
 
-        proc fit(rt: Scope, X, Y: Out, epochs: int) {.closure.} = 
+        proc fit(rt: Scope, X, Y: Tensor, epochs: int, batch = 32) {.closure.} = 
             raise newException(ValueError, "Attempted to use unusable dummy method!")
 
         return (fit, eval)
     
     else:
-        let opt = optim.make(root)
+        let opt = optim.make(root, vars)
         let lloss = loss.make(root)
 
-        proc fit(rt: Scope, X, Y: Out, epochs: int) {.closure.} =
-            for i in 0..epochs-1:
-                var outp = eval(rt, X)
+        let initVars = newOutList(vars.map(proc(assign: Variable): Out = assign.assign))
 
-                outp = lloss(rt, outp, Y)
+        proc fit(rt: Scope, X, Y: Tensor, epochs: int, batch = 32) {.closure.} =
+            let rtNamed = rt.newSubScope("fit")
+            let placeholder_x = rtNamed.Placeholder(X.dtype)
+            let placeholder_y = rtNamed.Placeholder(Y.dtype)
 
-                let varsAsOutList = newOutList(vars.map(proc(vvar: Variable): Out = vvar.vvar))
+            let outp = eval(rtNamed, placeholder_x)
 
-                var grads: OutList
-                rt.addSymbolicGradients(outp, varsAsOutList, grads)
+            let loss = lloss(rtNamed, outp, placeholder_y)
 
-                let update = opt(rt, vars, grads)
+            let varsAsOutList = newOutList(vars.map(proc(assign: Variable): Out = assign.vvar))
 
-                for i in 0..vars.len-1:
-                    discard rt.Assign(vars[i], update[i])
+            var grads: OutList
+            let rtGrads = rtNamed.newSubScope("Gradients")
+            rtGrads.addSymbolicGradients(loss, varsAsOutList, grads)
 
-            let varsAsOutList = newOutList(vars.map(proc(vvar: Variable): Out = vvar.vvar))
+            let opted = newOutList(opt(rtNamed, vars, grads))
+            let debug = lloss(rtNamed, rtNamed.eval(placeholder_x), placeholder_y)
 
-            let output = rt.runSession(varsAsOutList)
-            
-            echo "vars: "
-            for o in output:
-                echo o
+            let sess = newSession(rtNamed)
 
-            echo "eval: "
-            echo rt.runSession(rt.eval(X))[0]
+            sess.runSessionVoid(initVars)
+
+            if optim.init.len != 0:
+                for init in optim.init:
+                    sess.runSessionVoid(newOutList(init))
+
+            var feed: FeedDict
+
+            feed[placeholder_x] = X
+            feed[placeholder_y] = Y
+
+            for epoch in 0..epochs-1:
+                sess.runSessionVoid(feed, opted)
+
+                if epoch %% 10 == 0:
+                    var outputs: TensorVec
+                    sess.runSession(feed, debug, outputs)
+                    echo "loss:", outputs[0].flat(0.float32).mean()
 
         return (fit,eval)
 
