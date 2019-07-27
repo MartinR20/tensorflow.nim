@@ -1,7 +1,3 @@
-const paths = readLines("../tensorflow/ops/newop/TFPaths.txt", 2)
-{.passC: paths[0].} 
-{.passL: paths[1].}
-
 import ../../core/core
 import ../../utils/utils
 import macros
@@ -27,6 +23,13 @@ type
 
     KernelDefBuilder {.header: std_ops,
                        importcpp: "tensorflow::KernelDefBuilder".} = object
+                    
+    Operation {.header: gradients,
+                importcpp: "tensorflow::Operation".} = object
+
+proc input(op: Operation, i: int32) {.importcpp:"#.input(#)".}
+
+proc output(op: Operation, i: int32) {.importcpp:"#.output(#)".}
 
 const
     CPU: string = "CPU"
@@ -48,23 +51,33 @@ proc ok(): Status {.header: std_ops,
                     importcpp: "tensorflow::Status::OK()".}
 
 var lookUp {.compileTime.} = newTable[string,string]()
+var op_registered {.compileTime.} = false
+var op_included {.compileTime.} = false
+var grad_included {.compileTime.} = false
 
 macro input(str: string, x: untyped): untyped =
-  lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").Input(\"" & $str & "\")"
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").Input(\"" & $str & "\")"
+    op_registered = true
+  else:
+    lookUp[$name(x)] &= ".Input(\"" & $str & "\")"
+
   x
 
 macro output(str: string, x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").Output(\"" & $str & "\")"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".Output(\"" & $str & "\")"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro setShapeFn(fn: proc(ctx: ptr InferenceContext): Status, x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").SetShapeFn(shape" & $name(x) & ")"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".SetShapeFn(shape" & $name(x) & ")"
-  except: 
-    raise newException(ValueError, "Error in setShapeFn pragma. Did you call the input pragma first?")
 
   var fun = parseStmt("proc shapeFn(ctx: ptr InferenceContext): Status {.exportc:\"shape" & $name(x) & "\".}")
   
@@ -87,66 +100,76 @@ macro tfexport(device: string, x: untyped): untyped =
     ddevice = $device
 
   var cppSource =  "\"\"class " & exportName & "Op : public tensorflow::OpKernel {\n  public: \n    explicit " & exportName & "Op(tensorflow::OpKernelConstruction* context): tensorflow::OpKernel(context) {}\n    void Compute(tensorflow::OpKernelContext* context) override;\n    }; \nREGISTER_KERNEL_BUILDER(Name(\"" & exportName & "\").Device(\"" & ddevice & "\"), " & exportName & "Op);\"\""
-  var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n#include \"tensorflow/core/framework/shape_inference.h\" \n#include \"tensorflow/core/framework/op_kernel.h\" \n\"\""
 
   var funbody = body(x) 
-  var funheader = parseStmt("proc export" & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "Op::Compute\".}")
+  var funheader = parseStmt("proc export" & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "Op::Compute\", asmNoStackFrame, noconv.}")
 
   funheader[0].del(funheader[0].len-1, 1)
   insert(funheader[0], funheader[0].len, funbody)
   insert(funheader, 0, parseStmt("{.emit:\"" & cppSource & "\".}"))
   insert(funheader, 0, parseStmt("{.emit:lookUp[\"" & $name(x) & "\"] & \";\".}"))
-  insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+
+  if not op_included:
+    var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n#include \"tensorflow/core/framework/shape_inference.h\" \n#include \"tensorflow/core/framework/op_kernel.h\" \n\"\""
+    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    op_included = true
 
   return funheader
 
 macro attr(str: string, x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").Attr(\"" & $str & "\")"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".Attr(\"" & $str & "\")"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro setIsCommutative(x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").SetIsCommutative()"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".SetIsCommutative()"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro setIsAggregate(x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").SetIsAggregate()"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".SetIsAggregate()"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro setIsStateful(x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").SetIsStateful()"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".SetIsStateful()"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro setAllowsUninitializedInput(x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").SetAllowsUninitializedInput()"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".SetAllowsUninitializedInput()"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro deprecated(version: int, name: string, x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = "REGISTER_OP(\"" & $name(x) & "\").Deprecated(" & $version & ", " & $name & ")"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".Deprecated(" & $version & ", " & $name & ")"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 macro doc(str: string, x: untyped): untyped =
-  try:
+  if op_registered == false:
+    lookUp[$name(x)] = ".Doc(" & $str & ")"
+    op_registered = true
+  else:
     lookUp[$name(x)] &= ".Doc(" & $str & ")"
-  except: 
-    raise newException(ValueError, "Error in output pragma. Did you call the input pragma first?")
   x
 
 
@@ -173,6 +196,13 @@ proc device(builder: KernelDefBuilder, device: cstring): KernelDefBuilder {.head
 proc input(ctx: ptr OpKernelContext, i: int): Tensor {.header: op_kernel,
                                                        header: memory,
                                                        importcpp: "std::make_shared<tensorflow::Tensor>(std::move(#->input(#)))".}
+
+proc output(ctx: ptr OpKernelContext, i: int): Tensor {.header: op_kernel,
+                                                        header: memory,
+                                                        importcpp: "std::make_shared<tensorflow::Tensor>(std::move(#->output(#)))".}
+
+proc set_output(ctx: ptr OpKernelContext, i: int, ten: Tensor) {.header: std_ops,
+                                                                 importcpp: "#->set_output(#, *#)".}
 
 proc allocate_output(ctx: ptr OpKernelContext, i: int, shape: TensorShape, output: Tensor): Status {.header: op_kernel,
                                                                                                      importcpp: "[&]() { auto _ctx = #; auto _i = #; auto _shape = #; tensorflow::Tensor* _tensorref = (tensorflow::Tensor*)(#.get()); return _ctx->allocate_output(_i, _shape, &_tensorref); } ()".}
