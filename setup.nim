@@ -6,15 +6,18 @@ import terminal
 
 var platform = paramStr(1)
 
-while true:
-    echo "Install with gpu support? [y/n]"
-    let input = readLine(stdin)
+if existsDir("/colabtools"):
+    platform &= "-gpu"
+else:
+    while true:
+        echo "Install with gpu support? [y/n]"
+        let input = readLine(stdin)
 
-    if input == "y":
-        platform &= "-gpu"
-        break
-    elif input == "n":
-        break
+        if input == "y":
+            platform &= "-gpu"
+            break
+        elif input == "n":
+            break
 
 
 proc getDownloadLinks(platform: string): Future[JsonNode] {.async.} =
