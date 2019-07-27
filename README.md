@@ -47,7 +47,7 @@ let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
 let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-let model = rt.fit(input, rt.ZerosLike(input), 5)
+rt.fit(input, rt.ZerosLike(input), 5)
 ```
 
 ## Doc
