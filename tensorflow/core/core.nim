@@ -307,9 +307,20 @@ proc size*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
   ## Returns:
   ##   The number of elements.
 
+proc asPtr[T](flat: Flat[T]): ptr T {.importcpp:"#->data()".}
+
 proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"(*#)(#)".}
 
 proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"(*#)(#) = #".}
+
+proc mean*[T](flat: Flat[T]) : T = 
+  let size = flat.size()
+  var sum: T = 0
+
+  for i in 0..size-1:
+    sum += flat[i]
+
+  sum / size.T 
 
 ## Matrix related definitions
 type
@@ -861,6 +872,7 @@ export TensorShape,
        dtype,
        Flat,
        flat,
+       mean,
        Matrix,
        matrix,
        Scalar,
