@@ -39,8 +39,12 @@ proc Const*[N](root: Scope, val: N, T: type) : Out =
 proc Cast(root: Scope, ten: Out, T: type): Out =
   root.Cast(ten, typeLookUp[T.name])
 
+  ## Cast given Tensor to given type
+
 proc Placeholder(root: Scope, dtype: core.DType): Out {.header: std_ops,
                                                         importcpp: "tensorflow::ops::Placeholder(*#, #)".} 
+
+  ## Placeholder representing a given type until it is provided trough a FeedDict.
 
 proc `-`(root: Scope, A, B: Out): Out =
   return Subtract(root, A, B)
@@ -56,6 +60,8 @@ proc Transpose*(root: Scope, A: Out) : Out =
 
 proc ClipByValue(root: Scope, t: Out, clip_value_min: float, clip_value_max: float): Out =
   return root.Minimum(root.Maximum(t, root.Const(clip_value_min, float32)), root.Const(clip_value_max, float32))
+
+  ## ClipByValue proc supporting gradients (the one provided by math_ops does not)
 
 export Const,
        Cast,
