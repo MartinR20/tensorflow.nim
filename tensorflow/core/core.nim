@@ -402,12 +402,13 @@ macro ttype(x: typedesc): typedesc =
     return node[^1]
 
 proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
-  let baseEl = getBaseEl(arr)
-  
   if typeLookUp.hasKey(T.name):
     let sh = getShape(arr)
     let ten = newTensor(typeLookUp[T.name], sh) 
 
+    when T.name == "cppstring":
+      var buf = flat[cppstring](ten, newCPPString(" "))
+    else:
     var buf = flat[T](ten, 0)
 
     var baseElPtr: cArray[M.ttype]
@@ -428,6 +429,9 @@ proc newTensor*[N,T](arr: array[N,T]): Tensor =
     let sh = getShape(arr)
     let ten = newTensor(typeLookUp[T.ttype.name], sh) 
 
+    when T.ttype.name == "cppstring":
+      var buf = flat[cppstring](ten, newCPPString(" "))
+    else:
     var buf = flat[T.ttype](ten, 0)
 
     var baseElPtr: cArray[T.ttype]
@@ -447,6 +451,13 @@ proc newTensor*[N,T](arr: array[N,T]): Tensor =
   ##   arr: The array a Tensor should be constructed from.
   ## Returns:
   ##   A new Tensor with the given data.
+
+proc newTensor*(scal: string): Tensor =
+  let ten = newTensor(typeLookUp["cppstring"], []) 
+
+  scalar[cppstring](ten, newCPPString("")).set(newCPPString(scal))
+
+  return ten
 
 proc newTensor*[N](scal: N, T: type): Tensor =
   if typeLookUp.hasKey(T.name):
