@@ -38,7 +38,7 @@ proc newCPPString*(str: string): cppstring =
 
   ## create cppstring from nim string
 
-proc size*(str: cppstring): clong {.importcpp: "(long)#.size()".}
+proc len*(str: cppstring): clong {.importcpp: "(long)#.size()".}
 
   ## get the size of a cppstring
 
@@ -62,6 +62,6 @@ export client_session,
        writer,
        cppstring,
        newCPPString,
-       size,
+       len,
        c_str,
        print
