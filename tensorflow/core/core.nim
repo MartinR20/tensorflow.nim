@@ -633,6 +633,8 @@ proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor {.header: memory,
 
 proc add*(tensorVec: TensorVec, ten: Tensor) {.importcpp: "#.push(*#)".}
 
+proc insert*(tensorVec: TensorVec, pos: int, ten: Tensor) {.importcpp: "#.insert(#, *#)".}
+
 iterator items*(tens: TensorVec): Tensor =
   var i: cint = 0
   while i <= tens.size()-1:
@@ -1075,6 +1077,7 @@ export TensorShape,
        TensorVec,
        size,
        add,
+       insert,
        `[]`,
        Out,
        OutList,
