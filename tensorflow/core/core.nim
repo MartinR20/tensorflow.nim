@@ -750,6 +750,22 @@ proc newInList*(tens: varargs[Tensor]): InList =
   ## Returns:
   ##   An InList with the given Tensors objects.
 
+type
+  Operation {.header: gradients,
+              importcpp: "tensorflow::Operation".} = object
+
+proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
+
+proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
+
+proc input(op: Operation, i: int) {.importcpp:"#.input(#)".}
+
+proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
+
+proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
+
+proc output(op: Operation, i: int) {.importcpp:"#.output(#)".}
+
 
 ## Scope related definitions
 type
@@ -1094,6 +1110,13 @@ export TensorShape,
        newOutList,
        InList,
        newInList,
+       Operation,
+       num_inputs,
+       input_type,
+       input,
+       num_outputs,
+       output_type,
+       output,
        Scope,
        newRootScope,
        newSession,

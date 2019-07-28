@@ -24,21 +24,6 @@ type
     KernelDefBuilder {.header: std_ops,
                        importcpp: "tensorflow::KernelDefBuilder".} = object
                     
-    Operation {.header: gradients,
-                importcpp: "tensorflow::Operation".} = object
-
-proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
-
-proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
-
-proc input(op: Operation, i: int) {.importcpp:"#.input(#)".}
-
-proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
-
-proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
-
-proc output(op: Operation, i: int) {.importcpp:"#.output(#)".}
-
 const
     CPU: string = "CPU"
     GPU: string = "GPU"
@@ -284,11 +269,4 @@ export CPU,
        allocate_output,
        OP_REQUIRES_OK,
        nograd,
-       grad,
-       Operation,
-       num_inputs,
-       input_type,
-       input,
-       num_outputs,
-       output_type,
-       output
+       grad
