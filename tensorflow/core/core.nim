@@ -78,6 +78,15 @@ proc dim_size*(shape: TensorShape, i: int32): int32 {.importcpp:"#.dim_size(#)".
   ## Returns:
   ##   The size of the dimension.
 
+proc dims*(shape: TensorShape): int {.importcpp:"#.dims()".}
+
+  ## Gets the number of dimensions aka the rank.
+  ## 
+  ## Args:
+  ##   shape: The TensorShape it is applied on. 
+  ## Returns:
+  ##   The number of dimensions.
+
 type
   DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
     TF_FLOAT = 1, TF_DOUBLE = 2, TF_INT32 = 3, ##  Int32 tensors are always in 'host' memory.
@@ -1056,6 +1065,7 @@ proc runSessionVoid*(sess: Session, graph: OutList) {.header: client_session,
 export TensorShape,
        newTensorShape,
        dim_size,
+       dims,
        `$`,
        DType,
        Tensor,
