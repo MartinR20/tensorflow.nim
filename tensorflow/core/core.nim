@@ -631,6 +631,8 @@ proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor {.header: memory,
                                                        header: tensor,
                                                        importcpp: "std::make_shared<tensorflow::Tensor>(std::move(#[#]))".}
 
+proc add*(tensorVec: TensorVec, ten: Tensor) {.importcpp: "#.push(*#)".}
+
 iterator items*(tens: TensorVec): Tensor =
   var i: cint = 0
   while i <= tens.size()-1:
@@ -1072,6 +1074,7 @@ export TensorShape,
        `[]=`,
        TensorVec,
        size,
+       add,
        `[]`,
        Out,
        OutList,
