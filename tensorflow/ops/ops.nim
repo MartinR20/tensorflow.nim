@@ -16,7 +16,8 @@ import ./generated/array_ops,
        ./generated/string_ops,
        ./generated/training_ops,
        ./generated/user_ops,
-       ./custom_ops
+       ./custom_ops,
+       ./newop/newop
 
 export array_ops,
        candidate_sampling_ops,
@@ -36,4 +37,6 @@ export array_ops,
        string_ops,
        training_ops,
        user_ops,
-       custom_ops
+       custom_ops,
+       newop
+
