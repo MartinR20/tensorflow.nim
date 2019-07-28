@@ -9,7 +9,6 @@
 ##
 ##    proto.newActivation(Relu)
 
-import options
 import ../ops/ops
 import ../core/core
 import ./layer

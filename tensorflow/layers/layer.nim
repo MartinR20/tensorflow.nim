@@ -173,6 +173,9 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             let opted = newOutList(opt(rtNamed, vars, grads))
             let debug = lloss(rtNamed, rtNamed.eval(placeholder_x), placeholder_y)
 
+            let writer = newSummaryWriter("./summary/event")
+            writer.write_grapdef(rt.toGraphDef())
+
             let sess = newSession(rtNamed)
 
             sess.runSessionVoid(initVars)

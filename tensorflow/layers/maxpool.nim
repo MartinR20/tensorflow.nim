@@ -9,7 +9,6 @@
 ##    # max pooling with kernelsize 3x3 and stride 3x3
 ##    proto.newMaxPool([3, 3], [3, 3])
 
-import options
 import ../utils/utils
 import ../ops/ops
 import ../ops/generated/structs
@@ -46,8 +45,8 @@ method make(layer: MaxPool, root: Scope): proc(rt: Scope, input: Out): Out =
 proc newMaxPool*(model: var seq[Layer], 
                 kernel: array[0..1, int], 
                 strides: array[0..1, int], 
-                padding= none(string), 
-                dataFormat = none(string)) =
+                padding= "SAME", 
+                dataFormat = "NHWC") =
 
     var maxpool = new MaxPool
     
@@ -55,16 +54,8 @@ proc newMaxPool*(model: var seq[Layer],
     maxpool.kernel = [c1, cast[cint](kernel[0]), cast[cint](kernel[1]), c1]
     maxpool.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
 
-    if padding.isSome:
-        maxpool.padding = padding.get()
-    else:
-        maxpool.padding = "SAME"
-
-    if dataFormat.isSome:
-        maxpool.dataFormat = dataFormat.get()
-    else:
-        maxpool.dataFormat = "NHWC"
-
+    maxpool.padding = padding
+    maxpool.dataFormat = dataFormat
 
     model.add(maxpool)
 

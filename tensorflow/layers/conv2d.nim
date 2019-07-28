@@ -59,15 +59,17 @@ method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out =
                                       padding, 
                                       attrs)
 
+const c1: cint = 1
+
 proc newConv2d*(model: var seq[Layer], 
                 inChannels: int,
                 outChannels: int,
                 kernel: array[0..1, int], 
                 strides: array[0..1, int], 
-                padding= none(string), 
-                dataFormat = none(string), 
-                dilations = none(array[0..1, int]), 
-                useCudnnOnGpu = none(bool)) =
+                padding="SAME", 
+                dataFormat="NHWC", 
+                dilations=[1,1], 
+                useCudnnOnGpu=true) =
 
     var conv2d = new Conv2d
 
@@ -75,28 +77,12 @@ proc newConv2d*(model: var seq[Layer],
     conv2d.outChannels = outChannels
     conv2d.kernel = kernel
 
-    let c1: cint = 1
     conv2d.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
 
-    if padding.isSome:
-        conv2d.padding = padding.get()
-    else:
-        conv2d.padding = "SAME"
-
-    if dataFormat.isSome:
-        conv2d.dataFormat = dataFormat.get()
-    else:
-        conv2d.dataFormat = "NHWC"
-
-    if dilations.isSome:
-        conv2d.dilations = [c1, cast[cint](dilations.get()[0]), cast[cint](dilations.get()[1]), c1]
-    else:
-        conv2d.dilations = [c1, c1, c1, c1]
-
-    if useCudnnOnGpu.isSome:
-        conv2d.useCudnnOnGpu = useCudnnOnGpu.get()
-    else:
-        conv2d.useCudnnOnGpu = true
+    conv2d.padding = padding
+    conv2d.dataFormat = dataFormat
+    conv2d.dilations = [c1, cast[cint](dilations[0]), cast[cint](dilations[1]), c1]
+    conv2d.useCudnnOnGpu = useCudnnOnGpu
 
     model.add(conv2d)
 

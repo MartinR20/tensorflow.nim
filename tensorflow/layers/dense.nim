@@ -48,16 +48,13 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
 
                     rtNamed.Add(rtNamed.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
 
-proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = none(bool)) =
+proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = true) =
     var dense = new Dense
     
     dense.inFeatures = inFeatures
     dense.outFeatures = outFeatures
 
-    if bias.isSome:
-        dense.bias = bias.get()
-    else:
-        dense.bias = true
+    dense.bias = bias
 
     model.add(dense)
 

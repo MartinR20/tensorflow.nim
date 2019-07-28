@@ -9,7 +9,6 @@
 ##    #average pooling with kernelsize 3x3 and stride 3x3
 ##    proto.newAvgPool([3, 3], [3, 3])
 
-import options
 import ../utils/utils
 import ../ops/ops
 import ../ops/generated/structs
@@ -47,8 +46,8 @@ method make(layer: AvgPool, root: Scope): proc(rt: Scope, input: Out): Out =
 proc newAvgPool*(model: var seq[Layer], 
                  kernel: array[0..1, int], 
                  strides: array[0..1, int], 
-                 padding= none(string), 
-                 dataFormat = none(string)) =
+                 padding="SAME", 
+                 dataFormat ="NHWC") =
 
     var AvgPool = new AvgPool
     
@@ -56,16 +55,8 @@ proc newAvgPool*(model: var seq[Layer],
     AvgPool.kernel = [c1, cast[cint](kernel[0]), cast[cint](kernel[1]), c1]
     AvgPool.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
 
-    if padding.isSome:
-        AvgPool.padding = padding.get()
-    else:
-        AvgPool.padding = "SAME"
-
-    if dataFormat.isSome:
-        AvgPool.dataFormat = dataFormat.get()
-    else:
-        AvgPool.dataFormat = "NHWC"
-
+    AvgPool.padding = padding
+    AvgPool.dataFormat = dataFormat
 
     model.add(AvgPool)
 

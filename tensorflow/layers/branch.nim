@@ -28,7 +28,6 @@
 ##    proto.Concat(1)    
 
 
-import options
 import ../ops/ops
 import ../core/core
 import ./layer

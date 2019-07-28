@@ -2,7 +2,6 @@
 ## and overload the make method as well as create a constructor.
 ##
 
-import options
 import ../ops/ops
 import ../core/core
 import ./variable

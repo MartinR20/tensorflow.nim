@@ -9,7 +9,6 @@
 ##    #..some layer with output dims [100x3x3] reshaped to [100x9]
 ##    proto.newReshape([100, 9])
 
-import options
 import ../ops/ops
 import ../core/core
 import ./layer
