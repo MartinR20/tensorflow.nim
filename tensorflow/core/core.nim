@@ -491,8 +491,6 @@ proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
   ##   A new Tensor with the given data.
 
 proc newTensor*[N,T](arr: array[N,T]): Tensor =
-  let baseEl = getBaseEl(arr)
-
   if typeLookUp.hasKey(T.ttype.name):
     let sh = getShape(arr)
     let ten = newTensor(typeLookUp[T.ttype.name], sh) 
