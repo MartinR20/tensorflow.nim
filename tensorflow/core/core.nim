@@ -53,9 +53,9 @@ proc toCPPStr(shape: TensorShape): cppstring {.header: "<sstream>",
 
 proc `$`*(shape: TensorShape) : string = 
   var cppstr = toCPPStr(shape)
-  var cstr = newString(cppstr.size())
+  var cstr = newString(cppstr.len())
 
-  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.size())
+  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
 
   return cstr
 
@@ -139,9 +139,9 @@ proc toValueCPPStr(ten: Tensor): cppstring {.header: "<sstream>",
 
 proc `$`*(ten: Tensor) : string =
   var cppstr = toCPPStr(ten)
-  var cstr = newString(cppstr.size())
+  var cstr = newString(cppstr.len())
 
-  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.size())
+  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
 
   return cstr
 
@@ -154,9 +154,9 @@ proc `$`*(ten: Tensor) : string =
 
 proc toValueStr*(ten: Tensor) : string =
   var cppstr = toValueCPPStr(ten)
-  var cstr = newString(cppstr.size())
+  var cstr = newString(cppstr.len())
 
-  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.size())
+  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
 
   return cstr
 
@@ -315,7 +315,7 @@ proc flat*[T](ten: Tensor, x:T): Flat[T] {.header:tensor,
   ## Returns:
   ##   A new Flat object "referencing" the data of the Tensor.
 
-proc size*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
+proc len*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
 
   ## Size method to get the number of elements in the Flat object.
   ## 
@@ -338,7 +338,7 @@ proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"(*#)(#)".}
 proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"(*#)(#) = #".}
 
 proc mean*[T](flat: Flat[T]) : T = 
-  let size = flat.size()
+  let size = flat.len()
   var sum: T = 0
 
   for i in 0..size-1:
@@ -627,7 +627,7 @@ proc newTensorVec*(args: varargs[Tensor]) : TensorVec =
   ## Returns:
   ##   A TensorVec with the given Tensors.
 
-proc size*(tensorVec: TensorVec) : int {.importcpp: "#.size()".}
+proc len*(tensorVec: TensorVec) : int {.importcpp: "#.size()".}
 
   ## Method to get the size of a TensorVec.
   ## 
@@ -646,7 +646,7 @@ proc insert*(tensorVec: TensorVec, pos: int, ten: Tensor) {.importcpp: "#.insert
 
 iterator items*(tens: TensorVec): Tensor =
   var i: cint = 0
-  while i <= tens.size()-1:
+  while i <= tens.len()-1:
     yield tens[i]
     inc i
 
@@ -693,7 +693,7 @@ proc newOutList*(outs: varargs[Out]): OutList =
 
 proc `[]`*(outs: OutList, idx: int): Out {.importcpp:"#[#]".}
 
-proc size*(outs: OutList): int {.importcpp:"#.size()".}
+proc len*(outs: OutList): int {.importcpp:"#.size()".}
 
   ## Method to get the size of an OutList.
   ## 
@@ -704,7 +704,7 @@ proc size*(outs: OutList): int {.importcpp:"#.size()".}
 
 iterator items*(outs: OutList): Out =
   var i = 0
-  while i <= outs.size()-1:
+  while i <= outs.len()-1:
     yield outs[i]
     inc i
 
@@ -867,7 +867,7 @@ proc newArraySlice*[T](data: openArray[T]): ArraySlice[T] =
 
 proc `[]`*[T](slice: ArraySlice[T], idx: int): T {.importcpp: "#[#]".}
 
-proc size*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
+proc len*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
 
   ## Size method to get the number of elements.
   ## 
@@ -878,7 +878,7 @@ proc size*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
 
 proc `$`*[T](slice: ArraySlice[T]): string =
   var str = "["
-  let sz = slice.size()
+  let sz = slice.len()
 
   for i in 0..sz-2:
     str &= $slice[i] & ", "
@@ -896,7 +896,7 @@ proc `$`*[T](slice: ArraySlice[T]): string =
 proc newArraySlice*[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring] = 
   var buffer: seq[cppstring] = @[]
 
-  for i in 0..slice.size()-1: 
+  for i in 0..slice.len()-1: 
     buffer.add(newCPPString(slice[i]))
   
   let sliceCPPStr = newArraySlice(buffer)
@@ -1085,7 +1085,7 @@ export TensorShape,
        #tensorMap,
        `[]=`,
        TensorVec,
-       size,
+       len,
        add,
        insert,
        `[]`,
