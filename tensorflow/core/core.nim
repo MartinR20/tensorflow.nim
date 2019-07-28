@@ -1001,6 +1001,16 @@ proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: cl
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
+proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out): TensorVec =
+  var outputs: TensorVec
+  sess.runSession(graph, feed, outputs)
+  return outputs
+
+proc runSession*(sess: Session, graph: OutList | Out): TensorVec =
+  var outputs: TensorVec
+  sess.runSession(graph, outputs)
+  return outputs
+
 proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
                                                                  importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))".}
 
