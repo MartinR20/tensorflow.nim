@@ -36,7 +36,7 @@ proc Const*[N](root: Scope, val: N, T: type) : Out =
   ## Construct a constant scalar of the given type
 
 proc Cast(root: Scope, ten: Out, T: type): Out =
-  root.Cast(ten, typeLookUp[T.name])
+  return root.Cast(ten, typeLookUp[T.name])
 
   ## Cast given Tensor to given type
 
