@@ -172,15 +172,15 @@ macro doc(str: string, x: untyped): untyped =
     lookUp[$name(x)] &= ".Doc(" & $str & ")"
   x
 
-macro grad(x: untyped): untyped =
+macro grad*(x: untyped): untyped =
   var exportName = $name(x) & "Grad"
 
   var funbody = body(x) 
-  var funheader = parseStmt("proc " & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "\".}")
+  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: TensorVec, gradOutputs: ptr TensorVec) {.exportc:\"" & exportName & "\", asmNoStackFrame, stdcall.}")
 
   funheader[0].del(funheader[0].len-1, 1)
   insert(funheader[0], funheader[0].len, funbody)
-  insert(funheader, 0, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\"" & $name(x) & "\", " & exportName & ")\".}"))
+  insert(funheader, 1, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & ");\".}")[0])
 
   if not grad_included:
     var includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
@@ -276,4 +276,5 @@ export CPU,
        allocate_output,
        OP_REQUIRES_OK,
        nograd,
-       grad
+       grad,
+       Operation
