@@ -14,15 +14,15 @@ import ../core/core
 import ../ops/ops
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Variable = ref object
+type TVariable = ref object
   vvar*: Out
   assign*: Out
   shape*: TensorShape
   name*: string
 
-proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, name = "Variable"): Variable =
+proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, name = "Variable"): TVariable =
   let rootNamed = root.newSubScope(name)
-  let v = new Variable
+  let v = new TVariable
   v.name = name
 
   v.vvar = rootNamed.Variable(shape, dtype)
@@ -32,6 +32,6 @@ proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, nam
 
   return v
 
-export Variable,
+export TVariable,
        newVariable,
        Assign
