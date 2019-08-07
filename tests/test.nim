@@ -1,5 +1,6 @@
 import ../tensorflow/tensorflow
 import ../tensorflow/utils/utils
+import ../tensorflow/ops/generated/structs
 import options
 import macros
 import times
@@ -46,6 +47,7 @@ arraySlice_test()
 
 proc basicOp_test() {.test.} =
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let a = rt.Const([[1.0,3.0],
                       [1.0,3.0],
@@ -53,58 +55,55 @@ proc basicOp_test() {.test.} =
 
     let c = rt.MatMul(rt.Transpose(a), a)
 
-    let outputs = rt.runSession(c)
+    let outputs = sess.runSession(c)
     echo outputs[0]
 
 basicOp_test()
 
 proc var_test() {.test.} =
     let rt = newRootScope()
+    let sess = rt.newSession()
 
-    let v = rt.newVariable(rt.Const([[2,2], [2,2]], float32), newTensorShape([2, 2]), TF_FLOAT)
+    let v = rt.newVariable(rt.Const([[2,2], [2,2]], float32), newTensorShape([2,2]), TF_FLOAT)
 
     let m = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
 
-    let nv = rt.Assign(v, m)
-
-    let x = rt.runSession(nv)
-
-    let mm = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
-
-    let nnv = rt.Assign(v, mm)
-
-    let outputs = rt.runSession(nnv)
-
+    sess.runSessionVoid(v.assign)
+    sess.runSessionVoid(m)
+    let outputs = sess.runSession(m)
     echo outputs[0]
 
 var_test()
 
 proc inputListOp_test() {.test.} =  
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let inpList = newInList($@[1], $@[2], $@[0], $@[4])
 
     let d = rt.ShapeN(inpList)
 
-    let outputs = rt.runSession(d)
+    let outputs = sess.runSession(d)
     echo outputs[0]
 
 inputListOp_test()
 
 proc attrOp_test() {.test.} = 
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let a = rt.Const([[0,1,2,3],[3,2,1,0]], int32)
 
     let d = rt.Unstack(a, 2)
 
-    let outputs = rt.runSession(d)
+    let outputs = sess.runSession(d)
     echo outputs[0]
 
 attrOp_test()
 
 proc rawDense_test() {.test.} =  
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let input = rt.Const([[1, 2, 4, 2, 3, 
                            5, 6, 3, 4, 1]], float32)
@@ -119,7 +118,7 @@ proc rawDense_test() {.test.} =
 
     let h1 = rt.Softmax(rt.Add(rt.MatMul(h0, w1), b1))
 
-    let outputs = rt.runSession(h1)
+    let outputs = sess.runSession(h1)
     echo outputs[0]
 
 rawDense_test()
@@ -133,13 +132,11 @@ proc dense_test() {.test.} =
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let (fit,_) = proto.compile(rt, newMSE(), newAdam())
 
-    let input = rt.Const([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
+    let input = newTensor([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
 
-    let zeros = rt.ZerosLike(input)
-
-    rt.fit(input, zeros, 3)
+    rt.fit(input, input, 100)
 
 dense_test()
 
@@ -155,32 +152,47 @@ proc AE_test() {.test.} =
 
     let rt = newRootScope()
 
-    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
+    let input = newTensor([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let (fit,_) = proto.compile(rt, newMSE(), newAdam())
 
-    rt.fit(input, rt.ZerosLike(input), 5)
+    rt.fit(input, input, 5)
 
 AE_test()
+
+proc getAttrs(): Conv2DAttrs {.importcpp:"[](){ tensorflow::ops::Conv2D::Attrs attrs; attrs.data_format_ = \"NHWC\"; attrs.dilations_ = tensorflow::gtl::ArraySlice<int>({1,1,1,1}); attrs.use_cudnn_on_gpu_ = true; return attrs; }()".}
+
+proc x_test() {.test.} =
+    let rt = newRootScope()
+
+    let run = rt.Conv2D(rt.Const([[[[1]]]], float32), 
+                        rt.Const([[[[10]]]], float32),
+                        newArraySlice([1.cint, 1.cint, 1.cint, 1.cint]),
+                        newCPPString("SAME"),
+                        getAttrs())
+    let sess = rt.newSession()
+    echo sess.runSession(run)[0]
+
+x_test()
 
 proc conv2d_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
-    proto.newConv2d(1, 2, [3, 3], [2, 2])
+    proto.newConv2d(1, 2, [1, 1], [1, 1])
     proto.newActivation(Relu)
     proto.newConv2d(2, 4, [3, 3], [2, 2])
     proto.newActivation(Relu)
     proto.newConv2d(4, 8, [3, 3], [2, 2])
     proto.newActivation(Relu)
-    proto.newReshape([1, 64])
-    proto.newDense(64,64)
+    proto.newReshape([1, 144])
+    proto.newDense(144,5)
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
 
-    let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
+    let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -199,10 +211,8 @@ proc conv2d_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    var (fit,eval) = proto.compile(rt, newMSE(), newAdam())
-
-    let zeros = rt.ZerosLike(input)
-    rt.fit(input, zeros, 3)
+    var (fit, _) = proto.compile(rt, newMSE(), newAdam())
+    rt.fit(input, newTensor([[0,0,0,0,0]], float32), 3)
 
 conv2d_test()
 
@@ -212,6 +222,7 @@ proc maxpool_test() {.test.} =
     proto.newMaxPool([3, 3], [3, 3])
 
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -232,11 +243,11 @@ proc maxpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
     
     let model = rt.eval(input)
 
-    let outputs = rt.runSession(model)
+    let outputs = sess.runSession(model)
     echo outputs[0]
 
 maxpool_test()
@@ -247,6 +258,7 @@ proc avgpool_test() {.test.} =
     proto.newAvgPool([3, 3], [3, 3])
 
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -267,11 +279,11 @@ proc avgpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
     
     let model = rt.eval(input)
 
-    let outputs = rt.runSession(model)
+    let outputs = sess.runSession(model)
     echo outputs[0]
 
 avgpool_test()
@@ -282,6 +294,7 @@ proc dropout_test() {.test.} =
     proto.newDropout(0.4)
 
     let rt = newRootScope()
+    let sess = rt.newSession()
 
     let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -302,11 +315,11 @@ proc dropout_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
 
     let model = rt.eval(input)
 
-    let outputs = rt.runSession(model)
+    let outputs = sess.runSession(model)
     echo outputs[0]
 
 dropout_test()
@@ -375,16 +388,19 @@ proc branch_concat_test() {.test.} =
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
+    let sess = rt.newSession()
 
-    let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
+    let input = newTensor([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
     let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
 
-    let model = rt.eval(input)
+    # must be called for initalization of vars
+    rt.fit(input, input, 1)
+    let model = rt.eval(rt.Const(input))
 
-    let outputs = rt.runSession(model)
+    let outputs = sess.runSession(model)
     echo outputs[0] 
 
 branch_concat_test()
