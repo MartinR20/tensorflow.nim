@@ -7,7 +7,7 @@
 To install the current version use (currently only on linux):
 
 ```sh
-nimble install https://github.com/MartinR20/tensorflow.nim.git
+sudo nimble install https://github.com/MartinR20/tensorflow.nim.git
 ```
 
 ## Usage
