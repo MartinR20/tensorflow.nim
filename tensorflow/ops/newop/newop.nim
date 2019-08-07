@@ -163,7 +163,7 @@ macro grad*(x: untyped): untyped =
   var exportName = $name(x) & "Grad"
 
   var funbody = body(x) 
-  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.exportc:\"" & exportName & "\", asmNoStackFrame, stdcall.}")
+  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.exportc:\"" & exportName & "\".}")
 
   funheader[0].del(funheader[0].len-1, 1)
   
@@ -173,7 +173,8 @@ macro grad*(x: untyped): untyped =
     insert(funbody, 0, disc)
 
   insert(funheader[0], funheader[0].len, funbody[0])
-  insert(funheader, 1, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & ");\".}")[0])
+  insert(funheader, 1, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & "_);\".}")[0])
+  insert(funheader, 1, parseStmt("{.emit:\"tensorflow::Status " & exportName & "_(const tensorflow::Scope &s, const tensorflow::Operation &p, const std::vector<tensorflow::Output> &i, std::vector<tensorflow::Output> *o){ return " & exportName & "(std::make_shared<tensorflow::Scope>(std::move(s)),p,i,o); }\".}")[0])
 
   if not grad_included:
     var includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
