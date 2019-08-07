@@ -51,22 +51,19 @@ proc install(dir: string, compressedName: string, displayName: string) {.async.}
     var client = newAsyncHttpClient()
     client.onProgressChanged = onProgressChanged
     
+    let compressedPath =  dir & compressedName
+
     echo "downloading " & displayName & "..."
-    await client.downloadFile(($links[compressedName])[1..^2], dir & compressedName)
+    await client.downloadFile(($links[compressedName])[1..^2], compressedPath)
     
     echo "\ninflating " & displayName & "..."
-    var file = newTarFile(dir & compressedName)
+    var file = newTarFile(compressedPath)
     file.extract(dir, true, "./tmp")
     removeDir("./tmp")
 
     # removing archive
-    removeFile(dir & compressedName)
+    removeFile(compressedPath)
 
-let installLibDir = "./tensorflow/lib/" 
-
-waitFor install(installLibDir, platform & ".tar.gz", "tensorflow library")
-
-let installIncludeDir = "./tensorflow/include/"
-
-waitFor install(installIncludeDir, "include.tar.gz", "include files")
+waitFor install("./tensorflow/lib/", platform & ".tar.gz", "tensorflow library")
+waitFor install("./tensorflow/include/", "include.tar.gz", "include files")
 

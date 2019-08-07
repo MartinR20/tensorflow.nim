@@ -23,12 +23,15 @@ before install:
     withDir "..":
         exec "nimble install untar -y"
     
-    const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
     const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
+    const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/include/"
 
-    exec "mkdir " & includeDir
-    exec "mkdir " & libDir
-    
+    try:
+      exec "mkdir ./tensorflow/lib/"
+      exec "mkdir ./tensorflow/include/" 
+    except:
+      discard
+
     var platform: string
      
     when defined linux:
