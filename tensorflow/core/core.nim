@@ -105,6 +105,65 @@ type
 const
   TF_COMPLEX = TF_COMPLEX64
 
+const typeLookUp* = {
+  "float"                    : TF_DOUBLE,
+  "float32"                  : TF_FLOAT,
+  "float64"                  : TF_DOUBLE, 
+  "int"                      : TF_INT64,
+  "int32"                    : TF_INT32,
+  "uint8"                    : TF_UINT8,
+  "int16"                    : TF_INT16,
+  "int8"                     : TF_INT8, 
+  "cppstring"                : TF_STRING, 
+  "Complex[system.float64]"  : TF_COMPLEX64,
+  "int64"                    : TF_INT64, 
+  "bool"                     : TF_BOOL, 
+  "uint16"                   : TF_UINT16, 
+  "uint32"                   : TF_UINT32,
+  "uint64"                   : TF_UINT64
+  #TF_COMPLEX128, 
+  #TF_QINT8, 
+  #TF_QUINT8,           
+  #TF_QINT32,           
+  #TF_BFLOAT16,         .
+  #TF_QINT16,           
+  #TF_QUINT16,          
+  #TF_HALF, 
+  #TF_RESOURCE, 
+  #TF_VARIANT,
+}.toTable
+
+const typeLookUpReverse* = {
+  TF_DOUBLE    : "float",     
+  TF_FLOAT     : "float32",  
+  TF_DOUBLE    : "float64",   
+  TF_INT64     : "int",  
+  TF_INT32     : "int32",  
+  TF_UINT8     : "uint8",  
+  TF_INT16     : "int16",  
+  TF_INT8      : "int8",  
+  TF_STRING    : "cppstring",   
+  TF_COMPLEX64 : "Complex[system.float64]",  
+  TF_INT64     : "int64",   
+  TF_BOOL      : "bool",   
+  TF_UINT16    : "uint16",   
+  TF_UINT32    : "uint32",   
+  TF_UINT64    : "uint64"                 
+  #TF_COMPLEX128, 
+  #TF_QINT8, 
+  #TF_QUINT8,           
+  #TF_QINT32,           
+  #TF_BFLOAT16,         .
+  #TF_QINT16,           
+  #TF_QUINT16,          
+  #TF_HALF, 
+  #TF_RESOURCE, 
+  #TF_VARIANT,
+}.toTable
+
+proc tf(dtype: typedesc): DType =
+    return typeLookUp[dtype.name]
+
 ## Tensor related definitions
 type
   Tensor* {.header: memory,
@@ -116,19 +175,9 @@ type
     ## this can be avoided because it keeps the object alive as long the there is reference on it enabling the Tensor 
     ## to live across multiple stackframes.
 
-
-proc toCPPStr(ten: Tensor): cppstring {.header: "<sstream>",
-                                        importcpp: "[&]() {std::stringstream s; s << #->DebugString(); return s.str(); }()" .} 
-
-  ## A Method to get a cppstring representation of the Tensor.
-  ## 
-  ## Args:
-  ##   ten: The Tensor it is applied on.
-  ## Returns:
-  ##   A new cppstring representing of the Tensor.
-
-proc toValueCPPStr(ten: Tensor): cppstring {.header: "<sstream>",
-                                             importcpp: "[&]() {std::stringstream s; s << #->SummarizeValue(100, true); return s.str(); }()" .} 
+proc toValueCPPStr(ten: Tensor, len: int): cppstring 
+  {.header: "<sstream>",
+  importcpp: "[&]() {std::stringstream s; s << #->SummarizeValue(#, true); return s.str(); }()" .} 
 
   ## A Method to get a cppstring representation of the first 100 Values of the Tensor.
   ##
@@ -137,23 +186,8 @@ proc toValueCPPStr(ten: Tensor): cppstring {.header: "<sstream>",
   ## Returns:
   ##   A new cppstring representing the first 100 Values of the Tensor.
 
-proc `$`*(ten: Tensor) : string =
-  var cppstr = toCPPStr(ten)
-  var cstr = newString(cppstr.len())
-
-  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
-
-  return cstr
-
-  ## String conversion for Tensors.
-  ## 
-  ## Args:
-  ##   ten: The Tensor it is applied on. 
-  ## Returns:
-  ##   A new string representing the Tensor.
-
-proc toValueStr*(ten: Tensor) : string =
-  var cppstr = toValueCPPStr(ten)
+proc toValueStr*(ten: Tensor, len: int) : string =
+  var cppstr = toValueCPPStr(ten, len)
   var cstr = newString(cppstr.len())
 
   copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
@@ -186,6 +220,19 @@ proc dtype*(ten: Tensor) : DType {.header: tensor,
   ##   ten: The Tensor it is applied on.
   ## Returns:
   ##   The Dtype of the Tensor.
+
+
+proc `$`*(ten: Tensor) : string =
+  return "Tensor<type: " & $typeLookUpReverse[ten.dtype()] &
+          " shape: " & $ten.shape &
+          " values: " & ten.toValueStr(1) & ">"
+
+  ## String conversion for Tensors.
+  ## 
+  ## Args:
+  ##   ten: The Tensor it is applied on. 
+  ## Returns:
+  ##   A new string representing the Tensor.
 
 proc slice*(ten: Tensor, start: int, stop: int): Tensor 
   {.header: tensor,
@@ -417,38 +464,12 @@ proc `[]`*[T, N](map: TensorMap[T, N], idxs: varargs[int]): T {.importcpp:"[](){
 proc `[]=`*[T, N](map: TensorMap[T, N], idxs: varargs[int], val: T) {.importcpp:"auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); _map->(_idx) = #;".}
 ]#
 
-const typeLookUp* = {
-  "float"                    : TF_DOUBLE,
-  "float32"                  : TF_FLOAT,
-  "float64"                  : TF_DOUBLE, 
-  "int"                      : TF_INT64,
-  "int32"                    : TF_INT32,
-  "uint8"                    : TF_UINT8,
-  "int16"                    : TF_INT16,
-  "int8"                     : TF_INT8, 
-  "cppstring"                : TF_STRING, 
-  "Complex[system.float64]"  : TF_COMPLEX64,
-  "int64"                    : TF_INT64, 
-  "bool"                     : TF_BOOL, 
-  "uint16"                   : TF_UINT16, 
-  "uint32"                   : TF_UINT32,
-  "uint64"                   : TF_UINT64
-  #TF_COMPLEX128, 
-  #TF_QINT8, 
-  #TF_QUINT8,           
-  #TF_QINT32,           
-  #TF_BFLOAT16,         .
-  #TF_QINT16,           
-  #TF_QUINT16,          
-  #TF_HALF, 
-  #TF_RESOURCE, 
-  #TF_VARIANT,
-}.toTable
-
 type 
   cArray[T] {.importcpp:"'0*".} = object
 
-proc cArrayFromNim[T,N,TT](c: cArray[T], nim: array[N, TT]) {.importcpp:"# = ('0*)#".}
+proc newCArray[T, TT](carray: cArray[T], len: int, x: TT) {.importcpp: "# = new '3[#]".}
+
+proc cArrayFromNim[T,N,TT](c: cArray[T], nim: array[N, TT]) {.importcpp:"# = ('1)#".}
 
 proc `[]`[T](arr: cArray[T], i: int): T {.importcpp:"#[#]".}
 
@@ -473,7 +494,7 @@ macro ttype(x: typedesc): typedesc =
 proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
   if typeLookUp.hasKey(T.name):
     let sh = getShape(arr)
-    let ten = newTensor(typeLookUp[T.name], sh) 
+    let ten = newTensor(T.tf, sh) 
 
     when T.name == "cppstring":
       var buf = flat[cppstring](ten, newCPPString(" "))
@@ -502,7 +523,7 @@ proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
 proc newTensor*[N,T](arr: array[N,T]): Tensor =
   if typeLookUp.hasKey(T.ttype.name):
     let sh = getShape(arr)
-    let ten = newTensor(typeLookUp[T.ttype.name], sh) 
+    let ten = newTensor(T.ttype.tf, sh) 
 
     when T.ttype.name == "cppstring":
       var buf = flat[cppstring](ten, newCPPString(" "))
@@ -528,7 +549,7 @@ proc newTensor*[N,T](arr: array[N,T]): Tensor =
   ##   A new Tensor with the given data.
 
 proc newTensor*(scal: string): Tensor =
-  let ten = newTensor(typeLookUp["cppstring"], []) 
+  let ten = newTensor(cppstring.tf, []) 
 
   scalar[cppstring](ten, newCPPString("")).set(newCPPString(scal))
 
@@ -543,7 +564,7 @@ proc newTensor*(scal: string): Tensor =
 
 proc newTensor*[N](scal: N, T: type): Tensor =
   if typeLookUp.hasKey(T.name):
-    let ten = newTensor(typeLookUp[T.name], []) 
+    let ten = newTensor(T.tf, []) 
 
     scalar[T](ten, 0).set(scal.T)
 
@@ -561,7 +582,7 @@ proc newTensor*[N](scal: N, T: type): Tensor =
 
 proc newTensor*[T](scal: T): Tensor =
   if typeLookUp.hasKey(T.name):
-    let ten = newTensor(typeLookUp[T.name], []) 
+    let ten = newTensor(T.tf, []) 
 
     scalar[T](ten, 0).set(scal.T)
 
@@ -693,6 +714,8 @@ proc newOutList*(outs: varargs[Out]): OutList =
 
 proc `[]`*(outs: OutList, idx: int): Out {.importcpp:"#[#]".}
 
+proc `[]=`*(outs: OutList, idx: int, val: Out) {.importcpp:"#[#] = #".}
+
 proc len*(outs: OutList): int {.importcpp:"#.size()".}
 
   ## Method to get the size of an OutList.
@@ -701,6 +724,14 @@ proc len*(outs: OutList): int {.importcpp:"#.size()".}
   ##   outs: The OutList it is applied on.
   ## Returns:
   ##   The size of the OutList object.
+
+proc add*(outs: OutList, outVal: Out) {.importcpp:"#.push_back(#)".}
+
+  ## Proc to append to an OutList.
+  ## 
+  ## Args:
+  ##   outs: The OutList it is applied on.
+  ##   outVal: Output you want to append.
 
 iterator items*(outs: OutList): Out =
   var i = 0
@@ -758,89 +789,29 @@ proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
 
 proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
 
-proc input(op: Operation, i: int) {.importcpp:"#.input(#)".}
+proc input(op: Operation, i: int): Out {.importcpp:"#.input(#)".}
+
+proc inputs(op: Operation, rng: HSlice[int, int]): OutList =
+  var inputs: OutList
+  
+  for i in rng:
+    inputs.add op.input(i)
+
+  return inputs
 
 proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
 
 proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
 
-proc output(op: Operation, i: int) {.importcpp:"#.output(#)".}
+proc output(op: Operation, i: int): Out {.importcpp:"#.output(#)".}
 
+proc outputs(op: Operation, rng: HSlice[int, int]): OutList =
+  var outputs: OutList
+  
+  for i in rng:
+    outputs.add op.output(i)
 
-## Scope related definitions
-type
-  Scope* {.header: memory,
-           header: client_session,
-           importcpp: "std::shared_ptr<tensorflow::Scope>".} = object
-
-    ## The Scope Type is a wrapper around the c++ Scope which is basically the "region" (with its computation graph) where the 
-    ## operations exsist. It is represented through a shared pointer here because it has no default constructor and therefore
-    ## cannot be declared like:
-    ##   Scope foo;
-    ## which is excatly what the nim compiler does.
-
-proc newRootScope*(): Scope {.header: client_session,
-                              header: memory,
-                              importcpp: "std::make_shared<tensorflow::Scope>(std::move(tensorflow::Scope::NewRootScope()))".}
-
-  ## Constructor for the Scope type creating a new RootScope.
-  ## 
-  ## Returns:
-  ##   A Scope object representing the new RootScope.
-
-proc ok*(scope: Scope) : bool {.importcpp: "#->ok()".}
-
-  ## Method to check if an error occured in the context of a Scope object.
-  ## 
-  ## Args:
-  ##   scope: The Scope that should be checked.
-  ## Returns:
-  ##   Wether an error occured in the given Scope.
-
-proc inewSubScope(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->NewSubScope(#)))".}
-
-proc newSubScope*(rt: Scope, name: string): Scope =
-  return rt.inewSubScope(newCPPString(name))
-
-  ## Returns a Subscope with the given name.
-  ## This is useful for visualization in tensorboard.
-
-type 
-  GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
-
-    ## Type that holds the representation of the computation graph.
-
-proc itoGraphDef(rt: Scope, graph: GraphDef) {.importcpp:"#->ToGraphDef(&#)".}
-
-proc toGraphDef*(rt: Scope): GraphDef =
-  var graph: GraphDef
-  rt.itoGraphDef(graph)
-  return graph
-
-  ## Get a graphdef from a Scope.
-
-## Session related definitions
-type
-  Session* {.header: memory,
-             header: client_session,
-             importcpp: "std::shared_ptr<tensorflow::ClientSession>".} = object
-
-    ## The Session Type is a wrapper around the c++ ClientSession which is the part where the actual computation happens. 
-    ## It is represented through a shared pointer here because it has no default constructor and therefore cannot be declared
-    ## like:
-    ##   ClientSession foo;
-    ## which is excatly what the nim compiler does.
-
-proc newSession*(scope: Scope): Session {.header: memory,
-                                          header: client_session,
-                                          importcpp: "std::make_shared<tensorflow::ClientSession>(*#)".}
-
-  ## Constructor for the Session type.
-  ## 
-  ## Args:
-  ##   scope: The Scope from which a Sessino shall be created.
-  ## Returns:
-  ##   A Session object that can be run to perform the Computations.
+  return outputs
 
 ## ArraySlice related definitions
 
@@ -881,6 +852,8 @@ proc newArraySlice*[T](data: openArray[T]): ArraySlice[T] =
   ## Raises:
   ##   ValueError: when called with the Tensor type due the reason described in the type definition.
 
+proc newArraySlice*[T](data: cArray[T], len: int): ArraySlice[T] {.importcpp:"'0(#, #)".}
+
 proc `[]`*[T](slice: ArraySlice[T], idx: int): T {.importcpp: "#[#]".}
 
 proc len*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
@@ -891,6 +864,8 @@ proc len*[T](slice: ArraySlice[T]): int {.importcpp: "#.size()".}
   ##   slice: The ArraySlice it is applied on.
   ## Returns:
   ##   The number of elements.
+
+proc asPtr*[T](slice: ArraySlice[T]): ptr T {.importcpp:"#.pointer()".}
 
 proc `$`*[T](slice: ArraySlice[T]): string =
   var str = "["
@@ -910,21 +885,208 @@ proc `$`*[T](slice: ArraySlice[T]): string =
   ##   A Stringrepresentation of the ArraySlice.
 
 proc newArraySlice*[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring] = 
-  var buffer: seq[cppstring] = @[]
+    let size = slice.len
+    var buffer: cArray[cppstring] 
+    buffer.newCArray(size, newCPPString(""))
 
-  for i in 0..slice.len()-1: 
-    buffer.add(newCPPString(slice[i]))
-  
-  let sliceCPPStr = newArraySlice(buffer)
+    for i in 0..size-1:
+      buffer[i] = newCPPString(slice[i])
 
-  return sliceCPPStr
+    return newArraySlice(buffer, size)
+#[
+  {.header: "<algorithm>",
+    importcpp:"""
+    [&](){    
+      auto _slice = #; 
+      int _len = _slice.size(); 
 
+      std::vector<std::string> _buffer;
+      _buffer.reserve(_len);
+      
+      for(int i = 0; i < _len; i++) {
+        int size = _slice[i]->len;
+        _buffer[i].reserve(size);
+        std::copy_n((char*)(&_slice[i][0]), size, &_buffer[i][0]);
+      } 
+
+      return tensorflow::gtl::ArraySlice<std::string>(_buffer);
+    }()
+  """
+  .}
+]#
   ## Method for converting an ArraySlice[string] to an ArraySlice[cppstring].
   ## 
   ## Args:
   ##   slice: The ArraySlice[string] it is applied on.
   ## Returns:
   ##   A new ArraySlice[cppstring] holding the data from the input ArraySlice[string].
+
+## Scope related definitions
+type
+  Scope* {.header: memory,
+           header: client_session,
+           importcpp: "std::shared_ptr<tensorflow::Scope>".} = object
+
+    ## The Scope Type is a wrapper around the c++ Scope which is basically the "region" (with its computation graph) where the 
+    ## operations exsist. It is represented through a shared pointer here because it has no default constructor and therefore
+    ## cannot be declared like:
+    ##   Scope foo;
+    ## which is excatly what the nim compiler does.
+
+proc newRootScope*(): Scope {.header: client_session,
+                              header: memory,
+                              importcpp: "std::make_shared<tensorflow::Scope>(std::move(tensorflow::Scope::NewRootScope()))".}
+
+  ## Constructor for the Scope type creating a new RootScope.
+  ## 
+  ## Returns:
+  ##   A Scope object representing the new RootScope.
+
+proc ok*(scope: Scope) : bool {.importcpp: "#->ok()".}
+
+  ## Method to check if an error occured in the context of a Scope object.
+  ## 
+  ## Args:
+  ##   scope: The Scope that should be checked.
+  ## Returns:
+  ##   Wether an error occured in the given Scope.
+
+proc inewSubScope(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->NewSubScope(#)))".}
+
+proc newSubScope*(rt: Scope, name: string): Scope =
+  return rt.inewSubScope(newCPPString(name))
+
+  ## Returns a Subscope with the given name.
+  ## This is useful for visualization in tensorboard.
+
+proc iwithOpName(rt: Scope, name: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithOpName(#)))".}
+
+proc withOpName*(rt: Scope, name: string): Scope =
+  return rt.iwithOpName(newCPPString(name))
+
+  ## Returns a scope applying the given name to all ops.
+
+proc withControlDependencies(rt: Scope, control_dep: ArraySlice[Operation] | Out): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithControlDependencies(#)))".}
+
+  ## Return a new scope. All ops created within the returned scope will have as
+  ## control dependencies the union of operations in the control_deps vector
+  ## and the control dependencies of the current scope.
+
+proc withNoControlDependencies(rt: Scope): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithNoControlDependencies()))".}
+
+  ## Return a new scope. All ops created within the returned scope will have no
+  ## control dependencies on other operations.
+
+proc iwithDevice(rt: Scope, device: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithDevice(#)))".}
+
+proc withDevice*(rt: Scope, device: string): Scope =
+  return rt.iwithDevice(newCPPString(device))
+
+  ## Returns a scope using the given device.
+
+proc iwithAssignedDevice(rt: Scope, assignedDevice: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithAssignedDevice(#)))".}
+
+proc withAssignedDevice(rt: Scope, assignedDevice: string): Scope =
+  return rt.iwithAssignedDevice(newCPPString(assignedDevice))
+  
+  ## Returns a new scope.  All ops created within the returned scope will have
+  ## their assigned device set to `assigned_device`.
+
+proc iwithXlaCluster(scope: Scope, xla_cluster: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithXlaCluster(#)))".}
+
+proc withXlaCluster(scope: Scope, xla_cluster: string): Scope =
+  return scope.iwithXlaCluster(newCPPString(xla_cluster))
+  
+  ## Returns a new scope.  All ops created within the returned scope will have
+  ## their _XlaCluster attribute set to `xla_cluster`.
+
+proc colocateWith(scope: Scope, op: Operation | Out): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->ColocateWith(#)))".}
+  
+  ## Return a new scope. All ops created within the returned scope will be
+  ## co-located on the device where op is placed.
+  ## NOTE: This function is intended to be use internal libraries only for
+  ## controlling placement of ops on to devices. Public use is not encouraged
+  ## because the implementation of device placement is subject to change.
+
+proc clearColocation(scope: Scope): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->ClearColocation(#)))".}
+  
+  ## Clear all colocation constraints.
+
+proc exitOnError(scope: Scope): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->ExitOnError(#)))".}
+  
+  ## Return a new scope. The op-constructor functions taking the returned scope
+  ## as the scope argument will exit as soon as an error is detected, instead
+  ## of setting the status on the scope.
+
+proc iwithKernelLabel(scope: Scope, kernel_label: cppstring): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithKernelLabel(#)))".}
+
+proc withKernelLabel(scope: Scope, kernel_label: string): Scope =
+  return scope.iwithKernelLabel(newCPPString(kernel_label))
+  
+  ## Return a new scope. All ops created with the new scope will have
+  ## kernel_label as the value for their '_kernel' attribute;
+
+proc igetUniqueNameForOp(scope: Scope, default_name: cppstring): cppstring {.importcpp:"#->GetUniqueNameForOp(#)".}
+
+proc getUniqueNameForOp(scope: Scope, default_name: string): string =
+  return $scope.igetUniqueNameForOp(newCPPString(default_name))
+
+  ## Return a unique name, using default_name if an op name has not been
+  ## specified.
+
+type
+  Status* {.importcpp:"tensorflow::Status".} = object
+
+proc updateStatus(scope: Scope, s: Status) {.importcpp:"#->UpdateStatus(#)".}
+
+  ## Update the status on this scope.
+  ## Note: The status object is shared between all children of this scope.
+  ## If the resulting status is not Status::OK() and exit_on_error_ is set on
+  ## this scope, this function exits by calling LOG(FATAL).
+
+proc status(scope: Scope): Status {.importcpp:"#->status()".}
+
+  ## Get the status of the given Scope.
+
+proc ok(): Status {.header: std_ops,
+                    importcpp: "tensorflow::Status::OK()".}
+
+type 
+  GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
+
+    ## Type that holds the representation of the computation graph.
+
+proc itoGraphDef(rt: Scope, graph: GraphDef) {.importcpp:"#->ToGraphDef(&#)".}
+
+proc toGraphDef*(rt: Scope): GraphDef =
+  var graph: GraphDef
+  rt.itoGraphDef(graph)
+  return graph
+
+  ## Get a graphdef from a Scope.
+
+## Session related definitions
+type
+  Session* {.header: memory,
+             header: client_session,
+             importcpp: "std::shared_ptr<tensorflow::ClientSession>".} = object
+
+    ## The Session Type is a wrapper around the c++ ClientSession which is the part where the actual computation happens. 
+    ## It is represented through a shared pointer here because it has no default constructor and therefore cannot be declared
+    ## like:
+    ##   ClientSession foo;
+    ## which is excatly what the nim compiler does.
+
+proc newSession*(scope: Scope): Session {.header: memory,
+                                          header: client_session,
+                                          importcpp: "std::make_shared<tensorflow::ClientSession>(*#)".}
+
+  ## Constructor for the Session type.
+  ## 
+  ## Args:
+  ##   scope: The Scope from which a Sessino shall be created.
+  ## Returns:
+  ##   A Session object that can be run to perform the Computations.
 
 ## Gradient Related definitions
 proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
@@ -949,8 +1111,8 @@ type
     ## A Object used to log your outputs to a Tensorboard readable file.
 
 proc inewSummaryWriter(dir: cppstring): SummaryWriter {.header:memory,
-                                                         header:writer,
-                                                         importcpp:"std::make_shared<tensorflow::EventsWriter>(#)".}
+                                                        header:writer,
+                                                        importcpp:"std::make_shared<tensorflow::EventsWriter>(#)".}
 
 proc newSummaryWriter*(dir: string): SummaryWriter = inewSummaryWriter(newCPPString(dir))
 
@@ -1114,15 +1276,32 @@ export TensorShape,
        num_inputs,
        input_type,
        input,
+       inputs,
        num_outputs,
        output_type,
        output,
+       outputs,
        Scope,
        newRootScope,
        newSession,
        runSession,
        runSessionVoid,
        newSubScope,
+       withOpName,
+       withControlDependencies,
+       withNoControlDependencies,
+       withDevice,
+       withAssignedDevice,
+       withXlaCluster,
+       colocateWith,
+       clearColocation,
+       exitOnError,
+       withKernelLabel,
+       getUniqueNameForOp,
+       Status,
+       updateStatus,
+       status,
+       ok,
        ArraySlice,
        newArraySlice,
        `$@`,
@@ -1134,5 +1313,7 @@ export TensorShape,
        write_grapdef,
        write_scalar,
        typeLookUp,
+       typeLookUpReverse,
+       tf,
        FeedDict,
        clear

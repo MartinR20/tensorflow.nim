@@ -1,14 +1,15 @@
-when defined linux:
+when defined(linux) or defined(macosx):
   const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/include/"
   const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
 
-{.passC: "-I" & includeDir & "tensorflow " &
+{.passC:"-I" & includeDir & "tensorflow " &
          "-I" & includeDir & "genfiles " &
          "-I" & includeDir & "absl " &
          "-I" & includeDir & "eigen " &
          "-I" & includeDir & "protobuf " &
          "-std=c++11".} 
-{.passL: "-L" & libDir & " -ltensorflow_cc -lprotobuf -ldl -lpthread".}
+{.passL: "-Wl,-rpath," & libDir & 
+         " -L" & libDir & " -ltensorflow_cc -lprotobuf -ldl -lpthread".}
 {.hint[XDeclaredButNotUsed]:off.}
 
 const
@@ -51,6 +52,12 @@ proc print*(str: cppstring) {.header: "<iostream>",
 
   ## print the content of the cppstring
 
+proc `$`*(str: cppstring): string =
+  let l = str.len
+  var nim = newString(l)
+  copyMem(addr(nim[0]), str.c_str, l)
+  return nim
+
 export client_session,
        std_ops,
        tensor,
@@ -64,4 +71,5 @@ export client_session,
        newCPPString,
        len,
        c_str,
-       print
+       print,
+       `$`

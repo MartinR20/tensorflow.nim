@@ -12,9 +12,6 @@ type
     InferenceContext {.header: shape_inference,
                        importcpp: "tensorflow::shape_inference::InferenceContext".} = object
 
-    Status {.header: std_ops,
-             importcpp: "tensorflow::Status".} = object
-
     OpKernel {.header: op_kernel,
                importcpp: "tensorflow::OpKernel".} = object of RootObj
 
@@ -39,9 +36,6 @@ template MakeOpType(name, cname, compute) =
 
     proc ComputeFunction(ctx: ptr OpKernelContext) {.exportc: cname & "::Compute".} =
         compute(ctx)
-
-proc ok(): Status {.header: std_ops,
-                    importcpp: "tensorflow::Status::OK()".}
 
 var lookUp {.compileTime.} = newTable[string,string]()
 var op_registered {.compileTime.} = false
@@ -169,10 +163,16 @@ macro grad*(x: untyped): untyped =
   var exportName = $name(x) & "Grad"
 
   var funbody = body(x) 
-  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: TensorVec, gradOutputs: ptr TensorVec) {.exportc:\"" & exportName & "\", asmNoStackFrame, stdcall.}")
+  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.exportc:\"" & exportName & "\", asmNoStackFrame, stdcall.}")
 
   funheader[0].del(funheader[0].len-1, 1)
-  insert(funheader[0], funheader[0].len, funbody)
+  
+  if funbody[0].kind == nnkReturnStmt:
+    let disc = newNimNode(nnkDiscardStmt)
+    disc.add(newNimNode(nnkEmpty))
+    insert(funbody, 0, disc)
+
+  insert(funheader[0], funheader[0].len, funbody[0])
   insert(funheader, 1, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & ");\".}")[0])
 
   if not grad_included:

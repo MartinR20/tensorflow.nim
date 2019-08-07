@@ -37,8 +37,9 @@ method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels &
 method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out = 
     let shortLayerName = "Conv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
     let rootNamed = root.newSubScope(shortLayerName & "_setup")
-    let filter = rootNamed.RandomNormal(rootNamed.Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32), TF_FLOAT, some(0), some(0))
-    layer.train.add(rootNamed.newVariable(filter, newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels]), TF_FLOAT, "Conv2D_filter")) 
+    let filter = rootNamed.RandomNormal(rootNamed.Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32), float32.tf, some(0), some(0))
+    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
+    layer.train.add(rootNamed.newVariable(filter, varShape, float32.tf, "Conv2D_filter")) 
 
     let strides = newArraySlice(layer.strides)
     # TODO: fix wrappes to not use cppString in the wrapper
@@ -83,7 +84,7 @@ proc newConv2d*(model: var seq[Layer],
     conv2d.dataFormat = dataFormat
     conv2d.dilations = [c1, cast[cint](dilations[0]), cast[cint](dilations[1]), c1]
     conv2d.useCudnnOnGpu = useCudnnOnGpu
-
+    
     model.add(conv2d)
 
 export Conv2d,

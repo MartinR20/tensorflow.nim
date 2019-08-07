@@ -23,20 +23,23 @@ before install:
     withDir "..":
         exec "nimble install untar -y"
     
-    exec "mkdir tensorflow/include"
-    exec "mkdir tensorflow/lib"
+    const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
+    const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
+
+    exec "mkdir " & includeDir
+    exec "mkdir " & libDir
     
     var platform: string
      
     when defined linux:
       platform = "linux-x86_64"
       echo "adding c++ librarys to /etc/ld.so.conf"
-      exec "echo \"$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/\" | sudo tee -a /etc/ld.so.conf; sudo ldconfig"
+      exec "echo \"" & libDir & "\" | sudo tee -a /etc/ld.so.conf; sudo ldconfig"
     elif defined windows:
-      raise newException(OSError, "prebuilt librarys currently are only available on linux!") 
+      raise newException(OSError, "prebuilt librarys currently are not available on windows!") 
     elif defined(macosx):
-      raise newException(OSError, "prebuilt librarys currently are only available on linux!") 
+      platform = "darwin-x86_64"
     else:
-      raise newException(OSError, "prebuilt librarys currently are only available on linux!") 
+      raise newException(OSError, "Sorry prebuilt librarys currently are not available for your operating system!") 
   
     exec "nim c -r -d:ssl ./setup.nim " & platform

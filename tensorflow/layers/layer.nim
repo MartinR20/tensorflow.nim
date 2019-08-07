@@ -40,7 +40,7 @@ type Layer* = ref object of RootObj
     ## Base Layer to inherit from when creating a new Layer. If your layer contains trainable 
     ## Variables append them to the train sequence.
 
-    train*: seq[Variable]
+    train*: seq[TVariable]
 
 method `$`*(layer: Layer): string {.base.} = "Layer"
 
@@ -76,7 +76,7 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
                           joinFunc: proc(rt: Scope, input: OutList): Out): proc(rt: Scope, input: Out): Out{.closure.} =
 
                     return proc(rt: Scope, input: Out): Out{.closure.} =
-                            var branchOut: seq[Out]
+                            var branchOut: OutList
 
                             for branch in branches:
                                 var outp = branch[0](rt, input)
@@ -86,15 +86,31 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
 
                                 branchOut.add(outp)
 
-                            return joinFunc(rt, newOutList(branchOut))
+                            return joinFunc(rt, branchOut)
 
     ## a mini compile method for branches
 
-proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(rt: Scope, X, Y: Tensor, epochs: int, batch = 32), proc(rt: Scope, X: Out): Out) = 
+proc vvarSeq(vars: seq[TVariable]): OutList =
+    var outlist: OutList
+
+    for v in vars:
+        outlist.add v.vvar
+
+    return outlist
+
+proc assignSeq(vars: seq[TVariable]): OutList =
+    var outlist: OutList
+
+    for v in vars:
+        outlist.add v.assign
+
+    return outlist
+
+proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): (proc(rt: Scope, X, Y: Tensor, epochs: int, batch = 32), proc(rt: Scope, X: Out): Out) = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
-    var vars: seq[Variable]
+    var vars: seq[TVariable]
 
     for layer in layers:
 
@@ -153,7 +169,7 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
         let opt = optim.make(root, vars)
         let lloss = loss.make(root)
 
-        let initVars = newOutList(vars.map(proc(assign: Variable): Out = assign.assign))
+        let initVars = vars.assignSeq
 
         proc fit(rt: Scope, X, Y: Tensor, epochs: int, batch = 32) {.closure.} =
             let rtNamed = rt.newSubScope("fit")
@@ -164,13 +180,11 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
 
             let loss = lloss(rtNamed, outp, placeholder_y)
 
-            let varsAsOutList = newOutList(vars.map(proc(assign: Variable): Out = assign.vvar))
-
             var grads: OutList
             let rtGrads = rtNamed.newSubScope("Gradients")
-            rtGrads.addSymbolicGradients(loss, varsAsOutList, grads)
+            rtGrads.addSymbolicGradients(loss, vars.vvarSeq, grads)
 
-            let opted = newOutList(opt(rtNamed, vars, grads))
+            let opted = opt(rtNamed, vars, grads)
             let debug = lloss(rtNamed, rtNamed.eval(placeholder_x), placeholder_y)
 
             let writer = newSummaryWriter("./summary/event")
@@ -179,10 +193,9 @@ proc compile*(layers: seq[Layer], root: Scope, loss: Loss, optim: Optim): (proc(
             let sess = newSession(rtNamed)
 
             sess.runSessionVoid(initVars)
-
             if optim.init.len != 0:
                 for init in optim.init:
-                    sess.runSessionVoid(newOutList(init))
+                    sess.runSessionVoid(init)
 
             var feed: FeedDict
 

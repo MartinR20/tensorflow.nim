@@ -9,7 +9,7 @@ var platform = paramStr(1)
 if existsDir("/content/sample_data"):
     platform &= "-gpu"
     echo "Detected Colab defaulting to gpu installation!"
-else:
+elif platform != "darwin-x86_64":
     while true:
         echo "Install with gpu support? [y/n]"
         let input = readLine(stdin)
@@ -43,7 +43,7 @@ proc onProgressChanged(total, progress, speed: int64) {.async.} =
 
         stdout.write(content)
 
-    stdout.write("downloaded: " & $progressInMB & "Mb/s ")
+    stdout.write("downloaded: " & $progressInMB & "Mb ")
     stdout.write("speed: " & $(speed div 1000) & "kb/s ")
     stdout.flushFile
 
