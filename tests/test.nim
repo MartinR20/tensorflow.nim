@@ -133,11 +133,11 @@ proc dense_test() {.test.} =
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
-    let (fit,_) = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam())
 
     let input = newTensor([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
 
-    rt.fit(input, input, 100)
+    model.fit(input, input, 100)
 
 dense_test()
 
@@ -157,13 +157,11 @@ proc AE_test() {.test.} =
                            [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                            [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-    let (fit,_) = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam())
 
-    rt.fit(input, input, 5)
+    model.fit(input, input, 5)
 
 AE_test()
-
-proc getAttrs(): Conv2DAttrs {.importcpp:"[](){ tensorflow::ops::Conv2D::Attrs attrs; attrs.data_format_ = \"NHWC\"; attrs.dilations_ = tensorflow::gtl::ArraySlice<int>({1,1,1,1}); attrs.use_cudnn_on_gpu_ = true; return attrs; }()".}
 
 proc x_test() {.test.} =
     let rt = newRootScope()
@@ -171,8 +169,7 @@ proc x_test() {.test.} =
     let run = rt.Conv2D(rt.Const([[[[1]]]], float32), 
                         rt.Const([[[[10]]]], float32),
                         newArraySlice([1.cint, 1.cint, 1.cint, 1.cint]),
-                        newCPPString("SAME"),
-                        getAttrs())
+                        newCPPString("SAME"))
     let sess = rt.newSession()
     echo sess.runSession(run)[0]
 
@@ -212,8 +209,8 @@ proc conv2d_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    var (fit, _) = proto.compile(rt, newMSE(), newAdam())
-    rt.fit(input, newTensor([[0,0,0,0,0]], float32), 3)
+    let model = proto.compile(rt, newMSE(), newAdam())
+    model.fit(input, newTensor([[0,0,0,0,0]], float32), 3)
 
 conv2d_test()
 
@@ -225,7 +222,7 @@ proc maxpool_test() {.test.} =
     let rt = newRootScope()
     let sess = rt.newSession()
 
-    let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
+    let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -244,12 +241,8 @@ proc maxpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
-    
-    let model = rt.eval(input)
-
-    let outputs = sess.runSession(model)
-    echo outputs[0]
+    let model = proto.compile(rt, newMSE(), newAdam())
+    echo model.eval(input)[0]
 
 maxpool_test()
 
@@ -261,7 +254,7 @@ proc avgpool_test() {.test.} =
     let rt = newRootScope()
     let sess = rt.newSession()
 
-    let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
+    let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -280,12 +273,8 @@ proc avgpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
-    
-    let model = rt.eval(input)
-
-    let outputs = sess.runSession(model)
-    echo outputs[0]
+    let model = proto.compile(rt, newMSE(), newAdam())
+    echo model.eval(input)[0]
 
 avgpool_test()
 
@@ -297,7 +286,7 @@ proc dropout_test() {.test.} =
     let rt = newRootScope()
     let sess = rt.newSession()
 
-    let input = rt.Const([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
+    let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -316,14 +305,31 @@ proc dropout_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let (_,eval) = proto.compile(rt, newMSE(), newAdam())
-
-    let model = rt.eval(input)
-
-    let outputs = sess.runSession(model)
-    echo outputs[0]
+    let model = proto.compile(rt, newMSE(), newAdam())
+    echo model.eval(input)[0]
 
 dropout_test()
+
+proc concat_grad_test() {.test.} = 
+    let rt = newRootScope()
+
+    with rt:
+        let a = Const([0], int32)
+        let b = Const([1], int32)
+    
+    let list = newOutList(a, b)
+
+    with rt:
+        let c = Concat(list, Const(0, int32))
+
+        var grads: OutList
+        addSymbolicGradients(c, list, grads)
+
+        let sess = newSession()
+
+    echo sess.runSession(grads)[0]
+
+concat_grad_test()
 
 proc branch_concat_test() {.test.} =  
     var proto: seq[Layer] = @[]
@@ -395,14 +401,11 @@ proc branch_concat_test() {.test.} =
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam())
 
     # must be called for initalization of vars
-    rt.fit(input, input, 1)
-    let model = rt.eval(rt.Const(input))
-
-    let outputs = sess.runSession(model)
-    echo outputs[0] 
+    model.fit(input, input, 11)
+    echo model.eval(input)[0]
 
 branch_concat_test()
 
