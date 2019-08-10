@@ -106,7 +106,91 @@ proc assignSeq(vars: seq[TVariable]): OutList =
 
     return outlist
 
-proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): (proc(rt: Scope, X, Y: Tensor, epochs: int, batch = 32), proc(rt: Scope, X: Out): Out) = 
+type Model = ref object
+    x: Out
+    y: Out
+    eval: Out
+    loss: Out
+    opted: OutList
+    sess: Session
+
+proc make_eval(rt: Scope, funcs: seq[proc(rt: Scope, input: Out): Out], X: Out): Out =
+    let rtNamed = rt.newSubScope("eval")
+
+    var outp = funcs[0](rtNamed, X)
+
+    for f in funcs[1..^1]:
+        outp = rtNamed.f(outp)
+
+    return outp
+
+proc newModel[N](rt: Scope, 
+              funcs: seq[proc(rt: Scope, input: Out): Out],
+              loss: Loss, 
+              optim: Optim[N],
+              vars: seq[TVariable]): Model =
+    var model = new Model
+
+    let rtNamed = rt.newSubScope("fit")
+
+    with rtNamed:
+        model.x = Placeholder(float32.tf)
+        model.y = Placeholder(float32.tf)
+
+        model.eval = make_eval(funcs, model.x)
+
+        model.sess = newSession()
+
+    if vars.len == 0:
+        echo "Warning: Your model has no trainable variables therefore fit will raise an Error!"
+        return model
+
+    with rtNamed:
+        model.loss = loss.make()(model.eval, model.y)
+
+    with rtNamed.newSubScope("Gradients"):
+        var grads: OutList
+        addSymbolicGradients(model.loss, vars.vvarSeq, grads)
+
+    with rtNamed:
+        model.opted = optim.make(vars)(vars, grads)
+
+    model.sess.runSessionVoid(vars.assignSeq)
+
+    if optim.init.len != 0:
+        for init in optim.init:
+            model.sess.runSessionVoid(init)
+
+    return model
+
+proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
+    var feed: FeedDict
+
+    feed[model.x] = X
+    feed[model.y] = Y
+
+    #let summary = newSummaryWriter("./summary/event")
+    #summary.write_grapdef(rt.toGraphDef)
+
+    for epoch in 0..epochs-1:
+        model.sess.runSessionVoid(feed, model.opted)
+
+        if epoch %% 10 == 0:
+            var outputs: TensorVec
+            model.sess.runSession(feed, model.loss, outputs)
+            echo "loss:", outputs[0].flat(0.float32).mean()
+    
+proc eval(model: Model, X: Tensor): TensorVec =
+    var feed: FeedDict
+
+    feed[model.x] = X
+
+    var outputs: TensorVec
+    model.sess.runSession(feed, model.eval, outputs)
+
+    return outputs
+
+proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): Model = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
@@ -147,67 +231,7 @@ proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): 
         for i in 0..layer.train.len-1:
             vars.add(layer.train[i])
 
-    proc eval(rt: Scope, X: Out): Out{.closure.} =
-        let rtNamed = rt.newSubScope("eval")
-
-        var outp = funcs[0](rtNamed, X)
-
-        for f in funcs[1..^1]:
-            outp = rtNamed.f(outp)
-
-        return outp
-
-    if vars.len == 0:
-        echo "Warning: No Layer with trainable Variables added to model fit method only a dummy!"
-
-        proc fit(rt: Scope, X, Y: Tensor, epochs: int, batch = 32) {.closure.} = 
-            raise newException(ValueError, "Attempted to use unusable dummy method!")
-
-        return (fit, eval)
-    
-    else:
-        let opt = optim.make(root, vars)
-        let lloss = loss.make(root)
-
-        let initVars = vars.assignSeq
-
-        proc fit(rt: Scope, X, Y: Tensor, epochs: int, batch = 32) {.closure.} =
-            let rtNamed = rt.newSubScope("fit")
-            let placeholder_x = rtNamed.Placeholder(X.dtype)
-            let placeholder_y = rtNamed.Placeholder(Y.dtype)
-
-            let outp = eval(rtNamed, placeholder_x)
-
-            let loss = lloss(rtNamed, outp, placeholder_y)
-
-            var grads: OutList
-            let rtGrads = rtNamed.newSubScope("Gradients")
-            rtGrads.addSymbolicGradients(loss, vars.vvarSeq, grads)
-
-            let opted = opt(rtNamed, vars, grads)
-            let debug = lloss(rtNamed, rtNamed.eval(placeholder_x), placeholder_y)
-
-            let sess = newSession(rtNamed)
-
-            sess.runSessionVoid(initVars)
-            if optim.init.len != 0:
-                for init in optim.init:
-                    sess.runSessionVoid(init)
-
-            var feed: FeedDict
-
-            feed[placeholder_x] = X
-            feed[placeholder_y] = Y
-
-            for epoch in 0..epochs-1:
-                sess.runSessionVoid(feed, opted)
-
-                if epoch %% 10 == 0:
-                    var outputs: TensorVec
-                    sess.runSession(feed, debug, outputs)
-                    echo "loss:", outputs[0].flat(0.float32).mean()
-
-        return (fit,eval)
+    return newModel(root, funcs, loss, optim, vars)
 
     ## The compile procedure is the function that turns your model into an actual sequence of operations and returns
     ## a fit and eval method to train your model and afterward evaluate its performence. Beware this interface will
@@ -223,9 +247,14 @@ proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): 
     ##    proto.newActivation(Softmax)
     ##    
     ##    let rt = newRootScope()
-    ##    let (fit,eval) = proto.compile(rt, newMSE(), newAdam())
+    ##    let model = proto.compile(rt, newMSE(), newAdam())
+    ##
+    ##    model.fit(X, Y, epochs)
     ##
 
 export Layer,
        `$`,
-       compile
+       compile,
+       Model,
+       fit,
+       eval
