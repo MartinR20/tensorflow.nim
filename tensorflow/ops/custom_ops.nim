@@ -78,6 +78,9 @@ proc `==`(root: Scope, A, B: Out): Out =
 proc `!=`(root: Scope, A, B: Out): Out =
   return NotEqual(root, A, B)
 
+proc `%%`(root: Scope, A, B: Out): Out =
+  return Mod(root, A, B)
+  
 proc Transpose*(root: Scope, A: Out) : Out =
   with root:
     let rank = Rank(A)
@@ -109,5 +112,6 @@ export Const,
        `<=`,
        `==`,
        `!=`,
+       `%%`,
        Transpose,
        T
