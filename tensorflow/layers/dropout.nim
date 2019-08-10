@@ -29,11 +29,12 @@ method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out =
                     if layer.shape == Out(): 
                         layer.shape = root.Shape(input)
 
-                    let random = rt.RandomUniform(layer.shape, TF_FLOAT, some(0), some(0))
-                    let mask = rt.GreaterEqual(random, rrate)
-                    let scale = rt.Div(rt.Const(1.0, float32), rt.Subtract(rt.Const(1.0, float32), rrate))
+                    with rt:
+                        let random = RandomUniform(layer.shape, TF_FLOAT)
+                        let mask = random >= rrate
+                        let scale = Const(1.0, float32) / (Const(1.0, float32) - rrate)
 
-                    return rt.Multiply(rt.Multiply(input, scale), rt.Cast(mask, TF_FLOAT))
+                        return input * scale * Cast(mask, float32)
 
 proc newDropout*(model: var seq[Layer], rate: float) =
     var dropout = new Dropout

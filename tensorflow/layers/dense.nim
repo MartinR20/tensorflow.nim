@@ -29,24 +29,31 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
     let shortLayerName = "Dense_" & $layer.outFeatures
     let rootNamed = root.newSubScope(shortLayerName & "_setup")
 
-    let w = rootNamed.RandomNormal(rootNamed.Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
+    let wVarShape = newTensorShape([layer.inFeatures, layer.outFeatures])
 
-    layer.train.add(rootNamed.newVariable(w, newTensorShape([layer.inFeatures, layer.outFeatures]), TF_FLOAT, "weights"))
+    with rootNamed:
+        let w = RandomNormal(Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT)
+        let wVar = newVariable(w, wVarShape, TF_FLOAT, "weights")
+
+    layer.train.add(wVar)
 
     if not layer.bias:
-        return proc(rt: Scope, input: Out): Out = 
-                    let rtNamed = rt.newSubScope(shortLayerName)
-
-                    rtNamed.MatMul(input, layer.train[0].vvar)
+        return proc(rt: Scope, input: Out): Out =
+                    with rt.newSubScope(shortLayerName):
+                        return input @ layer.train[0].vvar
 
     else:
-        let b = rootNamed.RandomNormal(rootNamed.Const([1, layer.outFeatures], int32), TF_FLOAT, some(0), some(0))
-        layer.train.add(rootNamed.newVariable(b, newTensorShape([1, layer.outFeatures]), TF_FLOAT, "bias"))
-        
-        return proc(rt: Scope, input: Out): Out = 
-                    let rtNamed = rt.newSubScope(shortLayerName)
+        let bVarShape = newTensorShape([1, layer.outFeatures])
 
-                    rtNamed.Add(rtNamed.MatMul(input, layer.train[0].vvar), layer.train[1].vvar)
+        with rootNamed:
+            let b = RandomNormal(Const([1, layer.outFeatures], int32), TF_FLOAT)
+            let bVar = newVariable(b, bVarShape, TF_FLOAT, "bias")
+
+        layer.train.add(bVar)
+        
+        return proc(rt: Scope, input: Out): Out =
+                    with rt.newSubScope(shortLayerName):
+                        return input @ layer.train[0].vvar + layer.train[1].vvar
 
 proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = true) =
     var dense = new Dense

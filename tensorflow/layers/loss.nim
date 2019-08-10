@@ -32,8 +32,8 @@ method `$`(loss: MSE): string = "MSE()"
 
 method make(loss: MSE, root: Scope): (proc(rt: Scope, y_pred, y_true: Out): Out) = 
     return proc(rt: Scope, y_true, y_pred: Out): Out = 
-                let rtNamed = rt.newSubScope("MSE")
-                return rtNamed.Mean(rtNamed.Square(rtNamed.Subtract(y_true, y_pred)), rtNamed.Const(0, int32))
+                with rt.newSubScope("MSE"):
+                    return Mean(Square(y_true - y_pred), Const(0, int32))
 
 
 type CrossEntropy = ref object of Loss
@@ -49,9 +49,8 @@ method `$`(loss: CrossEntropy): string = "CrossEntropy()"
 
 method make(loss: CrossEntropy, root: Scope): (proc(rt: Scope, y_true, y_pred: Out): Out) = 
     return proc(rt: Scope, y_pred, y_true: Out): Out = 
-                let rtNamed = rt.newSubScope("CrossEntropy")
-                return rtNamed.Negate(rtNamed.Sum(rtNamed.Multiply(y_true, rtNamed.Log(rtNamed.ClipByValue(y_pred, 1e-7, 1.0 - 1e-7))), rtNamed.Const(1, int32))) 
-
+                with rt.newSubScope("CrossEntropy"):
+                    return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), Const(1, int32)))
 
 export Loss,
        make,

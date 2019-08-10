@@ -21,14 +21,13 @@ type TVariable = ref object
   name*: string
 
 proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, name = "Variable"): TVariable =
-  let rootNamed = root.newSubScope(name)
   let v = new TVariable
   v.name = name
-
-  v.vvar = rootNamed.Variable(shape, dtype)
-
   v.shape = shape
-  v.assign = rootNamed.Assign(v.vvar, value)
+
+  with root.newSubScope(name):
+    v.vvar = Variable(shape, dtype)
+    v.assign = Assign(v.vvar, value)
 
   return v
 

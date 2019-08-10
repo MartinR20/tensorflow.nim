@@ -36,10 +36,14 @@ method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels &
 
 method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out = 
     let shortLayerName = "Conv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
-    let rootNamed = root.newSubScope(shortLayerName & "_setup")
-    let filter = rootNamed.RandomNormal(rootNamed.Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32), float32.tf, some(0), some(0))
     let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
-    layer.train.add(rootNamed.newVariable(filter, varShape, float32.tf, "Conv2D_filter")) 
+    
+    with root.newSubScope(shortLayerName & "_setup"):
+        let shape = Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32)
+        let filter = RandomNormal(shape, float32.tf)
+        let variable = newVariable(filter, varShape, float32.tf, "Conv2D_filter")
+
+    layer.train.add(variable) 
 
     let strides = newArraySlice(layer.strides)
     # TODO: fix wrappes to not use cppString in the wrapper

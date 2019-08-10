@@ -76,23 +76,27 @@ method `$`(optim: Adam): string = "Adam(lr: " & $optim.lr & ", beta1: " & $optim
 method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
     let rootNamed = root.newSubScope("Adam_setup")
 
-    let lr = rootNamed.Const(optim.lr, float32)
-    let beta1 = rootNamed.Const(optim.beta1, float32)
-    let beta2 = rootNamed.Const(optim.beta2, float32)
-    let epsilon = rootNamed.Const(optim.epsilon, float32)
+    with rootNamed:
+        let lr = Const(optim.lr, float32)
+        let beta1 = Const(optim.beta1, float32)
+        let beta2 = Const(optim.beta2, float32)
+        let epsilon = Const(optim.epsilon, float32)
 
     var m: OutList
     var v: OutList
     var beta1Power: OutList
     var beta2Power: OutList
 
+    let scalarShape = newTensorShape([])
+
     for i in 0..vars.len-1:
         let currVar = vars[i]
 
-        let im = rootNamed.newVariable(rootNamed.ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-        let iv = rootNamed.newVariable(rootNamed.ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-        let ibeta1Power = rootNamed.newVariable(rootNamed.Const(0.0, float32), newTensorShape([]), TF_FLOAT)
-        let ibeta2Power = rootNamed.newVariable(rootNamed.Const(0.0, float32), newTensorShape([]), TF_FLOAT)
+        with rootNamed:
+            let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
+            let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
+            let ibeta1Power = newVariable(Const(0.0, float32), scalarShape, TF_FLOAT)
+            let ibeta2Power = newVariable(Const(0.0, float32), scalarShape, TF_FLOAT)
 
         m.add im.vvar
         v.add iv.vvar
@@ -107,9 +111,11 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
     return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
                 let rtNamed = rt.newSubScope("Adam")
                 var outp: OutList
-                for i in 0..input.len-1:
+
+                for i in 0..3:
                     outp.add rtNamed.ApplyAdam(input[i].vvar, m[i], v[i], beta1Power[i], beta2Power[i], 
                                                lr, beta1, beta2, epsilon, grads[i])
+                                        
                 return outp
 
 
@@ -148,9 +154,8 @@ proc newSGD*(lr = 0.01, momentum = 0.0, decay = 0.0, nesterov = false): SGD =
 method `$`(optim: SGD): string = "SGD(lr: " & $optim.lr & ")"
 
 method make[N](optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
-    let rootNamed = root.newSubScope("SGD_setup")
-
-    let lr = rootNamed.Const(optim.lr, float32) 
+    with root.newSubScope("SGD_setup"):
+        let lr = Const(optim.lr, float32) 
 
     return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
                 let rtNamed = rt.newSubScope("SGD")
