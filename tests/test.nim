@@ -53,7 +53,7 @@ proc basicOp_test() {.test.} =
                        [1.0,3.0],
                        [1.0,3.0]], float32)
 
-        let c = MatMul(Transpose(a), a)
+        let c = T(a) @ a
 
     let outputs = sess.runSession(c)
     echo outputs[0]
@@ -65,7 +65,7 @@ proc var_test() {.test.} =
 
     with newRootScope():
         let v = newVariable(Const([[2,2], [2,2]], float32), v_shape, TF_FLOAT)
-        let m = MatMul(Transpose(v.vvar), v.vvar)
+        let m = T(v.vvar) @ v.vvar
         
         let sess = newSession()
 
@@ -103,23 +103,21 @@ proc attrOp_test() {.test.} =
 attrOp_test()
 
 proc rawDense_test() {.test.} =  
-    let o = some(0)
-
     with newRootScope():
         let sess = newSession()
 
         let input = Const([[1, 2, 4, 2, 3, 
                             5, 6, 3, 4, 1]], float32)
 
-        let w0 = RandomNormal(Const([10, 10], int32), TF_FLOAT, o, o)
-        let b0 = RandomNormal(Const([1,10], int32), TF_FLOAT, o, o)
+        let w0 = RandomNormal(Const([10, 10], int32), TF_FLOAT)
+        let b0 = RandomNormal(Const([1,10], int32), TF_FLOAT)
 
-        let h0 = Relu(Add(MatMul(input, w0), b0))
+        let h0 = Relu(input @ w0 + b0)
 
-        let w1 = RandomNormal(Const([10, 10], int32), TF_FLOAT, o, o)
-        let b1 = RandomNormal(Const([1,10], int32), TF_FLOAT, o, o)
+        let w1 = RandomNormal(Const([10, 10], int32), TF_FLOAT)
+        let b1 = RandomNormal(Const([1,10], int32), TF_FLOAT)
 
-        let h1 = Softmax(Add(MatMul(h0, w1), b1))
+        let h1 = Softmax(h0 @ w1 + b1)
 
     let outputs = sess.runSession(h1)
     echo outputs[0]
