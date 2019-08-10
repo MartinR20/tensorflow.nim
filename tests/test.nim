@@ -133,7 +133,7 @@ proc dense_test() {.test.} =
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
-    let model = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newSGD())
 
     let input = newTensor([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
 

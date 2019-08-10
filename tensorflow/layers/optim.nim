@@ -112,7 +112,7 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
                 let rtNamed = rt.newSubScope("Adam")
                 var outp: OutList
 
-                for i in 0..3:
+                for i in 0..input.len-1:
                     outp.add rtNamed.ApplyAdam(input[i].vvar, m[i], v[i], beta1Power[i], beta2Power[i], 
                                                lr, beta1, beta2, epsilon, grads[i])
                                         
@@ -153,7 +153,7 @@ proc newSGD*(lr = 0.01, momentum = 0.0, decay = 0.0, nesterov = false): SGD =
 
 method `$`(optim: SGD): string = "SGD(lr: " & $optim.lr & ")"
 
-method make[N](optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
+method make(optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
     with root.newSubScope("SGD_setup"):
         let lr = Const(optim.lr, float32) 
 
@@ -161,7 +161,7 @@ method make[N](optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, 
                 let rtNamed = rt.newSubScope("SGD")
                 var outp: OutList
 
-                for i in 0..N-1:
+                for i in 0..input.len-1:
                     outp.add rtNamed.ApplyGradientDescent(input[i].vvar, lr, grads[i])
 
                 return outp
