@@ -175,9 +175,7 @@ type
     ## this can be avoided because it keeps the object alive as long the there is reference on it enabling the Tensor 
     ## to live across multiple stackframes.
 
-proc toValueCPPStr(ten: Tensor, len: int): cppstring 
-  {.header: "<sstream>",
-  importcpp: "[&]() {std::stringstream s; s << #->SummarizeValue(#, true); return s.str(); }()" .} 
+proc toValueCPPStr(ten: Tensor, len: int): cppstring {.importcpp: "#->SummarizeValue(#, true)".} 
 
   ## A Method to get a cppstring representation of the first 100 Values of the Tensor.
   ##
@@ -187,12 +185,7 @@ proc toValueCPPStr(ten: Tensor, len: int): cppstring
   ##   A new cppstring representing the first 100 Values of the Tensor.
 
 proc toValueStr*(ten: Tensor, len: int) : string =
-  var cppstr = toValueCPPStr(ten, len)
-  var cstr = newString(cppstr.len())
-
-  copyMem(addr(cstr[0]), cppstr.c_str(), cppstr.len())
-
-  return cstr
+  return $toValueCPPStr(ten, len)
 
   ## A Method to get a string representation of the first 100 Values of the Tensor.
   ## 
@@ -221,11 +214,10 @@ proc dtype*(ten: Tensor) : DType {.header: tensor,
   ## Returns:
   ##   The Dtype of the Tensor.
 
+proc toDebugCPPStr(ten: Tensor): cppstring {.importcpp: "#->DebugString()".} 
 
 proc `$`*(ten: Tensor) : string =
-  return "Tensor<type: " & $typeLookUpReverse[ten.dtype()] &
-          " shape: " & $ten.shape &
-          " values: " & ten.toValueStr(1) & ">"
+  return $toDebugCPPStr(ten)
 
   ## String conversion for Tensors.
   ## 
@@ -1051,6 +1043,26 @@ proc status(scope: Scope): Status {.importcpp:"#->status()".}
 proc ok(): Status {.header: std_ops,
                     importcpp: "tensorflow::Status::OK()".}
 
+proc insertIntoCalls(scope: NimNode, body: NimNode) {.compileTime.} =
+  for child in body:
+    if child.kind == nnkCall:    
+      insert(child, 1, scope)
+    elif child == newIdentNode("with"):
+      return
+
+    if child.len != 0:
+      insertIntoCalls(scope, child)
+
+macro with*(scope: Scope, body: untyped): untyped =
+  if scope.kind == nnkSym:
+    insertIntoCalls(newIdentNode($scope), body)
+  elif scope.kind == nnkCall:
+    let hash = signatureHash(nskLet.genSym)
+    insert(body, 0, newLetStmt(newIdentNode(hash), scope))
+    insertIntoCalls(newIdentNode(hash), body)
+     
+  return body
+      
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
 
@@ -1088,6 +1100,16 @@ proc newSession*(scope: Scope): Session {.header: memory,
   ## Returns:
   ##   A Session object that can be run to perform the Computations.
 
+macro with*(sess: Session, body: untyped): untyped =
+  if sess.kind == nnkSym:
+    insertIntoCalls(newIdentNode($sess), body)
+  elif sess.kind == nnkCall:
+    let hash = signatureHash(nskLet.genSym)
+    insert(body, 0, newLetStmt(newIdentNode(hash), sess))
+    insertIntoCalls(newIdentNode(hash), body)
+      
+  return body
+  
 ## Gradient Related definitions
 proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
 
@@ -1302,6 +1324,7 @@ export TensorShape,
        updateStatus,
        status,
        ok,
+       with,
        ArraySlice,
        newArraySlice,
        `$@`,
