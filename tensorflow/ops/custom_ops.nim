@@ -61,6 +61,9 @@ proc Transpose*(root: Scope, A: Out) : Out =
 
   ## Transpose that removes the need of providing a permutation for the normally expected result
 
+proc T*(root: Scope, A: Out) : Out =
+  return root.Transpose(A)
+
 proc ClipByValue(root: Scope, t: Out, clip_value_min: float, clip_value_max: float): Out =
   with root:
     return Minimum(Maximum(t, Const(clip_value_min, float32)), Const(clip_value_max, float32))
@@ -74,4 +77,5 @@ export Const,
        `+`,
        `-`,
        `@`,
-       Transpose
+       Transpose,
+       T

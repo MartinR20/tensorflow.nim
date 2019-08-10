@@ -1047,6 +1047,8 @@ proc insertIntoCalls(scope: NimNode, body: NimNode) {.compileTime.} =
   for child in body:
     if child.kind == nnkCall:    
       insert(child, 1, scope)
+    elif child.kind == nnkInfix:
+      insert(child, 1, scope)
     elif child == newIdentNode("with"):
       return
 
@@ -1060,7 +1062,7 @@ macro with*(scope: Scope, body: untyped): untyped =
     let hash = signatureHash(nskLet.genSym)
     insert(body, 0, newLetStmt(newIdentNode(hash), scope))
     insertIntoCalls(newIdentNode(hash), body)
-     
+  
   return body
       
 type 
