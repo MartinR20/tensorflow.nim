@@ -791,6 +791,14 @@ proc inputs(op: Operation, rng: HSlice[int, int]): OutList =
 
   return inputs
 
+proc inputs(op: Operation): OutList =
+  var inputs: OutList
+  
+  for i in 0..op.num_inputs-1:
+    inputs.add op.input(i)
+
+  return inputs
+
 proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
 
 proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
@@ -801,6 +809,14 @@ proc outputs(op: Operation, rng: HSlice[int, int]): OutList =
   var outputs: OutList
   
   for i in rng:
+    outputs.add op.output(i)
+
+  return outputs
+
+proc outputs(op: Operation): OutList =
+  var outputs: OutList
+  
+  for i in 0..op.num_outputs-1:
     outputs.add op.output(i)
 
   return outputs
