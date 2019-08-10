@@ -285,7 +285,10 @@ macro tfexport(device: string, x: untyped): untyped =
   var attrs = newTable[string, string]()
   var outputIsList = false
 
-  for pragma in lookUp[$name(x)].split("."):
+  if not lookUp.hasKey(exportName):
+    raise newException(ValueError, "You didn't register any input or output for your function!")
+
+  for pragma in lookUp[exportName].split("."):
     let splited = pragma
                     .replace("(", " ")
                     .replace(")", " ")
@@ -437,26 +440,25 @@ macro doc(str: string, x: untyped): untyped =
 macro grad*(x: untyped): untyped =
   var exportName = $name(x) & "Grad"
 
-  var funbody = body(x) 
-  var funheader = parseStmt("proc " & exportName & "(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.exportc:\"" & exportName & "\".}")
+  addPragma(x, newColonExpr(
+                newIdentNode("exportc"),
+                newStrLitNode(exportName)
+              )
+            )
 
-  funheader[0].del(funheader[0].len-1, 1)
-  
-  if funbody[0].kind == nnkReturnStmt:
-    let disc = newNimNode(nnkDiscardStmt)
-    disc.add(newNimNode(nnkEmpty))
-    insert(funbody, 0, disc)
-
-  insert(funheader[0], funheader[0].len, funbody[0])
-  insert(funheader, 1, parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & "_);\".}")[0])
-  insert(funheader, 1, parseStmt("{.emit:\"tensorflow::Status " & exportName & "_(const tensorflow::Scope &s, const tensorflow::Operation &p, const std::vector<tensorflow::Output> &i, std::vector<tensorflow::Output> *o){ return " & exportName & "(std::make_shared<tensorflow::Scope>(std::move(s)),p,i,o); }\".}")[0])
+  let fun = newStmtList(
+    x,
+    parseStmt("{.emit:\"tensorflow::Status " & exportName & "_(const tensorflow::Scope &s, const tensorflow::Operation &p, const std::vector<tensorflow::Output> &i, std::vector<tensorflow::Output> *o){ return " & exportName & "(std::make_shared<tensorflow::Scope>(std::move(s)),p,i,o); }\".}"),
+    parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & "_);\".}")
+  )
 
   if not grad_included:
-    var includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
-    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    var includes = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n" &
+                       "#include \"tensorflow/cc/framework/gradients.h\" \n\"\""
+    insert(fun, 0, parseStmt("{.emit:\"" & includes & "\".}"))
     grad_included = true
 
-  return funheader
+  return fun
 
 macro nograd(x: untyped): untyped =
   let register = parseStmt("{.emit:\"REGISTER_NO_GRADIENT_OP(\\\"" & $name(x) & "\\\");\".}")
