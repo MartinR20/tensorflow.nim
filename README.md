@@ -45,9 +45,9 @@ proto.newActivation(Softmax)
 let rt = newRootScope()
 let model = proto.compile(rt, newMSE(), newAdam())
 
-let input = rt.Const([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
+let input = newTensor([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
 
-model.fit(input, rt.ZerosLike(input), 5)
+model.fit(input, input, 5)
 ```
 
 ## Doc
