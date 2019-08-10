@@ -51,8 +51,32 @@ proc `+`(root: Scope, A, B: Out): Out =
 proc `-`(root: Scope, A, B: Out): Out =
   return Subtract(root, A, B)
 
+proc `*`(root: Scope, A, B: Out): Out =
+  return Multiply(root, A, B)
+
+proc `/`(root: Scope, A, B: Out): Out =
+  return Div(root, A, B)
+
 proc `@`(root: Scope, A, B: Out): Out =
   return MatMul(root, A, B)
+
+proc `>`(root: Scope, A, B: Out): Out =
+  return Greater(root, A, B)
+
+proc `<`(root: Scope, A, B: Out): Out =
+  return Less(root, A, B)
+
+proc `>=`(root: Scope, A, B: Out): Out =
+  return GreaterEqual(root, A, B)
+ 
+proc `<=`(root: Scope, A, B: Out): Out =
+  return LessEqual(root, A, B)
+  
+proc `==`(root: Scope, A, B: Out): Out =
+  return Equal(root, A, B)
+  
+proc `!=`(root: Scope, A, B: Out): Out =
+  return NotEqual(root, A, B)
 
 proc Transpose*(root: Scope, A: Out) : Out =
   with root:
@@ -76,6 +100,14 @@ export Const,
        ClipByValue,
        `+`,
        `-`,
+       `*`,
+       `/`,
        `@`,
+       `>`,
+       `<`,
+       `>=`,
+       `<=`,
+       `==`,
+       `!=`,
        Transpose,
        T
