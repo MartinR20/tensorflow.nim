@@ -738,6 +738,13 @@ iterator items*(outs: OutList): Out =
   ## Returns:
   ##   The Out objects one by one.
 
+iterator zip*(l1: OutList, l2: OutList): (Out, Out) =
+  let len = min(l1.len, l2.len)
+  var i = 0
+  while i <= len-1:
+    yield (l1[i], l2[i])
+    inc i
+
 ## InList related definitions
 type
   InList* {.header: std_ops,
