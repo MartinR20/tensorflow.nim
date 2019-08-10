@@ -46,14 +46,14 @@ proc arraySlice_test() {.test.} =
 arraySlice_test()
 
 proc basicOp_test() {.test.} =
-    let rt = newRootScope()
-    let sess = rt.newSession()
+    with newRootScope():
+        let sess = newSession()
 
-    let a = rt.Const([[1.0,3.0],
-                      [1.0,3.0],
-                      [1.0,3.0]], float32)
+        let a = Const([[1.0,3.0],
+                       [1.0,3.0],
+                       [1.0,3.0]], float32)
 
-    let c = rt.MatMul(rt.Transpose(a), a)
+        let c = MatMul(Transpose(a), a)
 
     let outputs = sess.runSession(c)
     echo outputs[0]
@@ -61,27 +61,29 @@ proc basicOp_test() {.test.} =
 basicOp_test()
 
 proc var_test() {.test.} =
-    let rt = newRootScope()
-    let sess = rt.newSession()
+    let v_shape = newTensorShape([2,2])
 
-    let v = rt.newVariable(rt.Const([[2,2], [2,2]], float32), newTensorShape([2,2]), TF_FLOAT)
+    with newRootScope():
+        let v = newVariable(Const([[2,2], [2,2]], float32), v_shape, TF_FLOAT)
+        let m = MatMul(Transpose(v.vvar), v.vvar)
+        
+        let sess = newSession()
 
-    let m = rt.MatMul(rt.Transpose(v.vvar), v.vvar)
-
-    sess.runSessionVoid(v.assign)
-    sess.runSessionVoid(m)
-    let outputs = sess.runSession(m)
-    echo outputs[0]
+    with sess:
+        runSessionVoid(v.assign)
+        runSessionVoid(m)
+        let outputs = runSession(m)
+        echo outputs[0]
 
 var_test()
 
 proc inputListOp_test() {.test.} =  
-    let rt = newRootScope()
-    let sess = rt.newSession()
-
     let inpList = newInList($@[1], $@[2], $@[0], $@[4])
 
-    let d = rt.ShapeN(inpList)
+    with newRootScope():
+        let sess = newSession()
+
+        let d = ShapeN(inpList)
 
     let outputs = sess.runSession(d)
     echo outputs[0]
@@ -89,12 +91,11 @@ proc inputListOp_test() {.test.} =
 inputListOp_test()
 
 proc attrOp_test() {.test.} = 
-    let rt = newRootScope()
-    let sess = rt.newSession()
+    with newRootScope():
+        let sess = newSession()
 
-    let a = rt.Const([[0,1,2,3],[3,2,1,0]], int32)
-
-    let d = rt.Unstack(a, 2)
+        let a = Const([[0,1,2,3],[3,2,1,0]], int32)
+        let d = Unstack(a, 2)
 
     let outputs = sess.runSession(d)
     echo outputs[0]
@@ -102,21 +103,23 @@ proc attrOp_test() {.test.} =
 attrOp_test()
 
 proc rawDense_test() {.test.} =  
-    let rt = newRootScope()
-    let sess = rt.newSession()
+    let o = some(0)
 
-    let input = rt.Const([[1, 2, 4, 2, 3, 
-                           5, 6, 3, 4, 1]], float32)
+    with newRootScope():
+        let sess = newSession()
 
-    let w0 = rt.RandomNormal(rt.Const([10, 10], int32), TF_FLOAT, some(0), some(0))
-    let b0 = rt.RandomNormal(rt.Const([1,10], int32), TF_FLOAT, some(0), some(0))
+        let input = Const([[1, 2, 4, 2, 3, 
+                            5, 6, 3, 4, 1]], float32)
 
-    let h0 = rt.Relu(rt.Add(rt.MatMul(input, w0), b0))
+        let w0 = RandomNormal(Const([10, 10], int32), TF_FLOAT, o, o)
+        let b0 = RandomNormal(Const([1,10], int32), TF_FLOAT, o, o)
 
-    let w1 = rt.RandomNormal(rt.Const([10, 10], int32), TF_FLOAT, some(0), some(0))
-    let b1 = rt.RandomNormal(rt.Const([1,10], int32), TF_FLOAT, some(0), some(0))
+        let h0 = Relu(Add(MatMul(input, w0), b0))
 
-    let h1 = rt.Softmax(rt.Add(rt.MatMul(h0, w1), b1))
+        let w1 = RandomNormal(Const([10, 10], int32), TF_FLOAT, o, o)
+        let b1 = RandomNormal(Const([1,10], int32), TF_FLOAT, o, o)
+
+        let h1 = Softmax(Add(MatMul(h0, w1), b1))
 
     let outputs = sess.runSession(h1)
     echo outputs[0]
