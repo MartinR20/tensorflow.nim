@@ -1,1 +1,1 @@
-newVariable	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/variable.html#newVariable,Scope,Out,TensorShape,DType,string	variable: newVariable(root: Scope; value: Out; shape: TensorShape; dtype: DType; name = &quot;Variable&quot;): Variable	
+newVariable	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/variable.html#newVariable,Scope,Out,TensorShape,DType,string	variable: newVariable(root: Scope; value: Out; shape: TensorShape; dtype: DType; name = &quot;Variable&quot;): TVariable	

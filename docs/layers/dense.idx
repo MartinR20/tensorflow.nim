@@ -1,1 +1,1 @@
-newDense	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dense.html#newDense,seq[T][Layer],int,int	dense: newDense(model: var seq[Layer]; inFeatures: int; outFeatures: int; bias = none(bool))	
+newDense	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dense.html#newDense,seq[T][Layer],int,int	dense: newDense(model: var seq[Layer]; inFeatures: int; outFeatures: int; bias = true)	

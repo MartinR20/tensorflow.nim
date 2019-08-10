@@ -99,6 +99,23 @@ input#searchInput {
   width: 80%;
 }
 
+/*
+ * Some custom formatting for input forms.
+ * This also fixes input form colors on Firefox with a dark system theme on Linux.
+ */
+input {
+  -moz-appearance: none;
+  color: #333;
+  background-color: #f8f8f8;
+  border: 1px solid #aaa;
+  font-family: "Lato", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  padding: 6px;
+}
+input:focus {
+  border: 1px solid #1fa0eb;
+  box-shadow: 0 0 2px #1fa0eb;
+}
 
 /* Docgen styles */
 /* Links */
@@ -816,7 +833,7 @@ function main() {
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#newVariable%2CScope%2COut%2CTensorShape%2CDType%2Cstring"
-    title="newVariable(root: Scope; value: Out; shape: TensorShape; dtype: DType; name = &quot;Variable&quot;): Variable"><wbr />new<wbr />Variable<span class="attachedType"></span></a></li>
+    title="newVariable(root: Scope; value: Out; shape: TensorShape; dtype: DType; name = &quot;Variable&quot;): TVariable"><wbr />new<wbr />Variable<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -848,7 +865,7 @@ function main() {
 <dl class="item">
 <a id="newVariable,Scope,Out,TensorShape,DType,string"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#newVariable%2CScope%2COut%2CTensorShape%2CDType%2Cstring"><span class="Identifier">newVariable</span></a><span class="Other">(</span><span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">;</span> <span class="Identifier">shape</span><span class="Other">:</span> <a href="../core/core.html#TensorShape"><span class="Identifier">TensorShape</span></a><span class="Other">;</span> <span class="Identifier">dtype</span><span class="Other">:</span> <a href="../core/core.html#DType"><span class="Identifier">DType</span></a><span class="Other">;</span>
-                <span class="Identifier">name</span> <span class="Other">=</span> <span class="StringLit">&quot;Variable&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Variable</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">UnpackError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+                <span class="Identifier">name</span> <span class="Other">=</span> <span class="StringLit">&quot;Variable&quot;</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">TVariable</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">UnpackError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -859,7 +876,7 @@ function main() {
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="variable.html#Variable"><span class="Identifier">Variable</span></a>, <a href="../ops/generated/state_ops.html#Variable"><span class="Identifier">Variable</span></a>, <a href="../ops/generated/state_ops.html#Variable"><span class="Identifier">Variable</span></a>, <a href="variable.html#newVariable"><span class="Identifier">newVariable</span></a>, <a href="../ops/generated/state_ops.html#Assign"><span class="Identifier">Assign</span></a>, <a href="../ops/generated/state_ops.html#Assign"><span class="Identifier">Assign</span></a>
+<a href="variable.html#TVariable"><span class="Identifier">TVariable</span></a>, <a href="variable.html#newVariable"><span class="Identifier">newVariable</span></a>, <a href="../ops/generated/state_ops.html#Assign"><span class="Identifier">Assign</span></a>, <a href="../ops/generated/state_ops.html#Assign"><span class="Identifier">Assign</span></a>
 </dl></div>
 
   </div>
@@ -869,7 +886,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-27 14:37:55 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
       </div>
     </div>
   </div>

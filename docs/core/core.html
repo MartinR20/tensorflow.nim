@@ -99,6 +99,23 @@ input#searchInput {
   width: 80%;
 }
 
+/*
+ * Some custom formatting for input forms.
+ * This also fixes input form colors on Firefox with a dark system theme on Linux.
+ */
+input {
+  -moz-appearance: none;
+  color: #333;
+  background-color: #f8f8f8;
+  border: 1px solid #aaa;
+  font-family: "Lato", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  padding: 6px;
+}
+input:focus {
+  border: 1px solid #1fa0eb;
+  box-shadow: 0 0 2px #1fa0eb;
+}
 
 /* Docgen styles */
 /* Links */
@@ -854,17 +871,19 @@ function main() {
   <li><a class="reference" href="#InList"
     title="InList {.header: &quot;&lt;tensorflow/cc/ops/standard_ops.h&gt;&quot;, header: &quot;&lt;memory&gt;&quot;,
         importcpp: &quot;std::shared_ptr&lt;tensorflow::InputList&gt;&quot;.} = object"><wbr />In<wbr />List<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#ArraySlice"
+    title="ArraySlice[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
+               importcpp: &quot;tensorflow::gtl::ArraySlice&lt;\&apos;0&gt;&quot;.} = object"><wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Scope"
     title="Scope {.header: &quot;&lt;memory&gt;&quot;, header: &quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;,
        importcpp: &quot;std::shared_ptr&lt;tensorflow::Scope&gt;&quot;.} = object"><wbr />Scope<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Status"
+    title="Status {.importcpp: &quot;tensorflow::Status&quot;.} = object"><wbr />Status<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#GraphDef"
     title="GraphDef {.importcpp: &quot;tensorflow::GraphDef&quot;.} = object"><wbr />Graph<wbr />Def<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#Session"
     title="Session {.header: &quot;&lt;memory&gt;&quot;, header: &quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;,
          importcpp: &quot;std::shared_ptr&lt;tensorflow::ClientSession&gt;&quot;.} = object"><wbr />Session<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#ArraySlice"
-    title="ArraySlice[T] {.header: &quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;,
-               importcpp: &quot;tensorflow::gtl::ArraySlice&lt;\&apos;0&gt;&quot;.} = object"><wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#SummaryWriter"
     title="SummaryWriter {.header: &quot;&lt;memory&gt;&quot;,
                header: &quot;&lt;tensorflow/core/util/events_writer.h&gt;&quot;,
@@ -894,6 +913,19 @@ function main() {
                   (-702227330349649860, &quot;uint16&quot;, TF_UINT16),
                   (6266071985704255133, &quot;int64&quot;, TF_INT64), (0, &quot;&quot;, 0), (
     5028981172786252543, &quot;Complex[system.float64]&quot;, TF_COMPLEX64)], counter: 15)"><wbr />type<wbr />Look<wbr />Up<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#typeLookUpReverse"
+    title="typeLookUpReverse = (data: [(0, 0, &quot;&quot;), (1, TF_FLOAT, &quot;float32&quot;),
+                         (2, TF_DOUBLE, &quot;float64&quot;), (3, TF_INT32, &quot;int32&quot;),
+                         (4, TF_UINT8, &quot;uint8&quot;), (5, TF_INT16, &quot;int16&quot;),
+                         (6, TF_INT8, &quot;int8&quot;), (7, TF_STRING, &quot;cppstring&quot;),
+                         (8, TF_COMPLEX64, &quot;Complex[system.float64]&quot;),
+                         (9, TF_INT64, &quot;int64&quot;), (10, TF_BOOL, &quot;bool&quot;), (0, 0, &quot;&quot;),
+                         (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;),
+                         (17, TF_UINT16, &quot;uint16&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;),
+                         (0, 0, &quot;&quot;), (22, TF_UINT32, &quot;uint32&quot;),
+                         (23, TF_UINT64, &quot;uint64&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;),
+                         (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;), (0, 0, &quot;&quot;)],
+                   counter: 13)"><wbr />type<wbr />Look<wbr />Up<wbr />Reverse<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -908,14 +940,16 @@ function main() {
     title="`[]`(shape: TensorShape; i: int32): int32"><wbr />`[]`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#dim_size%2CTensorShape%2Cint32"
     title="dim_size(shape: TensorShape; i: int32): int32"><wbr />dim_<wbr />size<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#%24%2CTensor"
-    title="`$`(ten: Tensor): string"><wbr />`$`<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#toValueStr%2CTensor"
-    title="toValueStr(ten: Tensor): string"><wbr />to<wbr />Value<wbr />Str<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#dims%2CTensorShape"
+    title="dims(shape: TensorShape): int"><wbr />dims<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#toValueStr%2CTensor%2Cint"
+    title="toValueStr(ten: Tensor; len: int): string"><wbr />to<wbr />Value<wbr />Str<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#shape%2CTensor"
     title="shape(ten: Tensor): TensorShape"><wbr />shape<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#dtype%2CTensor"
     title="dtype(ten: Tensor): DType"><wbr />dtype<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%24%2CTensor"
+    title="`$`(ten: Tensor): string"><wbr />`$`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#slice%2CTensor%2Cint%2Cint"
     title="slice(ten: Tensor; start: int; stop: int): Tensor"><wbr />slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensor%2CDType%2CTensorShape"
@@ -926,8 +960,8 @@ function main() {
     title="`$@`[N, T](arr: array[N, T]): Tensor"><wbr />`$@`<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#flat%2CTensor%2CT"
     title="flat[T](ten: Tensor; x: T): Flat[T]"><wbr />flat<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#size%2CFlat%5BT%5D"
-    title="size[T](flat: Flat[T]): int"><wbr />size<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#len%2CFlat%5BT%5D"
+    title="len[T](flat: Flat[T]): int"><wbr />len<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#asPtr%2CFlat%5BT%5D"
     title="asPtr[T](flat: Flat[T]): ptr T"><wbr />as<wbr />Ptr<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CFlat%5BT%5D%2Cint"
@@ -962,38 +996,54 @@ function main() {
     title="readBytes(ten: Tensor; file: string; start: int; len: static[int])"><wbr />read<wbr />Bytes<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newTensorVec%2Cvarargs%5BTensor%5D"
     title="newTensorVec(args: varargs[Tensor]): TensorVec"><wbr />new<wbr />Tensor<wbr />Vec<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#size%2CTensorVec"
-    title="size(tensorVec: TensorVec): int"><wbr />size<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#len%2CTensorVec"
+    title="len(tensorVec: TensorVec): int"><wbr />len<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2CTensorVec%2Ccint"
     title="`[]`(tensorVec: TensorVec; idx: cint): Tensor"><wbr />`[]`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#add%2CTensorVec%2CTensor"
+    title="add(tensorVec: TensorVec; ten: Tensor)"><wbr />add<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#insert%2CTensorVec%2Cint%2CTensor"
+    title="insert(tensorVec: TensorVec; pos: int; ten: Tensor)"><wbr />insert<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newOutList%2Cvarargs%5BOut%5D"
     title="newOutList(outs: varargs[Out]): OutList"><wbr />new<wbr />Out<wbr />List<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#%5B%5D%2COutList%2Cint"
     title="`[]`(outs: OutList; idx: int): Out"><wbr />`[]`<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#size%2COutList"
-    title="size(outs: OutList): int"><wbr />size<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%3D%2COutList%2Cint%2COut"
+    title="`[]=`(outs: OutList; idx: int; val: Out)"><wbr />`[]=`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#len%2COutList"
+    title="len(outs: OutList): int"><wbr />len<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#add%2COutList%2COut"
+    title="add(outs: OutList; outVal: Out)"><wbr />add<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newInList%2Cvarargs%5BTensor%5D"
     title="newInList(tens: varargs[Tensor]): InList"><wbr />new<wbr />In<wbr />List<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newArraySlice%2CopenArray%5BT%5D"
+    title="newArraySlice[T](data: openArray[T]): ArraySlice[T]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newArraySlice%2CcArray%5BT%5D%2Cint"
+    title="newArraySlice[T](data: cArray[T]; len: int): ArraySlice[T]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%5B%5D%2CArraySlice%5BT%5D%2Cint"
+    title="`[]`[T](slice: ArraySlice[T]; idx: int): T"><wbr />`[]`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#len%2CArraySlice%5BT%5D"
+    title="len[T](slice: ArraySlice[T]): int"><wbr />len<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#asPtr%2CArraySlice%5BT%5D"
+    title="asPtr[T](slice: ArraySlice[T]): ptr T"><wbr />as<wbr />Ptr<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%24%2CArraySlice%5BT%5D"
+    title="`$`[T](slice: ArraySlice[T]): string"><wbr />`$`<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#newArraySlice%2CArraySlice%5Bstring%5D"
+    title="newArraySlice[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newRootScope"
     title="newRootScope(): Scope"><wbr />new<wbr />Root<wbr />Scope<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#ok%2CScope"
     title="ok(scope: Scope): bool"><wbr />ok<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newSubScope%2CScope%2Cstring"
     title="newSubScope(rt: Scope; name: string): Scope"><wbr />new<wbr />Sub<wbr />Scope<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#withOpName%2CScope%2Cstring"
+    title="withOpName(rt: Scope; name: string): Scope"><wbr />with<wbr />Op<wbr />Name<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#withDevice%2CScope%2Cstring"
+    title="withDevice(rt: Scope; device: string): Scope"><wbr />with<wbr />Device<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#toGraphDef%2CScope"
     title="toGraphDef(rt: Scope): GraphDef"><wbr />to<wbr />Graph<wbr />Def<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newSession%2CScope"
     title="newSession(scope: Scope): Session"><wbr />new<wbr />Session<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#newArraySlice%2CopenArray%5BT%5D"
-    title="newArraySlice[T](data: openArray[T]): ArraySlice[T]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#%5B%5D%2CArraySlice%5BT%5D%2Cint"
-    title="`[]`[T](slice: ArraySlice[T]; idx: int): T"><wbr />`[]`<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#size%2CArraySlice%5BT%5D"
-    title="size[T](slice: ArraySlice[T]): int"><wbr />size<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#%24%2CArraySlice%5BT%5D"
-    title="`$`[T](slice: ArraySlice[T]): string"><wbr />`$`<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#newArraySlice%2CArraySlice%5Bstring%5D"
-    title="newArraySlice[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]"><wbr />new<wbr />Array<wbr />Slice<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#addSymbolicGradients%2CScope%2COutList%2COutList%2COutList"
     title="addSymbolicGradients(root: Scope; outputs, inputs, gradOutputs: OutList)"><wbr />add<wbr />Symbolic<wbr />Gradients<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#addSymbolicGradients%2CScope%2COut%2COutList%2COutList"
@@ -1019,6 +1069,10 @@ function main() {
     title="runSession(sess: Session; feed: FeedDict; graph: OutList; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#runSession%2CSession%2COutList%2CTensorVec"
     title="runSession(sess: Session; graph: OutList; outputs: TensorVec)"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2CFeedDict%2C"
+    title="runSession(sess: Session; feed: FeedDict; graph: OutList | Out): TensorVec"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#runSession%2CSession%2C"
+    title="runSession(sess: Session; graph: OutList | Out): TensorVec"><wbr />run<wbr />Session<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#runSessionVoid%2CSession%2CFeedDict%2COut"
     title="runSessionVoid(sess: Session; feed: FeedDict; graph: Out)"><wbr />run<wbr />Session<wbr />Void<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#runSessionVoid%2CSession%2COut"
@@ -1037,6 +1091,18 @@ function main() {
     title="items(tens: TensorVec): Tensor"><wbr />items<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#items.i%2COutList"
     title="items(outs: OutList): Out"><wbr />items<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#zip.i%2COutList%2COutList"
+    title="zip(l1: OutList; l2: OutList): (Out, Out)"><wbr />zip<span class="attachedType"></span></a></li>
+
+  </ul>
+</li>
+<li>
+  <a class="reference reference-toplevel" href="#17" id="67">Macros</a>
+  <ul class="simple simple-toc-section">
+      <li><a class="reference" href="#with.m%2CScope%2Cuntyped"
+    title="with(scope: Scope; body: untyped): untyped"><wbr />with<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#with.m%2CSession%2Cuntyped"
+    title="with(sess: Session; body: untyped): untyped"><wbr />with<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -1053,7 +1119,7 @@ function main() {
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc">The core module implements all the necessary ground work needed to construct a computation graph interface with and manipulate tensors. TensorShape related definitionsTensor related definitionsFlat related definitionsMatrix related definitionsScalar related definitionsTensorVec related definitionsOutput related definitionsOutList related definitionsInList related definitionsScope related definitionsSession related definitionsArraySlice related definitionsGradient Related definitions</p>
+  <p class="module-desc">The core module implements all the necessary ground work needed to construct a computation graph interface with and manipulate tensors. TensorShape related definitionsTensor related definitionsFlat related definitionsMatrix related definitionsScalar related definitionsTensorVec related definitionsOutput related definitionsOutList related definitionsInList related definitionsArraySlice related definitionsScope related definitionsSession related definitionsGradient Related definitions</p>
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
@@ -1164,6 +1230,18 @@ The InList Type is a wrapper around the c++ InputList type which itself is basic
 
 
 </dd>
+<a id="ArraySlice"></a>
+<dt><pre><a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
+               <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::gtl::ArraySlice&lt;\'0&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
+  </pre></dt>
+<dd>
+
+<p>ArraySlice is a wrapper around the tensorflow::gtl::ArraySlice class which itself is a wrapper around the absl::Span type from the abseil C++ Library.</p>
+<p>This particular wrapper should work with every type except for the Tensor type because with the curret Version interfacing with C++ Methods would be pretty dirty due the fact that the Tensor type exposed by this library only is a pointer to a C++ Tensor. Now given the fact that it is not needed right now it probably will not be implemented soon.</p>
+<p>For implemention details see: <a class="reference external" href="https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h">https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h</a></p>
+
+
+</dd>
 <a id="Scope"></a>
 <dt><pre><a href="core.html#Scope"><span class="Identifier">Scope</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span>
        <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::shared_ptr&lt;tensorflow::Scope&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
@@ -1174,6 +1252,13 @@ The Scope Type is a wrapper around the c++ Scope which is basically the &quot;re
 <dd>Scope foo;</dd>
 </dl>
 <p>which is excatly what the nim compiler does.</p>
+
+
+</dd>
+<a id="Status"></a>
+<dt><pre><a href="core.html#Status"><span class="Identifier">Status</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::Status&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span></pre></dt>
+<dd>
+
 
 
 </dd>
@@ -1195,18 +1280,6 @@ The Session Type is a wrapper around the c++ ClientSession which is the part whe
 <dd>ClientSession foo;</dd>
 </dl>
 <p>which is excatly what the nim compiler does.</p>
-
-
-</dd>
-<a id="ArraySlice"></a>
-<dt><pre><a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
-               <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;tensorflow::gtl::ArraySlice&lt;\'0&gt;&quot;</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">object</span>
-  </pre></dt>
-<dd>
-
-<p>ArraySlice is a wrapper around the tensorflow::gtl::ArraySlice class which itself is a wrapper around the absl::Span type from the abseil C++ Library.</p>
-<p>This particular wrapper should work with every type except for the Tensor type because with the curret Version interfacing with C++ Methods would be pretty dirty due the fact that the Tensor type exposed by this library only is a pointer to a C++ Tensor. Now given the fact that it is not needed right now it probably will not be implemented soon.</p>
-<p>For implemention details see: <a class="reference external" href="https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h">https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h</a></p>
 
 
 </dd>
@@ -1250,6 +1323,24 @@ A map linking a Out from a Placeholder op to an actual tensor.
                   <span class="Other">(</span><span class="DecNumber">-702227330349649860</span><span class="Other">,</span> <span class="StringLit">&quot;uint16&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_UINT16</span><span class="Other">)</span><span class="Other">,</span>
                   <span class="Other">(</span><span class="DecNumber">6266071985704255133</span><span class="Other">,</span> <span class="StringLit">&quot;int64&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_INT64</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span>
     <span class="DecNumber">5028981172786252543</span><span class="Other">,</span> <span class="StringLit">&quot;Complex[system.float64]&quot;</span><span class="Other">,</span> <span class="DecNumber">TF_COMPLEX64</span><span class="Other">)</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">counter</span><span class="Other">:</span> <span class="DecNumber">15</span><span class="Other">)</span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="typeLookUpReverse"></a>
+<dt><pre><a href="core.html#typeLookUpReverse"><span class="Identifier">typeLookUpReverse</span></a> <span class="Other">=</span> <span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">1</span><span class="Other">,</span> <span class="DecNumber">TF_FLOAT</span><span class="Other">,</span> <span class="StringLit">&quot;float32&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">2</span><span class="Other">,</span> <span class="DecNumber">TF_DOUBLE</span><span class="Other">,</span> <span class="StringLit">&quot;float64&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">3</span><span class="Other">,</span> <span class="DecNumber">TF_INT32</span><span class="Other">,</span> <span class="StringLit">&quot;int32&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">4</span><span class="Other">,</span> <span class="DecNumber">TF_UINT8</span><span class="Other">,</span> <span class="StringLit">&quot;uint8&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">5</span><span class="Other">,</span> <span class="DecNumber">TF_INT16</span><span class="Other">,</span> <span class="StringLit">&quot;int16&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">6</span><span class="Other">,</span> <span class="DecNumber">TF_INT8</span><span class="Other">,</span> <span class="StringLit">&quot;int8&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">7</span><span class="Other">,</span> <span class="DecNumber">TF_STRING</span><span class="Other">,</span> <span class="StringLit">&quot;cppstring&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">8</span><span class="Other">,</span> <span class="DecNumber">TF_COMPLEX64</span><span class="Other">,</span> <span class="StringLit">&quot;Complex[system.float64]&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">9</span><span class="Other">,</span> <span class="DecNumber">TF_INT64</span><span class="Other">,</span> <span class="StringLit">&quot;int64&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">10</span><span class="Other">,</span> <span class="DecNumber">TF_BOOL</span><span class="Other">,</span> <span class="StringLit">&quot;bool&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">17</span><span class="Other">,</span> <span class="DecNumber">TF_UINT16</span><span class="Other">,</span> <span class="StringLit">&quot;uint16&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">22</span><span class="Other">,</span> <span class="DecNumber">TF_UINT32</span><span class="Other">,</span> <span class="StringLit">&quot;uint32&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">23</span><span class="Other">,</span> <span class="DecNumber">TF_UINT64</span><span class="Other">,</span> <span class="StringLit">&quot;uint64&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span>
+                         <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">,</span> <span class="Other">(</span><span class="DecNumber">0</span><span class="Other">,</span> <span class="DecNumber">0</span><span class="Other">,</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span><span class="Other">]</span><span class="Other">,</span>
+                   <span class="Identifier">counter</span><span class="Other">:</span> <span class="DecNumber">13</span><span class="Other">)</span></pre></dt>
 <dd>
 
 
@@ -1303,20 +1394,20 @@ Gets the size of the provided dimension.<dl class="docutils"><dt>Args:</dt>
 
 
 </dd>
-<a id="$,Tensor"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CTensor"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="dims,TensorShape"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#dims%2CTensorShape"><span class="Identifier">dims</span></a><span class="Other">(</span><span class="Identifier">shape</span><span class="Other">:</span> <a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.dims()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-String conversion for Tensors.<dl class="docutils"><dt>Args:</dt>
-<dd>ten: The Tensor it is applied on.</dd>
+Gets the number of dimensions aka the rank.<dl class="docutils"><dt>Args:</dt>
+<dd>shape: The TensorShape it is applied on.</dd>
 <dt>Returns:</dt>
-<dd>A new string representing the Tensor.</dd>
+<dd>The number of dimensions.</dd>
 </dl>
 
 
 </dd>
-<a id="toValueStr,Tensor"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#toValueStr%2CTensor"><span class="Identifier">toValueStr</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="toValueStr,Tensor,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#toValueStr%2CTensor%2Cint"><span class="Identifier">toValueStr</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">;</span> <span class="Identifier">len</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 A Method to get a string representation of the first 100 Values of the Tensor.<dl class="docutils"><dt>Args:</dt>
@@ -1349,6 +1440,18 @@ A Method to get the dtype of a Tensor.<dl class="docutils"><dt>Args:</dt>
 <dd>ten: The Tensor it is applied on.</dd>
 <dt>Returns:</dt>
 <dd>The Dtype of the Tensor.</dd>
+</dl>
+
+
+</dd>
+<a id="$,Tensor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CTensor"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+String conversion for Tensors.<dl class="docutils"><dt>Args:</dt>
+<dd>ten: The Tensor it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A new string representing the Tensor.</dd>
 </dl>
 
 
@@ -1415,8 +1518,8 @@ A method returning the flat buffer of a Tensor with the given type.<dl class="do
 
 
 </dd>
-<a id="size,Flat[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2CFlat%5BT%5D"><span class="Identifier">size</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="len,Flat[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#len%2CFlat%5BT%5D"><span class="Identifier">len</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">flat</span><span class="Other">:</span> <a href="core.html#Flat"><span class="Identifier">Flat</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#-&gt;size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Size method to get the number of elements in the Flat object.<dl class="docutils"><dt>Args:</dt>
@@ -1601,8 +1704,8 @@ Constructor for the TensorVec type copying the Tensors from an array of Tensors 
 
 
 </dd>
-<a id="size,TensorVec"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2CTensorVec"><span class="Identifier">size</span></a><span class="Other">(</span><span class="Identifier">tensorVec</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="len,TensorVec"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#len%2CTensorVec"><span class="Identifier">len</span></a><span class="Other">(</span><span class="Identifier">tensorVec</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Method to get the size of a TensorVec.<dl class="docutils"><dt>Args:</dt>
@@ -1617,6 +1720,20 @@ Method to get the size of a TensorVec.<dl class="docutils"><dt>Args:</dt>
 <dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CTensorVec%2Ccint"><span class="Identifier">`[]`</span></a><span class="Other">(</span><span class="Identifier">tensorVec</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">;</span> <span class="Identifier">idx</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;memory&gt;&quot;</span><span class="Other">,</span>
     <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/core/framework/tensor.h&gt;&quot;</span><span class="Other">,</span>
     <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;std::make_shared&lt;tensorflow::Tensor&gt;(std::move(#[#]))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="add,TensorVec,Tensor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#add%2CTensorVec%2CTensor"><span class="Identifier">add</span></a><span class="Other">(</span><span class="Identifier">tensorVec</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">;</span> <span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.push(*#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="insert,TensorVec,int,Tensor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#insert%2CTensorVec%2Cint%2CTensor"><span class="Identifier">insert</span></a><span class="Other">(</span><span class="Identifier">tensorVec</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a><span class="Other">;</span> <span class="Identifier">pos</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">ten</span><span class="Other">:</span> <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.insert(#, *#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -1641,14 +1758,31 @@ Constructor for the OutList type copying the Out objects from an array into an O
 
 
 </dd>
-<a id="size,OutList"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2COutList"><span class="Identifier">size</span></a><span class="Other">(</span><span class="Identifier">outs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="[]=,OutList,int,Out"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%3D%2COutList%2Cint%2COut"><span class="Identifier">`[]=`</span></a><span class="Other">(</span><span class="Identifier">outs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">;</span> <span class="Identifier">idx</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#[#] = #&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="len,OutList"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#len%2COutList"><span class="Identifier">len</span></a><span class="Other">(</span><span class="Identifier">outs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 Method to get the size of an OutList.<dl class="docutils"><dt>Args:</dt>
 <dd>outs: The OutList it is applied on.</dd>
 <dt>Returns:</dt>
 <dd>The size of the OutList object.</dd>
+</dl>
+
+
+</dd>
+<a id="add,OutList,Out"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#add%2COutList%2COut"><span class="Identifier">add</span></a><span class="Other">(</span><span class="Identifier">outs</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">;</span> <span class="Identifier">outVal</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.push_back(#)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Proc to append to an OutList.<dl class="docutils"><dt>Args:</dt>
+<dd>outs: The OutList it is applied on. outVal: Output you want to append.</dd>
 </dl>
 
 
@@ -1661,6 +1795,78 @@ Constructor for the InList type copying the Tensor objects from an array as Inpu
 <dd>tens: Array of Tensor objects.</dd>
 <dt>Returns:</dt>
 <dd>An InList with the given Tensors objects.</dd>
+</dl>
+
+
+</dd>
+<a id="newArraySlice,openArray[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newArraySlice%2CopenArray%5BT%5D"><span class="Identifier">newArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
+<dd>
+
+Constructor exposed to nim interface.<dl class="docutils"><dt>Args:</dt>
+<dd>data: An array holding the data for the ArraySlice.</dd>
+<dt>Returns:</dt>
+<dd>A new ArraySlice using the given data.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: when called with the Tensor type due the reason described in the type definition.</dd>
+</dl>
+
+
+</dd>
+<a id="newArraySlice,cArray[T],int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newArraySlice%2CcArray%5BT%5D%2Cint"><span class="Identifier">newArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">cArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">len</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;\'0(#, #)&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="[],ArraySlice[T],int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CArraySlice%5BT%5D%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">idx</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#[#]&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="len,ArraySlice[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#len%2CArraySlice%5BT%5D"><span class="Identifier">len</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Size method to get the number of elements.<dl class="docutils"><dt>Args:</dt>
+<dd>slice: The ArraySlice it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>The number of elements.</dd>
+</dl>
+
+
+</dd>
+<a id="asPtr,ArraySlice[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#asPtr%2CArraySlice%5BT%5D"><span class="Identifier">asPtr</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.pointer()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="$,ArraySlice[T]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CArraySlice%5BT%5D"><span class="Identifier">`$`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
+<dd>
+
+Method for string conversion.<dl class="docutils"><dt>Args:</dt>
+<dd>slice: The ArraySlice it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A Stringrepresentation of the ArraySlice.</dd>
+</dl>
+
+
+</dd>
+<a id="newArraySlice,ArraySlice[string]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#newArraySlice%2CArraySlice%5Bstring%5D"><span class="Identifier">newArraySlice</span></a><span class="Other">[</span><span class="Identifier">cppstring</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">cppstring</span><span class="Other">]</span></pre></dt>
+<dd>
+
+Method for converting an ArraySlice[string] to an ArraySlice[cppstring].<dl class="docutils"><dt>Args:</dt>
+<dd>slice: The ArraySlice[string] it is applied on.</dd>
+<dt>Returns:</dt>
+<dd>A new ArraySlice[cppstring] holding the data from the input ArraySlice[string].</dd>
 </dl>
 
 
@@ -1695,6 +1901,20 @@ Method to check if an error occured in the context of a Scope object.<dl class="
 Returns a Subscope with the given name. This is useful for visualization in tensorboard.
 
 </dd>
+<a id="withOpName,Scope,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#withOpName%2CScope%2Cstring"><span class="Identifier">withOpName</span></a><span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">name</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Returns a scope applying the given name to all ops.
+
+</dd>
+<a id="withDevice,Scope,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#withDevice%2CScope%2Cstring"><span class="Identifier">withDevice</span></a><span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">device</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Returns a scope using the given device.
+
+</dd>
 <a id="toGraphDef,Scope"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#toGraphDef%2CScope"><span class="Identifier">toGraphDef</span></a><span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
@@ -1710,63 +1930,6 @@ Constructor for the Session type.<dl class="docutils"><dt>Args:</dt>
 <dd>scope: The Scope from which a Sessino shall be created.</dd>
 <dt>Returns:</dt>
 <dd>A Session object that can be run to perform the Computations.</dd>
-</dl>
-
-
-</dd>
-<a id="newArraySlice,openArray[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newArraySlice%2CopenArray%5BT%5D"><span class="Identifier">newArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">data</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span></pre></dt>
-<dd>
-
-Constructor exposed to nim interface.<dl class="docutils"><dt>Args:</dt>
-<dd>data: An array holding the data for the ArraySlice.</dd>
-<dt>Returns:</dt>
-<dd>A new ArraySlice using the given data.</dd>
-<dt>Raises:</dt>
-<dd>ValueError: when called with the Tensor type due the reason described in the type definition.</dd>
-</dl>
-
-
-</dd>
-<a id="[],ArraySlice[T],int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%5B%5D%2CArraySlice%5BT%5D%2Cint"><span class="Identifier">`[]`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">idx</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">T</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#[#]&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
-<a id="size,ArraySlice[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2CArraySlice%5BT%5D"><span class="Identifier">size</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-Size method to get the number of elements.<dl class="docutils"><dt>Args:</dt>
-<dd>slice: The ArraySlice it is applied on.</dd>
-<dt>Returns:</dt>
-<dd>The number of elements.</dd>
-</dl>
-
-
-</dd>
-<a id="$,ArraySlice[T]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#%24%2CArraySlice%5BT%5D"><span class="Identifier">`$`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span></pre></dt>
-<dd>
-
-Method for string conversion.<dl class="docutils"><dt>Args:</dt>
-<dd>slice: The ArraySlice it is applied on.</dd>
-<dt>Returns:</dt>
-<dd>A Stringrepresentation of the ArraySlice.</dd>
-</dl>
-
-
-</dd>
-<a id="newArraySlice,ArraySlice[string]"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newArraySlice%2CArraySlice%5Bstring%5D"><span class="Identifier">newArraySlice</span></a><span class="Other">[</span><span class="Identifier">cppstring</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">slice</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a><span class="Other">[</span><span class="Identifier">cppstring</span><span class="Other">]</span></pre></dt>
-<dd>
-
-Method for converting an ArraySlice[string] to an ArraySlice[cppstring].<dl class="docutils"><dt>Args:</dt>
-<dd>slice: The ArraySlice[string] it is applied on.</dd>
-<dt>Returns:</dt>
-<dd>A new ArraySlice[cppstring] holding the data from the input ArraySlice[string].</dd>
 </dl>
 
 
@@ -1887,6 +2050,20 @@ A Method to run computations previously definied.<dl class="docutils"><dt>Args:<
 
 
 </dd>
+<a id="runSession,Session,FeedDict,"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2CFeedDict%2C"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a> <span class="Operator">|</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="runSession,Session,"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#runSession%2CSession%2C"><span class="Identifier">runSession</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a> <span class="Operator">|</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
 <a id="runSessionVoid,Session,FeedDict,Out"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#runSessionVoid%2CSession%2CFeedDict%2COut"><span class="Identifier">runSessionVoid</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">feed</span><span class="Other">:</span> <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a><span class="Other">;</span> <span class="Identifier">graph</span><span class="Other">:</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
     <span class="Identifier">header</span><span class="Other">:</span> <span class="StringLit">&quot;&lt;tensorflow/cc/client/client_session.h&gt;&quot;</span><span class="Other">,</span> <span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;TF_CHECK_OK(#-&gt;Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))&quot;</span></span><span class="Other">.}</span></span></pre></dt>
@@ -1962,12 +2139,38 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
 
 
 </dd>
+<a id="zip.i,OutList,OutList"></a>
+<dt><pre><span class="Keyword">iterator</span> <a href="#zip.i%2COutList%2COutList"><span class="Identifier">zip</span></a><span class="Other">(</span><span class="Identifier">l1</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">;</span> <span class="Identifier">l2</span><span class="Other">:</span> <a href="core.html#OutList"><span class="Identifier">OutList</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">,</span> <a href="core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+
+</dl></div>
+<div class="section" id="17">
+<h1><a class="toc-backref" href="#17">Macros</a></h1>
+<dl class="item">
+<a id="with.m,Scope,untyped"></a>
+<dt><pre><span class="Keyword">macro</span> <a href="#with.m%2CScope%2Cuntyped"><span class="Identifier">with</span></a><span class="Other">(</span><span class="Identifier">scope</span><span class="Other">:</span> <a href="core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="with.m,Session,untyped"></a>
+<dt><pre><span class="Keyword">macro</span> <a href="#with.m%2CSession%2Cuntyped"><span class="Identifier">with</span></a><span class="Other">(</span><span class="Identifier">sess</span><span class="Other">:</span> <a href="core.html#Session"><span class="Identifier">Session</span></a><span class="Other">;</span> <span class="Identifier">body</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#dim_size"><span class="Identifier">dim_size</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#dtype"><span class="Identifier">dtype</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#mean"><span class="Identifier">mean</span></a>, <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a>, <a href="core.html#matrix"><span class="Identifier">matrix</span></a>, <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a>, <a href="core.html#scalar"><span class="Identifier">scalar</span></a>, <a href="core.html#set"><span class="Identifier">set</span></a>, <a href="core.html#get"><span class="Identifier">get</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="core.html#size"><span class="Identifier">size</span></a>, <a href="../utils/utils.html#size"><span class="Identifier">size</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#newSession"><span class="Identifier">newSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#newSubScope"><span class="Identifier">newSubScope</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a>, <a href="core.html#toGraphDef"><span class="Identifier">toGraphDef</span></a>, <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a>, <a href="core.html#newSummaryWriter"><span class="Identifier">newSummaryWriter</span></a>, <a href="core.html#write_grapdef"><span class="Identifier">write_grapdef</span></a>, <a href="core.html#write_scalar"><span class="Identifier">write_scalar</span></a>, <a href="core.html#typeLookUp"><span class="Identifier">typeLookUp</span></a>, <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a>, <a href="core.html#clear"><span class="Identifier">clear</span></a>
+<a href="core.html#TensorShape"><span class="Identifier">TensorShape</span></a>, <a href="core.html#newTensorShape"><span class="Identifier">newTensorShape</span></a>, <a href="core.html#dim_size"><span class="Identifier">dim_size</span></a>, <a href="core.html#dims"><span class="Identifier">dims</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="core.html#$"><span class="Identifier">$</span></a>, <a href="../utils/utils.html#$"><span class="Identifier">$</span></a>, <a href="core.html#DType"><span class="Identifier">DType</span></a>, <a href="core.html#Tensor"><span class="Identifier">Tensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#newTensor"><span class="Identifier">newTensor</span></a>, <a href="core.html#shape"><span class="Identifier">shape</span></a>, <a href="core.html#dtype"><span class="Identifier">dtype</span></a>, <a href="core.html#Flat"><span class="Identifier">Flat</span></a>, <a href="core.html#flat"><span class="Identifier">flat</span></a>, <a href="core.html#mean"><span class="Identifier">mean</span></a>, <a href="core.html#Matrix"><span class="Identifier">Matrix</span></a>, <a href="core.html#matrix"><span class="Identifier">matrix</span></a>, <a href="core.html#Scalar"><span class="Identifier">Scalar</span></a>, <a href="core.html#scalar"><span class="Identifier">scalar</span></a>, <a href="core.html#set"><span class="Identifier">set</span></a>, <a href="core.html#get"><span class="Identifier">get</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#[]="><span class="Identifier">[]=</span></a>, <a href="core.html#TensorVec"><span class="Identifier">TensorVec</span></a>, <a href="core.html#len"><span class="Identifier">len</span></a>, <a href="core.html#len"><span class="Identifier">len</span></a>, <a href="core.html#len"><span class="Identifier">len</span></a>, <a href="core.html#len"><span class="Identifier">len</span></a>, <a href="../utils/utils.html#len"><span class="Identifier">len</span></a>, <a href="core.html#add"><span class="Identifier">add</span></a>, <a href="core.html#add"><span class="Identifier">add</span></a>, <a href="core.html#insert"><span class="Identifier">insert</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#[]"><span class="Identifier">[]</span></a>, <a href="core.html#Out"><span class="Identifier">Out</span></a>, <a href="core.html#OutList"><span class="Identifier">OutList</span></a>, <a href="core.html#newOutList"><span class="Identifier">newOutList</span></a>, <a href="core.html#InList"><span class="Identifier">InList</span></a>, <a href="core.html#newInList"><span class="Identifier">newInList</span></a>, <a href="core.html#Operation"><span class="Identifier">Operation</span></a>, <a href="core.html#num_inputs"><span class="Identifier">num_inputs</span></a>, <a href="core.html#input_type"><span class="Identifier">input_type</span></a>, <a href="core.html#input"><span class="Identifier">input</span></a>, <a href="core.html#inputs"><span class="Identifier">inputs</span></a>, <a href="core.html#inputs"><span class="Identifier">inputs</span></a>, <a href="core.html#num_outputs"><span class="Identifier">num_outputs</span></a>, <a href="core.html#output_type"><span class="Identifier">output_type</span></a>, <a href="core.html#output"><span class="Identifier">output</span></a>, <a href="core.html#outputs"><span class="Identifier">outputs</span></a>, <a href="core.html#outputs"><span class="Identifier">outputs</span></a>, <a href="core.html#Scope"><span class="Identifier">Scope</span></a>, <a href="core.html#newRootScope"><span class="Identifier">newRootScope</span></a>, <a href="core.html#newSession"><span class="Identifier">newSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSession"><span class="Identifier">runSession</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#runSessionVoid"><span class="Identifier">runSessionVoid</span></a>, <a href="core.html#newSubScope"><span class="Identifier">newSubScope</span></a>, <a href="core.html#withOpName"><span class="Identifier">withOpName</span></a>, <a href="core.html#withControlDependencies"><span class="Identifier">withControlDependencies</span></a>, <a href="core.html#withNoControlDependencies"><span class="Identifier">withNoControlDependencies</span></a>, <a href="core.html#withDevice"><span class="Identifier">withDevice</span></a>, <a href="core.html#withAssignedDevice"><span class="Identifier">withAssignedDevice</span></a>, <a href="core.html#withXlaCluster"><span class="Identifier">withXlaCluster</span></a>, <a href="core.html#colocateWith"><span class="Identifier">colocateWith</span></a>, <a href="core.html#clearColocation"><span class="Identifier">clearColocation</span></a>, <a href="core.html#exitOnError"><span class="Identifier">exitOnError</span></a>, <a href="core.html#withKernelLabel"><span class="Identifier">withKernelLabel</span></a>, <a href="core.html#getUniqueNameForOp"><span class="Identifier">getUniqueNameForOp</span></a>, <a href="core.html#Status"><span class="Identifier">Status</span></a>, <a href="core.html#updateStatus"><span class="Identifier">updateStatus</span></a>, <a href="core.html#status"><span class="Identifier">status</span></a>, <a href="core.html#ok"><span class="Identifier">ok</span></a>, <a href="core.html#ok"><span class="Identifier">ok</span></a>, <a href="core.html#with"><span class="Identifier">with</span></a>, <a href="core.html#with"><span class="Identifier">with</span></a>, <a href="core.html#ArraySlice"><span class="Identifier">ArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#newArraySlice"><span class="Identifier">newArraySlice</span></a>, <a href="core.html#$@"><span class="Identifier">$@</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#addSymbolicGradients"><span class="Identifier">addSymbolicGradients</span></a>, <a href="core.html#GraphDef"><span class="Identifier">GraphDef</span></a>, <a href="core.html#toGraphDef"><span class="Identifier">toGraphDef</span></a>, <a href="core.html#SummaryWriter"><span class="Identifier">SummaryWriter</span></a>, <a href="core.html#newSummaryWriter"><span class="Identifier">newSummaryWriter</span></a>, <a href="core.html#write_grapdef"><span class="Identifier">write_grapdef</span></a>, <a href="core.html#write_scalar"><span class="Identifier">write_scalar</span></a>, <a href="core.html#typeLookUp"><span class="Identifier">typeLookUp</span></a>, <a href="core.html#typeLookUpReverse"><span class="Identifier">typeLookUpReverse</span></a>, <a href="core.html#tf"><span class="Identifier">tf</span></a>, <a href="core.html#FeedDict"><span class="Identifier">FeedDict</span></a>, <a href="core.html#clear"><span class="Identifier">clear</span></a>
 </dl></div>
 
   </div>
@@ -1977,7 +2180,7 @@ Iterator over the Out objects an OutList is holding.<dl class="docutils"><dt>Arg
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-27 14:37:49 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
       </div>
     </div>
   </div>

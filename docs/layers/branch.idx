@@ -1,2 +1,2 @@
-newBranch	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/branch.html#newBranch,seq[T][Layer]	branch: newBranch(model: var seq[Layer])	
-newEndBranch	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/branch.html#newEndBranch,seq[T][Layer]	branch: newEndBranch(model: var seq[Layer])	
+newBranch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/branch.html#newBranch,seq[T][Layer]	branch: newBranch(model: var seq[Layer])	
+newEndBranch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/branch.html#newEndBranch,seq[T][Layer]	branch: newEndBranch(model: var seq[Layer])	

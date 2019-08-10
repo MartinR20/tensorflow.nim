@@ -1,1 +1,1 @@
-newActivation	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/activation.html#newActivation,seq[T][Layer],proc(Scope,Out)	activation: newActivation(model: var seq[Layer]; activation: proc (rt: Scope; input: Out): Out)	
+newActivation	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/activation.html#newActivation,seq[T][Layer],proc(Scope,Out)	activation: newActivation(model: var seq[Layer]; activation: proc (rt: Scope; input: Out): Out)	

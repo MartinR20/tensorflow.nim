@@ -99,6 +99,23 @@ input#searchInput {
   width: 80%;
 }
 
+/*
+ * Some custom formatting for input forms.
+ * This also fixes input form colors on Firefox with a dark system theme on Linux.
+ */
+input {
+  -moz-appearance: none;
+  color: #333;
+  background-color: #f8f8f8;
+  border: 1px solid #aaa;
+  font-family: "Lato", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  padding: 6px;
+}
+input:focus {
+  border: 1px solid #1fa0eb;
+  box-shadow: 0 0 2px #1fa0eb;
+}
 
 /* Docgen styles */
 /* Links */
@@ -859,7 +876,7 @@ function main() {
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="dropout.html#Dropout"><span class="Identifier">Dropout</span></a>, <a href="dropout.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="layer.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="dropout.html#newDropout"><span class="Identifier">newDropout</span></a>, <a href="dropout.html#make"><span class="Identifier">make</span></a>, <a href="layer.html#make"><span class="Identifier">make</span></a>
+<a href="dropout.html#Dropout"><span class="Identifier">Dropout</span></a>, <a href="dropout.html#$"><span class="Identifier">$</span></a>, <a href="../utils/utils.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="layer.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="dropout.html#newDropout"><span class="Identifier">newDropout</span></a>, <a href="dropout.html#make"><span class="Identifier">make</span></a>, <a href="layer.html#make"><span class="Identifier">make</span></a>
 </dl></div>
 
   </div>
@@ -869,7 +886,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-27 14:37:56 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
       </div>
     </div>
   </div>

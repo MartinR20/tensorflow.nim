@@ -1,1 +1,1 @@
-newDropout	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dropout.html#newDropout,seq[T][Layer],float	dropout: newDropout(model: var seq[Layer]; rate: float)	
+newDropout	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/dropout.html#newDropout,seq[T][Layer],float	dropout: newDropout(model: var seq[Layer]; rate: float)	

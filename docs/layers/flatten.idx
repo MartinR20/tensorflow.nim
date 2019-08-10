@@ -1,1 +1,1 @@
-newFlatten	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/flatten.html#newFlatten,seq[T][Layer]	flatten: newFlatten(model: var seq[Layer])	
+newFlatten	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/flatten.html#newFlatten,seq[T][Layer]	flatten: newFlatten(model: var seq[Layer])	

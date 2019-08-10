@@ -99,6 +99,23 @@ input#searchInput {
   width: 80%;
 }
 
+/*
+ * Some custom formatting for input forms.
+ * This also fixes input form colors on Firefox with a dark system theme on Linux.
+ */
+input {
+  -moz-appearance: none;
+  color: #333;
+  background-color: #f8f8f8;
+  border: 1px solid #aaa;
+  font-family: "Lato", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  padding: 6px;
+}
+input:focus {
+  border: 1px solid #1fa0eb;
+  box-shadow: 0 0 2px #1fa0eb;
+}
 
 /* Docgen styles */
 /* Links */
@@ -821,12 +838,14 @@ function main() {
     title="newCPPString(str: ptr char): cppstring"><wbr />new<wbr />CPPString<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#newCPPString%2Cstring"
     title="newCPPString(str: string): cppstring"><wbr />new<wbr />CPPString<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#size%2Ccppstring"
-    title="size(str: cppstring): clong"><wbr />size<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#len%2Ccppstring"
+    title="len(str: cppstring): clong"><wbr />len<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#c_str%2Ccppstring"
     title="c_str(str: cppstring): static[ptr cchar]"><wbr />c_<wbr />str<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#print%2Ccppstring"
     title="print(str: cppstring)"><wbr />print<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#%24%2Ccppstring"
+    title="`$`(str: cppstring): string"><wbr />`$`<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -875,8 +894,8 @@ create cppstring from char pointer
 create cppstring from nim string
 
 </dd>
-<a id="size,cppstring"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#size%2Ccppstring"><span class="Identifier">size</span></a><span class="Other">(</span><span class="Identifier">str</span><span class="Other">:</span> <a href="utils.html#cppstring"><span class="Identifier">cppstring</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">clong</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(long)#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="len,cppstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#len%2Ccppstring"><span class="Identifier">len</span></a><span class="Other">(</span><span class="Identifier">str</span><span class="Other">:</span> <a href="utils.html#cppstring"><span class="Identifier">cppstring</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">clong</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">importcpp</span><span class="Other">:</span> <span class="StringLit">&quot;(long)#.size()&quot;</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 get the size of a cppstring
@@ -897,12 +916,19 @@ convert the cppstring to c char array
 print the content of the cppstring
 
 </dd>
+<a id="$,cppstring"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#%24%2Ccppstring"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">str</span><span class="Other">:</span> <a href="utils.html#cppstring"><span class="Identifier">cppstring</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="utils.html#client_session"><span class="Identifier">client_session</span></a>, <a href="utils.html#std_ops"><span class="Identifier">std_ops</span></a>, <a href="utils.html#tensor"><span class="Identifier">tensor</span></a>, <a href="utils.html#gradients"><span class="Identifier">gradients</span></a>, <a href="utils.html#shape_inference"><span class="Identifier">shape_inference</span></a>, <a href="utils.html#op_kernel"><span class="Identifier">op_kernel</span></a>, <a href="utils.html#memory"><span class="Identifier">memory</span></a>, <a href="utils.html#vector"><span class="Identifier">vector</span></a>, <a href="utils.html#writer"><span class="Identifier">writer</span></a>, <a href="utils.html#cppstring"><span class="Identifier">cppstring</span></a>, <a href="utils.html#newCPPString"><span class="Identifier">newCPPString</span></a>, <a href="utils.html#newCPPString"><span class="Identifier">newCPPString</span></a>, <a href="utils.html#size"><span class="Identifier">size</span></a>, <a href="utils.html#c_str"><span class="Identifier">c_str</span></a>, <a href="utils.html#print"><span class="Identifier">print</span></a>
+<a href="utils.html#client_session"><span class="Identifier">client_session</span></a>, <a href="utils.html#std_ops"><span class="Identifier">std_ops</span></a>, <a href="utils.html#tensor"><span class="Identifier">tensor</span></a>, <a href="utils.html#gradients"><span class="Identifier">gradients</span></a>, <a href="utils.html#shape_inference"><span class="Identifier">shape_inference</span></a>, <a href="utils.html#op_kernel"><span class="Identifier">op_kernel</span></a>, <a href="utils.html#memory"><span class="Identifier">memory</span></a>, <a href="utils.html#vector"><span class="Identifier">vector</span></a>, <a href="utils.html#writer"><span class="Identifier">writer</span></a>, <a href="utils.html#cppstring"><span class="Identifier">cppstring</span></a>, <a href="utils.html#newCPPString"><span class="Identifier">newCPPString</span></a>, <a href="utils.html#newCPPString"><span class="Identifier">newCPPString</span></a>, <a href="utils.html#len"><span class="Identifier">len</span></a>, <a href="utils.html#c_str"><span class="Identifier">c_str</span></a>, <a href="utils.html#print"><span class="Identifier">print</span></a>, <a href="utils.html#$"><span class="Identifier">$</span></a>
 </dl></div>
 
   </div>
@@ -912,7 +938,7 @@ print the content of the cppstring
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-07-27 14:37:48 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
       </div>
     </div>
   </div>

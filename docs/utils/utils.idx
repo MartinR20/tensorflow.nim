@@ -1,6 +1,7 @@
-cppstring	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#cppstring	utils: cppstring	
-newCPPString	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,ptr.char	utils: newCPPString(str: ptr char): cppstring	
-newCPPString	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,string	utils: newCPPString(str: string): cppstring	
-size	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#size,cppstring	utils: size(str: cppstring): clong	
-c_str	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#c_str,cppstring	utils: c_str(str: cppstring): static[ptr cchar]	
-print	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#print,cppstring	utils: print(str: cppstring)	
+cppstring	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#cppstring	utils: cppstring	
+newCPPString	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,ptr.char	utils: newCPPString(str: ptr char): cppstring	
+newCPPString	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#newCPPString,string	utils: newCPPString(str: string): cppstring	
+len	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#len,cppstring	utils: len(str: cppstring): clong	
+c_str	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#c_str,cppstring	utils: c_str(str: cppstring): static[ptr cchar]	
+print	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#print,cppstring	utils: print(str: cppstring)	
+`$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/utils/utils.html#$,cppstring	utils: `$`(str: cppstring): string	

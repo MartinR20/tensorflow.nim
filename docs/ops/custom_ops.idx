@@ -1,7 +1,8 @@
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,Out	custom_ops: Const(root: Scope; A: Out): Out	
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,Tensor	custom_ops: Const(root: Scope; A: Tensor): Out	
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,array[N,M]	custom_ops: Const[N, M](root: Scope; arr: array[N, M]): Out	
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,array[N,M],type	custom_ops: Const[N, M](root: Scope; arr: array[N, M]; T: type): Out	
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,T	custom_ops: Const[T](root: Scope; val: T): Out	
-Const	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,N,type	custom_ops: Const[N](root: Scope; val: N; T: type): Out	
-Transpose	/mnt/c/Users/reich/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Transpose,Scope,Out	custom_ops: Transpose(root: Scope; A: Out): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,Out	custom_ops: Const(root: Scope; A: Out): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,Tensor	custom_ops: Const(root: Scope; A: Tensor): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,array[N,M]	custom_ops: Const[N, M](root: Scope; arr: array[N, M]): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,array[N,M],type	custom_ops: Const[N, M](root: Scope; arr: array[N, M]; T: type): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,T	custom_ops: Const[T](root: Scope; val: T): Out	
+Const	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Const,Scope,N,type	custom_ops: Const[N](root: Scope; val: N; T: type): Out	
+Transpose	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#Transpose,Scope,Out	custom_ops: Transpose(root: Scope; A: Out): Out	
+T	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/ops/custom_ops.html#T,Scope,Out	custom_ops: T(root: Scope; A: Out): Out	
