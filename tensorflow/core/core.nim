@@ -1059,10 +1059,12 @@ macro with*(scope: Scope, body: untyped): untyped =
   if scope.kind == nnkSym:
     insertIntoCalls(newIdentNode($scope), body)
   elif scope.kind == nnkCall:
-    let hash = signatureHash(nskLet.genSym)
-    insert(body, 0, newLetStmt(newIdentNode(hash), scope))
-    insertIntoCalls(newIdentNode(hash), body)
-  
+    let hash = "scope" & signatureHash(nskLet.genSym)
+    let hashIdent = newIdentNode(hash)
+
+    insertIntoCalls(hashIdent, body)
+    insert(body, 0, newLetStmt(hashIdent, scope))
+
   return body
       
 type 
