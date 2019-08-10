@@ -1,7 +1,6 @@
 import ../core/core,
        ../utils/utils,
-       ./generated/array_ops,
-       ./generated/math_ops,
+       ./generated/generated,
        typetraits
 {.hint[XDeclaredButNotUsed]:off.}
 
