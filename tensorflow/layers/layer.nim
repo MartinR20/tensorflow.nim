@@ -165,10 +165,11 @@ proc newModel[N](rt: Scope,
 proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
     var feed: FeedDict
 
-    feed[model.x] = X
-    feed[model.y] = Y
-
     for epoch in 0..epochs-1:
+        for x, y in batch(X, Y, batch):
+            feed[model.x] = x
+            feed[model.y] = y
+
         model.sess.runSessionVoid(feed, model.opted)
 
         if epoch %% 10 == 0:
