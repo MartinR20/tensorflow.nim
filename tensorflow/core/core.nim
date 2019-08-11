@@ -337,6 +337,80 @@ proc getBaseEl[N,T](arr: array[N,T]): auto =
   ## Returns:
   ##   The base type of the array.
 
+proc num_elements*(sh: TensorShape): int {.importcpp:"#.num_elements()".}
+
+  ## A proc that returns the product of all dimensions the shape is holding
+  ## e.g: the total number of elements in a Tensor
+  ## 
+  ## Args:
+  ##   sh: The shape it is applied on
+  ## Returns:
+  ##   The product of all dimensions
+
+iterator batch*(ten: Tensor, batchSize: int, len: int): Tensor =
+  var i: cint = 0
+  while i <= (len div batchSize)-1:
+    yield ten.slice(i * batchSize, (i + 1) * batchSize)
+    inc i
+
+  ## An iterator divinding the given Tensor into batches.
+  ##
+  ## Args:
+  ##   ten: The Tensor to make batches from
+  ##   batchSize: The size of one batch
+  #    len: The length of the first dimension
+  ## Returns:
+  ##   A slice of the given Tensor with the given batchSize
+
+iterator batch*(ten: Tensor, batchSize: int): Tensor =
+  for slice in batch(ten, batchSize, ten.shape.dim_size(0)):
+    yield slice
+
+  ## An iterator divinding the given Tensor into batches.
+  ##
+  ## Args:
+  ##   ten: The Tensor to make batches from
+  ##   batchSize: The size of one batch
+  ## Returns:
+  ##   A slice of the given Tensor with the given batchSize
+
+iterator batch*(X, Y: Tensor, batchSize: int, len: int): (Tensor, Tensor) =
+  var i: cint = 0
+  while i <= (len div batchSize)-1:
+    let s = i * batchSize
+    let e = (i + 1) * batchSize
+
+    yield (X.slice(s, e), Y.slice(s, e))
+    inc i
+
+  ## An iterator divinding the given Tensors into batches
+  ## especially useful for training.
+  ##
+  ## Args:
+  ##   X: The X Tensor to make batches from
+  ##   Y: The Y Tensor to make batches from
+  ##   batchSize: The size of one batch
+  #    len: The length of the first dimension
+  ## Returns:
+  ##   A (X, Y) Tensor tuple holding slices of the given Tensors
+  ##   with the given batchSizes
+
+iterator batch*(X, Y: Tensor, batchSize: int): (Tensor, Tensor) =
+  for x, y in batch(X, Y, batchSize, X.shape.dim_size(0)):
+    yield (x, y)
+
+  ## An iterator divinding the given Tensors into batches
+  ## especially useful for training.
+  ##
+  ## Args:
+  ##   X: The X Tensor to make batches from
+  ##   Y: The Y Tensor to make batches from
+  ##   batchSize: The size of one batch
+  ## Returns:
+  ##   A (X, Y) Tensor tuple holding slices of the given Tensors
+  ##   with the given batchSizes
+
+
 ## Flat related definitions
 type
   Flat*[T] {.header: tensor,
@@ -1308,6 +1382,8 @@ export TensorShape,
        scalar,
        set,
        get,
+       batch,
+       num_elements,
        #TensorMap,
        #tensorMap,
        `[]=`,
