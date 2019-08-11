@@ -66,9 +66,9 @@ proc `$`*(shape: TensorShape) : string =
   ## Returns:
   ##   A new cppstring representing of the TensorShape.
 
-proc `[]`*(shape: TensorShape, i: int32): int32 {.importcpp:"#[#]".}
+proc `[]`*(shape: TensorShape, i: int): int {.importcpp:"#[#]".}
 
-proc dim_size*(shape: TensorShape, i: int32): int32 {.importcpp:"#.dim_size(#)".}
+proc dim_size*(shape: TensorShape, i: int): int {.importcpp:"#.dim_size(#)".}
 
   ## Gets the size of the provided dimension.
   ## 
@@ -303,7 +303,7 @@ proc getShape[N,T](arr: array[N,T]) : seq[int] =
   ## Returns:
   ##   The dimensions of the given array.
 
-proc prod(s: seq[int]): int =
+proc prod(s: openArray[int]): int =
   var res: int = 1
   for it in s:
     res *= it
