@@ -231,12 +231,12 @@ proc slice*(ten: Tensor, start: int, stop: int): Tensor
     header: memory,
     importcpp:"std::make_shared<tensorflow::Tensor>(std::move(#->Slice(#, #)))".}
 
-  ## A Method to get the dtype of a Tensor.
+  ## A Method to get a slice of a Tensor along the first dimension.
   ## 
   ## Args:
   ##   ten: The Tensor it is applied on.
   ## Returns:
-  ##   The Dtype of the Tensor.
+  ##   The slice along the first dimension.
 
 proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: tensor,
                                                              importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
