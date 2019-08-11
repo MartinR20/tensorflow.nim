@@ -130,14 +130,15 @@ proc dense_test() {.test.} =
     proto.newDense(10, 20)
     proto.newActivation(Relu)
     proto.newDense(20, 10)
-    proto.newActivation(Softmax)
+    proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
     let model = proto.compile(rt, newMSE(), newSGD())
 
-    let input = newTensor([[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]], float32)
+    let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
     model.fit(input, input, 100)
+    echo model.eval(input)[0]
 
 dense_test()
 
@@ -149,13 +150,13 @@ proc AE_test() {.test.} =
     proto.newDense(4, 4)
     proto.newActivation(Relu)
     proto.newDense(4, 10)
-    proto.newActivation(Softmax)
+    proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
 
-    let input = newTensor([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                           [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
+    let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
     let model = proto.compile(rt, newMSE(), newAdam())
 
@@ -210,7 +211,7 @@ proc conv2d_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
     let model = proto.compile(rt, newMSE(), newAdam())
-    model.fit(input, newTensor([[0,0,0,0,0]], float32), 3)
+    model.fit(input, newTensor([[1.0,0,0,0,0]], float32), 3)
 
 conv2d_test()
 
@@ -392,14 +393,14 @@ proc branch_concat_test() {.test.} =
     proto.newConcat(1)
 
     proto.newDense(10, 10)
-    proto.newActivation(Softmax)
+    proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
     let sess = rt.newSession()
 
-    let input = newTensor([[1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0],
-                          [1.0, 2.0, 4.0, 2.0, 3.0, 5.0, 6.0, 3.0, 4.0, 1.0]], float32)
+    let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
     let model = proto.compile(rt, newMSE(), newAdam())
 
