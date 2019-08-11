@@ -157,7 +157,6 @@ proc newModel[N](rt: Scope,
 
     model.sess.runSessionVoid(vars.assignSeq)
 
-    if optim.init.len != 0:
         for init in optim.init:
             model.sess.runSessionVoid(init)
 
@@ -168,9 +167,6 @@ proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
 
     feed[model.x] = X
     feed[model.y] = Y
-
-    #let summary = newSummaryWriter("./summary/event")
-    #summary.write_grapdef(rt.toGraphDef)
 
     for epoch in 0..epochs-1:
         model.sess.runSessionVoid(feed, model.opted)
