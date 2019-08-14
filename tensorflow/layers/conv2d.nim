@@ -39,7 +39,7 @@ method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out =
     let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
     
     with root.newSubScope(shortLayerName & "_setup"):
-        let shape = Const([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels], int32)
+        let shape = [layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels].int32
         let filter = RandomNormal(shape, float32.tf)
         let variable = newVariable(filter, varShape, float32.tf, "Conv2D_filter")
 

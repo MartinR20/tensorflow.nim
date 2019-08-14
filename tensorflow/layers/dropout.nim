@@ -23,7 +23,8 @@ type Dropout = ref object of Layer
 method `$`(layer: Dropout): string = "Dropout(rate:" & $layer.rate & ")"
 
 method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out = 
-        let rrate = Const[float32](root, layer.rate)
+        with root:
+            let rrate = layer.rate.float32
 
         return proc(rt: Scope, input: Out): Out = 
                     if layer.shape == Out(): 
@@ -32,7 +33,7 @@ method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out =
                     with rt:
                         let random = RandomUniform(layer.shape, TF_FLOAT)
                         let mask = random >= rrate
-                        let scale = Const(1.0, float32) / (Const(1.0, float32) - rrate)
+                        let scale = 1.float32 / (1.float32 - rrate)
 
                         return input * scale * Cast(mask, float32)
 

@@ -77,10 +77,10 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
     let rootNamed = root.newSubScope("Adam_setup")
 
     with rootNamed:
-        let lr = Const(optim.lr, float32)
-        let beta1 = Const(optim.beta1, float32)
-        let beta2 = Const(optim.beta2, float32)
-        let epsilon = Const(optim.epsilon, float32)
+        let lr = optim.lr.float32
+        let beta1 = optim.beta1.float32
+        let beta2 = optim.beta2.float32
+        let epsilon = optim.epsilon.float32
 
     var m: OutList
     var v: OutList
@@ -95,8 +95,8 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         with rootNamed:
             let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
             let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-            let ibeta1Power = newVariable(Const(0.0, float32), scalarShape, TF_FLOAT)
-            let ibeta2Power = newVariable(Const(0.0, float32), scalarShape, TF_FLOAT)
+            let ibeta1Power = newVariable(0.0.float32, scalarShape, TF_FLOAT)
+            let ibeta2Power = newVariable(0.0.float32, scalarShape, TF_FLOAT)
 
         m.add im.vvar
         v.add iv.vvar
@@ -155,7 +155,7 @@ method `$`(optim: SGD): string = "SGD(lr: " & $optim.lr & ")"
 
 method make(optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
     with root.newSubScope("SGD_setup"):
-        let lr = Const(optim.lr, float32) 
+        let lr = optim.lr.float32 
 
     return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
                 let rtNamed = rt.newSubScope("SGD")

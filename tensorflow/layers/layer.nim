@@ -157,8 +157,11 @@ proc newModel[N](rt: Scope,
 
     model.sess.runSessionVoid(vars.assignSeq)
 
-        for init in optim.init:
-            model.sess.runSessionVoid(init)
+    for init in optim.init:
+        model.sess.runSessionVoid(init)
+
+    let summary = newSummaryWriter("./summary/event")
+    summary.write_grapdef(rt.toGraphDef)
 
     return model
 
@@ -170,7 +173,7 @@ proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
             feed[model.x] = x
             feed[model.y] = y
 
-        model.sess.runSessionVoid(feed, model.opted)
+            model.sess.runSessionVoid(feed, model.opted)
 
         if epoch %% 10 == 0:
             var outputs: TensorVec

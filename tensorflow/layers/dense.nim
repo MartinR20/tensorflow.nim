@@ -32,7 +32,7 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
     let wVarShape = newTensorShape([layer.inFeatures, layer.outFeatures])
 
     with rootNamed:
-        let w = RandomNormal(Const([layer.inFeatures, layer.outFeatures], int32), TF_FLOAT)
+        let w = RandomNormal([layer.inFeatures, layer.outFeatures].int32, TF_FLOAT)
         let wVar = newVariable(w, wVarShape, TF_FLOAT, "weights")
 
     layer.train.add(wVar)
@@ -46,7 +46,7 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
         let bVarShape = newTensorShape([1, layer.outFeatures])
 
         with rootNamed:
-            let b = RandomNormal(Const([1, layer.outFeatures], int32), TF_FLOAT)
+            let b = RandomNormal([1, layer.outFeatures].int32, TF_FLOAT)
             let bVar = newVariable(b, bVarShape, TF_FLOAT, "bias")
 
         layer.train.add(bVar)

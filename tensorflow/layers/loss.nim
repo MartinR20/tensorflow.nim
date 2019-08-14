@@ -33,7 +33,7 @@ method `$`(loss: MSE): string = "MSE()"
 method make(loss: MSE, root: Scope): (proc(rt: Scope, y_pred, y_true: Out): Out) = 
     return proc(rt: Scope, y_true, y_pred: Out): Out = 
                 with rt.newSubScope("MSE"):
-                    return Mean(Square(y_true - y_pred), Const(0, int32))
+                    return Mean(Square(y_true - y_pred), 0.int32)
 
 
 type CrossEntropy = ref object of Loss
@@ -50,7 +50,7 @@ method `$`(loss: CrossEntropy): string = "CrossEntropy()"
 method make(loss: CrossEntropy, root: Scope): (proc(rt: Scope, y_true, y_pred: Out): Out) = 
     return proc(rt: Scope, y_pred, y_true: Out): Out = 
                 with rt.newSubScope("CrossEntropy"):
-                    return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), Const(1, int32)))
+                    return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), 1.int32))
 
 export Loss,
        make,

@@ -21,7 +21,7 @@ method `$`[N,int](layer: Reshape[N,int]): string = "Reshape(shape:" & $layer.sha
 
 method make[N,int](layer: Reshape[N,int], root: Scope): proc(rt: Scope, input: Out): Out = 
         with root.newSubScope("Reshape_setup"):
-            let shape = Const(layer.shape, int32)
+            let shape = layer.shape.int32
 
         return proc(rt: Scope, input: Out): Out = 
                     let rtNamed = rt.newSubScope("Reshape")

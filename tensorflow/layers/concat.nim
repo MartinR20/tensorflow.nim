@@ -36,7 +36,8 @@ type Concat = ref object of Layer
 method `$`(layer: Concat): string = "Concat"
 
 method makeJoin(layer: Concat, root: Scope): proc(rt: Scope, input: OutList): Out = 
-    let axis = root.Const(layer.axis, int32)
+    with root:
+        let axis = layer.axis.int32
     
     return proc(rt: Scope, input: OutList): Out =
                 return rt.Concat(input, axis)
