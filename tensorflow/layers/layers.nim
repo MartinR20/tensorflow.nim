@@ -28,8 +28,8 @@ import ./layer,
        ./branch,
        ./concat,
        ./inline,
-       ./flatten,
-       ./variable
+       ./variable,
+       ./morph
 
 export layer,
        dense,
@@ -44,6 +44,6 @@ export layer,
        branch,
        concat,
        inline,
-       flatten,
-       variable
+       variable,
+       morph
        
