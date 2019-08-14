@@ -96,6 +96,8 @@ proc ClipByValue(root: Scope, t: Out, clip_value_min: float, clip_value_max: flo
 
   ## ClipByValue proc supporting gradients (the one provided by math_ops does not)
 
+proc Assign(root: Scope, vvar: Out, ten: Tensor): Out {.importcpp:"tensorflow::ops::Assign(*#, #, *#)".}
+
 export Const,
        Cast,
        Placeholder,
@@ -113,4 +115,5 @@ export Const,
        `!=`,
        `%%`,
        Transpose,
-       T
+       T,
+       Assign
