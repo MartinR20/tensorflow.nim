@@ -30,15 +30,12 @@ macro makeExsistingOp(name: static[string], funDef: static[string]): untyped =
       ins[name.strip()] = "::tensorflow::InputList"
 
     elif stripped != "Scope":
-      echo splited[1]
       attrs[name.strip()] = stripped
 
   var outputIsList = false
 
   if funDef.fromTo(')', funDef.len-1).find("OutList") != -1:
     outputIsList = true
-
-  echo ins
 
   var funheader = makeNewOpIncludes(newStmtList())
   funheader = makeOpClass(name, ins, attrs, outputIsList, funheader)

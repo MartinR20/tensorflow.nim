@@ -31,8 +31,6 @@ proc makeNimDef(exportName: string,
   (if outputIsList: "OutList" else: "Out") & 
   " {.importcpp:\"" & exportName & "(*#" & ", #".repeat(ins.len + attrs.len) & ").output\".}"
 
-  echo nimSource
-
   insert(funheader, 1, parseStmt(nimSource))
   return funheader
 
