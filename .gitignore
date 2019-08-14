@@ -9,3 +9,4 @@
 
 tensorflow/include/*
 tensorflow/lib/*
+tests/pdf_doc
