@@ -271,6 +271,16 @@ proc `$@`*[N,T](arr: array[N,T]): Tensor =
   ## Returns:
   ##   A new Tensor with the given data.
 
+proc `$@`*[T](arr: T): Tensor = 
+  return newTensor(arr)
+
+  ## Shorthand for creating a Tensor from an scalar.
+  ## 
+  ## Args:
+  ##   arr: The array that should be converted to a Tensor.
+  ## Returns:
+  ##   A new Tensor with the given data.
+
 proc getShapeHelper[T](x:T, shape: var seq[int]) = 
   return
 
@@ -1140,12 +1150,22 @@ proc status(scope: Scope): Status {.importcpp:"#->status()".}
 proc ok(): Status {.header: std_ops,
                     importcpp: "tensorflow::Status::OK()".}
 
+var supportedTypes {.compileTime}: seq[string]
+
+static:
+  for dtype in typeLookUp.keys:
+    supportedTypes.add dtype
+
 proc insertIntoCalls(scope: NimNode, body: NimNode) {.compileTime.} =
-  for child in body:
+  for i,child in body:
     if child.kind == nnkCall:    
       insert(child, 1, scope)
     elif child.kind == nnkInfix:
       insert(child, 1, scope)
+    elif child.kind == nnkDotExpr:
+      let repr = child[1].treeRepr
+      if repr.len > 7 and repr[7..^2] in supportedTypes:
+        body[i] = newCall("Const", scope, child[0], child[1])
     elif child == newIdentNode("with"):
       return
 
@@ -1164,6 +1184,11 @@ macro with*(scope: Scope, body: untyped): untyped =
 
   return body
       
+
+discard """
+
+"""
+
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
 
