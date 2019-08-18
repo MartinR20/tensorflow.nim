@@ -1040,6 +1040,71 @@ proc outputs(op: Operation): OutList =
 
   return outputs
 
+proc igetStrAttr(op: Operation, name: cppstring): cppstring {.importcpp:"#.node()->attrs().Find(#)->s()".}
+
+proc getStrAttr(op: Operation, name: string): string = 
+  return $igetStrAttr(op, newCPPString(name))
+
+proc igetIntAttr(op: Operation, name: cppstring): int {.importcpp:"#.node()->attrs().Find(#)->i()".}
+
+proc getIntAttr(op: Operation, name: string): int = 
+  return igetIntAttr(op, newCPPString(name))
+
+proc igetFloatAttr(op: Operation, name: cppstring): float {.importcpp:"#.node()->attrs().Find(#)->f()".}
+
+proc getFloatAttr(op: Operation, name: string): float = 
+  return igetFloatAttr(op, newCPPString(name))
+
+proc igetBoolAttr(op: Operation, name: cppstring): bool {.importcpp:"#.node()->attrs().Find(#)->b()".}
+
+proc getBoolAttr(op: Operation, name: string): bool = 
+  return igetBoolAttr(op, newCPPString(name))
+
+type NameAttrList {.importcpp:"tensorflow::NameAttrList".} = object
+proc igetFuncAttr(op: Operation, name: cppstring): NameAttrList {.importcpp:"#.node()->attrs().Find(#)->func()".}
+
+proc getFuncAttr(op: Operation, name: string): NameAttrList = 
+  return igetFuncAttr(op, newCPPString(name))
+
+proc igetShapeAttr(op: Operation, name: cppstring): TensorShape {.importcpp:"#.node()->attrs().Find(#)->shape()".}
+
+proc getShapeAttr(op: Operation, name: string): TensorShape = 
+  return igetShapeAttr(op, newCPPString(name))
+    
+proc igetTensorAttr(op: Operation, name: cppstring): Tensor {.importcpp:"std::make_shared<tensorflow::Tensor>(std::move(#.node()->attrs().Find(#)->tensor()))".}
+
+proc getTensorAttr(op: Operation, name: string): Tensor = 
+  return igetTensorAttr(op, newCPPString(name))
+
+proc igetDataTypeAttr(op: Operation, name: cppstring): DType {.importcpp:"#.node()->attrs().Find(#)->type()".}
+
+proc getDataTypeAttr(op: Operation, name: string): DType = 
+  return igetDataTypeAttr(op, newCPPString(name))
+
+template mutables(name: untyped, cname: string, ctype: string, dtype: untyped): untyped =
+  #TODO: maybe make protobuf types to use the size methods of those and not require them manually
+  proc name[N](op: Operation, name: cppstring, len: int, arr: array[N, dtype]) {.
+    importcpp:"""
+      auto list = #.node()->attrs().Find(#)->list();
+      auto mut = list.""" & cname & """();
+      auto _arr = mut->mutable_data();
+      std::copy(_arr, _arr + #, #);
+    """
+  .}
+
+  proc name[N](op: Operation, name: string, len: int, arr: array[N, dtype]) =
+    name(op, newCPPString(name), len, arr)
+
+  export name
+
+mutables(getSliceAttr_b,      "mutable_b",      "tensorflow::bool",              bool)
+mutables(getSliceAttr_f,      "mutable_f",      "tensorflow::float",             float)
+mutables(getSliceAttr_func,   "mutable_func",   "tensorflow::NameAttrList",      NameAttrList)
+mutables(getSliceAttr_i,      "mutable_i",      "int64_t",             int64)
+mutables(getSliceAttr_shape,  "mutable_shape",  "tensorflow::TensorShapeProto",  TensorShape)
+mutables(getSliceAttr_type,   "mutable_type",   "tensorflow::DType",             DType)
+mutables(getSliceAttr_s,      "mutable_s",      "std::string",                   cppstring)
+
 ## Scope related definitions
 type
   Scope* {.header: memory,
