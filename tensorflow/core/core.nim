@@ -1270,10 +1270,10 @@ macro with*(scope: Scope, body: untyped): untyped =
     insert(body, 0, newLetStmt(hashIdent, scope))
 
   return body
-      
+
 macro noScope(scope: untyped, ast: untyped): untyped =
   return ast
-
+    
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
 

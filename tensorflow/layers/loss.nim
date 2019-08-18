@@ -5,57 +5,41 @@
 import ../ops/ops
 import ../core/core
 import ./variable
+import macros
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Loss* = ref object of RootObj
 
         ## The base type for all loss functions.
 
-method `$`(loss: Loss): string {.base.} = "Loss"
+method `$`*(loss: Loss): string {.base.} = "Loss"
 
-method make*(loss: Loss, root: Scope): (proc(rt: Scope, y_true, y_pred: Out): Out) {.base.} = 
+method fn*(loss: Loss, rt: Scope, y_true, y_pred: Out): Out {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for your loss function")
 
     ## The make method is intended for all the setup of your loss function that requires a scope and should
     ## be overloaded for all loss functions.
 
-type MSE = ref object of Loss
+macro loss*(x: untyped): untyped =
+    let lossName = $name(x)
+    let T = parseStmt("type " & lossName & "* = ref object of Loss")
+    let constructor = parseStmt("proc new" & lossName & "*(): " & lossName & "= return new " & lossName)
+    let strConversion = parseStmt("method `$`*(loss: " & lossName & "): string =  \"" & lossName & "()\"")
+    x[0] = newIdentNode("fn")
+    insert(x[3], 1, newIdentDefs(newIdentNode("loss"), newIdentNode(lossName)))
 
-        ## The Mean Squared Error loss function. Which calculates mean((X - Y)^2). 
+    return newStmtList(
+        T,
+        constructor,
+        strConversion,
+        x
+    )
 
-proc newMSE*(): MSE =
-    return new MSE
-
-    ## Procedure that creates an MSELoss for the compile function.
-
-method `$`(loss: MSE): string = "MSE()"
-
-method make(loss: MSE, root: Scope): (proc(rt: Scope, y_pred, y_true: Out): Out) = 
-    return proc(rt: Scope, y_true, y_pred: Out): Out = 
-                with rt.newSubScope("MSE"):
-                    return Mean(Square(y_true - y_pred), 0.int32)
+method MSE*(rt: Scope, y_true, y_pred: Out): Out {.loss.} =
+    with rt.newSubScope("MSE"): 
+        return Mean(Square(y_true - y_pred), 0.int32)
 
 
-type CrossEntropy = ref object of Loss
-
-        ## The Mean Squared Error loss function. Which calculates mean((X - Y)^2). 
-
-proc newCrossEntropy*(): CrossEntropy =
-    return new CrossEntropy
-
-    ## Procedure that creates an MSELoss for the compile function.
-
-method `$`(loss: CrossEntropy): string = "CrossEntropy()"
-
-method make(loss: CrossEntropy, root: Scope): (proc(rt: Scope, y_true, y_pred: Out): Out) = 
-    return proc(rt: Scope, y_pred, y_true: Out): Out = 
-                with rt.newSubScope("CrossEntropy"):
-                    return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), 1.int32))
-
-export Loss,
-       make,
-       `$`,
-       MSE,
-       newMSE,
-       CrossEntropy,
-       newCrossEntropy
+method CrossEntropy*(rt: Scope, y_pred, y_true: Out): Out {.loss.} = 
+    with rt.newSubScope("CrossEntropy"):
+        return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), 1.int32))
