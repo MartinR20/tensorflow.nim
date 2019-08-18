@@ -12,7 +12,7 @@ sudo nimble install https://github.com/MartinR20/tensorflow.nim.git
 
 ## Usage
 
-This packages basically consists of three parts. The normal low level c++ wrapper meaning code like this:
+This package basically consists of two parts. The normal low level c++ wrapper meaning code like this:
 
 ```nim
 import tensorflow
