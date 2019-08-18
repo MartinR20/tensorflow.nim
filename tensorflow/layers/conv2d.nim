@@ -107,7 +107,132 @@ proc newConv2d*(model: var seq[Layer],
     
     model.add(conv2d)
 
+
+type Interpolation = enum
+    Area,
+    Bicubic,
+    Bilinear,
+    NearestNeighbor
+
+proc getInterpolName(interpol: Interpolation): string = 
+    case interpol:
+    of Area:
+        return "Area"
+    of Bicubic:
+        return "Bicubic"
+    of Bilinear:
+        return "Biliniear"
+    of NearestNeighbor:
+        return "NearestNeighbor"
+
+type UpSampling2D = ref object of Layer
+    size: array[0..1, float]
+    interpol: Interpolation
+
+method `$`(layer: UpSampling2D): string = "UpSampling2D(size:" & $layer.size & 
+                                                     ", interpolation:" & getInterpolName(layer.interpol) & ")"
+
+method make(layer: UpSampling2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
+    layer.size[0] *= shape[1].float
+    layer.size[1] *= shape[2].float
+
+    shape = @[shape[0], 
+              layer.size[0].int,
+              layer.size[1].int,
+              shape[3]]
+    let shortLayerName = "UpSampling2D_" & $layer.size[0] & "x" & $layer.size[1]
+    
+    with root.newSubScope(shortLayerName & "_setup"):
+        let shape = layer.size.int32
+
+    case layer.interpol:
+    of Area:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeArea(input, shape)
+    of Bicubic:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeBicubic(input, shape)
+    of Bilinear:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeBilinear(input, shape)
+    of NearestNeighbor:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeNearestNeighbor(input, shape)
+    
+
+proc newUpSampling2D*(model: var seq[Layer], 
+                      size: array[0..1, float],
+                      interpol=NearestNeighbor) =
+
+    var upsampling2D = new UpSampling2D
+
+    upsampling2D.size = size
+    upsampling2D.interpol = interpol
+    
+    model.add(upsampling2D)
+
+
+type Resize2D = ref object of Layer
+    size: array[0..1, int]
+    interpol: Interpolation
+
+method `$`(layer: Resize2D): string = "Resize2D(size:" & $layer.size & 
+                                                     ", interpolation:" & getInterpolName(layer.interpol) & ")"
+
+method make(layer: Resize2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
+
+    shape = @[shape[0], 
+              layer.size[0],
+              layer.size[1],
+              shape[3]]
+    let shortLayerName = "Resize2D_" & $layer.size[0] & "x" & $layer.size[1]
+    
+    with root.newSubScope(shortLayerName & "_setup"):
+        let shape = layer.size.int32
+
+    case layer.interpol:
+    of Area:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeArea(input, shape)
+    of Bicubic:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeBicubic(input, shape)
+    of Bilinear:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeBilinear(input, shape)
+    of NearestNeighbor:
+        return proc(rt: Scope, input: Out): Out =
+            with rt.newSubScope(shortLayerName):
+                return ResizeNearestNeighbor(input, shape)
+    
+
+proc newResize2D*(model: var seq[Layer], 
+                      size: array[0..1, int],
+                      interpol=NearestNeighbor) =
+
+    var resize2d = new Resize2D
+
+    resize2d.size = size
+    resize2d.interpol = interpol
+    
+    model.add(resize2d)
+
+
 export Conv2d,
+       Interpolation,
+       UpSampling2D,
+       Resize2D,
        `$`,
        newConv2d,
+       newUpSampling2D,
+       newResize2D,
        make
