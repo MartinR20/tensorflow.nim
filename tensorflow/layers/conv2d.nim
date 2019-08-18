@@ -104,9 +104,78 @@ proc newConv2d*(model: var seq[Layer],
     conv2d.dataFormat = dataFormat
     conv2d.dilations = [c1, cast[cint](dilations[0]), cast[cint](dilations[1]), c1]
     conv2d.useCudnnOnGpu = useCudnnOnGpu
-    
+
     model.add(conv2d)
 
+type TransposeConv2D = ref object of Conv2d
+    out_shape: array[0..3, cint]
+
+
+method `$`(layer: TransposeConv2D): string = "TransposeConv2D(in:" & $layer.inChannels & 
+                                                           ", out:" & $layer.outChannels & 
+                                                           ", kernel:" & $layer.kernel & 
+                                                           ", strides:" & $layer.strides[1..^2] &
+                                                           ", out_shape:" & $layer.out_shape[1..^2] & ")"
+
+method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    #TODO: make right output size
+    let shortLayerName = "TransposeConv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
+    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
+    
+    with root.newSubScope(shortLayerName & "_setup"):
+        let shape = [layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels].int32
+        let filter = RandomNormal(shape, float32.tf)
+        let variable = newVariable(filter, varShape, float32.tf, "TransposeConv2D_filter")
+        let out_shape = layer.out_shape.int32
+
+    layer.train.add(variable) 
+
+    let strides = newArraySlice(layer.strides)
+    # TODO: fix wrappes to not use cppString in the wrapper
+    let padding = newCPPString(layer.padding)
+
+    return proc(rt: Scope, input: Out): Out =
+                let rtNamed = rt.newSubScope(shortLayerName)
+
+                # TODO: make cppstring not go out of scope in the wrapper
+                var attrs = Conv2DBackpropInputAttrs()
+                attrs = attrs.DataFormat(newCPPString(layer.dataFormat))
+                attrs = attrs.Dilations(newArraySlice(layer.dilations))
+                attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
+
+                return rtNamed.Conv2DBackpropInput(out_shape,
+                                                    layer.train[0].vvar, 
+                                                    input, 
+                                                    strides, 
+                                                    padding, 
+                                                    attrs)
+
+proc newTransposeConv2D*(model: var seq[Layer], 
+                         inChannels: int,
+                         outChannels: int,
+                         kernel: array[0..1, int], 
+                         strides: array[0..1, int], 
+                         out_shape: array[0..2, int], 
+                         padding="SAME", 
+                         dataFormat="NHWC", 
+                         dilations=[1,1], 
+                         useCudnnOnGpu=true) =
+
+    var tconv2d = new TransposeConv2D
+
+    tconv2d.inChannels = inChannels
+    tconv2d.outChannels = outChannels
+    tconv2d.kernel = kernel
+
+    tconv2d.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
+    tconv2d.out_shape = [cast[cint](out_shape[0]), cast[cint](out_shape[1]), cast[cint](out_shape[2]), outChannels.cint]
+
+    tconv2d.padding = padding
+    tconv2d.dataFormat = dataFormat
+    tconv2d.dilations = [c1, cast[cint](dilations[0]), cast[cint](dilations[1]), c1]
+    tconv2d.useCudnnOnGpu = useCudnnOnGpu
+    
+    model.add(tconv2d)
 
 type Interpolation = enum
     Area,
@@ -228,11 +297,13 @@ proc newResize2D*(model: var seq[Layer],
 
 
 export Conv2d,
+       TransposeConv2D,
        Interpolation,
        UpSampling2D,
        Resize2D,
        `$`,
        newConv2d,
+       newTransposeConv2D,
        newUpSampling2D,
        newResize2D,
        make
