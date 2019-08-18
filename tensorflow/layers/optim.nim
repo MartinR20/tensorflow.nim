@@ -21,6 +21,9 @@ method make*[N](optim: Optim[N], root: Scope, vars: seq[TVariable]): (proc(rt: S
     ## The make method is intended for all the setup of your optimizer that requires a scope and should
     ## be overloaded for all optimizers functions.
 
+method vars*[N](optim: Optim[N]): array[N, OutList] = 
+    raise newException(ValueError, "Not Implemented. Please overload `vars` for your optim")
+
 type Adadelta = ref object of Optim[0]
     lr*: float
     rho*: float
@@ -58,6 +61,10 @@ type Adam = ref object of Optim[4]
     epsilon*: float
     decay*: float
     amsgrad*: bool
+    m: OutList
+    v: OutList
+    beta1Power: OutList
+    beta2Power: OutList
 
 proc newAdam*(lr = 1e-4, beta1 = 0.9, beta2 = 0.99, epsilon = 10e-8, decay = 0.0, amsgrad = false): Adam =
     let adam = new Adam
@@ -82,11 +89,6 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         let beta2 = optim.beta2.float32
         let epsilon = optim.epsilon.float32
 
-    var m: OutList
-    var v: OutList
-    var beta1Power: OutList
-    var beta2Power: OutList
-
     let scalarShape = newTensorShape([])
 
     for i in 0..vars.len-1:
@@ -95,13 +97,13 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         with rootNamed:
             let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
             let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-            let ibeta1Power = newVariable(0.0.float32, scalarShape, TF_FLOAT)
-            let ibeta2Power = newVariable(0.0.float32, scalarShape, TF_FLOAT)
+            let ibeta1Power = newVariable(0.float32, scalarShape, TF_FLOAT)
+            let ibeta2Power = newVariable(0.float32, scalarShape, TF_FLOAT)
 
-        m.add im.vvar
-        v.add iv.vvar
-        beta1Power.add ibeta1Power.vvar
-        beta2Power.add ibeta2Power.vvar
+        optim.m.add im.vvar
+        optim.v.add iv.vvar
+        optim.beta1Power.add ibeta1Power.vvar
+        optim.beta2Power.add ibeta2Power.vvar
 
         optim.init[0].add im.assign
         optim.init[1].add iv.assign
@@ -113,11 +115,18 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
                 var outp: OutList
 
                 for i in 0..input.len-1:
-                    outp.add rtNamed.ApplyAdam(input[i].vvar, m[i], v[i], beta1Power[i], beta2Power[i], 
-                                               lr, beta1, beta2, epsilon, grads[i])
+                    outp.add rtNamed.ApplyAdam(input[i].vvar, optim.m[i], optim.v[i], optim.beta1Power[i], 
+                                                optim.beta2Power[i], lr, beta1, beta2, epsilon, grads[i])
                                         
                 return outp
 
+method vars(optim: Adam): array[4, OutList] =
+    return [
+        optim.m,
+        optim.v,
+        optim.beta1Power,
+        optim.beta2Power
+    ]
 
 type RMSProp = ref object of Optim[0]
     lr*: float
@@ -166,6 +175,9 @@ method make(optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, inp
 
                 return outp
 
+method vars(optim: SGD): array[0, OutList] =
+    return []
+
 export Optim,
        Adadelta,
        newAdadelta,
@@ -177,4 +189,5 @@ export Optim,
        newRMSProp,
        SGD,
        newSGD,
-       make
+       make,
+       vars
