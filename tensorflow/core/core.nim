@@ -1253,7 +1253,7 @@ proc insertIntoCalls(scope: NimNode, body: NimNode) {.compileTime.} =
       let repr = child[1].treeRepr
       if repr.len > 7 and repr[7..^2] in supportedTypes:
         body[i] = newCall("Const", scope, child[0], child[1])
-    elif child == newIdentNode("with"):
+    elif child == newIdentNode("with") or child == newIdentNode("noScope"):
       return
 
     if child.len != 0:
@@ -1271,10 +1271,8 @@ macro with*(scope: Scope, body: untyped): untyped =
 
   return body
       
-
-discard """
-
-"""
+macro noScope(scope: untyped, ast: untyped): untyped =
+  return ast
 
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
