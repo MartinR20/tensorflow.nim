@@ -22,7 +22,7 @@ type Dropout = ref object of Layer
 
 method `$`(layer: Dropout): string = "Dropout(rate:" & $layer.rate & ")"
 
-method make(layer: Dropout, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Dropout, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
         with root:
             let rrate = layer.rate.float32
 

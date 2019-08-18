@@ -35,7 +35,16 @@ type Concat = ref object of Layer
 
 method `$`(layer: Concat): string = "Concat"
 
-method makeJoin(layer: Concat, root: Scope): proc(rt: Scope, input: OutList): Out = 
+method makeJoin(layer: Concat, root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: OutList): Out = 
+    var tmp = shape[0]
+
+    for s in shape[1..^1]:
+        assert tmp.len == s.len, "Shapes passed to Concat Layer aren't of same dimensions!"
+        
+        tmp[layer.axis] += s[layer.axis]
+
+    shape = @[tmp]
+
     with root:
         let axis = layer.axis.int32
     

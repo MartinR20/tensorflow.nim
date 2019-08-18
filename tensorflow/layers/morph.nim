@@ -15,7 +15,6 @@ import ../utils/utils
 import ../ops/ops
 import ../core/core
 import ./layer
-import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Dilation2D = ref object of Layer
@@ -27,7 +26,8 @@ type Dilation2D = ref object of Layer
 method `$`(layer: Dilation2D): string = "Dilation2D(kernel:" & $layer.kernel & 
                                                  ", strides:" & $layer.strides[1..^2] & ")"
 
-method make(layer: Dilation2D, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Dilation2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
     let shortLayerName = "Dilation2D"
 
     let strides = newArraySlice(layer.strides)
@@ -87,7 +87,8 @@ template inheritDilation(name: untyped, varname: untyped) =
 
 inheritDilation(Erosion2D, erosion2d)
 
-method make(layer: Erosion2D, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Erosion2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
     let shortLayerName = "Erosion2D"
 
     let strides = newArraySlice(layer.strides)
@@ -106,7 +107,8 @@ method make(layer: Erosion2D, root: Scope): proc(rt: Scope, input: Out): Out =
 
 inheritDilation(Opening2D, opening2d)
 
-method make(layer: Opening2D, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Opening2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
     let shortLayerName = "Opening2D"
 
     let strides = newArraySlice(layer.strides)
@@ -133,7 +135,8 @@ method make(layer: Opening2D, root: Scope): proc(rt: Scope, input: Out): Out =
 
 inheritDilation(Closing2D, closing2d)
 
-method make(layer: Closing2D, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Closing2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
     let shortLayerName = "Closing2D"
 
     let strides = newArraySlice(layer.strides)

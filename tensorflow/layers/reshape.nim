@@ -12,6 +12,7 @@
 import ../ops/ops
 import ../core/core
 import ./layer
+import sequtils
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Reshape[N,int] = ref object of Layer
@@ -19,13 +20,27 @@ type Reshape[N,int] = ref object of Layer
 
 method `$`[N,int](layer: Reshape[N,int]): string = "Reshape(shape:" & $layer.shape & ")"
 
-method make[N,int](layer: Reshape[N,int], root: Scope): proc(rt: Scope, input: Out): Out = 
-        with root.newSubScope("Reshape_setup"):
-            let shape = layer.shape.int32
+method make[N,int](layer: Reshape[N,int], root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    var inels = 1
 
-        return proc(rt: Scope, input: Out): Out = 
-                    let rtNamed = rt.newSubScope("Reshape")
-                    return rtNamed.Reshape(input, shape)
+    for dim in shape:
+        inels *= dim
+
+    var outels = 1
+
+    for dim in layer.shape:
+        outels *= dim
+    
+    assert inels == outels, "Input Shape has " & $inels & " elements but requested shape has " & $outels & " elements!"
+    
+    shape = layer.shape.toSeq
+
+    with root.newSubScope("Reshape_setup"):
+        let shape = layer.shape.int32
+
+    return proc(rt: Scope, input: Out): Out = 
+                let rtNamed = rt.newSubScope("Reshape")
+                return rtNamed.Reshape(input, shape)
 
 proc newReshape*[N,int](model: var seq[Layer], shape: array[N,int]) =
     var reshape = new Reshape[N,int]

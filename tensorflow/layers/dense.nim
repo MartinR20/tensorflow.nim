@@ -24,8 +24,12 @@ type Dense = ref object of Layer
 method `$`(layer: Dense): string = "Dense(in:" & $layer.inFeatures & 
                                         ", out:" & $layer.outFeatures & ")"
 
-method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out = 
-    layer.train = @[]
+method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 2)
+
+    layer.inFeatures = shape[1]
+    shape[1] = layer.outFeatures
+
     let shortLayerName = "Dense_" & $layer.outFeatures
     let rootNamed = root.newSubScope(shortLayerName & "_setup")
 
@@ -55,10 +59,9 @@ method make(layer: Dense, root: Scope): proc(rt: Scope, input: Out): Out =
                     with rt.newSubScope(shortLayerName):
                         return input @ layer.train[0].vvar + layer.train[1].vvar
 
-proc newDense*(model: var seq[Layer], inFeatures: int, outFeatures: int, bias = true) =
+proc newDense*(model: var seq[Layer], outFeatures: int, bias = true) =
     var dense = new Dense
     
-    dense.inFeatures = inFeatures
     dense.outFeatures = outFeatures
 
     dense.bias = bias

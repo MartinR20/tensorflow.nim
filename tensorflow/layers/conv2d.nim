@@ -34,7 +34,25 @@ method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels &
                                              ", kernel:" & $layer.kernel & 
                                              ", strides:" & $layer.strides[1..^2] & ")"
 
-method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out =
+    layer.dimCheck(shape, 4)
+    layer.inChannels = shape[3]
+    
+    if layer.padding == "SAME":
+        var padSpace: array[0..1, int]
+        padSpace[0] = shape[1] %% layer.kernel[0]
+        padSpace[1] = shape[2] %% layer.kernel[1]
+
+        shape = @[shape[0], 
+                  (shape[1] + 2 * padSpace[0] - layer.dilations[1] * (layer.kernel[0]) - 1) div layer.strides[1] + 1,
+                  (shape[2] + 2 * padSpace[1] - layer.dilations[2] * (layer.kernel[1]) - 1) div layer.strides[2] + 1,
+                  layer.outChannels]
+    else:
+        shape = @[shape[0], 
+                  (shape[1] - layer.dilations[1] * (layer.kernel[0]) - 1) div layer.strides[1] + 1,
+                  (shape[2] - layer.dilations[2] * (layer.kernel[1]) - 1) div layer.strides[2] + 1,
+                  layer.outChannels]
+
     let shortLayerName = "Conv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
     let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
     
@@ -67,7 +85,6 @@ method make(layer: Conv2d, root: Scope): proc(rt: Scope, input: Out): Out =
 const c1: cint = 1
 
 proc newConv2d*(model: var seq[Layer], 
-                inChannels: int,
                 outChannels: int,
                 kernel: array[0..1, int], 
                 strides: array[0..1, int], 
@@ -78,7 +95,6 @@ proc newConv2d*(model: var seq[Layer],
 
     var conv2d = new Conv2d
 
-    conv2d.inChannels = inChannels
     conv2d.outChannels = outChannels
     conv2d.kernel = kernel
 

@@ -53,7 +53,8 @@ type InlineJoin = ref object of Layer
 
 method `$`(layer: InlineJoin): string = "InlineJoin"
 
-method makeJoin(layer: InlineJoin, root: Scope): proc(rt: Scope, input: OutList): Out = 
+method makeJoin(layer: InlineJoin, root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: OutList): Out = 
+    shape = @[shape[0]]
     return layer.ffunc
 
 method isJoin*(layer: InlineJoin): bool = true
@@ -62,7 +63,7 @@ proc newInlineJoin*(model: var seq[Layer], inlineFunc: proc(rt: Scope, input: Ou
     var inlineJoin = new InlineJoin
     
     inlineJoin.ffunc = inlineFunc
-
+    
     model.add(inlineJoin)
 
 export Inline,
