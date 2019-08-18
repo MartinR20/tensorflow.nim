@@ -118,6 +118,8 @@ type Model = ref object
     loss: Out
     opted: OutList
     sess: Session
+    save: Operation
+    restore: Operation
 
 proc make_eval(rt: Scope, funcs: seq[proc(rt: Scope, input: Out): Out], X: Out): Out =
     let rtNamed = rt.newSubScope("eval")
@@ -129,11 +131,19 @@ proc make_eval(rt: Scope, funcs: seq[proc(rt: Scope, input: Out): Out], X: Out):
 
     return outp
 
+proc check(rt: Scope) = 
+    if not rt.ok(): 
+        rt.logStatus
+        quit(1)
+
 proc newModel[N](rt: Scope, 
               funcs: seq[proc(rt: Scope, input: Out): Out],
               loss: Loss, 
               optim: Optim[N],
-              vars: seq[TVariable]): Model =
+              vars: seq[TVariable],
+              checkpoints=true,
+              checkPrefix="checkpoints/checkpoint",
+              restore=true): Model =
     var model = new Model
 
     let rtNamed = rt.newSubScope("fit")
@@ -145,25 +155,67 @@ proc newModel[N](rt: Scope,
         model.eval = make_eval(funcs, model.x)
 
         model.sess = newSession()
+    
+    rt.check()
 
     if vars.len == 0:
         echo "Warning: Your model has no trainable variables therefore fit will raise an Error!"
         return model
 
     with rtNamed:
-        model.loss = loss.make()(model.eval, model.y)
+        model.loss = loss.fn(model.eval, model.y)
+
+    rt.check()
 
     with rtNamed.newSubScope("Gradients"):
         var grads: OutList
         addSymbolicGradients(model.loss, vars.vvarSeq, grads)
 
+    rt.check()
+
     with rtNamed:
         model.opted = optim.make(vars)(vars, grads)
 
+    rt.check()
+
     model.sess.runSessionVoid(vars.assignSeq)
+
+    rt.check()
 
     for init in optim.init:
         model.sess.runSessionVoid(init)
+
+    rt.check()
+
+    if checkpoints:
+        let tensors = vars.vvarSeq
+
+        for list in optim.vars():
+            for v in list:
+                tensors.add v
+
+        let names = newTensor(TF_STRING, newTensorShape([tensors.len]))
+        var buf = names.flat(newCPPString(""))
+
+        for i in 0..tensors.len-1:
+            buf[i] = newCPPString(tensors[i].name)
+
+        let empty = newTensor(TF_STRING, newTensorShape([tensors.len]))
+
+        with rtNamed:
+            model.save = SaveV2(Const(checkPrefix), Const(names), Const(empty), tensors)
+
+        
+        let dtypes = newArraySlice(float32.tf.repeat(tensors.len))
+
+        with rtNamed:
+            model.restore = RestoreV2(Const(checkPrefix), Const(names), Const(empty), dtypes)
+
+        if restore:
+            var feed: FeedDict
+            model.sess.runSessionVoid(feed, rtNamed.Const(0), model.restore)
+
+    rt.check()
 
     return model
 
@@ -179,7 +231,7 @@ proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
 
         if epoch %% 10 == 0:
             var outputs: TensorVec
-            model.sess.runSession(feed, model.loss, outputs)
+            model.sess.runSession(feed, model.loss, model.save, outputs)
             echo "loss:", outputs[0].flat(0.float32).mean()
     
 proc eval(model: Model, X: Tensor): TensorVec =
