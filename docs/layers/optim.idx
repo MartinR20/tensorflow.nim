@@ -1,5 +1,6 @@
 Optim	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#Optim	optim: Optim	
 make	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#make.e,Optim[N],Scope,seq[T][TVariable]	optim: make[N](optim: Optim[N]; root: Scope; vars: seq[TVariable]): (\n    proc (rt: Scope; input: seq[TVariable]; grads: OutList): OutList)	
+vars	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#vars.e,Optim[N]	optim: vars[N](optim: Optim[N]): array[N, OutList]	
 newAdadelta	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdadelta,float,float,float,float	optim: newAdadelta(lr = 1.0; rho = 0.95; epsilon = 1e-07; decay = 0.0): Adadelta	
 newAdagrad	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdagrad,float,float,float	optim: newAdagrad(lr = 0.01; epsilon = 1e-07; decay = 0.0): Adagrad	
 newAdam	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/optim.html#newAdam,float,float,float,float,float	optim: newAdam(lr = 0.0001; beta1 = 0.9; beta2 = 0.99; epsilon = 1e-07; decay = 0.0; amsgrad = false): Adam	

@@ -1,1 +1,0 @@
-newMaxPool	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/maxpool.html#newMaxPool,seq[T][Layer],array[,int],array[,int],string,string	maxpool: newMaxPool(model: var seq[Layer]; kernel: array[0 .. 1, int];\n           strides: array[0 .. 1, int]; padding = &quot;SAME&quot;; dataFormat = &quot;NHWC&quot;)	

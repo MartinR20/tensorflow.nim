@@ -1,8 +1,8 @@
 TensorShape	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#TensorShape	core: TensorShape	
 newTensorShape	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensorShape,openArray[int]	core: newTensorShape(dims: openArray[int]): TensorShape	
 `$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,TensorShape	core: `$`(shape: TensorShape): string	
-`[]`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],TensorShape,int32	core: `[]`(shape: TensorShape; i: int32): int32	
-dim_size	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#dim_size,TensorShape,int32	core: dim_size(shape: TensorShape; i: int32): int32	
+`[]`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],TensorShape,int	core: `[]`(shape: TensorShape; i: int): int	
+dim_size	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#dim_size,TensorShape,int	core: dim_size(shape: TensorShape; i: int): int	
 dims	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#dims,TensorShape	core: dims(shape: TensorShape): int	
 DType	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#DType	core: DType	
 typeLookUp	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#typeLookUp	core: typeLookUp	
@@ -16,6 +16,14 @@ slice	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/html
 newTensor	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,TensorShape	core: newTensor(dtype: DType; shape: TensorShape): Tensor	
 newTensor	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newTensor,DType,openArray[int]	core: newTensor(dtype: DType; shape: openArray[int]): Tensor	
 `$@`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$@,array[N,T]	core: `$@`[N, T](arr: array[N, T]): Tensor	
+`$@`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$@,T	core: `$@`[T](arr: T): Tensor	
+num_elements	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#num_elements,TensorShape	core: num_elements(sh: TensorShape): int	
+batch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#batch.i,Tensor,int,int	core: batch(ten: Tensor; batchSize: int; len: int): Tensor	
+batch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#batch.i,Tensor,int	core: batch(ten: Tensor; batchSize: int): Tensor	
+batch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#batch.i,Tensor,Tensor,int,int	core: batch(X, Y: Tensor; batchSize: int; len: int): (Tensor, Tensor)	
+batch	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#batch.i,Tensor,Tensor,int	core: batch(X, Y: Tensor; batchSize: int): (Tensor, Tensor)	
+copyFrom	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#copyFrom,Tensor,Tensor,TensorShape	core: copyFrom(to: Tensor; ffrom: Tensor; shape: TensorShape): bool	
+copy	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#copy,Tensor	core: copy(ten: Tensor): Tensor	
 Flat	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Flat	core: Flat	
 flat	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#flat,Tensor,T	core: flat[T](ten: Tensor; x: T): Flat[T]	
 len	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#len,Flat[T]	core: len[T](flat: Flat[T]): int	
@@ -45,6 +53,7 @@ add	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldo
 insert	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#insert,TensorVec,int,Tensor	core: insert(tensorVec: TensorVec; pos: int; ten: Tensor)	
 items	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#items.i,TensorVec	core: items(tens: TensorVec): Tensor	
 Out	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Out	core: Out	
+name	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#name,Out	core: name(o: Out): string	
 OutList	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#OutList	core: OutList	
 newOutList	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newOutList,varargs[Out]	core: newOutList(outs: varargs[Out]): OutList	
 `[]`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[],OutList,int	core: `[]`(outs: OutList; idx: int): Out	
@@ -63,6 +72,7 @@ len	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldo
 asPtr	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#asPtr,ArraySlice[T]	core: asPtr[T](slice: ArraySlice[T]): ptr T	
 `$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#$,ArraySlice[T]	core: `$`[T](slice: ArraySlice[T]): string	
 newArraySlice	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newArraySlice,ArraySlice[string]	core: newArraySlice[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]	
+items	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#items.i,ArraySlice[T]	core: items[T](slice: ArraySlice[T]): T	
 Scope	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Scope	core: Scope	
 newRootScope	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#newRootScope	core: newRootScope(): Scope	
 ok	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#ok,Scope	core: ok(scope: Scope): bool	
@@ -70,6 +80,7 @@ newSubScope	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflo
 withOpName	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#withOpName,Scope,string	core: withOpName(rt: Scope; name: string): Scope	
 withDevice	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#withDevice,Scope,string	core: withDevice(rt: Scope; device: string): Scope	
 Status	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#Status	core: Status	
+logStatus	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#logStatus,Scope	core: logStatus(scope: Scope)	
 with	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#with.m,Scope,untyped	core: with(scope: Scope; body: untyped): untyped	
 GraphDef	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#GraphDef	core: GraphDef	
 toGraphDef	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#toGraphDef,Scope	core: toGraphDef(rt: Scope): GraphDef	
@@ -86,13 +97,18 @@ write_scalar	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorfl
 FeedDict	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#FeedDict	core: FeedDict	
 `[]=`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#[]=,FeedDict,Out,Tensor	core: `[]=`(feed: FeedDict; placeholder: Out; ten: Tensor)	
 clear	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#clear,FeedDict	core: clear(feed: FeedDict)	
+runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,Out,Operation,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: Out; operation: Operation;\n           outputs: TensorVec)	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,Out,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: Out; outputs: TensorVec)	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,Out,TensorVec	core: runSession(sess: Session; graph: Out; outputs: TensorVec)	
+runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,OutList,Operation,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: OutList; operation: Operation;\n           outputs: TensorVec)	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,OutList,TensorVec	core: runSession(sess: Session; feed: FeedDict; graph: OutList; outputs: TensorVec)	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,OutList,TensorVec	core: runSession(sess: Session; graph: OutList; outputs: TensorVec)	
+runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,Operation,	core: runSession(sess: Session; feed: FeedDict; operation: Operation; graph: OutList | Out): TensorVec	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,FeedDict,	core: runSession(sess: Session; feed: FeedDict; graph: OutList | Out): TensorVec	
 runSession	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSession,Session,	core: runSession(sess: Session; graph: OutList | Out): TensorVec	
+runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,Out,Operation	core: runSessionVoid(sess: Session; feed: FeedDict; graph: Out; operation: Operation)	
 runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,Out	core: runSessionVoid(sess: Session; feed: FeedDict; graph: Out)	
 runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,Out	core: runSessionVoid(sess: Session; graph: Out)	
+runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,OutList,Operation	core: runSessionVoid(sess: Session; feed: FeedDict; graph: OutList; operation: Operation)	
 runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,FeedDict,OutList	core: runSessionVoid(sess: Session; feed: FeedDict; graph: OutList)	
 runSessionVoid	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/core/core.html#runSessionVoid,Session,OutList	core: runSessionVoid(sess: Session; graph: OutList)	

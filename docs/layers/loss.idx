@@ -1,4 +1,10 @@
 Loss	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#Loss	loss: Loss	
-make	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#make.e,Loss,Scope	loss: make(loss: Loss; root: Scope): (proc (rt: Scope; y_true, y_pred: Out): Out)	
+`$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#$.e,Loss	loss: `$`(loss: Loss): string	
+fn	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#fn.e,Loss,Scope,Out,Out	loss: fn(loss: Loss; rt: Scope; y_true, y_pred: Out): Out	
+loss	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#loss.m,untyped	loss: loss(x: untyped): untyped	
+MSE	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#MSE	loss: MSE	
 newMSE	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#newMSE	loss: newMSE(): MSE	
+`$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#$.e,MSE	loss: `$`(loss: MSE): string	
+CrossEntropy	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#CrossEntropy	loss: CrossEntropy	
 newCrossEntropy	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#newCrossEntropy	loss: newCrossEntropy(): CrossEntropy	
+`$`	/Users/martin/Documents/Projects/nim/tensorflow/tensorflow/tensorflow/htmldocs/layers/loss.html#$.e,CrossEntropy	loss: `$`(loss: CrossEntropy): string	

@@ -834,6 +834,10 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#Loss"
     title="Loss = ref object of RootObj"><wbr />Loss<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#MSE"
+    title="MSE = ref object of Loss"><wbr />MSE<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#CrossEntropy"
+    title="CrossEntropy = ref object of Loss"><wbr />Cross<wbr />Entropy<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -841,24 +845,32 @@ function main() {
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#newMSE"
-    title="newMSE(): MSE"><wbr />new<wbr />MSE<span class="attachedType"></span></a></li>
+    title="newMSE(): MSE"><wbr />new<wbr />MSE<span class="attachedType">MSE</span></a></li>
   <li><a class="reference" href="#newCrossEntropy"
-    title="newCrossEntropy(): CrossEntropy"><wbr />new<wbr />Cross<wbr />Entropy<span class="attachedType"></span></a></li>
+    title="newCrossEntropy(): CrossEntropy"><wbr />new<wbr />Cross<wbr />Entropy<span class="attachedType">CrossEntropy</span></a></li>
 
   </ul>
 </li>
 <li>
   <a class="reference reference-toplevel" href="#14" id="64">Methods</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#make.e%2CLoss%2CScope"
-    title="make(loss: Loss; root: Scope): (proc (rt: Scope; y_true, y_pred: Out): Out)"><wbr />make<span class="attachedType">Loss</span></a></li>
+      <li><a class="reference" href="#%24.e%2CLoss"
+    title="`$`(loss: Loss): string"><wbr />`$`<span class="attachedType">Loss</span></a></li>
+  <li><a class="reference" href="#fn.e%2CLoss%2CScope%2COut%2COut"
+    title="fn(loss: Loss; rt: Scope; y_true, y_pred: Out): Out"><wbr />fn<span class="attachedType">Loss</span></a></li>
+  <li><a class="reference" href="#%24.e%2CMSE"
+    title="`$`(loss: MSE): string"><wbr />`$`<span class="attachedType">MSE</span></a></li>
+  <li><a class="reference" href="#%24.e%2CCrossEntropy"
+    title="`$`(loss: CrossEntropy): string"><wbr />`$`<span class="attachedType">CrossEntropy</span></a></li>
 
   </ul>
 </li>
 <li>
-  <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
+  <a class="reference reference-toplevel" href="#17" id="67">Macros</a>
   <ul class="simple simple-toc-section">
-    
+      <li><a class="reference" href="#loss.m%2Cuntyped"
+    title="loss(x: untyped): untyped"><wbr />loss<span class="attachedType"></span></a></li>
+
   </ul>
 </li>
 
@@ -885,23 +897,37 @@ function main() {
 The base type for all loss functions.
 
 </dd>
+<a id="MSE"></a>
+<dt><pre><a href="loss.html#MSE"><span class="Identifier">MSE</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="CrossEntropy"></a>
+<dt><pre><a href="loss.html#CrossEntropy"><span class="Identifier">CrossEntropy</span></a> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
 <a id="newMSE"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newMSE"><span class="Identifier">newMSE</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">MSE</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#newMSE"><span class="Identifier">newMSE</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="loss.html#MSE"><span class="Identifier">MSE</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-Procedure that creates an MSELoss for the compile function.
+
 
 </dd>
 <a id="newCrossEntropy"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#newCrossEntropy"><span class="Identifier">newCrossEntropy</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">CrossEntropy</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#newCrossEntropy"><span class="Identifier">newCrossEntropy</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <a href="loss.html#CrossEntropy"><span class="Identifier">CrossEntropy</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-Procedure that creates an MSELoss for the compile function.
+
 
 </dd>
 
@@ -909,20 +935,48 @@ Procedure that creates an MSELoss for the compile function.
 <div class="section" id="14">
 <h1><a class="toc-backref" href="#14">Methods</a></h1>
 <dl class="item">
-<a id="make.e,Loss,Scope"></a>
-<dt><pre><span class="Keyword">method</span> <a href="#make.e%2CLoss%2CScope"><span class="Identifier">make</span></a><span class="Other">(</span><span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a><span class="Other">;</span> <span class="Identifier">root</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">y_true</span><span class="Other">,</span> <span class="Identifier">y_pred</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">base</span><span class="Other">,</span>
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="$.e,Loss"></a>
+<dt><pre><span class="Keyword">method</span> <a href="#%24.e%2CLoss"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">base</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="fn.e,Loss,Scope,Out,Out"></a>
+<dt><pre><span class="Keyword">method</span> <a href="#fn.e%2CLoss%2CScope%2COut%2COut"><span class="Identifier">fn</span></a><span class="Other">(</span><span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#Loss"><span class="Identifier">Loss</span></a><span class="Other">;</span> <span class="Identifier">rt</span><span class="Other">:</span> <a href="../core/core.html#Scope"><span class="Identifier">Scope</span></a><span class="Other">;</span> <span class="Identifier">y_true</span><span class="Other">,</span> <span class="Identifier">y_pred</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a><span class="Other">)</span><span class="Other">:</span> <a href="../core/core.html#Out"><span class="Identifier">Out</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">base</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 The make method is intended for all the setup of your loss function that requires a scope and should be overloaded for all loss functions.
 
 </dd>
+<a id="$.e,MSE"></a>
+<dt><pre><span class="Keyword">method</span> <a href="#%24.e%2CMSE"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#MSE"><span class="Identifier">MSE</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="$.e,CrossEntropy"></a>
+<dt><pre><span class="Keyword">method</span> <a href="#%24.e%2CCrossEntropy"><span class="Identifier">`$`</span></a><span class="Other">(</span><span class="Identifier">loss</span><span class="Other">:</span> <a href="loss.html#CrossEntropy"><span class="Identifier">CrossEntropy</span></a><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
-<div class="section" id="19">
-<h1><a class="toc-backref" href="#19">Exports</a></h1>
+<div class="section" id="17">
+<h1><a class="toc-backref" href="#17">Macros</a></h1>
 <dl class="item">
-<a href="loss.html#Loss"><span class="Identifier">Loss</span></a>, <a href="loss.html#make"><span class="Identifier">make</span></a>, <a href="loss.html#make"><span class="Identifier">make</span></a>, <a href="loss.html#make"><span class="Identifier">make</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#$"><span class="Identifier">$</span></a>, <a href="../utils/utils.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="../core/core.html#$"><span class="Identifier">$</span></a>, <a href="loss.html#MSE"><span class="Identifier">MSE</span></a>, <a href="loss.html#newMSE"><span class="Identifier">newMSE</span></a>, <a href="loss.html#CrossEntropy"><span class="Identifier">CrossEntropy</span></a>, <a href="loss.html#newCrossEntropy"><span class="Identifier">newCrossEntropy</span></a>
+<a id="loss.m,untyped"></a>
+<dt><pre><span class="Keyword">macro</span> <a href="#loss.m%2Cuntyped"><span class="Identifier">loss</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
+<dd>
+
+
+
+</dd>
+
 </dl></div>
 
   </div>
@@ -932,7 +986,7 @@ The make method is intended for all the setup of your loss function that require
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-18 16:36:19 UTC</small>
       </div>
     </div>
   </div>

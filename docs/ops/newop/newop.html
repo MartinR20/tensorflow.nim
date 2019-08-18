@@ -830,14 +830,6 @@ function main() {
   </ul>
 </li>
 <li>
-  <a class="reference reference-toplevel" href="#17" id="67">Macros</a>
-  <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#grad.m%2Cuntyped"
-    title="grad(x: untyped): untyped"><wbr />grad<span class="attachedType"></span></a></li>
-
-  </ul>
-</li>
-<li>
   <a class="reference reference-toplevel" href="#19" id="69">Exports</a>
   <ul class="simple simple-toc-section">
     
@@ -854,24 +846,12 @@ function main() {
   <div class="section" id="6">
 <h1><a class="toc-backref" href="#6">Imports</a></h1>
 <dl class="item">
-<a class="reference external" href="../../core/core.html">../../core/core</a>, <a class="reference external" href="../../utils/utils.html">../../utils/utils</a>
-</dl></div>
-<div class="section" id="17">
-<h1><a class="toc-backref" href="#17">Macros</a></h1>
-<dl class="item">
-<a id="grad.m,untyped"></a>
-<dt><pre><span class="Keyword">macro</span> <a href="#grad.m%2Cuntyped"><span class="Identifier">grad</span></a><span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
-<dd>
-
-
-
-</dd>
-
+<a class="reference external" href="exportOp.html">exportOp</a>, <a class="reference external" href="exsistingOp.html">exsistingOp</a>, <a class="reference external" href="newgrad.html">newgrad</a>, <a class="reference external" href="register_context.html">register_context</a>, <a class="reference external" href="register.html">register</a>
 </dl></div>
 <div class="section" id="19">
 <h1><a class="toc-backref" href="#19">Exports</a></h1>
 <dl class="item">
-<a href="newop.html#CPU"><span class="Identifier">CPU</span></a>, <a href="newop.html#GPU"><span class="Identifier">GPU</span></a>, <a href="newop.html#OpDefBuilderWrapper"><span class="Identifier">OpDefBuilderWrapper</span></a>, <a href="../../core/core.html#Status"><span class="Identifier">Status</span></a>, <a href="../../core/core.html#ok"><span class="Identifier">ok</span></a>, <a href="../../core/core.html#ok"><span class="Identifier">ok</span></a>, <a href="newop.html#MakeOpType"><span class="Identifier">MakeOpType</span></a>, <a href="newop.html#attr"><span class="Identifier">attr</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="../../core/core.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#output"><span class="Identifier">output</span></a>, <a href="newop.html#output"><span class="Identifier">output</span></a>, <a href="../../core/core.html#output"><span class="Identifier">output</span></a>, <a href="newop.html#setIsCommutative"><span class="Identifier">setIsCommutative</span></a>, <a href="newop.html#setIsAggregate"><span class="Identifier">setIsAggregate</span></a>, <a href="newop.html#setIsStateful"><span class="Identifier">setIsStateful</span></a>, <a href="newop.html#setAllowsUninitializedInput"><span class="Identifier">setAllowsUninitializedInput</span></a>, <a href="newop.html#deprecated"><span class="Identifier">deprecated</span></a>, <a href="newop.html#doc"><span class="Identifier">doc</span></a>, <a href="newop.html#tfexport"><span class="Identifier">tfexport</span></a>, <a href="newop.html#lookUp"><span class="Identifier">lookUp</span></a>, <a href="newop.html#InferenceContext"><span class="Identifier">InferenceContext</span></a>, <a href="newop.html#setShapeFn"><span class="Identifier">setShapeFn</span></a>, <a href="newop.html#set_output"><span class="Identifier">set_output</span></a>, <a href="newop.html#set_output"><span class="Identifier">set_output</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="../../core/core.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#OpKernel"><span class="Identifier">OpKernel</span></a>, <a href="newop.html#REGISTER_KERNEL_BUILDER"><span class="Identifier">REGISTER_KERNEL_BUILDER</span></a>, <a href="newop.html#name"><span class="Identifier">name</span></a>, <a href="newop.html#device"><span class="Identifier">device</span></a>, <a href="newop.html#OpKernelContext"><span class="Identifier">OpKernelContext</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#input"><span class="Identifier">input</span></a>, <a href="../../core/core.html#input"><span class="Identifier">input</span></a>, <a href="newop.html#allocate_output"><span class="Identifier">allocate_output</span></a>, <a href="newop.html#OP_REQUIRES_OK"><span class="Identifier">OP_REQUIRES_OK</span></a>, <a href="newop.html#nograd"><span class="Identifier">nograd</span></a>, <a href="newop.html#grad"><span class="Identifier">grad</span></a>
+<a href="exportOp.html#GPU"><span class="Identifier">GPU</span></a>, <a href="exportOp.html#CPU"><span class="Identifier">CPU</span></a>, <a class="reference external" href="exportOp.html">exportOp</a>, <a href="exportOp.html#tfexport"><span class="Identifier">tfexport</span></a>, <a href="exsistingOp.html#makeExsistingOp"><span class="Identifier">makeExsistingOp</span></a>, <a class="reference external" href="exsistingOp.html">exsistingOp</a>, <a href="newgrad.html#nograd"><span class="Identifier">nograd</span></a>, <a class="reference external" href="newgrad.html">newgrad</a>, <a href="newgrad.html#grad"><span class="Identifier">grad</span></a>, <a href="register_context.html#OpKernelContext"><span class="Identifier">OpKernelContext</span></a>, <a href="register_context.html#input"><span class="Identifier">input</span></a>, <a href="register_context.html#allocate_output"><span class="Identifier">allocate_output</span></a>, <a href="register_context.html#InferenceContext"><span class="Identifier">InferenceContext</span></a>, <a href="register_context.html#output"><span class="Identifier">output</span></a>, <a href="register_context.html#input"><span class="Identifier">input</span></a>, <a href="../../core/core.html#output"><span class="Identifier">output</span></a>, <a href="register_context.html#OP_REQUIRES_OK"><span class="Identifier">OP_REQUIRES_OK</span></a>, <a class="reference external" href="register_context.html">register_context</a>, <a href="../../core/core.html#input"><span class="Identifier">input</span></a>, <a href="register_context.html#set_output"><span class="Identifier">set_output</span></a>, <a href="register_context.html#set_output"><span class="Identifier">set_output</span></a>, <a href="register.html#REGISTER_KERNEL_BUILDER"><span class="Identifier">REGISTER_KERNEL_BUILDER</span></a>, <a href="register.html#setIsAggregate"><span class="Identifier">setIsAggregate</span></a>, <a href="register.html#input"><span class="Identifier">input</span></a>, <a href="register.html#setShapeFn"><span class="Identifier">setShapeFn</span></a>, <a href="register.html#attr"><span class="Identifier">attr</span></a>, <a href="register.html#setAllowsUninitializedInput"><span class="Identifier">setAllowsUninitializedInput</span></a>, <a href="register.html#REGISTER_OP"><span class="Identifier">REGISTER_OP</span></a>, <a href="register.html#doc"><span class="Identifier">doc</span></a>, <a href="register_context.html#output"><span class="Identifier">output</span></a>, <a href="register_context.html#input"><span class="Identifier">input</span></a>, <a href="register.html#deprecated"><span class="Identifier">deprecated</span></a>, <a href="register.html#setIsCommutative"><span class="Identifier">setIsCommutative</span></a>, <a href="../../core/core.html#output"><span class="Identifier">output</span></a>, <a href="../../core/core.html#input"><span class="Identifier">input</span></a>, <a href="register.html#output"><span class="Identifier">output</span></a>, <a class="reference external" href="register.html">register</a>, <a href="register_context.html#input"><span class="Identifier">input</span></a>, <a href="register.html#setIsStateful"><span class="Identifier">setIsStateful</span></a>, <a href="register.html#lookUp"><span class="Identifier">lookUp</span></a>
 </dl></div>
 
   </div>
@@ -881,7 +861,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-08-10 22:18:23 UTC</small>
+        <small>Made with Nim. Generated: 2019-08-18 16:36:19 UTC</small>
       </div>
     </div>
   </div>
