@@ -769,6 +769,11 @@ type
          importcpp: "tensorflow::Output".} = object
     ## The Out Type is a pure wrapper around the c++ Output type.
 
+proc iname(o: Out): cppstring {.importcpp:"#.name()".}
+
+proc name*(o: Out): string =
+  return $o.iname()
+    
 ## OutList related definitions
 type
   OutList* {.header: std_ops,
