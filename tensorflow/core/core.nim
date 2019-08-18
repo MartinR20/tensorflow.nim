@@ -1383,6 +1383,19 @@ proc clear*(feed: FeedDict) {.importcpp:"#.clear()".}
 
   ## Remove all items from the dict.
 
+proc runSession*(sess: Session, feed: FeedDict, graph: Out, operation: Operation, outputs: TensorVec) {.header: client_session,
+  importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, {#}, &#))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   operation: Interface to run an operation without an output
+  ##   outputs: A TensorVec holding the result of the computations.
+
+
 proc runSession*(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) {.header: client_session,
                                                                                 importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, &#))".}
 
@@ -1402,6 +1415,18 @@ proc runSession*(sess: Session, graph: Out, outputs: TensorVec) {.header: client
   ## Args:
   ##   sess: The Session returned from the current Scope.
   ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   outputs: A TensorVec holding the result of the computations.
+
+proc runSession*(sess: Session, feed: FeedDict, graph: OutList, operation: Operation, outputs: TensorVec) {.header: client_session,
+  importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, {#}, &#))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   operation: Interface to run an operation without an output
   ##   outputs: A TensorVec holding the result of the computations.
 
 proc runSession*(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorVec) {.header: client_session,
@@ -1425,6 +1450,11 @@ proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: cl
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
+proc runSession*(sess: Session, feed: FeedDict, operation: Operation, graph: OutList | Out): TensorVec =
+  var outputs: TensorVec
+  sess.runSession(graph, feed, operation, outputs)
+  return outputs
+
 proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out): TensorVec =
   var outputs: TensorVec
   sess.runSession(graph, feed, outputs)
@@ -1434,6 +1464,17 @@ proc runSession*(sess: Session, graph: OutList | Out): TensorVec =
   var outputs: TensorVec
   sess.runSession(graph, outputs)
   return outputs
+
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out, operation: Operation) {.header: client_session,
+  importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, {#}, nullptr))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   operation: Interface to run an operation without an output
 
 proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
                                                                  importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))".}
@@ -1453,6 +1494,17 @@ proc runSessionVoid*(sess: Session, graph: Out) {.header: client_session,
   ## Args:
   ##   sess: The Session returned from the current Scope.
   ##   graph: The Out/ OutList representing the computations that should be performed.
+
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList, operation: Operation) {.header: client_session,
+  importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, {#}, nullptr))".}
+
+  ## A Method to run computations previously definied.
+  ## 
+  ## Args:
+  ##   sess: The Session returned from the current Scope.
+  ##   feed: The FeedDict linking Out and Tensor.
+  ##   graph: The Out/ OutList representing the computations that should be performed.
+  ##   operation: Interface to run an operation without an output
 
 proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList) {.header: client_session,
                                                                      importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, #, nullptr))".}
