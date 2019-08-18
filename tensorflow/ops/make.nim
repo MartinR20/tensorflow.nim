@@ -1,6 +1,7 @@
 import strutils
 import tables
 import sequtils
+import os
 
 #TODO: refactor
 
@@ -18,7 +19,7 @@ let inLookUp = {"::tensorflow::Input":"Out",
                 "DataType":"core.DType",
                 "PartialTensorShape":"TensorShape",
                 "::tensorflow::InputList":"InList",
-                "const DataTypeSlice":"core.DType",
+                "const DataTypeSlice":"ArraySlice[core.DType]",
                 "StringPiece":"cppstring"
                }.newTable
 let argTranslate = {"type":"ttype", 
@@ -33,6 +34,10 @@ var outType = ""
 var outName = ""
 var func_name = "Attrs"
 var args: seq[(string,string)] = @[]
+
+for file in walkFiles("./generated/*.nim"):
+    removeFile(file)
+
 let struct = open("./generated/structs.nim", fmWrite)
 struct.writeLine("import ../../core/core")
 struct.writeLine("import ../../utils/utils")
@@ -62,7 +67,7 @@ proc finish() =
         elif outType != "":
             lastFile.write("): " & outType & " {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(" & cargs & ")\".}\n")
         else:
-            lastFile.write(") {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(" & cargs & ")\".}\n")
+            lastFile.write("): Operation {.header:std_ops, importcpp:\"tensorflow::ops::" & func_name & "(" & cargs & ").operation\".}\n")
 
         lastFile.writeLine("")
 
@@ -73,7 +78,9 @@ for line in def.split("\n"):
             func_name = "Attrs"            
             lastFile.close()
 
-        lastFile = open("./generated/" & line.split(" ")[1] & ".nim", fmWrite)
+        let filename = "./generated/" & line.split(" ")[1] & ".nim"           
+
+        lastFile = open(filename, fmWrite)
         lastFile.writeLine("import ../../core/core")
         lastFile.writeLine("import ../../utils/utils")
         lastFile.writeLine("import ./structs")

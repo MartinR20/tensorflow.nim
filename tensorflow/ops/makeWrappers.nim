@@ -209,3 +209,11 @@ for file in walkFiles("./generated/*.nim"):
 
         makeExports(currFile, funcHistory)
     
+var files: seq[string]
+
+for file in walkFiles("./generated/*.nim"):
+    files.add(file[12..^5])
+
+let exportFile = open("./generated/generated.nim", fmWrite)
+exportFile.writeLine("import ./" & files.join(",\n       ./"))
+exportFile.writeLine("\nexport " & files.join(",\n       "))
