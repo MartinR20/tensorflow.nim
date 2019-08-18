@@ -878,54 +878,6 @@ proc newInList*(tens: varargs[Tensor]): InList =
   ## Returns:
   ##   An InList with the given Tensors objects.
 
-type
-  Operation {.header: gradients,
-              importcpp: "tensorflow::Operation".} = object
-
-proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
-
-proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
-
-proc input(op: Operation, i: int): Out {.importcpp:"#.input(#)".}
-
-proc inputs(op: Operation, rng: HSlice[int, int]): OutList =
-  var inputs: OutList
-  
-  for i in rng:
-    inputs.add op.input(i)
-
-  return inputs
-
-proc inputs(op: Operation): OutList =
-  var inputs: OutList
-  
-  for i in 0..op.num_inputs-1:
-    inputs.add op.input(i)
-
-  return inputs
-
-proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
-
-proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
-
-proc output(op: Operation, i: int): Out {.importcpp:"#.output(#)".}
-
-proc outputs(op: Operation, rng: HSlice[int, int]): OutList =
-  var outputs: OutList
-  
-  for i in rng:
-    outputs.add op.output(i)
-
-  return outputs
-
-proc outputs(op: Operation): OutList =
-  var outputs: OutList
-  
-  for i in 0..op.num_outputs-1:
-    outputs.add op.output(i)
-
-  return outputs
-
 ## ArraySlice related definitions
 
 type
@@ -1033,6 +985,60 @@ proc newArraySlice*[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring]
   ##   slice: The ArraySlice[string] it is applied on.
   ## Returns:
   ##   A new ArraySlice[cppstring] holding the data from the input ArraySlice[string].
+
+iterator items*[T](slice: ArraySlice[T]): T =
+  var i: cint = 0
+  while i <= slice.len()-1:
+    yield slice[i]
+    inc i
+
+type
+  Operation {.header: gradients,
+              importcpp: "tensorflow::Operation".} = object
+
+proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
+
+proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
+
+proc input(op: Operation, i: int): Out {.importcpp:"#.input(#)".}
+
+proc inputs(op: Operation, rng: HSlice[int, int]): OutList =
+  var inputs: OutList
+  
+  for i in rng:
+    inputs.add op.input(i)
+
+  return inputs
+
+proc inputs(op: Operation): OutList =
+  var inputs: OutList
+  
+  for i in 0..op.num_inputs-1:
+    inputs.add op.input(i)
+
+  return inputs
+
+proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
+
+proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
+
+proc output(op: Operation, i: int): Out {.importcpp:"#.output(#)".}
+
+proc outputs(op: Operation, rng: HSlice[int, int]): OutList =
+  var outputs: OutList
+  
+  for i in rng:
+    outputs.add op.output(i)
+
+  return outputs
+
+proc outputs(op: Operation): OutList =
+  var outputs: OutList
+  
+  for i in 0..op.num_outputs-1:
+    outputs.add op.output(i)
+
+  return outputs
 
 ## Scope related definitions
 type
