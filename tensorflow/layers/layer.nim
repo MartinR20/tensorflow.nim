@@ -41,18 +41,19 @@ type Layer* = ref object of RootObj
     ## Variables append them to the train sequence.
 
     train*: seq[TVariable]
+    outsize*: seq[int]
 
 method `$`*(layer: Layer): string {.base.} = "Layer"
 
     ## String conversion method to give your Layer a string representation when the model is printed.
 
-method make*(layer: Layer, root: Scope): (proc(rt: Scope, input: Out): Out) {.base.} = 
+method make*(layer: Layer, root: Scope, shape: var seq[int]): (proc(rt: Scope, input: Out): Out) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for Layer " & $layer & ".")
 
     ## The make method is intended for all the setup of your layer like creating variables or 
     ## doing operations that require a scope. This method should be overloaded for all non JoinLayers.
 
-method makeJoin*(layer: Layer, root: Scope): (proc(rt: Scope, input: OutList): Out) {.base.} = 
+method makeJoin*(layer: Layer, root: Scope, shape: var seq[seq[int]]): (proc(rt: Scope, input: OutList): Out) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `makeJoin` for your Layer or use a Joinfunction when branching")
 
     ## The makeJoin method is intended for all the setup of your JoinLayer that requires a scope. 
@@ -71,6 +72,10 @@ method getBranchSwitch(layer: Layer): bool {.base.} =
     raise newException(ValueError, "Trying to call `getBranchSwitch` for none branchlayer")
 
     ## The getBranchSwitch method indicates wether a branch layer opens or closes a branch.
+
+proc dimCheck(layer: Layer, insize: seq[int], dims: int) = 
+    assert insize.len == dims, "The input shape for the layer " & $layer & " should have " & 
+                                $dims & " dimensions but has " & $insize.len & "!"
 
 proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]], 
                           joinFunc: proc(rt: Scope, input: OutList): Out): proc(rt: Scope, input: Out): Out{.closure.} =
@@ -187,18 +192,19 @@ proc eval(model: Model, X: Tensor): TensorVec =
 
     return outputs
 
-proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): Model = 
+proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N], inputShape: openArray[int]): Model = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
     var vars: seq[TVariable]
+    var inShape = @[inputShape.toSeq]
 
     for layer in layers:
-
         if isBranch(layer):
             let switch = getBranchSwitch(layer)
             
             if switch:
+                inShape.add(inShape[0])
                 branchFuncs.add(@[])
 
                 start.add(branchFuncs.len)
@@ -214,11 +220,15 @@ proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): 
 
                 var b = branchFuncs.len-1
 
-                ffunc = branchFuncs[a..b].makeBranch(layer.makeJoin(root))
+                # plus one because the first shape is always the base shape
+                var tmp = inShape[a+1..b+1]
+                ffunc = branchFuncs[a..b].makeBranch(layer.makeJoin(root, tmp))
                 branchFuncs.delete(a, b)
+                inShape.delete(a+1, b+1)
+                inShape[^1] = tmp[0]
 
             else:
-                ffunc = layer.make(root)
+                ffunc = layer.make(root, inShape[^1])
 
             if start.len > 0:
                 branchFuncs[^1].add(ffunc)
@@ -251,6 +261,8 @@ proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N]): 
 
 export Layer,
        `$`,
+       input,
+       dimCheck,
        compile,
        Model,
        fit,
