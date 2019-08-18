@@ -420,6 +420,15 @@ iterator batch*(X, Y: Tensor, batchSize: int): (Tensor, Tensor) =
   ##   A (X, Y) Tensor tuple holding slices of the given Tensors
   ##   with the given batchSizes
 
+proc copyFrom*(to: Tensor, ffrom: Tensor, shape: TensorShape): bool {.importcpp:"#->CopyFrom(*#, #)".}
+
+proc copy*(ten: Tensor): Tensor = 
+    let sh = ten.shape
+    var newTen = newTensor(ten.dtype, sh)
+
+    discard newTen.copyFrom(ten, ten.shape)
+
+    return newTen
 
 ## Flat related definitions
 type
