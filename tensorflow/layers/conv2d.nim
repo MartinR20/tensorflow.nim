@@ -34,6 +34,10 @@ method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels &
                                              ", kernel:" & $layer.kernel & 
                                              ", strides:" & $layer.strides[1..^2] & ")"
 
+# Has to be globally allocated because it seqfaults otherwise
+var padding: cppstring
+var dataformat: cppstring
+
 method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out =
     layer.dimCheck(shape, 4)
     layer.inChannels = shape[3]
@@ -65,14 +69,15 @@ method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, in
 
     let strides = newArraySlice(layer.strides)
     # TODO: fix wrappes to not use cppString in the wrapper
-    let padding = newCPPString(layer.padding)
+    padding = newCPPString(layer.padding)
+    dataformat = newCPPString(layer.dataFormat)
 
     return proc(rt: Scope, input: Out): Out =
                 let rtNamed = rt.newSubScope(shortLayerName)
 
                 # TODO: make cppstring not go out of scope in the wrapper
                 var attrs = Conv2DAttrs()
-                attrs = attrs.DataFormat(newCPPString(layer.dataFormat))
+                attrs = attrs.DataFormat(dataformat)
                 attrs = attrs.Dilations(newArraySlice(layer.dilations))
                 attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
 
@@ -117,6 +122,10 @@ method `$`(layer: TransposeConv2D): string = "TransposeConv2D(in:" & $layer.inCh
                                                            ", strides:" & $layer.strides[1..^2] &
                                                            ", out_shape:" & $layer.out_shape[1..^2] & ")"
 
+# Has to be globally allocated because it seqfaults otherwise
+var paddingT: cppstring
+var dataformatT: cppstring
+
 method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     #TODO: make right output size
     let shortLayerName = "TransposeConv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
@@ -132,14 +141,15 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
 
     let strides = newArraySlice(layer.strides)
     # TODO: fix wrappes to not use cppString in the wrapper
-    let padding = newCPPString(layer.padding)
+    paddingT = newCPPString(layer.padding)
+    dataformatT = newCPPString(layer.dataFormat)
 
     return proc(rt: Scope, input: Out): Out =
                 let rtNamed = rt.newSubScope(shortLayerName)
 
                 # TODO: make cppstring not go out of scope in the wrapper
                 var attrs = Conv2DBackpropInputAttrs()
-                attrs = attrs.DataFormat(newCPPString(layer.dataFormat))
+                attrs = attrs.DataFormat(dataformatT)
                 attrs = attrs.Dilations(newArraySlice(layer.dilations))
                 attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
 
@@ -147,7 +157,7 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
                                                     layer.train[0].vvar, 
                                                     input, 
                                                     strides, 
-                                                    padding, 
+                                                    paddingT, 
                                                     attrs)
 
 proc newTransposeConv2D*(model: var seq[Layer], 

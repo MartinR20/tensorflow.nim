@@ -30,14 +30,9 @@ type
 
     ## thin wrapper around a cppstring only for internal use
 
-proc newCPPString*(str: ptr char): cppstring {.header:"<string>", importcpp:"std::string(#)".}
+proc newCPPString*(str: cstring): cppstring {.header:"<string>", importcpp:"std::string(#)".}
 
-  ## create cppstring from char pointer
-
-proc newCPPString*(str: string): cppstring = 
-  return newCPPString(unsafeAddr(str[0]))
-
-  ## create cppstring from nim string
+  ## create cppstring from cstring
 
 proc len*(str: cppstring): clong {.importcpp: "(long)#.size()".}
 

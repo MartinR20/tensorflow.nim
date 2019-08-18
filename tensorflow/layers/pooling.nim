@@ -15,6 +15,9 @@ template PoolingLayer(name: untyped, newfn: untyped, varname: untyped) =
     method `$`(layer: name): string = $name & "(kernel:" & $layer.kernel[1..^2] & 
                                                 ", strides:" & $layer.strides[1..^2] & ")"
 
+    var `padding name`: cppstring
+    var `dataformat name`: cppstring
+
     method make(layer: name, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
         layer.dimCheck(shape, 4)
 
@@ -36,17 +39,18 @@ template PoolingLayer(name: untyped, newfn: untyped, varname: untyped) =
         let kernel = newArraySlice(layer.kernel)
         let strides = newArraySlice(layer.strides)
         # TODO: fix wrappes to not use cppString in the wrapper
-        let padding = newCPPString(layer.padding)
+        `padding name` = newCPPString(layer.padding)
+        `dataformat name` = newCPPString(layer.dataFormat)
 
         return proc(rt: Scope, input: Out): Out =
                     # TODO: make cppstring not go out of scope in the wrapper
                     var attrs = `name Attrs`()
-                    attrs = attrs.DataFormat(newCPPString(layer.dataFormat))
+                    attrs = attrs.DataFormat(`dataformat name`)
 
                     return rt.`name`(input, 
                                     kernel, 
                                     strides, 
-                                    padding, 
+                                    `padding name`, 
                                     attrs)
 
     proc newfn*(model: var seq[Layer], 
