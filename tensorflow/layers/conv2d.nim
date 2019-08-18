@@ -1,4 +1,4 @@
-## The Conv2d Layer applies a 2D convolution operation with the given inChannels, outChannels, 
+## The Conv2d Layer applies a 2D convolution operation with the given outChannels, 
 ## kernelsize, stride and padding.
 ##
 ## Example:
@@ -7,8 +7,8 @@
 ##
 ##    var proto: seq[Layer] = @[]
 ##
-##    # convolution with 3 inChannels, 3 outChannels, a 3x3 kernelsize and a 2x2 stride
-##    proto.newConv2d(3, 3, [3, 3], [2, 2])
+##    # convolution with 3 outChannels, a 3x3 kernelsize and a 2x2 stride
+##    proto.newConv2d(3, [3, 3], [2, 2])
 
 import options
 import ../utils/utils
@@ -245,6 +245,17 @@ proc newUpSampling2D*(model: var seq[Layer],
     
     model.add(upsampling2D)
 
+    ## The UpSampling2D Layer applies a resize operation with the given size multiple (HxW) and interpolation method
+    ## being one of Area, Bilinear, Bicubic and NearestNeighbor.
+    ##
+    ## Example:
+    ##
+    ## .. code:: nim
+    ##
+    ##    var proto: seq[Layer] = @[]
+    ##
+    ##    # Resize Image to twice the size with Area Interpolation
+    ##    proto.newResize([2, 2], Area)
 
 type Resize2D = ref object of Layer
     size: array[0..1, int]
@@ -295,6 +306,17 @@ proc newResize2D*(model: var seq[Layer],
     
     model.add(resize2d)
 
+    ## The Resize2D Layer applies a resize operation with the size (HxW) and interpolation method
+    ## being one of Area, Bilinear, Bicubic and NearestNeighbor.
+    ##
+    ## Example:
+    ##
+    ## .. code:: nim
+    ##
+    ##    var proto: seq[Layer] = @[]
+    ##
+    ##    # Resize Image to 640x480 with Area Interpolation
+    ##    proto.newResize([640, 480], Area)
 
 export Conv2d,
        TransposeConv2D,

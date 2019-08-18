@@ -10,7 +10,7 @@
 ##    
 ##    method `$`(layer: AddValue): string = "AddValue"
 ##    
-##    method make(layer: AddValue, root: Scope): proc(rt: Scope, input: Out): Out = 
+##    method make(layer: AddValue, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
 ##        # in this context use root as Scope
 ##        # this is only the setup context preparing your computation
 ##        let value = root.Const(addvalue.value)
@@ -143,7 +143,7 @@ proc newModel[N](rt: Scope,
               vars: seq[TVariable],
               checkpoints=true,
               checkPrefix="checkpoints/checkpoint",
-              restore=true): Model =
+              restore=false): Model =
     var model = new Model
 
     let rtNamed = rt.newSubScope("fit")
@@ -244,7 +244,14 @@ proc eval(model: Model, X: Tensor): TensorVec =
 
     return outputs
 
-proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N], inputShape: openArray[int]): Model = 
+proc compile*[N](layers: seq[Layer], 
+                 root: Scope, 
+                 loss: Loss, 
+                 optim: Optim[N], 
+                 inputShape: openArray[int],
+                 checkpoints=true,
+                 checkPrefix="checkpoints/checkpoint",
+                 restore=false): Model = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
     var start: seq[int] # stack to track index in branchFuncs
@@ -290,7 +297,7 @@ proc compile*[N](layers: seq[Layer], root: Scope, loss: Loss, optim: Optim[N], i
         for i in 0..layer.train.len-1:
             vars.add(layer.train[i])
 
-    return newModel(root, funcs, loss, optim, vars)
+    return newModel(root, funcs, loss, optim, vars, checkpoints, checkPrefix, restore)
 
     ## The compile procedure is the function that turns your model into an actual sequence of operations and returns
     ## a fit and eval method to train your model and afterward evaluate its performence. Beware this interface will
