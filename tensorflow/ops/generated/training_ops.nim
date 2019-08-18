@@ -32,53 +32,53 @@ proc iApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, 
 
 proc iApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ApplyRMSPropAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::ApplyRMSProp(*#, #, #, #, #, #, #, #, #, #)".}
 
-proc iResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdadeltaAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdadelta(*#, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdadeltaAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdadelta(*#, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, attrs: ResourceApplyAdagradAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdagrad(*#, #, #, #, #, #)".}
+proc iResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, attrs: ResourceApplyAdagradAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdagrad(*#, #, #, #, #, #).operation".}
 
-proc iResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceApplyAdagradDAAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdagradDA(*#, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceApplyAdagradDAAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdagradDA(*#, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdamAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdam(*#, #, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdamAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAdam(*#, #, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyAddSignAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAddSign(*#, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyAddSignAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyAddSign(*#, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyCenteredRMSPropAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyCenteredRMSProp(*#, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyCenteredRMSPropAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyCenteredRMSProp(*#, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceApplyFtrlAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyFtrl(*#, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceApplyFtrlAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyFtrl(*#, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceApplyFtrlV2Attrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyFtrlV2(*#, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceApplyFtrlV2Attrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyFtrlV2(*#, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, attrs: ResourceApplyGradientDescentAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyGradientDescent(*#, #, #, #, #)".}
+proc iResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, attrs: ResourceApplyGradientDescentAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyGradientDescent(*#, #, #, #, #).operation".}
 
-proc iResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, attrs: ResourceApplyMomentumAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyMomentum(*#, #, #, #, #, #, #)".}
+proc iResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, attrs: ResourceApplyMomentumAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyMomentum(*#, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyPowerSignAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyPowerSign(*#, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyPowerSignAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyPowerSign(*#, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, attrs: ResourceApplyProximalAdagradAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyProximalAdagrad(*#, #, #, #, #, #, #, #)".}
+proc iResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, attrs: ResourceApplyProximalAdagradAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyProximalAdagrad(*#, #, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, attrs: ResourceApplyProximalGradientDescentAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyProximalGradientDescent(*#, #, #, #, #, #, #)".}
+proc iResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, attrs: ResourceApplyProximalGradientDescentAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyProximalGradientDescent(*#, #, #, #, #, #, #).operation".}
 
-proc iResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyRMSPropAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyRMSProp(*#, #, #, #, #, #, #, #, #, #)".}
+proc iResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyRMSPropAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceApplyRMSProp(*#, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdadeltaAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdadelta(*#, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdadeltaAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdadelta(*#, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdagradAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdagrad(*#, #, #, #, #, #, #)".}
+proc iResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdagradAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdagrad(*#, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceSparseApplyAdagradDAAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdagradDA(*#, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceSparseApplyAdagradDAAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyAdagradDA(*#, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyCenteredRMSPropAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyCenteredRMSProp(*#, #, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyCenteredRMSPropAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyCenteredRMSProp(*#, #, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyFtrl(*#, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyFtrl(*#, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlV2Attrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyFtrlV2(*#, #, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlV2Attrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyFtrlV2(*#, #, #, #, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, attrs: ResourceSparseApplyMomentumAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyMomentum(*#, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, attrs: ResourceSparseApplyMomentumAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyMomentum(*#, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalAdagradAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyProximalAdagrad(*#, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalAdagradAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyProximalAdagrad(*#, #, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalGradientDescentAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyProximalGradientDescent(*#, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalGradientDescentAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyProximalGradientDescent(*#, #, #, #, #, #, #, #).operation".}
 
-proc iResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyRMSPropAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyRMSProp(*#, #, #, #, #, #, #, #, #, #, #)".}
+proc iResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyRMSPropAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceSparseApplyRMSProp(*#, #, #, #, #, #, #, #, #, #, #).operation".}
 
 proc iSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: SparseApplyAdadeltaAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::SparseApplyAdadelta(*#, #, #, #, #, #, #, #, #, #)".}
 
@@ -260,21 +260,21 @@ proc ApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, 
 
   return ApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
 
-proc ResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdadeltaAttrs) =
+proc ResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdadeltaAttrs): Operation =
   iResourceApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, attrs)
 
-proc ResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyAdadeltaAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, attrs)
+  return ResourceApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, attrs)
 
-proc ResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, attrs: ResourceApplyAdagradAttrs) =
+proc ResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, attrs: ResourceApplyAdagradAttrs): Operation =
   iResourceApplyAdagrad(root, vvar, accum, lr, grad, attrs)
 
-proc ResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, updateSlots = none(bool), useLocking = none(bool)) =
+proc ResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, updateSlots = none(bool), useLocking = none(bool)): Operation =
   var attrs = ResourceApplyAdagradAttrs()
 
   if updateSlots.isSome:
@@ -282,23 +282,23 @@ proc ResourceApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyAdagrad(root, vvar, accum, lr, grad, attrs)
+  return ResourceApplyAdagrad(root, vvar, accum, lr, grad, attrs)
 
-proc ResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceApplyAdagradDAAttrs) =
+proc ResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceApplyAdagradDAAttrs): Operation =
   iResourceApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, lr, l1, l2, global_step, attrs)
 
-proc ResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, useLocking = none(bool)) =
+proc ResourceApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, lr: Out, l1: Out, l2: Out, global_step: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyAdagradDAAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, lr, l1, l2, global_step, attrs)
+  return ResourceApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, lr, l1, l2, global_step, attrs)
 
-proc ResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdamAttrs) =
+proc ResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, attrs: ResourceApplyAdamAttrs): Operation =
   iResourceApplyAdam(root, vvar, m, v, beta1_power, beta2_power, lr, beta1, beta2, epsilon, grad, attrs)
 
-proc ResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, useLocking = none(bool), useNesterov = none(bool)) =
+proc ResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out, beta2_power: Out, lr: Out, beta1: Out, beta2: Out, epsilon: Out, grad: Out, useLocking = none(bool), useNesterov = none(bool)): Operation =
   var attrs = ResourceApplyAdamAttrs()
 
   if useLocking.isSome:
@@ -306,67 +306,67 @@ proc ResourceApplyAdam(root: Scope, vvar: Out, m: Out, v: Out, beta1_power: Out,
   if useNesterov.isSome:
     attrs = attrs.UseNesterov(useNesterov.get())
 
-  ResourceApplyAdam(root, vvar, m, v, beta1_power, beta2_power, lr, beta1, beta2, epsilon, grad, attrs)
+  return ResourceApplyAdam(root, vvar, m, v, beta1_power, beta2_power, lr, beta1, beta2, epsilon, grad, attrs)
 
-proc ResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyAddSignAttrs) =
+proc ResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyAddSignAttrs): Operation =
   iResourceApplyAddSign(root, vvar, m, lr, alpha, sign_decay, beta, grad, attrs)
 
-proc ResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyAddSign(root: Scope, vvar: Out, m: Out, lr: Out, alpha: Out, sign_decay: Out, beta: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyAddSignAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyAddSign(root, vvar, m, lr, alpha, sign_decay, beta, grad, attrs)
+  return ResourceApplyAddSign(root, vvar, m, lr, alpha, sign_decay, beta, grad, attrs)
 
-proc ResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyCenteredRMSPropAttrs) =
+proc ResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyCenteredRMSPropAttrs): Operation =
   iResourceApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
 
-proc ResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyCenteredRMSPropAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
+  return ResourceApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
 
-proc ResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceApplyFtrlAttrs) =
+proc ResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceApplyFtrlAttrs): Operation =
   iResourceApplyFtrl(root, vvar, accum, linear, grad, lr, l1, l2, lr_power, attrs)
 
-proc ResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, useLocking = none(bool)) =
+proc ResourceApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyFtrlAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyFtrl(root, vvar, accum, linear, grad, lr, l1, l2, lr_power, attrs)
+  return ResourceApplyFtrl(root, vvar, accum, linear, grad, lr, l1, l2, lr_power, attrs)
 
-proc ResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceApplyFtrlV2Attrs) =
+proc ResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceApplyFtrlV2Attrs): Operation =
   iResourceApplyFtrlV2(root, vvar, accum, linear, grad, lr, l1, l2, l2_shrinkage, lr_power, attrs)
 
-proc ResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, useLocking = none(bool)) =
+proc ResourceApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyFtrlV2Attrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyFtrlV2(root, vvar, accum, linear, grad, lr, l1, l2, l2_shrinkage, lr_power, attrs)
+  return ResourceApplyFtrlV2(root, vvar, accum, linear, grad, lr, l1, l2, l2_shrinkage, lr_power, attrs)
 
-proc ResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, attrs: ResourceApplyGradientDescentAttrs) =
+proc ResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, attrs: ResourceApplyGradientDescentAttrs): Operation =
   iResourceApplyGradientDescent(root, vvar, alpha, delta, attrs)
 
-proc ResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, useLocking = none(bool)) =
+proc ResourceApplyGradientDescent(root: Scope, vvar: Out, alpha: Out, delta: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyGradientDescentAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyGradientDescent(root, vvar, alpha, delta, attrs)
+  return ResourceApplyGradientDescent(root, vvar, alpha, delta, attrs)
 
-proc ResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, attrs: ResourceApplyMomentumAttrs) =
+proc ResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, attrs: ResourceApplyMomentumAttrs): Operation =
   iResourceApplyMomentum(root, vvar, accum, lr, grad, momentum, attrs)
 
-proc ResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, useLocking = none(bool), useNesterov = none(bool)) =
+proc ResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, momentum: Out, useLocking = none(bool), useNesterov = none(bool)): Operation =
   var attrs = ResourceApplyMomentumAttrs()
 
   if useLocking.isSome:
@@ -374,67 +374,67 @@ proc ResourceApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Ou
   if useNesterov.isSome:
     attrs = attrs.UseNesterov(useNesterov.get())
 
-  ResourceApplyMomentum(root, vvar, accum, lr, grad, momentum, attrs)
+  return ResourceApplyMomentum(root, vvar, accum, lr, grad, momentum, attrs)
 
-proc ResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyPowerSignAttrs) =
+proc ResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, attrs: ResourceApplyPowerSignAttrs): Operation =
   iResourceApplyPowerSign(root, vvar, m, lr, logbase, sign_decay, beta, grad, attrs)
 
-proc ResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyPowerSign(root: Scope, vvar: Out, m: Out, lr: Out, logbase: Out, sign_decay: Out, beta: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyPowerSignAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyPowerSign(root, vvar, m, lr, logbase, sign_decay, beta, grad, attrs)
+  return ResourceApplyPowerSign(root, vvar, m, lr, logbase, sign_decay, beta, grad, attrs)
 
-proc ResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, attrs: ResourceApplyProximalAdagradAttrs) =
+proc ResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, attrs: ResourceApplyProximalAdagradAttrs): Operation =
   iResourceApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, attrs)
 
-proc ResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyProximalAdagradAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, attrs)
+  return ResourceApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, attrs)
 
-proc ResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, attrs: ResourceApplyProximalGradientDescentAttrs) =
+proc ResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, attrs: ResourceApplyProximalGradientDescentAttrs): Operation =
   iResourceApplyProximalGradientDescent(root, vvar, alpha, l1, l2, delta, attrs)
 
-proc ResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, useLocking = none(bool)) =
+proc ResourceApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, delta: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyProximalGradientDescentAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyProximalGradientDescent(root, vvar, alpha, l1, l2, delta, attrs)
+  return ResourceApplyProximalGradientDescent(root, vvar, alpha, l1, l2, delta, attrs)
 
-proc ResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyRMSPropAttrs) =
+proc ResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, attrs: ResourceApplyRMSPropAttrs): Operation =
   iResourceApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
 
-proc ResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, useLocking = none(bool)) =
+proc ResourceApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceApplyRMSPropAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
+  return ResourceApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, attrs)
 
-proc ResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdadeltaAttrs) =
+proc ResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdadeltaAttrs): Operation =
   iResourceSparseApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, indices, attrs)
 
-proc ResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyAdadeltaAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, indices, attrs)
+  return ResourceSparseApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, indices, attrs)
 
-proc ResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdagradAttrs) =
+proc ResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyAdagradAttrs): Operation =
   iResourceSparseApplyAdagrad(root, vvar, accum, lr, grad, indices, attrs)
 
-proc ResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, updateSlots = none(bool), useLocking = none(bool)) =
+proc ResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, updateSlots = none(bool), useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyAdagradAttrs()
 
   if updateSlots.isSome:
@@ -442,56 +442,56 @@ proc ResourceSparseApplyAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, gra
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyAdagrad(root, vvar, accum, lr, grad, indices, attrs)
+  return ResourceSparseApplyAdagrad(root, vvar, accum, lr, grad, indices, attrs)
 
-proc ResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceSparseApplyAdagradDAAttrs) =
+proc ResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, attrs: ResourceSparseApplyAdagradDAAttrs): Operation =
   iResourceSparseApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, indices, lr, l1, l2, global_step, attrs)
 
-proc ResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyAdagradDA(root: Scope, vvar: Out, gradient_accumulator: Out, gradient_squared_accumulator: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, global_step: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyAdagradDAAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, indices, lr, l1, l2, global_step, attrs)
+  return ResourceSparseApplyAdagradDA(root, vvar, gradient_accumulator, gradient_squared_accumulator, grad, indices, lr, l1, l2, global_step, attrs)
 
-proc ResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyCenteredRMSPropAttrs) =
+proc ResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyCenteredRMSPropAttrs): Operation =
   iResourceSparseApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
 
-proc ResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyCenteredRMSProp(root: Scope, vvar: Out, mg: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyCenteredRMSPropAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
+  return ResourceSparseApplyCenteredRMSProp(root, vvar, mg, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
 
-proc ResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlAttrs) =
+proc ResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlAttrs): Operation =
   iResourceSparseApplyFtrl(root, vvar, accum, linear, grad, indices, lr, l1, l2, lr_power, attrs)
 
-proc ResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyFtrl(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, lr_power: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyFtrlAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyFtrl(root, vvar, accum, linear, grad, indices, lr, l1, l2, lr_power, attrs)
+  return ResourceSparseApplyFtrl(root, vvar, accum, linear, grad, indices, lr, l1, l2, lr_power, attrs)
 
-proc ResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlV2Attrs) =
+proc ResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, attrs: ResourceSparseApplyFtrlV2Attrs): Operation =
   iResourceSparseApplyFtrlV2(root, vvar, accum, linear, grad, indices, lr, l1, l2, l2_shrinkage, lr_power, attrs)
 
-proc ResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyFtrlV2(root: Scope, vvar: Out, accum: Out, linear: Out, grad: Out, indices: Out, lr: Out, l1: Out, l2: Out, l2_shrinkage: Out, lr_power: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyFtrlV2Attrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyFtrlV2(root, vvar, accum, linear, grad, indices, lr, l1, l2, l2_shrinkage, lr_power, attrs)
+  return ResourceSparseApplyFtrlV2(root, vvar, accum, linear, grad, indices, lr, l1, l2, l2_shrinkage, lr_power, attrs)
 
-proc ResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, attrs: ResourceSparseApplyMomentumAttrs) =
+proc ResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, attrs: ResourceSparseApplyMomentumAttrs): Operation =
   iResourceSparseApplyMomentum(root, vvar, accum, lr, grad, indices, momentum, attrs)
 
-proc ResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, useLocking = none(bool), useNesterov = none(bool)) =
+proc ResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, grad: Out, indices: Out, momentum: Out, useLocking = none(bool), useNesterov = none(bool)): Operation =
   var attrs = ResourceSparseApplyMomentumAttrs()
 
   if useLocking.isSome:
@@ -499,40 +499,40 @@ proc ResourceSparseApplyMomentum(root: Scope, vvar: Out, accum: Out, lr: Out, gr
   if useNesterov.isSome:
     attrs = attrs.UseNesterov(useNesterov.get())
 
-  ResourceSparseApplyMomentum(root, vvar, accum, lr, grad, indices, momentum, attrs)
+  return ResourceSparseApplyMomentum(root, vvar, accum, lr, grad, indices, momentum, attrs)
 
-proc ResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalAdagradAttrs) =
+proc ResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalAdagradAttrs): Operation =
   iResourceSparseApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, indices, attrs)
 
-proc ResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyProximalAdagrad(root: Scope, vvar: Out, accum: Out, lr: Out, l1: Out, l2: Out, grad: Out, indices: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyProximalAdagradAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, indices, attrs)
+  return ResourceSparseApplyProximalAdagrad(root, vvar, accum, lr, l1, l2, grad, indices, attrs)
 
-proc ResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalGradientDescentAttrs) =
+proc ResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyProximalGradientDescentAttrs): Operation =
   iResourceSparseApplyProximalGradientDescent(root, vvar, alpha, l1, l2, grad, indices, attrs)
 
-proc ResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyProximalGradientDescent(root: Scope, vvar: Out, alpha: Out, l1: Out, l2: Out, grad: Out, indices: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyProximalGradientDescentAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyProximalGradientDescent(root, vvar, alpha, l1, l2, grad, indices, attrs)
+  return ResourceSparseApplyProximalGradientDescent(root, vvar, alpha, l1, l2, grad, indices, attrs)
 
-proc ResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyRMSPropAttrs) =
+proc ResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, attrs: ResourceSparseApplyRMSPropAttrs): Operation =
   iResourceSparseApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
 
-proc ResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)) =
+proc ResourceSparseApplyRMSProp(root: Scope, vvar: Out, ms: Out, mom: Out, lr: Out, rho: Out, momentum: Out, epsilon: Out, grad: Out, indices: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceSparseApplyRMSPropAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceSparseApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
+  return ResourceSparseApplyRMSProp(root, vvar, ms, mom, lr, rho, momentum, epsilon, grad, indices, attrs)
 
 proc SparseApplyAdadelta(root: Scope, vvar: Out, accum: Out, accum_update: Out, lr: Out, rho: Out, epsilon: Out, grad: Out, indices: Out, attrs: SparseApplyAdadeltaAttrs): Out =
   iSparseApplyAdadelta(root, vvar, accum, accum_update, lr, rho, epsilon, grad, indices, attrs)

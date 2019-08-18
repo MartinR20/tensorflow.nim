@@ -4,9 +4,9 @@ import ./structs
 import options
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc iNoOp() {.header:std_ops, importcpp:"tensorflow::ops::NoOp()".}
+proc iNoOp(): Operation {.header:std_ops, importcpp:"tensorflow::ops::NoOp().operation".}
 
-proc NoOp() =
+proc NoOp(): Operation =
   iNoOp()
 
 export NoOp

@@ -18,9 +18,9 @@ proc iIsVariableInitialized(root: Scope, rref: Out): Out {.header:std_ops, impor
 
 proc iResourceCountUpTo(root: Scope, resource: Out, limit: int, T: core.DType): Out {.header:std_ops, importcpp:"tensorflow::ops::ResourceCountUpTo(*#, #, #, #)".}
 
-proc iResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdAddAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceScatterNdAdd(*#, #, #, #, #)".}
+proc iResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdAddAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceScatterNdAdd(*#, #, #, #, #).operation".}
 
-proc iResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdUpdateAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceScatterNdUpdate(*#, #, #, #, #)".}
+proc iResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdUpdateAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceScatterNdUpdate(*#, #, #, #, #).operation".}
 
 proc iScatterAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ScatterAddAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::ScatterAdd(*#, #, #, #, #)".}
 
@@ -97,27 +97,27 @@ proc IsVariableInitialized(root: Scope, rref: Out): Out =
 proc ResourceCountUpTo(root: Scope, resource: Out, limit: int, T: core.DType): Out =
   iResourceCountUpTo(root, resource, limit, T)
 
-proc ResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdAddAttrs) =
+proc ResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdAddAttrs): Operation =
   iResourceScatterNdAdd(root, rref, indices, updates, attrs)
 
-proc ResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, useLocking = none(bool)) =
+proc ResourceScatterNdAdd(root: Scope, rref: Out, indices: Out, updates: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceScatterNdAddAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceScatterNdAdd(root, rref, indices, updates, attrs)
+  return ResourceScatterNdAdd(root, rref, indices, updates, attrs)
 
-proc ResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdUpdateAttrs) =
+proc ResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ResourceScatterNdUpdateAttrs): Operation =
   iResourceScatterNdUpdate(root, rref, indices, updates, attrs)
 
-proc ResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, useLocking = none(bool)) =
+proc ResourceScatterNdUpdate(root: Scope, rref: Out, indices: Out, updates: Out, useLocking = none(bool)): Operation =
   var attrs = ResourceScatterNdUpdateAttrs()
 
   if useLocking.isSome:
     attrs = attrs.UseLocking(useLocking.get())
 
-  ResourceScatterNdUpdate(root, rref, indices, updates, attrs)
+  return ResourceScatterNdUpdate(root, rref, indices, updates, attrs)
 
 proc ScatterAdd(root: Scope, rref: Out, indices: Out, updates: Out, attrs: ScatterAddAttrs): Out =
   iScatterAdd(root, rref, indices, updates, attrs)

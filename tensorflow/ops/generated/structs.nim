@@ -470,7 +470,7 @@ type PriorityQueueAttrs {.header: std_ops, importcpp:"tensorflow::ops::PriorityQ
 
 proc Capacity(priorityQueueAttrs: PriorityQueueAttrs, capacity: int): PriorityQueueAttrs {.header: std_ops, importcpp:"#.Capacity(#)".}
 
-proc ComponentTypes(priorityQueueAttrs: PriorityQueueAttrs, componentTypes: core.DType): PriorityQueueAttrs {.header: std_ops, importcpp:"#.ComponentTypes(#)".}
+proc ComponentTypes(priorityQueueAttrs: PriorityQueueAttrs, componentTypes: ArraySlice[core.DType]): PriorityQueueAttrs {.header: std_ops, importcpp:"#.ComponentTypes(#)".}
 
 proc Container(priorityQueueAttrs: PriorityQueueAttrs, container: cppstring): PriorityQueueAttrs {.header: std_ops, importcpp:"#.Container(#)".}
 
@@ -1287,13 +1287,13 @@ type ParseSequenceExampleAttrs {.header: std_ops, importcpp:"tensorflow::ops::Pa
 
 proc ContextDenseShapes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, contextDenseShapes: ArraySlice[TensorShape]): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextDenseShapes(#)".}
 
-proc ContextSparseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, contextSparseTypes: core.DType): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextSparseTypes(#)".}
+proc ContextSparseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, contextSparseTypes: ArraySlice[core.DType]): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextSparseTypes(#)".}
 
 proc FeatureListDenseShapes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, featureListDenseShapes: ArraySlice[TensorShape]): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseShapes(#)".}
 
-proc FeatureListDenseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, featureListDenseTypes: core.DType): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseTypes(#)".}
+proc FeatureListDenseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, featureListDenseTypes: ArraySlice[core.DType]): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseTypes(#)".}
 
-proc FeatureListSparseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, featureListSparseTypes: core.DType): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListSparseTypes(#)".}
+proc FeatureListSparseTypes(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, featureListSparseTypes: ArraySlice[core.DType]): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListSparseTypes(#)".}
 
 proc NcontextDense(parseSequenceExampleAttrs: ParseSequenceExampleAttrs, ncontextDense: int): ParseSequenceExampleAttrs {.header: std_ops, importcpp:"#.NcontextDense(#)".}
 
@@ -1308,13 +1308,13 @@ type ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"tensorflow::o
 
 proc ContextDenseShapes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, contextDenseShapes: ArraySlice[TensorShape]): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextDenseShapes(#)".}
 
-proc ContextSparseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, contextSparseTypes: core.DType): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextSparseTypes(#)".}
+proc ContextSparseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, contextSparseTypes: ArraySlice[core.DType]): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.ContextSparseTypes(#)".}
 
 proc FeatureListDenseShapes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, featureListDenseShapes: ArraySlice[TensorShape]): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseShapes(#)".}
 
-proc FeatureListDenseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, featureListDenseTypes: core.DType): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseTypes(#)".}
+proc FeatureListDenseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, featureListDenseTypes: ArraySlice[core.DType]): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListDenseTypes(#)".}
 
-proc FeatureListSparseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, featureListSparseTypes: core.DType): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListSparseTypes(#)".}
+proc FeatureListSparseTypes(parseSingleSequenceExampleAttrs: ParseSingleSequenceExampleAttrs, featureListSparseTypes: ArraySlice[core.DType]): ParseSingleSequenceExampleAttrs {.header: std_ops, importcpp:"#.FeatureListSparseTypes(#)".}
 
 
 type StringToNumberAttrs {.header: std_ops, importcpp:"tensorflow::ops::StringToNumber::Attrs".} = object

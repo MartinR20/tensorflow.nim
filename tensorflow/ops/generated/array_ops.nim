@@ -102,7 +102,7 @@ proc iRank(root: Scope, input: Out): Out {.header:std_ops, importcpp:"tensorflow
 
 proc iReshape(root: Scope, tensor: Out, shape: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::Reshape(*#, #, #)".}
 
-proc iResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, attrs: ResourceStridedSliceAssignAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ResourceStridedSliceAssign(*#, #, #, #, #, #, #)".}
+proc iResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, attrs: ResourceStridedSliceAssignAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ResourceStridedSliceAssign(*#, #, #, #, #, #, #).operation".}
 
 proc iReverse(root: Scope, tensor: Out, axis: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::Reverse(*#, #, #)".}
 
@@ -451,10 +451,10 @@ proc Rank(root: Scope, input: Out): Out =
 proc Reshape(root: Scope, tensor: Out, shape: Out): Out =
   iReshape(root, tensor, shape)
 
-proc ResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, attrs: ResourceStridedSliceAssignAttrs) =
+proc ResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, attrs: ResourceStridedSliceAssignAttrs): Operation =
   iResourceStridedSliceAssign(root, rref, begin, eend, strides, value, attrs)
 
-proc ResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, beginMask = none(int), ellipsisMask = none(int), endMask = none(int), newAxisMask = none(int), shrinkAxisMask = none(int)) =
+proc ResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, strides: Out, value: Out, beginMask = none(int), ellipsisMask = none(int), endMask = none(int), newAxisMask = none(int), shrinkAxisMask = none(int)): Operation =
   var attrs = ResourceStridedSliceAssignAttrs()
 
   if beginMask.isSome:
@@ -468,7 +468,7 @@ proc ResourceStridedSliceAssign(root: Scope, rref: Out, begin: Out, eend: Out, s
   if shrinkAxisMask.isSome:
     attrs = attrs.ShrinkAxisMask(shrinkAxisMask.get())
 
-  ResourceStridedSliceAssign(root, rref, begin, eend, strides, value, attrs)
+  return ResourceStridedSliceAssign(root, rref, begin, eend, strides, value, attrs)
 
 proc Reverse(root: Scope, tensor: Out, axis: Out): Out =
   iReverse(root, tensor, axis)

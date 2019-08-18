@@ -4,9 +4,9 @@ import ./structs
 import options
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc iAbort(root: Scope, attrs: AbortAttrs) {.header:std_ops, importcpp:"tensorflow::ops::Abort(*#, #)".}
+proc iAbort(root: Scope, attrs: AbortAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::Abort(*#, #).operation".}
 
-proc iControlTrigger() {.header:std_ops, importcpp:"tensorflow::ops::ControlTrigger()".}
+proc iControlTrigger(): Operation {.header:std_ops, importcpp:"tensorflow::ops::ControlTrigger().operation".}
 
 proc iLoopCond(root: Scope, input: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::LoopCond(*#, #)".}
 
@@ -22,10 +22,10 @@ proc iRefSwitch(root: Scope, data: Out, pred: Out): Out {.header:std_ops, import
 
 proc iSwitch(root: Scope, data: Out, pred: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::Switch(*#, #, #)".}
 
-proc Abort(root: Scope, attrs: AbortAttrs) =
+proc Abort(root: Scope, attrs: AbortAttrs): Operation =
   iAbort(root, attrs)
 
-proc Abort(root: Scope, errorMsg = none(string), exitWithoutError = none(bool)) =
+proc Abort(root: Scope, errorMsg = none(string), exitWithoutError = none(bool)): Operation =
   var attrs = AbortAttrs()
 
   if errorMsg.isSome:
@@ -33,9 +33,9 @@ proc Abort(root: Scope, errorMsg = none(string), exitWithoutError = none(bool)) 
   if exitWithoutError.isSome:
     attrs = attrs.ExitWithoutError(exitWithoutError.get())
 
-  Abort(root, attrs)
+  return Abort(root, attrs)
 
-proc ControlTrigger() =
+proc ControlTrigger(): Operation =
   iControlTrigger()
 
 proc LoopCond(root: Scope, input: Out): Out =

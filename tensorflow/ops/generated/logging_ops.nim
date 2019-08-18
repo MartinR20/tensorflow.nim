@@ -4,7 +4,7 @@ import ./structs
 import options
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc iAssert(root: Scope, condition: Out, data: InList, attrs: AssertAttrs) {.header:std_ops, importcpp:"tensorflow::ops::Assert(*#, #, *#, #)".}
+proc iAssert(root: Scope, condition: Out, data: InList, attrs: AssertAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::Assert(*#, #, *#, #).operation".}
 
 proc iHistogramSummary(root: Scope, tag: Out, values: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::HistogramSummary(*#, #, #)".}
 
@@ -12,7 +12,7 @@ proc iMergeSummary(root: Scope, inputs: InList): Out {.header:std_ops, importcpp
 
 proc iPrint(root: Scope, input: Out, data: InList, attrs: PrintAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::Print(*#, #, *#, #)".}
 
-proc iPrintV2(root: Scope, input: Out, attrs: PrintV2Attrs) {.header:std_ops, importcpp:"tensorflow::ops::PrintV2(*#, #, #)".}
+proc iPrintV2(root: Scope, input: Out, attrs: PrintV2Attrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::PrintV2(*#, #, #).operation".}
 
 proc iScalarSummary(root: Scope, tags: Out, values: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ScalarSummary(*#, #, #)".}
 
@@ -22,26 +22,26 @@ proc iTensorSummaryV2(root: Scope, tag: Out, tensor: Out, serialized_summary_met
 
 proc iTimestamp(): Out {.header:std_ops, importcpp:"tensorflow::ops::Timestamp()".}
 
-proc Assert(root: Scope, condition: Out, data: InList, attrs: AssertAttrs) =
+proc Assert(root: Scope, condition: Out, data: InList, attrs: AssertAttrs): Operation =
   iAssert(root, condition, data, attrs)
 
-proc Assert(root: Scope, condition: Out, data: OutList, attrs: AssertAttrs) {.header:std_ops, importcpp:"tensorflow::ops::Assert(*#, #, #, #)".}
+proc Assert(root: Scope, condition: Out, data: OutList, attrs: AssertAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::Assert(*#, #, #, #).operation".}
 
-proc Assert(root: Scope, condition: Out, data: InList, summarize = none(int)) =
+proc Assert(root: Scope, condition: Out, data: InList, summarize = none(int)): Operation =
   var attrs = AssertAttrs()
 
   if summarize.isSome:
     attrs = attrs.Summarize(summarize.get())
 
-  Assert(root, condition, data, attrs)
+  return Assert(root, condition, data, attrs)
 
-proc Assert(root: Scope, condition: Out, data: OutList, summarize = none(int)) =
+proc Assert(root: Scope, condition: Out, data: OutList, summarize = none(int)): Operation =
   var attrs = AssertAttrs()
 
   if summarize.isSome:
     attrs = attrs.Summarize(summarize.get())
 
-  Assert(root, condition, data, attrs)
+  return Assert(root, condition, data, attrs)
 
 proc HistogramSummary(root: Scope, tag: Out, values: Out): Out =
   iHistogramSummary(root, tag, values)
@@ -80,16 +80,16 @@ proc Print(root: Scope, input: Out, data: OutList, firstN = none(int), message =
 
   return Print(root, input, data, attrs)
 
-proc PrintV2(root: Scope, input: Out, attrs: PrintV2Attrs) =
+proc PrintV2(root: Scope, input: Out, attrs: PrintV2Attrs): Operation =
   iPrintV2(root, input, attrs)
 
-proc PrintV2(root: Scope, input: Out, outputStream = none(string)) =
+proc PrintV2(root: Scope, input: Out, outputStream = none(string)): Operation =
   var attrs = PrintV2Attrs()
 
   if outputStream.isSome:
     attrs = attrs.OutputStream(newCPPString(outputStream.get()))
 
-  PrintV2(root, input, attrs)
+  return PrintV2(root, input, attrs)
 
 proc ScalarSummary(root: Scope, tags: Out, values: Out): Out =
   iScalarSummary(root, tags, values)

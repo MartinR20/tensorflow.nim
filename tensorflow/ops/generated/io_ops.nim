@@ -12,7 +12,7 @@ proc iLMDBReader(root: Scope, attrs: LMDBReaderAttrs): Out {.header:std_ops, imp
 
 proc iMatchingFiles(root: Scope, pattern: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::MatchingFiles(*#, #)".}
 
-proc iMergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, attrs: MergeV2CheckpointsAttrs) {.header:std_ops, importcpp:"tensorflow::ops::MergeV2Checkpoints(*#, #, #, #)".}
+proc iMergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, attrs: MergeV2CheckpointsAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::MergeV2Checkpoints(*#, #, #, #).operation".}
 
 proc iReadFile(root: Scope, filename: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ReadFile(*#, #)".}
 
@@ -24,9 +24,9 @@ proc iReaderRead(root: Scope, reader_handle: Out, queue_handle: Out): Out {.head
 
 proc iReaderReadUpTo(root: Scope, reader_handle: Out, queue_handle: Out, num_records: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ReaderReadUpTo(*#, #, #, #)".}
 
-proc iReaderReset(root: Scope, reader_handle: Out) {.header:std_ops, importcpp:"tensorflow::ops::ReaderReset(*#, #)".}
+proc iReaderReset(root: Scope, reader_handle: Out): Operation {.header:std_ops, importcpp:"tensorflow::ops::ReaderReset(*#, #).operation".}
 
-proc iReaderRestoreState(root: Scope, reader_handle: Out, state: Out) {.header:std_ops, importcpp:"tensorflow::ops::ReaderRestoreState(*#, #, #)".}
+proc iReaderRestoreState(root: Scope, reader_handle: Out, state: Out): Operation {.header:std_ops, importcpp:"tensorflow::ops::ReaderRestoreState(*#, #, #).operation".}
 
 proc iReaderSerializeState(root: Scope, reader_handle: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ReaderSerializeState(*#, #)".}
 
@@ -34,13 +34,13 @@ proc iRestore(root: Scope, file_pattern: Out, tensor_name: Out, dt: core.DType, 
 
 proc iRestoreSlice(root: Scope, file_pattern: Out, tensor_name: Out, shape_and_slice: Out, dt: core.DType, attrs: RestoreSliceAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::RestoreSlice(*#, #, #, #, #, #)".}
 
-proc iRestoreV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, dtypes: core.DType) {.header:std_ops, importcpp:"tensorflow::ops::RestoreV2(*#, #, #, #, #)".}
+proc iRestoreV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, dtypes: ArraySlice[core.DType]): Operation {.header:std_ops, importcpp:"tensorflow::ops::RestoreV2(*#, #, #, #, #).operation".}
 
-proc iSave(root: Scope, filename: Out, tensor_names: Out, data: InList) {.header:std_ops, importcpp:"tensorflow::ops::Save(*#, #, #, *#)".}
+proc iSave(root: Scope, filename: Out, tensor_names: Out, data: InList): Operation {.header:std_ops, importcpp:"tensorflow::ops::Save(*#, #, #, *#).operation".}
 
-proc iSaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: InList) {.header:std_ops, importcpp:"tensorflow::ops::SaveSlices(*#, #, #, #, *#)".}
+proc iSaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: InList): Operation {.header:std_ops, importcpp:"tensorflow::ops::SaveSlices(*#, #, #, #, *#).operation".}
 
-proc iSaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: InList) {.header:std_ops, importcpp:"tensorflow::ops::SaveV2(*#, #, #, #, *#)".}
+proc iSaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: InList): Operation {.header:std_ops, importcpp:"tensorflow::ops::SaveV2(*#, #, #, #, *#).operation".}
 
 proc iShardedFilename(root: Scope, basename: Out, shard: Out, num_shards: Out): Out {.header:std_ops, importcpp:"tensorflow::ops::ShardedFilename(*#, #, #, #)".}
 
@@ -52,7 +52,7 @@ proc iTextLineReader(root: Scope, attrs: TextLineReaderAttrs): Out {.header:std_
 
 proc iWholeFileReader(root: Scope, attrs: WholeFileReaderAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::WholeFileReader(*#, #)".}
 
-proc iWriteFile(root: Scope, filename: Out, contents: Out) {.header:std_ops, importcpp:"tensorflow::ops::WriteFile(*#, #, #)".}
+proc iWriteFile(root: Scope, filename: Out, contents: Out): Operation {.header:std_ops, importcpp:"tensorflow::ops::WriteFile(*#, #, #).operation".}
 
 proc FixedLengthRecordReader(root: Scope, record_bytes: int, attrs: FixedLengthRecordReaderAttrs): Out =
   iFixedLengthRecordReader(root, record_bytes, attrs)
@@ -104,16 +104,16 @@ proc LMDBReader(root: Scope, container = none(string), sharedName = none(string)
 proc MatchingFiles(root: Scope, pattern: Out): Out =
   iMatchingFiles(root, pattern)
 
-proc MergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, attrs: MergeV2CheckpointsAttrs) =
+proc MergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, attrs: MergeV2CheckpointsAttrs): Operation =
   iMergeV2Checkpoints(root, checkpoint_prefixes, destination_prefix, attrs)
 
-proc MergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, deleteOldDirs = none(bool)) =
+proc MergeV2Checkpoints(root: Scope, checkpoint_prefixes: Out, destination_prefix: Out, deleteOldDirs = none(bool)): Operation =
   var attrs = MergeV2CheckpointsAttrs()
 
   if deleteOldDirs.isSome:
     attrs = attrs.DeleteOldDirs(deleteOldDirs.get())
 
-  MergeV2Checkpoints(root, checkpoint_prefixes, destination_prefix, attrs)
+  return MergeV2Checkpoints(root, checkpoint_prefixes, destination_prefix, attrs)
 
 proc ReadFile(root: Scope, filename: Out): Out =
   iReadFile(root, filename)
@@ -130,10 +130,10 @@ proc ReaderRead(root: Scope, reader_handle: Out, queue_handle: Out): Out =
 proc ReaderReadUpTo(root: Scope, reader_handle: Out, queue_handle: Out, num_records: Out): Out =
   iReaderReadUpTo(root, reader_handle, queue_handle, num_records)
 
-proc ReaderReset(root: Scope, reader_handle: Out) =
+proc ReaderReset(root: Scope, reader_handle: Out): Operation =
   iReaderReset(root, reader_handle)
 
-proc ReaderRestoreState(root: Scope, reader_handle: Out, state: Out) =
+proc ReaderRestoreState(root: Scope, reader_handle: Out, state: Out): Operation =
   iReaderRestoreState(root, reader_handle, state)
 
 proc ReaderSerializeState(root: Scope, reader_handle: Out): Out =
@@ -161,23 +161,23 @@ proc RestoreSlice(root: Scope, file_pattern: Out, tensor_name: Out, shape_and_sl
 
   return RestoreSlice(root, file_pattern, tensor_name, shape_and_slice, dt, attrs)
 
-proc RestoreV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, dtypes: core.DType) =
+proc RestoreV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, dtypes: ArraySlice[core.DType]): Operation =
   iRestoreV2(root, prefix, tensor_names, shape_and_slices, dtypes)
 
-proc Save(root: Scope, filename: Out, tensor_names: Out, data: InList) =
+proc Save(root: Scope, filename: Out, tensor_names: Out, data: InList): Operation =
   iSave(root, filename, tensor_names, data)
 
-proc Save(root: Scope, filename: Out, tensor_names: Out, data: OutList) {.header:std_ops, importcpp:"tensorflow::ops::Save(*#, #, #, #)".}
+proc Save(root: Scope, filename: Out, tensor_names: Out, data: OutList): Operation {.header:std_ops, importcpp:"tensorflow::ops::Save(*#, #, #, #).operation".}
 
-proc SaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: InList) =
+proc SaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: InList): Operation =
   iSaveSlices(root, filename, tensor_names, shapes_and_slices, data)
 
-proc SaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: OutList) {.header:std_ops, importcpp:"tensorflow::ops::SaveSlices(*#, #, #, #, #)".}
+proc SaveSlices(root: Scope, filename: Out, tensor_names: Out, shapes_and_slices: Out, data: OutList): Operation {.header:std_ops, importcpp:"tensorflow::ops::SaveSlices(*#, #, #, #, #).operation".}
 
-proc SaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: InList) =
+proc SaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: InList): Operation =
   iSaveV2(root, prefix, tensor_names, shape_and_slices, tensors)
 
-proc SaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: OutList) {.header:std_ops, importcpp:"tensorflow::ops::SaveV2(*#, #, #, #, #)".}
+proc SaveV2(root: Scope, prefix: Out, tensor_names: Out, shape_and_slices: Out, tensors: OutList): Operation {.header:std_ops, importcpp:"tensorflow::ops::SaveV2(*#, #, #, #, #).operation".}
 
 proc ShardedFilename(root: Scope, basename: Out, shard: Out, num_shards: Out): Out =
   iShardedFilename(root, basename, shard, num_shards)
@@ -228,7 +228,7 @@ proc WholeFileReader(root: Scope, container = none(string), sharedName = none(st
 
   return WholeFileReader(root, attrs)
 
-proc WriteFile(root: Scope, filename: Out, contents: Out) =
+proc WriteFile(root: Scope, filename: Out, contents: Out): Operation =
   iWriteFile(root, filename, contents)
 
 export FixedLengthRecordReader,

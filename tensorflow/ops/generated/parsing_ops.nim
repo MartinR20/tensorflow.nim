@@ -12,13 +12,13 @@ proc iDecodeJSONExample(root: Scope, json_examples: Out): Out {.header:std_ops, 
 
 proc iDecodeRaw(root: Scope, bytes: Out, out_type: core.DType, attrs: DecodeRawAttrs): Out {.header:std_ops, importcpp:"tensorflow::ops::DecodeRaw(*#, #, #, #)".}
 
-proc iParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: InList, dense_keys: InList, dense_defaults: InList, sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) {.header:std_ops, importcpp:"tensorflow::ops::ParseExample(*#, #, #, *#, *#, *#, #, #)".}
+proc iParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: InList, dense_keys: InList, dense_defaults: InList, sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseExample(*#, #, #, *#, *#, *#, #, #).operation".}
 
-proc iParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ParseSequenceExample(*#, #, #, *#, #, #, #, #, #, #)".}
+proc iParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSequenceExample(*#, #, #, *#, #, #, #, #, #, #).operation".}
 
-proc iParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleExample(*#, #, *#, #, #, #, #, #)".}
+proc iParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleExample(*#, #, *#, #, #, #, #, #).operation".}
 
-proc iParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleSequenceExample(*#, #, #, *#, *#, *#, *#, *#, #, #)".}
+proc iParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleSequenceExample(*#, #, #, *#, *#, *#, *#, *#, #, #).operation".}
 
 proc iParseTensor(root: Scope, serialized: Out, out_type: core.DType): Out {.header:std_ops, importcpp:"tensorflow::ops::ParseTensor(*#, #, #)".}
 
@@ -84,25 +84,25 @@ proc DecodeRaw(root: Scope, bytes: Out, out_type: core.DType, littleEndian = non
 
   return DecodeRaw(root, bytes, out_type, attrs)
 
-proc ParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: InList, dense_keys: InList, dense_defaults: InList, sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) =
+proc ParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: InList, dense_keys: InList, dense_defaults: InList, sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation =
   iParseExample(root, serialized, names, sparse_keys, dense_keys, dense_defaults, sparse_types, dense_shapes)
 
-proc ParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: OutList, dense_keys: OutList, dense_defaults: OutList, sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) {.header:std_ops, importcpp:"tensorflow::ops::ParseExample(*#, #, #, #, *, *# #, #)".}
+proc ParseExample(root: Scope, serialized: Out, names: Out, sparse_keys: OutList, dense_keys: OutList, dense_defaults: OutList, sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseExample(*#, #, #, #, *, *# #, #).operation".}
 
-proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs) =
+proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs): Operation =
   iParseSequenceExample(root, serialized, debug_name, context_dense_defaults, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, attrs)
 
-proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: OutList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ParseSequenceExample(*#, #, #, #, #, #, #, #, #, #)".}
+proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: OutList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], attrs: ParseSequenceExampleAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSequenceExample(*#, #, #, #, #, #, #, #, #, #).operation".}
 
-proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[string], context_sparse_keys: ArraySlice[string], context_dense_keys: ArraySlice[string], feature_list_sparse_keys: ArraySlice[string], feature_list_dense_keys: ArraySlice[string], attrs: ParseSequenceExampleAttrs) =
+proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[string], context_sparse_keys: ArraySlice[string], context_dense_keys: ArraySlice[string], feature_list_sparse_keys: ArraySlice[string], feature_list_dense_keys: ArraySlice[string], attrs: ParseSequenceExampleAttrs): Operation =
   let cppSlice4 = newArraySlice[cppstring](feature_list_dense_missing_assumed_empty)
   let cppSlice5 = newArraySlice[cppstring](context_sparse_keys)
   let cppSlice6 = newArraySlice[cppstring](context_dense_keys)
   let cppSlice7 = newArraySlice[cppstring](feature_list_sparse_keys)
   let cppSlice8 = newArraySlice[cppstring](feature_list_dense_keys)
-  ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, cppSlice4, cppSlice5, cppSlice6, cppSlice7, cppSlice8, attrs)
+  return ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, cppSlice4, cppSlice5, cppSlice6, cppSlice7, cppSlice8, attrs)
 
-proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(core.DType), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(core.DType), featureListSparseTypes = none(core.DType), ncontextDense = none(int), ncontextSparse = none(int), nfeatureListDense = none(int), nfeatureListSparse = none(int)) =
+proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: InList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(ArraySlice[core.DType]), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(ArraySlice[core.DType]), featureListSparseTypes = none(ArraySlice[core.DType]), ncontextDense = none(int), ncontextSparse = none(int), nfeatureListDense = none(int), nfeatureListSparse = none(int)): Operation =
   var attrs = ParseSequenceExampleAttrs()
 
   if contextDenseShapes.isSome:
@@ -124,9 +124,9 @@ proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context
   if nfeatureListSparse.isSome:
     attrs = attrs.NfeatureListSparse(nfeatureListSparse.get())
 
-  ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, attrs)
+  return ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, attrs)
 
-proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: OutList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(core.DType), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(core.DType), featureListSparseTypes = none(core.DType), ncontextDense = none(int), ncontextSparse = none(int), nfeatureListDense = none(int), nfeatureListSparse = none(int)) =
+proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context_dense_defaults: OutList, feature_list_dense_missing_assumed_empty: ArraySlice[cppstring], context_sparse_keys: ArraySlice[cppstring], context_dense_keys: ArraySlice[cppstring], feature_list_sparse_keys: ArraySlice[cppstring], feature_list_dense_keys: ArraySlice[cppstring], contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(ArraySlice[core.DType]), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(ArraySlice[core.DType]), featureListSparseTypes = none(ArraySlice[core.DType]), ncontextDense = none(int), ncontextSparse = none(int), nfeatureListDense = none(int), nfeatureListSparse = none(int)): Operation =
   var attrs = ParseSequenceExampleAttrs()
 
   if contextDenseShapes.isSome:
@@ -148,24 +148,24 @@ proc ParseSequenceExample(root: Scope, serialized: Out, debug_name: Out, context
   if nfeatureListSparse.isSome:
     attrs = attrs.NfeatureListSparse(nfeatureListSparse.get())
 
-  ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, attrs)
+  return ParseSequenceExample(root, serialized, debug_name, context_dense_defaults, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, attrs)
 
-proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) =
+proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation =
   iParseSingleExample(root, serialized, dense_defaults, num_sparse, sparse_keys, dense_keys, sparse_types, dense_shapes)
 
-proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: OutList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleExample(*#, #, #, #, #, #, #, #)".}
+proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: OutList, num_sparse: int, sparse_keys: ArraySlice[cppstring], dense_keys: ArraySlice[cppstring], sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleExample(*#, #, #, #, #, #, #, #).operation".}
 
-proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[string], dense_keys: ArraySlice[string], sparse_types: core.DType, dense_shapes: ArraySlice[TensorShape]) =
+proc ParseSingleExample(root: Scope, serialized: Out, dense_defaults: InList, num_sparse: int, sparse_keys: ArraySlice[string], dense_keys: ArraySlice[string], sparse_types: ArraySlice[core.DType], dense_shapes: ArraySlice[TensorShape]): Operation =
   let cppSlice4 = newArraySlice[cppstring](sparse_keys)
   let cppSlice5 = newArraySlice[cppstring](dense_keys)
-  ParseSingleExample(root, serialized, dense_defaults, num_sparse, cppSlice4, cppSlice5, sparse_types, dense_shapes)
+  return ParseSingleExample(root, serialized, dense_defaults, num_sparse, cppSlice4, cppSlice5, sparse_types, dense_shapes)
 
-proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs) =
+proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs): Operation =
   iParseSingleSequenceExample(root, serialized, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, context_dense_defaults, debug_name, attrs)
 
-proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: OutList, context_dense_keys: OutList, feature_list_sparse_keys: OutList, feature_list_dense_keys: OutList, context_dense_defaults: OutList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs) {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleSequenceExample(*#, #, #, #, *, *# *#,*#, , #)".}
+proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: OutList, context_dense_keys: OutList, feature_list_sparse_keys: OutList, feature_list_dense_keys: OutList, context_dense_defaults: OutList, debug_name: Out, attrs: ParseSingleSequenceExampleAttrs): Operation {.header:std_ops, importcpp:"tensorflow::ops::ParseSingleSequenceExample(*#, #, #, #, *, *# *#,*#, , #).operation".}
 
-proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(core.DType), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(core.DType), featureListSparseTypes = none(core.DType)) =
+proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: InList, context_dense_keys: InList, feature_list_sparse_keys: InList, feature_list_dense_keys: InList, context_dense_defaults: InList, debug_name: Out, contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(ArraySlice[core.DType]), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(ArraySlice[core.DType]), featureListSparseTypes = none(ArraySlice[core.DType])): Operation =
   var attrs = ParseSingleSequenceExampleAttrs()
 
   if contextDenseShapes.isSome:
@@ -179,9 +179,9 @@ proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense
   if featureListSparseTypes.isSome:
     attrs = attrs.FeatureListSparseTypes(featureListSparseTypes.get())
 
-  ParseSingleSequenceExample(root, serialized, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, context_dense_defaults, debug_name, attrs)
+  return ParseSingleSequenceExample(root, serialized, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, context_dense_defaults, debug_name, attrs)
 
-proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: OutList, context_dense_keys: OutList, feature_list_sparse_keys: OutList, feature_list_dense_keys: OutList, context_dense_defaults: OutList, debug_name: Out, contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(core.DType), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(core.DType), featureListSparseTypes = none(core.DType)) =
+proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense_missing_assumed_empty: Out, context_sparse_keys: OutList, context_dense_keys: OutList, feature_list_sparse_keys: OutList, feature_list_dense_keys: OutList, context_dense_defaults: OutList, debug_name: Out, contextDenseShapes = none(ArraySlice[TensorShape]), contextSparseTypes = none(ArraySlice[core.DType]), featureListDenseShapes = none(ArraySlice[TensorShape]), featureListDenseTypes = none(ArraySlice[core.DType]), featureListSparseTypes = none(ArraySlice[core.DType])): Operation =
   var attrs = ParseSingleSequenceExampleAttrs()
 
   if contextDenseShapes.isSome:
@@ -195,7 +195,7 @@ proc ParseSingleSequenceExample(root: Scope, serialized: Out, feature_list_dense
   if featureListSparseTypes.isSome:
     attrs = attrs.FeatureListSparseTypes(featureListSparseTypes.get())
 
-  ParseSingleSequenceExample(root, serialized, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, context_dense_defaults, debug_name, attrs)
+  return ParseSingleSequenceExample(root, serialized, feature_list_dense_missing_assumed_empty, context_sparse_keys, context_dense_keys, feature_list_sparse_keys, feature_list_dense_keys, context_dense_defaults, debug_name, attrs)
 
 proc ParseTensor(root: Scope, serialized: Out, out_type: core.DType): Out =
   iParseTensor(root, serialized, out_type)
