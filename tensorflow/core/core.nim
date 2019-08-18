@@ -1235,6 +1235,8 @@ proc status(scope: Scope): Status {.importcpp:"#->status()".}
 proc ok(): Status {.header: std_ops,
                     importcpp: "tensorflow::Status::OK()".}
 
+proc logStatus*(scope: Scope) {.importcpp:"LOG(FATAL) << #->status().ToString();".}
+
 var supportedTypes {.compileTime}: seq[string]
 
 static:
