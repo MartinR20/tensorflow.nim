@@ -112,13 +112,13 @@ proc rawDense_test() {.test.} =
 proc dense_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
-    proto.newDense(10, 20)
+    proto.newDense(20)
     proto.newActivation(Relu)
-    proto.newDense(20, 10)
+    proto.newDense(10)
     proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
-    let model = proto.compile(rt, newMSE(), newSGD())
+    let model = proto.compile(rt, newMSE(), newSGD(), [1, 10])
 
     let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
@@ -128,11 +128,11 @@ proc dense_test() {.test.} =
 proc AE_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
-    proto.newDense(10, 4)
+    proto.newDense(4)
     proto.newActivation(Relu)
-    proto.newDense(4, 4)
+    proto.newDense(4)
     proto.newActivation(Relu)
-    proto.newDense(4, 10)
+    proto.newDense(10)
     proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
@@ -141,7 +141,7 @@ proc AE_test() {.test.} =
                            [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
                            [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam(), [3, 10])
 
     model.fit(input, input, 5, batch=1)
 
@@ -158,14 +158,14 @@ proc x_test() {.test.} =
 proc conv2d_test() {.test.} =  
     var proto: seq[Layer] = @[]
 
-    proto.newConv2d(1, 2, [1, 1], [1, 1])
+    proto.newConv2d(2, [1, 1], [1, 1])
     proto.newActivation(Relu)
-    proto.newConv2d(2, 4, [3, 3], [2, 2])
+    proto.newConv2d(4, [3, 3], [2, 2]) 
     proto.newActivation(Relu)
-    proto.newConv2d(4, 8, [3, 3], [2, 2])
+    proto.newConv2d(8, [3, 3], [2, 2]) 
     proto.newActivation(Relu)
-    proto.newReshape([1, 72])
-    proto.newDense(72,5)
+    proto.newFlatten()
+    proto.newDense(5)
     proto.newActivation(Softmax)
 
     let rt = newRootScope()
@@ -189,8 +189,8 @@ proc conv2d_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
-    model.fit(input, newTensor([[1,0,0,0,0],[1,0,0,0,0]], float32), 3, batch=1)
+    let model = proto.compile(rt, newMSE(), newAdam(), [2, 9, 9, 1])
+    model.fit(input, newTensor([[1,0,0,0,0],[1,0,0,0,0]], float32), 3, batch=2)
 
 proc maxpool_test() {.test.} =  
     var proto: seq[Layer] = @[]
@@ -198,7 +198,6 @@ proc maxpool_test() {.test.} =
     proto.newMaxPool([3, 3], [3, 3])
 
     let rt = newRootScope()
-    let sess = rt.newSession()
 
     let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -219,8 +218,8 @@ proc maxpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
-    echo model.eval(input)[0]
+    let model = proto.compile(rt, newMSE(), newAdam(), [2, 9, 9, 1])
+    echo model.eval(input)[0].shape
 
 proc avgpool_test() {.test.} =  
     var proto: seq[Layer] = @[]
@@ -228,7 +227,6 @@ proc avgpool_test() {.test.} =
     proto.newAvgPool([3, 3], [3, 3])
 
     let rt = newRootScope()
-    let sess = rt.newSession()
 
     let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -249,7 +247,7 @@ proc avgpool_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam(), [2, 9, 9, 1])
     echo model.eval(input)[0]
 
 proc dropout_test() {.test.} =  
@@ -258,7 +256,6 @@ proc dropout_test() {.test.} =
     proto.newDropout(0.4)
 
     let rt = newRootScope()
-    let sess = rt.newSession()
 
     let input = newTensor([[[[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
@@ -279,7 +276,7 @@ proc dropout_test() {.test.} =
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]],
                            [[1.0], [2.0], [4.0], [2.0], [3.0], [5.0], [6.0], [3.0], [4.0]]]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam(), [2, 9, 9, 1])
     echo model.eval(input)[0]
 
 proc concat_grad_test() {.test.} = 
@@ -305,12 +302,12 @@ proc branch_concat_test() {.test.} =
     var proto: seq[Layer] = @[]
 
     proto.newBranch()
-    proto.newDense(10, 10)
+    proto.newDense(10)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
     proto.newBranch()
-    proto.newDense(10, 10)
+    proto.newDense(10)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
@@ -319,22 +316,22 @@ proc branch_concat_test() {.test.} =
     proto.newBranch() #level 2
     
     proto.newBranch()
-    proto.newDense(20, 2)
+    proto.newDense(2)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
     proto.newBranch()
-    proto.newDense(20, 2)
+    proto.newDense(2)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
     proto.newBranch()
-    proto.newDense(20, 2)
+    proto.newDense(2)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
     proto.newBranch()
-    proto.newDense(20, 2)
+    proto.newDense(2)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
@@ -346,12 +343,12 @@ proc branch_concat_test() {.test.} =
     proto.newBranch() #level 2
 
     proto.newBranch()
-    proto.newDense(20, 1)
+    proto.newDense(1)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
     proto.newBranch()
-    proto.newDense(20, 1)
+    proto.newDense(1)
     proto.newActivation(Relu)
     proto.newEndBranch()
 
@@ -361,17 +358,16 @@ proc branch_concat_test() {.test.} =
 
     proto.newConcat(1)
 
-    proto.newDense(10, 10)
+    proto.newDense(10)
     proto.newActivation(Sigmoid)
 
     let rt = newRootScope()
-    let sess = rt.newSession()
 
     let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
                            [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
                            [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
 
-    let model = proto.compile(rt, newMSE(), newAdam())
+    let model = proto.compile(rt, newMSE(), newAdam(), [3, 10])
 
     # must be called for initalization of vars
     model.fit(input, input, 11, batch=1)
@@ -403,8 +399,8 @@ proc dilation_test() {.test.} =
                             [[0], [0], [0], [0], [1], [1], [1], [0], [0]],
                             [[0], [0], [0], [0], [0], [0], [0], [0], [0]]]], float32)
 
-    let model = proto.compile(newRootScope(), newMSE(), newAdam())
-    plotInOut(input, model.eval(input)[0])
+    let model = proto.compile(newRootScope(), newMSE(), newAdam(), [1, 9, 9, 1])
+    #plotInOut(input, model.eval(input)[0])
 
 proc erosion_test() {.test.} =  
     var proto: seq[Layer] = @[]
@@ -423,8 +419,8 @@ proc erosion_test() {.test.} =
                             [[0], [0], [0], [0], [1], [1], [1], [0], [0]],
                             [[0], [0], [0], [0], [0], [0], [0], [0], [0]]]], float32)
 
-    let model = proto.compile(newRootScope(), newMSE(), newAdam())
-    plotInOut(input, model.eval(input)[0])
+    let model = proto.compile(newRootScope(), newMSE(), newAdam(), [1, 9, 9, 1])
+    #plotInOut(input, model.eval(input)[0])
 
 proc opening_test() {.test.} =   
     var proto: seq[Layer] = @[]
@@ -443,8 +439,8 @@ proc opening_test() {.test.} =
                             [[0], [0], [0], [0], [1], [1], [1], [0], [0]],
                             [[0], [0], [0], [0], [0], [0], [0], [0], [0]]]], float32)
 
-    let model = proto.compile(newRootScope(), newMSE(), newAdam())
-    plotInOut(input, model.eval(input)[0])
+    let model = proto.compile(newRootScope(), newMSE(), newAdam(), [1, 9, 9, 1])
+    #plotInOut(input, model.eval(input)[0])
 
 proc closing_test() {.test.} =   
     var proto: seq[Layer] = @[]
@@ -463,8 +459,8 @@ proc closing_test() {.test.} =
                             [[0], [0], [0], [0], [1], [1], [1], [0], [0]],
                             [[0], [0], [0], [0], [0], [0], [0], [0], [0]]]], float32)
 
-    let model = proto.compile(newRootScope(), newMSE(), newAdam())
-    plotInOut(input, model.eval(input)[0])
+    let model = proto.compile(newRootScope(), newMSE(), newAdam(), [1, 9, 9, 1])
+    #plotInOut(input, model.eval(input)[0])
 
 #[
 proc inception_resnet_v2_test() {.test.} =  
