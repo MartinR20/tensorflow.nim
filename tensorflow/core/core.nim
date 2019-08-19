@@ -1040,10 +1040,10 @@ proc outputs(op: Operation): OutList =
 
   return outputs
 
-proc igetStrAttr(op: Operation, name: cppstring): cppstring {.importcpp:"#.node()->attrs().Find(#)->s()".}
+proc getStrAttr(op: Operation, name: cppstring): cppstring {.importcpp:"#.node()->attrs().Find(#)->s()".}
 
 proc getStrAttr(op: Operation, name: string): string = 
-  return $igetStrAttr(op, newCPPString(name))
+  return $getStrAttr(op, newCPPString(name))
 
 proc igetIntAttr(op: Operation, name: cppstring): int {.importcpp:"#.node()->attrs().Find(#)->i()".}
 
