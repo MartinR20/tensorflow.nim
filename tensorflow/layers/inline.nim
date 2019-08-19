@@ -37,7 +37,7 @@ type Inline = ref object of Layer
 
 method `$`(layer: Inline): string = "Inline"
 
-method make(layer: Inline, root: Scope): proc(rt: Scope, input: Out): Out = 
+method make(layer: Inline, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     return layer.ffunc
 
 proc newInline*(model: var seq[Layer], inlineFunc: proc(rt: Scope, input: Out): Out) =
