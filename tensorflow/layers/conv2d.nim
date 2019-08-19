@@ -42,19 +42,20 @@ method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, in
     layer.dimCheck(shape, 4)
     layer.inChannels = shape[3]
     
-    if layer.padding == "SAME":
-        var padSpace: array[0..1, int]
-        padSpace[0] = shape[1] %% layer.kernel[0]
-        padSpace[1] = shape[2] %% layer.kernel[1]
+    case layer.padding:
+    of "VALID":
+        var effective_filter_size: array[0..1, int]
+        effective_filter_size[0] = (layer.kernel[0] - 1) * layer.dilations[1] + 1;
+        effective_filter_size[1] = (layer.kernel[1] - 1) * layer.dilations[2] + 1;
 
         shape = @[shape[0], 
-                  (shape[1] + 2 * padSpace[0] - layer.dilations[1] * (layer.kernel[0]) - 1) div layer.strides[1] + 1,
-                  (shape[2] + 2 * padSpace[1] - layer.dilations[2] * (layer.kernel[1]) - 1) div layer.strides[2] + 1,
+                  (shape[1] - effective_filter_size[0] + layer.strides[1]) div layer.strides[1],
+                  (shape[2] - effective_filter_size[1] + layer.strides[2]) div layer.strides[2],
                   layer.outChannels]
-    else:
+    of "SAME":
         shape = @[shape[0], 
-                  (shape[1] - layer.dilations[1] * (layer.kernel[0]) - 1) div layer.strides[1] + 1,
-                  (shape[2] - layer.dilations[2] * (layer.kernel[1]) - 1) div layer.strides[2] + 1,
+                  (shape[1] + layer.strides[1] - 1) div layer.strides[1],
+                  (shape[2] + layer.strides[2] - 1) div layer.strides[2],
                   layer.outChannels]
 
     let shortLayerName = "Conv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
@@ -113,29 +114,51 @@ proc newConv2d*(model: var seq[Layer],
     model.add(conv2d)
 
 type TransposeConv2D = ref object of Conv2d
-    out_shape: array[0..3, cint]
-
 
 method `$`(layer: TransposeConv2D): string = "TransposeConv2D(in:" & $layer.inChannels & 
                                                            ", out:" & $layer.outChannels & 
                                                            ", kernel:" & $layer.kernel & 
-                                                           ", strides:" & $layer.strides[1..^2] &
-                                                           ", out_shape:" & $layer.out_shape[1..^2] & ")"
+                                                           ", strides:" & $layer.strides[1..^2] & ")"
 
 # Has to be globally allocated because it seqfaults otherwise
 var paddingT: cppstring
 var dataformatT: cppstring
 
 method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.dimCheck(shape, 4)
+    layer.inChannels = shape[3]
+
+    case layer.padding:
+    of "VALID":
+        var effective_filter_size: array[0..1, int]
+        effective_filter_size[0] = (layer.kernel[0] - 1) * layer.dilations[1] + 1;
+        effective_filter_size[1] = (layer.kernel[1] - 1) * layer.dilations[2] + 1;
+        
+        shape = @[shape[0], 
+                  shape[1] * layer.strides[1] + effective_filter_size[0] - layer.strides[1],
+                  shape[2] * layer.strides[2] + effective_filter_size[1] - layer.strides[2],
+                  layer.outChannels]
+    of "SAME":
+        shape = @[shape[0], 
+                  shape[1] * layer.strides[1] - layer.strides[1] + 1,
+                  shape[2] * layer.strides[2] - layer.strides[2] + 1,
+                  layer.outChannels]
+
+    var out_shape: array[0..3, int]
+    out_shape[0] = shape[0]
+    out_shape[1] = shape[1]
+    out_shape[2] = shape[2]
+    out_shape[3] = shape[3]
+
     #TODO: make right output size
     let shortLayerName = "TransposeConv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
-    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
+    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.outChannels, layer.inChannels])
     
     with root.newSubScope(shortLayerName & "_setup"):
-        let shape = [layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels].int32
+        let shape = [layer.kernel[0], layer.kernel[1], layer.outChannels, layer.inChannels].int32
         let filter = RandomNormal(shape, float32.tf)
         let variable = newVariable(filter, varShape, float32.tf, "TransposeConv2D_filter")
-        let out_shape = layer.out_shape.int32
+        let sshape = out_shape.int32
 
     layer.train.add(variable) 
 
@@ -153,7 +176,7 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
                 attrs = attrs.Dilations(newArraySlice(layer.dilations))
                 attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
 
-                return rtNamed.Conv2DBackpropInput(out_shape,
+                return rtNamed.Conv2DBackpropInput(sshape,
                                                     layer.train[0].vvar, 
                                                     input, 
                                                     strides, 
@@ -161,11 +184,9 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
                                                     attrs)
 
 proc newTransposeConv2D*(model: var seq[Layer], 
-                         inChannels: int,
                          outChannels: int,
                          kernel: array[0..1, int], 
                          strides: array[0..1, int], 
-                         out_shape: array[0..2, int], 
                          padding="SAME", 
                          dataFormat="NHWC", 
                          dilations=[1,1], 
@@ -173,12 +194,10 @@ proc newTransposeConv2D*(model: var seq[Layer],
 
     var tconv2d = new TransposeConv2D
 
-    tconv2d.inChannels = inChannels
     tconv2d.outChannels = outChannels
     tconv2d.kernel = kernel
 
     tconv2d.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
-    tconv2d.out_shape = [cast[cint](out_shape[0]), cast[cint](out_shape[1]), cast[cint](out_shape[2]), outChannels.cint]
 
     tconv2d.padding = padding
     tconv2d.dataFormat = dataFormat
