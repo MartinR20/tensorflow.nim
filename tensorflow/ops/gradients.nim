@@ -57,7 +57,40 @@ proc ConcatV2(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr
     return scope.status()
   
 proc Cast() {.nograd.} = discard
-proc Conv2DBackpropInput() {.nograd.} = discard
+
+#proc Cast(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
+#    gradOutputs[].add scope.Cast(gradInputs[0], op.input_type(0))
+#    return scope.status()
+
+proc Conv2DBackpropInput(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
+    var strides_64: array[0..3, int64]
+    op.getSliceAttr_i("strides", 4, strides_64)
+
+    var strides_32: array[0..3, cint]
+
+    for i in 0..3:
+        strides_32[i] = cast[int32](strides_64[i])
+
+    let strides = newArraySlice(strides_32)
+    let padding = op.getStrAttr(newCPPString("padding"))
+
+    gradOutputs[].add Out()
+
+    gradOutputs[].add Conv2DBackpropFilter(scope,
+                                           gradInputs[0],
+                                           Shape(scope, op.input(1)),
+                                           op.input(2),
+                                           strides,
+                                           padding)
+
+    gradOutputs[].add Conv2D(scope,
+                             gradInputs[0],
+                             op.input(1),
+                             strides,
+                             padding)
+
+    return scope.status()
+    
 
 proc Dilation2D(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
     var strides_64: array[0..3, int64]
