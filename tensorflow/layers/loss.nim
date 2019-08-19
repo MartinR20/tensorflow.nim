@@ -43,3 +43,7 @@ method MSE*(rt: Scope, y_true, y_pred: Out): Out {.loss.} =
 method CrossEntropy*(rt: Scope, y_pred, y_true: Out): Out {.loss.} = 
     with rt.newSubScope("CrossEntropy"):
         return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), 1.int32))
+
+method Mock*(rt: Scope, y_pred, y_true: Out): Out {.loss.} =
+    return y_pred
+    
