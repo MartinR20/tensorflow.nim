@@ -117,6 +117,7 @@ type Model = ref object
     eval: Out
     loss: Out
     opted: OutList
+    vars: OutList
     sess: Session
     save: Operation
     restore: Operation
@@ -142,7 +143,7 @@ proc newModel[N](rt: Scope,
               optim: Optim[N],
               vars: seq[TVariable],
               checkpoints=true,
-              checkPrefix="checkpoints/checkpoint",
+              checkPrefix="checkpoints/model.ckpt",
               restore=false): Model =
     var model = new Model
 
@@ -178,42 +179,47 @@ proc newModel[N](rt: Scope,
 
     rt.check()
 
-    model.sess.runSessionVoid(vars.assignSeq)
+    if not restore:
+        model.sess.runSessionVoid(vars.assignSeq)
 
-    rt.check()
+        rt.check()
 
-    for init in optim.init:
-        model.sess.runSessionVoid(init)
+        for init in optim.init:
+            model.sess.runSessionVoid(init)
+
+        rt.check()
+
+    model.vars = vars.vvarSeq
+
+    for list in optim.vars():
+        for v in list:
+            model.vars.add v
 
     rt.check()
 
     if checkpoints:
-        let tensors = vars.vvarSeq
-
-        for list in optim.vars():
-            for v in list:
-                tensors.add v
-
-        let names = newTensor(TF_STRING, newTensorShape([tensors.len]))
+        let names = newTensor(TF_STRING, newTensorShape([model.vars.len]))
         var buf = names.flat(newCPPString(""))
 
-        for i in 0..tensors.len-1:
-            buf[i] = newCPPString(tensors[i].name)
+        for i in 0..model.vars.len-1:
+            buf[i] = newCPPString(model.vars[i].name)
 
-        let empty = newTensor(TF_STRING, newTensorShape([tensors.len]))
+        let empty = newTensor(TF_STRING, newTensorShape([model.vars.len]))
 
         with rtNamed:
-            model.save = SaveV2(Const(checkPrefix), Const(names), Const(empty), tensors)
+            model.save = SaveV2(Const(checkPrefix), Const(names), Const(empty), model.vars)
 
-        
-        let dtypes = newArraySlice(float32.tf.repeat(tensors.len))
+        let dtypes = newArraySlice(float32.tf.repeat(model.vars.len))
 
         with rtNamed:
             model.restore = RestoreV2(Const(checkPrefix), Const(names), Const(empty), dtypes)
 
         if restore:
             var feed: FeedDict
-            model.sess.runSessionVoid(feed, rtNamed.Const(0), model.restore)
+            let read = model.restore.outputs()
+
+            for i in 0..read.len-1:
+                model.sess.runSessionVoid(feed, rtNamed.Assign(model.vars[i], read[i]))
 
     rt.check()
 
@@ -229,10 +235,12 @@ proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
 
             model.sess.runSessionVoid(feed, model.opted)
 
-        if epoch %% 10 == 0:
-            var outputs: TensorVec
-            model.sess.runSession(feed, model.loss, model.save, outputs)
+        if epoch %% 1 == 0:
+            let outputs = model.sess.runSession(feed, model.loss)
             echo "loss:", outputs[0].flat(0.float32).mean()
+
+            var feed: FeedDict
+            model.sess.runSessionVoid(feed, newOutList(), model.save)
     
 proc eval(model: Model, X: Tensor): TensorVec =
     var feed: FeedDict
@@ -250,7 +258,7 @@ proc compile*[N](layers: seq[Layer],
                  optim: Optim[N], 
                  inputShape: openArray[int],
                  checkpoints=true,
-                 checkPrefix="checkpoints/checkpoint",
+                 checkPrefix="checkpoints/model.ckpt",
                  restore=false): Model = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
