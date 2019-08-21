@@ -1450,14 +1450,14 @@ proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: cl
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, feed: FeedDict, operation: Operation, graph: OutList | Out): TensorVec =
+proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out, operation: Operation): TensorVec =
   var outputs: TensorVec
-  sess.runSession(graph, feed, operation, outputs)
+  sess.runSession(feed, graph, operation, outputs)
   return outputs
 
 proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out): TensorVec =
   var outputs: TensorVec
-  sess.runSession(graph, feed, outputs)
+  sess.runSession(feed, graph, outputs)
   return outputs
 
 proc runSession*(sess: Session, graph: OutList | Out): TensorVec =
