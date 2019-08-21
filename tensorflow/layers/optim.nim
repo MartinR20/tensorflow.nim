@@ -54,7 +54,7 @@ proc newAdagrad*(lr = 0.01, epsilon = 1e-7, decay = 0.0): Adagrad =
 
     return adagrad
 
-type Adam = ref object of Optim[4]
+type Adam = ref object of Optim[2]
     lr*: float
     beta1*: float
     beta2*: float
@@ -63,8 +63,6 @@ type Adam = ref object of Optim[4]
     amsgrad*: bool
     m: OutList
     v: OutList
-    beta1Power: OutList
-    beta2Power: OutList
 
 proc newAdam*(lr = 1e-4, beta1 = 0.9, beta2 = 0.99, epsilon = 10e-8, decay = 0.0, amsgrad = false): Adam =
     let adam = new Adam
@@ -88,6 +86,8 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         let beta1 = optim.beta1.float32
         let beta2 = optim.beta2.float32
         let epsilon = optim.epsilon.float32
+        let beta1Power = 0.float32
+        let beta2Power = 0.float32
 
     let scalarShape = newTensorShape([])
 
@@ -97,35 +97,28 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         with rootNamed:
             let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
             let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-            let ibeta1Power = newVariable(0.float32, scalarShape, TF_FLOAT)
-            let ibeta2Power = newVariable(0.float32, scalarShape, TF_FLOAT)
 
         optim.m.add im.vvar
         optim.v.add iv.vvar
-        optim.beta1Power.add ibeta1Power.vvar
-        optim.beta2Power.add ibeta2Power.vvar
 
         optim.init[0].add im.assign
         optim.init[1].add iv.assign
-        optim.init[2].add ibeta1Power.assign
-        optim.init[3].add ibeta2Power.assign
 
     return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
                 let rtNamed = rt.newSubScope("Adam")
                 var outp: OutList
 
                 for i in 0..input.len-1:
-                    outp.add rtNamed.ApplyAdam(input[i].vvar, optim.m[i], optim.v[i], optim.beta1Power[i], 
-                                                optim.beta2Power[i], lr, beta1, beta2, epsilon, grads[i])
+                    with rtNamed:
+                        outp.add ApplyAdam(input[i].vvar, optim.m[i], optim.v[i], beta1Power, 
+                                           beta2Power, lr, beta1, beta2, epsilon, grads[i])
                                         
                 return outp
 
-method vars(optim: Adam): array[4, OutList] =
+method vars(optim: Adam): array[2, OutList] =
     return [
         optim.m,
-        optim.v,
-        optim.beta1Power,
-        optim.beta2Power
+        optim.v
     ]
 
 type RMSProp = ref object of Optim[0]
