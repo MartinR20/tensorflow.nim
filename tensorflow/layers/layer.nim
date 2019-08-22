@@ -34,6 +34,7 @@ import ../utils/utils
 import ./loss
 import ./optim
 import ./variable
+import ./model/model
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Layer* = ref object of RootObj
@@ -95,170 +96,12 @@ proc makeBranch(branches: seq[seq[proc(rt: Scope, input: Out): Out]],
 
     ## a mini compile method for branches
 
-proc vvarSeq(vars: seq[TVariable]): OutList =
-    var outlist: OutList
-
-    for v in vars:
-        outlist.add v.vvar
-
-    return outlist
-
-proc assignSeq(vars: seq[TVariable]): OutList =
-    var outlist: OutList
-
-    for v in vars:
-        outlist.add v.assign
-
-    return outlist
-
-type Model = ref object
-    x: Out
-    y: Out
-    eval: Out
-    loss: Out
-    opted: OutList
-    vars: OutList
-    sess: Session
-    save: Operation
-    restore: Operation
-
-proc make_eval(rt: Scope, funcs: seq[proc(rt: Scope, input: Out): Out], X: Out): Out =
-    let rtNamed = rt.newSubScope("eval")
-
-    var outp = funcs[0](rtNamed, X)
-
-    for f in funcs[1..^1]:
-        outp = rtNamed.f(outp)
-
-    return outp
-
-proc check(rt: Scope) = 
-    if not rt.ok(): 
-        rt.logStatus
-        quit(1)
-
-proc newModel[N](rt: Scope, 
-              funcs: seq[proc(rt: Scope, input: Out): Out],
-              loss: Loss, 
-              optim: Optim[N],
-              vars: seq[TVariable],
-              checkpoints=true,
-              checkPrefix="checkpoints/model.ckpt",
-              restore=false): Model =
-    var model = new Model
-
-    let rtNamed = rt.newSubScope("fit")
-
-    with rtNamed:
-        model.x = Placeholder(float32.tf)
-        model.y = Placeholder(float32.tf)
-
-        model.eval = make_eval(funcs, model.x)
-
-        model.sess = newSession()
-    
-    rt.check()
-
-    if vars.len == 0:
-        echo "Warning: Your model has no trainable variables therefore fit will raise an Error!"
-        return model
-
-    with rtNamed:
-        model.loss = loss.fn(model.eval, model.y)
-
-    rt.check()
-
-    with rtNamed.newSubScope("Gradients"):
-        var grads: OutList
-        addSymbolicGradients(model.loss, vars.vvarSeq, grads)
-
-    rt.check()
-
-    with rtNamed:
-        model.opted = optim.make(vars)(vars, grads)
-
-    rt.check()
-
-    if not restore:
-        model.sess.runSessionVoid(vars.assignSeq)
-
-        rt.check()
-
-        for init in optim.init:
-            model.sess.runSessionVoid(init)
-
-        rt.check()
-
-    model.vars = vars.vvarSeq
-
-    for list in optim.vars():
-        for v in list:
-            model.vars.add v
-
-    rt.check()
-
-    if checkpoints:
-        let names = newTensor(TF_STRING, newTensorShape([model.vars.len]))
-        var buf = names.flat(newCPPString(""))
-
-        for i in 0..model.vars.len-1:
-            buf[i] = newCPPString(model.vars[i].name)
-
-        let empty = newTensor(TF_STRING, newTensorShape([model.vars.len]))
-
-        with rtNamed:
-            model.save = SaveV2(Const(checkPrefix), Const(names), Const(empty), model.vars)
-
-        let dtypes = newArraySlice(float32.tf.repeat(model.vars.len))
-
-        with rtNamed:
-            model.restore = RestoreV2(Const(checkPrefix), Const(names), Const(empty), dtypes)
-
-        if restore:
-            var feed: FeedDict
-            let read = model.restore.outputs()
-
-            for i in 0..read.len-1:
-                model.sess.runSessionVoid(feed, rtNamed.Assign(model.vars[i], read[i]))
-
-    rt.check()
-
-    return model
-
-proc fit(model: Model, X, Y: Tensor, epochs: int, batch = 32) =
-    var feed: FeedDict
-
-    for epoch in 0..epochs-1:
-        for x, y in batch(X, Y, batch):
-            feed[model.x] = x
-            feed[model.y] = y
-
-            model.sess.runSessionVoid(feed, model.opted)
-
-        if epoch %% 1 == 0:
-            let outputs = model.sess.runSession(feed, model.loss)
-            echo "loss:", outputs[0].flat(0.float32).mean()
-
-            var feed: FeedDict
-            model.sess.runSessionVoid(feed, newOutList(), model.save)
-    
-proc eval(model: Model, X: Tensor): TensorVec =
-    var feed: FeedDict
-
-    feed[model.x] = X
-
-    var outputs: TensorVec
-    model.sess.runSession(feed, model.eval, outputs)
-
-    return outputs
-
 proc compile*[N](layers: seq[Layer], 
                  root: Scope, 
                  loss: Loss, 
                  optim: Optim[N], 
                  inputShape: openArray[int],
-                 checkpoints=true,
-                 checkPrefix="checkpoints/model.ckpt",
+                 path="checkpoints/model.ckpt",
                  restore=false): Model = 
     var funcs: seq[proc(rt: Scope, input: Out): Out]
     var branchFuncs: seq[seq[proc(rt: Scope, input: Out): Out]]
@@ -305,7 +148,7 @@ proc compile*[N](layers: seq[Layer],
         for i in 0..layer.train.len-1:
             vars.add(layer.train[i])
 
-    return newModel(root, funcs, loss, optim, vars, checkpoints, checkPrefix, restore)
+    return newModel(root, funcs, loss, optim, vars, path, restore)
 
     ## The compile procedure is the function that turns your model into an actual sequence of operations and returns
     ## a fit and eval method to train your model and afterward evaluate its performence. Beware this interface will
