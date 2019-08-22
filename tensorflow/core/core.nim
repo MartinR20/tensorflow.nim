@@ -1237,6 +1237,12 @@ proc ok(): Status {.header: std_ops,
 
 proc logStatus*(scope: Scope) {.importcpp:"LOG(FATAL) << #->status().ToString();".}
 
+proc check*(rt: Scope) = 
+  if not rt.ok(): 
+      rt.logStatus
+      quit(1)
+
+
 var supportedTypes {.compileTime}: seq[string]
 
 static:
