@@ -21,16 +21,13 @@ template PoolingLayer(name: untyped, newfn: untyped, varname: untyped) =
     method make(layer: name, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
         layer.dimCheck(shape, 4)
 
-        if layer.padding == "SAME":
-            var padSpace: array[0..1, int]
-            padSpace[0] = shape[1] %% layer.kernel[1]
-            padSpace[1] = shape[2] %% layer.kernel[2]
-
+        case layer.padding:
+        of "VALID":
             shape = @[shape[0], 
-                    (shape[1] + 2 * padSpace[0] - layer.kernel[1]) div layer.strides[1] + 1,
-                    (shape[2] + 2 * padSpace[1] - layer.kernel[2]) div layer.strides[2] + 1,
+                    (shape[1] - layer.kernel[1]) div layer.strides[1] + 1,
+                    (shape[2] - layer.kernel[2]) div layer.strides[2] + 1,
                     shape[3]]
-        else:
+        of "SAME":
             shape = @[shape[0], 
                     (shape[1] - layer.kernel[1]) div layer.strides[1] + 1,
                     (shape[2] - layer.kernel[2]) div layer.strides[2] + 1,

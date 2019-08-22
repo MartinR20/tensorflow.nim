@@ -21,6 +21,8 @@ type Reshape[N,int] = ref object of Layer
 method `$`[N,int](layer: Reshape[N,int]): string = "Reshape(shape:" & $layer.shape & ")"
 
 method make[N,int](layer: Reshape[N,int], root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+    layer.shape[0] = shape[0]
+     
     var inels = 1
 
     for dim in shape:
@@ -43,9 +45,9 @@ method make[N,int](layer: Reshape[N,int], root: Scope, shape: var seq[int]): pro
                 return rtNamed.Reshape(input, shape)
 
 proc newReshape*[N,int](model: var seq[Layer], shape: array[N,int]) =
-    var reshape = new Reshape[N,int]
+    var reshape = new Reshape[range[0..N.high+1], int]
 
-    reshape.shape = shape
+    reshape.shape[1..^1] = shape
 
     model.add(reshape)
 
