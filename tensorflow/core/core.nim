@@ -627,12 +627,13 @@ proc copy*(ten: Tensor): Tensor =
 
 ## Flat related definitions
 type
-  Flat*[T] {.header: tensor,
+  Flat*[T] {.header: tensorh,
              importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Flat>".} = object
     ## The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
 
-proc flat*[T](ten: Tensor, x:T): Flat[T] {.header:tensor,
-                                           importcpp:"std::make_shared<tensorflow::TTypes<'2>::Flat>(std::move(#->flat<'2>()))".}
+proc iflat*[T](ten: Tensor[T], R: type): Flat[R] {.
+    header: tensorh,
+    importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Flat>(std::move(#->flat<'*0>()))".}
 
   ## A method returning the flat buffer of a Tensor with the given type.
   ## 
@@ -641,6 +642,9 @@ proc flat*[T](ten: Tensor, x:T): Flat[T] {.header:tensor,
   ##   ten: The tensor it is applied on.
   ## Returns:
   ##   A new Flat object "referencing" the data of the Tensor.
+
+proc flat*[T](ten: Tensor[T]): auto =
+  return ten.iflat(T.name.To)
 
 proc len*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
 
@@ -682,12 +686,12 @@ proc mean*[T](flat: Flat[T]) : T =
 
 ## Matrix related definitions
 type
-  Matrix*[T] {.header: tensor,
+  Matrix*[T] {.header: tensorh,
                importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Matrix>".} = object
     ## The Matrx Type is a way of accessing the underlying memory of a tensor as a Matirx.
 
 
-proc matrix*[T](ten: Tensor, x:T): Matrix[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'2>::Matrix>(std::move(#->matrix<'2>()))".}
+proc matrix*[T](ten: Tensor[T]): Matrix[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Matrix>(std::move(#->matrix<'*0>()))".}
 
   ## A method returning the Matrix from a Tensor with the given type.
   ## 
@@ -704,11 +708,11 @@ proc `[]=`*[T](flat: Matrix[T], i: int, j: int, val: T) {.importcpp:"(*#)(#, #) 
 
 ## Scalar related definitions
 type
-  Scalar*[T] {.header: tensor,
+  Scalar*[T] {.header: tensorh,
                importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Scalar>".} = object
     ## The Scalar Type is a way of accessing the underlying memory of a tensor as a Scalar.
 
-proc scalar*[T](ten: Tensor, x:T): Scalar[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'2>::Scalar>(std::move(#->scalar<'2>()))".}
+proc scalar*[T](ten: Tensor[T]): Scalar[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Scalar>(std::move(#->scalar<'*0>()))".}
 
   ## A method returning the Scalar from a Tensor with the given type.
   ## 
@@ -725,7 +729,7 @@ proc get*[T](flat: Scalar[T]): T {.importcpp:"(*#)(0)".}
 #[
 ## TensorMap related definitions
 type
-  TensorMap*[T, N] {.header: tensor,
+  TensorMap*[T, N] {.header: tensorh,
                   importcpp: "tensorflow::TTypes<'0, '1>::Matirx".} = object
     ## The TensorMap Type is a way of accessing the underlying memory of a tensor as a tensor.
 
