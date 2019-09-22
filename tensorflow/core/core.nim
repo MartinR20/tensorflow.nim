@@ -340,95 +340,20 @@ proc dims*(shape: TensorShape): int {.importcpp:"#.dims()".}
   ## Returns:
   ##   The number of dimensions.
 
-type
-  DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
-    TF_FLOAT = 1, TF_DOUBLE = 2, TF_INT32 = 3, ##  Int32 tensors are always in 'host' memory.
-    TF_UINT8 = 4, TF_INT16 = 5, TF_INT8 = 6, TF_STRING = 7, TF_COMPLEX64 = 8, ##  Single-precision complex
-    TF_INT64 = 9, TF_BOOL = 10, TF_QINT8 = 11, ##  Quantized int8
-    TF_QUINT8 = 12,             ##  Quantized uint8
-    TF_QINT32 = 13,             ##  Quantized int32
-    TF_BFLOAT16 = 14,           ##  Float32 truncated to 16 bits.  Only for cast ops.
-    TF_QINT16 = 15,             ##  Quantized int16
-    TF_QUINT16 = 16,            ##  Quantized uint16
-    TF_UINT16 = 17, TF_COMPLEX128 = 18, ##  Double-precision complex
-    TF_HALF = 19, TF_RESOURCE = 20, TF_VARIANT = 21, TF_UINT32 = 22, TF_UINT64 = 23 
-
-    # An Enum holding the integers corresponding to the Tensorflow DataTypes.
-
-const
-  TF_COMPLEX = TF_COMPLEX64
-
-const typeLookUp* = {
-  "float"                    : TF_DOUBLE,
-  "float32"                  : TF_FLOAT,
-  "float64"                  : TF_DOUBLE, 
-  "int"                      : TF_INT64,
-  "int32"                    : TF_INT32,
-  "uint8"                    : TF_UINT8,
-  "int16"                    : TF_INT16,
-  "int8"                     : TF_INT8, 
-  "cppstring"                : TF_STRING, 
-  "Complex[system.float64]"  : TF_COMPLEX64,
-  "int64"                    : TF_INT64, 
-  "bool"                     : TF_BOOL, 
-  "uint16"                   : TF_UINT16, 
-  "uint32"                   : TF_UINT32,
-  "uint64"                   : TF_UINT64
-  #TF_COMPLEX128, 
-  #TF_QINT8, 
-  #TF_QUINT8,           
-  #TF_QINT32,           
-  #TF_BFLOAT16,         .
-  #TF_QINT16,           
-  #TF_QUINT16,          
-  #TF_HALF, 
-  #TF_RESOURCE, 
-  #TF_VARIANT,
-}.toTable
-
-const typeLookUpReverse* = {
-  TF_DOUBLE    : "float",     
-  TF_FLOAT     : "float32",  
-  TF_DOUBLE    : "float64",   
-  TF_INT64     : "int",  
-  TF_INT32     : "int32",  
-  TF_UINT8     : "uint8",  
-  TF_INT16     : "int16",  
-  TF_INT8      : "int8",  
-  TF_STRING    : "cppstring",   
-  TF_COMPLEX64 : "Complex[system.float64]",  
-  TF_INT64     : "int64",   
-  TF_BOOL      : "bool",   
-  TF_UINT16    : "uint16",   
-  TF_UINT32    : "uint32",   
-  TF_UINT64    : "uint64"                 
-  #TF_COMPLEX128, 
-  #TF_QINT8, 
-  #TF_QUINT8,           
-  #TF_QINT32,           
-  #TF_BFLOAT16,         .
-  #TF_QINT16,           
-  #TF_QUINT16,          
-  #TF_HALF, 
-  #TF_RESOURCE, 
-  #TF_VARIANT,
-}.toTable
-
-proc tf(dtype: typedesc): DType =
-    return typeLookUp[dtype.name]
-
 ## Tensor related definitions
 type
-  Tensor* {.header: memory,
-            header: tensor,
-            importcpp: "std::shared_ptr<tensorflow::Tensor>" .} = object
+  Tensor*[T] {.header: memory,
+               header: tensorh,
+               importcpp: "std::shared_ptr<tensorflow::Tensor>/*'0*/" .} = object
     ## The Tensor Type is really a shared pointer to a Tensor. This makes it a whole lot easier to work with because
     ## a Tensor constructed in one nim stackframe would be destructed at the end of that stackframe but it might have
     ## a use in a different stackframe therefore accessing freed memory and throwing a segfault. With a smart pointer 
     ## this can be avoided because it keeps the object alive as long the there is reference on it enabling the Tensor 
     ## to live across multiple stackframes.
 
-proc toValueCPPStr(ten: Tensor, len: int): cppstring {.importcpp: "#->SummarizeValue(#, true)".} 
+converter tensorToAll*[T](ten: Tensor[T]): T {.importcpp:"tensorflow::Input(*#)".}
+
+proc toValueCPPStr[T](ten: Tensor[T], len: int): cppstring {.importcpp: "#->SummarizeValue(#, true)".} 
 
   ## A Method to get a cppstring representation of the first 100 Values of the Tensor.
   ##
@@ -437,7 +362,7 @@ proc toValueCPPStr(ten: Tensor, len: int): cppstring {.importcpp: "#->SummarizeV
   ## Returns:
   ##   A new cppstring representing the first 100 Values of the Tensor.
 
-proc toValueStr*(ten: Tensor, len: int) : string =
+proc toValueStr*[T](ten: Tensor[T], len: int) : string =
   return $toValueCPPStr(ten, len)
 
   ## A Method to get a string representation of the first 100 Values of the Tensor.
@@ -447,7 +372,7 @@ proc toValueStr*(ten: Tensor, len: int) : string =
   ## Returns:
   ##   A new string representing the first 100 Values of the Tensor.
 
-proc shape*(ten: Tensor) : TensorShape {.header: tensor, 
+proc shape*[T](ten: Tensor[T]) : TensorShape {.header: tensorh, 
                                          importcpp:"#->shape()".}
 
   ## A Method to get the shape of a Tensor.
@@ -457,7 +382,7 @@ proc shape*(ten: Tensor) : TensorShape {.header: tensor,
   ## Returns:
   ##   The Shape of the Tensor.
 
-proc dtype*(ten: Tensor) : DType {.header: tensor, 
+proc dtype*[T](ten: Tensor[T]) : DType {.header: tensorh, 
                                    importcpp:"#->dtype()".}
 
   ## A Method to get the dtype of a Tensor.
@@ -467,9 +392,9 @@ proc dtype*(ten: Tensor) : DType {.header: tensor,
   ## Returns:
   ##   The Dtype of the Tensor.
 
-proc toDebugCPPStr(ten: Tensor): cppstring {.importcpp: "#->DebugString()".} 
+proc toDebugCPPStr[T](ten: Tensor[T]): cppstring {.importcpp: "#->DebugString()".} 
 
-proc `$`*(ten: Tensor) : string =
+proc `$`*[T](ten: Tensor[T]) : string =
   return $toDebugCPPStr(ten)
 
   ## String conversion for Tensors.
@@ -479,8 +404,8 @@ proc `$`*(ten: Tensor) : string =
   ## Returns:
   ##   A new string representing the Tensor.
 
-proc slice*(ten: Tensor, start: int, stop: int): Tensor 
-  {.header: tensor,
+proc slice*[T](ten: Tensor[T], start: int, stop: int): Tensor[T]
+  {.header: tensorh,
     header: memory,
     importcpp:"std::make_shared<tensorflow::Tensor>(std::move(#->Slice(#, #)))".}
 
@@ -491,7 +416,8 @@ proc slice*(ten: Tensor, start: int, stop: int): Tensor
   ## Returns:
   ##   The slice along the first dimension.
 
-proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: tensor,
+proc itensor(dtype: DType, shape: TensorShape, T: type) : Tensor[T] {.
+  header: tensorh,
                                                              importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
 
   ## Tensor Constructor.
@@ -502,9 +428,9 @@ proc newTensor*(dtype: DType, shape: TensorShape) : Tensor {.header: tensor,
   ## Returns:
   ##   A new Tensor with given dtype and shape.
 
-proc newTensor*(dtype: DType, shape: openArray[int]) : Tensor =
-  let sh = newTensorShape(shape)
-  return newTensor(dtype, sh)
+proc itensor*(dtype: DType, shape: openArray[int], T: type) : Tensor[T] =
+  let sh = shape(shape)
+  return itensor(dtype, sh, T)
 
   ## Convinience Tensor Constructor constructing a Tensorshape for you.
   ## 
@@ -514,25 +440,40 @@ proc newTensor*(dtype: DType, shape: openArray[int]) : Tensor =
   ## Returns:
   ##   A new Tensor with given dtype and shape.
 
-proc `$@`*[N,T](arr: array[N,T]): Tensor = 
-  return newTensor(arr)
+type Allocator* {.importcpp:"tensorflow::Allocator".} = object
 
-  ## Shorthand for creating a Tensor from an array.
+proc itensor(alloc: ptr Allocator, dtype: DType, shape: TensorShape, T: type) : Tensor[T] {.
+  header: tensorh,
+  importcpp: """[&](){ 
+    auto _alloc = #;
+    auto _dtype = #; 
+    auto _shape = #; 
+    tensorflow::TensorShape _tshape; 
+    _shape.AsTensorShape(&_tshape); 
+    return std::make_shared<tensorflow::Tensor>(_alloc, _dtype, _tshape); 
+  }()""".}
+
+  ## Tensor Constructor.
   ## 
   ## Args:
-  ##   arr: The array that should be converted to a Tensor.
+  ##   alloc: Allocator to use.
+  ##   dtype: The DType of a Tensor.
+  ##   shape: The shape the Tensor is supposed to have.
   ## Returns:
-  ##   A new Tensor with the given data.
+  ##   A new Tensor with given dtype and shape.
 
-proc `$@`*[T](arr: T): Tensor = 
-  return newTensor(arr)
+proc itensor*(alloc: ptr Allocator, dtype: DType, shape: openArray[int], T: type) : Tensor[T] =
+  let sh = shape(shape)
+  return itensor(alloc, dtype, sh, T)
 
-  ## Shorthand for creating a Tensor from an scalar.
+  ## Convinience Tensor Constructor constructing a Tensorshape for you.
   ## 
   ## Args:
-  ##   arr: The array that should be converted to a Tensor.
+  ##   alloc: Allocator to use.
+  ##   dtype: The DType of a Tensor.
+  ##   shape: The shape the Tensor is supposed to have represented by an array.
   ## Returns:
-  ##   A new Tensor with the given data.
+  ##   A new Tensor with given dtype and shape.
 
 proc getShapeHelper[T](x:T, shape: var seq[int]) = 
   return
