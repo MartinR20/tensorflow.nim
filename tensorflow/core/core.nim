@@ -497,6 +497,7 @@ proc getShapeHelper[N,T](arr: array[N,T], shape: var seq[int]) =
 
 proc getShape[N,T](arr: array[N,T]) : seq[int] = 
   var shape: seq[int] = @[]
+  when arr.len != 0:
   getShapeHelper(arr, shape)
   return shape
 
