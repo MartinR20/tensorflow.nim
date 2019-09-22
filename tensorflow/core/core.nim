@@ -10,6 +10,95 @@ import complex
 #import complex
 {.hint[XDeclaredButNotUsed]:off.}
 
+type oinvalid*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type odouble*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ofloat*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oint64*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oint32*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ouint8*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oint16*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oint8*        {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ostring*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type obool*        {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ouint16*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ouint32*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ouint64*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ocomplex64*   {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ocomplex128*  {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oqint8*       {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oquint8*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oqint32*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type obfloat16*    {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oqint16*      {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oquint16*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ohalf*        {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type oresource*    {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type ovariant*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
+
+type oany* = odouble | ofloat | oint64 | oint32 | ouint8 | oint16 | oint8 | ostring | 
+              obool | ouint16 | ouint32 | ouint64 | ocomplex64 | ocomplex128 | oqint8 | oquint8 |
+              oqint32 | obfloat16 | oqint16 | oquint16 | ohalf | oresource | ovariant
+
+type oall* = oinvalid | odouble | ofloat | oint64 | oint32 | ouint8 | oint16 | oint8 | ostring | 
+              obool | ouint16 | ouint32 | ouint64 | ocomplex64 | ocomplex128 | oqint8 | oquint8 |
+              oqint32 | obfloat16 | oqint16 | oquint16 | ohalf | oresource | ovariant
+
+converter invalidToAny*(o: oinvalid): oany {.importcpp:"#".}
+
+converter anyToInvalid*(o: oany): oinvalid {.importcpp:"#".}
+
+const dict* = { 
+    "int"           : "oint64"       , 
+    "int8"          : "oint8"       , 
+    "int16"         : "oint16"      , 
+    "int32"         : "oint32"      , 
+    "int64"         : "oint64"      , 
+    "uint"          : "ouint64"     , 
+    "uint8"         : "ouint8"      , 
+    "uint16"        : "ouint16"     ,  
+    "uint32"        : "ouint32"     ,  
+    "uint64"        : "ouint64"     ,  
+    "float"         : "odouble"     ,  
+    "float32"       : "ofloat"      , 
+    "float64"       : "odouble"     ,  
+    "bool"          : "obool"       ,
+    "char"          : "ouint8"      , 
+    "string"        : "ostring"     ,  
+    "Complex64"     : "ocomplex64"  ,  
+    "Complex128"    : "ocomplex128" ,  
+    "Qint8"         : "oqint8"      ,  
+    "Quint8"        : "oquint8"     ,  
+    "Qint32"        : "oqint32"     ,  
+    "Bfloat16"      : "obfloat16"   ,  
+    "Qint16"        : "oqint16"     ,  
+    "Quint16"       : "oquint16"    ,  
+    "Half"          : "ohalf"       
+}.toOrderedTable
+
+const reversedict* = { 
+    "oint8"       : "int8"       , 
+    "oint16"      : "int16"      , 
+    "oint32"      : "int32"      , 
+    "oint64"      : "int64"      , 
+    "ouint8"      : "uint8"      , 
+    "ouint16"     : "uint16"     ,  
+    "ouint32"     : "uint32"     ,  
+    "ouint64"     : "uint64"     ,  
+    "ofloat"      : "float32"    , 
+    "odouble"     : "float64"    ,  
+    "obool"       : "bool"       ,
+    "ostring"     : "string"     ,  
+    "ocomplex64"  : "Complex64"  ,  
+    "ocomplex128" : "Complex128" ,  
+    "oqint8"      : "Qint8"      ,  
+    "oquint8"     : "Quint8"     ,  
+    "oqint32"     : "Qint32"     ,  
+    "obfloat16"   : "Bfloat16"   ,  
+    "oqint16"     : "Qint16"     ,  
+    "oquint16"    : "Quint16"    ,  
+    "ohalf"       : "Half"       
+}.toOrderedTable
+
 ## TensorShape related definitions
 type
   TensorShape* {.header: tensor,
