@@ -7,8 +7,11 @@ when defined(linux) or defined(macosx):
          "-I" & includeDir & "absl " &
          "-I" & includeDir & "eigen " &
          "-I" & includeDir & "protobuf " &
-         "-std=c++11".} 
-{.passL: "-Wl,-rpath," & libDir & 
+         "-std=c++11 " &
+         "-DNDEBUG " #Workaround for ref count error of custom ops
+         .} 
+{.passL: "-undefined dynamic_lookup " &
+         "-Wl,-rpath," & libDir & 
          " -L" & libDir & " -ltensorflow_cc -lprotobuf -ldl -lpthread".}
 {.hint[XDeclaredButNotUsed]:off.}
 
