@@ -176,6 +176,93 @@ const typeLookUpReverse* = {
 proc tf(dtype: typedesc): DType =
     return typeLookUp[dtype.name]
 
+const tfdict* = { 
+    "oint8"       : DT_INT8       , 
+    "oint16"      : DT_INT16      , 
+    "oint32"      : DT_INT32      , 
+    "oint64"      : DT_INT64      , 
+    "ouint8"      : DT_UINT8      , 
+    "ouint16"     : DT_UINT16     ,  
+    "ouint32"     : DT_UINT32     ,  
+    "ouint64"     : DT_UINT64     ,  
+    "ofloat"      : DT_FLOAT      , 
+    "odouble"     : DT_DOUBLE     ,  
+    "obool"       : DT_BOOL       ,
+    "ostring"     : DT_STRING     ,  
+    "ocomplex64"  : DT_COMPLEX64  ,  
+    "ocomplex128" : DT_COMPLEX128 ,  
+    "oqint8"      : DT_QINT8      ,  
+    "oquint8"     : DT_QUINT8     ,  
+    "oqint32"     : DT_QINT32     ,  
+    "obfloat16"   : DT_BFLOAT16   ,  
+    "oqint16"     : DT_QINT16     ,  
+    "oquint16"    : DT_QUINT16    ,  
+    "ohalf"       : DT_HALF       
+}.toOrderedTable
+
+const reversetfdict* = { 
+    DT_INT8       : "oint8"       , 
+    DT_INT16      : "oint16"      , 
+    DT_INT32      : "oint32"      , 
+    DT_INT64      : "oint64"      , 
+    DT_UINT8      : "ouint8"      , 
+    DT_UINT16     : "ouint16"     ,  
+    DT_UINT32     : "ouint32"     ,  
+    DT_UINT64     : "ouint64"     ,  
+    DT_FLOAT      : "ofloat"      , 
+    DT_DOUBLE     : "odouble"     ,  
+    DT_BOOL       : "obool"       ,
+    DT_STRING     : "ostring"     ,  
+    DT_COMPLEX64  : "ocomplex64"  ,  
+    DT_COMPLEX128 : "ocomplex128" ,  
+    DT_QINT8      : "oqint8"      ,  
+    DT_QUINT8     : "oquint8"     ,  
+    DT_QINT32     : "oqint32"     ,  
+    DT_BFLOAT16   : "obfloat16"   ,  
+    DT_QINT16     : "oqint16"     ,  
+    DT_QUINT16    : "oquint16"    ,  
+    DT_HALF       : "ohalf"       
+}.toOrderedTable
+
+macro oT*(x: untyped): untyped =
+    if not dict.hasKey($x):
+        var types = ""
+
+        for key in dict.keys:
+            types &= key & ", "
+
+        types = types[0..^3]
+
+        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
+
+    return ident(dict[$x])
+
+macro To*(x: untyped): untyped =
+    if not reversedict.hasKey($x):
+        var types = ""
+
+        for key in reversedict.keys:
+            types &= key & ", "
+
+        types = types[0..^3]
+
+        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
+
+    return ident(reversedict[$x])
+
+macro oTF*(x: untyped): untyped = 
+    if not tfdict.hasKey($x):
+        var types = ""
+
+        for key in tfdict.keys:
+            types &= key & ", "
+
+        types = types[0..^3]
+
+        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
+
+    return newLit(tfdict[$x])
+
 ## TensorShape related definitions
 type
   TensorShape* {.header: tensor,
