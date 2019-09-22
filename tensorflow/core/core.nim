@@ -265,14 +265,14 @@ macro oTF*(x: untyped): untyped =
 
 ## TensorShape related definitions
 type
-  TensorShape* {.header: tensor,
+  TensorShape* {.header: tensorh,
                  importcpp: "tensorflow::PartialTensorShape".} = object
     ## Type used to construct shapes for Tensors. As the PartialTensorShape is intended for in the c++ API.
     ## The "real" TensorShape Type as exsists in the c++ API isn't implemented in this interface as I see no
     ## use for it. It is only casted into on the c++ level when a Tensor is constructed. 
 
 
-proc inewTensorShape(dims: openArray[int], len: int, shape: TensorShape) {.header: tensor,
+proc ishape(dims: openArray[int], len: int, shape: TensorShape) {.header: tensorh,
                                                                            importcpp: "tensorflow::PartialTensorShape::MakePartialShape(#, #, &#)".}
   ## C++ Constructor Wrapper creating a new TensorShape.
   ##
@@ -281,9 +281,9 @@ proc inewTensorShape(dims: openArray[int], len: int, shape: TensorShape) {.heade
   ##  len: Length of the dims Array.
   ##  shape: The Shape that is supposed to represent these dimensions.  
 
-proc newTensorShape*(dims: openArray[int]): TensorShape =
+proc shape*(dims: openArray[int]): TensorShape =
   let tshape = TensorShape()
-  inewTensorShape(dims, dims.len, tshape)
+  ishape(dims, dims.len, tshape)
   return tshape
 
   ## TensorShape Constructor.
@@ -294,7 +294,7 @@ proc newTensorShape*(dims: openArray[int]): TensorShape =
   ##   A new TensorShape with given dimensions.
 
 proc toCPPStr(shape: TensorShape): cppstring {.header: "<sstream>",
-                                             header: tensor,
+                                             header: tensorh,
                                              importcpp: "[&]() {std::stringstream s; s << #; return s.str(); }()".}
 
   ## A Method to get a cppstring representation of the TensorShape.
@@ -383,7 +383,7 @@ proc shape*[T](ten: Tensor[T]) : TensorShape {.header: tensorh,
   ##   The Shape of the Tensor.
 
 proc dtype*[T](ten: Tensor[T]) : DType {.header: tensorh, 
-                                   importcpp:"#->dtype()".}
+                                         importcpp:"#->dtype()".}
 
   ## A Method to get the dtype of a Tensor.
   ## 
@@ -418,7 +418,7 @@ proc slice*[T](ten: Tensor[T], start: int, stop: int): Tensor[T]
 
 proc itensor(dtype: DType, shape: TensorShape, T: type) : Tensor[T] {.
   header: tensorh,
-                                                             importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
+  importcpp: "[&](){ auto _dtype = #; auto _shape = #; tensorflow::TensorShape _tshape; _shape.AsTensorShape(&_tshape); return std::make_shared<tensorflow::Tensor>(_dtype, _tshape); }()".}
 
   ## Tensor Constructor.
   ## 
@@ -498,7 +498,7 @@ proc getShapeHelper[N,T](arr: array[N,T], shape: var seq[int]) =
 proc getShape[N,T](arr: array[N,T]) : seq[int] = 
   var shape: seq[int] = @[]
   when arr.len != 0:
-  getShapeHelper(arr, shape)
+    getShapeHelper(arr, shape)
   return shape
 
   ## A recursive method for finding the diminensions of an array.
@@ -552,7 +552,7 @@ proc num_elements*(sh: TensorShape): int {.importcpp:"#.num_elements()".}
   ## Returns:
   ##   The product of all dimensions
 
-iterator batch*(ten: Tensor, batchSize: int, len: int): Tensor =
+iterator batch*[T](ten: Tensor[T], batchSize: int, len: int): Tensor[T] =
   var i: cint = 0
   while i <= (len div batchSize)-1:
     yield ten.slice(i * batchSize, (i + 1) * batchSize)
@@ -567,7 +567,7 @@ iterator batch*(ten: Tensor, batchSize: int, len: int): Tensor =
   ## Returns:
   ##   A slice of the given Tensor with the given batchSize
 
-iterator batch*(ten: Tensor, batchSize: int): Tensor =
+iterator batch*[T](ten: Tensor[T], batchSize: int): Tensor[T] =
   for slice in batch(ten, batchSize, ten.shape.dim_size(0)):
     yield slice
 
@@ -579,7 +579,7 @@ iterator batch*(ten: Tensor, batchSize: int): Tensor =
   ## Returns:
   ##   A slice of the given Tensor with the given batchSize
 
-iterator batch*(X, Y: Tensor, batchSize: int, len: int): (Tensor, Tensor) =
+iterator batch*[A,B](X: Tensor[A], Y: Tensor[B], batchSize: int, len: int): (Tensor[A], Tensor[B]) =
   var i: cint = 0
   while i <= (len div batchSize)-1:
     let s = i * batchSize
@@ -600,7 +600,7 @@ iterator batch*(X, Y: Tensor, batchSize: int, len: int): (Tensor, Tensor) =
   ##   A (X, Y) Tensor tuple holding slices of the given Tensors
   ##   with the given batchSizes
 
-iterator batch*(X, Y: Tensor, batchSize: int): (Tensor, Tensor) =
+iterator batch*[A,B](X: Tensor[A], Y: Tensor[B], batchSize: int): (Tensor[A], Tensor[B]) =
   for x, y in batch(X, Y, batchSize, X.shape.dim_size(0)):
     yield (x, y)
 
@@ -615,11 +615,11 @@ iterator batch*(X, Y: Tensor, batchSize: int): (Tensor, Tensor) =
   ##   A (X, Y) Tensor tuple holding slices of the given Tensors
   ##   with the given batchSizes
 
-proc copyFrom*(to: Tensor, ffrom: Tensor, shape: TensorShape): bool {.importcpp:"#->CopyFrom(*#, #)".}
+proc copyFrom*[T](to: Tensor[T], ffrom: Tensor[T], shape: TensorShape): bool {.importcpp:"#->CopyFrom(*#, #)".}
 
-proc copy*(ten: Tensor): Tensor = 
+proc copy*[T](ten: Tensor[T]): Tensor[T] = 
     let sh = ten.shape
-    var newTen = newTensor(ten.dtype, sh)
+    var newTen = itensor(ten.dtype, sh)
 
     discard newTen.copyFrom(ten, ten.shape)
 
@@ -761,12 +761,12 @@ proc `[]=`[T](arr: cArray[T], i: int, val: T) {.importcpp:"#[#] = #".}
 
 proc getShape(x: NimNode, shape: var seq[int]) {.compileTime.} =
     case x.kind:
-  of nnkBracketExpr:
+    of nnkBracketExpr:
         shape.add (x[1][2].intVal + 1).int
         getShape(x[2], shape)
     of nnkSym:
         return
-  else:
+    else:
         raise newException(ValueError, "Failed traversing AST.")
 
 macro getShape(x: untyped): untyped =
@@ -776,24 +776,24 @@ macro getShape(x: untyped): untyped =
 
 proc getBaseType(x: NimNode, T: var NimNode) {.compileTime.} =
     case x.kind:
-  of nnkBracketExpr:
+    of nnkBracketExpr:
         if $x[0] == "typeDesc":
             getBaseType(x[1], T)
-  else:
+        else:
             getBaseType(x[2], T)
     of nnkSym:
         T = x
         return
     else:
         raise newException(ValueError, "Failed traversing AST.")
-
+    
 macro getBaseType(x: untyped): untyped =
     var T: NimNode
     x.getType.getBaseType(T)
     return T
 
 proc asPtr[N,T](arr: array[N,T]): pointer {.importcpp:"&#[0]".}
-      
+
 proc `[]`(p: pointer, i: int, T: type): T {.importcpp:"(('0*)#)[#]".}
 
 proc ccast[T,X](x: X): T {.importcpp:"'0(#)".}
@@ -803,13 +803,13 @@ macro `[]`*(x: untyped): untyped =
   case impl[2].kind:
   of nnkDotExpr:
     return impl[2]
-    else:
+  else:
     return x.getTypeInst[^1]
 
 proc tensor[N,T](data: array[N,T], OT: static[typedesc]): auto =
     let shape = data.getShape
     let DT = OT.oTF
-
+    
     type bT = T.getBaseType
     type oT = OT.To
 
@@ -823,11 +823,11 @@ proc tensor[N,T](data: array[N,T], OT: static[typedesc]): auto =
         for i in 0..prod(shape)-1:
             flat[i] = ccast[oT, bT[]](dptr[i, bT[]])
 
-  return ten
+    return ten
 
 proc tensor[T](data: T, OT: static[typedesc]): auto =
     let DT = OT.oTF
-
+    
     type bT = T.getBaseType
     type oT = OT.To
 
@@ -838,16 +838,7 @@ proc tensor[T](data: T, OT: static[typedesc]): auto =
 
     return ten
 
-  else: raise newException(OSError, "Type not supported!")
-
-  ## Convinience Tensor Constructor copying the given scalar into a Tensor. 
-  ## 
-  ## Args:
-  ##   scal: The array a Tensor should be constructed from.
-  ## Returns:
-  ##   A new Tensor with the given data.
-
-proc readBytes*(ten: Tensor, file: string, start: int, len: static[int]) =
+proc readBytes*(ten: Tensor[ouint8], file: string, start: int, len: static[int]) =
   var readFile: File
 
   if not readFile.open(file, fmRead): 
@@ -872,11 +863,11 @@ proc readBytes*(ten: Tensor, file: string, start: int, len: static[int]) =
 ## TensorVec related definitions
 type
   TensorVec* {.header: vector,
-              header: tensor,
+              header: tensorh,
               importcpp: "std::vector<tensorflow::Tensor>" .} = object
     ## The TensorVec Type is a wrapper around a std::vector of Tensors manly used for the output of a Session.
 
-proc inewTensorVec(args: openArray[Tensor], len: int) : TensorVec {.header: tensor,
+proc itensorVec(args: openArray[Tensor[oinvalid]], len: int) : TensorVec {.header: tensorh,
                                                                     header: vector,
                                                                     importcpp: "[&]() { std::vector<tensorflow::Tensor> vec; auto _args = #; auto _len = #; vec.resize(_len); for(int i = 0; i < _len; i++) vec.push_back(*_args[i]); return vec;} ()".}
 
@@ -888,8 +879,8 @@ proc inewTensorVec(args: openArray[Tensor], len: int) : TensorVec {.header: tens
   ## Returns:
   ##   A TensorVec with the given Tensors.
 
-proc newTensorVec*(args: varargs[Tensor]) : TensorVec = 
-  return inewTensorVec(args, args.len)
+proc tensorVec*(args: varargs[Tensor[oinvalid]]) : TensorVec = 
+  return itensorVec(args, args.len)
 
   ## Constructor for the TensorVec type copying the Tensors from an array of Tensors into a vector.
   ## 
@@ -907,15 +898,15 @@ proc len*(tensorVec: TensorVec) : int {.importcpp: "#.size()".}
   ## Returns:
   ##   The size of the TensorVec object.
 
-proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor {.header: memory, 
-                                                       header: tensor,
+proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor[oinvalid] {.header: memory, 
+                                                       header: tensorh,
                                                        importcpp: "std::make_shared<tensorflow::Tensor>(std::move(#[#]))".}
 
-proc add*(tensorVec: TensorVec, ten: Tensor) {.importcpp: "#.push(*#)".}
+proc add*(tensorVec: TensorVec, ten: Tensor[oinvalid]) {.importcpp: "#.push_back(*#)".}
 
-proc insert*(tensorVec: TensorVec, pos: int, ten: Tensor) {.importcpp: "#.insert(#, *#)".}
+proc insert*(tensorVec: TensorVec, pos: int, ten: Tensor[oinvalid]) {.importcpp: "#.insert(#, *#)".}
 
-iterator items*(tens: TensorVec): Tensor =
+iterator items*(tens: TensorVec): Tensor[oinvalid] =
   var i: cint = 0
   while i <= tens.len()-1:
     yield tens[i]
@@ -928,26 +919,24 @@ iterator items*(tens: TensorVec): Tensor =
   ## Returns:
   ##   The Tensor objects one by one.
 
-## Output related definitions
-type
-  Out* {.header: std_ops,
-         importcpp: "tensorflow::Output".} = object
-    ## The Out Type is a pure wrapper around the c++ Output type.
+type Out*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
+type InList*     {.header: std_ops, importcpp:"tensorflow::InputList".} = object
+type OutList*     {.header: std_ops, importcpp:"tensorflow::OutputList".} = object
 
-proc iname(o: Out): cppstring {.importcpp:"#.name()".}
+proc iname(o: oall): cppstring {.importcpp:"#.name()".}
 
-proc name*(o: Out): string =
+proc name*(o: oall): string =
   return $o.iname()
     
-## OutList related definitions
-type
-  OutList* {.header: std_ops,
-             importcpp: "tensorflow::OutputList".} = object
-    ## The OutList Type is a wrapper around the c++ OutputList type which itself is basically a vector of Out objects.
+proc dtype(o: oall): DType {.importcpp:"#.type()".}
+  
+proc index(o: oall): int {.importcpp:"#.index()".}
 
-proc inewOutList(outs: openArray[Out], len: int): OutList {.header:std_ops, 
-                                                            header:vector,
-                                                            importcpp:"[&]() { auto _args = (tensorflow::Output*)&#[0]; int _len = #; std::vector<tensorflow::Output> _vec(_args, _args + _len); return _vec; }()".}
+type olist*[oall] {.header: std_ops, importcpp:"tensorflow::OutputList/*'0*/".} = object
+
+proc inewOutList[T:oall](outs: openArray[T], len: int): olist[T] {.header:std_ops, 
+                                                                 header:vector,
+                                                                 importcpp:"[&]() { auto _args = (tensorflow::Output*)&#[0]; int _len = #; std::vector<tensorflow::Output> _vec(_args, _args + _len); return _vec; }()".}
 
   ## A private constructor for the OutList type copying the Out objects from an array into an OutList.
   ## 
@@ -957,7 +946,7 @@ proc inewOutList(outs: openArray[Out], len: int): OutList {.header:std_ops,
   ## Returns:
   ##   An OutList with the given Out objects.
 
-proc newOutList*(outs: varargs[Out]): OutList =
+proc newOutList*(outs: varargs[oall]): olist[oall] =
   return inewOutList(outs, outs.len)
 
   ## Constructor for the OutList type copying the Out objects from an array into an OutList.
@@ -967,11 +956,11 @@ proc newOutList*(outs: varargs[Out]): OutList =
   ## Returns:
   ##   An OutList with the given Out objects.
 
-proc `[]`*(outs: OutList, idx: int): Out {.importcpp:"#[#]".}
+proc `[]`*(outs: olist[oall], idx: int): oall {.importcpp:"#[#]".}
 
-proc `[]=`*(outs: OutList, idx: int, val: Out) {.importcpp:"#[#] = #".}
+proc `[]=`*(outs: olist[oall], idx: int, val: oall) {.importcpp:"#[#] = #".}
 
-proc len*(outs: OutList): int {.importcpp:"#.size()".}
+proc len*(outs: olist[oall]): int {.importcpp:"#.size()".}
 
   ## Method to get the size of an OutList.
   ## 
@@ -980,7 +969,7 @@ proc len*(outs: OutList): int {.importcpp:"#.size()".}
   ## Returns:
   ##   The size of the OutList object.
 
-proc add*(outs: OutList, outVal: Out) {.importcpp:"#.push_back(#)".}
+proc add*(outs: olist[oall], outVal: oall) {.importcpp:"#.push_back(#)".}
 
   ## Proc to append to an OutList.
   ## 
@@ -988,7 +977,7 @@ proc add*(outs: OutList, outVal: Out) {.importcpp:"#.push_back(#)".}
   ##   outs: The OutList it is applied on.
   ##   outVal: Output you want to append.
 
-iterator items*(outs: OutList): Out =
+iterator items*(outs: olist[oall]): oall =
   var i = 0
   while i <= outs.len()-1:
     yield outs[i]
@@ -1001,7 +990,7 @@ iterator items*(outs: OutList): Out =
   ## Returns:
   ##   The Out objects one by one.
 
-iterator zip*(l1: OutList, l2: OutList): (Out, Out) =
+iterator zip*(l1: olist[oall], l2: olist[oall]): (oall, oall) =
   let len = min(l1.len, l2.len)
   var i = 0
   while i <= len-1:
@@ -1055,7 +1044,7 @@ proc half*(x: SomeFloat): Half {.importcpp:"tensorflow::half(#)".}
 ## ArraySlice related definitions
 
 type
-  ArraySlice*{.header: tensor,
+  ArraySlice*{.header: tensorh,
                importcpp: "tensorflow::gtl::ArraySlice<'0>".}[T] = object
 
     ## ArraySlice is a wrapper around the tensorflow::gtl::ArraySlice class
@@ -1069,12 +1058,12 @@ type
     ## For implemention details see:
     ## https://github.com/abseil/abseil-cpp/blob/master/absl/types/span.h
 
-proc inewArraySlice[T](data: openArray[T], len: int): ArraySlice[T] {.header: tensor,
+proc inewArraySlice[T](data: openArray[T], len: int): ArraySlice[T] {.header: tensorh,
                                                                       importcpp: "'0(#, #)".}
 
   ## C++ Constructor Wrapper using a hack because the imported template argument is 
   ## transformed to the whole type plus the template argument instead of only the template
-  ## argument. (meaning: tensorflow::gtl::ArraySlice<float> instead of float)
+  ## argument. (meaning: tensorhflow::gtl::ArraySlice<float> instead of float)
 
 proc newArraySlice*[T](data: openArray[T]): ArraySlice[T] = 
   if data is openArray[Tensor]:
@@ -1169,7 +1158,7 @@ iterator items*[T](slice: ArraySlice[T]): T =
 type
   Operation*[T: oall] {.header: gradients,
                         importcpp: "tensorflow::Operation/*'0*/".} = object
-
+ 
 proc num_inputs[T](op: Operation[T]): int {.importcpp:"#.num_inputs()".}
 
 proc input_type[T](op: Operation[T], o: int): core.DType {.importcpp:"#.input_type(#)".}
@@ -1217,7 +1206,7 @@ proc outputs[T](op: Operation[T]): olist[T] =
 proc op(o: oall): Operation[oall] {.importcpp:"#.op()".}
 
 type NameAttrList* {.importcpp:"tensorflow::NameAttrList".} = object
-    
+
 
 ## Scope related definitions
 type
@@ -1264,7 +1253,7 @@ proc withOpName*(rt: Scope, name: string): Scope =
 
   ## Returns a scope applying the given name to all ops.
 
-proc withControlDependencies(rt: Scope, control_dep: ArraySlice[Operation] | Out): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithControlDependencies(#)))".}
+proc withControlDependencies(rt: Scope, control_dep: ArraySlice[Operation[oall]] | oall): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->WithControlDependencies(#)))".}
 
   ## Return a new scope. All ops created within the returned scope will have as
   ## control dependencies the union of operations in the control_deps vector
@@ -1298,7 +1287,7 @@ proc withXlaCluster(scope: Scope, xla_cluster: string): Scope =
   ## Returns a new scope.  All ops created within the returned scope will have
   ## their _XlaCluster attribute set to `xla_cluster`.
 
-proc colocateWith(scope: Scope, op: Operation | Out): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->ColocateWith(#)))".}
+proc colocateWith(scope: Scope, op: Operation[oall] | oall): Scope {.importcpp:"std::make_shared<tensorflow::Scope>(std::move(#->ColocateWith(#)))".}
   
   ## Return a new scope. All ops created within the returned scope will be
   ## co-located on the device where op is placed.
@@ -1385,7 +1374,7 @@ macro with*(scope: Scope, body: untyped): untyped =
     return newStmtList(
         newCommand("iwith", scope, body)
     ) 
-    
+
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
 
@@ -1424,7 +1413,7 @@ proc newSession*(scope: Scope): Session {.header: memory,
   ##   A Session object that can be run to perform the Computations.
 
 ## Gradient Related definitions
-proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
+proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: olist[oall]) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
 
   ## Method for getting the gradient of a sequence of operations applied to the inputs.
   ## 
@@ -1434,9 +1423,9 @@ proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {
   ##   inputs: A list of outputs or single output containing the variables a gradient should be computed for.
   ##   gradOutputs: A list of outputs containing the computed gradients.
 
-proc addSymbolicGradients*(root: Scope, outputs: Out, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
+proc addSymbolicGradients*(root: Scope, outputs: oall, inputs, gradOutputs: olist[oall]) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
 
-proc addSymbolicGradients*(root: Scope, outputs, inputs: Out, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
+proc addSymbolicGradients*(root: Scope, outputs, inputs: oall, gradOutputs: olist[oall]) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
 
 type 
   SummaryWriter* {.header:memory,
@@ -1479,13 +1468,13 @@ type
 
     ## A map linking a Out from a Placeholder op to an actual tensor.
 
-proc `[]=`*(feed: FeedDict, placeholder: Out, ten: Tensor) {.importcpp:"#.insert({#, *#})".}
+proc `[]=`*(feed: FeedDict, placeholder: oall, ten: Tensor[oinvalid]) {.importcpp:"#.insert({#, *#})".}
 
 proc clear*(feed: FeedDict) {.importcpp:"#.clear()".}
 
   ## Remove all items from the dict.
 
-proc runSession*(sess: Session, feed: FeedDict, graph: Out, operation: Operation, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, feed: FeedDict, graph: oall, operation: Operation[oall], outputs: TensorVec) {.header: client_session,
   importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, {#}, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1498,7 +1487,7 @@ proc runSession*(sess: Session, feed: FeedDict, graph: Out, operation: Operation
   ##   outputs: A TensorVec holding the result of the computations.
 
 
-proc runSession*(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, feed: FeedDict, graph: oall, outputs: TensorVec) {.header: client_session,
                                                                                 importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1509,7 +1498,7 @@ proc runSession*(sess: Session, feed: FeedDict, graph: Out, outputs: TensorVec) 
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, graph: Out, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, graph: oall, outputs: TensorVec) {.header: client_session,
                                                                   importcpp: "TF_CHECK_OK((*#).Run({#}, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1519,7 +1508,7 @@ proc runSession*(sess: Session, graph: Out, outputs: TensorVec) {.header: client
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, feed: FeedDict, graph: OutList, operation: Operation, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, feed: FeedDict, graph: olist[oall], operation: Operation[oall], outputs: TensorVec) {.header: client_session,
   importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, {#}, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1531,7 +1520,7 @@ proc runSession*(sess: Session, feed: FeedDict, graph: OutList, operation: Opera
   ##   operation: Interface to run an operation without an output
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, feed: FeedDict, graph: olist[oall], outputs: TensorVec) {.header: client_session,
                                                                                      importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1542,7 +1531,7 @@ proc runSession*(sess: Session, feed: FeedDict, graph: OutList, outputs: TensorV
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: client_session,
+proc runSession*(sess: Session, graph: olist[oall], outputs: TensorVec) {.header: client_session,
                                                                       importcpp: "TF_CHECK_OK((*#).Run(#, &#))".}
 
   ## A Method to run computations previously definied.
@@ -1552,22 +1541,22 @@ proc runSession*(sess: Session, graph: OutList, outputs: TensorVec) {.header: cl
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   outputs: A TensorVec holding the result of the computations.
 
-proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out, operation: Operation): TensorVec =
+proc runSession*(sess: Session, feed: FeedDict, graph: olist[oall] | oall, operation: Operation[oall]): TensorVec =
   var outputs: TensorVec
   sess.runSession(feed, graph, operation, outputs)
   return outputs
 
-proc runSession*(sess: Session, feed: FeedDict, graph: OutList | Out): TensorVec =
+proc runSession*(sess: Session, feed: FeedDict, graph: olist[oall] | oall): TensorVec =
   var outputs: TensorVec
   sess.runSession(feed, graph, outputs)
   return outputs
 
-proc runSession*(sess: Session, graph: OutList | Out): TensorVec =
+proc runSession*(sess: Session, graph: olist[oall] | oall): TensorVec =
   var outputs: TensorVec
   sess.runSession(graph, outputs)
   return outputs
 
-proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out, operation: Operation) {.header: client_session,
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: oall, operation: Operation[oall]) {.header: client_session,
   importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, {#}, {#}, nullptr))".}
 
   ## A Method to run computations previously definied.
@@ -1578,7 +1567,7 @@ proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out, operation: Opera
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   operation: Interface to run an operation without an output
 
-proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out) {.header: client_session,
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: oall) {.header: client_session,
                                                                  importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, {#}, nullptr))".}
 
   ## A Method to run computations previously definied without returning the output.
@@ -1588,7 +1577,7 @@ proc runSessionVoid*(sess: Session, feed: FeedDict, graph: Out) {.header: client
   ##   feed: The FeedDict linking Out and Tensor.
   ##   graph: The Out/ OutList representing the computations that should be performed.
 
-proc runSessionVoid*(sess: Session, graph: Out) {.header: client_session,
+proc runSessionVoid*(sess: Session, graph: oall) {.header: client_session,
                                                  importcpp: "TF_CHECK_OK(#->Run({#}, nullptr))".}
 
   ## A Method to run computations previously definied without returning the output.
@@ -1597,7 +1586,7 @@ proc runSessionVoid*(sess: Session, graph: Out) {.header: client_session,
   ##   sess: The Session returned from the current Scope.
   ##   graph: The Out/ OutList representing the computations that should be performed.
 
-proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList, operation: Operation) {.header: client_session,
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: olist[oall], operation: Operation[oall]) {.header: client_session,
   importcpp: "TF_CHECK_OK((*#).Run((tensorflow::ClientSession::FeedType)#, #, {#}, nullptr))".}
 
   ## A Method to run computations previously definied.
@@ -1608,7 +1597,7 @@ proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList, operation: O
   ##   graph: The Out/ OutList representing the computations that should be performed.
   ##   operation: Interface to run an operation without an output
 
-proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList) {.header: client_session,
+proc runSessionVoid*(sess: Session, feed: FeedDict, graph: olist[oall]) {.header: client_session,
                                                                      importcpp: "TF_CHECK_OK(#->Run((tensorflow::ClientSession::FeedType)#, #, nullptr))".}
 
   ## A Method to run computations previously definied without returning the output.
@@ -1618,7 +1607,7 @@ proc runSessionVoid*(sess: Session, feed: FeedDict, graph: OutList) {.header: cl
   ##   feed: The FeedDict linking Out and Tensor.
   ##   graph: The Out/ OutList representing the computations that should be performed.
 
-proc runSessionVoid*(sess: Session, graph: OutList) {.header: client_session,
+proc runSessionVoid*(sess: Session, graph: olist[oall]) {.header: client_session,
                                                     importcpp: "TF_CHECK_OK(#->Run(#, nullptr))".}
 
   ## A Method to run computations previously definied without returning the output.
@@ -1628,13 +1617,14 @@ proc runSessionVoid*(sess: Session, graph: OutList) {.header: client_session,
   ##   graph: The Out/ OutList representing the computations that should be performed.
 
 export TensorShape,
-       newTensorShape,
+       shape,
        dim_size,
        dims,
        `$`,
        DType,
        Tensor,
-       newTensor,
+       Allocator,
+       tensor,
        shape,
        dtype,
        Flat,
@@ -1656,11 +1646,6 @@ export TensorShape,
        add,
        insert,
        `[]`,
-       Out,
-       OutList,
-       newOutList,
-       InList,
-       newInList,
        Operation,
        num_inputs,
        input_type,
@@ -1670,15 +1655,6 @@ export TensorShape,
        output_type,
        output,
        outputs,
-       getStrAttr,
-       getIntAttr,
-       getFloatAttr,
-       getBoolAttr,
-       NameAttrList,
-       getFuncAttr,
-       getShapeAttr,
-       getTensorAttr,
-       getDataTypeAttr,
        Scope,
        newRootScope,
        newSession,
@@ -1701,10 +1677,8 @@ export TensorShape,
        status,
        ok,
        with,
-       noScope,
        ArraySlice,
        newArraySlice,
-       `$@`,
        addSymbolicGradients,
        GraphDef,
        toGraphDef,
