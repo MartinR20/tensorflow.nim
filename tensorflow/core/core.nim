@@ -1008,40 +1008,49 @@ iterator zip*(l1: OutList, l2: OutList): (Out, Out) =
     yield (l1[i], l2[i])
     inc i
 
-## InList related definitions
-type
-  InList* {.header: std_ops,
-            header: memory,
-            importcpp: "std::shared_ptr<tensorflow::InputList>".} = object
+type Complex64* {.importcpp:"tensorflow::complex64".} = object
 
-    ## The InList Type is a wrapper around the c++ InputList type which itself is basically a vector of Input objects.
-    ## It is represented through a shared pointer here because it has no default constructor and therefore cannot be declared
-    ## like:
-    ##   InputList foo;
-    ## which is excatly what the nim compiler does.
+proc complex64*(real: float32, imag: float32): Complex64 {.importcpp:"tensorflow::complex64(#, #)".}
 
-proc inewInList(tens: openArray[Tensor], len: int): InList {.header:std_ops, 
-                                                             header:vector,
-                                                             header:memory,
-                                                             importcpp:"[&]() { auto _args = #; int _len = #; std::vector<tensorflow::Input> _vec; for(int i = 0; i < _len; i++) _vec.emplace_back(tensorflow::Input(*_args[i])); return std::make_shared<tensorflow::InputList>(_vec); }()".}
+proc real*(complex: Complex64, real: float32) {.importcpp:"#.real(#)".}
 
-  ## A private constructor for the InList type copying the Tensor objects from an array as Inputs into an InList.
-  ## 
-  ## Args:
-  ##   tens: Array of Tensor objects.
-  ##   len: Length of the array.
-  ## Returns:
-  ##   An InList with the given Tensors objects.
+proc imag*(complex: Complex64, imag: float32) {.importcpp:"#.imag(#)".}
 
-proc newInList*(tens: varargs[Tensor]): InList =
-  return inewInList(tens, tens.len)
+type Complex128* {.importcpp:"tensorflow::complex128".} = object
 
-  ## Constructor for the InList type copying the Tensor objects from an array as Inputs into an InList.
-  ## 
-  ## Args:
-  ##   tens: Array of Tensor objects.
-  ## Returns:
-  ##   An InList with the given Tensors objects.
+proc complex128*(real: float64, imag: float64): Complex128 {.importcpp:"tensorflow::complex64(#, #)".}
+
+proc real*(complex: Complex128, real: float64) {.importcpp:"#.real(#)".}
+
+proc imag*(complex: Complex128, imag: float64) {.importcpp:"#.imag(#)".}
+
+type Qint8* {.importcpp:"tensorflow::qint8".} = object
+
+proc qint8*(x: int8): Qint8 {.importcpp:"tensorflow::qint8(#)".}
+
+type Quint8* {.importcpp:"tensorflow::quint8".} = object
+
+proc quint8*(x: uint8): Quint8 {.importcpp:"tensorflow::quint8(#)".}
+
+type Qint32* {.importcpp:"tensorflow::qint32".} = object
+
+proc qint32*(x: int32): Qint32 {.importcpp:"tensorflow::qint32(#)".}
+
+type Bfloat16* {.importcpp:"tensorflow::bfloat16".} = object
+
+proc bfloat16*(x: SomeFloat): Bfloat16 {.importcpp:"tensorflow::bfloat16(#)".}
+
+type Qint16* {.importcpp:"tensorflow::qint16".} = object
+
+proc qint16*(x: int16): Qint16 {.importcpp:"tensorflow::qint16(#)".}
+
+type Quint16* {.importcpp:"tensorflow::quint16".} = object
+
+proc quint16*(x: uint16): Quint16 {.importcpp:"tensorflow::quint16(#)".}
+
+type Half* {.importcpp:"tensorflow::half".} = object
+
+proc half*(x: SomeFloat): Half {.importcpp:"tensorflow::half(#)".}
 
 ## ArraySlice related definitions
 
