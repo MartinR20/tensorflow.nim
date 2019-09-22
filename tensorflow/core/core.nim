@@ -1167,117 +1167,57 @@ iterator items*[T](slice: ArraySlice[T]): T =
     inc i
 
 type
-  Operation {.header: gradients,
-              importcpp: "tensorflow::Operation".} = object
+  Operation*[T: oall] {.header: gradients,
+                        importcpp: "tensorflow::Operation/*'0*/".} = object
 
-proc num_inputs(op: Operation): int {.importcpp:"#.num_inputs()".}
+proc num_inputs[T](op: Operation[T]): int {.importcpp:"#.num_inputs()".}
 
-proc input_type(op: Operation, o: int): core.DType {.importcpp:"#.input_type(#)".}
+proc input_type[T](op: Operation[T], o: int): core.DType {.importcpp:"#.input_type(#)".}
 
-proc input(op: Operation, i: int): Out {.importcpp:"#.input(#)".}
+proc input[T](op: Operation[T], i: int): T {.importcpp:"#.input(#)".}
 
-proc inputs(op: Operation, rng: HSlice[int, int]): OutList =
-  var inputs: OutList
+proc inputs[T](op: Operation[T], rng: HSlice[int, int]): olist[T] =
+  var inputs: olist[oinvalid]
   
   for i in rng:
     inputs.add op.input(i)
 
   return inputs
 
-proc inputs(op: Operation): OutList =
-  var inputs: OutList
+proc inputs[T](op: Operation[T]): olist[T] =
+  var inputs: olist[oinvalid]
   
   for i in 0..op.num_inputs-1:
     inputs.add op.input(i)
 
   return inputs
 
-proc num_outputs(op: Operation): int {.importcpp:"#.num_outputs()".}
+proc num_outputs[T](op: Operation[T]): int {.importcpp:"#.num_outputs()".}
 
-proc output_type(op: Operation, o: int): core.DType {.importcpp:"#.output_type(#)".}
+proc output_type[T](op: Operation[T], o: int): core.DType {.importcpp:"#.output_type(#)".}
 
-proc output(op: Operation, i: int): Out {.importcpp:"#.output(#)".}
+proc output[T](op: Operation[T], i: int): T {.importcpp:"#.output(#)".}
 
-proc outputs(op: Operation, rng: HSlice[int, int]): OutList =
-  var outputs: OutList
+proc outputs[T](op: Operation[T], rng: HSlice[int, int]): olist[T] =
+  var outputs: olist[T]
   
   for i in rng:
     outputs.add op.output(i)
 
   return outputs
 
-proc outputs(op: Operation): OutList =
-  var outputs: OutList
+proc outputs[T](op: Operation[T]): olist[T] =
+  var outputs: olist[T]
   
   for i in 0..op.num_outputs-1:
     outputs.add op.output(i)
 
   return outputs
 
-proc getStrAttr(op: Operation, name: cppstring): cppstring {.importcpp:"#.node()->attrs().Find(#)->s()".}
+proc op(o: oall): Operation[oall] {.importcpp:"#.op()".}
 
-proc getStrAttr(op: Operation, name: string): string = 
-  return $getStrAttr(op, newCPPString(name))
-
-proc igetIntAttr(op: Operation, name: cppstring): int {.importcpp:"#.node()->attrs().Find(#)->i()".}
-
-proc getIntAttr(op: Operation, name: string): int = 
-  return igetIntAttr(op, newCPPString(name))
-
-proc igetFloatAttr(op: Operation, name: cppstring): float {.importcpp:"#.node()->attrs().Find(#)->f()".}
-
-proc getFloatAttr(op: Operation, name: string): float = 
-  return igetFloatAttr(op, newCPPString(name))
-
-proc igetBoolAttr(op: Operation, name: cppstring): bool {.importcpp:"#.node()->attrs().Find(#)->b()".}
-
-proc getBoolAttr(op: Operation, name: string): bool = 
-  return igetBoolAttr(op, newCPPString(name))
-
-type NameAttrList {.importcpp:"tensorflow::NameAttrList".} = object
-proc igetFuncAttr(op: Operation, name: cppstring): NameAttrList {.importcpp:"#.node()->attrs().Find(#)->func()".}
-
-proc getFuncAttr(op: Operation, name: string): NameAttrList = 
-  return igetFuncAttr(op, newCPPString(name))
-
-proc igetShapeAttr(op: Operation, name: cppstring): TensorShape {.importcpp:"#.node()->attrs().Find(#)->shape()".}
-
-proc getShapeAttr(op: Operation, name: string): TensorShape = 
-  return igetShapeAttr(op, newCPPString(name))
+type NameAttrList* {.importcpp:"tensorflow::NameAttrList".} = object
     
-proc igetTensorAttr(op: Operation, name: cppstring): Tensor {.importcpp:"std::make_shared<tensorflow::Tensor>(std::move(#.node()->attrs().Find(#)->tensor()))".}
-
-proc getTensorAttr(op: Operation, name: string): Tensor = 
-  return igetTensorAttr(op, newCPPString(name))
-
-proc igetDataTypeAttr(op: Operation, name: cppstring): DType {.importcpp:"#.node()->attrs().Find(#)->type()".}
-
-proc getDataTypeAttr(op: Operation, name: string): DType = 
-  return igetDataTypeAttr(op, newCPPString(name))
-
-template mutables(name: untyped, cname: string, ctype: string, dtype: untyped): untyped =
-  #TODO: maybe make protobuf types to use the size methods of those and not require them manually
-  proc name[N](op: Operation, name: cppstring, len: int, arr: array[N, dtype]) {.
-    importcpp:"""
-      auto list = #.node()->attrs().Find(#)->list();
-      auto mut = list.""" & cname & """();
-      auto _arr = mut->mutable_data();
-      std::copy(_arr, _arr + #, #);
-    """
-  .}
-
-  proc name[N](op: Operation, name: string, len: int, arr: array[N, dtype]) =
-    name(op, newCPPString(name), len, arr)
-
-  export name
-
-mutables(getSliceAttr_b,      "mutable_b",      "tensorflow::bool",              bool)
-mutables(getSliceAttr_f,      "mutable_f",      "tensorflow::float",             float)
-mutables(getSliceAttr_func,   "mutable_func",   "tensorflow::NameAttrList",      NameAttrList)
-mutables(getSliceAttr_i,      "mutable_i",      "int64_t",             int64)
-mutables(getSliceAttr_shape,  "mutable_shape",  "tensorflow::TensorShapeProto",  TensorShape)
-mutables(getSliceAttr_type,   "mutable_type",   "tensorflow::DType",             DType)
-mutables(getSliceAttr_s,      "mutable_s",      "std::string",                   cppstring)
 
 ## Scope related definitions
 type
