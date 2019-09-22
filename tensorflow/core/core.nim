@@ -99,6 +99,83 @@ const reversedict* = {
     "ohalf"       : "Half"       
 }.toOrderedTable
 
+type
+  DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
+    DT_INVALID = 0, DT_FLOAT = 1, DT_DOUBLE = 2, DT_INT32 = 3, ##  Int32 tensors are always in 'host' memory.
+    DT_UINT8 = 4, DT_INT16 = 5, DT_INT8 = 6, DT_STRING = 7, DT_COMPLEX64 = 8, ##  Single-precision complex
+    DT_INT64 = 9, DT_BOOL = 10, DT_QINT8 = 11, ##  Quantized int8
+    DT_QUINT8 = 12,             ##  Quantized uint8
+    DT_QINT32 = 13,             ##  Quantized int32
+    DT_BFLOAT16 = 14,           ##  Float32 truncated to 16 bits.  Only for cast ops.
+    DT_QINT16 = 15,             ##  Quantized int16
+    DT_QUINT16 = 16,            ##  Quantized uint16
+    DT_UINT16 = 17, DT_COMPLEX128 = 18, ##  Double-precision complex
+    DT_HALF = 19, DT_RESOURCE = 20, DT_VARIANT = 21, DT_UINT32 = 22, DT_UINT64 = 23 
+
+    # An Enum holding the integers corresponding to the Tensorflow DataTypes.
+
+const
+  DT_COMPLEX = DT_COMPLEX64
+
+const typeLookUp* = {
+  "float"                    : DT_DOUBLE,
+  "float32"                  : DT_FLOAT,
+  "float64"                  : DT_DOUBLE, 
+  "int"                      : DT_INT64,
+  "int32"                    : DT_INT32,
+  "uint8"                    : DT_UINT8,
+  "int16"                    : DT_INT16,
+  "int8"                     : DT_INT8, 
+  "cppstring"                : DT_STRING, 
+  #"Complex[system.float64]"  : DT_COMPLEX64,
+  "int64"                    : DT_INT64, 
+  "bool"                     : DT_BOOL, 
+  "uint16"                   : DT_UINT16, 
+  "uint32"                   : DT_UINT32,
+  "uint64"                   : DT_UINT64
+  #DT_COMPLEX128, 
+  #DT_QINT8, 
+  #DT_QUINT8,           
+  #DT_QINT32,           
+  #DT_BFLOAT16,         .
+  #DT_QINT16,           
+  #DT_QUINT16,          
+  #DT_HALF, 
+  #DT_RESOURCE, 
+  #DT_VARIANT,
+}.toTable
+
+const typeLookUpReverse* = {
+  DT_DOUBLE    : "float",     
+  DT_FLOAT     : "float32",  
+  DT_DOUBLE    : "float64",   
+  DT_INT64     : "int",  
+  DT_INT32     : "int32",  
+  DT_UINT8     : "uint8",  
+  DT_INT16     : "int16",  
+  DT_INT8      : "int8",  
+  DT_STRING    : "cppstring",   
+  #DT_COMPLEX64 : "Complex[system.float64]",  
+  DT_INT64     : "int64",   
+  DT_BOOL      : "bool",   
+  DT_UINT16    : "uint16",   
+  DT_UINT32    : "uint32",   
+  DT_UINT64    : "uint64"                 
+  #DT_COMPLEX128, 
+  #DT_QINT8, 
+  #DT_QUINT8,           
+  #DT_QINT32,           
+  #DT_BFLOAT16,         .
+  #DT_QINT16,           
+  #DT_QUINT16,          
+  #DT_HALF, 
+  #DT_RESOURCE, 
+  #DT_VARIANT,
+}.toTable
+
+proc tf(dtype: typedesc): DType =
+    return typeLookUp[dtype.name]
+
 ## TensorShape related definitions
 type
   TensorShape* {.header: tensor,
