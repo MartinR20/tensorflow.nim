@@ -18,13 +18,14 @@ when defined(linux) or defined(macosx):
 const
   client_session = "<tensorflow/cc/client/client_session.h>"
   std_ops = "<tensorflow/cc/ops/standard_ops.h>"
-  tensor = "<tensorflow/core/framework/tensor.h>"
+  tensorh = "<tensorflow/core/framework/tensor.h>"
   gradients = "<tensorflow/cc/framework/gradients.h>"
   shape_inference = "<tensorflow/core/framework/shape_inference.h>"
   op_kernel = "<tensorflow/core/framework/op_kernel.h>"
   memory = "<memory>"
   vector = "<vector>"
   writer = "<tensorflow/core/util/events_writer.h>"
+  dataset = "tensorflow/core/framework/dataset.h"
 
   ## header definitions used across the library
 
@@ -58,13 +59,14 @@ proc `$`*(str: cppstring): string =
 
 export client_session,
        std_ops,
-       tensor,
+       tensorh,
        gradients,
        shape_inference,
        op_kernel,
        memory,
        vector,
        writer,
+       dataset,
        cppstring,
        newCPPString,
        len,
