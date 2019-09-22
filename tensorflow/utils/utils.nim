@@ -53,9 +53,13 @@ proc print*(str: cppstring) {.header: "<iostream>",
 
 proc `$`*(str: cppstring): string =
   let l = str.len
+
+  if l != 0:
   var nim = newString(l)
   copyMem(addr(nim[0]), str.c_str, l)
   return nim
+  else: 
+    return ""
 
 export client_session,
        std_ops,
