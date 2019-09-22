@@ -759,116 +759,82 @@ proc `[]`[T](arr: cArray[T], i: int): T {.importcpp:"#[#]".}
 
 proc `[]=`[T](arr: cArray[T], i: int, val: T) {.importcpp:"#[#] = #".}
 
-proc ttype(node: NimNode): NimNode {.compileTime.} =
-  case node[^1].kind:
+proc getShape(x: NimNode, shape: var seq[int]) {.compileTime.} =
+    case x.kind:
   of nnkBracketExpr:
-    return node[^1].ttype
+        shape.add (x[1][2].intVal + 1).int
+        getShape(x[2], shape)
+    of nnkSym:
+        return
   else:
-    return node[^1]
+        raise newException(ValueError, "Failed traversing AST.")
 
-macro ttype(x: typedesc): typedesc =
-  let node = x.getType
+macro getShape(x: untyped): untyped =
+    var shape: seq[int]
+    x.getType.getShape(shape)
+    return newLit(shape)
 
-  case node[^1].kind:
+proc getBaseType(x: NimNode, T: var NimNode) {.compileTime.} =
+    case x.kind:
   of nnkBracketExpr:
-    return node.ttype
+        if $x[0] == "typeDesc":
+            getBaseType(x[1], T)
   else:
-    return node[^1]
-
-proc newTensor*[N,M](arr: array[N,M], T: type): Tensor =
-  if typeLookUp.hasKey(T.name):
-    let sh = getShape(arr)
-    let ten = newTensor(T.tf, sh) 
-
-    when T.name == "cppstring":
-      var buf = flat[cppstring](ten, newCPPString(" "))
+            getBaseType(x[2], T)
+    of nnkSym:
+        T = x
+        return
     else:
-      var buf = flat[T](ten, 0)
+        raise newException(ValueError, "Failed traversing AST.")
 
-    var baseElPtr: cArray[M.ttype]
-    cArrayFromNim(baseElPtr, arr)
+macro getBaseType(x: untyped): untyped =
+    var T: NimNode
+    x.getType.getBaseType(T)
+    return T
 
-    # copy incomming data
-    for i in 0..prod(sh)-1:
-      buf[i] = baseElPtr[i].T
+proc asPtr[N,T](arr: array[N,T]): pointer {.importcpp:"&#[0]".}
       
-    return ten
+proc `[]`(p: pointer, i: int, T: type): T {.importcpp:"(('0*)#)[#]".}
 
-  else: raise newException(OSError, "Type not supported!")
+proc ccast[T,X](x: X): T {.importcpp:"'0(#)".}
 
-  ## Convinience Tensor Constructor copying data from an array into a Tensor and converting the data to the given type. 
-  ## 
-  ## Args:
-  ##   arr: The array a Tensor should be constructed from.
-  ##   T: The type the Tensor should have.
-  ## Returns:
-  ##   A new Tensor with the given data.
-
-proc newTensor*[N,T](arr: array[N,T]): Tensor =
-  if typeLookUp.hasKey(T.ttype.name):
-    let sh = getShape(arr)
-    let ten = newTensor(T.ttype.tf, sh) 
-
-    when T.ttype.name == "cppstring":
-      var buf = flat[cppstring](ten, newCPPString(" "))
+macro `[]`*(x: untyped): untyped = 
+  let impl = x.getTypeInst[^1].getImpl
+  case impl[2].kind:
+  of nnkDotExpr:
+    return impl[2]
     else:
-      var buf = flat[T.ttype](ten, 0)
+    return x.getTypeInst[^1]
 
-    var baseElPtr: cArray[T.ttype]
-    cArrayFromNim(baseElPtr, arr)
+proc tensor[N,T](data: array[N,T], OT: static[typedesc]): auto =
+    let shape = data.getShape
+    let DT = OT.oTF
 
-    # copy incomming data
-    for i in 0..prod(sh)-1:
-      buf[i] = baseElPtr[i]
+    type bT = T.getBaseType
+    type oT = OT.To
 
-    return ten
+    let ten = itensor(DT, shape, OT)
+    var flat = flat(ten)
+    var dptr = data.asPtr
 
-  else: raise newException(OSError, "Type not supported!")
-
-  ## Convinience Tensor Constructor copying data from an array into a Tensor. 
-  ## 
-  ## Args:
-  ##   arr: The array a Tensor should be constructed from.
-  ## Returns:
-  ##   A new Tensor with the given data.
-
-proc newTensor*(scal: string): Tensor =
-  let ten = newTensor(cppstring.tf, []) 
-
-  scalar[cppstring](ten, newCPPString("")).set(newCPPString(scal))
+    when $bT == $oT:
+        copyMem(flat.asPtr, dptr, (prod(shape)) * sizeof(oT))
+    else:
+        for i in 0..prod(shape)-1:
+            flat[i] = ccast[oT, bT[]](dptr[i, bT[]])
 
   return ten
 
-  ## Convinience Tensor Constructor to create a string tensor. 
-  ## 
-  ## Args:
-  ##   scal: A string scalar.
-  ## Returns:
-  ##   A new Tensor with the given string scalar.
+proc tensor[T](data: T, OT: static[typedesc]): auto =
+    let DT = OT.oTF
 
-proc newTensor*[N](scal: N, T: type): Tensor =
-  if typeLookUp.hasKey(T.name):
-    let ten = newTensor(T.tf, []) 
+    type bT = T.getBaseType
+    type oT = OT.To
 
-    scalar[T](ten, 0).set(scal.T)
+    let ten = itensor(DT, [], OT)
+    var flat = flat(ten)
 
-    return ten
-
-  else: raise newException(OSError, "Type not supported!")
-
-  ## Convinience Tensor Constructor copying the given scalar into a Tensor and converting it to the given type. 
-  ## 
-  ## Args:
-  ##   scal: The array a Tensor should be constructed from.
-  ##   T: Type to convert to.
-  ## Returns:
-  ##   A new Tensor with the given data.
-
-proc newTensor*[T](scal: T): Tensor =
-  if typeLookUp.hasKey(T.name):
-    let ten = newTensor(T.tf, []) 
-
-    scalar[T](ten, 0).set(scal.T)
+    flat[0] = ccast[oT, bT](data)
 
     return ten
 
