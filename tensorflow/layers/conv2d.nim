@@ -59,7 +59,7 @@ method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, in
                   layer.outChannels]
 
     let shortLayerName = "Conv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
-    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
+    let varShape = shape([layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels])
     
     with root.newSubScope(shortLayerName & "_setup"):
         let shape = [layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels].int32
@@ -152,7 +152,7 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
 
     #TODO: make right output size
     let shortLayerName = "TransposeConv2D_" & $layer.kernel[0] & "x" & $layer.kernel[1]
-    let varShape = newTensorShape([layer.kernel[0], layer.kernel[1], layer.outChannels, layer.inChannels])
+    let varShape = shape([layer.kernel[0], layer.kernel[1], layer.outChannels, layer.inChannels])
     
     with root.newSubScope(shortLayerName & "_setup"):
         let shape = [layer.kernel[0], layer.kernel[1], layer.outChannels, layer.inChannels].int32

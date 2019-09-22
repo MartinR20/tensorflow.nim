@@ -31,7 +31,7 @@ method make(layer: Dropout, root: Scope, shape: var seq[int]): proc(rt: Scope, i
                         layer.shape = root.Shape(input)
 
                     with rt:
-                        let random = RandomUniform(layer.shape, TF_FLOAT)
+                        let random = RandomUniform(layer.shape, DT_FLOAT)
                         let mask = random >= rrate
                         let scale = 1.float32 / (1.float32 - rrate)
 

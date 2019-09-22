@@ -21,7 +21,7 @@ proc assignSeq(vars: seq[TVariable]): OutList =
 
 
 proc getNames(vars: OutList): Tensor = 
-    let names = newTensor(cppstring.tf, newTensorShape([vars.len]))
+    let names = tensor(cppstring.tf, shape([vars.len]))
     var buf = names.flat(newCPPString(""))
 
     for i in 0..vars.len-1:

@@ -33,11 +33,11 @@ method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, inp
     let shortLayerName = "Dense_" & $layer.outFeatures
     let rootNamed = root.newSubScope(shortLayerName & "_setup")
 
-    let wVarShape = newTensorShape([layer.inFeatures, layer.outFeatures])
+    let wVarShape = shape([layer.inFeatures, layer.outFeatures])
 
     with rootNamed:
-        let w = RandomNormal([layer.inFeatures, layer.outFeatures].int32, TF_FLOAT)
-        let wVar = newVariable(w, wVarShape, TF_FLOAT, "weights")
+        let w = RandomNormal([layer.inFeatures, layer.outFeatures].int32, DT_FLOAT)
+        let wVar = newVariable(w, wVarShape, DT_FLOAT, "weights")
 
     layer.train.add(wVar)
 
@@ -47,11 +47,11 @@ method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, inp
                         return input @ layer.train[0].vvar
 
     else:
-        let bVarShape = newTensorShape([1, layer.outFeatures])
+        let bVarShape = shape([1, layer.outFeatures])
 
         with rootNamed:
-            let b = RandomNormal([1, layer.outFeatures].int32, TF_FLOAT)
-            let bVar = newVariable(b, bVarShape, TF_FLOAT, "bias")
+            let b = RandomNormal([1, layer.outFeatures].int32, DT_FLOAT)
+            let bVar = newVariable(b, bVarShape, DT_FLOAT, "bias")
 
         layer.train.add(bVar)
         

@@ -54,7 +54,7 @@ proc newDilation2D*[N,T](model: var seq[Layer],
 
     var dilation2d = new Dilation2D
 
-    dilation2d.kernel = newTensor(kernel, float32)
+    dilation2d.kernel = tensor (kernel, float32)
 
     dilation2d.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
     dilation2d.rates = [c1, cast[cint](rates[0]), cast[cint](rates[1]), c1]
@@ -76,7 +76,7 @@ template inheritDilation(name: untyped, varname: untyped) =
 
         var varname = new name
 
-        varname.kernel = newTensor(kernel, float32)
+        varname.kernel = tensor(kernel, float32)
 
         varname.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
         varname.rates = [c1, cast[cint](rates[0]), cast[cint](rates[1]), c1]

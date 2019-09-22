@@ -89,14 +89,14 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         let beta1Power = 0.float32
         let beta2Power = 0.float32
 
-    let scalarShape = newTensorShape([])
+    let scalarShape = shape([])
 
     for i in 0..vars.len-1:
         let currVar = vars[i]
 
         with rootNamed:
-            let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
-            let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, TF_FLOAT)
+            let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, DT_FLOAT)
+            let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, DT_FLOAT)
 
         optim.m.add im.vvar
         optim.v.add iv.vvar

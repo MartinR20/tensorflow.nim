@@ -8,7 +8,7 @@
 ##    
 ##    let rt = newRootScope()
 ##
-##    rt.newVariable(Const[float32](rt, 0), newTensorShape([]), TF_FLOAT)
+##    rt.newVariable(Const[float32](rt, 0), newTensorShape([]), DT_FLOAT)
 
 import ../core/core
 import ../ops/ops

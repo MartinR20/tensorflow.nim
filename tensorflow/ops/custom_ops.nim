@@ -15,22 +15,22 @@ proc Const*(root: Scope, A: Tensor) : Out {.header: std_ops,
   ## Construct a constant value from a Tensor
 
 proc Const*[N,M](root: Scope, arr: array[N, M]) : Out =
-  return root.Const(newTensor(arr))
+  return root.Const(tensor(arr))
 
   ## Construct a constant value from an array holding data with the dtype of the array
 
 proc Const*[N,M](root: Scope, arr: array[N, M], T: type) : Out =
-  return root.Const(newTensor(arr, T))
+  return root.Const(tensor(arr, T))
 
   ## Construct a constant value from an array holding data with the given type
 
 proc Const*[T](root: Scope, val: T) : Out =
-  return root.Const(newTensor(val))
+  return root.Const(tensor(val))
 
   ## Construct a constant scalar of the input type
 
 proc Const*[N](root: Scope, val: N, T: type) : Out =
-  return root.Const(newTensor(val, T))
+  return root.Const(tensor(val, T))
 
   ## Construct a constant scalar of the given type
 
@@ -117,4 +117,5 @@ export Const,
        Transpose,
        T,
        Assign
+
        
