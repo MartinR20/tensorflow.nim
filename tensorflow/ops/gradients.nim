@@ -1,11 +1,10 @@
 import ../core/core,
        ../utils/utils,
        ./newop/newop,
-       ./generated/generated,
+       ./generated,
        ./custom_ops,
        sequtils
 
-makeExsistingOp("ConcatOffset", "(scope: Scope, concat_dim: Out, shape: OutList): OutList")
 #proc Stack(scope: Scope, list: OutList, axis: Out): Out {.importcpp:"tensorflow::ops::Stack(*#, #, #)".}
 
 proc ConcatV2(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
@@ -39,7 +38,7 @@ proc ConcatV2(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr
     #    
     #        gradOutputs[] = Split(gradInputs[0], squeezed, non_neg_concat_dim)
     #else:
-    let offset = scope.ConcatOffset(non_neg_concat_dim, sizes)
+    let offset = scope.concatOffset(non_neg_concat_dim, sizes)
 
     var out_grads: OutList
         

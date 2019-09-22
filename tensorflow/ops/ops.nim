@@ -1,10 +1,12 @@
-import ./generated/generated,
+import ./generated,
        ./custom_ops,
        ./newop/newop,
-       ./gradients
+       ./gradients,
+       ./function
 
 export generated,
        custom_ops,
        newop,
-       gradients
+       gradients,
+       function
 
