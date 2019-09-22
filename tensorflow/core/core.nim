@@ -1356,43 +1356,35 @@ proc check*(rt: Scope) =
       rt.logStatus
       quit(1)
 
+proc newIncludeStmt(name: string): NimNode =
+  var n = newNimNode(nnkIncludeStmt)
+  n.add(ident(name))
+  return n
 
-var supportedTypes {.compileTime}: seq[string]
+proc newCommand(name: string, args: varargs[NimNode], body: NimNode): NimNode =
+  var n = newNimNode(nnkCommand)
+  n.add name.ident
+  for arg in args:
+      n.add arg
+  n.add body
+  return n
 
-static:
-  for dtype in typeLookUp.keys:
-    supportedTypes.add dtype
-
-proc insertIntoCalls(scope: NimNode, body: NimNode) {.compileTime.} =
-  for i,child in body:
-    if child.kind == nnkCall:    
-      insert(child, 1, scope)
-    elif child.kind == nnkInfix:
-      insert(child, 1, scope)
-    elif child.kind == nnkDotExpr:
-      let repr = child[1].treeRepr
-      if repr.len > 7 and repr[7..^2] in supportedTypes:
-        body[i] = newCall("Const", scope, child[0], child[1])
-    elif child == newIdentNode("with") or child == newIdentNode("noScope"):
-      return
-
-    if child.len != 0:
-      insertIntoCalls(scope, child)
+var filesWithInclude {.compileTime.}: seq[string]
 
 macro with*(scope: Scope, body: untyped): untyped =
-  if scope.kind == nnkSym:
-    insertIntoCalls(newIdentNode($scope), body)
-  elif scope.kind == nnkCall:
-    let hash = "scope" & signatureHash(nskLet.genSym)
-    let hashIdent = newIdentNode(hash)
+  let file = body.lineInfoObj.filename
 
-    insertIntoCalls(hashIdent, body)
-    insert(body, 0, newLetStmt(hashIdent, scope))
+  if not (file in filesWithInclude):
+    filesWithInclude.add file
 
-  return body
-
-macro noScope(scope: untyped, ast: untyped): untyped =
-  return ast
+    return newStmtList(
+        newIncludeStmt("./with"),
+        newCommand("iwith", scope, body)
+    ) 
+  else:
+    return newStmtList(
+        newCommand("iwith", scope, body)
+    ) 
     
 type 
   GraphDef* {.importcpp:"tensorflow::GraphDef".} = object
@@ -1431,16 +1423,6 @@ proc newSession*(scope: Scope): Session {.header: memory,
   ## Returns:
   ##   A Session object that can be run to perform the Computations.
 
-macro with*(sess: Session, body: untyped): untyped =
-  if sess.kind == nnkSym:
-    insertIntoCalls(newIdentNode($sess), body)
-  elif sess.kind == nnkCall:
-    let hash = signatureHash(nskLet.genSym)
-    insert(body, 0, newLetStmt(newIdentNode(hash), sess))
-    insertIntoCalls(newIdentNode(hash), body)
-      
-  return body
-  
 ## Gradient Related definitions
 proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: OutList) {.header:gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
 
