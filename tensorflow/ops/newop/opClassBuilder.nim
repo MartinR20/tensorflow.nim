@@ -49,12 +49,12 @@ proc makeOpClass(exportName: string,
 
   let cppArgsIns = makeArgsCPP(ins)
   let cppArgsAttrs = makeArgsCPP(attrs)
-  
+
   var cppSource =  "\"\"class " & exportName & "{\n" &
                    "  public:\n" &
-                   "    " & exportName & "(const ::tensorflow::Scope& scope,\n" & 
-                   cppArgsIns & (if cppArgsIns == "" or cppArgsAttrs == "" : "" else: ",\n") &
-                   cppArgsAttrs & ") {\n" &
+                   "    " & exportName & "(const ::tensorflow::Scope& scope\n" & 
+                   (if cppArgsIns == "": "" else: ", " & cppArgsIns & "\n") &
+                   (if cppArgsAttrs == "": "" else: ", " & cppArgsAttrs) & ") {\n" &
                    "       if (!scope.ok()) return;\n" &
                    convInputsToOutputs(ins) &
                    "       ::tensorflow::Node* ret;\n" &
@@ -79,7 +79,7 @@ proc makeOpClass(exportName: string,
                  "    ::tensorflow::Operation operation;\n" &
                  "    ::tensorflow::OutputList output;\n"
   else:
-    cppSource &= "       this->output = ::tensorflow::Output(ret, i);\n" &
+    cppSource &= "       this->output = ::tensorflow::Output(ret, 0);\n" &
                  "    }\n" & 
                  "\n" &
                  "    ::tensorflow::Operation operation;\n" &
