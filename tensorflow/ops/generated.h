@@ -7,11 +7,13 @@
 #include "math.h"
 
 template <typename T>
-                    tensorflow::Tensor _to_tensor(std::initializer_list<T> _list, std::initializer_list<int> _dtype) {
-                    auto _ten = tensorflow::Tensor();
-                    _ten.FromProto(_list, _dtype);
-                    return _ten;
-                    }class GcsConfigureBlockCache{
+tensorflow::Tensor _to_tensor(std::initializer_list<T> _list, std::initializer_list<int> _dtype) {
+    auto _ten = tensorflow::Tensor();
+    _ten.FromProto(_list, _dtype);
+    return _ten;
+}
+
+class GcsConfigureBlockCache{
   public:
     GcsConfigureBlockCache() {}
     GcsConfigureBlockCache(tensorflow::Scope& scope, 
@@ -108,6 +110,7 @@ class SparseApplyCenteredRMSProp{
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -126,6 +129,7 @@ class SparseApplyRMSProp{
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -143,6 +147,7 @@ class ApplyRMSProp{
            tensorflow::Input momentum, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -178,6 +183,7 @@ class ApplyAdaMax{
            tensorflow::Input beta2, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -197,8 +203,9 @@ class ApplyAdam{
            tensorflow::Input beta2, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
-           bool use_nesterov = false, 
-           bool use_locking = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool use_locking = false, 
+           bool use_nesterov = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -309,6 +316,7 @@ class SparseApplyFtrl{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -326,6 +334,7 @@ class ApplyFtrl{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -359,6 +368,7 @@ class SparseApplyProximalAdagrad{
            tensorflow::Input l2, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -377,6 +387,7 @@ class SparseApplyAdagradDA{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input global_step, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -394,6 +405,7 @@ class ApplyAdagradDA{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input global_step, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -422,6 +434,7 @@ class SparseApplyAdagrad{
            tensorflow::Input lr, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool update_slots = true, 
            bool use_locking = false);
     tensorflow::Operation operation;
@@ -449,8 +462,9 @@ class ApplyAdagrad{
            tensorflow::Input accum, 
            tensorflow::Input lr, 
            tensorflow::Input grad, 
-           bool update_slots = true, 
-           bool use_locking = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool use_locking = false, 
+           bool update_slots = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -467,6 +481,7 @@ class SparseApplyAdadelta{
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -483,6 +498,7 @@ class ApplyAdadelta{
            tensorflow::Input rho, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -524,6 +540,7 @@ class ApplyProximalGradientDescent{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input delta, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -660,7 +677,8 @@ class StatelessMultinomial{
     StatelessMultinomial(tensorflow::Scope& scope, 
            tensorflow::Input logits, 
            tensorflow::Input num_samples, 
-           tensorflow::Input seed);
+           tensorflow::Input seed, 
+           tensorflow::DataType output_dtype = tensorflow::DT_INT64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -705,7 +723,8 @@ class CountUpTo{
     CountUpTo() {}
     CountUpTo(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
-           int64_t limit = 0);
+           int64_t limit = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -728,6 +747,7 @@ class ScatterNdUpdate{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -740,6 +760,7 @@ class ScatterMax{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -752,6 +773,7 @@ class ScatterMul{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -764,6 +786,7 @@ class ScatterSub{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -776,6 +799,7 @@ class ScatterAdd{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -788,6 +812,7 @@ class ScatterUpdate{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -799,6 +824,7 @@ class AssignSub{
     AssignSub(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -810,8 +836,9 @@ class Assign{
     Assign(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
-           bool use_locking = true, 
-           bool validate_shape = true);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool validate_shape = true, 
+           bool use_locking = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -821,7 +848,8 @@ class DestroyTemporaryVariable{
     DestroyTemporaryVariable() {}
     DestroyTemporaryVariable(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
-           tensorflow::string var_name);
+           tensorflow::string var_name, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -841,8 +869,7 @@ class IsVariableInitialized{
   public:
     IsVariableInitialized() {}
     IsVariableInitialized(tensorflow::Scope& scope, 
-           tensorflow::Input ref, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input ref);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -931,7 +958,8 @@ class FFT3D{
   public:
     FFT3D() {}
     FFT3D(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -940,7 +968,8 @@ class IFFT2D{
   public:
     IFFT2D() {}
     IFFT2D(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -949,7 +978,8 @@ class FFT2D{
   public:
     FFT2D() {}
     FFT2D(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -958,7 +988,8 @@ class IFFT{
   public:
     IFFT() {}
     IFFT(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -967,7 +998,8 @@ class FFT{
   public:
     FFT() {}
     FFT(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1026,7 +1058,8 @@ class SparseFillEmptyRowsGrad{
     SparseFillEmptyRowsGrad() {}
     SparseFillEmptyRowsGrad(tensorflow::Scope& scope, 
            tensorflow::Input reverse_index_map, 
-           tensorflow::Input grad_values);
+           tensorflow::Input grad_values, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1077,7 +1110,8 @@ class SparseSoftmax{
     SparseSoftmax(tensorflow::Scope& scope, 
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
-           tensorflow::Input sp_shape);
+           tensorflow::Input sp_shape, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1089,7 +1123,8 @@ class SparseDenseCwiseAdd{
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense);
+           tensorflow::Input dense, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1101,7 +1136,8 @@ class SparseDenseCwiseDiv{
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense);
+           tensorflow::Input dense, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1114,7 +1150,8 @@ class SparseReduceMax{
            tensorflow::Input input_values, 
            tensorflow::Input input_shape, 
            tensorflow::Input reduction_axes, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1161,7 +1198,8 @@ class SparseSliceGrad{
            tensorflow::Input backprop_val_grad, 
            tensorflow::Input input_indices, 
            tensorflow::Input input_start, 
-           tensorflow::Input output_indices);
+           tensorflow::Input output_indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1171,9 +1209,9 @@ class SparseCross{
     SparseCross() {}
     SparseCross(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::InputList shapes, 
-           tensorflow::Input dense_inputs, 
+           tensorflow::InputList dense_inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dense_types, 
            bool hashed_output = false, 
@@ -1213,7 +1251,8 @@ class SerializeManySparse{
     SerializeManySparse(tensorflow::Scope& scope, 
            tensorflow::Input sparse_indices, 
            tensorflow::Input sparse_values, 
-           tensorflow::Input sparse_shape);
+           tensorflow::Input sparse_shape, 
+           tensorflow::DataType out_type = tensorflow::DT_STRING);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1224,7 +1263,8 @@ class SerializeSparse{
     SerializeSparse(tensorflow::Scope& scope, 
            tensorflow::Input sparse_indices, 
            tensorflow::Input sparse_values, 
-           tensorflow::Input sparse_shape);
+           tensorflow::Input sparse_shape, 
+           tensorflow::DataType out_type = tensorflow::DT_STRING);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1236,7 +1276,8 @@ class SparseAddGrad{
            tensorflow::Input backprop_val_grad, 
            tensorflow::Input a_indices, 
            tensorflow::Input b_indices, 
-           tensorflow::Input sum_indices);
+           tensorflow::Input sum_indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1276,8 +1317,9 @@ class _Recv{
            tensorflow::string tensor_name, 
            tensorflow::string send_device, 
            tensorflow::string recv_device, 
-           bool client_terminated = false, 
-           int64_t send_device_incarnation = 0);
+           tensorflow::DataType tensor_type = tensorflow::DT_INVALID, 
+           int64_t send_device_incarnation = 0, 
+           bool client_terminated = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1373,24 +1415,24 @@ class EagerPyFunc{
   public:
     EagerPyFunc() {}
     EagerPyFunc(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class PyFuncStateless{
   public:
     PyFuncStateless() {}
     PyFuncStateless(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class _ScopedAllocatorSplit{
@@ -1401,6 +1443,7 @@ class _ScopedAllocatorSplit{
            tensorflow::InputList split, 
            tensorflow::string sa_name, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> shapes, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t id = 0);
     tensorflow::Operation operation;
     tensorflow::OutputList output;
@@ -1413,8 +1456,9 @@ class _ScopedAllocator{
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> shapes, 
            tensorflow::string sa_name, 
            tensorflow::PartialTensorShape shape = {}, 
-           int64_t expected_call_count = 0, 
-           int64_t id = 0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           int64_t id = 0, 
+           int64_t expected_call_count = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1452,8 +1496,7 @@ class ResourceScatterUpdate{
     ResourceScatterUpdate(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -1463,8 +1506,7 @@ class ResourceScatterMin{
     ResourceScatterMin(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -1474,8 +1516,7 @@ class ResourceScatterAdd{
     ResourceScatterAdd(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -1483,7 +1524,8 @@ class VariableShape{
   public:
     VariableShape() {}
     VariableShape(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1492,12 +1534,12 @@ class RemoteFusedGraphExecute{
   public:
     RemoteFusedGraphExecute() {}
     RemoteFusedGraphExecute(tensorflow::Scope& scope, 
-           tensorflow::Input inputs, 
+           tensorflow::InputList inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tinputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutputs, 
            tensorflow::string serialized_remote_fused_graph_execute_info);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class RandomPoissonV2{
@@ -1531,7 +1573,8 @@ class RandomGammaGrad{
     RandomGammaGrad() {}
     RandomGammaGrad(tensorflow::Scope& scope, 
            tensorflow::Input alpha, 
-           tensorflow::Input sample);
+           tensorflow::Input sample, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1543,7 +1586,8 @@ class Multinomial{
            tensorflow::Input logits, 
            tensorflow::Input num_samples, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType output_dtype = tensorflow::DT_INT64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1554,7 +1598,8 @@ class RandomShuffle{
     RandomShuffle(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1583,7 +1628,8 @@ class RandomUniformInt{
            tensorflow::Input minval, 
            tensorflow::Input maxval, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType Tout = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1626,7 +1672,8 @@ class StringToNumber{
   public:
     StringToNumber() {}
     StringToNumber(tensorflow::Scope& scope, 
-           tensorflow::Input string_tensor);
+           tensorflow::Input string_tensor, 
+           tensorflow::DataType out_type = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1653,7 +1700,8 @@ class ParseTensor{
   public:
     ParseTensor() {}
     ParseTensor(tensorflow::Scope& scope, 
-           tensorflow::Input serialized);
+           tensorflow::Input serialized, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1664,7 +1712,7 @@ class ParseSequenceExample{
     ParseSequenceExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input debug_name, 
-           tensorflow::Input context_dense_defaults, 
+           tensorflow::InputList context_dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> feature_list_dense_missing_assumed_empty, 
            tensorflow::gtl::ArraySlice<tensorflow::string> context_sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> context_dense_keys, 
@@ -1692,7 +1740,7 @@ class ParseExample{
            tensorflow::Input names, 
            tensorflow::Input sparse_keys, 
            tensorflow::Input dense_keys, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tdense, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> dense_shapes, 
@@ -1732,6 +1780,7 @@ class QuantizedBatchNormWithGlobalNormalization{
            tensorflow::Input gamma_min, 
            tensorflow::Input gamma_max, 
            bool scale_after_normalization = false, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID, 
            float variance_epsilon = 0.0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -1744,7 +1793,8 @@ class QuantizedReluX{
            tensorflow::Input features, 
            tensorflow::Input max_value, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features);
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type = tensorflow::DT_QUINT8);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1755,7 +1805,8 @@ class QuantizedRelu{
     QuantizedRelu(tensorflow::Scope& scope, 
            tensorflow::Input features, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features);
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type = tensorflow::DT_QUINT8);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1767,6 +1818,7 @@ class ScatterNdSub{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -1784,7 +1836,8 @@ class QuantizedConv2D{
            tensorflow::Input max_filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
+           tensorflow::DataType out_type = tensorflow::DT_QINT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1793,7 +1846,8 @@ class Reciprocal{
   public:
     Reciprocal() {}
     Reciprocal(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1808,7 +1862,8 @@ class FractionalMaxPool{
            bool overlapping = false, 
            bool deterministic = false, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1819,7 +1874,8 @@ class NthElement{
     NthElement(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input n, 
-           bool reverse = false);
+           bool reverse = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1840,7 +1896,8 @@ class Sub{
     Sub() {}
     Sub(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1864,7 +1921,7 @@ class DatasetToSingleElement{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class SoftmaxCrossEntropyWithLogits{
@@ -1872,7 +1929,8 @@ class SoftmaxCrossEntropyWithLogits{
     SoftmaxCrossEntropyWithLogits() {}
     SoftmaxCrossEntropyWithLogits(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           tensorflow::Input labels);
+           tensorflow::Input labels, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1881,7 +1939,8 @@ class LogSoftmax{
   public:
     LogSoftmax() {}
     LogSoftmax(tensorflow::Scope& scope, 
-           tensorflow::Input logits);
+           tensorflow::Input logits, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1903,7 +1962,8 @@ class Softplus{
   public:
     Softplus() {}
     Softplus(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1912,7 +1972,8 @@ class Selu{
   public:
     Selu() {}
     Selu(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1922,7 +1983,8 @@ class EluGrad{
     EluGrad() {}
     EluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input outputs);
+           tensorflow::Input outputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1933,7 +1995,8 @@ class LeakyReluGrad{
     LeakyReluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
            tensorflow::Input features, 
-           float alpha = 0.2000000029802322);
+           float alpha = 0.2000000029802322, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1944,6 +2007,7 @@ class StackPush{
     StackPush(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input elem, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool swap_memory = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -1954,7 +2018,8 @@ class LeakyRelu{
     LeakyRelu() {}
     LeakyRelu(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           float alpha = 0.2000000029802322);
+           float alpha = 0.2000000029802322, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -1996,7 +2061,8 @@ class Relu6{
   public:
     Relu6() {}
     Relu6(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2006,7 +2072,8 @@ class ReluGrad{
     ReluGrad() {}
     ReluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2031,7 +2098,8 @@ class Dilation2DBackpropInput{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2045,7 +2113,8 @@ class MaxPoolGradWithArgmax{
            tensorflow::Input argmax, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2060,7 +2129,8 @@ class MaxPoolGradGradV2{
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2075,7 +2145,8 @@ class MaxPoolGradV2{
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2086,7 +2157,8 @@ class Roll{
     Roll(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input shift, 
-           tensorflow::Input axis);
+           tensorflow::Input axis, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2101,7 +2173,8 @@ class MaxPoolGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2116,7 +2189,8 @@ class LRNGrad{
            int64_t depth_radius = 5, 
            float bias = 1.0, 
            float alpha = 1.0, 
-           float beta = 0.5);
+           float beta = 0.5, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2131,7 +2205,8 @@ class MaxPool3DGradGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2145,6 +2220,7 @@ class Conv3DBackpropFilter{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2158,8 +2234,9 @@ class Conv3D{
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1}, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2187,8 +2264,9 @@ class DepthwiseConv2dNativeBackpropFilter{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2197,7 +2275,8 @@ class Expm1{
   public:
     Expm1() {}
     Expm1(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2211,9 +2290,10 @@ class Conv2DBackpropInput{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_cudnn_on_gpu = true, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2225,6 +2305,7 @@ class _NcclReduceRecv{
            tensorflow::Input input, 
            tensorflow::string reduction, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_devices = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2238,9 +2319,10 @@ class Conv2D{
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_cudnn_on_gpu = true, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2249,7 +2331,8 @@ class Sin{
   public:
     Sin() {}
     Sin(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2263,9 +2346,10 @@ class FusedBatchNormV2{
            tensorflow::Input offset, 
            tensorflow::Input mean, 
            tensorflow::Input variance, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool is_training = true, 
-           tensorflow::string data_format = "NHWC", 
-           float epsilon = 9.999999747378752e-05);
+           float epsilon = 9.999999747378752e-05, 
+           tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2293,9 +2377,10 @@ class FusedBatchNorm{
            tensorflow::Input offset, 
            tensorflow::Input mean, 
            tensorflow::Input variance, 
-           bool is_training = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            float epsilon = 9.999999747378752e-05, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           bool is_training = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2305,8 +2390,8 @@ class ReduceDataset{
     ReduceDataset() {}
     ReduceDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input initial_state, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList initial_state, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tstate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -2314,7 +2399,7 @@ class ReduceDataset{
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes, 
            bool use_inter_op_parallelism = true);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class FakeQuantWithMinMaxArgs{
@@ -2339,8 +2424,9 @@ class BatchNormWithGlobalNormalization{
            tensorflow::Input v, 
            tensorflow::Input beta, 
            tensorflow::Input gamma, 
-           bool scale_after_normalization = false, 
-           float variance_epsilon = 0.0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           float variance_epsilon = 0.0, 
+           bool scale_after_normalization = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2358,6 +2444,7 @@ class ApplyFtrlV2{
            tensorflow::Input l2, 
            tensorflow::Input l2_shrinkage, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2399,7 +2486,8 @@ class Min{
     Min(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2411,6 +2499,7 @@ class NcclAllReduce{
            tensorflow::Input input, 
            tensorflow::string reduction, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_devices = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2430,7 +2519,8 @@ class Lgamma{
   public:
     Lgamma() {}
     Lgamma(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2462,7 +2552,8 @@ class QuantizeDownAndShrinkRange{
     QuantizeDownAndShrinkRange(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input input_min, 
-           tensorflow::Input input_max);
+           tensorflow::Input input_max, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2479,6 +2570,7 @@ class QuantizedMatMul{
            tensorflow::Input max_b, 
            tensorflow::DataType Tactivation = tensorflow::DT_QUINT8, 
            bool transpose_b = false, 
+           tensorflow::DataType Toutput = tensorflow::DT_QINT32, 
            bool transpose_a = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2493,8 +2585,9 @@ class BatchNormWithGlobalNormalizationGrad{
            tensorflow::Input v, 
            tensorflow::Input gamma, 
            tensorflow::Input backprop, 
-           bool scale_after_normalization = false, 
-           float variance_epsilon = 0.0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           float variance_epsilon = 0.0, 
+           bool scale_after_normalization = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2505,7 +2598,8 @@ class Bincount{
     Bincount(tensorflow::Scope& scope, 
            tensorflow::Input arr, 
            tensorflow::Input size, 
-           tensorflow::Input weights);
+           tensorflow::Input weights, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2536,7 +2630,8 @@ class BatchSelfAdjointEigV2{
     BatchSelfAdjointEigV2() {}
     BatchSelfAdjointEigV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool compute_v = true);
+           bool compute_v = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2546,6 +2641,7 @@ class NcclBroadcast{
     NcclBroadcast() {}
     NcclBroadcast(tensorflow::Scope& scope, 
            tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::PartialTensorShape shape = {});
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2556,7 +2652,8 @@ class Cross{
     Cross() {}
     Cross(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input b);
+           tensorflow::Input b, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2565,7 +2662,8 @@ class Conj{
   public:
     Conj() {}
     Conj(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2589,7 +2687,8 @@ class _MklAdd{
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y);
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2598,7 +2697,8 @@ class Real{
   public:
     Real() {}
     Real(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tout = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2620,7 +2720,8 @@ class Complex{
     Complex() {}
     Complex(tensorflow::Scope& scope, 
            tensorflow::Input real, 
-           tensorflow::Input imag);
+           tensorflow::Input imag, 
+           tensorflow::DataType Tout = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2630,7 +2731,8 @@ class SparseSoftmaxCrossEntropyWithLogits{
     SparseSoftmaxCrossEntropyWithLogits() {}
     SparseSoftmaxCrossEntropyWithLogits(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           tensorflow::Input labels);
+           tensorflow::Input labels, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2639,7 +2741,8 @@ class Cholesky{
   public:
     Cholesky() {}
     Cholesky(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2651,7 +2754,8 @@ class SparseSegmentSqrtNWithNumSegments{
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2662,7 +2766,8 @@ class SparseSegmentMean{
     SparseSegmentMean(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2674,7 +2779,8 @@ class SparseSegmentSumWithNumSegments{
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2685,7 +2791,8 @@ class UnsortedSegmentProd{
     UnsortedSegmentProd(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2696,7 +2803,8 @@ class UnsortedSegmentSum{
     UnsortedSegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2708,14 +2816,15 @@ class _ReadVariablesOp{
            tensorflow::InputList resources, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class L2Loss{
   public:
     L2Loss() {}
     L2Loss(tensorflow::Scope& scope, 
-           tensorflow::Input t);
+           tensorflow::Input t, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2725,7 +2834,8 @@ class Cast{
     Cast() {}
     Cast(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           bool Truncate = false);
+           bool Truncate = false, 
+           tensorflow::DataType DstT = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2735,7 +2845,8 @@ class SegmentMax{
     SegmentMax() {}
     SegmentMax(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2745,7 +2856,8 @@ class Atan2{
     Atan2() {}
     Atan2(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2755,7 +2867,8 @@ class SegmentProd{
     SegmentProd() {}
     SegmentProd(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2765,7 +2878,8 @@ class ArgMin{
     ArgMin() {}
     ArgMin(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dimension);
+           tensorflow::Input dimension, 
+           tensorflow::DataType output_type = tensorflow::DT_INT64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2776,6 +2890,7 @@ class ResizeBilinearGrad{
     ResizeBilinearGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input original_image, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -2787,7 +2902,8 @@ class Max{
     Max(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2798,8 +2914,7 @@ class AccumulatorApplyGradient{
     AccumulatorApplyGradient(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input local_step, 
-           tensorflow::Input gradient, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input gradient);
     tensorflow::Operation operation;
 };
 
@@ -2810,12 +2925,13 @@ class SampleDistortedBoundingBoxV2{
            tensorflow::Input image_size, 
            tensorflow::Input bounding_boxes, 
            tensorflow::Input min_object_covered, 
-           bool use_image_if_no_bounding_boxes = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t seed = 0, 
            int64_t seed2 = 0, 
            tensorflow::gtl::ArraySlice<float> aspect_ratio_range = {0.75, 1.330000042915344}, 
            tensorflow::gtl::ArraySlice<float> area_range = {0.05000000074505806, 1.0}, 
-           int64_t max_attempts = 100);
+           int64_t max_attempts = 100, 
+           bool use_image_if_no_bounding_boxes = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2826,7 +2942,8 @@ class Prod{
     Prod(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2837,7 +2954,8 @@ class Sum{
     Sum(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2847,7 +2965,8 @@ class SeluGrad{
     SeluGrad() {}
     SeluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input outputs);
+           tensorflow::Input outputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2858,7 +2977,8 @@ class Select{
     Select(tensorflow::Scope& scope, 
            tensorflow::Input condition, 
            tensorflow::Input t, 
-           tensorflow::Input e);
+           tensorflow::Input e, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2868,10 +2988,11 @@ class CollectiveBcastSend{
     CollectiveBcastSend() {}
     CollectiveBcastSend(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::PartialTensorShape shape = {}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t group_size = 0, 
            int64_t group_key = 0, 
-           int64_t instance_key = 0);
+           int64_t instance_key = 0, 
+           tensorflow::PartialTensorShape shape = {});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2924,8 +3045,9 @@ class QuantizeV2{
            tensorflow::Input input, 
            tensorflow::Input min_range, 
            tensorflow::Input max_range, 
-           tensorflow::string round_mode = "HALF_AWAY_FROM_ZERO", 
-           tensorflow::string mode = "MIN_COMBINED");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string mode = "MIN_COMBINED", 
+           tensorflow::string round_mode = "HALF_AWAY_FROM_ZERO");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2946,8 +3068,7 @@ class ResourceScatterMax{
     ResourceScatterMax(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -2957,7 +3078,8 @@ class Betainc{
     Betainc(tensorflow::Scope& scope, 
            tensorflow::Input a, 
            tensorflow::Input b, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2967,7 +3089,8 @@ class Polygamma{
     Polygamma() {}
     Polygamma(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2977,7 +3100,7 @@ class Assert{
     Assert() {}
     Assert(tensorflow::Scope& scope, 
            tensorflow::Input condition, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            int64_t summarize = 3);
     tensorflow::Operation operation;
@@ -2988,7 +3111,8 @@ class Transpose{
     Transpose() {}
     Transpose(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input perm);
+           tensorflow::Input perm, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -2998,7 +3122,8 @@ class IgammaGradA{
     IgammaGradA() {}
     IgammaGradA(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3028,7 +3153,8 @@ class Igamma{
     Igamma() {}
     Igamma(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3038,7 +3164,8 @@ class Igammac{
     Igammac() {}
     Igammac(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3048,7 +3175,8 @@ class Mod{
     Mod() {}
     Mod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3058,7 +3186,8 @@ class Maximum{
     Maximum() {}
     Maximum(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3068,7 +3197,8 @@ class Xlogy{
     Xlogy() {}
     Xlogy(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3078,7 +3208,8 @@ class SquaredDifference{
     SquaredDifference() {}
     SquaredDifference(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3088,7 +3219,8 @@ class ResourceCountUpTo{
     ResourceCountUpTo() {}
     ResourceCountUpTo(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           int64_t limit = 0);
+           int64_t limit = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3098,7 +3230,8 @@ class RealDiv{
     RealDiv() {}
     RealDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3108,7 +3241,8 @@ class TruncateDiv{
     TruncateDiv() {}
     TruncateDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3129,7 +3263,7 @@ class QueueEnqueue{
     QueueEnqueue() {}
     QueueEnqueue(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
@@ -3142,7 +3276,8 @@ class _MklSub{
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y);
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3170,8 +3305,9 @@ class Conv3DBackpropFilterV2{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1}, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3181,7 +3317,8 @@ class AddV2{
     AddV2() {}
     AddV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3232,7 +3369,8 @@ class Add{
     Add() {}
     Add(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3241,7 +3379,8 @@ class Floor{
   public:
     Floor() {}
     Floor(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3250,7 +3389,8 @@ class Ceil{
   public:
     Ceil() {}
     Ceil(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3272,7 +3412,8 @@ class MaxPool3D{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3293,7 +3434,8 @@ class Cumsum{
            tensorflow::Input x, 
            tensorflow::Input axis, 
            bool exclusive = false, 
-           bool reverse = false);
+           bool reverse = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3302,7 +3444,8 @@ class BesselI1e{
   public:
     BesselI1e() {}
     BesselI1e(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3311,7 +3454,8 @@ class BesselI0e{
   public:
     BesselI0e() {}
     BesselI0e(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3321,6 +3465,7 @@ class BiasAddGrad{
     BiasAddGrad() {}
     BiasAddGrad(tensorflow::Scope& scope, 
            tensorflow::Input out_backprop, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -3341,7 +3486,8 @@ class Tan{
   public:
     Tan() {}
     Tan(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3352,7 +3498,8 @@ class TopKV2{
     TopKV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input k, 
-           bool sorted = true);
+           bool sorted = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3363,7 +3510,8 @@ class PadV2{
     PadV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::Input constant_values);
+           tensorflow::Input constant_values, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3372,7 +3520,8 @@ class Cos{
   public:
     Cos() {}
     Cos(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3381,7 +3530,8 @@ class Erfc{
   public:
     Erfc() {}
     Erfc(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3390,7 +3540,8 @@ class Digamma{
   public:
     Digamma() {}
     Digamma(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3408,7 +3559,8 @@ class Acosh{
   public:
     Acosh() {}
     Acosh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3417,7 +3569,8 @@ class Cosh{
   public:
     Cosh() {}
     Cosh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3442,8 +3595,7 @@ class ResourceScatterDiv{
     ResourceScatterDiv(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -3451,7 +3603,8 @@ class Asin{
   public:
     Asin() {}
     Asin(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3463,8 +3616,9 @@ class _HostRecv{
            tensorflow::string tensor_name, 
            tensorflow::string send_device, 
            tensorflow::string recv_device, 
-           bool client_terminated = false, 
-           int64_t send_device_incarnation = 0);
+           tensorflow::DataType tensor_type = tensorflow::DT_INVALID, 
+           int64_t send_device_incarnation = 0, 
+           bool client_terminated = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3474,8 +3628,8 @@ class ExperimentalScanDataset{
     ExperimentalScanDataset() {}
     ExperimentalScanDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input initial_state, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList initial_state, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tstate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -3490,7 +3644,8 @@ class Log1p{
   public:
     Log1p() {}
     Log1p(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3513,7 +3668,8 @@ class Requantize{
            tensorflow::Input input_min, 
            tensorflow::Input input_max, 
            tensorflow::Input requested_output_min, 
-           tensorflow::Input requested_output_max);
+           tensorflow::Input requested_output_max, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3522,7 +3678,8 @@ class Exp{
   public:
     Exp() {}
     Exp(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3534,6 +3691,7 @@ class ScatterNdAdd{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -3561,7 +3719,8 @@ class Dilation2D{
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3580,7 +3739,8 @@ class RsqrtGrad{
     RsqrtGrad() {}
     RsqrtGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3592,11 +3752,12 @@ class QuantizedInstanceNorm{
            tensorflow::Input x, 
            tensorflow::Input x_min, 
            tensorflow::Input x_max, 
-           float min_separation = 0.001000000047497451, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool output_range_given = false, 
            float given_y_min = 0.0, 
            float given_y_max = 0.0, 
-           float variance_epsilon = 9.999999747378752e-06);
+           float variance_epsilon = 9.999999747378752e-06, 
+           float min_separation = 0.001000000047497451);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3605,7 +3766,8 @@ class Rsqrt{
   public:
     Rsqrt() {}
     Rsqrt(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3628,7 +3790,8 @@ class SqrtGrad{
     SqrtGrad() {}
     SqrtGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3639,7 +3802,8 @@ class SparseSegmentSqrtN{
     SparseSegmentSqrtN(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3651,7 +3815,8 @@ class _MklMaximum{
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y);
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3660,7 +3825,8 @@ class Sqrt{
   public:
     Sqrt() {}
     Sqrt(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3670,7 +3836,8 @@ class InvGrad{
     InvGrad() {}
     InvGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3679,7 +3846,8 @@ class Inv{
   public:
     Inv() {}
     Inv(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3698,7 +3866,8 @@ class _HostCast{
     _HostCast() {}
     _HostCast(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           bool Truncate = false);
+           bool Truncate = false, 
+           tensorflow::DataType DstT = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3709,8 +3878,9 @@ class BatchMatMul{
     BatchMatMul(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input y, 
-           bool adj_y = false, 
-           bool adj_x = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool adj_x = false, 
+           bool adj_y = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3720,6 +3890,7 @@ class AccumulateNV2{
     AccumulateNV2() {}
     AccumulateNV2(tensorflow::Scope& scope, 
            tensorflow::InputList inputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::PartialTensorShape shape = {});
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -3756,7 +3927,8 @@ class FractionalAvgPoolGrad{
            tensorflow::Input out_backprop, 
            tensorflow::Input row_pooling_sequence, 
            tensorflow::Input col_pooling_sequence, 
-           bool overlapping = false);
+           bool overlapping = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3878,6 +4050,7 @@ class LookupTableExportV2{
     LookupTableExportV2() {}
     LookupTableExportV2(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
+           tensorflow::DataType Tkeys = tensorflow::DT_INVALID, 
            tensorflow::DataType Tvalues = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -3888,8 +4061,7 @@ class AssignVariableOp{
     AssignVariableOp() {}
     AssignVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input value);
     tensorflow::Operation operation;
 };
 
@@ -3921,7 +4093,8 @@ class LookupTableFind{
     LookupTableFind(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
            tensorflow::Input keys, 
-           tensorflow::Input default_value);
+           tensorflow::Input default_value, 
+           tensorflow::DataType Tout = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -3961,7 +4134,8 @@ class AvgPool{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4016,7 +4190,8 @@ class ClipByValue{
     ClipByValue(tensorflow::Scope& scope, 
            tensorflow::Input t, 
            tensorflow::Input clip_value_min, 
-           tensorflow::Input clip_value_max);
+           tensorflow::Input clip_value_max, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4060,6 +4235,7 @@ class TensorListStack{
     TensorListStack() {}
     TensorListStack(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
+           tensorflow::DataType element_dtype = tensorflow::DT_INVALID, 
            int64_t num_elements = -1);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4072,7 +4248,8 @@ class _MklMul{
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y);
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4083,7 +4260,8 @@ class TensorScatterUpdate{
     TensorScatterUpdate(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates);
+           tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4128,7 +4306,7 @@ class ExperimentalIndexedDatasetGet{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TensorListPushBackBatch{
@@ -4168,7 +4346,8 @@ class Erf{
   public:
     Erf() {}
     Erf(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4179,7 +4358,8 @@ class Mean{
     Mean(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4191,7 +4371,8 @@ class BatchMatrixTriangularSolve{
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            bool lower = true, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4202,7 +4383,8 @@ class BatchMatrixSolve{
     BatchMatrixSolve(tensorflow::Scope& scope, 
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4216,7 +4398,8 @@ class QuantizedBiasAdd{
            tensorflow::Input min_input, 
            tensorflow::Input max_input, 
            tensorflow::Input min_bias, 
-           tensorflow::Input max_bias);
+           tensorflow::Input max_bias, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4226,8 +4409,9 @@ class DataFormatVecPermute{
     DataFormatVecPermute() {}
     DataFormatVecPermute(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::string dst_format = "NCHW", 
-           tensorflow::string src_format = "NHWC");
+           tensorflow::DataType T = tensorflow::DT_INT32, 
+           tensorflow::string src_format = "NHWC", 
+           tensorflow::string dst_format = "NCHW");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4237,7 +4421,8 @@ class BatchCholeskyGrad{
     BatchCholeskyGrad() {}
     BatchCholeskyGrad(tensorflow::Scope& scope, 
            tensorflow::Input l, 
-           tensorflow::Input grad);
+           tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4247,7 +4432,8 @@ class BatchMatrixInverse{
     BatchMatrixInverse() {}
     BatchMatrixInverse(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4272,7 +4458,8 @@ class BatchSelfAdjointEig{
   public:
     BatchSelfAdjointEig() {}
     BatchSelfAdjointEig(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4283,7 +4470,8 @@ class LookupTableFindV2{
     LookupTableFindV2(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
            tensorflow::Input keys, 
-           tensorflow::Input default_value);
+           tensorflow::Input default_value, 
+           tensorflow::DataType Tout = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4292,7 +4480,8 @@ class Asinh{
   public:
     Asinh() {}
     Asinh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4301,10 +4490,11 @@ class CollectiveBcastRecv{
   public:
     CollectiveBcastRecv() {}
     CollectiveBcastRecv(tensorflow::Scope& scope, 
-           tensorflow::PartialTensorShape shape = {}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t group_size = 0, 
            int64_t group_key = 0, 
-           int64_t instance_key = 0);
+           int64_t instance_key = 0, 
+           tensorflow::PartialTensorShape shape = {});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4325,7 +4515,8 @@ class MatrixSquareRoot{
   public:
     MatrixSquareRoot() {}
     MatrixSquareRoot(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4337,7 +4528,8 @@ class MatrixTriangularSolve{
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            bool lower = true, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4346,7 +4538,8 @@ class SelfAdjointEig{
   public:
     SelfAdjointEig() {}
     SelfAdjointEig(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4356,7 +4549,8 @@ class Reshape{
     Reshape() {}
     Reshape(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input shape);
+           tensorflow::Input shape, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4366,7 +4560,8 @@ class ArgMax{
     ArgMax() {}
     ArgMax(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dimension);
+           tensorflow::Input dimension, 
+           tensorflow::DataType output_type = tensorflow::DT_INT64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4376,7 +4571,8 @@ class CholeskyGrad{
     CholeskyGrad() {}
     CholeskyGrad(tensorflow::Scope& scope, 
            tensorflow::Input l, 
-           tensorflow::Input grad);
+           tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4401,7 +4597,7 @@ class ParseSingleSequenceExample{
            tensorflow::Input context_dense_keys, 
            tensorflow::Input feature_list_sparse_keys, 
            tensorflow::Input feature_list_dense_keys, 
-           tensorflow::Input context_dense_defaults, 
+           tensorflow::InputList context_dense_defaults, 
            tensorflow::Input debug_name, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> context_sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcontext_dense, 
@@ -4422,6 +4618,7 @@ class LookupTableExport{
     LookupTableExport() {}
     LookupTableExport(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
+           tensorflow::DataType Tkeys = tensorflow::DT_INVALID, 
            tensorflow::DataType Tvalues = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4435,7 +4632,7 @@ class QueueDequeue{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TensorListSplit{
@@ -4456,6 +4653,7 @@ class BatchMatrixSolveLs{
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            tensorflow::Input l2_regularizer, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool fast = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4465,7 +4663,8 @@ class MatrixDeterminant{
   public:
     MatrixDeterminant() {}
     MatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4475,7 +4674,8 @@ class FloorMod{
     FloorMod() {}
     FloorMod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4508,7 +4708,8 @@ class MatrixSolve{
     MatrixSolve(tensorflow::Scope& scope, 
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4609,7 +4810,8 @@ class LowerBound{
     LowerBound() {}
     LowerBound(tensorflow::Scope& scope, 
            tensorflow::Input sorted_inputs, 
-           tensorflow::Input values);
+           tensorflow::Input values, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4638,6 +4840,7 @@ class DecodeRaw{
     DecodeRaw() {}
     DecodeRaw(tensorflow::Scope& scope, 
            tensorflow::Input bytes, 
+           tensorflow::DataType out_type = tensorflow::DT_INVALID, 
            bool little_endian = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4659,7 +4862,8 @@ class Cumprod{
            tensorflow::Input x, 
            tensorflow::Input axis, 
            bool exclusive = false, 
-           bool reverse = false);
+           bool reverse = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4678,7 +4882,8 @@ class Square{
   public:
     Square() {}
     Square(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4699,7 +4904,8 @@ class Slice{
     Slice(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input begin, 
-           tensorflow::Input size);
+           tensorflow::Input size, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4790,6 +4996,7 @@ class RestoreSlice{
            tensorflow::Input file_pattern, 
            tensorflow::Input tensor_name, 
            tensorflow::Input shape_and_slice, 
+           tensorflow::DataType dt = tensorflow::DT_INVALID, 
            int64_t preferred_shard = -1);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4801,6 +5008,7 @@ class Restore{
     Restore(tensorflow::Scope& scope, 
            tensorflow::Input file_pattern, 
            tensorflow::Input tensor_name, 
+           tensorflow::DataType dt = tensorflow::DT_INVALID, 
            int64_t preferred_shard = -1);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4813,7 +5021,7 @@ class SaveSlices{
            tensorflow::Input filename, 
            tensorflow::Input tensor_names, 
            tensorflow::Input shapes_and_slices, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T);
     tensorflow::Operation operation;
 };
@@ -4824,7 +5032,7 @@ class Save{
     Save(tensorflow::Scope& scope, 
            tensorflow::Input filename, 
            tensorflow::Input tensor_names, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T);
     tensorflow::Operation operation;
 };
@@ -4855,7 +5063,8 @@ class RefExit{
   public:
     RefExit() {}
     RefExit(tensorflow::Scope& scope, 
-           tensorflow::Input data);
+           tensorflow::Input data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4895,7 +5104,8 @@ class Tanh{
   public:
     Tanh() {}
     Tanh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -4908,6 +5118,7 @@ class CropAndResizeGradImage{
            tensorflow::Input boxes, 
            tensorflow::Input box_ind, 
            tensorflow::Input image_size, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string method = "bilinear");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4934,6 +5145,7 @@ class ApplyPowerSign{
            tensorflow::Input sign_decay, 
            tensorflow::Input beta, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -4948,7 +5160,8 @@ class QuantizedAvgPool{
            tensorflow::Input max_input, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5039,8 +5252,9 @@ class RandomCrop{
     RandomCrop(tensorflow::Scope& scope, 
            tensorflow::Input image, 
            tensorflow::Input size, 
-           int64_t seed2 = 0, 
-           int64_t seed = 0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5067,6 +5281,7 @@ class ResizeNearestNeighborGrad{
     ResizeNearestNeighborGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input size, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5080,7 +5295,8 @@ class LRN{
            int64_t depth_radius = 5, 
            float bias = 1.0, 
            float alpha = 1.0, 
-           float beta = 0.5);
+           float beta = 0.5, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5094,8 +5310,9 @@ class Conv3DBackpropInputV2{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1}, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5116,8 +5333,7 @@ class AssignAddVariableOp{
     AssignAddVariableOp() {}
     AssignAddVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input value);
     tensorflow::Operation operation;
 };
 
@@ -5130,8 +5346,9 @@ class DepthwiseConv2dNativeBackpropInput{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5165,6 +5382,7 @@ class SparseApplyMomentum{
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input momentum, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_nesterov = false, 
            bool use_locking = false);
     tensorflow::Operation operation;
@@ -5176,6 +5394,7 @@ class UniqueWithCounts{
     UniqueWithCounts() {}
     UniqueWithCounts(tensorflow::Scope& scope, 
            tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType out_idx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5187,6 +5406,7 @@ class ResizeBicubicGrad{
     ResizeBicubicGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input original_image, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5196,7 +5416,8 @@ class HSVToRGB{
   public:
     HSVToRGB() {}
     HSVToRGB(tensorflow::Scope& scope, 
-           tensorflow::Input images);
+           tensorflow::Input images, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5208,7 +5429,8 @@ class SparseSegmentMeanWithNumSegments{
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5251,6 +5473,7 @@ class ScatterMin{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5271,7 +5494,8 @@ class Pow{
     Pow() {}
     Pow(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5280,7 +5504,7 @@ class PartitionedCall{
   public:
     PartitionedCall() {}
     PartitionedCall(tensorflow::Scope& scope, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f, 
@@ -5288,14 +5512,15 @@ class PartitionedCall{
            tensorflow::string config_proto, 
            tensorflow::string executor_type);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class Sign{
   public:
     Sign() {}
     Sign(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5304,20 +5529,21 @@ class While{
   public:
     While() {}
     While(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class Log{
   public:
     Log() {}
     Log(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5326,12 +5552,12 @@ class _While{
   public:
     _While() {}
     _While(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class AddManySparseToTensorsMap{
@@ -5352,7 +5578,7 @@ class FlatMapDataset{
     FlatMapDataset() {}
     FlatMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -5366,20 +5592,21 @@ class StatelessIf{
     StatelessIf() {}
     StatelessIf(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
            tensorflow::NameAttrList else_branch);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class Angle{
   public:
     Angle() {}
     Angle(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tout = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5389,12 +5616,12 @@ class RemoteCall{
     RemoteCall() {}
     RemoteCall(tensorflow::Scope& scope, 
            tensorflow::Input target, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ExperimentalMapAndBatchDataset{
@@ -5402,7 +5629,7 @@ class ExperimentalMapAndBatchDataset{
     ExperimentalMapAndBatchDataset() {}
     ExperimentalMapAndBatchDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input batch_size, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::Input drop_remainder, 
@@ -5419,12 +5646,12 @@ class SymbolicGradient{
   public:
     SymbolicGradient() {}
     SymbolicGradient(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class _ArrayToList{
@@ -5434,15 +5661,16 @@ class _ArrayToList{
            tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> out_types);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class _ListToArray{
   public:
     _ListToArray() {}
     _ListToArray(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
-           tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin);
+           tensorflow::InputList input, 
+           tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::OutputList output;
 };
@@ -5451,6 +5679,7 @@ class _Arg{
   public:
     _Arg() {}
     _Arg(tensorflow::Scope& scope, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t index = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5472,7 +5701,8 @@ class MirrorPad{
     MirrorPad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::string mode);
+           tensorflow::string mode, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5499,6 +5729,7 @@ class MatrixSolveLs{
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            tensorflow::Input l2_regularizer, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool fast = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5517,7 +5748,8 @@ class Sinh{
   public:
     Sinh() {}
     Sinh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5551,7 +5783,8 @@ class Relu{
   public:
     Relu() {}
     Relu(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5563,7 +5796,8 @@ class MatMul{
            tensorflow::Input a, 
            tensorflow::Input b, 
            bool transpose_a = false, 
-           bool transpose_b = false);
+           bool transpose_b = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5585,7 +5819,8 @@ class SoftplusGrad{
     SoftplusGrad() {}
     SoftplusGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5608,7 +5843,8 @@ class QuantizeAndDequantizeV3{
            tensorflow::Input input_max, 
            tensorflow::Input num_bits, 
            bool signed_input = true, 
-           bool range_given = true);
+           bool range_given = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5618,7 +5854,8 @@ class Mul{
     Mul() {}
     Mul(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5629,6 +5866,7 @@ class BatchToSpace{
     BatchToSpace(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input crops, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t block_size = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5663,7 +5901,8 @@ class Elu{
   public:
     Elu() {}
     Elu(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5693,7 +5932,7 @@ class StringFormat{
   public:
     StringFormat() {}
     StringFormat(tensorflow::Scope& scope, 
-           tensorflow::Input inputs, 
+           tensorflow::InputList inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::string ctemplate = "%s", 
            tensorflow::string placeholder = "%s", 
@@ -5797,7 +6036,8 @@ class IFFT3D{
   public:
     IFFT3D() {}
     IFFT3D(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex = tensorflow::DT_COMPLEX64);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5807,7 +6047,8 @@ class _UnaryOpsComposition{
     _UnaryOpsComposition() {}
     _UnaryOpsComposition(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> op_names);
+           tensorflow::gtl::ArraySlice<tensorflow::string> op_names, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5816,7 +6057,8 @@ class BatchMatrixDeterminant{
   public:
     BatchMatrixDeterminant() {}
     BatchMatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -5864,11 +6106,11 @@ class For{
            tensorflow::Input start, 
            tensorflow::Input limit, 
            tensorflow::Input delta, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList body);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ExperimentalParallelInterleaveDataset{
@@ -5876,7 +6118,7 @@ class ExperimentalParallelInterleaveDataset{
     ExperimentalParallelInterleaveDataset() {}
     ExperimentalParallelInterleaveDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::Input sloppy, 
@@ -5929,7 +6171,7 @@ class ExperimentalMapDataset{
     ExperimentalMapDataset() {}
     ExperimentalMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -5946,6 +6188,7 @@ class BiasAdd{
     BiasAdd(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            tensorflow::Input bias, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -5956,10 +6199,10 @@ class ExperimentalGroupByReducerDataset{
     ExperimentalGroupByReducerDataset() {}
     ExperimentalGroupByReducerDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input key_func_other_arguments, 
-           tensorflow::Input init_func_other_arguments, 
-           tensorflow::Input reduce_func_other_arguments, 
-           tensorflow::Input finalize_func_other_arguments, 
+           tensorflow::InputList key_func_other_arguments, 
+           tensorflow::InputList init_func_other_arguments, 
+           tensorflow::InputList reduce_func_other_arguments, 
+           tensorflow::InputList finalize_func_other_arguments, 
            tensorflow::NameAttrList key_func, 
            tensorflow::NameAttrList init_func, 
            tensorflow::NameAttrList reduce_func, 
@@ -6006,7 +6249,8 @@ class BatchToSpaceND{
     BatchToSpaceND(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input block_shape, 
-           tensorflow::Input crops);
+           tensorflow::Input crops, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6057,15 +6301,15 @@ class MapDefun{
   public:
     MapDefun() {}
     MapDefun(tensorflow::Scope& scope, 
-           tensorflow::Input arguments, 
-           tensorflow::Input captured_inputs, 
+           tensorflow::InputList arguments, 
+           tensorflow::InputList captured_inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcaptured, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes, 
            tensorflow::NameAttrList f);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ExperimentalCSVDataset{
@@ -6080,7 +6324,7 @@ class ExperimentalCSVDataset{
            tensorflow::Input use_quote_delim, 
            tensorflow::Input na_value, 
            tensorflow::Input select_cols, 
-           tensorflow::Input record_defaults, 
+           tensorflow::InputList record_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
@@ -6093,7 +6337,8 @@ class UnsortedSegmentMin{
     UnsortedSegmentMin(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6103,7 +6348,8 @@ class SegmentMin{
     SegmentMin() {}
     SegmentMin(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6124,7 +6370,7 @@ class EncodeProto{
     EncodeProto() {}
     EncodeProto(tensorflow::Scope& scope, 
            tensorflow::Input sizes, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::string> field_names, 
            tensorflow::string message_type, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tinput_types, 
@@ -6150,7 +6396,8 @@ class Minimum{
     Minimum() {}
     Minimum(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6184,7 +6431,7 @@ class Batch{
   public:
     Batch() {}
     Batch(tensorflow::Scope& scope, 
-           tensorflow::Input in_tensors, 
+           tensorflow::InputList in_tensors, 
            tensorflow::gtl::ArraySlice<int64_t> allowed_batch_sizes, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
@@ -6196,7 +6443,7 @@ class Batch{
            int64_t batch_timeout_micros = 0, 
            int64_t grad_timeout_micros = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ParallelInterleaveDatasetV2{
@@ -6204,7 +6451,7 @@ class ParallelInterleaveDatasetV2{
     ParallelInterleaveDatasetV2() {}
     ParallelInterleaveDatasetV2(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::Input num_parallel_calls, 
@@ -6247,7 +6494,8 @@ class MaxPoolGradGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6274,7 +6522,7 @@ class Stage{
   public:
     Stage() {}
     Stage(tensorflow::Scope& scope, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
@@ -6287,10 +6535,10 @@ class IdentityN{
   public:
     IdentityN() {}
     IdentityN(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class OptionalHasValue{
@@ -6307,7 +6555,8 @@ class Qr{
     Qr() {}
     Qr(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool full_matrices = false);
+           bool full_matrices = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6316,7 +6565,7 @@ class StatefulPartitionedCall{
   public:
     StatefulPartitionedCall() {}
     StatefulPartitionedCall(tensorflow::Scope& scope, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f, 
@@ -6324,14 +6573,14 @@ class StatefulPartitionedCall{
            tensorflow::string config_proto, 
            tensorflow::string executor_type);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class OptionalFromValue{
   public:
     OptionalFromValue() {}
     OptionalFromValue(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -6413,7 +6662,8 @@ class SparseSegmentSqrtNGrad{
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input output_dim0);
+           tensorflow::Input output_dim0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6469,7 +6719,8 @@ class CheckNumerics{
     CheckNumerics() {}
     CheckNumerics(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::string message);
+           tensorflow::string message, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6479,7 +6730,8 @@ class BroadcastTo{
     BroadcastTo() {}
     BroadcastTo(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input shape);
+           tensorflow::Input shape, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6497,7 +6749,8 @@ class Atanh{
   public:
     Atanh() {}
     Atanh(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6517,6 +6770,7 @@ class UniqueWithCountsV2{
     UniqueWithCountsV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input axis, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType out_idx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -6536,7 +6790,8 @@ class DebugGradientRefIdentity{
   public:
     DebugGradientRefIdentity() {}
     DebugGradientRefIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6644,6 +6899,7 @@ class MaxPoolV2{
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT, 
            tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -6658,7 +6914,8 @@ class QuantizedMul{
            tensorflow::Input min_x, 
            tensorflow::Input max_x, 
            tensorflow::Input min_y, 
-           tensorflow::Input max_y);
+           tensorflow::Input max_y, 
+           tensorflow::DataType Toutput = tensorflow::DT_QINT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6696,13 +6953,14 @@ class CudnnRNN{
            tensorflow::Input input_h, 
            tensorflow::Input input_c, 
            tensorflow::Input params, 
-           bool is_training = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           bool is_training = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6724,7 +6982,8 @@ class SoftsignGrad{
     SoftsignGrad() {}
     SoftsignGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6782,7 +7041,8 @@ class MaxPool3DGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6792,7 +7052,7 @@ class InterleaveDataset{
     InterleaveDataset() {}
     InterleaveDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::NameAttrList f, 
@@ -6808,7 +7068,8 @@ class TanhGrad{
     TanhGrad() {}
     TanhGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6841,7 +7102,7 @@ class ParallelMapDataset{
     ParallelMapDataset() {}
     ParallelMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -6859,7 +7120,8 @@ class ReciprocalGrad{
     ReciprocalGrad() {}
     ReciprocalGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6871,7 +7133,8 @@ class QuantizedReshape{
            tensorflow::Input tensor, 
            tensorflow::Input shape, 
            tensorflow::Input input_min, 
-           tensorflow::Input input_max);
+           tensorflow::Input input_max, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6881,7 +7144,7 @@ class MapDataset{
     MapDataset() {}
     MapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -6913,9 +7176,10 @@ class Conv2DBackpropFilter{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_cudnn_on_gpu = true, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -6928,7 +7192,7 @@ class IteratorGetNextSync{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ReaderNumRecordsProduced{
@@ -6970,7 +7234,7 @@ class QueueDequeueV2{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ReaderReadUpTo{
@@ -6990,6 +7254,7 @@ class Unpack{
     Unpack(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            int64_t num = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t axis = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7021,9 +7286,9 @@ class GeneratorDataset{
   public:
     GeneratorDataset() {}
     GeneratorDataset(tensorflow::Scope& scope, 
-           tensorflow::Input init_func_other_args, 
-           tensorflow::Input next_func_other_args, 
-           tensorflow::Input finalize_func_other_args, 
+           tensorflow::InputList init_func_other_args, 
+           tensorflow::InputList next_func_other_args, 
+           tensorflow::InputList finalize_func_other_args, 
            tensorflow::NameAttrList init_func, 
            tensorflow::NameAttrList next_func, 
            tensorflow::NameAttrList finalize_func, 
@@ -7040,7 +7305,7 @@ class TensorSliceDataset{
   public:
     TensorSliceDataset() {}
     TensorSliceDataset(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
@@ -7061,7 +7326,8 @@ class Softsign{
   public:
     Softsign() {}
     Softsign(tensorflow::Scope& scope, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7075,7 +7341,8 @@ class QuantizedAdd{
            tensorflow::Input min_x, 
            tensorflow::Input max_x, 
            tensorflow::Input min_y, 
-           tensorflow::Input max_y);
+           tensorflow::Input max_y, 
+           tensorflow::DataType Toutput = tensorflow::DT_QINT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7111,7 +7378,7 @@ class TensorDataset{
   public:
     TensorDataset() {}
     TensorDataset(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
@@ -7122,7 +7389,8 @@ class TensorListElementShape{
   public:
     TensorListElementShape() {}
     TensorListElementShape(tensorflow::Scope& scope, 
-           tensorflow::Input input_handle);
+           tensorflow::Input input_handle, 
+           tensorflow::DataType shape_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7133,6 +7401,7 @@ class NcclReduce{
     NcclReduce(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string reduction, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_devices = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7148,6 +7417,7 @@ class ApplyProximalAdagrad{
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7159,7 +7429,8 @@ class Svd{
     Svd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            bool compute_uv = true, 
-           bool full_matrices = false);
+           bool full_matrices = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7171,7 +7442,8 @@ class SparseSegmentMeanGrad{
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input output_dim0);
+           tensorflow::Input output_dim0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7180,7 +7452,8 @@ class MatrixExponential{
   public:
     MatrixExponential() {}
     MatrixExponential(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7190,7 +7463,8 @@ class GatherNd{
     GatherNd() {}
     GatherNd(tensorflow::Scope& scope, 
            tensorflow::Input params, 
-           tensorflow::Input indices);
+           tensorflow::Input indices, 
+           tensorflow::DataType Tparams = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7212,6 +7486,7 @@ class MaxPool{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT, 
            tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7257,7 +7532,7 @@ class SaveV2{
            tensorflow::Input prefix, 
            tensorflow::Input tensor_names, 
            tensorflow::Input shape_and_slices, 
-           tensorflow::Input tensors, 
+           tensorflow::InputList tensors, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes);
     tensorflow::Operation operation;
 };
@@ -7268,7 +7543,7 @@ class OrderedMapStage{
     OrderedMapStage(tensorflow::Scope& scope, 
            tensorflow::Input key, 
            tensorflow::Input indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> fake_dtypes, 
            tensorflow::string container, 
@@ -7285,7 +7560,8 @@ class RandomGamma{
            tensorflow::Input shape, 
            tensorflow::Input alpha, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7298,6 +7574,7 @@ class QuantizedResizeBilinear{
            tensorflow::Input size, 
            tensorflow::Input min, 
            tensorflow::Input max, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7334,7 +7611,8 @@ class MatrixInverse{
     MatrixInverse() {}
     MatrixInverse(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool adjoint = false);
+           bool adjoint = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7348,8 +7626,9 @@ class ApplyMomentum{
            tensorflow::Input lr, 
            tensorflow::Input grad, 
            tensorflow::Input momentum, 
-           bool use_nesterov = false, 
-           bool use_locking = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool use_locking = false, 
+           bool use_nesterov = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7358,7 +7637,8 @@ class Acos{
   public:
     Acos() {}
     Acos(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7368,9 +7648,9 @@ class ExperimentalGroupByWindowDataset{
     ExperimentalGroupByWindowDataset() {}
     ExperimentalGroupByWindowDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input key_func_other_arguments, 
-           tensorflow::Input reduce_func_other_arguments, 
-           tensorflow::Input window_size_func_other_arguments, 
+           tensorflow::InputList key_func_other_arguments, 
+           tensorflow::InputList reduce_func_other_arguments, 
+           tensorflow::InputList window_size_func_other_arguments, 
            tensorflow::NameAttrList key_func, 
            tensorflow::NameAttrList reduce_func, 
            tensorflow::NameAttrList window_size_func, 
@@ -7408,6 +7688,7 @@ class _NcclBroadcastRecv{
     _NcclBroadcastRecv(tensorflow::Scope& scope, 
            tensorflow::Input shape, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_devices = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7418,7 +7699,8 @@ class SegmentSum{
     SegmentSum() {}
     SegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7454,7 +7736,8 @@ class Unbatch{
            tensorflow::Input id, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
-           int64_t timeout_micros = 0);
+           int64_t timeout_micros = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7471,7 +7754,7 @@ class MapUnstage{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TopK{
@@ -7480,7 +7763,8 @@ class TopK{
     TopK(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            int64_t k = 0, 
-           bool sorted = true);
+           bool sorted = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7490,7 +7774,8 @@ class ConjugateTranspose{
     ConjugateTranspose() {}
     ConjugateTranspose(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input perm);
+           tensorflow::Input perm, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7507,7 +7792,7 @@ class MapPeek{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class SparseTensorDenseMatMul{
@@ -7518,8 +7803,9 @@ class SparseTensorDenseMatMul{
            tensorflow::Input a_values, 
            tensorflow::Input a_shape, 
            tensorflow::Input b, 
-           bool adjoint_a = false, 
-           bool adjoint_b = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool adjoint_b = false, 
+           bool adjoint_a = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7533,9 +7819,10 @@ class FusedBatchNormGradV2{
            tensorflow::Input scale, 
            tensorflow::Input reserve_space_1, 
            tensorflow::Input reserve_space_2, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool is_training = true, 
-           tensorflow::string data_format = "NHWC", 
-           float epsilon = 9.999999747378752e-05);
+           float epsilon = 9.999999747378752e-05, 
+           tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7555,7 +7842,7 @@ class MapStage{
     MapStage(tensorflow::Scope& scope, 
            tensorflow::Input key, 
            tensorflow::Input indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> fake_dtypes, 
            tensorflow::string container, 
@@ -7575,7 +7862,7 @@ class Unstage{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class Variable{
@@ -7609,7 +7896,8 @@ class SigmoidGrad{
     SigmoidGrad() {}
     SigmoidGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy);
+           tensorflow::Input dy, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7619,7 +7907,8 @@ class TensorListGather{
     TensorListGather() {}
     TensorListGather(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
-           tensorflow::Input indices);
+           tensorflow::Input indices, 
+           tensorflow::DataType element_dtype = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7671,7 +7960,8 @@ class Sigmoid{
   public:
     Sigmoid() {}
     Sigmoid(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7700,7 +7990,8 @@ class SparseToDense{
            tensorflow::Input output_shape, 
            tensorflow::Input sparse_values, 
            tensorflow::Input default_value, 
-           bool validate_indices = true);
+           bool validate_indices = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7709,7 +8000,8 @@ class Bitcast{
   public:
     Bitcast() {}
     Bitcast(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7769,8 +8061,8 @@ class BatchFunction{
   public:
     BatchFunction() {}
     BatchFunction(tensorflow::Scope& scope, 
-           tensorflow::Input in_tensors, 
-           tensorflow::Input captured_tensors, 
+           tensorflow::InputList in_tensors, 
+           tensorflow::InputList captured_tensors, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<int64_t> allowed_batch_sizes, 
            tensorflow::string container, 
@@ -7784,7 +8076,7 @@ class BatchFunction{
            int64_t batch_timeout_micros = 0, 
            int64_t max_enqueued_batches = 10);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class BatchDatasetV2{
@@ -7805,7 +8097,8 @@ class SelfAdjointEigV2{
     SelfAdjointEigV2() {}
     SelfAdjointEigV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool compute_v = true);
+           bool compute_v = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7815,6 +8108,7 @@ class Pack{
     Pack() {}
     Pack(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t axis = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -7833,19 +8127,20 @@ class PyFunc{
   public:
     PyFunc() {}
     PyFunc(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class AddN{
   public:
     AddN() {}
     AddN(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs);
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7879,7 +8174,8 @@ class MatrixLogarithm{
   public:
     MatrixLogarithm() {}
     MatrixLogarithm(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7917,7 +8213,8 @@ class Neg{
   public:
     Neg() {}
     Neg(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7940,7 +8237,8 @@ class Div{
     Div() {}
     Div(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7982,7 +8280,8 @@ class ComplexAbs{
   public:
     ComplexAbs() {}
     ComplexAbs(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType Tout = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -7991,7 +8290,8 @@ class RGBToHSV{
   public:
     RGBToHSV() {}
     RGBToHSV(tensorflow::Scope& scope, 
-           tensorflow::Input images);
+           tensorflow::Input images, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8002,6 +8302,7 @@ class ListDiff{
     ListDiff(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType out_idx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8055,6 +8356,7 @@ class _DeviceArg{
   public:
     _DeviceArg() {}
     _DeviceArg(tensorflow::Scope& scope, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t index = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8071,7 +8373,7 @@ class StagePeek{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TensorArrayReadV2{
@@ -8130,7 +8432,8 @@ class BitwiseXor{
     BitwiseXor() {}
     BitwiseXor(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8180,7 +8483,8 @@ class ReverseSequence{
            tensorflow::Input input, 
            tensorflow::Input seq_lengths, 
            int64_t seq_dim = 0, 
-           int64_t batch_dim = 0);
+           int64_t batch_dim = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8229,7 +8533,8 @@ class DivNoNan{
     DivNoNan() {}
     DivNoNan(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8258,7 +8563,8 @@ class AvgPoolGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8268,6 +8574,7 @@ class ParallelConcat{
     ParallelConcat() {}
     ParallelConcat(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::PartialTensorShape shape = {});
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8292,7 +8599,8 @@ class UnsortedSegmentMax{
     UnsortedSegmentMax(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments);
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8343,6 +8651,7 @@ class SparseApplyFtrlV2{
            tensorflow::Input l2, 
            tensorflow::Input l2_shrinkage, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8352,7 +8661,8 @@ class StackPop{
   public:
     StackPop() {}
     StackPop(tensorflow::Scope& scope, 
-           tensorflow::Input handle);
+           tensorflow::Input handle, 
+           tensorflow::DataType elem_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8371,7 +8681,8 @@ class Abs{
   public:
     Abs() {}
     Abs(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8382,7 +8693,8 @@ class Gather{
     Gather(tensorflow::Scope& scope, 
            tensorflow::Input params, 
            tensorflow::Input indices, 
-           bool validate_indices = true);
+           bool validate_indices = true, 
+           tensorflow::DataType Tparams = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8408,7 +8720,8 @@ class AvgPool3DGrad{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8448,7 +8761,8 @@ class StackPopV2{
   public:
     StackPopV2() {}
     StackPopV2(tensorflow::Scope& scope, 
-           tensorflow::Input handle);
+           tensorflow::Input handle, 
+           tensorflow::DataType elem_type = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8459,6 +8773,7 @@ class StackPushV2{
     StackPushV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input elem, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool swap_memory = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8469,7 +8784,8 @@ class TileGrad{
     TileGrad() {}
     TileGrad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input multiples);
+           tensorflow::Input multiples, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8483,7 +8799,7 @@ class QueueDequeueUpTo{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class AudioSummary{
@@ -8505,7 +8821,7 @@ class PaddedBatchDataset{
            tensorflow::Input input_dataset, 
            tensorflow::Input batch_size, 
            tensorflow::InputList padded_shapes, 
-           tensorflow::Input padding_values, 
+           tensorflow::InputList padding_values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
@@ -8548,7 +8864,7 @@ class OrderedMapUnstage{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class _VarHandlesOp{
@@ -8590,7 +8906,8 @@ class ExtractJpegShape{
   public:
     ExtractJpegShape() {}
     ExtractJpegShape(tensorflow::Scope& scope, 
-           tensorflow::Input contents);
+           tensorflow::Input contents, 
+           tensorflow::DataType output_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8631,6 +8948,7 @@ class Lu{
     Lu() {}
     Lu(tensorflow::Scope& scope, 
            tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType output_idx_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -8685,7 +9003,7 @@ class QueueDequeueManyV2{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class VarHandleOp{
@@ -8722,7 +9040,7 @@ class QueueDequeueMany{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ExperimentalMaxIntraOpParallelismDataset{
@@ -8742,7 +9060,7 @@ class QueueEnqueueMany{
     QueueEnqueueMany() {}
     QueueEnqueueMany(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
@@ -8791,7 +9109,8 @@ class SparseSegmentSum{
     SparseSegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8825,7 +9144,8 @@ class RefMerge{
   public:
     RefMerge() {}
     RefMerge(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs);
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8835,7 +9155,8 @@ class BitwiseOr{
     BitwiseOr() {}
     BitwiseOr(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8861,7 +9182,7 @@ class RestoreV2{
            tensorflow::Input shape_and_slices, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class RandomShuffleQueue{
@@ -8884,7 +9205,8 @@ class Invert{
   public:
     Invert() {}
     Invert(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8912,7 +9234,8 @@ class ParallelDynamicStitch{
     ParallelDynamicStitch() {}
     ParallelDynamicStitch(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::InputList data);
+           tensorflow::InputList data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8938,7 +9261,8 @@ class SparseReduceSum{
            tensorflow::Input input_values, 
            tensorflow::Input input_shape, 
            tensorflow::Input reduction_axes, 
-           bool keep_dims = false);
+           bool keep_dims = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8948,7 +9272,8 @@ class Zeta{
     Zeta() {}
     Zeta(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input q);
+           tensorflow::Input q, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8973,7 +9298,8 @@ class MaxPoolGradGradWithArgmax{
            tensorflow::Input argmax, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -8995,6 +9321,7 @@ class ApplyGradientDescent{
            tensorflow::Input var, 
            tensorflow::Input alpha, 
            tensorflow::Input delta, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -9008,9 +9335,10 @@ class CollectiveReduce{
            tensorflow::string merge_op, 
            tensorflow::string final_op, 
            tensorflow::gtl::ArraySlice<int64_t> subdiv_offsets, 
-           int64_t instance_key = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t group_size = 0, 
-           int64_t group_key = 0);
+           int64_t group_key = 0, 
+           int64_t instance_key = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9042,6 +9370,7 @@ class _ParallelConcatUpdate{
     _ParallelConcatUpdate(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            tensorflow::Input update, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t loc = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -9056,13 +9385,14 @@ class CudnnRNNCanonicalToParams{
            tensorflow::Input input_size, 
            tensorflow::Input weights, 
            tensorflow::Input biases, 
-           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_params = 0, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
-           int64_t seed = 0);
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9081,7 +9411,8 @@ class DiagPart{
   public:
     DiagPart() {}
     DiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9094,13 +9425,14 @@ class CudnnRNNParamsToCanonical{
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
            tensorflow::Input params, 
-           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_params = 0, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
-           int64_t seed = 0);
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9119,7 +9451,8 @@ class Size{
   public:
     Size() {}
     Size(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9167,12 +9500,13 @@ class CudnnRNNBackprop{
            tensorflow::Input output_h_backprop, 
            tensorflow::Input output_c_backprop, 
            tensorflow::Input reserve_space, 
-           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
-           int64_t seed = 0);
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9182,7 +9516,8 @@ class Pad{
     Pad() {}
     Pad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input paddings);
+           tensorflow::Input paddings, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9195,13 +9530,14 @@ class CudnnRNNV2{
            tensorflow::Input input_h, 
            tensorflow::Input input_c, 
            tensorflow::Input params, 
-           bool is_training = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           bool is_training = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9211,7 +9547,8 @@ class DynamicStitch{
     DynamicStitch() {}
     DynamicStitch(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::InputList data);
+           tensorflow::InputList data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9250,7 +9587,7 @@ class OrderedMapPeek{
            int64_t capacity = 0, 
            int64_t memory_limit = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class FusedResizeAndPadConv2D{
@@ -9264,6 +9601,7 @@ class FusedResizeAndPadConv2D{
            tensorflow::string mode, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool resize_align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -9274,7 +9612,8 @@ class Xdivy{
     Xdivy() {}
     Xdivy(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9283,7 +9622,8 @@ class RefNextIteration{
   public:
     RefNextIteration() {}
     RefNextIteration(tensorflow::Scope& scope, 
-           tensorflow::Input data);
+           tensorflow::Input data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9292,7 +9632,8 @@ class LogMatrixDeterminant{
   public:
     LogMatrixDeterminant() {}
     LogMatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9312,7 +9653,8 @@ class Exit{
   public:
     Exit() {}
     Exit(tensorflow::Scope& scope, 
-           tensorflow::Input data);
+           tensorflow::Input data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9331,7 +9673,8 @@ class RefSelect{
     RefSelect() {}
     RefSelect(tensorflow::Scope& scope, 
            tensorflow::Input index, 
-           tensorflow::InputList inputs);
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9340,7 +9683,8 @@ class Softmax{
   public:
     Softmax() {}
     Softmax(tensorflow::Scope& scope, 
-           tensorflow::Input logits);
+           tensorflow::Input logits, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9359,7 +9703,8 @@ class Identity{
   public:
     Identity() {}
     Identity(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9369,7 +9714,8 @@ class ReverseV2{
     ReverseV2() {}
     ReverseV2(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input axis);
+           tensorflow::Input axis, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9379,7 +9725,8 @@ class RefSwitch{
     RefSwitch() {}
     RefSwitch(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input pred);
+           tensorflow::Input pred, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9436,14 +9783,14 @@ class If{
     If() {}
     If(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
            tensorflow::NameAttrList else_branch, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TensorForestTreeDeserialize{
@@ -9505,12 +9852,13 @@ class CudnnRNNParamsSize{
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
            tensorflow::DataType T = tensorflow::DT_INVALID, 
-           int64_t seed2 = 0, 
+           tensorflow::DataType S = tensorflow::DT_INVALID, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
-           int64_t seed = 0);
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9534,7 +9882,8 @@ class InplaceAdd{
     InplaceAdd(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v);
+           tensorflow::Input v, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9544,7 +9893,8 @@ class EnsureShape{
     EnsureShape() {}
     EnsureShape(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::PartialTensorShape shape = {});
+           tensorflow::PartialTensorShape shape = {}, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9564,7 +9914,8 @@ class BatchSvd{
     BatchSvd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            bool compute_uv = true, 
-           bool full_matrices = false);
+           bool full_matrices = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9575,7 +9926,8 @@ class GatherV2{
     GatherV2(tensorflow::Scope& scope, 
            tensorflow::Input params, 
            tensorflow::Input indices, 
-           tensorflow::Input axis);
+           tensorflow::Input axis, 
+           tensorflow::DataType Tparams = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9586,7 +9938,7 @@ class ExperimentalParseExampleDataset{
     ExperimentalParseExampleDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
            tensorflow::Input num_parallel_calls, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> dense_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
@@ -9616,7 +9968,8 @@ class ScatterNdNonAliasingAdd{
     ScatterNdNonAliasingAdd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input indices, 
-           tensorflow::Input updates);
+           tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9664,7 +10017,8 @@ class Atan{
   public:
     Atan() {}
     Atan(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9710,7 +10064,8 @@ class BiasAddV1{
     BiasAddV1() {}
     BiasAddV1(tensorflow::Scope& scope, 
            tensorflow::Input value, 
-           tensorflow::Input bias);
+           tensorflow::Input bias, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9754,7 +10109,8 @@ class ConcatV2{
     ConcatV2() {}
     ConcatV2(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
-           tensorflow::Input axis);
+           tensorflow::Input axis, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9812,13 +10168,14 @@ class SampleDistortedBoundingBox{
     SampleDistortedBoundingBox(tensorflow::Scope& scope, 
            tensorflow::Input image_size, 
            tensorflow::Input bounding_boxes, 
-           bool use_image_if_no_bounding_boxes = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t seed = 0, 
            int64_t seed2 = 0, 
            float min_object_covered = 0.1000000014901161, 
            tensorflow::gtl::ArraySlice<float> aspect_ratio_range = {0.75, 1.330000042915344}, 
            tensorflow::gtl::ArraySlice<float> area_range = {0.05000000074505806, 1.0}, 
-           int64_t max_attempts = 100);
+           int64_t max_attempts = 100, 
+           bool use_image_if_no_bounding_boxes = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9838,7 +10195,8 @@ class RightShift{
     RightShift() {}
     RightShift(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9847,7 +10205,8 @@ class Imag{
   public:
     Imag() {}
     Imag(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType Tout = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9886,7 +10245,8 @@ class _MklSquaredDifference{
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y);
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9900,7 +10260,8 @@ class UnbatchGrad{
            tensorflow::Input grad, 
            tensorflow::Input id, 
            tensorflow::string container, 
-           tensorflow::string shared_name);
+           tensorflow::string shared_name, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9924,7 +10285,8 @@ class BroadcastGradientArgs{
     BroadcastGradientArgs() {}
     BroadcastGradientArgs(tensorflow::Scope& scope, 
            tensorflow::Input s0, 
-           tensorflow::Input s1);
+           tensorflow::Input s1, 
+           tensorflow::DataType T = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -9947,13 +10309,13 @@ class _If{
     _If() {}
     _If(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
            tensorflow::NameAttrList else_branch);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class BatchIFFT{
@@ -9974,7 +10336,7 @@ class QueueDequeueUpToV2{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class DecodeWav{
@@ -9997,7 +10359,6 @@ class SparseAccumulatorApplyGradient{
            tensorflow::Input gradient_indices, 
            tensorflow::Input gradient_values, 
            tensorflow::Input gradient_shape, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID, 
            bool has_known_shape = false);
     tensorflow::Operation operation;
 };
@@ -10007,8 +10368,7 @@ class AssignSubVariableOp{
     AssignSubVariableOp() {}
     AssignSubVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input value);
     tensorflow::Operation operation;
 };
 
@@ -10021,9 +10381,10 @@ class FusedBatchNormGrad{
            tensorflow::Input scale, 
            tensorflow::Input reserve_space_1, 
            tensorflow::Input reserve_space_2, 
-           bool is_training = true, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            float epsilon = 9.999999747378752e-05, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::string data_format = "NHWC", 
+           bool is_training = true);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10033,7 +10394,8 @@ class UnravelIndex{
     UnravelIndex() {}
     UnravelIndex(tensorflow::Scope& scope, 
            tensorflow::Input indices, 
-           tensorflow::Input dims);
+           tensorflow::Input dims, 
+           tensorflow::DataType Tidx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10044,7 +10406,8 @@ class MatrixBandPart{
     MatrixBandPart(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input num_lower, 
-           tensorflow::Input num_upper);
+           tensorflow::Input num_upper, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10063,7 +10426,8 @@ class BatchMatrixBandPart{
     BatchMatrixBandPart(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input num_lower, 
-           tensorflow::Input num_upper);
+           tensorflow::Input num_upper, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10074,6 +10438,7 @@ class ResizeNearestNeighbor{
     ResizeNearestNeighbor(tensorflow::Scope& scope, 
            tensorflow::Input images, 
            tensorflow::Input size, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool align_corners = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10083,7 +10448,8 @@ class BatchMatrixDiagPart{
   public:
     BatchMatrixDiagPart() {}
     BatchMatrixDiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10093,7 +10459,8 @@ class BatchMatrixSetDiag{
     BatchMatrixSetDiag() {}
     BatchMatrixSetDiag(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input diagonal);
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10102,7 +10469,8 @@ class OnesLike{
   public:
     OnesLike() {}
     OnesLike(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10139,7 +10507,7 @@ class IteratorGetNext{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class FakeQuantWithMinMaxArgsGradient{
@@ -10194,7 +10562,8 @@ class TensorListConcat{
   public:
     TensorListConcat() {}
     TensorListConcat(tensorflow::Scope& scope, 
-           tensorflow::Input input_handle);
+           tensorflow::Input input_handle, 
+           tensorflow::DataType element_dtype = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10219,6 +10588,7 @@ class AssignAdd{
     AssignAdd(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10238,7 +10608,8 @@ class LeftShift{
     LeftShift() {}
     LeftShift(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10259,8 +10630,9 @@ class Enter{
     Enter(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::string frame_name, 
-           int64_t parallel_iterations = 10, 
-           bool is_constant = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool is_constant = false, 
+           int64_t parallel_iterations = 10);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10294,6 +10666,7 @@ class Unique{
     Unique() {}
     Unique(tensorflow::Scope& scope, 
            tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType out_idx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10305,7 +10678,8 @@ class ScatterNd{
     ScatterNd(tensorflow::Scope& scope, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
-           tensorflow::Input shape);
+           tensorflow::Input shape, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10344,7 +10718,8 @@ class UpperBound{
     UpperBound() {}
     UpperBound(tensorflow::Scope& scope, 
            tensorflow::Input sorted_inputs, 
-           tensorflow::Input values);
+           tensorflow::Input values, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10358,11 +10733,12 @@ class StridedSliceAssign{
            tensorflow::Input end, 
            tensorflow::Input strides, 
            tensorflow::Input value, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t shrink_axis_mask = 0, 
-           int64_t new_axis_mask = 0, 
            int64_t begin_mask = 0, 
            int64_t end_mask = 0, 
-           int64_t ellipsis_mask = 0);
+           int64_t ellipsis_mask = 0, 
+           int64_t new_axis_mask = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10374,7 +10750,8 @@ class QuantizedConcat{
            tensorflow::Input concat_dim, 
            tensorflow::InputList values, 
            tensorflow::InputList input_mins, 
-           tensorflow::InputList input_maxes);
+           tensorflow::InputList input_maxes, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10396,7 +10773,8 @@ class ExtractVolumePatches{
            tensorflow::Input input, 
            tensorflow::gtl::ArraySlice<int64_t> ksizes, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10426,7 +10804,8 @@ class Merge{
   public:
     Merge() {}
     Merge(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs);
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10438,7 +10817,7 @@ class PaddedBatchDatasetV2{
            tensorflow::Input input_dataset, 
            tensorflow::Input batch_size, 
            tensorflow::InputList padded_shapes, 
-           tensorflow::Input padding_values, 
+           tensorflow::InputList padding_values, 
            tensorflow::Input drop_remainder, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
@@ -10454,7 +10833,8 @@ class ExtractImagePatches{
            tensorflow::gtl::ArraySlice<int64_t> ksizes, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10478,8 +10858,9 @@ class DepthToSpace{
     DepthToSpace() {}
     DepthToSpace(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string data_format = "NHWC", 
-           int64_t block_size = 0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           int64_t block_size = 0, 
+           tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10489,8 +10870,9 @@ class SpaceToDepth{
     SpaceToDepth() {}
     SpaceToDepth(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string data_format = "NHWC", 
-           int64_t block_size = 0);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           int64_t block_size = 0, 
+           tensorflow::string data_format = "NHWC");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10501,7 +10883,8 @@ class InplaceSub{
     InplaceSub(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v);
+           tensorflow::Input v, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10510,7 +10893,8 @@ class RefIdentity{
   public:
     RefIdentity() {}
     RefIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10520,7 +10904,7 @@ class FilterDataset{
     FilterDataset() {}
     FilterDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList predicate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -10557,7 +10941,8 @@ class QuantizedRelu6{
     QuantizedRelu6(tensorflow::Scope& scope, 
            tensorflow::Input features, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features);
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type = tensorflow::DT_QUINT8);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10584,7 +10969,8 @@ class Squeeze{
     Squeeze() {}
     Squeeze(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::gtl::ArraySlice<int64_t> squeeze_dims);
+           tensorflow::gtl::ArraySlice<int64_t> squeeze_dims, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10595,7 +10981,8 @@ class InplaceUpdate{
     InplaceUpdate(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v);
+           tensorflow::Input v, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10614,7 +11001,8 @@ class NextIteration{
   public:
     NextIteration() {}
     NextIteration(tensorflow::Scope& scope, 
-           tensorflow::Input data);
+           tensorflow::Input data, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10625,7 +11013,8 @@ class Copy{
     Copy(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string tensor_name, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec);
+           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10647,6 +11036,7 @@ class ScatterDiv{
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10674,6 +11064,7 @@ class SparseApplyProximalGradientDescent{
            tensorflow::Input l2, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10684,7 +11075,8 @@ class Tile{
     Tile() {}
     Tile(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input multiples);
+           tensorflow::Input multiples, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10707,7 +11099,8 @@ class ExpandDims{
     ExpandDims() {}
     ExpandDims(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dim);
+           tensorflow::Input dim, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10718,6 +11111,7 @@ class SpaceToBatch{
     SpaceToBatch(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t block_size = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10731,7 +11125,8 @@ class MaxPoolWithArgmax{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::DataType Targmax = tensorflow::DT_INT64);
+           tensorflow::DataType Targmax = tensorflow::DT_INT64, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10742,8 +11137,9 @@ class RefEnter{
     RefEnter(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::string frame_name, 
-           int64_t parallel_iterations = 10, 
-           bool is_constant = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool is_constant = false, 
+           int64_t parallel_iterations = 10);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10797,7 +11193,8 @@ class Fill{
     Fill() {}
     Fill(tensorflow::Scope& scope, 
            tensorflow::Input dims, 
-           tensorflow::Input value);
+           tensorflow::Input value, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10815,6 +11212,7 @@ class ApplyCenteredRMSProp{
            tensorflow::Input momentum, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -10856,7 +11254,7 @@ class QueueEnqueueManyV2{
     QueueEnqueueManyV2() {}
     QueueEnqueueManyV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
@@ -10866,7 +11264,8 @@ class Shape{
   public:
     Shape() {}
     Shape(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10880,7 +11279,8 @@ class Dilation2DBackpropFilter{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10902,7 +11302,8 @@ class AvgPool3D{
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format = "NDHWC");
+           tensorflow::string data_format = "NDHWC", 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10912,8 +11313,9 @@ class DataFormatDimMap{
     DataFormatDimMap() {}
     DataFormatDimMap(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::string dst_format = "NCHW", 
-           tensorflow::string src_format = "NHWC");
+           tensorflow::DataType T = tensorflow::DT_INT32, 
+           tensorflow::string src_format = "NHWC", 
+           tensorflow::string dst_format = "NCHW");
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10939,19 +11341,20 @@ class StatelessWhile{
   public:
     StatelessWhile() {}
     StatelessWhile(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class MatrixDiagPart{
   public:
     MatrixDiagPart() {}
     MatrixDiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10976,11 +11379,12 @@ class Print{
     Print() {}
     Print(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> U, 
            tensorflow::string message, 
-           int64_t summarize = 3, 
-           int64_t first_n = -1);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           int64_t first_n = -1, 
+           int64_t summarize = 3);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -10995,6 +11399,7 @@ class QuantizeAndDequantizeV2{
            bool signed_input = true, 
            int64_t num_bits = 8, 
            bool range_given = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string round_mode = "HALF_TO_EVEN");
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -11010,7 +11415,8 @@ class FractionalAvgPool{
            bool overlapping = false, 
            bool deterministic = false, 
            int64_t seed = 0, 
-           int64_t seed2 = 0);
+           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11031,7 +11437,8 @@ class TruncateMod{
     TruncateMod() {}
     TruncateMod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11061,11 +11468,12 @@ class StridedSliceGrad{
            tensorflow::Input end, 
            tensorflow::Input strides, 
            tensorflow::Input dy, 
-           int64_t new_axis_mask = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t shrink_axis_mask = 0, 
            int64_t begin_mask = 0, 
            int64_t end_mask = 0, 
-           int64_t ellipsis_mask = 0);
+           int64_t ellipsis_mask = 0, 
+           int64_t new_axis_mask = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11079,7 +11487,8 @@ class QuantizeAndDequantize{
            int64_t num_bits = 8, 
            bool range_given = false, 
            float input_min = 0.0, 
-           float input_max = 0.0);
+           float input_max = 0.0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11107,7 +11516,8 @@ class Relu6Grad{
     Relu6Grad() {}
     Relu6Grad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features);
+           tensorflow::Input features, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11118,7 +11528,8 @@ class Range{
     Range(tensorflow::Scope& scope, 
            tensorflow::Input start, 
            tensorflow::Input limit, 
-           tensorflow::Input delta);
+           tensorflow::Input delta, 
+           tensorflow::DataType Tidx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11139,7 +11550,8 @@ class DeepCopy{
   public:
     DeepCopy() {}
     DeepCopy(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11166,14 +11578,15 @@ class MultiDeviceIteratorGetNextFromShard{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class BatchCholesky{
   public:
     BatchCholesky() {}
     BatchCholesky(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11195,7 +11608,8 @@ class Round{
   public:
     Round() {}
     Round(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11227,7 +11641,8 @@ class SparseTensorDenseAdd{
            tensorflow::Input a_indices, 
            tensorflow::Input a_values, 
            tensorflow::Input a_shape, 
-           tensorflow::Input b);
+           tensorflow::Input b, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11236,7 +11651,8 @@ class Snapshot{
   public:
     Snapshot() {}
     Snapshot(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11247,6 +11663,7 @@ class UniqueV2{
     UniqueV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input axis, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::DataType out_idx = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -11268,12 +11685,13 @@ class CudnnRNNBackpropV2{
            tensorflow::Input output_c_backprop, 
            tensorflow::Input reserve_space, 
            tensorflow::Input host_reserved, 
-           int64_t seed2 = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::string rnn_mode = "lstm", 
            tensorflow::string input_mode = "linear_input", 
            tensorflow::string direction = "unidirectional", 
            float dropout = 0.0, 
-           int64_t seed = 0);
+           int64_t seed = 0, 
+           int64_t seed2 = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11282,7 +11700,8 @@ class InvertPermutation{
   public:
     InvertPermutation() {}
     InvertPermutation(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11299,7 +11718,8 @@ class StopGradient{
   public:
     StopGradient() {}
     StopGradient(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11310,8 +11730,7 @@ class ResourceScatterSub{
     ResourceScatterSub(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -11328,7 +11747,8 @@ class Rint{
   public:
     Rint() {}
     Rint(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11375,7 +11795,8 @@ class OneHot{
            tensorflow::Input depth, 
            tensorflow::Input on_value, 
            tensorflow::Input off_value, 
-           int64_t axis = -1);
+           int64_t axis = -1, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11385,7 +11806,8 @@ class Reverse{
     Reverse() {}
     Reverse(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input dims);
+           tensorflow::Input dims, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11406,7 +11828,7 @@ class ParseSingleExample{
     ParseSingleExample() {}
     ParseSingleExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> dense_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
@@ -11421,7 +11843,8 @@ class GuaranteeConst{
   public:
     GuaranteeConst() {}
     GuaranteeConst(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11431,7 +11854,7 @@ class QueueEnqueueV2{
     QueueEnqueueV2() {}
     QueueEnqueueV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms = -1);
     tensorflow::Operation operation;
@@ -11445,8 +11868,9 @@ class _ScopedAllocatorConcat{
            tensorflow::InputList inputs, 
            tensorflow::string sa_name, 
            tensorflow::PartialTensorShape shape = {}, 
-           int64_t id = 0, 
-           bool reshape = false);
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           bool reshape = false, 
+           int64_t id = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11476,7 +11900,8 @@ class MatrixDiag{
   public:
     MatrixDiag() {}
     MatrixDiag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal);
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11487,7 +11912,8 @@ class TensorScatterSub{
     TensorScatterSub(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates);
+           tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11497,7 +11923,8 @@ class FloorDiv{
     FloorDiv() {}
     FloorDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11510,11 +11937,12 @@ class StridedSlice{
            tensorflow::Input begin, 
            tensorflow::Input end, 
            tensorflow::Input strides, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t shrink_axis_mask = 0, 
-           int64_t new_axis_mask = 0, 
            int64_t begin_mask = 0, 
            int64_t end_mask = 0, 
-           int64_t ellipsis_mask = 0);
+           int64_t ellipsis_mask = 0, 
+           int64_t new_axis_mask = 0);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11524,7 +11952,8 @@ class PreventGradient{
     PreventGradient() {}
     PreventGradient(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string message);
+           tensorflow::string message, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11536,7 +11965,8 @@ class SparseDenseCwiseMul{
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense);
+           tensorflow::Input dense, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11550,7 +11980,8 @@ class FusedPadConv2D{
            tensorflow::Input filter, 
            tensorflow::string mode, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11583,7 +12014,8 @@ class SplitV{
            tensorflow::Input value, 
            tensorflow::Input size_splits, 
            tensorflow::Input split_dim, 
-           int64_t num_split = 0);
+           int64_t num_split = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11592,7 +12024,8 @@ class BatchMatrixDiag{
   public:
     BatchMatrixDiag() {}
     BatchMatrixDiag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal);
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11612,7 +12045,8 @@ class DrawBoundingBoxes{
     DrawBoundingBoxes() {}
     DrawBoundingBoxes(tensorflow::Scope& scope, 
            tensorflow::Input images, 
-           tensorflow::Input boxes);
+           tensorflow::Input boxes, 
+           tensorflow::DataType T = tensorflow::DT_FLOAT);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11621,7 +12055,8 @@ class ZerosLike{
   public:
     ZerosLike() {}
     ZerosLike(tensorflow::Scope& scope, 
-           tensorflow::Input x);
+           tensorflow::Input x, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11642,7 +12077,8 @@ class ShapeN{
   public:
     ShapeN() {}
     ShapeN(tensorflow::Scope& scope, 
-           tensorflow::InputList input);
+           tensorflow::InputList input, 
+           tensorflow::DataType out_type = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::OutputList output;
 };
@@ -11674,7 +12110,8 @@ class Split{
     Split(tensorflow::Scope& scope, 
            tensorflow::Input split_dim, 
            tensorflow::Input value, 
-           int64_t num_split = 0);
+           int64_t num_split = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11688,6 +12125,7 @@ class Conv3DBackpropInput{
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -11701,8 +12139,9 @@ class DepthwiseConv2dNative{
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
-           tensorflow::string data_format = "NHWC");
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
+           tensorflow::string data_format = "NHWC", 
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11752,7 +12191,7 @@ class OptionalGetValue{
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class TensorListGetItem{
@@ -11760,7 +12199,8 @@ class TensorListGetItem{
     TensorListGetItem() {}
     TensorListGetItem(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
-           tensorflow::Input index);
+           tensorflow::Input index, 
+           tensorflow::DataType element_dtype = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11769,7 +12209,8 @@ class Diag{
   public:
     Diag() {}
     Diag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal);
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11807,7 +12248,8 @@ class Concat{
     Concat() {}
     Concat(tensorflow::Scope& scope, 
            tensorflow::Input concat_dim, 
-           tensorflow::InputList values);
+           tensorflow::InputList values, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11849,6 +12291,7 @@ class ApplyAddSign{
            tensorflow::Input sign_decay, 
            tensorflow::Input beta, 
            tensorflow::Input grad, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool use_locking = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -11859,7 +12302,8 @@ class BitwiseAnd{
     BitwiseAnd() {}
     BitwiseAnd(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y);
+           tensorflow::Input y, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11869,7 +12313,8 @@ class MatrixSetDiag{
     MatrixSetDiag() {}
     MatrixSetDiag(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input diagonal);
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11884,10 +12329,11 @@ class _FusedConv2D{
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
            tensorflow::gtl::ArraySlice<tensorflow::string> fused_ops, 
-           float epsilon = 9.999999747378752e-05, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_args = 0, 
            tensorflow::string data_format = "NHWC", 
-           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1});
+           tensorflow::gtl::ArraySlice<int64_t> dilations = {1, 1, 1, 1}, 
+           float epsilon = 9.999999747378752e-05);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11917,7 +12363,8 @@ class SpaceToBatchND{
     SpaceToBatchND(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input block_shape, 
-           tensorflow::Input paddings);
+           tensorflow::Input paddings, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11931,7 +12378,8 @@ class QuantizedMaxPool{
            tensorflow::Input max_input, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding);
+           tensorflow::string padding, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11942,7 +12390,8 @@ class MirrorPadGrad{
     MirrorPadGrad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::string mode);
+           tensorflow::string mode, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11964,7 +12413,8 @@ class CopyHost{
     CopyHost(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string tensor_name, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec);
+           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -11989,7 +12439,8 @@ class TensorScatterAdd{
     TensorScatterAdd(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates);
+           tensorflow::Input updates, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12021,7 +12472,8 @@ class SegmentMean{
     SegmentMean() {}
     SegmentMean(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids);
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12046,6 +12498,7 @@ class DebugIdentity{
            tensorflow::string device_name, 
            tensorflow::string tensor_name, 
            tensorflow::gtl::ArraySlice<tensorflow::string> debug_urls, 
+           tensorflow::DataType T = tensorflow::DT_INVALID, 
            bool gated_grpc = false);
     tensorflow::Operation operation;
     tensorflow::Output output;
@@ -12056,7 +12509,8 @@ class BroadcastArgs{
     BroadcastArgs() {}
     BroadcastArgs(tensorflow::Scope& scope, 
            tensorflow::Input s0, 
-           tensorflow::Input s1);
+           tensorflow::Input s1, 
+           tensorflow::DataType T = tensorflow::DT_INT32);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12066,14 +12520,14 @@ class DecodeCSV{
     DecodeCSV() {}
     DecodeCSV(tensorflow::Scope& scope, 
            tensorflow::Input records, 
-           tensorflow::Input record_defaults, 
+           tensorflow::InputList record_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> OUT_TYPE, 
            tensorflow::string na_value, 
            tensorflow::gtl::ArraySlice<int64_t> select_cols, 
            tensorflow::string field_delim = ",", 
            bool use_quote_delim = true);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 class ExperimentalLMDBDataset{
@@ -12100,7 +12554,7 @@ class ExperimentalNumaMapAndBatchDataset{
     ExperimentalNumaMapAndBatchDataset() {}
     ExperimentalNumaMapAndBatchDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input batch_size, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::Input drop_remainder, 
@@ -12119,7 +12573,8 @@ class DynamicPartition{
     DynamicPartition(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input partitions, 
-           int64_t num_partitions = 0);
+           int64_t num_partitions = 0, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12130,7 +12585,8 @@ class LinSpace{
     LinSpace(tensorflow::Scope& scope, 
            tensorflow::Input start, 
            tensorflow::Input stop, 
-           tensorflow::Input num);
+           tensorflow::Input num, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12167,7 +12623,8 @@ class DebugGradientIdentity{
   public:
     DebugGradientIdentity() {}
     DebugGradientIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input);
+           tensorflow::Input input, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12202,7 +12659,8 @@ class Switch{
     Switch() {}
     Switch(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input pred);
+           tensorflow::Input pred, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };
@@ -12213,8 +12671,7 @@ class ResourceScatterMul{
     ResourceScatterMul(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype = tensorflow::DT_INVALID);
+           tensorflow::Input updates);
     tensorflow::Operation operation;
 };
 
@@ -12275,7 +12732,8 @@ class FractionalMaxPoolGrad{
            tensorflow::Input out_backprop, 
            tensorflow::Input row_pooling_sequence, 
            tensorflow::Input col_pooling_sequence, 
-           bool overlapping = false);
+           bool overlapping = false, 
+           tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
     tensorflow::Output output;
 };

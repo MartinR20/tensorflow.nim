@@ -251,6 +251,7 @@ SparseApplyCenteredRMSProp::SparseApplyCenteredRMSProp(tensorflow::Scope& scope,
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -295,6 +296,7 @@ SparseApplyCenteredRMSProp::SparseApplyCenteredRMSProp(tensorflow::Scope& scope,
                                    .Input(_epsilon)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -315,6 +317,7 @@ SparseApplyRMSProp::SparseApplyRMSProp(tensorflow::Scope& scope,
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -355,6 +358,7 @@ SparseApplyRMSProp::SparseApplyRMSProp(tensorflow::Scope& scope,
                                    .Input(_epsilon)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -374,6 +378,7 @@ ApplyRMSProp::ApplyRMSProp(tensorflow::Scope& scope,
            tensorflow::Input momentum, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -410,6 +415,7 @@ ApplyRMSProp::ApplyRMSProp(tensorflow::Scope& scope,
                                    .Input(_momentum)
                                    .Input(_epsilon)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -489,6 +495,7 @@ ApplyAdaMax::ApplyAdaMax(tensorflow::Scope& scope,
            tensorflow::Input beta2, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -529,6 +536,7 @@ ApplyAdaMax::ApplyAdaMax(tensorflow::Scope& scope,
                                    .Input(_beta2)
                                    .Input(_epsilon)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -550,8 +558,9 @@ ApplyAdam::ApplyAdam(tensorflow::Scope& scope,
            tensorflow::Input beta2, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
-           bool use_nesterov, 
-           bool use_locking) {
+           tensorflow::DataType T, 
+           bool use_locking, 
+           bool use_nesterov) {
       if (!scope.ok())
           return;
       auto _var = ::tensorflow::ops::AsNodeOut(scope, var);
@@ -595,8 +604,9 @@ ApplyAdam::ApplyAdam(tensorflow::Scope& scope,
                                    .Input(_beta2)
                                    .Input(_epsilon)
                                    .Input(_grad)
-                                   .Attr("use_nesterov", use_nesterov)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
+                                   .Attr("use_nesterov", use_nesterov)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -913,6 +923,7 @@ SparseApplyFtrl::SparseApplyFtrl(tensorflow::Scope& scope,
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -953,6 +964,7 @@ SparseApplyFtrl::SparseApplyFtrl(tensorflow::Scope& scope,
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_lr_power)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -972,6 +984,7 @@ ApplyFtrl::ApplyFtrl(tensorflow::Scope& scope,
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1008,6 +1021,7 @@ ApplyFtrl::ApplyFtrl(tensorflow::Scope& scope,
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_lr_power)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1085,6 +1099,7 @@ SparseApplyProximalAdagrad::SparseApplyProximalAdagrad(tensorflow::Scope& scope,
            tensorflow::Input l2, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1117,6 +1132,7 @@ SparseApplyProximalAdagrad::SparseApplyProximalAdagrad(tensorflow::Scope& scope,
                                    .Input(_l2)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1137,6 +1153,7 @@ SparseApplyAdagradDA::SparseApplyAdagradDA(tensorflow::Scope& scope,
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input global_step, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1177,6 +1194,7 @@ SparseApplyAdagradDA::SparseApplyAdagradDA(tensorflow::Scope& scope,
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_global_step)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1196,6 +1214,7 @@ ApplyAdagradDA::ApplyAdagradDA(tensorflow::Scope& scope,
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input global_step, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1232,6 +1251,7 @@ ApplyAdagradDA::ApplyAdagradDA(tensorflow::Scope& scope,
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_global_step)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1289,6 +1309,7 @@ SparseApplyAdagrad::SparseApplyAdagrad(tensorflow::Scope& scope,
            tensorflow::Input lr, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool update_slots, 
            bool use_locking) {
       if (!scope.ok())
@@ -1314,6 +1335,7 @@ SparseApplyAdagrad::SparseApplyAdagrad(tensorflow::Scope& scope,
                                    .Input(_lr)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("update_slots", update_slots)
                                    .Attr("use_locking", use_locking)
       ;
@@ -1366,8 +1388,9 @@ ApplyAdagrad::ApplyAdagrad(tensorflow::Scope& scope,
            tensorflow::Input accum, 
            tensorflow::Input lr, 
            tensorflow::Input grad, 
-           bool update_slots, 
-           bool use_locking) {
+           tensorflow::DataType T, 
+           bool use_locking, 
+           bool update_slots) {
       if (!scope.ok())
           return;
       auto _var = ::tensorflow::ops::AsNodeOut(scope, var);
@@ -1387,8 +1410,9 @@ ApplyAdagrad::ApplyAdagrad(tensorflow::Scope& scope,
                                    .Input(_accum)
                                    .Input(_lr)
                                    .Input(_grad)
-                                   .Attr("update_slots", update_slots)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
+                                   .Attr("update_slots", update_slots)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -1407,6 +1431,7 @@ SparseApplyAdadelta::SparseApplyAdadelta(tensorflow::Scope& scope,
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1443,6 +1468,7 @@ SparseApplyAdadelta::SparseApplyAdadelta(tensorflow::Scope& scope,
                                    .Input(_epsilon)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1461,6 +1487,7 @@ ApplyAdadelta::ApplyAdadelta(tensorflow::Scope& scope,
            tensorflow::Input rho, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1493,6 +1520,7 @@ ApplyAdadelta::ApplyAdadelta(tensorflow::Scope& scope,
                                    .Input(_rho)
                                    .Input(_epsilon)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1592,6 +1620,7 @@ ApplyProximalGradientDescent::ApplyProximalGradientDescent(tensorflow::Scope& sc
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input delta, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -1616,6 +1645,7 @@ ApplyProximalGradientDescent::ApplyProximalGradientDescent(tensorflow::Scope& sc
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_delta)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -1897,7 +1927,8 @@ RegexReplace::RegexReplace(tensorflow::Scope& scope,
 StatelessMultinomial::StatelessMultinomial(tensorflow::Scope& scope, 
            tensorflow::Input logits, 
            tensorflow::Input num_samples, 
-           tensorflow::Input seed) {
+           tensorflow::Input seed, 
+           tensorflow::DataType output_dtype) {
       if (!scope.ok())
           return;
       auto _logits = ::tensorflow::ops::AsNodeOut(scope, logits);
@@ -1913,6 +1944,7 @@ StatelessMultinomial::StatelessMultinomial(tensorflow::Scope& scope,
                                    .Input(_logits)
                                    .Input(_num_samples)
                                    .Input(_seed)
+                                   .Attr("output_dtype", output_dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2009,7 +2041,8 @@ StatelessRandomUniform::StatelessRandomUniform(tensorflow::Scope& scope,
 
 CountUpTo::CountUpTo(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
-           int64_t limit) {
+           int64_t limit, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _ref = ::tensorflow::ops::AsNodeOut(scope, ref);
@@ -2018,6 +2051,7 @@ CountUpTo::CountUpTo(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CountUpTo")
                                    .Input(_ref)
                                    .Attr("limit", limit)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2060,6 +2094,7 @@ ScatterNdUpdate::ScatterNdUpdate(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2076,6 +2111,7 @@ ScatterNdUpdate::ScatterNdUpdate(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2090,6 +2126,7 @@ ScatterMax::ScatterMax(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2106,6 +2143,7 @@ ScatterMax::ScatterMax(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2120,6 +2158,7 @@ ScatterMul::ScatterMul(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2136,6 +2175,7 @@ ScatterMul::ScatterMul(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2150,6 +2190,7 @@ ScatterSub::ScatterSub(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2166,6 +2207,7 @@ ScatterSub::ScatterSub(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2180,6 +2222,7 @@ ScatterAdd::ScatterAdd(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2196,6 +2239,7 @@ ScatterAdd::ScatterAdd(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2210,6 +2254,7 @@ ScatterUpdate::ScatterUpdate(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2226,6 +2271,7 @@ ScatterUpdate::ScatterUpdate(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2239,6 +2285,7 @@ ScatterUpdate::ScatterUpdate(tensorflow::Scope& scope,
 AssignSub::AssignSub(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -2251,6 +2298,7 @@ AssignSub::AssignSub(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AssignSub")
                                    .Input(_ref)
                                    .Input(_value)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -2264,8 +2312,9 @@ AssignSub::AssignSub(tensorflow::Scope& scope,
 Assign::Assign(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
-           bool use_locking, 
-           bool validate_shape) {
+           tensorflow::DataType T, 
+           bool validate_shape, 
+           bool use_locking) {
       if (!scope.ok())
           return;
       auto _ref = ::tensorflow::ops::AsNodeOut(scope, ref);
@@ -2277,8 +2326,9 @@ Assign::Assign(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Assign")
                                    .Input(_ref)
                                    .Input(_value)
-                                   .Attr("use_locking", use_locking)
+                                   .Attr("T", T)
                                    .Attr("validate_shape", validate_shape)
+                                   .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2290,7 +2340,8 @@ Assign::Assign(tensorflow::Scope& scope,
 
 DestroyTemporaryVariable::DestroyTemporaryVariable(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
-           tensorflow::string var_name) {
+           tensorflow::string var_name, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _ref = ::tensorflow::ops::AsNodeOut(scope, ref);
@@ -2299,6 +2350,7 @@ DestroyTemporaryVariable::DestroyTemporaryVariable(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DestroyTemporaryVariable")
                                    .Input(_ref)
                                    .Attr("var_name", var_name)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2328,8 +2380,7 @@ TemporaryVariable::TemporaryVariable(tensorflow::Scope& scope,
 }
 
 IsVariableInitialized::IsVariableInitialized(tensorflow::Scope& scope, 
-           tensorflow::Input ref, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input ref) {
       if (!scope.ok())
           return;
       auto _ref = ::tensorflow::ops::AsNodeOut(scope, ref);
@@ -2337,7 +2388,6 @@ IsVariableInitialized::IsVariableInitialized(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("IsVariableInitialized");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IsVariableInitialized")
                                    .Input(_ref)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2520,7 +2570,8 @@ RFFT::RFFT(tensorflow::Scope& scope,
 }
 
 FFT3D::FFT3D(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -2528,6 +2579,7 @@ FFT3D::FFT3D(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("FFT3D");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FFT3D")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2538,7 +2590,8 @@ FFT3D::FFT3D(tensorflow::Scope& scope,
 }
 
 IFFT2D::IFFT2D(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -2546,6 +2599,7 @@ IFFT2D::IFFT2D(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("IFFT2D");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IFFT2D")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2556,7 +2610,8 @@ IFFT2D::IFFT2D(tensorflow::Scope& scope,
 }
 
 FFT2D::FFT2D(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -2564,6 +2619,7 @@ FFT2D::FFT2D(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("FFT2D");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FFT2D")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2574,7 +2630,8 @@ FFT2D::FFT2D(tensorflow::Scope& scope,
 }
 
 IFFT::IFFT(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -2582,6 +2639,7 @@ IFFT::IFFT(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("IFFT");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IFFT")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2592,7 +2650,8 @@ IFFT::IFFT(tensorflow::Scope& scope,
 }
 
 FFT::FFT(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -2600,6 +2659,7 @@ FFT::FFT(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("FFT");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FFT")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2731,7 +2791,8 @@ SummaryWriter::SummaryWriter(tensorflow::Scope& scope,
 
 SparseFillEmptyRowsGrad::SparseFillEmptyRowsGrad(tensorflow::Scope& scope, 
            tensorflow::Input reverse_index_map, 
-           tensorflow::Input grad_values) {
+           tensorflow::Input grad_values, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _reverse_index_map = ::tensorflow::ops::AsNodeOut(scope, reverse_index_map);
@@ -2743,6 +2804,7 @@ SparseFillEmptyRowsGrad::SparseFillEmptyRowsGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SparseFillEmptyRowsGrad")
                                    .Input(_reverse_index_map)
                                    .Input(_grad_values)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2874,7 +2936,8 @@ SparseSparseMaximum::SparseSparseMaximum(tensorflow::Scope& scope,
 SparseSoftmax::SparseSoftmax(tensorflow::Scope& scope, 
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
-           tensorflow::Input sp_shape) {
+           tensorflow::Input sp_shape, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _sp_indices = ::tensorflow::ops::AsNodeOut(scope, sp_indices);
@@ -2890,6 +2953,7 @@ SparseSoftmax::SparseSoftmax(tensorflow::Scope& scope,
                                    .Input(_sp_indices)
                                    .Input(_sp_values)
                                    .Input(_sp_shape)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2903,7 +2967,8 @@ SparseDenseCwiseAdd::SparseDenseCwiseAdd(tensorflow::Scope& scope,
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense) {
+           tensorflow::Input dense, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _sp_indices = ::tensorflow::ops::AsNodeOut(scope, sp_indices);
@@ -2923,6 +2988,7 @@ SparseDenseCwiseAdd::SparseDenseCwiseAdd(tensorflow::Scope& scope,
                                    .Input(_sp_values)
                                    .Input(_sp_shape)
                                    .Input(_dense)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2936,7 +3002,8 @@ SparseDenseCwiseDiv::SparseDenseCwiseDiv(tensorflow::Scope& scope,
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense) {
+           tensorflow::Input dense, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _sp_indices = ::tensorflow::ops::AsNodeOut(scope, sp_indices);
@@ -2956,6 +3023,7 @@ SparseDenseCwiseDiv::SparseDenseCwiseDiv(tensorflow::Scope& scope,
                                    .Input(_sp_values)
                                    .Input(_sp_shape)
                                    .Input(_dense)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -2970,7 +3038,8 @@ SparseReduceMax::SparseReduceMax(tensorflow::Scope& scope,
            tensorflow::Input input_values, 
            tensorflow::Input input_shape, 
            tensorflow::Input reduction_axes, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input_indices = ::tensorflow::ops::AsNodeOut(scope, input_indices);
@@ -2991,6 +3060,7 @@ SparseReduceMax::SparseReduceMax(tensorflow::Scope& scope,
                                    .Input(_input_shape)
                                    .Input(_reduction_axes)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3098,7 +3168,8 @@ SparseSliceGrad::SparseSliceGrad(tensorflow::Scope& scope,
            tensorflow::Input backprop_val_grad, 
            tensorflow::Input input_indices, 
            tensorflow::Input input_start, 
-           tensorflow::Input output_indices) {
+           tensorflow::Input output_indices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _backprop_val_grad = ::tensorflow::ops::AsNodeOut(scope, backprop_val_grad);
@@ -3118,6 +3189,7 @@ SparseSliceGrad::SparseSliceGrad(tensorflow::Scope& scope,
                                    .Input(_input_indices)
                                    .Input(_input_start)
                                    .Input(_output_indices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3129,9 +3201,9 @@ SparseSliceGrad::SparseSliceGrad(tensorflow::Scope& scope,
 
 SparseCross::SparseCross(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::InputList shapes, 
-           tensorflow::Input dense_inputs, 
+           tensorflow::InputList dense_inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dense_types, 
            bool hashed_output, 
@@ -3144,13 +3216,13 @@ SparseCross::SparseCross(tensorflow::Scope& scope,
       auto _indices = ::tensorflow::ops::AsNodeOutList(scope, indices);
       if (!scope.ok())
           return;
-      auto _values = ::tensorflow::ops::AsNodeOut(scope, values);
+      auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
       if (!scope.ok())
           return;
       auto _shapes = ::tensorflow::ops::AsNodeOutList(scope, shapes);
       if (!scope.ok())
           return;
-      auto _dense_inputs = ::tensorflow::ops::AsNodeOut(scope, dense_inputs);
+      auto _dense_inputs = ::tensorflow::ops::AsNodeOutList(scope, dense_inputs);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("SparseCross");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SparseCross")
@@ -3227,7 +3299,8 @@ DeserializeManySparse::DeserializeManySparse(tensorflow::Scope& scope,
 SerializeManySparse::SerializeManySparse(tensorflow::Scope& scope, 
            tensorflow::Input sparse_indices, 
            tensorflow::Input sparse_values, 
-           tensorflow::Input sparse_shape) {
+           tensorflow::Input sparse_shape, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _sparse_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_indices);
@@ -3243,6 +3316,7 @@ SerializeManySparse::SerializeManySparse(tensorflow::Scope& scope,
                                    .Input(_sparse_indices)
                                    .Input(_sparse_values)
                                    .Input(_sparse_shape)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3255,7 +3329,8 @@ SerializeManySparse::SerializeManySparse(tensorflow::Scope& scope,
 SerializeSparse::SerializeSparse(tensorflow::Scope& scope, 
            tensorflow::Input sparse_indices, 
            tensorflow::Input sparse_values, 
-           tensorflow::Input sparse_shape) {
+           tensorflow::Input sparse_shape, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _sparse_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_indices);
@@ -3271,6 +3346,7 @@ SerializeSparse::SerializeSparse(tensorflow::Scope& scope,
                                    .Input(_sparse_indices)
                                    .Input(_sparse_values)
                                    .Input(_sparse_shape)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3284,7 +3360,8 @@ SparseAddGrad::SparseAddGrad(tensorflow::Scope& scope,
            tensorflow::Input backprop_val_grad, 
            tensorflow::Input a_indices, 
            tensorflow::Input b_indices, 
-           tensorflow::Input sum_indices) {
+           tensorflow::Input sum_indices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _backprop_val_grad = ::tensorflow::ops::AsNodeOut(scope, backprop_val_grad);
@@ -3304,6 +3381,7 @@ SparseAddGrad::SparseAddGrad(tensorflow::Scope& scope,
                                    .Input(_a_indices)
                                    .Input(_b_indices)
                                    .Input(_sum_indices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3391,16 +3469,18 @@ _Recv::_Recv(tensorflow::Scope& scope,
            tensorflow::string tensor_name, 
            tensorflow::string send_device, 
            tensorflow::string recv_device, 
-           bool client_terminated, 
-           int64_t send_device_incarnation) {
+           tensorflow::DataType tensor_type, 
+           int64_t send_device_incarnation, 
+           bool client_terminated) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_Recv");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_Recv")
                                    .Attr("tensor_name", tensor_name)
                                    .Attr("send_device", send_device)
                                    .Attr("recv_device", recv_device)
-                                   .Attr("client_terminated", client_terminated)
+                                   .Attr("tensor_type", tensor_type)
                                    .Attr("send_device_incarnation", send_device_incarnation)
+                                   .Attr("client_terminated", client_terminated)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3641,13 +3721,13 @@ SdcaOptimizer::SdcaOptimizer(tensorflow::Scope& scope,
 }
 
 EagerPyFunc::EagerPyFunc(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("EagerPyFunc");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "EagerPyFunc")
@@ -3661,17 +3741,18 @@ EagerPyFunc::EagerPyFunc(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 PyFuncStateless::PyFuncStateless(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("PyFuncStateless");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "PyFuncStateless")
@@ -3685,7 +3766,8 @@ PyFuncStateless::PyFuncStateless(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 _ScopedAllocatorSplit::_ScopedAllocatorSplit(tensorflow::Scope& scope, 
@@ -3693,6 +3775,7 @@ _ScopedAllocatorSplit::_ScopedAllocatorSplit(tensorflow::Scope& scope,
            tensorflow::InputList split, 
            tensorflow::string sa_name, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> shapes, 
+           tensorflow::DataType T, 
            int64_t id) {
       if (!scope.ok())
           return;
@@ -3707,6 +3790,7 @@ _ScopedAllocatorSplit::_ScopedAllocatorSplit(tensorflow::Scope& scope,
                                    .Input(_split)
                                    .Attr("sa_name", sa_name)
                                    .Attr("shapes", shapes)
+                                   .Attr("T", T)
                                    .Attr("id", id)
       ;
       scope.UpdateBuilder(&builder);
@@ -3722,16 +3806,18 @@ _ScopedAllocator::_ScopedAllocator(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> shapes, 
            tensorflow::string sa_name, 
            tensorflow::PartialTensorShape shape, 
-           int64_t expected_call_count, 
-           int64_t id) {
+           tensorflow::DataType T, 
+           int64_t id, 
+           int64_t expected_call_count) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_ScopedAllocator");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_ScopedAllocator")
                                    .Attr("shapes", shapes)
                                    .Attr("sa_name", sa_name)
                                    .Attr("shape", shape)
-                                   .Attr("expected_call_count", expected_call_count)
+                                   .Attr("T", T)
                                    .Attr("id", id)
+                                   .Attr("expected_call_count", expected_call_count)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3796,8 +3882,7 @@ MutexV2::MutexV2(tensorflow::Scope& scope,
 ResourceScatterUpdate::ResourceScatterUpdate(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -3813,7 +3898,6 @@ ResourceScatterUpdate::ResourceScatterUpdate(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3825,8 +3909,7 @@ ResourceScatterUpdate::ResourceScatterUpdate(tensorflow::Scope& scope,
 ResourceScatterMin::ResourceScatterMin(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -3842,7 +3925,6 @@ ResourceScatterMin::ResourceScatterMin(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3854,8 +3936,7 @@ ResourceScatterMin::ResourceScatterMin(tensorflow::Scope& scope,
 ResourceScatterAdd::ResourceScatterAdd(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -3871,7 +3952,6 @@ ResourceScatterAdd::ResourceScatterAdd(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3881,7 +3961,8 @@ ResourceScatterAdd::ResourceScatterAdd(tensorflow::Scope& scope,
 }
 
 VariableShape::VariableShape(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -3889,6 +3970,7 @@ VariableShape::VariableShape(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("VariableShape");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "VariableShape")
                                    .Input(_input)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -3899,13 +3981,13 @@ VariableShape::VariableShape(tensorflow::Scope& scope,
 }
 
 RemoteFusedGraphExecute::RemoteFusedGraphExecute(tensorflow::Scope& scope, 
-           tensorflow::Input inputs, 
+           tensorflow::InputList inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tinputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutputs, 
            tensorflow::string serialized_remote_fused_graph_execute_info) {
       if (!scope.ok())
           return;
-      auto _inputs = ::tensorflow::ops::AsNodeOut(scope, inputs);
+      auto _inputs = ::tensorflow::ops::AsNodeOutList(scope, inputs);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("RemoteFusedGraphExecute");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RemoteFusedGraphExecute")
@@ -3919,7 +4001,8 @@ RemoteFusedGraphExecute::RemoteFusedGraphExecute(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 RandomPoissonV2::RandomPoissonV2(tensorflow::Scope& scope, 
@@ -3982,7 +4065,8 @@ RandomPoisson::RandomPoisson(tensorflow::Scope& scope,
 
 RandomGammaGrad::RandomGammaGrad(tensorflow::Scope& scope, 
            tensorflow::Input alpha, 
-           tensorflow::Input sample) {
+           tensorflow::Input sample, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _alpha = ::tensorflow::ops::AsNodeOut(scope, alpha);
@@ -3994,6 +4078,7 @@ RandomGammaGrad::RandomGammaGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RandomGammaGrad")
                                    .Input(_alpha)
                                    .Input(_sample)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4007,7 +4092,8 @@ Multinomial::Multinomial(tensorflow::Scope& scope,
            tensorflow::Input logits, 
            tensorflow::Input num_samples, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType output_dtype) {
       if (!scope.ok())
           return;
       auto _logits = ::tensorflow::ops::AsNodeOut(scope, logits);
@@ -4021,6 +4107,7 @@ Multinomial::Multinomial(tensorflow::Scope& scope,
                                    .Input(_num_samples)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("output_dtype", output_dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4033,7 +4120,8 @@ Multinomial::Multinomial(tensorflow::Scope& scope,
 RandomShuffle::RandomShuffle(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -4043,6 +4131,7 @@ RandomShuffle::RandomShuffle(tensorflow::Scope& scope,
                                    .Input(_value)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4101,7 +4190,8 @@ RandomUniformInt::RandomUniformInt(tensorflow::Scope& scope,
            tensorflow::Input minval, 
            tensorflow::Input maxval, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _shape = ::tensorflow::ops::AsNodeOut(scope, shape);
@@ -4119,6 +4209,7 @@ RandomUniformInt::RandomUniformInt(tensorflow::Scope& scope,
                                    .Input(_maxval)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4203,7 +4294,8 @@ BatchIFFT2D::BatchIFFT2D(tensorflow::Scope& scope,
 }
 
 StringToNumber::StringToNumber(tensorflow::Scope& scope, 
-           tensorflow::Input string_tensor) {
+           tensorflow::Input string_tensor, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _string_tensor = ::tensorflow::ops::AsNodeOut(scope, string_tensor);
@@ -4211,6 +4303,7 @@ StringToNumber::StringToNumber(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("StringToNumber");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StringToNumber")
                                    .Input(_string_tensor)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4257,7 +4350,8 @@ SerializeTensor::SerializeTensor(tensorflow::Scope& scope,
 }
 
 ParseTensor::ParseTensor(tensorflow::Scope& scope, 
-           tensorflow::Input serialized) {
+           tensorflow::Input serialized, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _serialized = ::tensorflow::ops::AsNodeOut(scope, serialized);
@@ -4265,6 +4359,7 @@ ParseTensor::ParseTensor(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ParseTensor");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParseTensor")
                                    .Input(_serialized)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4277,7 +4372,7 @@ ParseTensor::ParseTensor(tensorflow::Scope& scope,
 ParseSequenceExample::ParseSequenceExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input debug_name, 
-           tensorflow::Input context_dense_defaults, 
+           tensorflow::InputList context_dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> feature_list_dense_missing_assumed_empty, 
            tensorflow::gtl::ArraySlice<tensorflow::string> context_sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> context_dense_keys, 
@@ -4301,7 +4396,7 @@ ParseSequenceExample::ParseSequenceExample(tensorflow::Scope& scope,
       auto _debug_name = ::tensorflow::ops::AsNodeOut(scope, debug_name);
       if (!scope.ok())
           return;
-      auto _context_dense_defaults = ::tensorflow::ops::AsNodeOut(scope, context_dense_defaults);
+      auto _context_dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, context_dense_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ParseSequenceExample");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParseSequenceExample")
@@ -4337,7 +4432,7 @@ ParseExample::ParseExample(tensorflow::Scope& scope,
            tensorflow::Input names, 
            tensorflow::Input sparse_keys, 
            tensorflow::Input dense_keys, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tdense, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> dense_shapes, 
@@ -4357,7 +4452,7 @@ ParseExample::ParseExample(tensorflow::Scope& scope,
       auto _dense_keys = ::tensorflow::ops::AsNodeOut(scope, dense_keys);
       if (!scope.ok())
           return;
-      auto _dense_defaults = ::tensorflow::ops::AsNodeOut(scope, dense_defaults);
+      auto _dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, dense_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ParseExample");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParseExample")
@@ -4417,6 +4512,7 @@ QuantizedBatchNormWithGlobalNormalization::QuantizedBatchNormWithGlobalNormaliza
            tensorflow::Input gamma_min, 
            tensorflow::Input gamma_max, 
            bool scale_after_normalization, 
+           tensorflow::DataType out_type, 
            float variance_epsilon) {
       if (!scope.ok())
           return;
@@ -4482,6 +4578,7 @@ QuantizedBatchNormWithGlobalNormalization::QuantizedBatchNormWithGlobalNormaliza
                                    .Input(_gamma_min)
                                    .Input(_gamma_max)
                                    .Attr("scale_after_normalization", scale_after_normalization)
+                                   .Attr("out_type", out_type)
                                    .Attr("variance_epsilon", variance_epsilon)
       ;
       scope.UpdateBuilder(&builder);
@@ -4496,7 +4593,8 @@ QuantizedReluX::QuantizedReluX(tensorflow::Scope& scope,
            tensorflow::Input features, 
            tensorflow::Input max_value, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features) {
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4516,6 +4614,7 @@ QuantizedReluX::QuantizedReluX(tensorflow::Scope& scope,
                                    .Input(_max_value)
                                    .Input(_min_features)
                                    .Input(_max_features)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4528,7 +4627,8 @@ QuantizedReluX::QuantizedReluX(tensorflow::Scope& scope,
 QuantizedRelu::QuantizedRelu(tensorflow::Scope& scope, 
            tensorflow::Input features, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features) {
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4544,6 +4644,7 @@ QuantizedRelu::QuantizedRelu(tensorflow::Scope& scope,
                                    .Input(_features)
                                    .Input(_min_features)
                                    .Input(_max_features)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4557,6 +4658,7 @@ ScatterNdSub::ScatterNdSub(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -4573,6 +4675,7 @@ ScatterNdSub::ScatterNdSub(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -4592,7 +4695,8 @@ QuantizedConv2D::QuantizedConv2D(tensorflow::Scope& scope,
            tensorflow::Input max_filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations) {
+           tensorflow::gtl::ArraySlice<int64_t> dilations, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -4623,6 +4727,7 @@ QuantizedConv2D::QuantizedConv2D(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("dilations", dilations)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4633,7 +4738,8 @@ QuantizedConv2D::QuantizedConv2D(tensorflow::Scope& scope,
 }
 
 Reciprocal::Reciprocal(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -4641,6 +4747,7 @@ Reciprocal::Reciprocal(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Reciprocal");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Reciprocal")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4657,7 +4764,8 @@ FractionalMaxPool::FractionalMaxPool(tensorflow::Scope& scope,
            bool overlapping, 
            bool deterministic, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -4671,6 +4779,7 @@ FractionalMaxPool::FractionalMaxPool(tensorflow::Scope& scope,
                                    .Attr("deterministic", deterministic)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4683,7 +4792,8 @@ FractionalMaxPool::FractionalMaxPool(tensorflow::Scope& scope,
 NthElement::NthElement(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input n, 
-           bool reverse) {
+           bool reverse, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -4696,6 +4806,7 @@ NthElement::NthElement(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_n)
                                    .Attr("reverse", reverse)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4735,7 +4846,8 @@ InTopKV2::InTopKV2(tensorflow::Scope& scope,
 
 Sub::Sub(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -4747,6 +4859,7 @@ Sub::Sub(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sub")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4800,12 +4913,14 @@ DatasetToSingleElement::DatasetToSingleElement(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 SoftmaxCrossEntropyWithLogits::SoftmaxCrossEntropyWithLogits(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           tensorflow::Input labels) {
+           tensorflow::Input labels, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4817,6 +4932,7 @@ SoftmaxCrossEntropyWithLogits::SoftmaxCrossEntropyWithLogits(tensorflow::Scope& 
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SoftmaxCrossEntropyWithLogits")
                                    .Input(_features)
                                    .Input(_labels)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4827,7 +4943,8 @@ SoftmaxCrossEntropyWithLogits::SoftmaxCrossEntropyWithLogits(tensorflow::Scope& 
 }
 
 LogSoftmax::LogSoftmax(tensorflow::Scope& scope, 
-           tensorflow::Input logits) {
+           tensorflow::Input logits, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _logits = ::tensorflow::ops::AsNodeOut(scope, logits);
@@ -4835,6 +4952,7 @@ LogSoftmax::LogSoftmax(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("LogSoftmax");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LogSoftmax")
                                    .Input(_logits)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4868,7 +4986,8 @@ MutableHashTableV2::MutableHashTableV2(tensorflow::Scope& scope,
 }
 
 Softplus::Softplus(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4876,6 +4995,7 @@ Softplus::Softplus(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Softplus");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Softplus")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4886,7 +5006,8 @@ Softplus::Softplus(tensorflow::Scope& scope,
 }
 
 Selu::Selu(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4894,6 +5015,7 @@ Selu::Selu(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Selu");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Selu")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4905,7 +5027,8 @@ Selu::Selu(tensorflow::Scope& scope,
 
 EluGrad::EluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input outputs) {
+           tensorflow::Input outputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -4917,6 +5040,7 @@ EluGrad::EluGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "EluGrad")
                                    .Input(_gradients)
                                    .Input(_outputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4929,7 +5053,8 @@ EluGrad::EluGrad(tensorflow::Scope& scope,
 LeakyReluGrad::LeakyReluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
            tensorflow::Input features, 
-           float alpha) {
+           float alpha, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -4942,6 +5067,7 @@ LeakyReluGrad::LeakyReluGrad(tensorflow::Scope& scope,
                                    .Input(_gradients)
                                    .Input(_features)
                                    .Attr("alpha", alpha)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -4954,6 +5080,7 @@ LeakyReluGrad::LeakyReluGrad(tensorflow::Scope& scope,
 StackPush::StackPush(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input elem, 
+           tensorflow::DataType T, 
            bool swap_memory) {
       if (!scope.ok())
           return;
@@ -4966,6 +5093,7 @@ StackPush::StackPush(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StackPush")
                                    .Input(_handle)
                                    .Input(_elem)
+                                   .Attr("T", T)
                                    .Attr("swap_memory", swap_memory)
       ;
       scope.UpdateBuilder(&builder);
@@ -4978,7 +5106,8 @@ StackPush::StackPush(tensorflow::Scope& scope,
 
 LeakyRelu::LeakyRelu(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           float alpha) {
+           float alpha, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -4987,6 +5116,7 @@ LeakyRelu::LeakyRelu(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LeakyRelu")
                                    .Input(_features)
                                    .Attr("alpha", alpha)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5078,7 +5208,8 @@ ReaderSerializeStateV2::ReaderSerializeStateV2(tensorflow::Scope& scope,
 }
 
 Relu6::Relu6(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -5086,6 +5217,7 @@ Relu6::Relu6(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Relu6");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Relu6")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5097,7 +5229,8 @@ Relu6::Relu6(tensorflow::Scope& scope,
 
 ReluGrad::ReluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -5109,6 +5242,7 @@ ReluGrad::ReluGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ReluGrad")
                                    .Input(_gradients)
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5149,7 +5283,8 @@ Dilation2DBackpropInput::Dilation2DBackpropInput(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5168,6 +5303,7 @@ Dilation2DBackpropInput::Dilation2DBackpropInput(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("rates", rates)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5183,7 +5319,8 @@ MaxPoolGradWithArgmax::MaxPoolGradWithArgmax(tensorflow::Scope& scope,
            tensorflow::Input argmax, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5202,6 +5339,7 @@ MaxPoolGradWithArgmax::MaxPoolGradWithArgmax(tensorflow::Scope& scope,
                                    .Attr("ksize", ksize)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5218,7 +5356,8 @@ MaxPoolGradGradV2::MaxPoolGradGradV2(tensorflow::Scope& scope,
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -5244,6 +5383,7 @@ MaxPoolGradGradV2::MaxPoolGradGradV2(tensorflow::Scope& scope,
                                    .Input(_strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5260,7 +5400,8 @@ MaxPoolGradV2::MaxPoolGradV2(tensorflow::Scope& scope,
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -5286,6 +5427,7 @@ MaxPoolGradV2::MaxPoolGradV2(tensorflow::Scope& scope,
                                    .Input(_strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5298,7 +5440,8 @@ MaxPoolGradV2::MaxPoolGradV2(tensorflow::Scope& scope,
 Roll::Roll(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input shift, 
-           tensorflow::Input axis) {
+           tensorflow::Input axis, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5314,6 +5457,7 @@ Roll::Roll(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_shift)
                                    .Input(_axis)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5330,7 +5474,8 @@ MaxPoolGrad::MaxPoolGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -5350,6 +5495,7 @@ MaxPoolGrad::MaxPoolGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5366,7 +5512,8 @@ LRNGrad::LRNGrad(tensorflow::Scope& scope,
            int64_t depth_radius, 
            float bias, 
            float alpha, 
-           float beta) {
+           float beta, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input_grads = ::tensorflow::ops::AsNodeOut(scope, input_grads);
@@ -5386,6 +5533,7 @@ LRNGrad::LRNGrad(tensorflow::Scope& scope,
                                    .Attr("bias", bias)
                                    .Attr("alpha", alpha)
                                    .Attr("beta", beta)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5402,7 +5550,8 @@ MaxPool3DGradGrad::MaxPool3DGradGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -5422,6 +5571,7 @@ MaxPool3DGradGrad::MaxPool3DGradGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5437,6 +5587,7 @@ Conv3DBackpropFilter::Conv3DBackpropFilter(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T, 
            tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
@@ -5455,6 +5606,7 @@ Conv3DBackpropFilter::Conv3DBackpropFilter(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
                                    .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
@@ -5470,8 +5622,9 @@ Conv3D::Conv3D(tensorflow::Scope& scope,
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5485,8 +5638,9 @@ Conv3D::Conv3D(tensorflow::Scope& scope,
                                    .Input(_filter)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5539,8 +5693,9 @@ DepthwiseConv2dNativeBackpropFilter::DepthwiseConv2dNativeBackpropFilter(tensorf
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5558,8 +5713,9 @@ DepthwiseConv2dNativeBackpropFilter::DepthwiseConv2dNativeBackpropFilter(tensorf
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5570,7 +5726,8 @@ DepthwiseConv2dNativeBackpropFilter::DepthwiseConv2dNativeBackpropFilter(tensorf
 }
 
 Expm1::Expm1(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -5578,6 +5735,7 @@ Expm1::Expm1(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Expm1");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Expm1")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5593,9 +5751,10 @@ Conv2DBackpropInput::Conv2DBackpropInput(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
+           tensorflow::DataType T, 
            bool use_cudnn_on_gpu, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input_sizes = ::tensorflow::ops::AsNodeOut(scope, input_sizes);
@@ -5613,9 +5772,10 @@ Conv2DBackpropInput::Conv2DBackpropInput(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("use_cudnn_on_gpu", use_cudnn_on_gpu)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5629,6 +5789,7 @@ _NcclReduceRecv::_NcclReduceRecv(tensorflow::Scope& scope,
            tensorflow::Input input, 
            tensorflow::string reduction, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T, 
            int64_t num_devices) {
       if (!scope.ok())
           return;
@@ -5639,6 +5800,7 @@ _NcclReduceRecv::_NcclReduceRecv(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("reduction", reduction)
                                    .Attr("shared_name", shared_name)
+                                   .Attr("T", T)
                                    .Attr("num_devices", num_devices)
       ;
       scope.UpdateBuilder(&builder);
@@ -5654,9 +5816,10 @@ Conv2D::Conv2D(tensorflow::Scope& scope,
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
+           tensorflow::DataType T, 
            bool use_cudnn_on_gpu, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -5670,9 +5833,10 @@ Conv2D::Conv2D(tensorflow::Scope& scope,
                                    .Input(_filter)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("use_cudnn_on_gpu", use_cudnn_on_gpu)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5683,7 +5847,8 @@ Conv2D::Conv2D(tensorflow::Scope& scope,
 }
 
 Sin::Sin(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -5691,6 +5856,7 @@ Sin::Sin(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Sin");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sin")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5706,9 +5872,10 @@ FusedBatchNormV2::FusedBatchNormV2(tensorflow::Scope& scope,
            tensorflow::Input offset, 
            tensorflow::Input mean, 
            tensorflow::Input variance, 
+           tensorflow::DataType T, 
            bool is_training, 
-           tensorflow::string data_format, 
-           float epsilon) {
+           float epsilon, 
+           tensorflow::string data_format) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -5732,9 +5899,10 @@ FusedBatchNormV2::FusedBatchNormV2(tensorflow::Scope& scope,
                                    .Input(_offset)
                                    .Input(_mean)
                                    .Input(_variance)
+                                   .Attr("T", T)
                                    .Attr("is_training", is_training)
-                                   .Attr("data_format", data_format)
                                    .Attr("epsilon", epsilon)
+                                   .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5781,9 +5949,10 @@ FusedBatchNorm::FusedBatchNorm(tensorflow::Scope& scope,
            tensorflow::Input offset, 
            tensorflow::Input mean, 
            tensorflow::Input variance, 
-           bool is_training, 
+           tensorflow::DataType T, 
            float epsilon, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           bool is_training) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -5807,9 +5976,10 @@ FusedBatchNorm::FusedBatchNorm(tensorflow::Scope& scope,
                                    .Input(_offset)
                                    .Input(_mean)
                                    .Input(_variance)
-                                   .Attr("is_training", is_training)
+                                   .Attr("T", T)
                                    .Attr("epsilon", epsilon)
                                    .Attr("data_format", data_format)
+                                   .Attr("is_training", is_training)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5821,8 +5991,8 @@ FusedBatchNorm::FusedBatchNorm(tensorflow::Scope& scope,
 
 ReduceDataset::ReduceDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input initial_state, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList initial_state, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tstate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -5834,10 +6004,10 @@ ReduceDataset::ReduceDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _initial_state = ::tensorflow::ops::AsNodeOut(scope, initial_state);
+      auto _initial_state = ::tensorflow::ops::AsNodeOutList(scope, initial_state);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ReduceDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ReduceDataset")
@@ -5856,7 +6026,8 @@ ReduceDataset::ReduceDataset(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 FakeQuantWithMinMaxArgs::FakeQuantWithMinMaxArgs(tensorflow::Scope& scope, 
@@ -5891,8 +6062,9 @@ BatchNormWithGlobalNormalization::BatchNormWithGlobalNormalization(tensorflow::S
            tensorflow::Input v, 
            tensorflow::Input beta, 
            tensorflow::Input gamma, 
-           bool scale_after_normalization, 
-           float variance_epsilon) {
+           tensorflow::DataType T, 
+           float variance_epsilon, 
+           bool scale_after_normalization) {
       if (!scope.ok())
           return;
       auto _t = ::tensorflow::ops::AsNodeOut(scope, t);
@@ -5916,8 +6088,9 @@ BatchNormWithGlobalNormalization::BatchNormWithGlobalNormalization(tensorflow::S
                                    .Input(_v)
                                    .Input(_beta)
                                    .Input(_gamma)
-                                   .Attr("scale_after_normalization", scale_after_normalization)
+                                   .Attr("T", T)
                                    .Attr("variance_epsilon", variance_epsilon)
+                                   .Attr("scale_after_normalization", scale_after_normalization)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -5937,6 +6110,7 @@ ApplyFtrlV2::ApplyFtrlV2(tensorflow::Scope& scope,
            tensorflow::Input l2, 
            tensorflow::Input l2_shrinkage, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -5977,6 +6151,7 @@ ApplyFtrlV2::ApplyFtrlV2(tensorflow::Scope& scope,
                                    .Input(_l2)
                                    .Input(_l2_shrinkage)
                                    .Input(_lr_power)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -6051,7 +6226,8 @@ GetSessionTensor::GetSessionTensor(tensorflow::Scope& scope,
 Min::Min(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6064,6 +6240,7 @@ Min::Min(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_reduction_indices)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6077,6 +6254,7 @@ NcclAllReduce::NcclAllReduce(tensorflow::Scope& scope,
            tensorflow::Input input, 
            tensorflow::string reduction, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T, 
            int64_t num_devices) {
       if (!scope.ok())
           return;
@@ -6087,6 +6265,7 @@ NcclAllReduce::NcclAllReduce(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("reduction", reduction)
                                    .Attr("shared_name", shared_name)
+                                   .Attr("T", T)
                                    .Attr("num_devices", num_devices)
       ;
       scope.UpdateBuilder(&builder);
@@ -6118,7 +6297,8 @@ ReadVariableOp::ReadVariableOp(tensorflow::Scope& scope,
 }
 
 Lgamma::Lgamma(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -6126,6 +6306,7 @@ Lgamma::Lgamma(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Lgamma");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Lgamma")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6189,7 +6370,8 @@ CompareAndBitpack::CompareAndBitpack(tensorflow::Scope& scope,
 QuantizeDownAndShrinkRange::QuantizeDownAndShrinkRange(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input input_min, 
-           tensorflow::Input input_max) {
+           tensorflow::Input input_max, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6205,6 +6387,7 @@ QuantizeDownAndShrinkRange::QuantizeDownAndShrinkRange(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_input_min)
                                    .Input(_input_max)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6223,6 +6406,7 @@ QuantizedMatMul::QuantizedMatMul(tensorflow::Scope& scope,
            tensorflow::Input max_b, 
            tensorflow::DataType Tactivation, 
            bool transpose_b, 
+           tensorflow::DataType Toutput, 
            bool transpose_a) {
       if (!scope.ok())
           return;
@@ -6253,6 +6437,7 @@ QuantizedMatMul::QuantizedMatMul(tensorflow::Scope& scope,
                                    .Input(_max_b)
                                    .Attr("Tactivation", Tactivation)
                                    .Attr("transpose_b", transpose_b)
+                                   .Attr("Toutput", Toutput)
                                    .Attr("transpose_a", transpose_a)
       ;
       scope.UpdateBuilder(&builder);
@@ -6269,8 +6454,9 @@ BatchNormWithGlobalNormalizationGrad::BatchNormWithGlobalNormalizationGrad(tenso
            tensorflow::Input v, 
            tensorflow::Input gamma, 
            tensorflow::Input backprop, 
-           bool scale_after_normalization, 
-           float variance_epsilon) {
+           tensorflow::DataType T, 
+           float variance_epsilon, 
+           bool scale_after_normalization) {
       if (!scope.ok())
           return;
       auto _t = ::tensorflow::ops::AsNodeOut(scope, t);
@@ -6294,8 +6480,9 @@ BatchNormWithGlobalNormalizationGrad::BatchNormWithGlobalNormalizationGrad(tenso
                                    .Input(_v)
                                    .Input(_gamma)
                                    .Input(_backprop)
-                                   .Attr("scale_after_normalization", scale_after_normalization)
+                                   .Attr("T", T)
                                    .Attr("variance_epsilon", variance_epsilon)
+                                   .Attr("scale_after_normalization", scale_after_normalization)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6308,7 +6495,8 @@ BatchNormWithGlobalNormalizationGrad::BatchNormWithGlobalNormalizationGrad(tenso
 Bincount::Bincount(tensorflow::Scope& scope, 
            tensorflow::Input arr, 
            tensorflow::Input size, 
-           tensorflow::Input weights) {
+           tensorflow::Input weights, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _arr = ::tensorflow::ops::AsNodeOut(scope, arr);
@@ -6324,6 +6512,7 @@ Bincount::Bincount(tensorflow::Scope& scope,
                                    .Input(_arr)
                                    .Input(_size)
                                    .Input(_weights)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6384,7 +6573,8 @@ HistogramFixedWidth::HistogramFixedWidth(tensorflow::Scope& scope,
 
 BatchSelfAdjointEigV2::BatchSelfAdjointEigV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool compute_v) {
+           bool compute_v, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6393,6 +6583,7 @@ BatchSelfAdjointEigV2::BatchSelfAdjointEigV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchSelfAdjointEigV2")
                                    .Input(_input)
                                    .Attr("compute_v", compute_v)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6404,6 +6595,7 @@ BatchSelfAdjointEigV2::BatchSelfAdjointEigV2(tensorflow::Scope& scope,
 
 NcclBroadcast::NcclBroadcast(tensorflow::Scope& scope, 
            tensorflow::Input input, 
+           tensorflow::DataType T, 
            tensorflow::PartialTensorShape shape) {
       if (!scope.ok())
           return;
@@ -6412,6 +6604,7 @@ NcclBroadcast::NcclBroadcast(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("NcclBroadcast");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "NcclBroadcast")
                                    .Input(_input)
+                                   .Attr("T", T)
                                    .Attr("shape", shape)
       ;
       scope.UpdateBuilder(&builder);
@@ -6424,7 +6617,8 @@ NcclBroadcast::NcclBroadcast(tensorflow::Scope& scope,
 
 Cross::Cross(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input b) {
+           tensorflow::Input b, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -6436,6 +6630,7 @@ Cross::Cross(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Cross")
                                    .Input(_a)
                                    .Input(_b)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6446,7 +6641,8 @@ Cross::Cross(tensorflow::Scope& scope,
 }
 
 Conj::Conj(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6454,6 +6650,7 @@ Conj::Conj(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Conj");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Conj")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6494,7 +6691,8 @@ _MklAdd::_MklAdd(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y) {
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -6514,6 +6712,7 @@ _MklAdd::_MklAdd(tensorflow::Scope& scope,
                                    .Input(_y)
                                    .Input(_mkl_x)
                                    .Input(_mkl_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6524,7 +6723,8 @@ _MklAdd::_MklAdd(tensorflow::Scope& scope,
 }
 
 Real::Real(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6532,6 +6732,7 @@ Real::Real(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Real");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Real")
                                    .Input(_input)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6573,7 +6774,8 @@ Dequantize::Dequantize(tensorflow::Scope& scope,
 
 Complex::Complex(tensorflow::Scope& scope, 
            tensorflow::Input real, 
-           tensorflow::Input imag) {
+           tensorflow::Input imag, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _real = ::tensorflow::ops::AsNodeOut(scope, real);
@@ -6585,6 +6787,7 @@ Complex::Complex(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Complex")
                                    .Input(_real)
                                    .Input(_imag)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6596,7 +6799,8 @@ Complex::Complex(tensorflow::Scope& scope,
 
 SparseSoftmaxCrossEntropyWithLogits::SparseSoftmaxCrossEntropyWithLogits(tensorflow::Scope& scope, 
            tensorflow::Input features, 
-           tensorflow::Input labels) {
+           tensorflow::Input labels, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -6608,6 +6812,7 @@ SparseSoftmaxCrossEntropyWithLogits::SparseSoftmaxCrossEntropyWithLogits(tensorf
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SparseSoftmaxCrossEntropyWithLogits")
                                    .Input(_features)
                                    .Input(_labels)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6618,7 +6823,8 @@ SparseSoftmaxCrossEntropyWithLogits::SparseSoftmaxCrossEntropyWithLogits(tensorf
 }
 
 Cholesky::Cholesky(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6626,6 +6832,7 @@ Cholesky::Cholesky(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Cholesky");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Cholesky")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6639,7 +6846,8 @@ SparseSegmentSqrtNWithNumSegments::SparseSegmentSqrtNWithNumSegments(tensorflow:
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6659,6 +6867,7 @@ SparseSegmentSqrtNWithNumSegments::SparseSegmentSqrtNWithNumSegments(tensorflow:
                                    .Input(_indices)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6671,7 +6880,8 @@ SparseSegmentSqrtNWithNumSegments::SparseSegmentSqrtNWithNumSegments(tensorflow:
 SparseSegmentMean::SparseSegmentMean(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6687,6 +6897,7 @@ SparseSegmentMean::SparseSegmentMean(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_indices)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6700,7 +6911,8 @@ SparseSegmentSumWithNumSegments::SparseSegmentSumWithNumSegments(tensorflow::Sco
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6720,6 +6932,7 @@ SparseSegmentSumWithNumSegments::SparseSegmentSumWithNumSegments(tensorflow::Sco
                                    .Input(_indices)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6732,7 +6945,8 @@ SparseSegmentSumWithNumSegments::SparseSegmentSumWithNumSegments(tensorflow::Sco
 UnsortedSegmentProd::UnsortedSegmentProd(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6748,6 +6962,7 @@ UnsortedSegmentProd::UnsortedSegmentProd(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6760,7 +6975,8 @@ UnsortedSegmentProd::UnsortedSegmentProd(tensorflow::Scope& scope,
 UnsortedSegmentSum::UnsortedSegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6776,6 +6992,7 @@ UnsortedSegmentSum::UnsortedSegmentSum(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6802,11 +7019,13 @@ _ReadVariablesOp::_ReadVariablesOp(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 L2Loss::L2Loss(tensorflow::Scope& scope, 
-           tensorflow::Input t) {
+           tensorflow::Input t, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _t = ::tensorflow::ops::AsNodeOut(scope, t);
@@ -6814,6 +7033,7 @@ L2Loss::L2Loss(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("L2Loss");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "L2Loss")
                                    .Input(_t)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6825,7 +7045,8 @@ L2Loss::L2Loss(tensorflow::Scope& scope,
 
 Cast::Cast(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           bool Truncate) {
+           bool Truncate, 
+           tensorflow::DataType DstT) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -6834,6 +7055,7 @@ Cast::Cast(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Cast")
                                    .Input(_x)
                                    .Attr("Truncate", Truncate)
+                                   .Attr("DstT", DstT)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6845,7 +7067,8 @@ Cast::Cast(tensorflow::Scope& scope,
 
 SegmentMax::SegmentMax(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6857,6 +7080,7 @@ SegmentMax::SegmentMax(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SegmentMax")
                                    .Input(_data)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6868,7 +7092,8 @@ SegmentMax::SegmentMax(tensorflow::Scope& scope,
 
 Atan2::Atan2(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -6880,6 +7105,7 @@ Atan2::Atan2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Atan2")
                                    .Input(_y)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6891,7 +7117,8 @@ Atan2::Atan2(tensorflow::Scope& scope,
 
 SegmentProd::SegmentProd(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -6903,6 +7130,7 @@ SegmentProd::SegmentProd(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SegmentProd")
                                    .Input(_data)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6914,7 +7142,8 @@ SegmentProd::SegmentProd(tensorflow::Scope& scope,
 
 ArgMin::ArgMin(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dimension) {
+           tensorflow::Input dimension, 
+           tensorflow::DataType output_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6926,6 +7155,7 @@ ArgMin::ArgMin(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ArgMin")
                                    .Input(_input)
                                    .Input(_dimension)
+                                   .Attr("output_type", output_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6938,6 +7168,7 @@ ArgMin::ArgMin(tensorflow::Scope& scope,
 ResizeBilinearGrad::ResizeBilinearGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input original_image, 
+           tensorflow::DataType T, 
            bool align_corners) {
       if (!scope.ok())
           return;
@@ -6950,6 +7181,7 @@ ResizeBilinearGrad::ResizeBilinearGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ResizeBilinearGrad")
                                    .Input(_grads)
                                    .Input(_original_image)
+                                   .Attr("T", T)
                                    .Attr("align_corners", align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -6963,7 +7195,8 @@ ResizeBilinearGrad::ResizeBilinearGrad(tensorflow::Scope& scope,
 Max::Max(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -6976,6 +7209,7 @@ Max::Max(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_reduction_indices)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -6988,8 +7222,7 @@ Max::Max(tensorflow::Scope& scope,
 AccumulatorApplyGradient::AccumulatorApplyGradient(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input local_step, 
-           tensorflow::Input gradient, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input gradient) {
       if (!scope.ok())
           return;
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
@@ -7005,7 +7238,6 @@ AccumulatorApplyGradient::AccumulatorApplyGradient(tensorflow::Scope& scope,
                                    .Input(_handle)
                                    .Input(_local_step)
                                    .Input(_gradient)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7018,12 +7250,13 @@ SampleDistortedBoundingBoxV2::SampleDistortedBoundingBoxV2(tensorflow::Scope& sc
            tensorflow::Input image_size, 
            tensorflow::Input bounding_boxes, 
            tensorflow::Input min_object_covered, 
-           bool use_image_if_no_bounding_boxes, 
+           tensorflow::DataType T, 
            int64_t seed, 
            int64_t seed2, 
            tensorflow::gtl::ArraySlice<float> aspect_ratio_range, 
            tensorflow::gtl::ArraySlice<float> area_range, 
-           int64_t max_attempts) {
+           int64_t max_attempts, 
+           bool use_image_if_no_bounding_boxes) {
       if (!scope.ok())
           return;
       auto _image_size = ::tensorflow::ops::AsNodeOut(scope, image_size);
@@ -7039,12 +7272,13 @@ SampleDistortedBoundingBoxV2::SampleDistortedBoundingBoxV2(tensorflow::Scope& sc
                                    .Input(_image_size)
                                    .Input(_bounding_boxes)
                                    .Input(_min_object_covered)
-                                   .Attr("use_image_if_no_bounding_boxes", use_image_if_no_bounding_boxes)
+                                   .Attr("T", T)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
                                    .Attr("aspect_ratio_range", aspect_ratio_range)
                                    .Attr("area_range", area_range)
                                    .Attr("max_attempts", max_attempts)
+                                   .Attr("use_image_if_no_bounding_boxes", use_image_if_no_bounding_boxes)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7057,7 +7291,8 @@ SampleDistortedBoundingBoxV2::SampleDistortedBoundingBoxV2(tensorflow::Scope& sc
 Prod::Prod(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -7070,6 +7305,7 @@ Prod::Prod(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_reduction_indices)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7082,7 +7318,8 @@ Prod::Prod(tensorflow::Scope& scope,
 Sum::Sum(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -7095,6 +7332,7 @@ Sum::Sum(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_reduction_indices)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7106,7 +7344,8 @@ Sum::Sum(tensorflow::Scope& scope,
 
 SeluGrad::SeluGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input outputs) {
+           tensorflow::Input outputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -7118,6 +7357,7 @@ SeluGrad::SeluGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SeluGrad")
                                    .Input(_gradients)
                                    .Input(_outputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7130,7 +7370,8 @@ SeluGrad::SeluGrad(tensorflow::Scope& scope,
 Select::Select(tensorflow::Scope& scope, 
            tensorflow::Input condition, 
            tensorflow::Input t, 
-           tensorflow::Input e) {
+           tensorflow::Input e, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _condition = ::tensorflow::ops::AsNodeOut(scope, condition);
@@ -7146,6 +7387,7 @@ Select::Select(tensorflow::Scope& scope,
                                    .Input(_condition)
                                    .Input(_t)
                                    .Input(_e)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7157,10 +7399,11 @@ Select::Select(tensorflow::Scope& scope,
 
 CollectiveBcastSend::CollectiveBcastSend(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::PartialTensorShape shape, 
+           tensorflow::DataType T, 
            int64_t group_size, 
            int64_t group_key, 
-           int64_t instance_key) {
+           int64_t instance_key, 
+           tensorflow::PartialTensorShape shape) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -7168,10 +7411,11 @@ CollectiveBcastSend::CollectiveBcastSend(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("CollectiveBcastSend");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CollectiveBcastSend")
                                    .Input(_input)
-                                   .Attr("shape", shape)
+                                   .Attr("T", T)
                                    .Attr("group_size", group_size)
                                    .Attr("group_key", group_key)
                                    .Attr("instance_key", instance_key)
+                                   .Attr("shape", shape)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7283,8 +7527,9 @@ QuantizeV2::QuantizeV2(tensorflow::Scope& scope,
            tensorflow::Input input, 
            tensorflow::Input min_range, 
            tensorflow::Input max_range, 
-           tensorflow::string round_mode, 
-           tensorflow::string mode) {
+           tensorflow::DataType T, 
+           tensorflow::string mode, 
+           tensorflow::string round_mode) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -7300,8 +7545,9 @@ QuantizeV2::QuantizeV2(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_min_range)
                                    .Input(_max_range)
-                                   .Attr("round_mode", round_mode)
+                                   .Attr("T", T)
                                    .Attr("mode", mode)
+                                   .Attr("round_mode", round_mode)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7337,8 +7583,7 @@ GreaterEqual::GreaterEqual(tensorflow::Scope& scope,
 ResourceScatterMax::ResourceScatterMax(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -7354,7 +7599,6 @@ ResourceScatterMax::ResourceScatterMax(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7366,7 +7610,8 @@ ResourceScatterMax::ResourceScatterMax(tensorflow::Scope& scope,
 Betainc::Betainc(tensorflow::Scope& scope, 
            tensorflow::Input a, 
            tensorflow::Input b, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -7382,6 +7627,7 @@ Betainc::Betainc(tensorflow::Scope& scope,
                                    .Input(_a)
                                    .Input(_b)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7393,7 +7639,8 @@ Betainc::Betainc(tensorflow::Scope& scope,
 
 Polygamma::Polygamma(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -7405,6 +7652,7 @@ Polygamma::Polygamma(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Polygamma")
                                    .Input(_a)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7416,7 +7664,7 @@ Polygamma::Polygamma(tensorflow::Scope& scope,
 
 Assert::Assert(tensorflow::Scope& scope, 
            tensorflow::Input condition, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            int64_t summarize) {
       if (!scope.ok())
@@ -7424,7 +7672,7 @@ Assert::Assert(tensorflow::Scope& scope,
       auto _condition = ::tensorflow::ops::AsNodeOut(scope, condition);
       if (!scope.ok())
           return;
-      auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
+      auto _data = ::tensorflow::ops::AsNodeOutList(scope, data);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("Assert");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Assert")
@@ -7442,7 +7690,8 @@ Assert::Assert(tensorflow::Scope& scope,
 
 Transpose::Transpose(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input perm) {
+           tensorflow::Input perm, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7454,6 +7703,7 @@ Transpose::Transpose(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Transpose")
                                    .Input(_x)
                                    .Input(_perm)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7465,7 +7715,8 @@ Transpose::Transpose(tensorflow::Scope& scope,
 
 IgammaGradA::IgammaGradA(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -7477,6 +7728,7 @@ IgammaGradA::IgammaGradA(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IgammaGradA")
                                    .Input(_a)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7535,7 +7787,8 @@ ImportEvent::ImportEvent(tensorflow::Scope& scope,
 
 Igamma::Igamma(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -7547,6 +7800,7 @@ Igamma::Igamma(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Igamma")
                                    .Input(_a)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7558,7 +7812,8 @@ Igamma::Igamma(tensorflow::Scope& scope,
 
 Igammac::Igammac(tensorflow::Scope& scope, 
            tensorflow::Input a, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -7570,6 +7825,7 @@ Igammac::Igammac(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Igammac")
                                    .Input(_a)
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7581,7 +7837,8 @@ Igammac::Igammac(tensorflow::Scope& scope,
 
 Mod::Mod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7593,6 +7850,7 @@ Mod::Mod(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Mod")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7604,7 +7862,8 @@ Mod::Mod(tensorflow::Scope& scope,
 
 Maximum::Maximum(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7616,6 +7875,7 @@ Maximum::Maximum(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Maximum")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7627,7 +7887,8 @@ Maximum::Maximum(tensorflow::Scope& scope,
 
 Xlogy::Xlogy(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7639,6 +7900,7 @@ Xlogy::Xlogy(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Xlogy")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7650,7 +7912,8 @@ Xlogy::Xlogy(tensorflow::Scope& scope,
 
 SquaredDifference::SquaredDifference(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7662,6 +7925,7 @@ SquaredDifference::SquaredDifference(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SquaredDifference")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7673,7 +7937,8 @@ SquaredDifference::SquaredDifference(tensorflow::Scope& scope,
 
 ResourceCountUpTo::ResourceCountUpTo(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           int64_t limit) {
+           int64_t limit, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -7682,6 +7947,7 @@ ResourceCountUpTo::ResourceCountUpTo(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ResourceCountUpTo")
                                    .Input(_resource)
                                    .Attr("limit", limit)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7693,7 +7959,8 @@ ResourceCountUpTo::ResourceCountUpTo(tensorflow::Scope& scope,
 
 RealDiv::RealDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7705,6 +7972,7 @@ RealDiv::RealDiv(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RealDiv")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7716,7 +7984,8 @@ RealDiv::RealDiv(tensorflow::Scope& scope,
 
 TruncateDiv::TruncateDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7728,6 +7997,7 @@ TruncateDiv::TruncateDiv(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TruncateDiv")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7761,7 +8031,7 @@ StringToHashBucketStrong::StringToHashBucketStrong(tensorflow::Scope& scope,
 
 QueueEnqueue::QueueEnqueue(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms) {
       if (!scope.ok())
@@ -7769,7 +8039,7 @@ QueueEnqueue::QueueEnqueue(tensorflow::Scope& scope,
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("QueueEnqueue");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "QueueEnqueue")
@@ -7789,7 +8059,8 @@ _MklSub::_MklSub(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y) {
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7809,6 +8080,7 @@ _MklSub::_MklSub(tensorflow::Scope& scope,
                                    .Input(_y)
                                    .Input(_mkl_x)
                                    .Input(_mkl_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7852,8 +8124,9 @@ Conv3DBackpropFilterV2::Conv3DBackpropFilterV2(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -7871,8 +8144,9 @@ Conv3DBackpropFilterV2::Conv3DBackpropFilterV2(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7884,7 +8158,8 @@ Conv3DBackpropFilterV2::Conv3DBackpropFilterV2(tensorflow::Scope& scope,
 
 AddV2::AddV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -7896,6 +8171,7 @@ AddV2::AddV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AddV2")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -7998,7 +8274,8 @@ UniformCandidateSampler::UniformCandidateSampler(tensorflow::Scope& scope,
 
 Add::Add(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8010,6 +8287,7 @@ Add::Add(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Add")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8020,7 +8298,8 @@ Add::Add(tensorflow::Scope& scope,
 }
 
 Floor::Floor(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8028,6 +8307,7 @@ Floor::Floor(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Floor");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Floor")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8038,7 +8318,8 @@ Floor::Floor(tensorflow::Scope& scope,
 }
 
 Ceil::Ceil(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8046,6 +8327,7 @@ Ceil::Ceil(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Ceil");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Ceil")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8078,7 +8360,8 @@ MaxPool3D::MaxPool3D(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -8090,6 +8373,7 @@ MaxPool3D::MaxPool3D(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8121,7 +8405,8 @@ Cumsum::Cumsum(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input axis, 
            bool exclusive, 
-           bool reverse) {
+           bool reverse, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8135,6 +8420,7 @@ Cumsum::Cumsum(tensorflow::Scope& scope,
                                    .Input(_axis)
                                    .Attr("exclusive", exclusive)
                                    .Attr("reverse", reverse)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8145,7 +8431,8 @@ Cumsum::Cumsum(tensorflow::Scope& scope,
 }
 
 BesselI1e::BesselI1e(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8153,6 +8440,7 @@ BesselI1e::BesselI1e(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BesselI1e");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BesselI1e")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8163,7 +8451,8 @@ BesselI1e::BesselI1e(tensorflow::Scope& scope,
 }
 
 BesselI0e::BesselI0e(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8171,6 +8460,7 @@ BesselI0e::BesselI0e(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BesselI0e");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BesselI0e")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8182,6 +8472,7 @@ BesselI0e::BesselI0e(tensorflow::Scope& scope,
 
 BiasAddGrad::BiasAddGrad(tensorflow::Scope& scope, 
            tensorflow::Input out_backprop, 
+           tensorflow::DataType T, 
            tensorflow::string data_format) {
       if (!scope.ok())
           return;
@@ -8190,6 +8481,7 @@ BiasAddGrad::BiasAddGrad(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BiasAddGrad");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BiasAddGrad")
                                    .Input(_out_backprop)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
@@ -8233,7 +8525,8 @@ WriteHistogramSummary::WriteHistogramSummary(tensorflow::Scope& scope,
 }
 
 Tan::Tan(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8241,6 +8534,7 @@ Tan::Tan(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Tan");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Tan")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8253,7 +8547,8 @@ Tan::Tan(tensorflow::Scope& scope,
 TopKV2::TopKV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input k, 
-           bool sorted) {
+           bool sorted, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -8266,6 +8561,7 @@ TopKV2::TopKV2(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_k)
                                    .Attr("sorted", sorted)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8278,7 +8574,8 @@ TopKV2::TopKV2(tensorflow::Scope& scope,
 PadV2::PadV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::Input constant_values) {
+           tensorflow::Input constant_values, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -8294,6 +8591,7 @@ PadV2::PadV2(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_paddings)
                                    .Input(_constant_values)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8304,7 +8602,8 @@ PadV2::PadV2(tensorflow::Scope& scope,
 }
 
 Cos::Cos(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8312,6 +8611,7 @@ Cos::Cos(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Cos");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Cos")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8322,7 +8622,8 @@ Cos::Cos(tensorflow::Scope& scope,
 }
 
 Erfc::Erfc(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8330,6 +8631,7 @@ Erfc::Erfc(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Erfc");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Erfc")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8340,7 +8642,8 @@ Erfc::Erfc(tensorflow::Scope& scope,
 }
 
 Digamma::Digamma(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8348,6 +8651,7 @@ Digamma::Digamma(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Digamma");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Digamma")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8376,7 +8680,8 @@ BoostedTreesSerializeEnsemble::BoostedTreesSerializeEnsemble(tensorflow::Scope& 
 }
 
 Acosh::Acosh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8384,6 +8689,7 @@ Acosh::Acosh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Acosh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Acosh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8394,7 +8700,8 @@ Acosh::Acosh(tensorflow::Scope& scope,
 }
 
 Cosh::Cosh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8402,6 +8709,7 @@ Cosh::Cosh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Cosh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Cosh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8458,8 +8766,7 @@ ResourceApplyProximalAdagrad::ResourceApplyProximalAdagrad(tensorflow::Scope& sc
 ResourceScatterDiv::ResourceScatterDiv(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -8475,7 +8782,6 @@ ResourceScatterDiv::ResourceScatterDiv(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8485,7 +8791,8 @@ ResourceScatterDiv::ResourceScatterDiv(tensorflow::Scope& scope,
 }
 
 Asin::Asin(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8493,6 +8800,7 @@ Asin::Asin(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Asin");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Asin")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8506,16 +8814,18 @@ _HostRecv::_HostRecv(tensorflow::Scope& scope,
            tensorflow::string tensor_name, 
            tensorflow::string send_device, 
            tensorflow::string recv_device, 
-           bool client_terminated, 
-           int64_t send_device_incarnation) {
+           tensorflow::DataType tensor_type, 
+           int64_t send_device_incarnation, 
+           bool client_terminated) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_HostRecv");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_HostRecv")
                                    .Attr("tensor_name", tensor_name)
                                    .Attr("send_device", send_device)
                                    .Attr("recv_device", recv_device)
-                                   .Attr("client_terminated", client_terminated)
+                                   .Attr("tensor_type", tensor_type)
                                    .Attr("send_device_incarnation", send_device_incarnation)
+                                   .Attr("client_terminated", client_terminated)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8527,8 +8837,8 @@ _HostRecv::_HostRecv(tensorflow::Scope& scope,
 
 ExperimentalScanDataset::ExperimentalScanDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input initial_state, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList initial_state, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tstate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -8540,10 +8850,10 @@ ExperimentalScanDataset::ExperimentalScanDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _initial_state = ::tensorflow::ops::AsNodeOut(scope, initial_state);
+      auto _initial_state = ::tensorflow::ops::AsNodeOutList(scope, initial_state);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalScanDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalScanDataset")
@@ -8566,7 +8876,8 @@ ExperimentalScanDataset::ExperimentalScanDataset(tensorflow::Scope& scope,
 }
 
 Log1p::Log1p(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8574,6 +8885,7 @@ Log1p::Log1p(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Log1p");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Log1p")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8611,7 +8923,8 @@ Requantize::Requantize(tensorflow::Scope& scope,
            tensorflow::Input input_min, 
            tensorflow::Input input_max, 
            tensorflow::Input requested_output_min, 
-           tensorflow::Input requested_output_max) {
+           tensorflow::Input requested_output_max, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -8635,6 +8948,7 @@ Requantize::Requantize(tensorflow::Scope& scope,
                                    .Input(_input_max)
                                    .Input(_requested_output_min)
                                    .Input(_requested_output_max)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8645,7 +8959,8 @@ Requantize::Requantize(tensorflow::Scope& scope,
 }
 
 Exp::Exp(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8653,6 +8968,7 @@ Exp::Exp(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Exp");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Exp")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8666,6 +8982,7 @@ ScatterNdAdd::ScatterNdAdd(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -8682,6 +8999,7 @@ ScatterNdAdd::ScatterNdAdd(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -8722,7 +9040,8 @@ Dilation2D::Dilation2D(tensorflow::Scope& scope,
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -8737,6 +9056,7 @@ Dilation2D::Dilation2D(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("rates", rates)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8770,7 +9090,8 @@ DeserializeIterator::DeserializeIterator(tensorflow::Scope& scope,
 
 RsqrtGrad::RsqrtGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -8782,6 +9103,7 @@ RsqrtGrad::RsqrtGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RsqrtGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8795,11 +9117,12 @@ QuantizedInstanceNorm::QuantizedInstanceNorm(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input x_min, 
            tensorflow::Input x_max, 
-           float min_separation, 
+           tensorflow::DataType T, 
            bool output_range_given, 
            float given_y_min, 
            float given_y_max, 
-           float variance_epsilon) {
+           float variance_epsilon, 
+           float min_separation) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8815,11 +9138,12 @@ QuantizedInstanceNorm::QuantizedInstanceNorm(tensorflow::Scope& scope,
                                    .Input(_x)
                                    .Input(_x_min)
                                    .Input(_x_max)
-                                   .Attr("min_separation", min_separation)
+                                   .Attr("T", T)
                                    .Attr("output_range_given", output_range_given)
                                    .Attr("given_y_min", given_y_min)
                                    .Attr("given_y_max", given_y_max)
                                    .Attr("variance_epsilon", variance_epsilon)
+                                   .Attr("min_separation", min_separation)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8830,7 +9154,8 @@ QuantizedInstanceNorm::QuantizedInstanceNorm(tensorflow::Scope& scope,
 }
 
 Rsqrt::Rsqrt(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8838,6 +9163,7 @@ Rsqrt::Rsqrt(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Rsqrt");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Rsqrt")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8879,7 +9205,8 @@ InitializeTableFromTextFile::InitializeTableFromTextFile(tensorflow::Scope& scop
 
 SqrtGrad::SqrtGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -8891,6 +9218,7 @@ SqrtGrad::SqrtGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SqrtGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8903,7 +9231,8 @@ SqrtGrad::SqrtGrad(tensorflow::Scope& scope,
 SparseSegmentSqrtN::SparseSegmentSqrtN(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -8919,6 +9248,7 @@ SparseSegmentSqrtN::SparseSegmentSqrtN(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_indices)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8932,7 +9262,8 @@ _MklMaximum::_MklMaximum(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y) {
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8952,6 +9283,7 @@ _MklMaximum::_MklMaximum(tensorflow::Scope& scope,
                                    .Input(_y)
                                    .Input(_mkl_x)
                                    .Input(_mkl_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8962,7 +9294,8 @@ _MklMaximum::_MklMaximum(tensorflow::Scope& scope,
 }
 
 Sqrt::Sqrt(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -8970,6 +9303,7 @@ Sqrt::Sqrt(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Sqrt");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sqrt")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -8981,7 +9315,8 @@ Sqrt::Sqrt(tensorflow::Scope& scope,
 
 InvGrad::InvGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -8993,6 +9328,7 @@ InvGrad::InvGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "InvGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9003,7 +9339,8 @@ InvGrad::InvGrad(tensorflow::Scope& scope,
 }
 
 Inv::Inv(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -9011,6 +9348,7 @@ Inv::Inv(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Inv");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Inv")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9040,7 +9378,8 @@ ExperimentalStatsAggregatorSummary::ExperimentalStatsAggregatorSummary(tensorflo
 
 _HostCast::_HostCast(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           bool Truncate) {
+           bool Truncate, 
+           tensorflow::DataType DstT) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -9049,6 +9388,7 @@ _HostCast::_HostCast(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_HostCast")
                                    .Input(_x)
                                    .Attr("Truncate", Truncate)
+                                   .Attr("DstT", DstT)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9061,8 +9401,9 @@ _HostCast::_HostCast(tensorflow::Scope& scope,
 BatchMatMul::BatchMatMul(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input y, 
-           bool adj_y, 
-           bool adj_x) {
+           tensorflow::DataType T, 
+           bool adj_x, 
+           bool adj_y) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -9074,8 +9415,9 @@ BatchMatMul::BatchMatMul(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatMul")
                                    .Input(_x)
                                    .Input(_y)
-                                   .Attr("adj_y", adj_y)
+                                   .Attr("T", T)
                                    .Attr("adj_x", adj_x)
+                                   .Attr("adj_y", adj_y)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9087,6 +9429,7 @@ BatchMatMul::BatchMatMul(tensorflow::Scope& scope,
 
 AccumulateNV2::AccumulateNV2(tensorflow::Scope& scope, 
            tensorflow::InputList inputs, 
+           tensorflow::DataType T, 
            tensorflow::PartialTensorShape shape) {
       if (!scope.ok())
           return;
@@ -9095,6 +9438,7 @@ AccumulateNV2::AccumulateNV2(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("AccumulateNV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AccumulateNV2")
                                    .Input(_inputs)
+                                   .Attr("T", T)
                                    .Attr("shape", shape)
       ;
       scope.UpdateBuilder(&builder);
@@ -9167,7 +9511,8 @@ FractionalAvgPoolGrad::FractionalAvgPoolGrad(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::Input row_pooling_sequence, 
            tensorflow::Input col_pooling_sequence, 
-           bool overlapping) {
+           bool overlapping, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input_tensor_shape = ::tensorflow::ops::AsNodeOut(scope, orig_input_tensor_shape);
@@ -9188,6 +9533,7 @@ FractionalAvgPoolGrad::FractionalAvgPoolGrad(tensorflow::Scope& scope,
                                    .Input(_row_pooling_sequence)
                                    .Input(_col_pooling_sequence)
                                    .Attr("overlapping", overlapping)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9458,6 +9804,7 @@ NonMaxSuppressionWithOverlaps::NonMaxSuppressionWithOverlaps(tensorflow::Scope& 
 
 LookupTableExportV2::LookupTableExportV2(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
+           tensorflow::DataType Tkeys, 
            tensorflow::DataType Tvalues) {
       if (!scope.ok())
           return;
@@ -9466,6 +9813,7 @@ LookupTableExportV2::LookupTableExportV2(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("LookupTableExportV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LookupTableExportV2")
                                    .Input(_table_handle)
+                                   .Attr("Tkeys", Tkeys)
                                    .Attr("Tvalues", Tvalues)
       ;
       scope.UpdateBuilder(&builder);
@@ -9478,8 +9826,7 @@ LookupTableExportV2::LookupTableExportV2(tensorflow::Scope& scope,
 
 AssignVariableOp::AssignVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input value) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -9491,7 +9838,6 @@ AssignVariableOp::AssignVariableOp(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AssignVariableOp")
                                    .Input(_resource)
                                    .Input(_value)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9544,7 +9890,8 @@ PaddingFIFOQueueV2::PaddingFIFOQueueV2(tensorflow::Scope& scope,
 LookupTableFind::LookupTableFind(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
            tensorflow::Input keys, 
-           tensorflow::Input default_value) {
+           tensorflow::Input default_value, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _table_handle = ::tensorflow::ops::AsNodeOut(scope, table_handle);
@@ -9560,6 +9907,7 @@ LookupTableFind::LookupTableFind(tensorflow::Scope& scope,
                                    .Input(_table_handle)
                                    .Input(_keys)
                                    .Input(_default_value)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9628,7 +9976,8 @@ AvgPool::AvgPool(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -9640,6 +9989,7 @@ AvgPool::AvgPool(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9761,7 +10111,8 @@ TensorListSetItem::TensorListSetItem(tensorflow::Scope& scope,
 ClipByValue::ClipByValue(tensorflow::Scope& scope, 
            tensorflow::Input t, 
            tensorflow::Input clip_value_min, 
-           tensorflow::Input clip_value_max) {
+           tensorflow::Input clip_value_max, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _t = ::tensorflow::ops::AsNodeOut(scope, t);
@@ -9777,6 +10128,7 @@ ClipByValue::ClipByValue(tensorflow::Scope& scope,
                                    .Input(_t)
                                    .Input(_clip_value_min)
                                    .Input(_clip_value_max)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9859,6 +10211,7 @@ TensorListFromTensor::TensorListFromTensor(tensorflow::Scope& scope,
 
 TensorListStack::TensorListStack(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
+           tensorflow::DataType element_dtype, 
            int64_t num_elements) {
       if (!scope.ok())
           return;
@@ -9867,6 +10220,7 @@ TensorListStack::TensorListStack(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("TensorListStack");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorListStack")
                                    .Input(_input_handle)
+                                   .Attr("element_dtype", element_dtype)
                                    .Attr("num_elements", num_elements)
       ;
       scope.UpdateBuilder(&builder);
@@ -9881,7 +10235,8 @@ _MklMul::_MklMul(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y) {
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -9901,6 +10256,7 @@ _MklMul::_MklMul(tensorflow::Scope& scope,
                                    .Input(_y)
                                    .Input(_mkl_x)
                                    .Input(_mkl_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -9913,7 +10269,8 @@ _MklMul::_MklMul(tensorflow::Scope& scope,
 TensorScatterUpdate::TensorScatterUpdate(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates) {
+           tensorflow::Input updates, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -9929,6 +10286,7 @@ TensorScatterUpdate::TensorScatterUpdate(tensorflow::Scope& scope,
                                    .Input(_tensor)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10027,7 +10385,8 @@ ExperimentalIndexedDatasetGet::ExperimentalIndexedDatasetGet(tensorflow::Scope& 
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TensorListPushBackBatch::TensorListPushBackBatch(tensorflow::Scope& scope, 
@@ -10103,7 +10462,8 @@ RandomStandardNormal::RandomStandardNormal(tensorflow::Scope& scope,
 }
 
 Erf::Erf(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -10111,6 +10471,7 @@ Erf::Erf(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Erf");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Erf")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10123,7 +10484,8 @@ Erf::Erf(tensorflow::Scope& scope,
 Mean::Mean(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input reduction_indices, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10136,6 +10498,7 @@ Mean::Mean(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_reduction_indices)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10149,7 +10512,8 @@ BatchMatrixTriangularSolve::BatchMatrixTriangularSolve(tensorflow::Scope& scope,
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            bool lower, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _matrix = ::tensorflow::ops::AsNodeOut(scope, matrix);
@@ -10163,6 +10527,7 @@ BatchMatrixTriangularSolve::BatchMatrixTriangularSolve(tensorflow::Scope& scope,
                                    .Input(_rhs)
                                    .Attr("lower", lower)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10175,7 +10540,8 @@ BatchMatrixTriangularSolve::BatchMatrixTriangularSolve(tensorflow::Scope& scope,
 BatchMatrixSolve::BatchMatrixSolve(tensorflow::Scope& scope, 
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _matrix = ::tensorflow::ops::AsNodeOut(scope, matrix);
@@ -10188,6 +10554,7 @@ BatchMatrixSolve::BatchMatrixSolve(tensorflow::Scope& scope,
                                    .Input(_matrix)
                                    .Input(_rhs)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10203,7 +10570,8 @@ QuantizedBiasAdd::QuantizedBiasAdd(tensorflow::Scope& scope,
            tensorflow::Input min_input, 
            tensorflow::Input max_input, 
            tensorflow::Input min_bias, 
-           tensorflow::Input max_bias) {
+           tensorflow::Input max_bias, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10231,6 +10599,7 @@ QuantizedBiasAdd::QuantizedBiasAdd(tensorflow::Scope& scope,
                                    .Input(_max_input)
                                    .Input(_min_bias)
                                    .Input(_max_bias)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10242,8 +10611,9 @@ QuantizedBiasAdd::QuantizedBiasAdd(tensorflow::Scope& scope,
 
 DataFormatVecPermute::DataFormatVecPermute(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::string dst_format, 
-           tensorflow::string src_format) {
+           tensorflow::DataType T, 
+           tensorflow::string src_format, 
+           tensorflow::string dst_format) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -10251,8 +10621,9 @@ DataFormatVecPermute::DataFormatVecPermute(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DataFormatVecPermute");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DataFormatVecPermute")
                                    .Input(_x)
-                                   .Attr("dst_format", dst_format)
+                                   .Attr("T", T)
                                    .Attr("src_format", src_format)
+                                   .Attr("dst_format", dst_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10264,7 +10635,8 @@ DataFormatVecPermute::DataFormatVecPermute(tensorflow::Scope& scope,
 
 BatchCholeskyGrad::BatchCholeskyGrad(tensorflow::Scope& scope, 
            tensorflow::Input l, 
-           tensorflow::Input grad) {
+           tensorflow::Input grad, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _l = ::tensorflow::ops::AsNodeOut(scope, l);
@@ -10276,6 +10648,7 @@ BatchCholeskyGrad::BatchCholeskyGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchCholeskyGrad")
                                    .Input(_l)
                                    .Input(_grad)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10287,7 +10660,8 @@ BatchCholeskyGrad::BatchCholeskyGrad(tensorflow::Scope& scope,
 
 BatchMatrixInverse::BatchMatrixInverse(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10296,6 +10670,7 @@ BatchMatrixInverse::BatchMatrixInverse(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatrixInverse")
                                    .Input(_input)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10338,7 +10713,8 @@ DebugNumericSummary::DebugNumericSummary(tensorflow::Scope& scope,
 }
 
 BatchSelfAdjointEig::BatchSelfAdjointEig(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10346,6 +10722,7 @@ BatchSelfAdjointEig::BatchSelfAdjointEig(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BatchSelfAdjointEig");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchSelfAdjointEig")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10358,7 +10735,8 @@ BatchSelfAdjointEig::BatchSelfAdjointEig(tensorflow::Scope& scope,
 LookupTableFindV2::LookupTableFindV2(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
            tensorflow::Input keys, 
-           tensorflow::Input default_value) {
+           tensorflow::Input default_value, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _table_handle = ::tensorflow::ops::AsNodeOut(scope, table_handle);
@@ -10374,6 +10752,7 @@ LookupTableFindV2::LookupTableFindV2(tensorflow::Scope& scope,
                                    .Input(_table_handle)
                                    .Input(_keys)
                                    .Input(_default_value)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10384,7 +10763,8 @@ LookupTableFindV2::LookupTableFindV2(tensorflow::Scope& scope,
 }
 
 Asinh::Asinh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -10392,6 +10772,7 @@ Asinh::Asinh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Asinh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Asinh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10402,17 +10783,19 @@ Asinh::Asinh(tensorflow::Scope& scope,
 }
 
 CollectiveBcastRecv::CollectiveBcastRecv(tensorflow::Scope& scope, 
-           tensorflow::PartialTensorShape shape, 
+           tensorflow::DataType T, 
            int64_t group_size, 
            int64_t group_key, 
-           int64_t instance_key) {
+           int64_t instance_key, 
+           tensorflow::PartialTensorShape shape) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("CollectiveBcastRecv");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CollectiveBcastRecv")
-                                   .Attr("shape", shape)
+                                   .Attr("T", T)
                                    .Attr("group_size", group_size)
                                    .Attr("group_key", group_key)
                                    .Attr("instance_key", instance_key)
+                                   .Attr("shape", shape)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10456,7 +10839,8 @@ TensorArrayScatterV3::TensorArrayScatterV3(tensorflow::Scope& scope,
 }
 
 MatrixSquareRoot::MatrixSquareRoot(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10464,6 +10848,7 @@ MatrixSquareRoot::MatrixSquareRoot(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixSquareRoot");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixSquareRoot")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10477,7 +10862,8 @@ MatrixTriangularSolve::MatrixTriangularSolve(tensorflow::Scope& scope,
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            bool lower, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _matrix = ::tensorflow::ops::AsNodeOut(scope, matrix);
@@ -10491,6 +10877,7 @@ MatrixTriangularSolve::MatrixTriangularSolve(tensorflow::Scope& scope,
                                    .Input(_rhs)
                                    .Attr("lower", lower)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10501,7 +10888,8 @@ MatrixTriangularSolve::MatrixTriangularSolve(tensorflow::Scope& scope,
 }
 
 SelfAdjointEig::SelfAdjointEig(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10509,6 +10897,7 @@ SelfAdjointEig::SelfAdjointEig(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("SelfAdjointEig");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SelfAdjointEig")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10520,7 +10909,8 @@ SelfAdjointEig::SelfAdjointEig(tensorflow::Scope& scope,
 
 Reshape::Reshape(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input shape) {
+           tensorflow::Input shape, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -10532,6 +10922,7 @@ Reshape::Reshape(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Reshape")
                                    .Input(_tensor)
                                    .Input(_shape)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10543,7 +10934,8 @@ Reshape::Reshape(tensorflow::Scope& scope,
 
 ArgMax::ArgMax(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dimension) {
+           tensorflow::Input dimension, 
+           tensorflow::DataType output_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10555,6 +10947,7 @@ ArgMax::ArgMax(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ArgMax")
                                    .Input(_input)
                                    .Input(_dimension)
+                                   .Attr("output_type", output_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10566,7 +10959,8 @@ ArgMax::ArgMax(tensorflow::Scope& scope,
 
 CholeskyGrad::CholeskyGrad(tensorflow::Scope& scope, 
            tensorflow::Input l, 
-           tensorflow::Input grad) {
+           tensorflow::Input grad, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _l = ::tensorflow::ops::AsNodeOut(scope, l);
@@ -10578,6 +10972,7 @@ CholeskyGrad::CholeskyGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CholeskyGrad")
                                    .Input(_l)
                                    .Input(_grad)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10614,7 +11009,7 @@ ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope,
            tensorflow::Input context_dense_keys, 
            tensorflow::Input feature_list_sparse_keys, 
            tensorflow::Input feature_list_dense_keys, 
-           tensorflow::Input context_dense_defaults, 
+           tensorflow::InputList context_dense_defaults, 
            tensorflow::Input debug_name, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> context_sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcontext_dense, 
@@ -10646,7 +11041,7 @@ ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope,
       auto _feature_list_dense_keys = ::tensorflow::ops::AsNodeOut(scope, feature_list_dense_keys);
       if (!scope.ok())
           return;
-      auto _context_dense_defaults = ::tensorflow::ops::AsNodeOut(scope, context_dense_defaults);
+      auto _context_dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, context_dense_defaults);
       if (!scope.ok())
           return;
       auto _debug_name = ::tensorflow::ops::AsNodeOut(scope, debug_name);
@@ -10682,6 +11077,7 @@ ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope,
 
 LookupTableExport::LookupTableExport(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
+           tensorflow::DataType Tkeys, 
            tensorflow::DataType Tvalues) {
       if (!scope.ok())
           return;
@@ -10690,6 +11086,7 @@ LookupTableExport::LookupTableExport(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("LookupTableExport");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LookupTableExport")
                                    .Input(_table_handle)
+                                   .Attr("Tkeys", Tkeys)
                                    .Attr("Tvalues", Tvalues)
       ;
       scope.UpdateBuilder(&builder);
@@ -10719,7 +11116,8 @@ QueueDequeue::QueueDequeue(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TensorListSplit::TensorListSplit(tensorflow::Scope& scope, 
@@ -10754,6 +11152,7 @@ BatchMatrixSolveLs::BatchMatrixSolveLs(tensorflow::Scope& scope,
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            tensorflow::Input l2_regularizer, 
+           tensorflow::DataType T, 
            bool fast) {
       if (!scope.ok())
           return;
@@ -10770,6 +11169,7 @@ BatchMatrixSolveLs::BatchMatrixSolveLs(tensorflow::Scope& scope,
                                    .Input(_matrix)
                                    .Input(_rhs)
                                    .Input(_l2_regularizer)
+                                   .Attr("T", T)
                                    .Attr("fast", fast)
       ;
       scope.UpdateBuilder(&builder);
@@ -10781,7 +11181,8 @@ BatchMatrixSolveLs::BatchMatrixSolveLs(tensorflow::Scope& scope,
 }
 
 MatrixDeterminant::MatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -10789,6 +11190,7 @@ MatrixDeterminant::MatrixDeterminant(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixDeterminant");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixDeterminant")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10800,7 +11202,8 @@ MatrixDeterminant::MatrixDeterminant(tensorflow::Scope& scope,
 
 FloorMod::FloorMod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -10812,6 +11215,7 @@ FloorMod::FloorMod(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FloorMod")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -10881,7 +11285,8 @@ WriteImageSummary::WriteImageSummary(tensorflow::Scope& scope,
 MatrixSolve::MatrixSolve(tensorflow::Scope& scope, 
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _matrix = ::tensorflow::ops::AsNodeOut(scope, matrix);
@@ -10894,6 +11299,7 @@ MatrixSolve::MatrixSolve(tensorflow::Scope& scope,
                                    .Input(_matrix)
                                    .Input(_rhs)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11105,7 +11511,8 @@ ReaderNumWorkUnitsCompletedV2::ReaderNumWorkUnitsCompletedV2(tensorflow::Scope& 
 
 LowerBound::LowerBound(tensorflow::Scope& scope, 
            tensorflow::Input sorted_inputs, 
-           tensorflow::Input values) {
+           tensorflow::Input values, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _sorted_inputs = ::tensorflow::ops::AsNodeOut(scope, sorted_inputs);
@@ -11117,6 +11524,7 @@ LowerBound::LowerBound(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LowerBound")
                                    .Input(_sorted_inputs)
                                    .Input(_values)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11169,6 +11577,7 @@ ReaderNumWorkUnitsCompleted::ReaderNumWorkUnitsCompleted(tensorflow::Scope& scop
 
 DecodeRaw::DecodeRaw(tensorflow::Scope& scope, 
            tensorflow::Input bytes, 
+           tensorflow::DataType out_type, 
            bool little_endian) {
       if (!scope.ok())
           return;
@@ -11177,6 +11586,7 @@ DecodeRaw::DecodeRaw(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DecodeRaw");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DecodeRaw")
                                    .Input(_bytes)
+                                   .Attr("out_type", out_type)
                                    .Attr("little_endian", little_endian)
       ;
       scope.UpdateBuilder(&builder);
@@ -11209,7 +11619,8 @@ Cumprod::Cumprod(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input axis, 
            bool exclusive, 
-           bool reverse) {
+           bool reverse, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -11223,6 +11634,7 @@ Cumprod::Cumprod(tensorflow::Scope& scope,
                                    .Input(_axis)
                                    .Attr("exclusive", exclusive)
                                    .Attr("reverse", reverse)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11256,7 +11668,8 @@ ReaderReadV2::ReaderReadV2(tensorflow::Scope& scope,
 }
 
 Square::Square(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -11264,6 +11677,7 @@ Square::Square(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Square");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Square")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11293,7 +11707,8 @@ IdentityReader::IdentityReader(tensorflow::Scope& scope,
 Slice::Slice(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input begin, 
-           tensorflow::Input size) {
+           tensorflow::Input size, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -11309,6 +11724,7 @@ Slice::Slice(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_begin)
                                    .Input(_size)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11468,6 +11884,7 @@ RestoreSlice::RestoreSlice(tensorflow::Scope& scope,
            tensorflow::Input file_pattern, 
            tensorflow::Input tensor_name, 
            tensorflow::Input shape_and_slice, 
+           tensorflow::DataType dt, 
            int64_t preferred_shard) {
       if (!scope.ok())
           return;
@@ -11484,6 +11901,7 @@ RestoreSlice::RestoreSlice(tensorflow::Scope& scope,
                                    .Input(_file_pattern)
                                    .Input(_tensor_name)
                                    .Input(_shape_and_slice)
+                                   .Attr("dt", dt)
                                    .Attr("preferred_shard", preferred_shard)
       ;
       scope.UpdateBuilder(&builder);
@@ -11497,6 +11915,7 @@ RestoreSlice::RestoreSlice(tensorflow::Scope& scope,
 Restore::Restore(tensorflow::Scope& scope, 
            tensorflow::Input file_pattern, 
            tensorflow::Input tensor_name, 
+           tensorflow::DataType dt, 
            int64_t preferred_shard) {
       if (!scope.ok())
           return;
@@ -11509,6 +11928,7 @@ Restore::Restore(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Restore")
                                    .Input(_file_pattern)
                                    .Input(_tensor_name)
+                                   .Attr("dt", dt)
                                    .Attr("preferred_shard", preferred_shard)
       ;
       scope.UpdateBuilder(&builder);
@@ -11523,7 +11943,7 @@ SaveSlices::SaveSlices(tensorflow::Scope& scope,
            tensorflow::Input filename, 
            tensorflow::Input tensor_names, 
            tensorflow::Input shapes_and_slices, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T) {
       if (!scope.ok())
           return;
@@ -11536,7 +11956,7 @@ SaveSlices::SaveSlices(tensorflow::Scope& scope,
       auto _shapes_and_slices = ::tensorflow::ops::AsNodeOut(scope, shapes_and_slices);
       if (!scope.ok())
           return;
-      auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
+      auto _data = ::tensorflow::ops::AsNodeOutList(scope, data);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("SaveSlices");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SaveSlices")
@@ -11556,7 +11976,7 @@ SaveSlices::SaveSlices(tensorflow::Scope& scope,
 Save::Save(tensorflow::Scope& scope, 
            tensorflow::Input filename, 
            tensorflow::Input tensor_names, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T) {
       if (!scope.ok())
           return;
@@ -11566,7 +11986,7 @@ Save::Save(tensorflow::Scope& scope,
       auto _tensor_names = ::tensorflow::ops::AsNodeOut(scope, tensor_names);
       if (!scope.ok())
           return;
-      auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
+      auto _data = ::tensorflow::ops::AsNodeOutList(scope, data);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("Save");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Save")
@@ -11640,7 +12060,8 @@ NonMaxSuppressionV2::NonMaxSuppressionV2(tensorflow::Scope& scope,
 }
 
 RefExit::RefExit(tensorflow::Scope& scope, 
-           tensorflow::Input data) {
+           tensorflow::Input data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -11648,6 +12069,7 @@ RefExit::RefExit(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("RefExit");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefExit")
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11733,7 +12155,8 @@ NonMaxSuppression::NonMaxSuppression(tensorflow::Scope& scope,
 }
 
 Tanh::Tanh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -11741,6 +12164,7 @@ Tanh::Tanh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Tanh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Tanh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -11755,6 +12179,7 @@ CropAndResizeGradImage::CropAndResizeGradImage(tensorflow::Scope& scope,
            tensorflow::Input boxes, 
            tensorflow::Input box_ind, 
            tensorflow::Input image_size, 
+           tensorflow::DataType T, 
            tensorflow::string method) {
       if (!scope.ok())
           return;
@@ -11775,6 +12200,7 @@ CropAndResizeGradImage::CropAndResizeGradImage(tensorflow::Scope& scope,
                                    .Input(_boxes)
                                    .Input(_box_ind)
                                    .Input(_image_size)
+                                   .Attr("T", T)
                                    .Attr("method", method)
       ;
       scope.UpdateBuilder(&builder);
@@ -11816,6 +12242,7 @@ ApplyPowerSign::ApplyPowerSign(tensorflow::Scope& scope,
            tensorflow::Input sign_decay, 
            tensorflow::Input beta, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -11848,6 +12275,7 @@ ApplyPowerSign::ApplyPowerSign(tensorflow::Scope& scope,
                                    .Input(_sign_decay)
                                    .Input(_beta)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -11864,7 +12292,8 @@ QuantizedAvgPool::QuantizedAvgPool(tensorflow::Scope& scope,
            tensorflow::Input max_input, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -11883,6 +12312,7 @@ QuantizedAvgPool::QuantizedAvgPool(tensorflow::Scope& scope,
                                    .Attr("ksize", ksize)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12064,8 +12494,9 @@ DecodeJpeg::DecodeJpeg(tensorflow::Scope& scope,
 RandomCrop::RandomCrop(tensorflow::Scope& scope, 
            tensorflow::Input image, 
            tensorflow::Input size, 
-           int64_t seed2, 
-           int64_t seed) {
+           tensorflow::DataType T, 
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _image = ::tensorflow::ops::AsNodeOut(scope, image);
@@ -12077,8 +12508,9 @@ RandomCrop::RandomCrop(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RandomCrop")
                                    .Input(_image)
                                    .Input(_size)
-                                   .Attr("seed2", seed2)
+                                   .Attr("T", T)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12120,6 +12552,7 @@ BigQueryReader::BigQueryReader(tensorflow::Scope& scope,
 ResizeNearestNeighborGrad::ResizeNearestNeighborGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input size, 
+           tensorflow::DataType T, 
            bool align_corners) {
       if (!scope.ok())
           return;
@@ -12132,6 +12565,7 @@ ResizeNearestNeighborGrad::ResizeNearestNeighborGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ResizeNearestNeighborGrad")
                                    .Input(_grads)
                                    .Input(_size)
+                                   .Attr("T", T)
                                    .Attr("align_corners", align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -12147,7 +12581,8 @@ LRN::LRN(tensorflow::Scope& scope,
            int64_t depth_radius, 
            float bias, 
            float alpha, 
-           float beta) {
+           float beta, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -12159,6 +12594,7 @@ LRN::LRN(tensorflow::Scope& scope,
                                    .Attr("bias", bias)
                                    .Attr("alpha", alpha)
                                    .Attr("beta", beta)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12174,8 +12610,9 @@ Conv3DBackpropInputV2::Conv3DBackpropInputV2(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input_sizes = ::tensorflow::ops::AsNodeOut(scope, input_sizes);
@@ -12193,8 +12630,9 @@ Conv3DBackpropInputV2::Conv3DBackpropInputV2(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12231,8 +12669,7 @@ ResizeBilinear::ResizeBilinear(tensorflow::Scope& scope,
 
 AssignAddVariableOp::AssignAddVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input value) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -12244,7 +12681,6 @@ AssignAddVariableOp::AssignAddVariableOp(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AssignAddVariableOp")
                                    .Input(_resource)
                                    .Input(_value)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12259,8 +12695,9 @@ DepthwiseConv2dNativeBackpropInput::DepthwiseConv2dNativeBackpropInput(tensorflo
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input_sizes = ::tensorflow::ops::AsNodeOut(scope, input_sizes);
@@ -12278,8 +12715,9 @@ DepthwiseConv2dNativeBackpropInput::DepthwiseConv2dNativeBackpropInput(tensorflo
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12337,6 +12775,7 @@ SparseApplyMomentum::SparseApplyMomentum(tensorflow::Scope& scope,
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input momentum, 
+           tensorflow::DataType T, 
            bool use_nesterov, 
            bool use_locking) {
       if (!scope.ok())
@@ -12366,6 +12805,7 @@ SparseApplyMomentum::SparseApplyMomentum(tensorflow::Scope& scope,
                                    .Input(_grad)
                                    .Input(_indices)
                                    .Input(_momentum)
+                                   .Attr("T", T)
                                    .Attr("use_nesterov", use_nesterov)
                                    .Attr("use_locking", use_locking)
       ;
@@ -12379,6 +12819,7 @@ SparseApplyMomentum::SparseApplyMomentum(tensorflow::Scope& scope,
 
 UniqueWithCounts::UniqueWithCounts(tensorflow::Scope& scope, 
            tensorflow::Input x, 
+           tensorflow::DataType T, 
            tensorflow::DataType out_idx) {
       if (!scope.ok())
           return;
@@ -12387,6 +12828,7 @@ UniqueWithCounts::UniqueWithCounts(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("UniqueWithCounts");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "UniqueWithCounts")
                                    .Input(_x)
+                                   .Attr("T", T)
                                    .Attr("out_idx", out_idx)
       ;
       scope.UpdateBuilder(&builder);
@@ -12400,6 +12842,7 @@ UniqueWithCounts::UniqueWithCounts(tensorflow::Scope& scope,
 ResizeBicubicGrad::ResizeBicubicGrad(tensorflow::Scope& scope, 
            tensorflow::Input grads, 
            tensorflow::Input original_image, 
+           tensorflow::DataType T, 
            bool align_corners) {
       if (!scope.ok())
           return;
@@ -12412,6 +12855,7 @@ ResizeBicubicGrad::ResizeBicubicGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ResizeBicubicGrad")
                                    .Input(_grads)
                                    .Input(_original_image)
+                                   .Attr("T", T)
                                    .Attr("align_corners", align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -12423,7 +12867,8 @@ ResizeBicubicGrad::ResizeBicubicGrad(tensorflow::Scope& scope,
 }
 
 HSVToRGB::HSVToRGB(tensorflow::Scope& scope, 
-           tensorflow::Input images) {
+           tensorflow::Input images, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _images = ::tensorflow::ops::AsNodeOut(scope, images);
@@ -12431,6 +12876,7 @@ HSVToRGB::HSVToRGB(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("HSVToRGB");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "HSVToRGB")
                                    .Input(_images)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12444,7 +12890,8 @@ SparseSegmentMeanWithNumSegments::SparseSegmentMeanWithNumSegments(tensorflow::S
            tensorflow::Input data, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -12464,6 +12911,7 @@ SparseSegmentMeanWithNumSegments::SparseSegmentMeanWithNumSegments(tensorflow::S
                                    .Input(_indices)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12549,6 +12997,7 @@ ScatterMin::ScatterMin(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -12565,6 +13014,7 @@ ScatterMin::ScatterMin(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -12594,7 +13044,8 @@ FakeParam::FakeParam(tensorflow::Scope& scope,
 
 Pow::Pow(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -12606,6 +13057,7 @@ Pow::Pow(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Pow")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12616,7 +13068,7 @@ Pow::Pow(tensorflow::Scope& scope,
 }
 
 PartitionedCall::PartitionedCall(tensorflow::Scope& scope, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f, 
@@ -12625,7 +13077,7 @@ PartitionedCall::PartitionedCall(tensorflow::Scope& scope,
            tensorflow::string executor_type) {
       if (!scope.ok())
           return;
-      auto _args = ::tensorflow::ops::AsNodeOut(scope, args);
+      auto _args = ::tensorflow::ops::AsNodeOutList(scope, args);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("PartitionedCall");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "PartitionedCall")
@@ -12642,11 +13094,13 @@ PartitionedCall::PartitionedCall(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Sign::Sign(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -12654,6 +13108,7 @@ Sign::Sign(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Sign");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sign")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12664,14 +13119,14 @@ Sign::Sign(tensorflow::Scope& scope,
 }
 
 While::While(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("While");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "While")
@@ -12686,11 +13141,13 @@ While::While(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Log::Log(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -12698,6 +13155,7 @@ Log::Log(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Log");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Log")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12708,13 +13166,13 @@ Log::Log(tensorflow::Scope& scope,
 }
 
 _While::_While(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_While");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_While")
@@ -12728,7 +13186,8 @@ _While::_While(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 AddManySparseToTensorsMap::AddManySparseToTensorsMap(tensorflow::Scope& scope, 
@@ -12765,7 +13224,7 @@ AddManySparseToTensorsMap::AddManySparseToTensorsMap(tensorflow::Scope& scope,
 
 FlatMapDataset::FlatMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -12775,7 +13234,7 @@ FlatMapDataset::FlatMapDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("FlatMapDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FlatMapDataset")
@@ -12796,7 +13255,7 @@ FlatMapDataset::FlatMapDataset(tensorflow::Scope& scope,
 
 StatelessIf::StatelessIf(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
@@ -12806,7 +13265,7 @@ StatelessIf::StatelessIf(tensorflow::Scope& scope,
       auto _cond = ::tensorflow::ops::AsNodeOut(scope, cond);
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("StatelessIf");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StatelessIf")
@@ -12822,11 +13281,13 @@ StatelessIf::StatelessIf(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Angle::Angle(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -12834,6 +13295,7 @@ Angle::Angle(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Angle");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Angle")
                                    .Input(_input)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12845,7 +13307,7 @@ Angle::Angle(tensorflow::Scope& scope,
 
 RemoteCall::RemoteCall(tensorflow::Scope& scope, 
            tensorflow::Input target, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f) {
@@ -12854,7 +13316,7 @@ RemoteCall::RemoteCall(tensorflow::Scope& scope,
       auto _target = ::tensorflow::ops::AsNodeOut(scope, target);
       if (!scope.ok())
           return;
-      auto _args = ::tensorflow::ops::AsNodeOut(scope, args);
+      auto _args = ::tensorflow::ops::AsNodeOutList(scope, args);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("RemoteCall");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RemoteCall")
@@ -12869,12 +13331,13 @@ RemoteCall::RemoteCall(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ExperimentalMapAndBatchDataset::ExperimentalMapAndBatchDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input batch_size, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::Input drop_remainder, 
@@ -12888,7 +13351,7 @@ ExperimentalMapAndBatchDataset::ExperimentalMapAndBatchDataset(tensorflow::Scope
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _batch_size = ::tensorflow::ops::AsNodeOut(scope, batch_size);
@@ -12921,13 +13384,13 @@ ExperimentalMapAndBatchDataset::ExperimentalMapAndBatchDataset(tensorflow::Scope
 }
 
 SymbolicGradient::SymbolicGradient(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("SymbolicGradient");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SymbolicGradient")
@@ -12941,7 +13404,8 @@ SymbolicGradient::SymbolicGradient(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 _ArrayToList::_ArrayToList(tensorflow::Scope& scope, 
@@ -12961,20 +13425,23 @@ _ArrayToList::_ArrayToList(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 _ListToArray::_ListToArray(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
-           tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin) {
+           tensorflow::InputList input, 
+           tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_ListToArray");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_ListToArray")
                                    .Input(_input)
                                    .Attr("Tin", Tin)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -12986,10 +13453,12 @@ _ListToArray::_ListToArray(tensorflow::Scope& scope,
 }
 
 _Arg::_Arg(tensorflow::Scope& scope, 
+           tensorflow::DataType T, 
            int64_t index) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_Arg");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_Arg")
+                                   .Attr("T", T)
                                    .Attr("index", index)
       ;
       scope.UpdateBuilder(&builder);
@@ -13026,7 +13495,8 @@ ReaderRead::ReaderRead(tensorflow::Scope& scope,
 MirrorPad::MirrorPad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::string mode) {
+           tensorflow::string mode, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -13039,6 +13509,7 @@ MirrorPad::MirrorPad(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_paddings)
                                    .Attr("mode", mode)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13082,6 +13553,7 @@ MatrixSolveLs::MatrixSolveLs(tensorflow::Scope& scope,
            tensorflow::Input matrix, 
            tensorflow::Input rhs, 
            tensorflow::Input l2_regularizer, 
+           tensorflow::DataType T, 
            bool fast) {
       if (!scope.ok())
           return;
@@ -13098,6 +13570,7 @@ MatrixSolveLs::MatrixSolveLs(tensorflow::Scope& scope,
                                    .Input(_matrix)
                                    .Input(_rhs)
                                    .Input(_l2_regularizer)
+                                   .Attr("T", T)
                                    .Attr("fast", fast)
       ;
       scope.UpdateBuilder(&builder);
@@ -13127,7 +13600,8 @@ ExperimentalIdentityIndexedDataset::ExperimentalIdentityIndexedDataset(tensorflo
 }
 
 Sinh::Sinh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -13135,6 +13609,7 @@ Sinh::Sinh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Sinh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sinh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13207,7 +13682,8 @@ SparseReduceSumSparse::SparseReduceSumSparse(tensorflow::Scope& scope,
 }
 
 Relu::Relu(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -13215,6 +13691,7 @@ Relu::Relu(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Relu");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Relu")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13228,7 +13705,8 @@ MatMul::MatMul(tensorflow::Scope& scope,
            tensorflow::Input a, 
            tensorflow::Input b, 
            bool transpose_a, 
-           bool transpose_b) {
+           bool transpose_b, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a = ::tensorflow::ops::AsNodeOut(scope, a);
@@ -13242,6 +13720,7 @@ MatMul::MatMul(tensorflow::Scope& scope,
                                    .Input(_b)
                                    .Attr("transpose_a", transpose_a)
                                    .Attr("transpose_b", transpose_b)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13280,7 +13759,8 @@ ExperimentalThreadPoolDataset::ExperimentalThreadPoolDataset(tensorflow::Scope& 
 
 SoftplusGrad::SoftplusGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -13292,6 +13772,7 @@ SoftplusGrad::SoftplusGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SoftplusGrad")
                                    .Input(_gradients)
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13329,7 +13810,8 @@ QuantizeAndDequantizeV3::QuantizeAndDequantizeV3(tensorflow::Scope& scope,
            tensorflow::Input input_max, 
            tensorflow::Input num_bits, 
            bool signed_input, 
-           bool range_given) {
+           bool range_given, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -13351,6 +13833,7 @@ QuantizeAndDequantizeV3::QuantizeAndDequantizeV3(tensorflow::Scope& scope,
                                    .Input(_num_bits)
                                    .Attr("signed_input", signed_input)
                                    .Attr("range_given", range_given)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13362,7 +13845,8 @@ QuantizeAndDequantizeV3::QuantizeAndDequantizeV3(tensorflow::Scope& scope,
 
 Mul::Mul(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -13374,6 +13858,7 @@ Mul::Mul(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Mul")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13386,6 +13871,7 @@ Mul::Mul(tensorflow::Scope& scope,
 BatchToSpace::BatchToSpace(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input crops, 
+           tensorflow::DataType T, 
            int64_t block_size) {
       if (!scope.ok())
           return;
@@ -13398,6 +13884,7 @@ BatchToSpace::BatchToSpace(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchToSpace")
                                    .Input(_input)
                                    .Input(_crops)
+                                   .Attr("T", T)
                                    .Attr("block_size", block_size)
       ;
       scope.UpdateBuilder(&builder);
@@ -13468,7 +13955,8 @@ AddSparseToTensorsMap::AddSparseToTensorsMap(tensorflow::Scope& scope,
 }
 
 Elu::Elu(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -13476,6 +13964,7 @@ Elu::Elu(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Elu");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Elu")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13531,14 +14020,14 @@ ExperimentalIteratorGetDevice::ExperimentalIteratorGetDevice(tensorflow::Scope& 
 }
 
 StringFormat::StringFormat(tensorflow::Scope& scope, 
-           tensorflow::Input inputs, 
+           tensorflow::InputList inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::string ctemplate, 
            tensorflow::string placeholder, 
            int64_t summarize) {
       if (!scope.ok())
           return;
-      auto _inputs = ::tensorflow::ops::AsNodeOut(scope, inputs);
+      auto _inputs = ::tensorflow::ops::AsNodeOutList(scope, inputs);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("StringFormat");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StringFormat")
@@ -13760,7 +14249,8 @@ ExperimentalSetStatsAggregatorDataset::ExperimentalSetStatsAggregatorDataset(ten
 }
 
 IFFT3D::IFFT3D(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tcomplex) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -13768,6 +14258,7 @@ IFFT3D::IFFT3D(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("IFFT3D");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IFFT3D")
                                    .Input(_input)
+                                   .Attr("Tcomplex", Tcomplex)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13779,7 +14270,8 @@ IFFT3D::IFFT3D(tensorflow::Scope& scope,
 
 _UnaryOpsComposition::_UnaryOpsComposition(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> op_names) {
+           tensorflow::gtl::ArraySlice<tensorflow::string> op_names, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -13788,6 +14280,7 @@ _UnaryOpsComposition::_UnaryOpsComposition(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_UnaryOpsComposition")
                                    .Input(_x)
                                    .Attr("op_names", op_names)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13798,7 +14291,8 @@ _UnaryOpsComposition::_UnaryOpsComposition(tensorflow::Scope& scope,
 }
 
 BatchMatrixDeterminant::BatchMatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -13806,6 +14300,7 @@ BatchMatrixDeterminant::BatchMatrixDeterminant(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BatchMatrixDeterminant");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatrixDeterminant")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -13891,7 +14386,7 @@ For::For(tensorflow::Scope& scope,
            tensorflow::Input start, 
            tensorflow::Input limit, 
            tensorflow::Input delta, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList body) {
       if (!scope.ok())
@@ -13905,7 +14400,7 @@ For::For(tensorflow::Scope& scope,
       auto _delta = ::tensorflow::ops::AsNodeOut(scope, delta);
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("For");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "For")
@@ -13921,12 +14416,13 @@ For::For(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ExperimentalParallelInterleaveDataset::ExperimentalParallelInterleaveDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::Input sloppy, 
@@ -13941,7 +14437,7 @@ ExperimentalParallelInterleaveDataset::ExperimentalParallelInterleaveDataset(ten
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _cycle_length = ::tensorflow::ops::AsNodeOut(scope, cycle_length);
@@ -14045,7 +14541,7 @@ StageClear::StageClear(tensorflow::Scope& scope,
 
 ExperimentalMapDataset::ExperimentalMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -14057,7 +14553,7 @@ ExperimentalMapDataset::ExperimentalMapDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalMapDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalMapDataset")
@@ -14081,6 +14577,7 @@ ExperimentalMapDataset::ExperimentalMapDataset(tensorflow::Scope& scope,
 BiasAdd::BiasAdd(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            tensorflow::Input bias, 
+           tensorflow::DataType T, 
            tensorflow::string data_format) {
       if (!scope.ok())
           return;
@@ -14093,6 +14590,7 @@ BiasAdd::BiasAdd(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BiasAdd")
                                    .Input(_value)
                                    .Input(_bias)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
@@ -14105,10 +14603,10 @@ BiasAdd::BiasAdd(tensorflow::Scope& scope,
 
 ExperimentalGroupByReducerDataset::ExperimentalGroupByReducerDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input key_func_other_arguments, 
-           tensorflow::Input init_func_other_arguments, 
-           tensorflow::Input reduce_func_other_arguments, 
-           tensorflow::Input finalize_func_other_arguments, 
+           tensorflow::InputList key_func_other_arguments, 
+           tensorflow::InputList init_func_other_arguments, 
+           tensorflow::InputList reduce_func_other_arguments, 
+           tensorflow::InputList finalize_func_other_arguments, 
            tensorflow::NameAttrList key_func, 
            tensorflow::NameAttrList init_func, 
            tensorflow::NameAttrList reduce_func, 
@@ -14124,16 +14622,16 @@ ExperimentalGroupByReducerDataset::ExperimentalGroupByReducerDataset(tensorflow:
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _key_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, key_func_other_arguments);
+      auto _key_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, key_func_other_arguments);
       if (!scope.ok())
           return;
-      auto _init_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, init_func_other_arguments);
+      auto _init_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, init_func_other_arguments);
       if (!scope.ok())
           return;
-      auto _reduce_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, reduce_func_other_arguments);
+      auto _reduce_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, reduce_func_other_arguments);
       if (!scope.ok())
           return;
-      auto _finalize_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, finalize_func_other_arguments);
+      auto _finalize_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, finalize_func_other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalGroupByReducerDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalGroupByReducerDataset")
@@ -14222,7 +14720,8 @@ FIFOQueueV2::FIFOQueueV2(tensorflow::Scope& scope,
 BatchToSpaceND::BatchToSpaceND(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input block_shape, 
-           tensorflow::Input crops) {
+           tensorflow::Input crops, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -14238,6 +14737,7 @@ BatchToSpaceND::BatchToSpaceND(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_block_shape)
                                    .Input(_crops)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14337,8 +14837,8 @@ LogUniformCandidateSampler::LogUniformCandidateSampler(tensorflow::Scope& scope,
 }
 
 MapDefun::MapDefun(tensorflow::Scope& scope, 
-           tensorflow::Input arguments, 
-           tensorflow::Input captured_inputs, 
+           tensorflow::InputList arguments, 
+           tensorflow::InputList captured_inputs, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcaptured, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -14346,10 +14846,10 @@ MapDefun::MapDefun(tensorflow::Scope& scope,
            tensorflow::NameAttrList f) {
       if (!scope.ok())
           return;
-      auto _arguments = ::tensorflow::ops::AsNodeOut(scope, arguments);
+      auto _arguments = ::tensorflow::ops::AsNodeOutList(scope, arguments);
       if (!scope.ok())
           return;
-      auto _captured_inputs = ::tensorflow::ops::AsNodeOut(scope, captured_inputs);
+      auto _captured_inputs = ::tensorflow::ops::AsNodeOutList(scope, captured_inputs);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("MapDefun");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MapDefun")
@@ -14366,7 +14866,8 @@ MapDefun::MapDefun(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ExperimentalCSVDataset::ExperimentalCSVDataset(tensorflow::Scope& scope, 
@@ -14378,7 +14879,7 @@ ExperimentalCSVDataset::ExperimentalCSVDataset(tensorflow::Scope& scope,
            tensorflow::Input use_quote_delim, 
            tensorflow::Input na_value, 
            tensorflow::Input select_cols, 
-           tensorflow::Input record_defaults, 
+           tensorflow::InputList record_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
@@ -14407,7 +14908,7 @@ ExperimentalCSVDataset::ExperimentalCSVDataset(tensorflow::Scope& scope,
       auto _select_cols = ::tensorflow::ops::AsNodeOut(scope, select_cols);
       if (!scope.ok())
           return;
-      auto _record_defaults = ::tensorflow::ops::AsNodeOut(scope, record_defaults);
+      auto _record_defaults = ::tensorflow::ops::AsNodeOutList(scope, record_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalCSVDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalCSVDataset")
@@ -14434,7 +14935,8 @@ ExperimentalCSVDataset::ExperimentalCSVDataset(tensorflow::Scope& scope,
 UnsortedSegmentMin::UnsortedSegmentMin(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -14450,6 +14952,7 @@ UnsortedSegmentMin::UnsortedSegmentMin(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14461,7 +14964,8 @@ UnsortedSegmentMin::UnsortedSegmentMin(tensorflow::Scope& scope,
 
 SegmentMin::SegmentMin(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -14473,6 +14977,7 @@ SegmentMin::SegmentMin(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SegmentMin")
                                    .Input(_data)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14509,7 +15014,7 @@ TensorForestTreePredict::TensorForestTreePredict(tensorflow::Scope& scope,
 
 EncodeProto::EncodeProto(tensorflow::Scope& scope, 
            tensorflow::Input sizes, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::string> field_names, 
            tensorflow::string message_type, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tinput_types, 
@@ -14519,7 +15024,7 @@ EncodeProto::EncodeProto(tensorflow::Scope& scope,
       auto _sizes = ::tensorflow::ops::AsNodeOut(scope, sizes);
       if (!scope.ok())
           return;
-      auto _values = ::tensorflow::ops::AsNodeOut(scope, values);
+      auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("EncodeProto");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "EncodeProto")
@@ -14567,7 +15072,8 @@ ExperimentalDirectedInterleaveDataset::ExperimentalDirectedInterleaveDataset(ten
 
 Minimum::Minimum(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -14579,6 +15085,7 @@ Minimum::Minimum(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Minimum")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14652,7 +15159,7 @@ WriteSummary::WriteSummary(tensorflow::Scope& scope,
 }
 
 Batch::Batch(tensorflow::Scope& scope, 
-           tensorflow::Input in_tensors, 
+           tensorflow::InputList in_tensors, 
            tensorflow::gtl::ArraySlice<int64_t> allowed_batch_sizes, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
@@ -14665,7 +15172,7 @@ Batch::Batch(tensorflow::Scope& scope,
            int64_t grad_timeout_micros) {
       if (!scope.ok())
           return;
-      auto _in_tensors = ::tensorflow::ops::AsNodeOut(scope, in_tensors);
+      auto _in_tensors = ::tensorflow::ops::AsNodeOutList(scope, in_tensors);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("Batch");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Batch")
@@ -14686,12 +15193,13 @@ Batch::Batch(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ParallelInterleaveDatasetV2::ParallelInterleaveDatasetV2(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::Input num_parallel_calls, 
@@ -14705,7 +15213,7 @@ ParallelInterleaveDatasetV2::ParallelInterleaveDatasetV2(tensorflow::Scope& scop
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _cycle_length = ::tensorflow::ops::AsNodeOut(scope, cycle_length);
@@ -14784,7 +15292,8 @@ MaxPoolGradGrad::MaxPoolGradGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -14804,6 +15313,7 @@ MaxPoolGradGrad::MaxPoolGradGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14850,7 +15360,7 @@ WrapDatasetVariant::WrapDatasetVariant(tensorflow::Scope& scope,
 }
 
 Stage::Stage(tensorflow::Scope& scope, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
@@ -14858,7 +15368,7 @@ Stage::Stage(tensorflow::Scope& scope,
            int64_t memory_limit) {
       if (!scope.ok())
           return;
-      auto _values = ::tensorflow::ops::AsNodeOut(scope, values);
+      auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("Stage");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Stage")
@@ -14877,11 +15387,11 @@ Stage::Stage(tensorflow::Scope& scope,
 }
 
 IdentityN::IdentityN(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("IdentityN");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "IdentityN")
@@ -14893,7 +15403,8 @@ IdentityN::IdentityN(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 OptionalHasValue::OptionalHasValue(tensorflow::Scope& scope, 
@@ -14916,7 +15427,8 @@ OptionalHasValue::OptionalHasValue(tensorflow::Scope& scope,
 
 Qr::Qr(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool full_matrices) {
+           bool full_matrices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -14925,6 +15437,7 @@ Qr::Qr(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Qr")
                                    .Input(_input)
                                    .Attr("full_matrices", full_matrices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -14935,7 +15448,7 @@ Qr::Qr(tensorflow::Scope& scope,
 }
 
 StatefulPartitionedCall::StatefulPartitionedCall(tensorflow::Scope& scope, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList f, 
@@ -14944,7 +15457,7 @@ StatefulPartitionedCall::StatefulPartitionedCall(tensorflow::Scope& scope,
            tensorflow::string executor_type) {
       if (!scope.ok())
           return;
-      auto _args = ::tensorflow::ops::AsNodeOut(scope, args);
+      auto _args = ::tensorflow::ops::AsNodeOutList(scope, args);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("StatefulPartitionedCall");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StatefulPartitionedCall")
@@ -14961,15 +15474,16 @@ StatefulPartitionedCall::StatefulPartitionedCall(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 OptionalFromValue::OptionalFromValue(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types) {
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("OptionalFromValue");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "OptionalFromValue")
@@ -15167,7 +15681,8 @@ SparseSegmentSqrtNGrad::SparseSegmentSqrtNGrad(tensorflow::Scope& scope,
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input output_dim0) {
+           tensorflow::Input output_dim0, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _grad = ::tensorflow::ops::AsNodeOut(scope, grad);
@@ -15187,6 +15702,7 @@ SparseSegmentSqrtNGrad::SparseSegmentSqrtNGrad(tensorflow::Scope& scope,
                                    .Input(_indices)
                                    .Input(_segment_ids)
                                    .Input(_output_dim0)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15309,7 +15825,8 @@ IteratorFromStringHandle::IteratorFromStringHandle(tensorflow::Scope& scope,
 
 CheckNumerics::CheckNumerics(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::string message) {
+           tensorflow::string message, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -15318,6 +15835,7 @@ CheckNumerics::CheckNumerics(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CheckNumerics")
                                    .Input(_tensor)
                                    .Attr("message", message)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15329,7 +15847,8 @@ CheckNumerics::CheckNumerics(tensorflow::Scope& scope,
 
 BroadcastTo::BroadcastTo(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input shape) {
+           tensorflow::Input shape, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -15341,6 +15860,7 @@ BroadcastTo::BroadcastTo(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BroadcastTo")
                                    .Input(_input)
                                    .Input(_shape)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15369,7 +15889,8 @@ IteratorToStringHandle::IteratorToStringHandle(tensorflow::Scope& scope,
 }
 
 Atanh::Atanh(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -15377,6 +15898,7 @@ Atanh::Atanh(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Atanh");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Atanh")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15411,6 +15933,7 @@ MakeIterator::MakeIterator(tensorflow::Scope& scope,
 UniqueWithCountsV2::UniqueWithCountsV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input axis, 
+           tensorflow::DataType T, 
            tensorflow::DataType out_idx) {
       if (!scope.ok())
           return;
@@ -15423,6 +15946,7 @@ UniqueWithCountsV2::UniqueWithCountsV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "UniqueWithCountsV2")
                                    .Input(_x)
                                    .Input(_axis)
+                                   .Attr("T", T)
                                    .Attr("out_idx", out_idx)
       ;
       scope.UpdateBuilder(&builder);
@@ -15451,7 +15975,8 @@ AnonymousIterator::AnonymousIterator(tensorflow::Scope& scope,
 }
 
 DebugGradientRefIdentity::DebugGradientRefIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -15459,6 +15984,7 @@ DebugGradientRefIdentity::DebugGradientRefIdentity(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DebugGradientRefIdentity");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DebugGradientRefIdentity")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15682,6 +16208,7 @@ MaxPoolV2::MaxPoolV2(tensorflow::Scope& scope,
            tensorflow::Input ksize, 
            tensorflow::Input strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T, 
            tensorflow::string data_format) {
       if (!scope.ok())
           return;
@@ -15699,6 +16226,7 @@ MaxPoolV2::MaxPoolV2(tensorflow::Scope& scope,
                                    .Input(_ksize)
                                    .Input(_strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
@@ -15715,7 +16243,8 @@ QuantizedMul::QuantizedMul(tensorflow::Scope& scope,
            tensorflow::Input min_x, 
            tensorflow::Input max_x, 
            tensorflow::Input min_y, 
-           tensorflow::Input max_y) {
+           tensorflow::Input max_y, 
+           tensorflow::DataType Toutput) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -15743,6 +16272,7 @@ QuantizedMul::QuantizedMul(tensorflow::Scope& scope,
                                    .Input(_max_x)
                                    .Input(_min_y)
                                    .Input(_max_y)
+                                   .Attr("Toutput", Toutput)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15820,13 +16350,14 @@ CudnnRNN::CudnnRNN(tensorflow::Scope& scope,
            tensorflow::Input input_h, 
            tensorflow::Input input_c, 
            tensorflow::Input params, 
-           bool is_training, 
+           tensorflow::DataType T, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           bool is_training) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -15846,13 +16377,14 @@ CudnnRNN::CudnnRNN(tensorflow::Scope& scope,
                                    .Input(_input_h)
                                    .Input(_input_c)
                                    .Input(_params)
-                                   .Attr("is_training", is_training)
+                                   .Attr("T", T)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("is_training", is_training)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -15891,7 +16423,8 @@ BatchDataset::BatchDataset(tensorflow::Scope& scope,
 
 SoftsignGrad::SoftsignGrad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -15903,6 +16436,7 @@ SoftsignGrad::SoftsignGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SoftsignGrad")
                                    .Input(_gradients)
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16045,7 +16579,8 @@ MaxPool3DGrad::MaxPool3DGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -16065,6 +16600,7 @@ MaxPool3DGrad::MaxPool3DGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16076,7 +16612,7 @@ MaxPool3DGrad::MaxPool3DGrad(tensorflow::Scope& scope,
 
 InterleaveDataset::InterleaveDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input cycle_length, 
            tensorflow::Input block_length, 
            tensorflow::NameAttrList f, 
@@ -16088,7 +16624,7 @@ InterleaveDataset::InterleaveDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _cycle_length = ::tensorflow::ops::AsNodeOut(scope, cycle_length);
@@ -16117,7 +16653,8 @@ InterleaveDataset::InterleaveDataset(tensorflow::Scope& scope,
 
 TanhGrad::TanhGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -16129,6 +16666,7 @@ TanhGrad::TanhGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TanhGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16195,7 +16733,7 @@ LoopCond::LoopCond(tensorflow::Scope& scope,
 
 ParallelMapDataset::ParallelMapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
@@ -16209,7 +16747,7 @@ ParallelMapDataset::ParallelMapDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _num_parallel_calls = ::tensorflow::ops::AsNodeOut(scope, num_parallel_calls);
@@ -16237,7 +16775,8 @@ ParallelMapDataset::ParallelMapDataset(tensorflow::Scope& scope,
 
 ReciprocalGrad::ReciprocalGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -16249,6 +16788,7 @@ ReciprocalGrad::ReciprocalGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ReciprocalGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16262,7 +16802,8 @@ QuantizedReshape::QuantizedReshape(tensorflow::Scope& scope,
            tensorflow::Input tensor, 
            tensorflow::Input shape, 
            tensorflow::Input input_min, 
-           tensorflow::Input input_max) {
+           tensorflow::Input input_max, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -16282,6 +16823,7 @@ QuantizedReshape::QuantizedReshape(tensorflow::Scope& scope,
                                    .Input(_shape)
                                    .Input(_input_min)
                                    .Input(_input_max)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16293,7 +16835,7 @@ QuantizedReshape::QuantizedReshape(tensorflow::Scope& scope,
 
 MapDataset::MapDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -16305,7 +16847,7 @@ MapDataset::MapDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("MapDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MapDataset")
@@ -16359,9 +16901,10 @@ Conv2DBackpropFilter::Conv2DBackpropFilter(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
+           tensorflow::DataType T, 
            bool use_cudnn_on_gpu, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -16379,9 +16922,10 @@ Conv2DBackpropFilter::Conv2DBackpropFilter(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("use_cudnn_on_gpu", use_cudnn_on_gpu)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16410,7 +16954,8 @@ IteratorGetNextSync::IteratorGetNextSync(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ReaderNumRecordsProduced::ReaderNumRecordsProduced(tensorflow::Scope& scope, 
@@ -16500,7 +17045,8 @@ QueueDequeueV2::QueueDequeueV2(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ReaderReadUpTo::ReaderReadUpTo(tensorflow::Scope& scope, 
@@ -16534,6 +17080,7 @@ ReaderReadUpTo::ReaderReadUpTo(tensorflow::Scope& scope,
 Unpack::Unpack(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            int64_t num, 
+           tensorflow::DataType T, 
            int64_t axis) {
       if (!scope.ok())
           return;
@@ -16543,6 +17090,7 @@ Unpack::Unpack(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Unpack")
                                    .Input(_value)
                                    .Attr("num", num)
+                                   .Attr("T", T)
                                    .Attr("axis", axis)
       ;
       scope.UpdateBuilder(&builder);
@@ -16598,9 +17146,9 @@ PlaceholderV2::PlaceholderV2(tensorflow::Scope& scope,
 }
 
 GeneratorDataset::GeneratorDataset(tensorflow::Scope& scope, 
-           tensorflow::Input init_func_other_args, 
-           tensorflow::Input next_func_other_args, 
-           tensorflow::Input finalize_func_other_args, 
+           tensorflow::InputList init_func_other_args, 
+           tensorflow::InputList next_func_other_args, 
+           tensorflow::InputList finalize_func_other_args, 
            tensorflow::NameAttrList init_func, 
            tensorflow::NameAttrList next_func, 
            tensorflow::NameAttrList finalize_func, 
@@ -16611,13 +17159,13 @@ GeneratorDataset::GeneratorDataset(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
           return;
-      auto _init_func_other_args = ::tensorflow::ops::AsNodeOut(scope, init_func_other_args);
+      auto _init_func_other_args = ::tensorflow::ops::AsNodeOutList(scope, init_func_other_args);
       if (!scope.ok())
           return;
-      auto _next_func_other_args = ::tensorflow::ops::AsNodeOut(scope, next_func_other_args);
+      auto _next_func_other_args = ::tensorflow::ops::AsNodeOutList(scope, next_func_other_args);
       if (!scope.ok())
           return;
-      auto _finalize_func_other_args = ::tensorflow::ops::AsNodeOut(scope, finalize_func_other_args);
+      auto _finalize_func_other_args = ::tensorflow::ops::AsNodeOutList(scope, finalize_func_other_args);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("GeneratorDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "GeneratorDataset")
@@ -16642,12 +17190,12 @@ GeneratorDataset::GeneratorDataset(tensorflow::Scope& scope,
 }
 
 TensorSliceDataset::TensorSliceDataset(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("TensorSliceDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorSliceDataset")
@@ -16684,7 +17232,8 @@ StringToHashBucket::StringToHashBucket(tensorflow::Scope& scope,
 }
 
 Softsign::Softsign(tensorflow::Scope& scope, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -16692,6 +17241,7 @@ Softsign::Softsign(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Softsign");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Softsign")
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16707,7 +17257,8 @@ QuantizedAdd::QuantizedAdd(tensorflow::Scope& scope,
            tensorflow::Input min_x, 
            tensorflow::Input max_x, 
            tensorflow::Input min_y, 
-           tensorflow::Input max_y) {
+           tensorflow::Input max_y, 
+           tensorflow::DataType Toutput) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -16735,6 +17286,7 @@ QuantizedAdd::QuantizedAdd(tensorflow::Scope& scope,
                                    .Input(_max_x)
                                    .Input(_min_y)
                                    .Input(_max_y)
+                                   .Attr("Toutput", Toutput)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16802,12 +17354,12 @@ SparseTensorSliceDataset::SparseTensorSliceDataset(tensorflow::Scope& scope,
 }
 
 TensorDataset::TensorDataset(tensorflow::Scope& scope, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("TensorDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorDataset")
@@ -16824,7 +17376,8 @@ TensorDataset::TensorDataset(tensorflow::Scope& scope,
 }
 
 TensorListElementShape::TensorListElementShape(tensorflow::Scope& scope, 
-           tensorflow::Input input_handle) {
+           tensorflow::Input input_handle, 
+           tensorflow::DataType shape_type) {
       if (!scope.ok())
           return;
       auto _input_handle = ::tensorflow::ops::AsNodeOut(scope, input_handle);
@@ -16832,6 +17385,7 @@ TensorListElementShape::TensorListElementShape(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("TensorListElementShape");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorListElementShape")
                                    .Input(_input_handle)
+                                   .Attr("shape_type", shape_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16844,6 +17398,7 @@ TensorListElementShape::TensorListElementShape(tensorflow::Scope& scope,
 NcclReduce::NcclReduce(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string reduction, 
+           tensorflow::DataType T, 
            int64_t num_devices) {
       if (!scope.ok())
           return;
@@ -16853,6 +17408,7 @@ NcclReduce::NcclReduce(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "NcclReduce")
                                    .Input(_input)
                                    .Attr("reduction", reduction)
+                                   .Attr("T", T)
                                    .Attr("num_devices", num_devices)
       ;
       scope.UpdateBuilder(&builder);
@@ -16870,6 +17426,7 @@ ApplyProximalAdagrad::ApplyProximalAdagrad(tensorflow::Scope& scope,
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -16898,6 +17455,7 @@ ApplyProximalAdagrad::ApplyProximalAdagrad(tensorflow::Scope& scope,
                                    .Input(_l1)
                                    .Input(_l2)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -16911,7 +17469,8 @@ ApplyProximalAdagrad::ApplyProximalAdagrad(tensorflow::Scope& scope,
 Svd::Svd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            bool compute_uv, 
-           bool full_matrices) {
+           bool full_matrices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -16921,6 +17480,7 @@ Svd::Svd(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("compute_uv", compute_uv)
                                    .Attr("full_matrices", full_matrices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16934,7 +17494,8 @@ SparseSegmentMeanGrad::SparseSegmentMeanGrad(tensorflow::Scope& scope,
            tensorflow::Input grad, 
            tensorflow::Input indices, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input output_dim0) {
+           tensorflow::Input output_dim0, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _grad = ::tensorflow::ops::AsNodeOut(scope, grad);
@@ -16954,6 +17515,7 @@ SparseSegmentMeanGrad::SparseSegmentMeanGrad(tensorflow::Scope& scope,
                                    .Input(_indices)
                                    .Input(_segment_ids)
                                    .Input(_output_dim0)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16964,7 +17526,8 @@ SparseSegmentMeanGrad::SparseSegmentMeanGrad(tensorflow::Scope& scope,
 }
 
 MatrixExponential::MatrixExponential(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -16972,6 +17535,7 @@ MatrixExponential::MatrixExponential(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixExponential");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixExponential")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -16983,7 +17547,8 @@ MatrixExponential::MatrixExponential(tensorflow::Scope& scope,
 
 GatherNd::GatherNd(tensorflow::Scope& scope, 
            tensorflow::Input params, 
-           tensorflow::Input indices) {
+           tensorflow::Input indices, 
+           tensorflow::DataType Tparams) {
       if (!scope.ok())
           return;
       auto _params = ::tensorflow::ops::AsNodeOut(scope, params);
@@ -16995,6 +17560,7 @@ GatherNd::GatherNd(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "GatherNd")
                                    .Input(_params)
                                    .Input(_indices)
+                                   .Attr("Tparams", Tparams)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17028,6 +17594,7 @@ MaxPool::MaxPool(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T, 
            tensorflow::string data_format) {
       if (!scope.ok())
           return;
@@ -17039,6 +17606,7 @@ MaxPool::MaxPool(tensorflow::Scope& scope,
                                    .Attr("ksize", ksize)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
@@ -17115,7 +17683,7 @@ SaveV2::SaveV2(tensorflow::Scope& scope,
            tensorflow::Input prefix, 
            tensorflow::Input tensor_names, 
            tensorflow::Input shape_and_slices, 
-           tensorflow::Input tensors, 
+           tensorflow::InputList tensors, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes) {
       if (!scope.ok())
           return;
@@ -17128,7 +17696,7 @@ SaveV2::SaveV2(tensorflow::Scope& scope,
       auto _shape_and_slices = ::tensorflow::ops::AsNodeOut(scope, shape_and_slices);
       if (!scope.ok())
           return;
-      auto _tensors = ::tensorflow::ops::AsNodeOut(scope, tensors);
+      auto _tensors = ::tensorflow::ops::AsNodeOutList(scope, tensors);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("SaveV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SaveV2")
@@ -17148,7 +17716,7 @@ SaveV2::SaveV2(tensorflow::Scope& scope,
 OrderedMapStage::OrderedMapStage(tensorflow::Scope& scope, 
            tensorflow::Input key, 
            tensorflow::Input indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> fake_dtypes, 
            tensorflow::string container, 
@@ -17163,7 +17731,7 @@ OrderedMapStage::OrderedMapStage(tensorflow::Scope& scope,
       auto _indices = ::tensorflow::ops::AsNodeOut(scope, indices);
       if (!scope.ok())
           return;
-      auto _values = ::tensorflow::ops::AsNodeOut(scope, values);
+      auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("OrderedMapStage");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "OrderedMapStage")
@@ -17188,7 +17756,8 @@ RandomGamma::RandomGamma(tensorflow::Scope& scope,
            tensorflow::Input shape, 
            tensorflow::Input alpha, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _shape = ::tensorflow::ops::AsNodeOut(scope, shape);
@@ -17202,6 +17771,7 @@ RandomGamma::RandomGamma(tensorflow::Scope& scope,
                                    .Input(_alpha)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17216,6 +17786,7 @@ QuantizedResizeBilinear::QuantizedResizeBilinear(tensorflow::Scope& scope,
            tensorflow::Input size, 
            tensorflow::Input min, 
            tensorflow::Input max, 
+           tensorflow::DataType T, 
            bool align_corners) {
       if (!scope.ok())
           return;
@@ -17236,6 +17807,7 @@ QuantizedResizeBilinear::QuantizedResizeBilinear(tensorflow::Scope& scope,
                                    .Input(_size)
                                    .Input(_min)
                                    .Input(_max)
+                                   .Attr("T", T)
                                    .Attr("align_corners", align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -17294,7 +17866,8 @@ MapIncompleteSize::MapIncompleteSize(tensorflow::Scope& scope,
 
 MatrixInverse::MatrixInverse(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool adjoint) {
+           bool adjoint, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -17303,6 +17876,7 @@ MatrixInverse::MatrixInverse(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixInverse")
                                    .Input(_input)
                                    .Attr("adjoint", adjoint)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17318,8 +17892,9 @@ ApplyMomentum::ApplyMomentum(tensorflow::Scope& scope,
            tensorflow::Input lr, 
            tensorflow::Input grad, 
            tensorflow::Input momentum, 
-           bool use_nesterov, 
-           bool use_locking) {
+           tensorflow::DataType T, 
+           bool use_locking, 
+           bool use_nesterov) {
       if (!scope.ok())
           return;
       auto _var = ::tensorflow::ops::AsNodeOut(scope, var);
@@ -17343,8 +17918,9 @@ ApplyMomentum::ApplyMomentum(tensorflow::Scope& scope,
                                    .Input(_lr)
                                    .Input(_grad)
                                    .Input(_momentum)
-                                   .Attr("use_nesterov", use_nesterov)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
+                                   .Attr("use_nesterov", use_nesterov)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17355,7 +17931,8 @@ ApplyMomentum::ApplyMomentum(tensorflow::Scope& scope,
 }
 
 Acos::Acos(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -17363,6 +17940,7 @@ Acos::Acos(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Acos");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Acos")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17374,9 +17952,9 @@ Acos::Acos(tensorflow::Scope& scope,
 
 ExperimentalGroupByWindowDataset::ExperimentalGroupByWindowDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input key_func_other_arguments, 
-           tensorflow::Input reduce_func_other_arguments, 
-           tensorflow::Input window_size_func_other_arguments, 
+           tensorflow::InputList key_func_other_arguments, 
+           tensorflow::InputList reduce_func_other_arguments, 
+           tensorflow::InputList window_size_func_other_arguments, 
            tensorflow::NameAttrList key_func, 
            tensorflow::NameAttrList reduce_func, 
            tensorflow::NameAttrList window_size_func, 
@@ -17390,13 +17968,13 @@ ExperimentalGroupByWindowDataset::ExperimentalGroupByWindowDataset(tensorflow::S
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _key_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, key_func_other_arguments);
+      auto _key_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, key_func_other_arguments);
       if (!scope.ok())
           return;
-      auto _reduce_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, reduce_func_other_arguments);
+      auto _reduce_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, reduce_func_other_arguments);
       if (!scope.ok())
           return;
-      auto _window_size_func_other_arguments = ::tensorflow::ops::AsNodeOut(scope, window_size_func_other_arguments);
+      auto _window_size_func_other_arguments = ::tensorflow::ops::AsNodeOutList(scope, window_size_func_other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalGroupByWindowDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalGroupByWindowDataset")
@@ -17493,6 +18071,7 @@ ResourceApplyAdamWithAmsgrad::ResourceApplyAdamWithAmsgrad(tensorflow::Scope& sc
 _NcclBroadcastRecv::_NcclBroadcastRecv(tensorflow::Scope& scope, 
            tensorflow::Input shape, 
            tensorflow::string shared_name, 
+           tensorflow::DataType T, 
            int64_t num_devices) {
       if (!scope.ok())
           return;
@@ -17502,6 +18081,7 @@ _NcclBroadcastRecv::_NcclBroadcastRecv(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_NcclBroadcastRecv")
                                    .Input(_shape)
                                    .Attr("shared_name", shared_name)
+                                   .Attr("T", T)
                                    .Attr("num_devices", num_devices)
       ;
       scope.UpdateBuilder(&builder);
@@ -17514,7 +18094,8 @@ _NcclBroadcastRecv::_NcclBroadcastRecv(tensorflow::Scope& scope,
 
 SegmentSum::SegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -17526,6 +18107,7 @@ SegmentSum::SegmentSum(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SegmentSum")
                                    .Input(_data)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17597,7 +18179,8 @@ Unbatch::Unbatch(tensorflow::Scope& scope,
            tensorflow::Input id, 
            tensorflow::string container, 
            tensorflow::string shared_name, 
-           int64_t timeout_micros) {
+           int64_t timeout_micros, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _batched_tensor = ::tensorflow::ops::AsNodeOut(scope, batched_tensor);
@@ -17616,6 +18199,7 @@ Unbatch::Unbatch(tensorflow::Scope& scope,
                                    .Attr("container", container)
                                    .Attr("shared_name", shared_name)
                                    .Attr("timeout_micros", timeout_micros)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17655,13 +18239,15 @@ MapUnstage::MapUnstage(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TopK::TopK(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            int64_t k, 
-           bool sorted) {
+           bool sorted, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -17671,6 +18257,7 @@ TopK::TopK(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("k", k)
                                    .Attr("sorted", sorted)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17682,7 +18269,8 @@ TopK::TopK(tensorflow::Scope& scope,
 
 ConjugateTranspose::ConjugateTranspose(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input perm) {
+           tensorflow::Input perm, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -17694,6 +18282,7 @@ ConjugateTranspose::ConjugateTranspose(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ConjugateTranspose")
                                    .Input(_x)
                                    .Input(_perm)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17733,7 +18322,8 @@ MapPeek::MapPeek(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 SparseTensorDenseMatMul::SparseTensorDenseMatMul(tensorflow::Scope& scope, 
@@ -17741,8 +18331,9 @@ SparseTensorDenseMatMul::SparseTensorDenseMatMul(tensorflow::Scope& scope,
            tensorflow::Input a_values, 
            tensorflow::Input a_shape, 
            tensorflow::Input b, 
-           bool adjoint_a, 
-           bool adjoint_b) {
+           tensorflow::DataType T, 
+           bool adjoint_b, 
+           bool adjoint_a) {
       if (!scope.ok())
           return;
       auto _a_indices = ::tensorflow::ops::AsNodeOut(scope, a_indices);
@@ -17762,8 +18353,9 @@ SparseTensorDenseMatMul::SparseTensorDenseMatMul(tensorflow::Scope& scope,
                                    .Input(_a_values)
                                    .Input(_a_shape)
                                    .Input(_b)
-                                   .Attr("adjoint_a", adjoint_a)
+                                   .Attr("T", T)
                                    .Attr("adjoint_b", adjoint_b)
+                                   .Attr("adjoint_a", adjoint_a)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17779,9 +18371,10 @@ FusedBatchNormGradV2::FusedBatchNormGradV2(tensorflow::Scope& scope,
            tensorflow::Input scale, 
            tensorflow::Input reserve_space_1, 
            tensorflow::Input reserve_space_2, 
+           tensorflow::DataType T, 
            bool is_training, 
-           tensorflow::string data_format, 
-           float epsilon) {
+           float epsilon, 
+           tensorflow::string data_format) {
       if (!scope.ok())
           return;
       auto _y_backprop = ::tensorflow::ops::AsNodeOut(scope, y_backprop);
@@ -17805,9 +18398,10 @@ FusedBatchNormGradV2::FusedBatchNormGradV2(tensorflow::Scope& scope,
                                    .Input(_scale)
                                    .Input(_reserve_space_1)
                                    .Input(_reserve_space_2)
+                                   .Attr("T", T)
                                    .Attr("is_training", is_training)
-                                   .Attr("data_format", data_format)
                                    .Attr("epsilon", epsilon)
+                                   .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17838,7 +18432,7 @@ BarrierReadySize::BarrierReadySize(tensorflow::Scope& scope,
 MapStage::MapStage(tensorflow::Scope& scope, 
            tensorflow::Input key, 
            tensorflow::Input indices, 
-           tensorflow::Input values, 
+           tensorflow::InputList values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> dtypes, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> fake_dtypes, 
            tensorflow::string container, 
@@ -17853,7 +18447,7 @@ MapStage::MapStage(tensorflow::Scope& scope,
       auto _indices = ::tensorflow::ops::AsNodeOut(scope, indices);
       if (!scope.ok())
           return;
-      auto _values = ::tensorflow::ops::AsNodeOut(scope, values);
+      auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("MapStage");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MapStage")
@@ -17894,7 +18488,8 @@ Unstage::Unstage(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Variable::Variable(tensorflow::Scope& scope, 
@@ -17948,7 +18543,8 @@ TensorArray::TensorArray(tensorflow::Scope& scope,
 
 SigmoidGrad::SigmoidGrad(tensorflow::Scope& scope, 
            tensorflow::Input y, 
-           tensorflow::Input dy) {
+           tensorflow::Input dy, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _y = ::tensorflow::ops::AsNodeOut(scope, y);
@@ -17960,6 +18556,7 @@ SigmoidGrad::SigmoidGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SigmoidGrad")
                                    .Input(_y)
                                    .Input(_dy)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -17971,7 +18568,8 @@ SigmoidGrad::SigmoidGrad(tensorflow::Scope& scope,
 
 TensorListGather::TensorListGather(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
-           tensorflow::Input indices) {
+           tensorflow::Input indices, 
+           tensorflow::DataType element_dtype) {
       if (!scope.ok())
           return;
       auto _input_handle = ::tensorflow::ops::AsNodeOut(scope, input_handle);
@@ -17983,6 +18581,7 @@ TensorListGather::TensorListGather(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorListGather")
                                    .Input(_input_handle)
                                    .Input(_indices)
+                                   .Attr("element_dtype", element_dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18130,7 +18729,8 @@ ResourceSparseApplyAdadelta::ResourceSparseApplyAdadelta(tensorflow::Scope& scop
 }
 
 Sigmoid::Sigmoid(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -18138,6 +18738,7 @@ Sigmoid::Sigmoid(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Sigmoid");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Sigmoid")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18206,7 +18807,8 @@ SparseToDense::SparseToDense(tensorflow::Scope& scope,
            tensorflow::Input output_shape, 
            tensorflow::Input sparse_values, 
            tensorflow::Input default_value, 
-           bool validate_indices) {
+           bool validate_indices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _sparse_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_indices);
@@ -18227,6 +18829,7 @@ SparseToDense::SparseToDense(tensorflow::Scope& scope,
                                    .Input(_sparse_values)
                                    .Input(_default_value)
                                    .Attr("validate_indices", validate_indices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18237,7 +18840,8 @@ SparseToDense::SparseToDense(tensorflow::Scope& scope,
 }
 
 Bitcast::Bitcast(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -18245,6 +18849,7 @@ Bitcast::Bitcast(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Bitcast");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Bitcast")
                                    .Input(_input)
+                                   .Attr("type", type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18370,8 +18975,8 @@ TensorForestCreateTreeVariable::TensorForestCreateTreeVariable(tensorflow::Scope
 }
 
 BatchFunction::BatchFunction(tensorflow::Scope& scope, 
-           tensorflow::Input in_tensors, 
-           tensorflow::Input captured_tensors, 
+           tensorflow::InputList in_tensors, 
+           tensorflow::InputList captured_tensors, 
            tensorflow::NameAttrList f, 
            tensorflow::gtl::ArraySlice<int64_t> allowed_batch_sizes, 
            tensorflow::string container, 
@@ -18386,10 +18991,10 @@ BatchFunction::BatchFunction(tensorflow::Scope& scope,
            int64_t max_enqueued_batches) {
       if (!scope.ok())
           return;
-      auto _in_tensors = ::tensorflow::ops::AsNodeOut(scope, in_tensors);
+      auto _in_tensors = ::tensorflow::ops::AsNodeOutList(scope, in_tensors);
       if (!scope.ok())
           return;
-      auto _captured_tensors = ::tensorflow::ops::AsNodeOut(scope, captured_tensors);
+      auto _captured_tensors = ::tensorflow::ops::AsNodeOutList(scope, captured_tensors);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BatchFunction");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchFunction")
@@ -18413,7 +19018,8 @@ BatchFunction::BatchFunction(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BatchDatasetV2::BatchDatasetV2(tensorflow::Scope& scope, 
@@ -18450,7 +19056,8 @@ BatchDatasetV2::BatchDatasetV2(tensorflow::Scope& scope,
 
 SelfAdjointEigV2::SelfAdjointEigV2(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           bool compute_v) {
+           bool compute_v, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -18459,6 +19066,7 @@ SelfAdjointEigV2::SelfAdjointEigV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SelfAdjointEigV2")
                                    .Input(_input)
                                    .Attr("compute_v", compute_v)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18470,6 +19078,7 @@ SelfAdjointEigV2::SelfAdjointEigV2(tensorflow::Scope& scope,
 
 Pack::Pack(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
+           tensorflow::DataType T, 
            int64_t axis) {
       if (!scope.ok())
           return;
@@ -18478,6 +19087,7 @@ Pack::Pack(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Pack");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Pack")
                                    .Input(_values)
+                                   .Attr("T", T)
                                    .Attr("axis", axis)
       ;
       scope.UpdateBuilder(&builder);
@@ -18508,13 +19118,13 @@ BarrierClose::BarrierClose(tensorflow::Scope& scope,
 }
 
 PyFunc::PyFunc(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string token, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("PyFunc");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "PyFunc")
@@ -18528,11 +19138,13 @@ PyFunc::PyFunc(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 AddN::AddN(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs) {
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _inputs = ::tensorflow::ops::AsNodeOutList(scope, inputs);
@@ -18540,6 +19152,7 @@ AddN::AddN(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("AddN");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AddN")
                                    .Input(_inputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18607,7 +19220,8 @@ ResourceApplyGradientDescent::ResourceApplyGradientDescent(tensorflow::Scope& sc
 }
 
 MatrixLogarithm::MatrixLogarithm(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -18615,6 +19229,7 @@ MatrixLogarithm::MatrixLogarithm(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixLogarithm");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixLogarithm")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18705,7 +19320,8 @@ ResourceSparseApplyProximalAdagrad::ResourceSparseApplyProximalAdagrad(tensorflo
 }
 
 Neg::Neg(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -18713,6 +19329,7 @@ Neg::Neg(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Neg");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Neg")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18747,7 +19364,8 @@ Barrier::Barrier(tensorflow::Scope& scope,
 
 Div::Div(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -18759,6 +19377,7 @@ Div::Div(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Div")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18853,7 +19472,8 @@ MultiDeviceIteratorInit::MultiDeviceIteratorInit(tensorflow::Scope& scope,
 }
 
 ComplexAbs::ComplexAbs(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -18861,6 +19481,7 @@ ComplexAbs::ComplexAbs(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ComplexAbs");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ComplexAbs")
                                    .Input(_x)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18871,7 +19492,8 @@ ComplexAbs::ComplexAbs(tensorflow::Scope& scope,
 }
 
 RGBToHSV::RGBToHSV(tensorflow::Scope& scope, 
-           tensorflow::Input images) {
+           tensorflow::Input images, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _images = ::tensorflow::ops::AsNodeOut(scope, images);
@@ -18879,6 +19501,7 @@ RGBToHSV::RGBToHSV(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("RGBToHSV");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RGBToHSV")
                                    .Input(_images)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -18891,6 +19514,7 @@ RGBToHSV::RGBToHSV(tensorflow::Scope& scope,
 ListDiff::ListDiff(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input y, 
+           tensorflow::DataType T, 
            tensorflow::DataType out_idx) {
       if (!scope.ok())
           return;
@@ -18903,6 +19527,7 @@ ListDiff::ListDiff(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ListDiff")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
                                    .Attr("out_idx", out_idx)
       ;
       scope.UpdateBuilder(&builder);
@@ -19024,10 +19649,12 @@ ReaderRestoreStateV2::ReaderRestoreStateV2(tensorflow::Scope& scope,
 }
 
 _DeviceArg::_DeviceArg(tensorflow::Scope& scope, 
+           tensorflow::DataType T, 
            int64_t index) {
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_DeviceArg");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_DeviceArg")
+                                   .Attr("T", T)
                                    .Attr("index", index)
       ;
       scope.UpdateBuilder(&builder);
@@ -19063,7 +19690,8 @@ StagePeek::StagePeek(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TensorArrayReadV2::TensorArrayReadV2(tensorflow::Scope& scope, 
@@ -19200,7 +19828,8 @@ SparseAdd::SparseAdd(tensorflow::Scope& scope,
 
 BitwiseXor::BitwiseXor(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -19212,6 +19841,7 @@ BitwiseXor::BitwiseXor(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BitwiseXor")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19328,7 +19958,8 @@ ReverseSequence::ReverseSequence(tensorflow::Scope& scope,
            tensorflow::Input input, 
            tensorflow::Input seq_lengths, 
            int64_t seq_dim, 
-           int64_t batch_dim) {
+           int64_t batch_dim, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -19342,6 +19973,7 @@ ReverseSequence::ReverseSequence(tensorflow::Scope& scope,
                                    .Input(_seq_lengths)
                                    .Attr("seq_dim", seq_dim)
                                    .Attr("batch_dim", batch_dim)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19446,7 +20078,8 @@ ShuffleDataset::ShuffleDataset(tensorflow::Scope& scope,
 
 DivNoNan::DivNoNan(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -19458,6 +20091,7 @@ DivNoNan::DivNoNan(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DivNoNan")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19518,7 +20152,8 @@ AvgPoolGrad::AvgPoolGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input_shape = ::tensorflow::ops::AsNodeOut(scope, orig_input_shape);
@@ -19534,6 +20169,7 @@ AvgPoolGrad::AvgPoolGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19545,6 +20181,7 @@ AvgPoolGrad::AvgPoolGrad(tensorflow::Scope& scope,
 
 ParallelConcat::ParallelConcat(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
+           tensorflow::DataType T, 
            tensorflow::PartialTensorShape shape) {
       if (!scope.ok())
           return;
@@ -19553,6 +20190,7 @@ ParallelConcat::ParallelConcat(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ParallelConcat");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParallelConcat")
                                    .Input(_values)
+                                   .Attr("T", T)
                                    .Attr("shape", shape)
       ;
       scope.UpdateBuilder(&builder);
@@ -19598,7 +20236,8 @@ RangeDataset::RangeDataset(tensorflow::Scope& scope,
 UnsortedSegmentMax::UnsortedSegmentMax(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input segment_ids, 
-           tensorflow::Input num_segments) {
+           tensorflow::Input num_segments, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -19614,6 +20253,7 @@ UnsortedSegmentMax::UnsortedSegmentMax(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_segment_ids)
                                    .Input(_num_segments)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19707,6 +20347,7 @@ SparseApplyFtrlV2::SparseApplyFtrlV2(tensorflow::Scope& scope,
            tensorflow::Input l2, 
            tensorflow::Input l2_shrinkage, 
            tensorflow::Input lr_power, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -19751,6 +20392,7 @@ SparseApplyFtrlV2::SparseApplyFtrlV2(tensorflow::Scope& scope,
                                    .Input(_l2)
                                    .Input(_l2_shrinkage)
                                    .Input(_lr_power)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -19762,7 +20404,8 @@ SparseApplyFtrlV2::SparseApplyFtrlV2(tensorflow::Scope& scope,
 }
 
 StackPop::StackPop(tensorflow::Scope& scope, 
-           tensorflow::Input handle) {
+           tensorflow::Input handle, 
+           tensorflow::DataType elem_type) {
       if (!scope.ok())
           return;
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
@@ -19770,6 +20413,7 @@ StackPop::StackPop(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("StackPop");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StackPop")
                                    .Input(_handle)
+                                   .Attr("elem_type", elem_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19797,7 +20441,8 @@ Stack::Stack(tensorflow::Scope& scope,
 }
 
 Abs::Abs(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -19805,6 +20450,7 @@ Abs::Abs(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Abs");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Abs")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19817,7 +20463,8 @@ Abs::Abs(tensorflow::Scope& scope,
 Gather::Gather(tensorflow::Scope& scope, 
            tensorflow::Input params, 
            tensorflow::Input indices, 
-           bool validate_indices) {
+           bool validate_indices, 
+           tensorflow::DataType Tparams) {
       if (!scope.ok())
           return;
       auto _params = ::tensorflow::ops::AsNodeOut(scope, params);
@@ -19830,6 +20477,7 @@ Gather::Gather(tensorflow::Scope& scope,
                                    .Input(_params)
                                    .Input(_indices)
                                    .Attr("validate_indices", validate_indices)
+                                   .Attr("Tparams", Tparams)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19875,7 +20523,8 @@ AvgPool3DGrad::AvgPool3DGrad(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input_shape = ::tensorflow::ops::AsNodeOut(scope, orig_input_shape);
@@ -19891,6 +20540,7 @@ AvgPool3DGrad::AvgPool3DGrad(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19965,7 +20615,8 @@ StackCloseV2::StackCloseV2(tensorflow::Scope& scope,
 }
 
 StackPopV2::StackPopV2(tensorflow::Scope& scope, 
-           tensorflow::Input handle) {
+           tensorflow::Input handle, 
+           tensorflow::DataType elem_type) {
       if (!scope.ok())
           return;
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
@@ -19973,6 +20624,7 @@ StackPopV2::StackPopV2(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("StackPopV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StackPopV2")
                                    .Input(_handle)
+                                   .Attr("elem_type", elem_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -19985,6 +20637,7 @@ StackPopV2::StackPopV2(tensorflow::Scope& scope,
 StackPushV2::StackPushV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
            tensorflow::Input elem, 
+           tensorflow::DataType T, 
            bool swap_memory) {
       if (!scope.ok())
           return;
@@ -19997,6 +20650,7 @@ StackPushV2::StackPushV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StackPushV2")
                                    .Input(_handle)
                                    .Input(_elem)
+                                   .Attr("T", T)
                                    .Attr("swap_memory", swap_memory)
       ;
       scope.UpdateBuilder(&builder);
@@ -20009,7 +20663,8 @@ StackPushV2::StackPushV2(tensorflow::Scope& scope,
 
 TileGrad::TileGrad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input multiples) {
+           tensorflow::Input multiples, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -20021,6 +20676,7 @@ TileGrad::TileGrad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TileGrad")
                                    .Input(_input)
                                    .Input(_multiples)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20054,7 +20710,8 @@ QueueDequeueUpTo::QueueDequeueUpTo(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 AudioSummary::AudioSummary(tensorflow::Scope& scope, 
@@ -20088,7 +20745,7 @@ PaddedBatchDataset::PaddedBatchDataset(tensorflow::Scope& scope,
            tensorflow::Input input_dataset, 
            tensorflow::Input batch_size, 
            tensorflow::InputList padded_shapes, 
-           tensorflow::Input padding_values, 
+           tensorflow::InputList padding_values, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
       if (!scope.ok())
@@ -20102,7 +20759,7 @@ PaddedBatchDataset::PaddedBatchDataset(tensorflow::Scope& scope,
       auto _padded_shapes = ::tensorflow::ops::AsNodeOutList(scope, padded_shapes);
       if (!scope.ok())
           return;
-      auto _padding_values = ::tensorflow::ops::AsNodeOut(scope, padding_values);
+      auto _padding_values = ::tensorflow::ops::AsNodeOutList(scope, padding_values);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("PaddedBatchDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "PaddedBatchDataset")
@@ -20196,7 +20853,8 @@ OrderedMapUnstage::OrderedMapUnstage(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 _VarHandlesOp::_VarHandlesOp(tensorflow::Scope& scope, 
@@ -20280,7 +20938,8 @@ AccumulatorTakeGradient::AccumulatorTakeGradient(tensorflow::Scope& scope,
 }
 
 ExtractJpegShape::ExtractJpegShape(tensorflow::Scope& scope, 
-           tensorflow::Input contents) {
+           tensorflow::Input contents, 
+           tensorflow::DataType output_type) {
       if (!scope.ok())
           return;
       auto _contents = ::tensorflow::ops::AsNodeOut(scope, contents);
@@ -20288,6 +20947,7 @@ ExtractJpegShape::ExtractJpegShape(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ExtractJpegShape");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExtractJpegShape")
                                    .Input(_contents)
+                                   .Attr("output_type", output_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20358,6 +21018,7 @@ LogicalNot::LogicalNot(tensorflow::Scope& scope,
 
 Lu::Lu(tensorflow::Scope& scope, 
            tensorflow::Input input, 
+           tensorflow::DataType T, 
            tensorflow::DataType output_idx_type) {
       if (!scope.ok())
           return;
@@ -20366,6 +21027,7 @@ Lu::Lu(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Lu");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Lu")
                                    .Input(_input)
+                                   .Attr("T", T)
                                    .Attr("output_idx_type", output_idx_type)
       ;
       scope.UpdateBuilder(&builder);
@@ -20490,7 +21152,8 @@ QueueDequeueManyV2::QueueDequeueManyV2(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 VarHandleOp::VarHandleOp(tensorflow::Scope& scope, 
@@ -20567,7 +21230,8 @@ QueueDequeueMany::QueueDequeueMany(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ExperimentalMaxIntraOpParallelismDataset::ExperimentalMaxIntraOpParallelismDataset(tensorflow::Scope& scope, 
@@ -20599,7 +21263,7 @@ ExperimentalMaxIntraOpParallelismDataset::ExperimentalMaxIntraOpParallelismDatas
 
 QueueEnqueueMany::QueueEnqueueMany(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms) {
       if (!scope.ok())
@@ -20607,7 +21271,7 @@ QueueEnqueueMany::QueueEnqueueMany(tensorflow::Scope& scope,
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("QueueEnqueueMany");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "QueueEnqueueMany")
@@ -20694,7 +21358,8 @@ TensorForestTreeResourceHandleOp::TensorForestTreeResourceHandleOp(tensorflow::S
 SparseSegmentSum::SparseSegmentSum(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input indices, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -20710,6 +21375,7 @@ SparseSegmentSum::SparseSegmentSum(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_indices)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20776,7 +21442,8 @@ TensorArrayWriteV3::TensorArrayWriteV3(tensorflow::Scope& scope,
 }
 
 RefMerge::RefMerge(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs) {
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _inputs = ::tensorflow::ops::AsNodeOutList(scope, inputs);
@@ -20784,6 +21451,7 @@ RefMerge::RefMerge(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("RefMerge");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefMerge")
                                    .Input(_inputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20795,7 +21463,8 @@ RefMerge::RefMerge(tensorflow::Scope& scope,
 
 BitwiseOr::BitwiseOr(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -20807,6 +21476,7 @@ BitwiseOr::BitwiseOr(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BitwiseOr")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20876,7 +21546,8 @@ RestoreV2::RestoreV2(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 RandomShuffleQueue::RandomShuffleQueue(tensorflow::Scope& scope, 
@@ -20909,7 +21580,8 @@ RandomShuffleQueue::RandomShuffleQueue(tensorflow::Scope& scope,
 }
 
 Invert::Invert(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -20917,6 +21589,7 @@ Invert::Invert(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Invert");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Invert")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -20962,7 +21635,8 @@ ControlTrigger::ControlTrigger(tensorflow::Scope& scope) {
 
 ParallelDynamicStitch::ParallelDynamicStitch(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::InputList data) {
+           tensorflow::InputList data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _indices = ::tensorflow::ops::AsNodeOutList(scope, indices);
@@ -20974,6 +21648,7 @@ ParallelDynamicStitch::ParallelDynamicStitch(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParallelDynamicStitch")
                                    .Input(_indices)
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21011,7 +21686,8 @@ SparseReduceSum::SparseReduceSum(tensorflow::Scope& scope,
            tensorflow::Input input_values, 
            tensorflow::Input input_shape, 
            tensorflow::Input reduction_axes, 
-           bool keep_dims) {
+           bool keep_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input_indices = ::tensorflow::ops::AsNodeOut(scope, input_indices);
@@ -21032,6 +21708,7 @@ SparseReduceSum::SparseReduceSum(tensorflow::Scope& scope,
                                    .Input(_input_shape)
                                    .Input(_reduction_axes)
                                    .Attr("keep_dims", keep_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21043,7 +21720,8 @@ SparseReduceSum::SparseReduceSum(tensorflow::Scope& scope,
 
 Zeta::Zeta(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input q) {
+           tensorflow::Input q, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -21055,6 +21733,7 @@ Zeta::Zeta(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Zeta")
                                    .Input(_x)
                                    .Input(_q)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21095,7 +21774,8 @@ MaxPoolGradGradWithArgmax::MaxPoolGradGradWithArgmax(tensorflow::Scope& scope,
            tensorflow::Input argmax, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21114,6 +21794,7 @@ MaxPoolGradGradWithArgmax::MaxPoolGradGradWithArgmax(tensorflow::Scope& scope,
                                    .Attr("ksize", ksize)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21150,6 +21831,7 @@ ApplyGradientDescent::ApplyGradientDescent(tensorflow::Scope& scope,
            tensorflow::Input var, 
            tensorflow::Input alpha, 
            tensorflow::Input delta, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -21166,6 +21848,7 @@ ApplyGradientDescent::ApplyGradientDescent(tensorflow::Scope& scope,
                                    .Input(_var)
                                    .Input(_alpha)
                                    .Input(_delta)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -21181,9 +21864,10 @@ CollectiveReduce::CollectiveReduce(tensorflow::Scope& scope,
            tensorflow::string merge_op, 
            tensorflow::string final_op, 
            tensorflow::gtl::ArraySlice<int64_t> subdiv_offsets, 
-           int64_t instance_key, 
+           tensorflow::DataType T, 
            int64_t group_size, 
-           int64_t group_key) {
+           int64_t group_key, 
+           int64_t instance_key) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21194,9 +21878,10 @@ CollectiveReduce::CollectiveReduce(tensorflow::Scope& scope,
                                    .Attr("merge_op", merge_op)
                                    .Attr("final_op", final_op)
                                    .Attr("subdiv_offsets", subdiv_offsets)
-                                   .Attr("instance_key", instance_key)
+                                   .Attr("T", T)
                                    .Attr("group_size", group_size)
                                    .Attr("group_key", group_key)
+                                   .Attr("instance_key", instance_key)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21264,6 +21949,7 @@ QueueIsClosedV2::QueueIsClosedV2(tensorflow::Scope& scope,
 _ParallelConcatUpdate::_ParallelConcatUpdate(tensorflow::Scope& scope, 
            tensorflow::Input value, 
            tensorflow::Input update, 
+           tensorflow::DataType T, 
            int64_t loc) {
       if (!scope.ok())
           return;
@@ -21276,6 +21962,7 @@ _ParallelConcatUpdate::_ParallelConcatUpdate(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_ParallelConcatUpdate")
                                    .Input(_value)
                                    .Input(_update)
+                                   .Attr("T", T)
                                    .Attr("loc", loc)
       ;
       scope.UpdateBuilder(&builder);
@@ -21292,13 +21979,14 @@ CudnnRNNCanonicalToParams::CudnnRNNCanonicalToParams(tensorflow::Scope& scope,
            tensorflow::Input input_size, 
            tensorflow::Input weights, 
            tensorflow::Input biases, 
-           int64_t seed2, 
+           tensorflow::DataType T, 
            int64_t num_params, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
-           int64_t seed) {
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _num_layers = ::tensorflow::ops::AsNodeOut(scope, num_layers);
@@ -21322,13 +22010,14 @@ CudnnRNNCanonicalToParams::CudnnRNNCanonicalToParams(tensorflow::Scope& scope,
                                    .Input(_input_size)
                                    .Input(_weights)
                                    .Input(_biases)
-                                   .Attr("seed2", seed2)
+                                   .Attr("T", T)
                                    .Attr("num_params", num_params)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21362,7 +22051,8 @@ TensorArraySizeV3::TensorArraySizeV3(tensorflow::Scope& scope,
 }
 
 DiagPart::DiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21370,6 +22060,7 @@ DiagPart::DiagPart(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DiagPart");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DiagPart")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21384,13 +22075,14 @@ CudnnRNNParamsToCanonical::CudnnRNNParamsToCanonical(tensorflow::Scope& scope,
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
            tensorflow::Input params, 
-           int64_t seed2, 
+           tensorflow::DataType T, 
            int64_t num_params, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
-           int64_t seed) {
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _num_layers = ::tensorflow::ops::AsNodeOut(scope, num_layers);
@@ -21410,13 +22102,14 @@ CudnnRNNParamsToCanonical::CudnnRNNParamsToCanonical(tensorflow::Scope& scope,
                                    .Input(_num_units)
                                    .Input(_input_size)
                                    .Input(_params)
-                                   .Attr("seed2", seed2)
+                                   .Attr("T", T)
                                    .Attr("num_params", num_params)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21444,7 +22137,8 @@ _ParallelConcatStart::_ParallelConcatStart(tensorflow::Scope& scope,
 }
 
 Size::Size(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21452,6 +22146,7 @@ Size::Size(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Size");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Size")
                                    .Input(_input)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21550,12 +22245,13 @@ CudnnRNNBackprop::CudnnRNNBackprop(tensorflow::Scope& scope,
            tensorflow::Input output_h_backprop, 
            tensorflow::Input output_c_backprop, 
            tensorflow::Input reserve_space, 
-           int64_t seed2, 
+           tensorflow::DataType T, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
-           int64_t seed) {
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21603,12 +22299,13 @@ CudnnRNNBackprop::CudnnRNNBackprop(tensorflow::Scope& scope,
                                    .Input(_output_h_backprop)
                                    .Input(_output_c_backprop)
                                    .Input(_reserve_space)
-                                   .Attr("seed2", seed2)
+                                   .Attr("T", T)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21620,7 +22317,8 @@ CudnnRNNBackprop::CudnnRNNBackprop(tensorflow::Scope& scope,
 
 Pad::Pad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input paddings) {
+           tensorflow::Input paddings, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21632,6 +22330,7 @@ Pad::Pad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Pad")
                                    .Input(_input)
                                    .Input(_paddings)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21646,13 +22345,14 @@ CudnnRNNV2::CudnnRNNV2(tensorflow::Scope& scope,
            tensorflow::Input input_h, 
            tensorflow::Input input_c, 
            tensorflow::Input params, 
-           bool is_training, 
+           tensorflow::DataType T, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           bool is_training) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21672,13 +22372,14 @@ CudnnRNNV2::CudnnRNNV2(tensorflow::Scope& scope,
                                    .Input(_input_h)
                                    .Input(_input_c)
                                    .Input(_params)
-                                   .Attr("is_training", is_training)
+                                   .Attr("T", T)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("is_training", is_training)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21690,7 +22391,8 @@ CudnnRNNV2::CudnnRNNV2(tensorflow::Scope& scope,
 
 DynamicStitch::DynamicStitch(tensorflow::Scope& scope, 
            tensorflow::InputList indices, 
-           tensorflow::InputList data) {
+           tensorflow::InputList data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _indices = ::tensorflow::ops::AsNodeOutList(scope, indices);
@@ -21702,6 +22404,7 @@ DynamicStitch::DynamicStitch(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DynamicStitch")
                                    .Input(_indices)
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21789,7 +22492,8 @@ OrderedMapPeek::OrderedMapPeek(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 FusedResizeAndPadConv2D::FusedResizeAndPadConv2D(tensorflow::Scope& scope, 
@@ -21800,6 +22504,7 @@ FusedResizeAndPadConv2D::FusedResizeAndPadConv2D(tensorflow::Scope& scope,
            tensorflow::string mode, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T, 
            bool resize_align_corners) {
       if (!scope.ok())
           return;
@@ -21823,6 +22528,7 @@ FusedResizeAndPadConv2D::FusedResizeAndPadConv2D(tensorflow::Scope& scope,
                                    .Attr("mode", mode)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
                                    .Attr("resize_align_corners", resize_align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -21835,7 +22541,8 @@ FusedResizeAndPadConv2D::FusedResizeAndPadConv2D(tensorflow::Scope& scope,
 
 Xdivy::Xdivy(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -21847,6 +22554,7 @@ Xdivy::Xdivy(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Xdivy")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21857,7 +22565,8 @@ Xdivy::Xdivy(tensorflow::Scope& scope,
 }
 
 RefNextIteration::RefNextIteration(tensorflow::Scope& scope, 
-           tensorflow::Input data) {
+           tensorflow::Input data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -21865,6 +22574,7 @@ RefNextIteration::RefNextIteration(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("RefNextIteration");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefNextIteration")
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21875,7 +22585,8 @@ RefNextIteration::RefNextIteration(tensorflow::Scope& scope,
 }
 
 LogMatrixDeterminant::LogMatrixDeterminant(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -21883,6 +22594,7 @@ LogMatrixDeterminant::LogMatrixDeterminant(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("LogMatrixDeterminant");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LogMatrixDeterminant")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21915,7 +22627,8 @@ ExperimentalNonSerializableDataset::ExperimentalNonSerializableDataset(tensorflo
 }
 
 Exit::Exit(tensorflow::Scope& scope, 
-           tensorflow::Input data) {
+           tensorflow::Input data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -21923,6 +22636,7 @@ Exit::Exit(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Exit");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Exit")
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21952,7 +22666,8 @@ StringStrip::StringStrip(tensorflow::Scope& scope,
 
 RefSelect::RefSelect(tensorflow::Scope& scope, 
            tensorflow::Input index, 
-           tensorflow::InputList inputs) {
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _index = ::tensorflow::ops::AsNodeOut(scope, index);
@@ -21964,6 +22679,7 @@ RefSelect::RefSelect(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefSelect")
                                    .Input(_index)
                                    .Input(_inputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -21974,7 +22690,8 @@ RefSelect::RefSelect(tensorflow::Scope& scope,
 }
 
 Softmax::Softmax(tensorflow::Scope& scope, 
-           tensorflow::Input logits) {
+           tensorflow::Input logits, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _logits = ::tensorflow::ops::AsNodeOut(scope, logits);
@@ -21982,6 +22699,7 @@ Softmax::Softmax(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Softmax");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Softmax")
                                    .Input(_logits)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22015,7 +22733,8 @@ ScalarSummary::ScalarSummary(tensorflow::Scope& scope,
 }
 
 Identity::Identity(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -22023,6 +22742,7 @@ Identity::Identity(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Identity");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Identity")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22034,7 +22754,8 @@ Identity::Identity(tensorflow::Scope& scope,
 
 ReverseV2::ReverseV2(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input axis) {
+           tensorflow::Input axis, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -22046,6 +22767,7 @@ ReverseV2::ReverseV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ReverseV2")
                                    .Input(_tensor)
                                    .Input(_axis)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22057,7 +22779,8 @@ ReverseV2::ReverseV2(tensorflow::Scope& scope,
 
 RefSwitch::RefSwitch(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input pred) {
+           tensorflow::Input pred, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -22069,6 +22792,7 @@ RefSwitch::RefSwitch(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefSwitch")
                                    .Input(_data)
                                    .Input(_pred)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22187,7 +22911,7 @@ GenerateVocabRemapping::GenerateVocabRemapping(tensorflow::Scope& scope,
 
 If::If(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
@@ -22198,7 +22922,7 @@ If::If(tensorflow::Scope& scope,
       auto _cond = ::tensorflow::ops::AsNodeOut(scope, cond);
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("If");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "If")
@@ -22215,7 +22939,8 @@ If::If(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TensorForestTreeDeserialize::TensorForestTreeDeserialize(tensorflow::Scope& scope, 
@@ -22333,12 +23058,13 @@ CudnnRNNParamsSize::CudnnRNNParamsSize(tensorflow::Scope& scope,
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
            tensorflow::DataType T, 
-           int64_t seed2, 
+           tensorflow::DataType S, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
-           int64_t seed) {
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _num_layers = ::tensorflow::ops::AsNodeOut(scope, num_layers);
@@ -22355,12 +23081,13 @@ CudnnRNNParamsSize::CudnnRNNParamsSize(tensorflow::Scope& scope,
                                    .Input(_num_units)
                                    .Input(_input_size)
                                    .Attr("T", T)
-                                   .Attr("seed2", seed2)
+                                   .Attr("S", S)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22405,7 +23132,8 @@ ExperimentalDenseToSparseBatchDataset::ExperimentalDenseToSparseBatchDataset(ten
 InplaceAdd::InplaceAdd(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v) {
+           tensorflow::Input v, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -22421,6 +23149,7 @@ InplaceAdd::InplaceAdd(tensorflow::Scope& scope,
                                    .Input(_x)
                                    .Input(_i)
                                    .Input(_v)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22432,7 +23161,8 @@ InplaceAdd::InplaceAdd(tensorflow::Scope& scope,
 
 EnsureShape::EnsureShape(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::PartialTensorShape shape) {
+           tensorflow::PartialTensorShape shape, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -22441,6 +23171,7 @@ EnsureShape::EnsureShape(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "EnsureShape")
                                    .Input(_input)
                                    .Attr("shape", shape)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22471,7 +23202,8 @@ TensorForestTreeIsInitializedOp::TensorForestTreeIsInitializedOp(tensorflow::Sco
 BatchSvd::BatchSvd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            bool compute_uv, 
-           bool full_matrices) {
+           bool full_matrices, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -22481,6 +23213,7 @@ BatchSvd::BatchSvd(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("compute_uv", compute_uv)
                                    .Attr("full_matrices", full_matrices)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22493,7 +23226,8 @@ BatchSvd::BatchSvd(tensorflow::Scope& scope,
 GatherV2::GatherV2(tensorflow::Scope& scope, 
            tensorflow::Input params, 
            tensorflow::Input indices, 
-           tensorflow::Input axis) {
+           tensorflow::Input axis, 
+           tensorflow::DataType Tparams) {
       if (!scope.ok())
           return;
       auto _params = ::tensorflow::ops::AsNodeOut(scope, params);
@@ -22509,6 +23243,7 @@ GatherV2::GatherV2(tensorflow::Scope& scope,
                                    .Input(_params)
                                    .Input(_indices)
                                    .Input(_axis)
+                                   .Attr("Tparams", Tparams)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22521,7 +23256,7 @@ GatherV2::GatherV2(tensorflow::Scope& scope,
 ExperimentalParseExampleDataset::ExperimentalParseExampleDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
            tensorflow::Input num_parallel_calls, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> dense_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
@@ -22538,7 +23273,7 @@ ExperimentalParseExampleDataset::ExperimentalParseExampleDataset(tensorflow::Sco
       auto _num_parallel_calls = ::tensorflow::ops::AsNodeOut(scope, num_parallel_calls);
       if (!scope.ok())
           return;
-      auto _dense_defaults = ::tensorflow::ops::AsNodeOut(scope, dense_defaults);
+      auto _dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, dense_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ExperimentalParseExampleDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExperimentalParseExampleDataset")
@@ -22590,7 +23325,8 @@ BoostedTreesBucketize::BoostedTreesBucketize(tensorflow::Scope& scope,
 ScatterNdNonAliasingAdd::ScatterNdNonAliasingAdd(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input indices, 
-           tensorflow::Input updates) {
+           tensorflow::Input updates, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -22606,6 +23342,7 @@ ScatterNdNonAliasingAdd::ScatterNdNonAliasingAdd(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22695,7 +23432,8 @@ BoostedTreesQuantileStreamResourceFlush::BoostedTreesQuantileStreamResourceFlush
 }
 
 Atan::Atan(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -22703,6 +23441,7 @@ Atan::Atan(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Atan");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Atan")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22798,7 +23537,8 @@ BoostedTreesMakeStatsSummary::BoostedTreesMakeStatsSummary(tensorflow::Scope& sc
 
 BiasAddV1::BiasAddV1(tensorflow::Scope& scope, 
            tensorflow::Input value, 
-           tensorflow::Input bias) {
+           tensorflow::Input bias, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -22810,6 +23550,7 @@ BiasAddV1::BiasAddV1(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BiasAddV1")
                                    .Input(_value)
                                    .Input(_bias)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -22912,7 +23653,8 @@ NegTrain::NegTrain(tensorflow::Scope& scope,
 
 ConcatV2::ConcatV2(tensorflow::Scope& scope, 
            tensorflow::InputList values, 
-           tensorflow::Input axis) {
+           tensorflow::Input axis, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _values = ::tensorflow::ops::AsNodeOutList(scope, values);
@@ -22924,6 +23666,7 @@ ConcatV2::ConcatV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ConcatV2")
                                    .Input(_values)
                                    .Input(_axis)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23052,13 +23795,14 @@ BoostedTreesCalculateBestGainsPerFeature::BoostedTreesCalculateBestGainsPerFeatu
 SampleDistortedBoundingBox::SampleDistortedBoundingBox(tensorflow::Scope& scope, 
            tensorflow::Input image_size, 
            tensorflow::Input bounding_boxes, 
-           bool use_image_if_no_bounding_boxes, 
+           tensorflow::DataType T, 
            int64_t seed, 
            int64_t seed2, 
            float min_object_covered, 
            tensorflow::gtl::ArraySlice<float> aspect_ratio_range, 
            tensorflow::gtl::ArraySlice<float> area_range, 
-           int64_t max_attempts) {
+           int64_t max_attempts, 
+           bool use_image_if_no_bounding_boxes) {
       if (!scope.ok())
           return;
       auto _image_size = ::tensorflow::ops::AsNodeOut(scope, image_size);
@@ -23070,13 +23814,14 @@ SampleDistortedBoundingBox::SampleDistortedBoundingBox(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SampleDistortedBoundingBox")
                                    .Input(_image_size)
                                    .Input(_bounding_boxes)
-                                   .Attr("use_image_if_no_bounding_boxes", use_image_if_no_bounding_boxes)
+                                   .Attr("T", T)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
                                    .Attr("min_object_covered", min_object_covered)
                                    .Attr("aspect_ratio_range", aspect_ratio_range)
                                    .Attr("area_range", area_range)
                                    .Attr("max_attempts", max_attempts)
+                                   .Attr("use_image_if_no_bounding_boxes", use_image_if_no_bounding_boxes)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23108,7 +23853,8 @@ DecodeBmp::DecodeBmp(tensorflow::Scope& scope,
 
 RightShift::RightShift(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -23120,6 +23866,7 @@ RightShift::RightShift(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RightShift")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23130,7 +23877,8 @@ RightShift::RightShift(tensorflow::Scope& scope,
 }
 
 Imag::Imag(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType Tout) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -23138,6 +23886,7 @@ Imag::Imag(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Imag");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Imag")
                                    .Input(_input)
+                                   .Attr("Tout", Tout)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23208,7 +23957,8 @@ _MklSquaredDifference::_MklSquaredDifference(tensorflow::Scope& scope,
            tensorflow::Input x, 
            tensorflow::Input y, 
            tensorflow::Input mkl_x, 
-           tensorflow::Input mkl_y) {
+           tensorflow::Input mkl_y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -23228,6 +23978,7 @@ _MklSquaredDifference::_MklSquaredDifference(tensorflow::Scope& scope,
                                    .Input(_y)
                                    .Input(_mkl_x)
                                    .Input(_mkl_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23243,7 +23994,8 @@ UnbatchGrad::UnbatchGrad(tensorflow::Scope& scope,
            tensorflow::Input grad, 
            tensorflow::Input id, 
            tensorflow::string container, 
-           tensorflow::string shared_name) {
+           tensorflow::string shared_name, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _original_input = ::tensorflow::ops::AsNodeOut(scope, original_input);
@@ -23265,6 +24017,7 @@ UnbatchGrad::UnbatchGrad(tensorflow::Scope& scope,
                                    .Input(_id)
                                    .Attr("container", container)
                                    .Attr("shared_name", shared_name)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23307,7 +24060,8 @@ Mfcc::Mfcc(tensorflow::Scope& scope,
 
 BroadcastGradientArgs::BroadcastGradientArgs(tensorflow::Scope& scope, 
            tensorflow::Input s0, 
-           tensorflow::Input s1) {
+           tensorflow::Input s1, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _s0 = ::tensorflow::ops::AsNodeOut(scope, s0);
@@ -23319,6 +24073,7 @@ BroadcastGradientArgs::BroadcastGradientArgs(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BroadcastGradientArgs")
                                    .Input(_s0)
                                    .Input(_s1)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23368,7 +24123,7 @@ NonMaxSuppressionV3::NonMaxSuppressionV3(tensorflow::Scope& scope,
 
 _If::_If(tensorflow::Scope& scope, 
            tensorflow::Input cond, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tin, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tout, 
            tensorflow::NameAttrList then_branch, 
@@ -23378,7 +24133,7 @@ _If::_If(tensorflow::Scope& scope,
       auto _cond = ::tensorflow::ops::AsNodeOut(scope, cond);
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_If");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_If")
@@ -23394,7 +24149,8 @@ _If::_If(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BatchIFFT::BatchIFFT(tensorflow::Scope& scope, 
@@ -23439,7 +24195,8 @@ QueueDequeueUpToV2::QueueDequeueUpToV2(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 DecodeWav::DecodeWav(tensorflow::Scope& scope, 
@@ -23470,7 +24227,6 @@ SparseAccumulatorApplyGradient::SparseAccumulatorApplyGradient(tensorflow::Scope
            tensorflow::Input gradient_indices, 
            tensorflow::Input gradient_values, 
            tensorflow::Input gradient_shape, 
-           tensorflow::DataType dtype, 
            bool has_known_shape) {
       if (!scope.ok())
           return;
@@ -23495,7 +24251,6 @@ SparseAccumulatorApplyGradient::SparseAccumulatorApplyGradient(tensorflow::Scope
                                    .Input(_gradient_indices)
                                    .Input(_gradient_values)
                                    .Input(_gradient_shape)
-                                   .Attr("dtype", dtype)
                                    .Attr("has_known_shape", has_known_shape)
       ;
       scope.UpdateBuilder(&builder);
@@ -23507,8 +24262,7 @@ SparseAccumulatorApplyGradient::SparseAccumulatorApplyGradient(tensorflow::Scope
 
 AssignSubVariableOp::AssignSubVariableOp(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
-           tensorflow::Input value, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input value) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -23520,7 +24274,6 @@ AssignSubVariableOp::AssignSubVariableOp(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AssignSubVariableOp")
                                    .Input(_resource)
                                    .Input(_value)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23535,9 +24288,10 @@ FusedBatchNormGrad::FusedBatchNormGrad(tensorflow::Scope& scope,
            tensorflow::Input scale, 
            tensorflow::Input reserve_space_1, 
            tensorflow::Input reserve_space_2, 
-           bool is_training, 
+           tensorflow::DataType T, 
            float epsilon, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           bool is_training) {
       if (!scope.ok())
           return;
       auto _y_backprop = ::tensorflow::ops::AsNodeOut(scope, y_backprop);
@@ -23561,9 +24315,10 @@ FusedBatchNormGrad::FusedBatchNormGrad(tensorflow::Scope& scope,
                                    .Input(_scale)
                                    .Input(_reserve_space_1)
                                    .Input(_reserve_space_2)
-                                   .Attr("is_training", is_training)
+                                   .Attr("T", T)
                                    .Attr("epsilon", epsilon)
                                    .Attr("data_format", data_format)
+                                   .Attr("is_training", is_training)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23575,7 +24330,8 @@ FusedBatchNormGrad::FusedBatchNormGrad(tensorflow::Scope& scope,
 
 UnravelIndex::UnravelIndex(tensorflow::Scope& scope, 
            tensorflow::Input indices, 
-           tensorflow::Input dims) {
+           tensorflow::Input dims, 
+           tensorflow::DataType Tidx) {
       if (!scope.ok())
           return;
       auto _indices = ::tensorflow::ops::AsNodeOut(scope, indices);
@@ -23587,6 +24343,7 @@ UnravelIndex::UnravelIndex(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "UnravelIndex")
                                    .Input(_indices)
                                    .Input(_dims)
+                                   .Attr("Tidx", Tidx)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23599,7 +24356,8 @@ UnravelIndex::UnravelIndex(tensorflow::Scope& scope,
 MatrixBandPart::MatrixBandPart(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input num_lower, 
-           tensorflow::Input num_upper) {
+           tensorflow::Input num_upper, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -23615,6 +24373,7 @@ MatrixBandPart::MatrixBandPart(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_num_lower)
                                    .Input(_num_upper)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23644,7 +24403,8 @@ TensorArrayClose::TensorArrayClose(tensorflow::Scope& scope,
 BatchMatrixBandPart::BatchMatrixBandPart(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input num_lower, 
-           tensorflow::Input num_upper) {
+           tensorflow::Input num_upper, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -23660,6 +24420,7 @@ BatchMatrixBandPart::BatchMatrixBandPart(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_num_lower)
                                    .Input(_num_upper)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23672,6 +24433,7 @@ BatchMatrixBandPart::BatchMatrixBandPart(tensorflow::Scope& scope,
 ResizeNearestNeighbor::ResizeNearestNeighbor(tensorflow::Scope& scope, 
            tensorflow::Input images, 
            tensorflow::Input size, 
+           tensorflow::DataType T, 
            bool align_corners) {
       if (!scope.ok())
           return;
@@ -23684,6 +24446,7 @@ ResizeNearestNeighbor::ResizeNearestNeighbor(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ResizeNearestNeighbor")
                                    .Input(_images)
                                    .Input(_size)
+                                   .Attr("T", T)
                                    .Attr("align_corners", align_corners)
       ;
       scope.UpdateBuilder(&builder);
@@ -23695,7 +24458,8 @@ ResizeNearestNeighbor::ResizeNearestNeighbor(tensorflow::Scope& scope,
 }
 
 BatchMatrixDiagPart::BatchMatrixDiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -23703,6 +24467,7 @@ BatchMatrixDiagPart::BatchMatrixDiagPart(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BatchMatrixDiagPart");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatrixDiagPart")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23714,7 +24479,8 @@ BatchMatrixDiagPart::BatchMatrixDiagPart(tensorflow::Scope& scope,
 
 BatchMatrixSetDiag::BatchMatrixSetDiag(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input diagonal) {
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -23726,6 +24492,7 @@ BatchMatrixSetDiag::BatchMatrixSetDiag(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatrixSetDiag")
                                    .Input(_input)
                                    .Input(_diagonal)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23736,7 +24503,8 @@ BatchMatrixSetDiag::BatchMatrixSetDiag(tensorflow::Scope& scope,
 }
 
 OnesLike::OnesLike(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -23744,6 +24512,7 @@ OnesLike::OnesLike(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("OnesLike");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "OnesLike")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -23838,7 +24607,8 @@ IteratorGetNext::IteratorGetNext(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 FakeQuantWithMinMaxArgsGradient::FakeQuantWithMinMaxArgsGradient(tensorflow::Scope& scope, 
@@ -23964,7 +24734,8 @@ GetSessionHandle::GetSessionHandle(tensorflow::Scope& scope,
 }
 
 TensorListConcat::TensorListConcat(tensorflow::Scope& scope, 
-           tensorflow::Input input_handle) {
+           tensorflow::Input input_handle, 
+           tensorflow::DataType element_dtype) {
       if (!scope.ok())
           return;
       auto _input_handle = ::tensorflow::ops::AsNodeOut(scope, input_handle);
@@ -23972,6 +24743,7 @@ TensorListConcat::TensorListConcat(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("TensorListConcat");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorListConcat")
                                    .Input(_input_handle)
+                                   .Attr("element_dtype", element_dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24009,6 +24781,7 @@ FixedLengthRecordReader::FixedLengthRecordReader(tensorflow::Scope& scope,
 AssignAdd::AssignAdd(tensorflow::Scope& scope, 
            tensorflow::Input ref, 
            tensorflow::Input value, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -24021,6 +24794,7 @@ AssignAdd::AssignAdd(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "AssignAdd")
                                    .Input(_ref)
                                    .Input(_value)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -24051,7 +24825,8 @@ IsBoostedTreesQuantileStreamResourceInitialized::IsBoostedTreesQuantileStreamRes
 
 LeftShift::LeftShift(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -24063,6 +24838,7 @@ LeftShift::LeftShift(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "LeftShift")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24095,8 +24871,9 @@ EncodePng::EncodePng(tensorflow::Scope& scope,
 Enter::Enter(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::string frame_name, 
-           int64_t parallel_iterations, 
-           bool is_constant) {
+           tensorflow::DataType T, 
+           bool is_constant, 
+           int64_t parallel_iterations) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -24105,8 +24882,9 @@ Enter::Enter(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Enter")
                                    .Input(_data)
                                    .Attr("frame_name", frame_name)
-                                   .Attr("parallel_iterations", parallel_iterations)
+                                   .Attr("T", T)
                                    .Attr("is_constant", is_constant)
+                                   .Attr("parallel_iterations", parallel_iterations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24166,6 +24944,7 @@ RaggedTensorToSparse::RaggedTensorToSparse(tensorflow::Scope& scope,
 
 Unique::Unique(tensorflow::Scope& scope, 
            tensorflow::Input x, 
+           tensorflow::DataType T, 
            tensorflow::DataType out_idx) {
       if (!scope.ok())
           return;
@@ -24174,6 +24953,7 @@ Unique::Unique(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Unique");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Unique")
                                    .Input(_x)
+                                   .Attr("T", T)
                                    .Attr("out_idx", out_idx)
       ;
       scope.UpdateBuilder(&builder);
@@ -24187,7 +24967,8 @@ Unique::Unique(tensorflow::Scope& scope,
 ScatterNd::ScatterNd(tensorflow::Scope& scope, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
-           tensorflow::Input shape) {
+           tensorflow::Input shape, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _indices = ::tensorflow::ops::AsNodeOut(scope, indices);
@@ -24203,6 +24984,7 @@ ScatterNd::ScatterNd(tensorflow::Scope& scope,
                                    .Input(_indices)
                                    .Input(_updates)
                                    .Input(_shape)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24300,7 +25082,8 @@ ResourceApplyFtrlV2::ResourceApplyFtrlV2(tensorflow::Scope& scope,
 
 UpperBound::UpperBound(tensorflow::Scope& scope, 
            tensorflow::Input sorted_inputs, 
-           tensorflow::Input values) {
+           tensorflow::Input values, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _sorted_inputs = ::tensorflow::ops::AsNodeOut(scope, sorted_inputs);
@@ -24312,6 +25095,7 @@ UpperBound::UpperBound(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "UpperBound")
                                    .Input(_sorted_inputs)
                                    .Input(_values)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24327,11 +25111,12 @@ StridedSliceAssign::StridedSliceAssign(tensorflow::Scope& scope,
            tensorflow::Input end, 
            tensorflow::Input strides, 
            tensorflow::Input value, 
+           tensorflow::DataType T, 
            int64_t shrink_axis_mask, 
-           int64_t new_axis_mask, 
            int64_t begin_mask, 
            int64_t end_mask, 
-           int64_t ellipsis_mask) {
+           int64_t ellipsis_mask, 
+           int64_t new_axis_mask) {
       if (!scope.ok())
           return;
       auto _ref = ::tensorflow::ops::AsNodeOut(scope, ref);
@@ -24355,11 +25140,12 @@ StridedSliceAssign::StridedSliceAssign(tensorflow::Scope& scope,
                                    .Input(_end)
                                    .Input(_strides)
                                    .Input(_value)
+                                   .Attr("T", T)
                                    .Attr("shrink_axis_mask", shrink_axis_mask)
-                                   .Attr("new_axis_mask", new_axis_mask)
                                    .Attr("begin_mask", begin_mask)
                                    .Attr("end_mask", end_mask)
                                    .Attr("ellipsis_mask", ellipsis_mask)
+                                   .Attr("new_axis_mask", new_axis_mask)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24373,7 +25159,8 @@ QuantizedConcat::QuantizedConcat(tensorflow::Scope& scope,
            tensorflow::Input concat_dim, 
            tensorflow::InputList values, 
            tensorflow::InputList input_mins, 
-           tensorflow::InputList input_maxes) {
+           tensorflow::InputList input_maxes, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _concat_dim = ::tensorflow::ops::AsNodeOut(scope, concat_dim);
@@ -24393,6 +25180,7 @@ QuantizedConcat::QuantizedConcat(tensorflow::Scope& scope,
                                    .Input(_values)
                                    .Input(_input_mins)
                                    .Input(_input_maxes)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24433,7 +25221,8 @@ ExtractVolumePatches::ExtractVolumePatches(tensorflow::Scope& scope,
            tensorflow::Input input, 
            tensorflow::gtl::ArraySlice<int64_t> ksizes, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24444,6 +25233,7 @@ ExtractVolumePatches::ExtractVolumePatches(tensorflow::Scope& scope,
                                    .Attr("ksizes", ksizes)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24496,7 +25286,8 @@ FixedUnigramCandidateSampler::FixedUnigramCandidateSampler(tensorflow::Scope& sc
 }
 
 Merge::Merge(tensorflow::Scope& scope, 
-           tensorflow::InputList inputs) {
+           tensorflow::InputList inputs, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _inputs = ::tensorflow::ops::AsNodeOutList(scope, inputs);
@@ -24504,6 +25295,7 @@ Merge::Merge(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Merge");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Merge")
                                    .Input(_inputs)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24517,7 +25309,7 @@ PaddedBatchDatasetV2::PaddedBatchDatasetV2(tensorflow::Scope& scope,
            tensorflow::Input input_dataset, 
            tensorflow::Input batch_size, 
            tensorflow::InputList padded_shapes, 
-           tensorflow::Input padding_values, 
+           tensorflow::InputList padding_values, 
            tensorflow::Input drop_remainder, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Toutput_types, 
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> output_shapes) {
@@ -24532,7 +25324,7 @@ PaddedBatchDatasetV2::PaddedBatchDatasetV2(tensorflow::Scope& scope,
       auto _padded_shapes = ::tensorflow::ops::AsNodeOutList(scope, padded_shapes);
       if (!scope.ok())
           return;
-      auto _padding_values = ::tensorflow::ops::AsNodeOut(scope, padding_values);
+      auto _padding_values = ::tensorflow::ops::AsNodeOutList(scope, padding_values);
       if (!scope.ok())
           return;
       auto _drop_remainder = ::tensorflow::ops::AsNodeOut(scope, drop_remainder);
@@ -24560,7 +25352,8 @@ ExtractImagePatches::ExtractImagePatches(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksizes, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _images = ::tensorflow::ops::AsNodeOut(scope, images);
@@ -24572,6 +25365,7 @@ ExtractImagePatches::ExtractImagePatches(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("rates", rates)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24611,8 +25405,9 @@ AllCandidateSampler::AllCandidateSampler(tensorflow::Scope& scope,
 
 DepthToSpace::DepthToSpace(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string data_format, 
-           int64_t block_size) {
+           tensorflow::DataType T, 
+           int64_t block_size, 
+           tensorflow::string data_format) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24620,8 +25415,9 @@ DepthToSpace::DepthToSpace(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DepthToSpace");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DepthToSpace")
                                    .Input(_input)
-                                   .Attr("data_format", data_format)
+                                   .Attr("T", T)
                                    .Attr("block_size", block_size)
+                                   .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24633,8 +25429,9 @@ DepthToSpace::DepthToSpace(tensorflow::Scope& scope,
 
 SpaceToDepth::SpaceToDepth(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string data_format, 
-           int64_t block_size) {
+           tensorflow::DataType T, 
+           int64_t block_size, 
+           tensorflow::string data_format) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24642,8 +25439,9 @@ SpaceToDepth::SpaceToDepth(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("SpaceToDepth");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SpaceToDepth")
                                    .Input(_input)
-                                   .Attr("data_format", data_format)
+                                   .Attr("T", T)
                                    .Attr("block_size", block_size)
+                                   .Attr("data_format", data_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24656,7 +25454,8 @@ SpaceToDepth::SpaceToDepth(tensorflow::Scope& scope,
 InplaceSub::InplaceSub(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v) {
+           tensorflow::Input v, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -24672,6 +25471,7 @@ InplaceSub::InplaceSub(tensorflow::Scope& scope,
                                    .Input(_x)
                                    .Input(_i)
                                    .Input(_v)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24682,7 +25482,8 @@ InplaceSub::InplaceSub(tensorflow::Scope& scope,
 }
 
 RefIdentity::RefIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24690,6 +25491,7 @@ RefIdentity::RefIdentity(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("RefIdentity");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefIdentity")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24701,7 +25503,7 @@ RefIdentity::RefIdentity(tensorflow::Scope& scope,
 
 FilterDataset::FilterDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::NameAttrList predicate, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Targuments, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 
@@ -24711,7 +25513,7 @@ FilterDataset::FilterDataset(tensorflow::Scope& scope,
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("FilterDataset");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FilterDataset")
@@ -24775,7 +25577,8 @@ MapClear::MapClear(tensorflow::Scope& scope,
 QuantizedRelu6::QuantizedRelu6(tensorflow::Scope& scope, 
            tensorflow::Input features, 
            tensorflow::Input min_features, 
-           tensorflow::Input max_features) {
+           tensorflow::Input max_features, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _features = ::tensorflow::ops::AsNodeOut(scope, features);
@@ -24791,6 +25594,7 @@ QuantizedRelu6::QuantizedRelu6(tensorflow::Scope& scope,
                                    .Input(_features)
                                    .Input(_min_features)
                                    .Input(_max_features)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24849,7 +25653,8 @@ ResourceStridedSliceAssign::ResourceStridedSliceAssign(tensorflow::Scope& scope,
 
 Squeeze::Squeeze(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::gtl::ArraySlice<int64_t> squeeze_dims) {
+           tensorflow::gtl::ArraySlice<int64_t> squeeze_dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24858,6 +25663,7 @@ Squeeze::Squeeze(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Squeeze")
                                    .Input(_input)
                                    .Attr("squeeze_dims", squeeze_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24870,7 +25676,8 @@ Squeeze::Squeeze(tensorflow::Scope& scope,
 InplaceUpdate::InplaceUpdate(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input i, 
-           tensorflow::Input v) {
+           tensorflow::Input v, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -24886,6 +25693,7 @@ InplaceUpdate::InplaceUpdate(tensorflow::Scope& scope,
                                    .Input(_x)
                                    .Input(_i)
                                    .Input(_v)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24923,7 +25731,8 @@ InitializeTableV2::InitializeTableV2(tensorflow::Scope& scope,
 }
 
 NextIteration::NextIteration(tensorflow::Scope& scope, 
-           tensorflow::Input data) {
+           tensorflow::Input data, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -24931,6 +25740,7 @@ NextIteration::NextIteration(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("NextIteration");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "NextIteration")
                                    .Input(_data)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24943,7 +25753,8 @@ NextIteration::NextIteration(tensorflow::Scope& scope,
 Copy::Copy(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string tensor_name, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec) {
+           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -24953,6 +25764,7 @@ Copy::Copy(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("tensor_name", tensor_name)
                                    .Attr("debug_ops_spec", debug_ops_spec)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -24986,6 +25798,7 @@ ScatterDiv::ScatterDiv(tensorflow::Scope& scope,
            tensorflow::Input ref, 
            tensorflow::Input indices, 
            tensorflow::Input updates, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -25002,6 +25815,7 @@ ScatterDiv::ScatterDiv(tensorflow::Scope& scope,
                                    .Input(_ref)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -25043,6 +25857,7 @@ SparseApplyProximalGradientDescent::SparseApplyProximalGradientDescent(tensorflo
            tensorflow::Input l2, 
            tensorflow::Input grad, 
            tensorflow::Input indices, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -25071,6 +25886,7 @@ SparseApplyProximalGradientDescent::SparseApplyProximalGradientDescent(tensorflo
                                    .Input(_l2)
                                    .Input(_grad)
                                    .Input(_indices)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -25083,7 +25899,8 @@ SparseApplyProximalGradientDescent::SparseApplyProximalGradientDescent(tensorflo
 
 Tile::Tile(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input multiples) {
+           tensorflow::Input multiples, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25095,6 +25912,7 @@ Tile::Tile(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Tile")
                                    .Input(_input)
                                    .Input(_multiples)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25133,7 +25951,8 @@ _HostSend::_HostSend(tensorflow::Scope& scope,
 
 ExpandDims::ExpandDims(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input dim) {
+           tensorflow::Input dim, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25145,6 +25964,7 @@ ExpandDims::ExpandDims(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ExpandDims")
                                    .Input(_input)
                                    .Input(_dim)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25157,6 +25977,7 @@ ExpandDims::ExpandDims(tensorflow::Scope& scope,
 SpaceToBatch::SpaceToBatch(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
+           tensorflow::DataType T, 
            int64_t block_size) {
       if (!scope.ok())
           return;
@@ -25169,6 +25990,7 @@ SpaceToBatch::SpaceToBatch(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SpaceToBatch")
                                    .Input(_input)
                                    .Input(_paddings)
+                                   .Attr("T", T)
                                    .Attr("block_size", block_size)
       ;
       scope.UpdateBuilder(&builder);
@@ -25184,7 +26006,8 @@ MaxPoolWithArgmax::MaxPoolWithArgmax(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::DataType Targmax) {
+           tensorflow::DataType Targmax, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25196,6 +26019,7 @@ MaxPoolWithArgmax::MaxPoolWithArgmax(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("Targmax", Targmax)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25208,8 +26032,9 @@ MaxPoolWithArgmax::MaxPoolWithArgmax(tensorflow::Scope& scope,
 RefEnter::RefEnter(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::string frame_name, 
-           int64_t parallel_iterations, 
-           bool is_constant) {
+           tensorflow::DataType T, 
+           bool is_constant, 
+           int64_t parallel_iterations) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -25218,8 +26043,9 @@ RefEnter::RefEnter(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "RefEnter")
                                    .Input(_data)
                                    .Attr("frame_name", frame_name)
-                                   .Attr("parallel_iterations", parallel_iterations)
+                                   .Attr("T", T)
                                    .Attr("is_constant", is_constant)
+                                   .Attr("parallel_iterations", parallel_iterations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25326,7 +26152,8 @@ BoostedTreesCreateEnsemble::BoostedTreesCreateEnsemble(tensorflow::Scope& scope,
 
 Fill::Fill(tensorflow::Scope& scope, 
            tensorflow::Input dims, 
-           tensorflow::Input value) {
+           tensorflow::Input value, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _dims = ::tensorflow::ops::AsNodeOut(scope, dims);
@@ -25338,6 +26165,7 @@ Fill::Fill(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Fill")
                                    .Input(_dims)
                                    .Input(_value)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25357,6 +26185,7 @@ ApplyCenteredRMSProp::ApplyCenteredRMSProp(tensorflow::Scope& scope,
            tensorflow::Input momentum, 
            tensorflow::Input epsilon, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -25397,6 +26226,7 @@ ApplyCenteredRMSProp::ApplyCenteredRMSProp(tensorflow::Scope& scope,
                                    .Input(_momentum)
                                    .Input(_epsilon)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -25465,7 +26295,7 @@ Placeholder::Placeholder(tensorflow::Scope& scope,
 
 QueueEnqueueManyV2::QueueEnqueueManyV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms) {
       if (!scope.ok())
@@ -25473,7 +26303,7 @@ QueueEnqueueManyV2::QueueEnqueueManyV2(tensorflow::Scope& scope,
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("QueueEnqueueManyV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "QueueEnqueueManyV2")
@@ -25490,7 +26320,8 @@ QueueEnqueueManyV2::QueueEnqueueManyV2(tensorflow::Scope& scope,
 }
 
 Shape::Shape(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25498,6 +26329,7 @@ Shape::Shape(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Shape");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Shape")
                                    .Input(_input)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25513,7 +26345,8 @@ Dilation2DBackpropFilter::Dilation2DBackpropFilter(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::gtl::ArraySlice<int64_t> rates, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25532,6 +26365,7 @@ Dilation2DBackpropFilter::Dilation2DBackpropFilter(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("rates", rates)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25564,7 +26398,8 @@ AvgPool3D::AvgPool3D(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::string data_format) {
+           tensorflow::string data_format, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25576,6 +26411,7 @@ AvgPool3D::AvgPool3D(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("data_format", data_format)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25587,8 +26423,9 @@ AvgPool3D::AvgPool3D(tensorflow::Scope& scope,
 
 DataFormatDimMap::DataFormatDimMap(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::string dst_format, 
-           tensorflow::string src_format) {
+           tensorflow::DataType T, 
+           tensorflow::string src_format, 
+           tensorflow::string dst_format) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -25596,8 +26433,9 @@ DataFormatDimMap::DataFormatDimMap(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DataFormatDimMap");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DataFormatDimMap")
                                    .Input(_x)
-                                   .Attr("dst_format", dst_format)
+                                   .Attr("T", T)
                                    .Attr("src_format", src_format)
+                                   .Attr("dst_format", dst_format)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25643,13 +26481,13 @@ QueueSizeV2::QueueSizeV2(tensorflow::Scope& scope,
 }
 
 StatelessWhile::StatelessWhile(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> T, 
            tensorflow::NameAttrList cond, 
            tensorflow::NameAttrList body) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("StatelessWhile");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StatelessWhile")
@@ -25663,11 +26501,13 @@ StatelessWhile::StatelessWhile(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 MatrixDiagPart::MatrixDiagPart(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25675,6 +26515,7 @@ MatrixDiagPart::MatrixDiagPart(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixDiagPart");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixDiagPart")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25716,17 +26557,18 @@ DecodeProtoV2::DecodeProtoV2(tensorflow::Scope& scope,
 
 Print::Print(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input data, 
+           tensorflow::InputList data, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> U, 
            tensorflow::string message, 
-           int64_t summarize, 
-           int64_t first_n) {
+           tensorflow::DataType T, 
+           int64_t first_n, 
+           int64_t summarize) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
       if (!scope.ok())
           return;
-      auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
+      auto _data = ::tensorflow::ops::AsNodeOutList(scope, data);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("Print");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Print")
@@ -25734,8 +26576,9 @@ Print::Print(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Attr("U", U)
                                    .Attr("message", message)
-                                   .Attr("summarize", summarize)
+                                   .Attr("T", T)
                                    .Attr("first_n", first_n)
+                                   .Attr("summarize", summarize)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25752,6 +26595,7 @@ QuantizeAndDequantizeV2::QuantizeAndDequantizeV2(tensorflow::Scope& scope,
            bool signed_input, 
            int64_t num_bits, 
            bool range_given, 
+           tensorflow::DataType T, 
            tensorflow::string round_mode) {
       if (!scope.ok())
           return;
@@ -25771,6 +26615,7 @@ QuantizeAndDequantizeV2::QuantizeAndDequantizeV2(tensorflow::Scope& scope,
                                    .Attr("signed_input", signed_input)
                                    .Attr("num_bits", num_bits)
                                    .Attr("range_given", range_given)
+                                   .Attr("T", T)
                                    .Attr("round_mode", round_mode)
       ;
       scope.UpdateBuilder(&builder);
@@ -25788,7 +26633,8 @@ FractionalAvgPool::FractionalAvgPool(tensorflow::Scope& scope,
            bool overlapping, 
            bool deterministic, 
            int64_t seed, 
-           int64_t seed2) {
+           int64_t seed2, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -25802,6 +26648,7 @@ FractionalAvgPool::FractionalAvgPool(tensorflow::Scope& scope,
                                    .Attr("deterministic", deterministic)
                                    .Attr("seed", seed)
                                    .Attr("seed2", seed2)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25838,7 +26685,8 @@ SparseAccumulatorTakeGradient::SparseAccumulatorTakeGradient(tensorflow::Scope& 
 
 TruncateMod::TruncateMod(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -25850,6 +26698,7 @@ TruncateMod::TruncateMod(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TruncateMod")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25919,11 +26768,12 @@ StridedSliceGrad::StridedSliceGrad(tensorflow::Scope& scope,
            tensorflow::Input end, 
            tensorflow::Input strides, 
            tensorflow::Input dy, 
-           int64_t new_axis_mask, 
+           tensorflow::DataType T, 
            int64_t shrink_axis_mask, 
            int64_t begin_mask, 
            int64_t end_mask, 
-           int64_t ellipsis_mask) {
+           int64_t ellipsis_mask, 
+           int64_t new_axis_mask) {
       if (!scope.ok())
           return;
       auto _shape = ::tensorflow::ops::AsNodeOut(scope, shape);
@@ -25947,11 +26797,12 @@ StridedSliceGrad::StridedSliceGrad(tensorflow::Scope& scope,
                                    .Input(_end)
                                    .Input(_strides)
                                    .Input(_dy)
-                                   .Attr("new_axis_mask", new_axis_mask)
+                                   .Attr("T", T)
                                    .Attr("shrink_axis_mask", shrink_axis_mask)
                                    .Attr("begin_mask", begin_mask)
                                    .Attr("end_mask", end_mask)
                                    .Attr("ellipsis_mask", ellipsis_mask)
+                                   .Attr("new_axis_mask", new_axis_mask)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -25967,7 +26818,8 @@ QuantizeAndDequantize::QuantizeAndDequantize(tensorflow::Scope& scope,
            int64_t num_bits, 
            bool range_given, 
            float input_min, 
-           float input_max) {
+           float input_max, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -25980,6 +26832,7 @@ QuantizeAndDequantize::QuantizeAndDequantize(tensorflow::Scope& scope,
                                    .Attr("range_given", range_given)
                                    .Attr("input_min", input_min)
                                    .Attr("input_max", input_max)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26052,7 +26905,8 @@ BoostedTreesUpdateEnsemble::BoostedTreesUpdateEnsemble(tensorflow::Scope& scope,
 
 Relu6Grad::Relu6Grad(tensorflow::Scope& scope, 
            tensorflow::Input gradients, 
-           tensorflow::Input features) {
+           tensorflow::Input features, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _gradients = ::tensorflow::ops::AsNodeOut(scope, gradients);
@@ -26064,6 +26918,7 @@ Relu6Grad::Relu6Grad(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Relu6Grad")
                                    .Input(_gradients)
                                    .Input(_features)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26076,7 +26931,8 @@ Relu6Grad::Relu6Grad(tensorflow::Scope& scope,
 Range::Range(tensorflow::Scope& scope, 
            tensorflow::Input start, 
            tensorflow::Input limit, 
-           tensorflow::Input delta) {
+           tensorflow::Input delta, 
+           tensorflow::DataType Tidx) {
       if (!scope.ok())
           return;
       auto _start = ::tensorflow::ops::AsNodeOut(scope, start);
@@ -26092,6 +26948,7 @@ Range::Range(tensorflow::Scope& scope,
                                    .Input(_start)
                                    .Input(_limit)
                                    .Input(_delta)
+                                   .Attr("Tidx", Tidx)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26129,7 +26986,8 @@ PrefetchDataset::PrefetchDataset(tensorflow::Scope& scope,
 }
 
 DeepCopy::DeepCopy(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -26137,6 +26995,7 @@ DeepCopy::DeepCopy(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DeepCopy");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DeepCopy")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26202,11 +27061,13 @@ MultiDeviceIteratorGetNextFromShard::MultiDeviceIteratorGetNextFromShard(tensorf
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BatchCholesky::BatchCholesky(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26214,6 +27075,7 @@ BatchCholesky::BatchCholesky(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BatchCholesky");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchCholesky")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26256,7 +27118,8 @@ TensorArrayGather::TensorArrayGather(tensorflow::Scope& scope,
 }
 
 Round::Round(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -26264,6 +27127,7 @@ Round::Round(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Round");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Round")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26318,7 +27182,8 @@ SparseTensorDenseAdd::SparseTensorDenseAdd(tensorflow::Scope& scope,
            tensorflow::Input a_indices, 
            tensorflow::Input a_values, 
            tensorflow::Input a_shape, 
-           tensorflow::Input b) {
+           tensorflow::Input b, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _a_indices = ::tensorflow::ops::AsNodeOut(scope, a_indices);
@@ -26338,6 +27203,7 @@ SparseTensorDenseAdd::SparseTensorDenseAdd(tensorflow::Scope& scope,
                                    .Input(_a_values)
                                    .Input(_a_shape)
                                    .Input(_b)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26348,7 +27214,8 @@ SparseTensorDenseAdd::SparseTensorDenseAdd(tensorflow::Scope& scope,
 }
 
 Snapshot::Snapshot(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26356,6 +27223,7 @@ Snapshot::Snapshot(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Snapshot");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Snapshot")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26368,6 +27236,7 @@ Snapshot::Snapshot(tensorflow::Scope& scope,
 UniqueV2::UniqueV2(tensorflow::Scope& scope, 
            tensorflow::Input x, 
            tensorflow::Input axis, 
+           tensorflow::DataType T, 
            tensorflow::DataType out_idx) {
       if (!scope.ok())
           return;
@@ -26380,6 +27249,7 @@ UniqueV2::UniqueV2(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "UniqueV2")
                                    .Input(_x)
                                    .Input(_axis)
+                                   .Attr("T", T)
                                    .Attr("out_idx", out_idx)
       ;
       scope.UpdateBuilder(&builder);
@@ -26403,12 +27273,13 @@ CudnnRNNBackpropV2::CudnnRNNBackpropV2(tensorflow::Scope& scope,
            tensorflow::Input output_c_backprop, 
            tensorflow::Input reserve_space, 
            tensorflow::Input host_reserved, 
-           int64_t seed2, 
+           tensorflow::DataType T, 
            tensorflow::string rnn_mode, 
            tensorflow::string input_mode, 
            tensorflow::string direction, 
            float dropout, 
-           int64_t seed) {
+           int64_t seed, 
+           int64_t seed2) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26460,12 +27331,13 @@ CudnnRNNBackpropV2::CudnnRNNBackpropV2(tensorflow::Scope& scope,
                                    .Input(_output_c_backprop)
                                    .Input(_reserve_space)
                                    .Input(_host_reserved)
-                                   .Attr("seed2", seed2)
+                                   .Attr("T", T)
                                    .Attr("rnn_mode", rnn_mode)
                                    .Attr("input_mode", input_mode)
                                    .Attr("direction", direction)
                                    .Attr("dropout", dropout)
                                    .Attr("seed", seed)
+                                   .Attr("seed2", seed2)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26476,7 +27348,8 @@ CudnnRNNBackpropV2::CudnnRNNBackpropV2(tensorflow::Scope& scope,
 }
 
 InvertPermutation::InvertPermutation(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -26484,6 +27357,7 @@ InvertPermutation::InvertPermutation(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("InvertPermutation");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "InvertPermutation")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26511,7 +27385,8 @@ ReaderReset::ReaderReset(tensorflow::Scope& scope,
 }
 
 StopGradient::StopGradient(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26519,6 +27394,7 @@ StopGradient::StopGradient(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("StopGradient");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "StopGradient")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26531,8 +27407,7 @@ StopGradient::StopGradient(tensorflow::Scope& scope,
 ResourceScatterSub::ResourceScatterSub(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -26548,7 +27423,6 @@ ResourceScatterSub::ResourceScatterSub(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26576,7 +27450,8 @@ TensorForestTreeSize::TensorForestTreeSize(tensorflow::Scope& scope,
 }
 
 Rint::Rint(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -26584,6 +27459,7 @@ Rint::Rint(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Rint");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Rint")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26664,7 +27540,8 @@ OneHot::OneHot(tensorflow::Scope& scope,
            tensorflow::Input depth, 
            tensorflow::Input on_value, 
            tensorflow::Input off_value, 
-           int64_t axis) {
+           int64_t axis, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _indices = ::tensorflow::ops::AsNodeOut(scope, indices);
@@ -26685,6 +27562,7 @@ OneHot::OneHot(tensorflow::Scope& scope,
                                    .Input(_on_value)
                                    .Input(_off_value)
                                    .Attr("axis", axis)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26696,7 +27574,8 @@ OneHot::OneHot(tensorflow::Scope& scope,
 
 Reverse::Reverse(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
-           tensorflow::Input dims) {
+           tensorflow::Input dims, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -26708,6 +27587,7 @@ Reverse::Reverse(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Reverse")
                                    .Input(_tensor)
                                    .Input(_dims)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26748,7 +27628,7 @@ BoostedTreesCreateQuantileStreamResource::BoostedTreesCreateQuantileStreamResour
 
 ParseSingleExample::ParseSingleExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
-           tensorflow::Input dense_defaults, 
+           tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::string> sparse_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::string> dense_keys, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
@@ -26760,7 +27640,7 @@ ParseSingleExample::ParseSingleExample(tensorflow::Scope& scope,
       auto _serialized = ::tensorflow::ops::AsNodeOut(scope, serialized);
       if (!scope.ok())
           return;
-      auto _dense_defaults = ::tensorflow::ops::AsNodeOut(scope, dense_defaults);
+      auto _dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, dense_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("ParseSingleExample");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ParseSingleExample")
@@ -26782,7 +27662,8 @@ ParseSingleExample::ParseSingleExample(tensorflow::Scope& scope,
 }
 
 GuaranteeConst::GuaranteeConst(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26790,6 +27671,7 @@ GuaranteeConst::GuaranteeConst(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("GuaranteeConst");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "GuaranteeConst")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26801,7 +27683,7 @@ GuaranteeConst::GuaranteeConst(tensorflow::Scope& scope,
 
 QueueEnqueueV2::QueueEnqueueV2(tensorflow::Scope& scope, 
            tensorflow::Input handle, 
-           tensorflow::Input components, 
+           tensorflow::InputList components, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tcomponents, 
            int64_t timeout_ms) {
       if (!scope.ok())
@@ -26809,7 +27691,7 @@ QueueEnqueueV2::QueueEnqueueV2(tensorflow::Scope& scope,
       auto _handle = ::tensorflow::ops::AsNodeOut(scope, handle);
       if (!scope.ok())
           return;
-      auto _components = ::tensorflow::ops::AsNodeOut(scope, components);
+      auto _components = ::tensorflow::ops::AsNodeOutList(scope, components);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("QueueEnqueueV2");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "QueueEnqueueV2")
@@ -26830,8 +27712,9 @@ _ScopedAllocatorConcat::_ScopedAllocatorConcat(tensorflow::Scope& scope,
            tensorflow::InputList inputs, 
            tensorflow::string sa_name, 
            tensorflow::PartialTensorShape shape, 
-           int64_t id, 
-           bool reshape) {
+           tensorflow::DataType T, 
+           bool reshape, 
+           int64_t id) {
       if (!scope.ok())
           return;
       auto _backing = ::tensorflow::ops::AsNodeOut(scope, backing);
@@ -26845,8 +27728,9 @@ _ScopedAllocatorConcat::_ScopedAllocatorConcat(tensorflow::Scope& scope,
                                    .Input(_inputs)
                                    .Attr("sa_name", sa_name)
                                    .Attr("shape", shape)
-                                   .Attr("id", id)
+                                   .Attr("T", T)
                                    .Attr("reshape", reshape)
+                                   .Attr("id", id)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26899,7 +27783,8 @@ StatelessTruncatedNormal::StatelessTruncatedNormal(tensorflow::Scope& scope,
 }
 
 MatrixDiag::MatrixDiag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal) {
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _diagonal = ::tensorflow::ops::AsNodeOut(scope, diagonal);
@@ -26907,6 +27792,7 @@ MatrixDiag::MatrixDiag(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("MatrixDiag");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixDiag")
                                    .Input(_diagonal)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26919,7 +27805,8 @@ MatrixDiag::MatrixDiag(tensorflow::Scope& scope,
 TensorScatterSub::TensorScatterSub(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates) {
+           tensorflow::Input updates, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -26935,6 +27822,7 @@ TensorScatterSub::TensorScatterSub(tensorflow::Scope& scope,
                                    .Input(_tensor)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26946,7 +27834,8 @@ TensorScatterSub::TensorScatterSub(tensorflow::Scope& scope,
 
 FloorDiv::FloorDiv(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -26958,6 +27847,7 @@ FloorDiv::FloorDiv(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "FloorDiv")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -26972,11 +27862,12 @@ StridedSlice::StridedSlice(tensorflow::Scope& scope,
            tensorflow::Input begin, 
            tensorflow::Input end, 
            tensorflow::Input strides, 
+           tensorflow::DataType T, 
            int64_t shrink_axis_mask, 
-           int64_t new_axis_mask, 
            int64_t begin_mask, 
            int64_t end_mask, 
-           int64_t ellipsis_mask) {
+           int64_t ellipsis_mask, 
+           int64_t new_axis_mask) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -26996,11 +27887,12 @@ StridedSlice::StridedSlice(tensorflow::Scope& scope,
                                    .Input(_begin)
                                    .Input(_end)
                                    .Input(_strides)
+                                   .Attr("T", T)
                                    .Attr("shrink_axis_mask", shrink_axis_mask)
-                                   .Attr("new_axis_mask", new_axis_mask)
                                    .Attr("begin_mask", begin_mask)
                                    .Attr("end_mask", end_mask)
                                    .Attr("ellipsis_mask", ellipsis_mask)
+                                   .Attr("new_axis_mask", new_axis_mask)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27012,7 +27904,8 @@ StridedSlice::StridedSlice(tensorflow::Scope& scope,
 
 PreventGradient::PreventGradient(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::string message) {
+           tensorflow::string message, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27021,6 +27914,7 @@ PreventGradient::PreventGradient(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "PreventGradient")
                                    .Input(_input)
                                    .Attr("message", message)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27034,7 +27928,8 @@ SparseDenseCwiseMul::SparseDenseCwiseMul(tensorflow::Scope& scope,
            tensorflow::Input sp_indices, 
            tensorflow::Input sp_values, 
            tensorflow::Input sp_shape, 
-           tensorflow::Input dense) {
+           tensorflow::Input dense, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _sp_indices = ::tensorflow::ops::AsNodeOut(scope, sp_indices);
@@ -27054,6 +27949,7 @@ SparseDenseCwiseMul::SparseDenseCwiseMul(tensorflow::Scope& scope,
                                    .Input(_sp_values)
                                    .Input(_sp_shape)
                                    .Input(_dense)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27069,7 +27965,8 @@ FusedPadConv2D::FusedPadConv2D(tensorflow::Scope& scope,
            tensorflow::Input filter, 
            tensorflow::string mode, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27088,6 +27985,7 @@ FusedPadConv2D::FusedPadConv2D(tensorflow::Scope& scope,
                                    .Attr("mode", mode)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27157,7 +28055,8 @@ SplitV::SplitV(tensorflow::Scope& scope,
            tensorflow::Input value, 
            tensorflow::Input size_splits, 
            tensorflow::Input split_dim, 
-           int64_t num_split) {
+           int64_t num_split, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _value = ::tensorflow::ops::AsNodeOut(scope, value);
@@ -27174,6 +28073,7 @@ SplitV::SplitV(tensorflow::Scope& scope,
                                    .Input(_size_splits)
                                    .Input(_split_dim)
                                    .Attr("num_split", num_split)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27184,7 +28084,8 @@ SplitV::SplitV(tensorflow::Scope& scope,
 }
 
 BatchMatrixDiag::BatchMatrixDiag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal) {
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _diagonal = ::tensorflow::ops::AsNodeOut(scope, diagonal);
@@ -27192,6 +28093,7 @@ BatchMatrixDiag::BatchMatrixDiag(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("BatchMatrixDiag");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BatchMatrixDiag")
                                    .Input(_diagonal)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27223,7 +28125,8 @@ Bucketize::Bucketize(tensorflow::Scope& scope,
 
 DrawBoundingBoxes::DrawBoundingBoxes(tensorflow::Scope& scope, 
            tensorflow::Input images, 
-           tensorflow::Input boxes) {
+           tensorflow::Input boxes, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _images = ::tensorflow::ops::AsNodeOut(scope, images);
@@ -27235,6 +28138,7 @@ DrawBoundingBoxes::DrawBoundingBoxes(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DrawBoundingBoxes")
                                    .Input(_images)
                                    .Input(_boxes)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27245,7 +28149,8 @@ DrawBoundingBoxes::DrawBoundingBoxes(tensorflow::Scope& scope,
 }
 
 ZerosLike::ZerosLike(tensorflow::Scope& scope, 
-           tensorflow::Input x) {
+           tensorflow::Input x, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -27253,6 +28158,7 @@ ZerosLike::ZerosLike(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ZerosLike");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ZerosLike")
                                    .Input(_x)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27290,7 +28196,8 @@ ImageSummary::ImageSummary(tensorflow::Scope& scope,
 }
 
 ShapeN::ShapeN(tensorflow::Scope& scope, 
-           tensorflow::InputList input) {
+           tensorflow::InputList input, 
+           tensorflow::DataType out_type) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
@@ -27298,6 +28205,7 @@ ShapeN::ShapeN(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("ShapeN");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "ShapeN")
                                    .Input(_input)
+                                   .Attr("out_type", out_type)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27350,7 +28258,8 @@ Empty::Empty(tensorflow::Scope& scope,
 Split::Split(tensorflow::Scope& scope, 
            tensorflow::Input split_dim, 
            tensorflow::Input value, 
-           int64_t num_split) {
+           int64_t num_split, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _split_dim = ::tensorflow::ops::AsNodeOut(scope, split_dim);
@@ -27363,6 +28272,7 @@ Split::Split(tensorflow::Scope& scope,
                                    .Input(_split_dim)
                                    .Input(_value)
                                    .Attr("num_split", num_split)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27378,6 +28288,7 @@ Conv3DBackpropInput::Conv3DBackpropInput(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
+           tensorflow::DataType T, 
            tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
@@ -27396,6 +28307,7 @@ Conv3DBackpropInput::Conv3DBackpropInput(tensorflow::Scope& scope,
                                    .Input(_out_backprop)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
                                    .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
@@ -27411,8 +28323,9 @@ DepthwiseConv2dNative::DepthwiseConv2dNative(tensorflow::Scope& scope,
            tensorflow::Input filter, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations, 
-           tensorflow::string data_format) {
+           tensorflow::DataType T, 
+           tensorflow::string data_format, 
+           tensorflow::gtl::ArraySlice<int64_t> dilations) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27426,8 +28339,9 @@ DepthwiseConv2dNative::DepthwiseConv2dNative(tensorflow::Scope& scope,
                                    .Input(_filter)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
-                                   .Attr("dilations", dilations)
+                                   .Attr("T", T)
                                    .Attr("data_format", data_format)
+                                   .Attr("dilations", dilations)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27530,12 +28444,14 @@ OptionalGetValue::OptionalGetValue(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 TensorListGetItem::TensorListGetItem(tensorflow::Scope& scope, 
            tensorflow::Input input_handle, 
-           tensorflow::Input index) {
+           tensorflow::Input index, 
+           tensorflow::DataType element_dtype) {
       if (!scope.ok())
           return;
       auto _input_handle = ::tensorflow::ops::AsNodeOut(scope, input_handle);
@@ -27547,6 +28463,7 @@ TensorListGetItem::TensorListGetItem(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "TensorListGetItem")
                                    .Input(_input_handle)
                                    .Input(_index)
+                                   .Attr("element_dtype", element_dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27557,7 +28474,8 @@ TensorListGetItem::TensorListGetItem(tensorflow::Scope& scope,
 }
 
 Diag::Diag(tensorflow::Scope& scope, 
-           tensorflow::Input diagonal) {
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _diagonal = ::tensorflow::ops::AsNodeOut(scope, diagonal);
@@ -27565,6 +28483,7 @@ Diag::Diag(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("Diag");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Diag")
                                    .Input(_diagonal)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27648,7 +28567,8 @@ ResourceApplyPowerSign::ResourceApplyPowerSign(tensorflow::Scope& scope,
 
 Concat::Concat(tensorflow::Scope& scope, 
            tensorflow::Input concat_dim, 
-           tensorflow::InputList values) {
+           tensorflow::InputList values, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _concat_dim = ::tensorflow::ops::AsNodeOut(scope, concat_dim);
@@ -27660,6 +28580,7 @@ Concat::Concat(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Concat")
                                    .Input(_concat_dim)
                                    .Input(_values)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27723,6 +28644,7 @@ ApplyAddSign::ApplyAddSign(tensorflow::Scope& scope,
            tensorflow::Input sign_decay, 
            tensorflow::Input beta, 
            tensorflow::Input grad, 
+           tensorflow::DataType T, 
            bool use_locking) {
       if (!scope.ok())
           return;
@@ -27755,6 +28677,7 @@ ApplyAddSign::ApplyAddSign(tensorflow::Scope& scope,
                                    .Input(_sign_decay)
                                    .Input(_beta)
                                    .Input(_grad)
+                                   .Attr("T", T)
                                    .Attr("use_locking", use_locking)
       ;
       scope.UpdateBuilder(&builder);
@@ -27767,7 +28690,8 @@ ApplyAddSign::ApplyAddSign(tensorflow::Scope& scope,
 
 BitwiseAnd::BitwiseAnd(tensorflow::Scope& scope, 
            tensorflow::Input x, 
-           tensorflow::Input y) {
+           tensorflow::Input y, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _x = ::tensorflow::ops::AsNodeOut(scope, x);
@@ -27779,6 +28703,7 @@ BitwiseAnd::BitwiseAnd(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BitwiseAnd")
                                    .Input(_x)
                                    .Input(_y)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27790,7 +28715,8 @@ BitwiseAnd::BitwiseAnd(tensorflow::Scope& scope,
 
 MatrixSetDiag::MatrixSetDiag(tensorflow::Scope& scope, 
            tensorflow::Input input, 
-           tensorflow::Input diagonal) {
+           tensorflow::Input diagonal, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27802,6 +28728,7 @@ MatrixSetDiag::MatrixSetDiag(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "MatrixSetDiag")
                                    .Input(_input)
                                    .Input(_diagonal)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27818,10 +28745,11 @@ _FusedConv2D::_FusedConv2D(tensorflow::Scope& scope,
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
            tensorflow::gtl::ArraySlice<tensorflow::string> fused_ops, 
-           float epsilon, 
+           tensorflow::DataType T, 
            int64_t num_args, 
            tensorflow::string data_format, 
-           tensorflow::gtl::ArraySlice<int64_t> dilations) {
+           tensorflow::gtl::ArraySlice<int64_t> dilations, 
+           float epsilon) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27840,10 +28768,11 @@ _FusedConv2D::_FusedConv2D(tensorflow::Scope& scope,
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
                                    .Attr("fused_ops", fused_ops)
-                                   .Attr("epsilon", epsilon)
+                                   .Attr("T", T)
                                    .Attr("num_args", num_args)
                                    .Attr("data_format", data_format)
                                    .Attr("dilations", dilations)
+                                   .Attr("epsilon", epsilon)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27897,7 +28826,8 @@ AdjustHue::AdjustHue(tensorflow::Scope& scope,
 SpaceToBatchND::SpaceToBatchND(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input block_shape, 
-           tensorflow::Input paddings) {
+           tensorflow::Input paddings, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27913,6 +28843,7 @@ SpaceToBatchND::SpaceToBatchND(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_block_shape)
                                    .Input(_paddings)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27928,7 +28859,8 @@ QuantizedMaxPool::QuantizedMaxPool(tensorflow::Scope& scope,
            tensorflow::Input max_input, 
            tensorflow::gtl::ArraySlice<int64_t> ksize, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
-           tensorflow::string padding) {
+           tensorflow::string padding, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27947,6 +28879,7 @@ QuantizedMaxPool::QuantizedMaxPool(tensorflow::Scope& scope,
                                    .Attr("ksize", ksize)
                                    .Attr("strides", strides)
                                    .Attr("padding", padding)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -27959,7 +28892,8 @@ QuantizedMaxPool::QuantizedMaxPool(tensorflow::Scope& scope,
 MirrorPadGrad::MirrorPadGrad(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input paddings, 
-           tensorflow::string mode) {
+           tensorflow::string mode, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -27972,6 +28906,7 @@ MirrorPadGrad::MirrorPadGrad(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Input(_paddings)
                                    .Attr("mode", mode)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28009,7 +28944,8 @@ CTCGreedyDecoder::CTCGreedyDecoder(tensorflow::Scope& scope,
 CopyHost::CopyHost(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::string tensor_name, 
-           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec) {
+           tensorflow::gtl::ArraySlice<tensorflow::string> debug_ops_spec, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -28019,6 +28955,7 @@ CopyHost::CopyHost(tensorflow::Scope& scope,
                                    .Input(_input)
                                    .Attr("tensor_name", tensor_name)
                                    .Attr("debug_ops_spec", debug_ops_spec)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28059,7 +28996,8 @@ MapUnstageNoKey::MapUnstageNoKey(tensorflow::Scope& scope,
 TensorScatterAdd::TensorScatterAdd(tensorflow::Scope& scope, 
            tensorflow::Input tensor, 
            tensorflow::Input indices, 
-           tensorflow::Input updates) {
+           tensorflow::Input updates, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _tensor = ::tensorflow::ops::AsNodeOut(scope, tensor);
@@ -28075,6 +29013,7 @@ TensorScatterAdd::TensorScatterAdd(tensorflow::Scope& scope,
                                    .Input(_tensor)
                                    .Input(_indices)
                                    .Input(_updates)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28124,7 +29063,8 @@ BoostedTreesEnsembleResourceHandleOp::BoostedTreesEnsembleResourceHandleOp(tenso
 
 SegmentMean::SegmentMean(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input segment_ids) {
+           tensorflow::Input segment_ids, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -28136,6 +29076,7 @@ SegmentMean::SegmentMean(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SegmentMean")
                                    .Input(_data)
                                    .Input(_segment_ids)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28177,6 +29118,7 @@ DebugIdentity::DebugIdentity(tensorflow::Scope& scope,
            tensorflow::string device_name, 
            tensorflow::string tensor_name, 
            tensorflow::gtl::ArraySlice<tensorflow::string> debug_urls, 
+           tensorflow::DataType T, 
            bool gated_grpc) {
       if (!scope.ok())
           return;
@@ -28188,6 +29130,7 @@ DebugIdentity::DebugIdentity(tensorflow::Scope& scope,
                                    .Attr("device_name", device_name)
                                    .Attr("tensor_name", tensor_name)
                                    .Attr("debug_urls", debug_urls)
+                                   .Attr("T", T)
                                    .Attr("gated_grpc", gated_grpc)
       ;
       scope.UpdateBuilder(&builder);
@@ -28200,7 +29143,8 @@ DebugIdentity::DebugIdentity(tensorflow::Scope& scope,
 
 BroadcastArgs::BroadcastArgs(tensorflow::Scope& scope, 
            tensorflow::Input s0, 
-           tensorflow::Input s1) {
+           tensorflow::Input s1, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _s0 = ::tensorflow::ops::AsNodeOut(scope, s0);
@@ -28212,6 +29156,7 @@ BroadcastArgs::BroadcastArgs(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BroadcastArgs")
                                    .Input(_s0)
                                    .Input(_s1)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28223,7 +29168,7 @@ BroadcastArgs::BroadcastArgs(tensorflow::Scope& scope,
 
 DecodeCSV::DecodeCSV(tensorflow::Scope& scope, 
            tensorflow::Input records, 
-           tensorflow::Input record_defaults, 
+           tensorflow::InputList record_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> OUT_TYPE, 
            tensorflow::string na_value, 
            tensorflow::gtl::ArraySlice<int64_t> select_cols, 
@@ -28234,7 +29179,7 @@ DecodeCSV::DecodeCSV(tensorflow::Scope& scope,
       auto _records = ::tensorflow::ops::AsNodeOut(scope, records);
       if (!scope.ok())
           return;
-      auto _record_defaults = ::tensorflow::ops::AsNodeOut(scope, record_defaults);
+      auto _record_defaults = ::tensorflow::ops::AsNodeOutList(scope, record_defaults);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("DecodeCSV");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DecodeCSV")
@@ -28251,7 +29196,8 @@ DecodeCSV::DecodeCSV(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ExperimentalLMDBDataset::ExperimentalLMDBDataset(tensorflow::Scope& scope, 
@@ -28291,7 +29237,7 @@ OptionalNone::OptionalNone(tensorflow::Scope& scope) {
 
 ExperimentalNumaMapAndBatchDataset::ExperimentalNumaMapAndBatchDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 
-           tensorflow::Input other_arguments, 
+           tensorflow::InputList other_arguments, 
            tensorflow::Input batch_size, 
            tensorflow::Input num_parallel_calls, 
            tensorflow::Input drop_remainder, 
@@ -28305,7 +29251,7 @@ ExperimentalNumaMapAndBatchDataset::ExperimentalNumaMapAndBatchDataset(tensorflo
       auto _input_dataset = ::tensorflow::ops::AsNodeOut(scope, input_dataset);
       if (!scope.ok())
           return;
-      auto _other_arguments = ::tensorflow::ops::AsNodeOut(scope, other_arguments);
+      auto _other_arguments = ::tensorflow::ops::AsNodeOutList(scope, other_arguments);
       if (!scope.ok())
           return;
       auto _batch_size = ::tensorflow::ops::AsNodeOut(scope, batch_size);
@@ -28340,7 +29286,8 @@ ExperimentalNumaMapAndBatchDataset::ExperimentalNumaMapAndBatchDataset(tensorflo
 DynamicPartition::DynamicPartition(tensorflow::Scope& scope, 
            tensorflow::Input data, 
            tensorflow::Input partitions, 
-           int64_t num_partitions) {
+           int64_t num_partitions, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -28353,6 +29300,7 @@ DynamicPartition::DynamicPartition(tensorflow::Scope& scope,
                                    .Input(_data)
                                    .Input(_partitions)
                                    .Attr("num_partitions", num_partitions)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28365,7 +29313,8 @@ DynamicPartition::DynamicPartition(tensorflow::Scope& scope,
 LinSpace::LinSpace(tensorflow::Scope& scope, 
            tensorflow::Input start, 
            tensorflow::Input stop, 
-           tensorflow::Input num) {
+           tensorflow::Input num, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _start = ::tensorflow::ops::AsNodeOut(scope, start);
@@ -28381,6 +29330,7 @@ LinSpace::LinSpace(tensorflow::Scope& scope,
                                    .Input(_start)
                                    .Input(_stop)
                                    .Input(_num)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28468,7 +29418,8 @@ CTCLoss::CTCLoss(tensorflow::Scope& scope,
 }
 
 DebugGradientIdentity::DebugGradientIdentity(tensorflow::Scope& scope, 
-           tensorflow::Input input) {
+           tensorflow::Input input, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
@@ -28476,6 +29427,7 @@ DebugGradientIdentity::DebugGradientIdentity(tensorflow::Scope& scope,
       const auto unique_name = scope.GetUniqueNameForOp("DebugGradientIdentity");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "DebugGradientIdentity")
                                    .Input(_input)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28549,7 +29501,8 @@ UnicodeEncode::UnicodeEncode(tensorflow::Scope& scope,
 
 Switch::Switch(tensorflow::Scope& scope, 
            tensorflow::Input data, 
-           tensorflow::Input pred) {
+           tensorflow::Input pred, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _data = ::tensorflow::ops::AsNodeOut(scope, data);
@@ -28561,6 +29514,7 @@ Switch::Switch(tensorflow::Scope& scope,
       auto builder = ::tensorflow::NodeBuilder(unique_name, "Switch")
                                    .Input(_data)
                                    .Input(_pred)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28573,8 +29527,7 @@ Switch::Switch(tensorflow::Scope& scope,
 ResourceScatterMul::ResourceScatterMul(tensorflow::Scope& scope, 
            tensorflow::Input resource, 
            tensorflow::Input indices, 
-           tensorflow::Input updates, 
-           tensorflow::DataType dtype) {
+           tensorflow::Input updates) {
       if (!scope.ok())
           return;
       auto _resource = ::tensorflow::ops::AsNodeOut(scope, resource);
@@ -28590,7 +29543,6 @@ ResourceScatterMul::ResourceScatterMul(tensorflow::Scope& scope,
                                    .Input(_resource)
                                    .Input(_indices)
                                    .Input(_updates)
-                                   .Attr("dtype", dtype)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
@@ -28713,7 +29665,8 @@ FractionalMaxPoolGrad::FractionalMaxPoolGrad(tensorflow::Scope& scope,
            tensorflow::Input out_backprop, 
            tensorflow::Input row_pooling_sequence, 
            tensorflow::Input col_pooling_sequence, 
-           bool overlapping) {
+           bool overlapping, 
+           tensorflow::DataType T) {
       if (!scope.ok())
           return;
       auto _orig_input = ::tensorflow::ops::AsNodeOut(scope, orig_input);
@@ -28738,6 +29691,7 @@ FractionalMaxPoolGrad::FractionalMaxPoolGrad(tensorflow::Scope& scope,
                                    .Input(_row_pooling_sequence)
                                    .Input(_col_pooling_sequence)
                                    .Attr("overlapping", overlapping)
+                                   .Attr("T", T)
       ;
       scope.UpdateBuilder(&builder);
       scope.UpdateStatus(builder.Finalize(scope.graph(), &ret));
