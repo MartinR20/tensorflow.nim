@@ -1,5 +1,6 @@
 
 import macros
+import ../make/makeutils
 {.hint[XDeclaredButNotUsed]:off.}
 
 const gradInclude = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n" &
@@ -7,8 +8,9 @@ const gradInclude = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\"
 
 var grad_included {.compileTime.} = false
 
-macro grad*(x: untyped): untyped =
-  var exportName = $name(x) & "Grad"
+macro grad*(op: untyped, x: untyped): untyped =
+  let processedName = firstCharToUpper($op)
+  let exportName = processedName & "Grad"
 
   addPragma(x, newColonExpr(
                 newIdentNode("exportc"),
@@ -23,7 +25,7 @@ macro grad*(x: untyped): untyped =
                         "const std::vector<tensorflow::Output> &i, " & 
                         "std::vector<tensorflow::Output> *o)" & 
                         "{ return " & exportName & "(std::make_shared<tensorflow::Scope>(std::move(s)),p,i,o); }\".}"),
-    parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & $name(x) & "\\\", " & exportName & "_);\".}")
+    parseStmt("{.emit:\"REGISTER_GRADIENT_OP(\\\"" & processedName & "\\\", " & exportName & "_);\".}")
   )
 
   if not grad_included:
