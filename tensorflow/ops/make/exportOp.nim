@@ -1,11 +1,11 @@
-import ../newop/newop,
-       ../../core/core,
-       ./arguments,
-       ../generated,
-       ./procdef,
-       macros,
-       strutils,
-       makeutils
+import 
+  ../../core/core, ../generated,  makev2,  registerv2, ../newop/register_context,
+  macros, strutils, makeutils, tables
+include ../../core/with
+
+const
+    CPU*: string = "CPU"
+    GPU*: string = "GPU"
 
 proc makeOpKernel(exportName: string, funheader: NimNode): NimNode =
   let cppSource =  "\"\"class " & exportName & "Op : public tensorflow::OpKernel {\n" &
@@ -27,8 +27,8 @@ proc makeExportFun(exportName: string, body: NimNode): NimNode =
                   parseStmt("proc export" & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "_Compute\".}")
                 )
 
-var op_included {.compileTime.}: bool
-proc makeNewOpIncludes(funheader: NimNode, explicit = false): NimNode =
+var op_included* {.compileTime.}: bool
+proc makeNewOpIncludes*(funheader: NimNode, explicit = false): NimNode =
   if not op_included or explicit:
     var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n" & 
                    "#include \"tensorflow/core/framework/shape_inference.h\" \n" & 
@@ -44,7 +44,13 @@ proc makeNewOpIncludes(funheader: NimNode, explicit = false): NimNode =
   
   return funheader
 
-macro tfexp(device: string, x: untyped): untyped =
+proc REGISTER_KERNEL_BUILDER*(exportName: string, device: string, funheader: NimNode): NimNode =
+  let cppSource = "\"\"REGISTER_KERNEL_BUILDER(Name(\"" & exportName & "\").Device(\"" & device & "\"), " & exportName & "Op);\n\"\""
+                
+  insert(funheader, 1, parseStmt("{.emit:\"" & cppSource & "\".}"))
+  return funheader
+
+macro tfexp*(device: string, x: untyped): untyped =
     let exportName = $name(x)
     
     var ddevice: string
@@ -55,106 +61,29 @@ macro tfexp(device: string, x: untyped): untyped =
     
     var funheader = makeExportFun(exportName, body(x))
     
-    if not lookUp.hasKey(exportName):
-        raise newException(ValueError, "You didn't register any input or output for your function!")
-    
-    var def = new ProcDef
-    def.name = exportName
-
-    for pragma in lookUp[exportName].split("."):
-        case pragma.fromTo(0, '('):
-        of "Input":
-            let dtype = pragma.rfromTo(':', '"').strip
-            let nimT = if dtype.find("list") == -1: "Out" else: "OutList"
-
-            if dict.hasKey(dtype):
-                def.args.add Arg(iname: pragma.fromTo('"', ':'), 
-                                iT: nimT, 
-                                dtype: tfdict[dict[dtype]],
-                                typeattr: "")
-            else:
-                def.args.add Arg(iname: pragma.fromTo('"', ':'), 
-                                iT: nimT, 
-                                dtype: DT_INVALID,
-                                typeattr: dtype)
-        of "Output":
-            let dtype = pragma.rfromTo(':', '"').strip
-            let nimT = if dtype.find("list") == -1: "Out" else: "OutList"
-
-            if dict.hasKey(dtype):
-                def.output = Arg(iname: pragma.fromTo('"', ':'), 
-                                 iT: nimT, 
-                                 dtype: tfdict[dict[dtype]],
-                                 typeattr: "")
-            else:
-                def.output = Arg(iname: pragma.fromTo('"', ':'), 
-                                 iT: nimT, 
-                                 dtype: DT_INVALID,
-                                 typeattr: dtype)
-        of "Attr":
-            var dtype: string 
-            var default: string
-
-            if pragma.find("=") != -1:
-                default = pragma.rfromTo('=', '"').strip
-                dtype = pragma.rfromTo(':', '=').strip
-            else:
-                dtype = pragma.rfromTo(':', '"').strip
-
-            let allowedvalues = if pragma.find("{") != -1: pragma.fromTo('{', '}').replace(",", "|") else: ""
-
-            def.attrs.add Attr(iname: pragma.fromTo('"', ':'), 
-                                iT: dtype, 
-                                nimdefault: default,
-                                cppdefault: default.replace("[" ,"{").replace("]" ,"}"),
-                                allowedvalues: allowedvalues)
-        else:
-            discard
-
     funheader = REGISTER_KERNEL_BUILDER(exportName, ddevice, funheader)
     funheader = makeOpKernel(exportName, funheader)
-    funheader = REGISTER_OP(exportName, funheader)
     funheader = makeNewOpIncludes(funheader)
 
-    let headerName = "test.h"
-    let sourceName = "test.cc"
-    let nimName =    "test.nim"
-
-    let h = open(headerName, fmWrite)
-    let cc = open(sourceName, fmWrite)
-    let nnim = open(nimName, fmWrite)
-
-    let cppsignature = makeCppSignature(def)
-    var (cppsource, cppheader) = makeCppCode(def, cppsignature)
-    insert(funheader, 0, parseStmt(emitStmt(cppheader)))
-    insert(funheader, 0, parseStmt(emitStmt(cppsource)))
-
-    var nimSource = makeTemplateTypes(def) & "\n\n"
-    nimSource &= makeNimType(def, "") & "\n\n"
-    nimSource &= makeNimImportProc(def, "") & "\n\n"
-    nimSource &= makeNimProc(def, "") & "\n\n"
-    nimSource &= makeNimConverter(def) & "\n\n"
-
-    echo nimSource
-    insert(funheader, 0, parseStmt(nimSource))
+    funheader = registerOp(funheader, exportName, repr x)
 
     return funheader
 
 when isMainModule:
     proc ZeroOut(ctx: ptr OpKernelContext) {.input:"to_zero: int32",
-                                            output:"zeroed: int32",
-                                            attr:"upto: list(int) = [0, 1, 2, 3]",
-                                            setShapeFn: proc(ctx: ptr InferenceContext): Status = 
-                                                            ctx.set_output(0, ctx.input(0))
-                                                            return ok(),
-                                            tfexp:CPU.} =
-        let input_tensor = ctx.input(0, oint64)
+                                             output:"zeroed: int32",
+                                             attr:"upto: list(int) = [0, 1, 2, 3]",
+                                             setShapeFn: proc(ctx: ptr InferenceContext): Status = 
+                                                             ctx.set_output(0, ctx.input(0))
+                                                             return ok(),
+                                             tfexp:CPU.} =
+        let input_tensor = ctx.input(0, oint32)
         let input = input_tensor.flat()
 
-        var output_tensor: Tensor[oint64]
-        OP_REQUIRES_OK(ctx, ctx.allocate_output(0, input_tensor.shape(), output_tensor))
+        var output_tensor = gc Tensor[oint32]
+        ctx.OP_REQUIRES_OK(ctx.allocate_output(0, input_tensor.shape, output_tensor))
 
-        let output = output_tensor.flat()
+        let output = output_tensor[].flat()
 
         let N = input.len
         for i in 0..N-1:
@@ -163,11 +92,14 @@ when isMainModule:
         if N > 0: 
             output[0] = input[0]
 
-    with newRootScope():
-        let ten = [[1,2,3,4],[8,7,6,4]].oint64
-        let zeroed = zeroOut(ten)
-        let sess = newSession()
 
-        let o = sess.runSession(zeroed)
-        echo o[0]
+    let scope = newRootScope()
+
+    with scope:
+      let ten = [[1,2,3,4],[8,7,6,4]].oint32
+      let zeroed = zeroOut(ten)
+      let sess = newSession()
+
+      let o = sess.runSession(zeroed)
+      echo o[0]
     
