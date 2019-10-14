@@ -1,11 +1,6 @@
-import strutils,
-       ../../core/core,
-       ./wrapper,
-       ./conversions,
-       ./makeutils,
-       hashes,
-       sequtils,
-       tables
+import 
+    strutils, ../../core/core, wrapper, conversions, makeutils,
+    hashes, sequtils, tables
        
 
 type Attr* = object
@@ -99,10 +94,17 @@ proc hash*(arg: Arg): Hash =
     return hash(arg.iname)
 
 proc arg*(argdef: OpDefArgDef): Arg =
-    if argdef.number_attr == "N":
-        return Arg(iname: argdef.name, iT: "OutList", dtype: argdef.type, typeattr: argdef.type_attr)
+    var typeattr = ""
+
+    if argdef.type_attr != "":
+        typeattr = argdef.type_attr
+    elif argdef.type_list_attr != "":
+        typeattr = argdef.type_list_attr
+
+    if argdef.number_attr == "N" or typeattr.find("list") != -1:
+        return Arg(iname: argdef.name, iT: "OutList", dtype: argdef.type, typeattr: typeattr)
     else: 
-        return Arg(iname: argdef.name, iT: "Out", dtype: argdef.type, typeattr: argdef.type_attr)
+        return Arg(iname: argdef.name, iT: "Out", dtype: argdef.type, typeattr: typeattr)
 
 proc lookUpLink*(arg: Arg): string =
     if argAttrLink.hasKey(arg):
@@ -140,7 +142,10 @@ proc templateT*(arg: Arg, opdef: ptr OpDef): string =
     if argAttrLink.hasKey(arg):
         return reinterpretLeadingUnderscore(opdef[].name) & argAttrLink[arg].name("nim")
     else:
-        return otypeLookUp[arg.dtype]
+        if arg.dtype != DT_INVALID:
+            return otypeLookUp[arg.dtype]
+        else:
+            return "oall"
 
 proc templateT*(attr: Attr, opdef: ptr OpDef): string =
     if attr.T("nim") == "Tensor":

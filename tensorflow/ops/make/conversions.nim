@@ -1,9 +1,5 @@
-import tables,
-       sugar,
-       strutils,
-       ../../core/core,
-       ./wrapper,
-       ./makeutils
+import 
+    tables, sugar, strutils, ../../core/core, wrapper, makeutils
 
 const attrBlacklist* = ["N"]
 
@@ -13,7 +9,8 @@ type conversions* = enum
     STRINGCONV = 2
     LISTCONV = 3
     FUNCCONV = 4
-    #SHAPECONV = 5
+    TYPECONV = 5
+    #SHAPECONV = 6
 
 const needsConversion* = {
     "Out"                     : NONE,
@@ -26,7 +23,7 @@ const needsConversion* = {
     "cstring"                 : STRINGCONV,                
     "TensorShape"             : NONE,                   
     "Tensor"                  : DEREF,       
-    "DType"                   : NONE,          
+    "DType"                   : TYPECONV,          
     "ArraySlice[bool]"        : LISTCONV,                          
     "ArraySlice[float32]"     : LISTCONV,                              
     "ArraySlice[int]"         : LISTCONV,                          
@@ -114,20 +111,20 @@ proc nim*(x: TensorShape): string =
     else:
         return $x & ".shape"
 
-proc cpp*(x: Tensor): string =
-    let ten = x.toValueStr(-1)[1..^2].replace(" ", ", ")
+proc cpp*(x: ref Tensor[oinvalid]): string =
+    let ten = x[].toValueStr(-1)[1..^2].replace(" ", ", ")
 
     if ten == "": return ""
 
     return "_to_tensor({" & ten & 
-                "}, {tensorflow::" & $x.dtype & "})"
+                "}, {tensorflow::" & $x[].dtype & "})"
 
-proc nim*(x: Tensor): string =
-    let ten = x.toValueStr(-1).replace(" ", ", ")
+proc nim*(x: ref Tensor[oinvalid]): string =
+    let ten = x[].toValueStr(-1).replace(" ", ", ")
  
     if ten == "[]": return ""
 
-    return "tensor(" & ten & ", " & typeLookUpReverse[x.dtype] & ")"
+    return "tensor(" & ten & ", " & typeLookUpReverse[x[].dtype] & ")"
                 
 proc cpp*(x: NameAttrList): string =
     return ""
@@ -221,6 +218,33 @@ const otypeLookUp* = {
     DT_HALF          : "ohalf"       ,  
     DT_RESOURCE      : "oresource"   ,  
     DT_VARIANT       : "ovariant"  
+}.toTable
+
+const stringtypeLookUp* = { 
+    "DT_INVALID"       : DT_INVALID    ,  
+    "DT_DOUBLE"        : DT_DOUBLE     ,  
+    "DT_FLOAT"         : DT_FLOAT      , 
+    "DT_INT64"         : DT_INT64      , 
+    "DT_INT32"         : DT_INT32      , 
+    "DT_UINT8"         : DT_UINT8      , 
+    "DT_INT16"         : DT_INT16      , 
+    "DT_INT8"          : DT_INT8       , 
+    "DT_STRING"        : DT_STRING     ,  
+    "DT_BOOL"          : DT_BOOL       ,
+    "DT_UINT16"        : DT_UINT16     ,  
+    "DT_UINT32"        : DT_UINT32     ,  
+    "DT_UINT64"        : DT_UINT64     ,  
+    "DT_COMPLEX64"     : DT_COMPLEX64  ,  
+    "DT_COMPLEX128"    : DT_COMPLEX128 ,  
+    "DT_QINT8"         : DT_QINT8      ,  
+    "DT_QUINT8"        : DT_QUINT8     ,  
+    "DT_QINT32"        : DT_QINT32     ,  
+    "DT_BFLOAT16"      : DT_BFLOAT16   ,  
+    "DT_QINT16"        : DT_QINT16     ,  
+    "DT_QUINT16"       : DT_QUINT16    ,  
+    "DT_HALF"          : DT_HALF       ,  
+    "DT_RESOURCE"      : DT_RESOURCE   ,  
+    "DT_VARIANT"       : DT_VARIANT   
 }.toTable
 
 const attrToCpp* = {
