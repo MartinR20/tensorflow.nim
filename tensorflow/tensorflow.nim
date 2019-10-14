@@ -1,7 +1,7 @@
 import ./core/core,
-       ./ops/ops,
-       ./layers/layers
+       #./layers/layers,
+       ./ops/ops
 
 export core,
-       ops,
-       layers
+       #layers,
+       ops
