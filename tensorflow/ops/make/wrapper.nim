@@ -1,5 +1,5 @@
-import ../../core/core
-import ../../utils/utils
+import 
+    ../../core/core, ../../utils/utils
 
 const op* = "tensorflow/core/framework/op.h"
 
@@ -120,9 +120,19 @@ proc listshape*(attr: AttrValue, i: int): TensorShape {.importcpp:"#.list().shap
 
 proc lenshape*(attr: AttrValue): int {.importcpp:"#.list().shape_size()".}
 
-proc tensor*(attr: AttrValue): Tensor[oinvalid] {.importcpp:"[&](){ auto _ten = std::make_shared<tensorflow::Tensor>(); _ten->FromProto(#.tensor()); return _ten; }()".}
+proc itensor*(attr: AttrValue): Tensor[oinvalid] {.importcpp:"[&](){ auto _ten = new tensorflow::Tensor(); _ten->FromProto(#.tensor()); return _ten; }()".}
 
-proc listtensor*(attr: AttrValue, i: int): Tensor[oinvalid] {.importcpp:"[&](){ auto _ten = std::make_shared<tensorflow::Tensor>(); _ten->FromProto(#.list().tensor()[#]); return _ten; }()".}
+proc tensor*(attr: AttrValue): ref Tensor[oinvalid] = 
+    var ten = new Tensor[oinvalid]
+    ten[] = itensor(attr)
+    return ten
+
+proc ilisttensor*(attr: AttrValue, i: int): Tensor[oinvalid] {.importcpp:"[&](){ auto _ten = new tensorflow::Tensor(); _ten->FromProto(#.list().tensor()[#]); return _ten; }()".}
+
+proc listtensor*(attr: AttrValue, i: int): ref Tensor[oinvalid] = 
+    var ten = new Tensor[oinvalid]
+    ten[] = ilisttensor(attr, i)
+    return ten
 
 proc lentensor*(attr: AttrValue): int {.importcpp:"#.list().tensor_size()".}
 
@@ -132,6 +142,15 @@ proc listtype*(attr: AttrValue, i: int): DType {.importcpp:"(tensorflow::DataTyp
 
 proc lentype*(attr: AttrValue): int {.importcpp:"#.list().type_size()".}
 
+
+type AttrSlice* {.importcpp:"tensorflow::AttrSlice", header:"tensorflow/core/framework/node_def_util.h".} = object
+
+proc attrs*(n: Node): AttrSlice {.importcpp:"#.attrs()".}
+
+proc `[]`*(slice: AttrSlice, attrname: cppstring): AttrValue {.importcpp:"*(#.Find(#))".}
+
+proc `[]`*(slice: AttrSlice, attrname: string): AttrValue =
+    return slice[newCPPString(attrname)]
 
 type vector*[T] {.header:"<vector>", importcpp:"std::vector".} = object
 
