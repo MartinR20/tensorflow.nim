@@ -3,7 +3,7 @@ import ../../core/core
 import ../variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc vvarSeq(vars: seq[TVariable]): OutList =
+proc vvarSeq(vars: seq[HVariable[oall]]): OutList =
     var outlist: OutList
 
     for v in vars:
@@ -11,7 +11,7 @@ proc vvarSeq(vars: seq[TVariable]): OutList =
 
     return outlist
 
-proc assignSeq(vars: seq[TVariable]): OutList =
+proc assignSeq(vars: seq[HVariable[oall]]): OutList =
     var outlist: OutList
 
     for v in vars:
@@ -20,9 +20,9 @@ proc assignSeq(vars: seq[TVariable]): OutList =
     return outlist
 
 
-proc getNames(vars: OutList): Tensor = 
-    let names = tensor(cppstring.tf, shape([vars.len]))
-    var buf = names.flat(newCPPString(""))
+proc getNames(vars: olist[oall]): Tensor[ostring] = 
+    let names = tensor([vars.len], ostring)
+    var buf = names.flat()
 
     for i in 0..vars.len-1:
         buf[i] = newCPPString(vars[i].name)

@@ -11,12 +11,12 @@ import ../variable
 {.hint[XDeclaredButNotUsed]:off.}
 
 type Model = ref object
-    x: Out
-    y: Out
-    eval: Out
-    loss: Out
-    opted: OutList
-    vars*: OutList
+    x: ofloat
+    y: ofloat
+    eval: ofloat
+    loss: ofloat
+    opted: olist[oinvalid]
+    vars*: olist[oinvalid]
     sess*: Session
     scope*: Scope
     path*: string
@@ -27,17 +27,17 @@ proc save(model: Model, iteration: int) =
     let rtNamed = model.scope.newSubScope("Save")
 
     with rtNamed:
-        let empty = Empty([model.vars.len].int32, cppstring.tf)
-        let save = SaveV2(Const(noScope(model.path & "-" & $iteration)), Const(names), empty, model.vars)
+        let empty = empty([model.vars.len].oint32, ostring)
+        let save = saveV2((model.path & "-" & $iteration).ostring, nconst(names), empty, model.vars, [])
 
     var feed: FeedDict
-    model.sess.runSessionVoid(feed, newOutList(), save)
+    discard model.sess.runSessionVoid(feed, newOutList[oinvalid](), save.operation)
 
     rtNamed.check()
 
 proc restore(model: Model) =
     let names = getNames(model.vars)
-    let dtypes = newArraySlice(float32.tf.repeat(model.vars.len))
+    let dtypes = DT_FLOAT.repeat(model.vars.len)
 
     let rtNamed = model.scope.newSubScope("Restore")
 
@@ -51,13 +51,11 @@ proc restore(model: Model) =
         maxIteration = max(maxIteration, iteration)
 
     with rtNamed:
-        let empty = Empty([model.vars.len].int32, cppstring.tf)
-        let restore = RestoreV2(Const(noScope(model.path & "-" & $maxIteration)), Const(names), empty, dtypes)
+        let empty = empty([model.vars.len].oint32, ostring)
+        let restore = restoreV2((model.path & "-" & $maxIteration).ostring, nconst(names), empty, dtypes, ofloat)
 
-    let read = restore.outputs()
-
-    for i in 0..read.len-1:
-        model.sess.runSessionVoid(rtNamed.Assign(model.vars[i], read[i]))
+    for i in 0..restore.len-1:
+        discard model.sess.runSessionVoid(rtNamed.assign(model.vars[i], restore[i]))
 
     rtNamed.check()
 
@@ -65,7 +63,7 @@ proc newModel[N](rt: Scope,
                  funcs: seq[proc(rt: Scope, input: Out): Out],
                  loss: Loss, 
                  optim: Optim[N],
-                 vars: seq[TVariable],
+                 vars: seq[HVariable[oall]],
                  path="checkpoints/model.ckpt",
                  restore=false): Model =
     var model = new Model
