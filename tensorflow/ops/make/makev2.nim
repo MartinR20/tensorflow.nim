@@ -1,12 +1,6 @@
-import ../../core/core,
-       ./wrapper,
-       ./procdef,
-       ./makeutils,
-       ./conversions,
-       macros,
-       tables,
-       sequtils,
-       sugar
+import 
+    ../../core/core, wrapper, procdef, makeutils, conversions, macros,
+    tables, sequtils, sugar, os
 {.hint[XDeclaredButNotUsed]:off.}
 
 proc getRegisteredOps(): vector[MutOpDef] {.
@@ -19,7 +13,11 @@ proc getRegisteredOps(): vector[MutOpDef] {.
         """
     .}
 
-proc makeOp(name: string, headerFileName: string, sourceFileName: string, shouldGenerateIncludes = false): (string, string, string) =
+proc makeOp(name: string, 
+            headerFileName: string, 
+            sourceFileName: string, 
+            shouldGenerateIncludes = false,
+            shouldGenerateConversions = false): (string, string, string) =
     var opdef: ptr OpDef
     let scope = newRootScope()
     scope.getOpDef(name, addr(opdef))
@@ -32,7 +30,7 @@ proc makeOp(name: string, headerFileName: string, sourceFileName: string, should
     var nimSource: string
 
     if shouldGenerateIncludes:
-        nimSource = "import ../core/core\n\n"
+        nimSource = "import ../../../tensorflow/tensorflow\n\n"
         nimSource &= "{.compile:" & quote(sourceFileName) & ".}\n\n"
 
         var includes = ""
@@ -40,17 +38,23 @@ proc makeOp(name: string, headerFileName: string, sourceFileName: string, should
             includes &= "#include " & quote(header) & "\n"
 
         includes &= "\n"
-        cppheader = includes &
-                    """template <typename T>
-                    tensorflow::Tensor _to_tensor(std::initializer_list<T> _list, std::initializer_list<int> _dtype) {
-                    auto _ten = tensorflow::Tensor();
-                    _ten.FromProto(_list, _dtype);
-                    return _ten;
-                    }""" & cppheader
 
         cppsource = "#include " & quote("tensorflow/cc/ops/const_op.h") & "\n" &
                     "#include " & quote(headerFileName) & "\n\n" &
                     cppsource
+
+        if shouldGenerateConversions:
+            cppheader = """
+template <typename T>
+tensorflow::Tensor _to_tensor(std::initializer_list<T> _list, std::initializer_list<int> _dtype) {
+    auto _ten = tensorflow::Tensor();
+    _ten.FromProto(_list, _dtype);
+    return _ten;
+}
+
+""" & cppheader
+
+        cppheader = includes & cppheader
 
     nimSource &= makeTemplateTypes(def) & "\n"
     nimSource &= makeNimType(def, headerFileName) & "\n\n"
@@ -69,24 +73,40 @@ proc getRegisteredOperations(): seq[string] =
     return names
 
 when isMainModule:
-    let headerName = "generated.h"
-    let sourceName = "generated.cc"
-    let nimName =    "generated.nim"
+    if paramCount() == 1:
+        let headerName = "generated.h"
+        let sourceName = "generated.cc"
+        let nimName =    "generated.nim"
 
-    let h = open(headerName, fmWrite)
-    let cc = open(sourceName, fmWrite)
-    let nnim = open(nimName, fmWrite)
+        let h = open(headerName, fmWrite)
+        let cc = open(sourceName, fmWrite)
+        let nnim = open(nimName, fmWrite)
 
-    var includes = true
+        var includes = true
 
-    for name in getRegisteredOperations():
-        let (cppheader, cppsource, nimsource) = makeOp(name, headerName, sourceName, includes)
+        if paramStr(1) == "test":
+            for name in ["Const", "_Arg", "Shape", "HostConst", "ParallelInterleaveDatasetV2", "EagerPyFunc", 
+                        "_While", "ResourceApplyAddSign", "IteratorGetNext", "ShapeN", "Conv2DBackpropInput"]: 
+                let (cppheader, cppsource, nimsource) = makeOp(name, headerName, sourceName, includes, includes)
 
-        h.write(cppheader)
-        cc.write(cppsource)
-        nnim.write(nimsource)
+                h.write(cppheader)
+                cc.write(cppsource)
+                nnim.write(nimsource)
 
-        includes = false
+                includes = false
+        elif paramStr(1) == "run":
+            for name in getRegisteredOperations():
+                let (cppheader, cppsource, nimsource) = makeOp(name, headerName, sourceName, includes, includes)
+
+                h.write(cppheader)
+                cc.write(cppsource)
+                nnim.write(nimsource)
+
+                includes = false
+        else:
+            raise newException(ValueError, "Expected either \"test\" or \"run\" as parameter not \"" & paramStr(1) & "\"!")
+    else:
+        raise newException(ValueError, "Wrong parameter count, 1 expected!")
 
 export makeOp,
        getRegisteredOperations

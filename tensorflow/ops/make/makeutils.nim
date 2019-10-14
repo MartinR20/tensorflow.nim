@@ -1,8 +1,15 @@
-import strutils, tables
+import 
+    strutils, tables, macros
 
 proc fromTo*(str: string, start: char, eend: char): string =
     let s = str.find(start)+1
     let e = str.find(eend)-1
+
+    return str[s..e]
+
+proc fromToOuter*(str: string, start: char, eend: char): string =
+    let s = str.find(start)+1
+    let e = str.rfind(eend)-1
 
     return str[s..e]
 
@@ -59,7 +66,7 @@ proc trippleQuote*(str: string): string =
     
 proc emitStmt*(str: string): string =
     return "{.emit:" & trippleQuote(str) & ".}"
-    
+
 proc importcppStmt*(str: string, header = "", isConstructor = false): string =
     var source = "{."
     if header != "":
@@ -72,4 +79,4 @@ proc importcppStmt*(str: string, header = "", isConstructor = false): string =
     
     source &= ".}"
 
-    return source
+    return source 
