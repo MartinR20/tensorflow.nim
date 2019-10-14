@@ -1,41 +1,10 @@
 import macros
 import tables
 import strutils
+import ./register
 {.hint[XDeclaredButNotUsed]:off.}
 
-proc fromTo(str: string, start: char, eend: char): string =
-  let s = str.find(start)
-  let e = str.find(eend)
-
-  return str[s..e]
-
-proc fromTo(str: string, start: char, eend: int): string =
-  let s = str.find(start)
-
-  return str[s..eend]
-
-var op_included {.compileTime.} = false
-
-proc getOrReturn[M, N](table: Table[M, N], key: M): N =
-  if table.hasKey(key):
-    return table[key]
-  else:
-    return key
-  
-proc makeNewOpIncludes(funheader: NimNode): NimNode =
-  if not op_included:
-    var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n" & 
-                   "#include \"tensorflow/core/framework/shape_inference.h\" \n" & 
-                   "#include \"tensorflow/core/framework/op_kernel.h\" \n" & 
-                   "#include \"tensorflow/cc/framework/scope.h\" \n" & 
-                   "#include \"tensorflow/core/framework/tensor.h\" \n" & 
-                   "#include \"tensorflow/core/framework/tensor_shape.h\" \n" & 
-                   "#include \"tensorflow/core/framework/types.h\" \n\"\""
-    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
-    op_included = true
-  return funheader
-
-const nimKeywordsTranslate = { 
+const nimKeywordsTranslate* = { 
   "addr"       : "naddr"      ,           
   "and"        : "nand"       ,         
   "as"         : "nas"        ,        
@@ -104,7 +73,7 @@ const nimKeywordsTranslate = {
   "yield"      : "nyield"              
 }.toTable()
 
-const cppKeywordsTranslate = { 
+const cppKeywordsTranslate* = { 
   "asm"              : "casm"              ,    
   "else"             : "celse"             ,     
   "new"              : "cnew"              ,    
@@ -181,9 +150,161 @@ const cppKeywordsTranslate = {
   "or_eq"            : "cor_eq"                  
 }.toTable()
 
-export fromTo,
+const translateNimToCpp* = { 
+  "Scope"        : "::tensorflow::Scope"             ,            
+  "In"           : "::tensorflow::Input"             ,            
+  "InList"       : "::tensorflow::InputList"         ,                
+  "Out"          : "::tensorflow::Input"             ,             
+  "OutList"      : "::tensorflow::InputList"         ,                 
+  "bool"         : "::tensorflow::bool"              ,           
+  "int"          : "::tensorflow::int64"             ,            
+  "int8"         : "::tensorflow::int8"              ,           
+  "int16"        : "::tensorflow::int16"             ,            
+  "int32"        : "::tensorflow::int32"             ,            
+  "int64"        : "::tensorflow::int64"             ,            
+  "uint"         : "::tensorflow::uint64"            ,             
+  "uint8"        : "::tensorflow::uint8"             ,            
+  "uint16"       : "::tensorflow::uint16"            ,             
+  "uint32"       : "::tensorflow::uint32"            ,             
+  "uint64"       : "::tensorflow::uint64"            ,             
+  "float32"      : "::tensorflow::float32"           ,              
+  "float64"      : "::tensorflow::float64"           ,              
+  "float"        : "::tensorflow::float32"           ,              
+  "DType"        : "::tensorflow::DataType"          ,              
+  "Tensor"       : "::tensorflow::Tensor"            ,              
+  "TensorShape"  : "::tensorflow::PartialTensorShape",              
+  "NameAttrList" : "::tensorflow::NameAttrList"      ,              
+  "cppstring"    : "::tensorflow::string"                         
+}.toTable()
+
+const translateCppToNim* = { 
+  "::tensorflow::Scope"              : "Scope"       ,            
+  "::tensorflow::Input"              : "Out"         ,            
+  "::tensorflow::InputList"          : "OutList"     ,                
+  "::tensorflow::Output"             : "Out"         ,             
+  "::tensorflow::OutputList"         : "OutList"     ,                 
+  "::tensorflow::bool"               : "bool"        ,           
+  "::tensorflow::int64"              : "int"         ,            
+  "::tensorflow::int8"               : "int8"        ,           
+  "::tensorflow::int16"              : "int16"       ,            
+  "::tensorflow::int32"              : "int32"       ,            
+  "::tensorflow::int64"              : "int64"       ,            
+  "::tensorflow::uint64"             : "uint"        ,             
+  "::tensorflow::uint8"              : "uint8"       ,            
+  "::tensorflow::uint16"             : "uint16"      ,             
+  "::tensorflow::uint32"             : "uint32"      ,             
+  "::tensorflow::uint64"             : "uint64"      ,             
+  "::tensorflow::float32"            : "float32"     ,              
+  "::tensorflow::float64"            : "float64"     ,              
+  "::tensorflow::float32"            : "float"       ,              
+  "::tensorflow::DataType"           : "DType"       ,              
+  "::tensorflow::Tensor"             : "Tensor"      ,              
+  "::tensorflow::PartialTensorShape" : "TensorShape" ,              
+  "::tensorflow::NameAttrList"       : "NameAttrList",              
+  "::tensorflow::string"             : "cppstring"                
+}.toTable()
+
+proc fromTo(str: string, start: char, eend: char): string =
+  let s = str.find(start)+1
+  let e = str.find(eend)-1
+
+  return str[s..e]
+
+proc fromTo(str: string, start: char, eend: int): string =
+  let s = str.find(start)
+
+  return str[s..eend]
+
+var op_included {.compileTime.} = false
+
+proc translateTypeToCpp(dtype: string): string =
+  if dtype.find("ArraySlice") == -1:
+    return translateNimToCpp[dtype]
+  else: 
+    return "tensorflow::gtl::ArraySlice<" & translateNimToCpp[dtype.fromTo('[', ']')] & ">"
+
+proc translateTypeToNim(dtype: string): string =
+  if dtype.find("ArraySlice") != -1:
+    return "ArraySlice[" & translateCppToNim[dtype.fromTo('<', '>')] & "]"
+  else: 
+    return translateCppToNim[dtype]
+
+proc getOrReturn[M, N](table: Table[M, N], key: M): N =
+  if table.hasKey(key):
+    return table[key]
+  else:
+    return key
+  
+proc makeNewOpIncludes(funheader: NimNode, explicit = false): NimNode =
+  if not op_included or explicit:
+    var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n" & 
+                   "#include \"tensorflow/core/framework/shape_inference.h\" \n" & 
+                   "#include \"tensorflow/core/framework/common_shape_fns.h\" \n" & 
+                   "#include \"tensorflow/core/framework/op_kernel.h\" \n" & 
+                   "#include \"tensorflow/cc/framework/scope.h\" \n" & 
+                   "#include \"tensorflow/core/framework/tensor.h\" \n" & 
+                   "#include \"tensorflow/core/framework/tensor_shape.h\" \n" & 
+                   "#include \"tensorflow/cc/ops/standard_ops.h\" \n" & 
+                   "#include \"tensorflow/core/framework/types.h\" \n\"\""
+    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    op_included = true
+  
+  return funheader
+
+proc makeNewDatsetIncludes(funheader: NimNode, explicit = false): NimNode =
+  if not op_included or explicit:
+    var includes = "\"\"#include \"tensorflow/core/framework/dataset.h\" \n\"\""
+    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    op_included = true
+  return funheader
+
+proc makeFun(body: NimNode, header: NimNode): NimNode =
+  header[0].del(header[0].len-1, 1)
+  insert(header[0], header[0].len, body)
+  return header
+
+proc getInsAndAttrs(exportName: string): (OrderedTable[string, string], OrderedTable[string, string], bool) = 
+  var ins = initOrderedTable[string, string]()
+  var attrs = initOrderedTable[string, string]()
+  var outputIsList = false
+
+  if not lookUp.hasKey(exportName):
+    raise newException(ValueError, "You didn't register any input or output for your function!")
+
+  for pragma in lookUp[exportName].split("."):
+    let splited = pragma
+                    .replace("(", " ")
+                    .replace(")", " ")
+                    .replace("\"", "")
+                    .replace(":", "")
+                    .split(" ")
+
+    let name = cppKeywordsTranslate.getOrReturn(
+                nimKeywordsTranslate.getOrReturn(splited[1])
+              )
+
+    if splited[0] == "Input":
+      if splited.contains("*"):
+        ins[name] = "::tensorflow::InputList"
+      else:
+        ins[name] = "::tensorflow::Input"
+
+    elif splited[0] == "Attr" and splited[2] != "type":
+      attrs[name] = splited[2]
+
+    elif splited[0] == "Output" and splited.contains("*"):
+      outputIsList = true
+
+  return (ins, attrs, outputIsList)
+
+export nimKeywordsTranslate,
+       cppKeywordsTranslate,
+       translateTypeToCpp,
+       translateTypeToNim,
+       fromTo,
        getOrReturn,
        makeNewOpIncludes,
-       nimKeywordsTranslate,
-       cppKeywordsTranslate
+       makeNewDatsetIncludes,
+       makeFun,
+       getInsAndAttrs
        
