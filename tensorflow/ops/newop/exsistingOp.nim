@@ -6,12 +6,12 @@ import ./opClassBuilder
 import ./nimFuncBuilder
 {.hint[XDeclaredButNotUsed]:off.}
 
-macro makeExsistingOp(name: static[string], funDef: static[string]): untyped =
+proc makeExsistingOpProc(name: string, funDef: string, explicitInclude = false): NimNode =
   var ins = initOrderedTable[string, string]()
   var attrs = initOrderedTable[string, string]()
 
   var args = funDef
-              .fromTo('(', ')')[1..^2]
+              .fromTo('(', ')')
               .split(",")
               
   for arg in args:
@@ -23,24 +23,27 @@ macro makeExsistingOp(name: static[string], funDef: static[string]): untyped =
 
     let stripped = splited[1].strip()
 
-    if stripped == "Out":
-      ins[name.strip()] = "::tensorflow::Input"
-
-    elif stripped == "OutList":
-      ins[name.strip()] = "::tensorflow::InputList"
-
-    elif stripped != "Scope":
-      attrs[name.strip()] = stripped
+    case stripped:
+    of "In", "InList", "Out", "OutList":
+      ins[name.strip()] = translateTypeToCpp(stripped)
+    of "Scope":
+      discard
+    else:
+      attrs[name.strip()] = translateTypeToCpp(stripped)
 
   var outputIsList = false
 
   if funDef.fromTo(')', funDef.len-1).find("OutList") != -1:
     outputIsList = true
 
-  var funheader = makeNewOpIncludes(newStmtList())
+  var funheader = makeNewOpIncludes(newStmtList(), explicitInclude)
   funheader = makeOpClass(name, ins, attrs, outputIsList, funheader)
   funheader = makeNimDef(name, ins, attrs, outputIsList, funheader)
 
   return funheader
 
-export makeExsistingOp
+macro makeExsistingOp(name: static[string], funDef: static[string], explicitInclude: static[bool] = false): untyped =
+  return makeExsistingOpProc(name, funDef, explicitInclude)
+
+export makeExsistingOpProc,
+       makeExsistingOp
