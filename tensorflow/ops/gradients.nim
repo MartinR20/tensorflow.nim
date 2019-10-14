@@ -1,29 +1,46 @@
 import ../core/core,
        ../utils/utils,
        ./newop/newop,
+       ./make/wrapper,
        ./generated,
-       ./custom_ops,
-       sequtils
+       ./custom_ops
+include ../core/with
 
-#proc Stack(scope: Scope, list: OutList, axis: Out): Out {.importcpp:"tensorflow::ops::Stack(*#, #, #)".}
+## Gradient Related definitions
+proc addSymbolicGradients*(root: Scope, outputs, inputs, gradOutputs: olist[oinvalid]) {.header:utils.gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, #, #, &#))".}
 
-proc ConcatV2(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
+  ## Method for getting the gradient of a sequence of operations applied to the inputs.
+  ## 
+  ## Args:
+  ##   root: The current Scope object.
+  ##   outputs: A list of outputs or single output containing the relevant ends of the compution graph.
+  ##   inputs: A list of outputs or single output containing the variables a gradient should be computed for.
+  ##   gradOutputs: A list of outputs containing the computed gradients.
+
+proc addSymbolicGradients*(root: Scope, outputs: oall, inputs, gradOutputs: olist[oinvalid]) {.header:utils.gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, #, &#))".}
+
+proc addSymbolicGradients*(root: Scope, outputs, inputs: oall, gradOutputs: olist[oinvalid]) {.header:utils.gradients, importcpp:"TF_CHECK_OK(tensorflow::AddSymbolicGradients(*#, {#}, {#}, &#))".}
+
+proc concatV2Grad*(scope: Scope, 
+               op: Operation[oinvalid], 
+               gradInputs: olist[oinvalid], 
+               gradOutputs: ptr olist[oinvalid]): Status {.grad:concatV2.} =
     let input_len = op.num_inputs()
     
     if input_len == 2:
         gradOutputs[] = gradInputs
         return scope.status
     
-    let concat_dim = op.inputs[input_len - 1]
+    let concat_dim = invalidToany[oint32](op.inputs[input_len - 1])
     let inputs = op.inputs(0..input_len-2)
     
     with scope:
-        let non_neg_concat_dim = concat_dim %% Rank(inputs[0])
+        let non_neg_concat_dim = concat_dim %% rank(inputs[0])
 
-    var sizes: OutList
+    var sizes: olist[oint32]
 
     for input in inputs:
-        sizes.add scope.Shape(input)
+        sizes.add scope.shape(input)
 
     #if sizes.len > 16:
     #    let sliceBegin = newOutList(non_neg_concat_dim, scope.Const(0, int32))
@@ -40,79 +57,97 @@ proc ConcatV2(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr
     #else:
     let offset = scope.concatOffset(non_neg_concat_dim, sizes)
 
-    var out_grads: OutList
+    var out_grads: olist[oinvalid]
         
     for (begin, size) in zip(offset, sizes):
         with scope:
-            let slice = Slice(gradInputs[0], 
+            let slice = slice(gradInputs[0], 
                               begin, 
                               size)
         out_grads.add(slice)
     
     gradOutputs[] = out_grads
     
-    gradOutputs[].add(Out())
+    gradOutputs[].add(oinvalid())
     
     return scope.status()
   
-proc Cast() {.nograd.} = discard
+proc Cast*() {.nograd.} = discard
 
 #proc Cast(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
 #    gradOutputs[].add scope.Cast(gradInputs[0], op.input_type(0))
 #    return scope.status()
 
-proc Conv2DBackpropInput(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
-    var strides_64: array[0..3, int64]
-    op.getSliceAttr_i("strides", 4, strides_64)
+proc conv2DBackpropInputGrad*(scope: Scope, 
+                              op: Operation[oinvalid], 
+                              gradInputs: olist[oinvalid], 
+                              gradOutputs: ptr olist[oinvalid]): Status {.grad:conv2DBackpropInput.} =
+    let attrs = op.node[].attrs()
 
-    var strides_32: array[0..3, cint]
+    let strides_attr = attrs["strides"]
+    var strides: array[0..3, int]
 
     for i in 0..3:
-        strides_32[i] = cast[int32](strides_64[i])
+        strides[i] = strides_attr.listi(i)
 
-    let strides = newArraySlice(strides_32)
-    let padding = op.getStrAttr(newCPPString("padding"))
+    let padding = attrs["padding"].s()
 
-    gradOutputs[].add Out()
+    gradOutputs[].add oinvalid()
 
-    gradOutputs[].add Conv2DBackpropFilter(scope,
-                                           gradInputs[0],
-                                           Shape(scope, op.input(1)),
-                                           op.input(2),
-                                           strides,
-                                           padding)
+    template ops(T: untyped): untyped =
+        gradOutputs[].add( 
+            anyToInvalid(
+                conv2DBackpropFilter(scope,
+                                     invalidToAny[T](gradInputs[0]),
+                                     shape(scope, op.input(1)),
+                                     invalidToAny[T](op.input(2)),
+                                     strides,
+                                     padding)))
 
-    gradOutputs[].add Conv2D(scope,
-                             gradInputs[0],
-                             op.input(1),
-                             strides,
-                             padding)
+        gradOutputs[].add( 
+            anyToInvalid(
+                conv2D(scope,
+                       invalidToAny[T](gradInputs[0]),
+                       invalidToAny[T](op.input(1)),
+                       strides,
+                       padding)))
+        
+    case op.output_type(0):
+    of DT_HALF:
+        ops(ohalf)
+    of DT_BFLOAT16:
+        ops(obfloat16)
+    of DT_FLOAT:
+        ops(ofloat)
+    of DT_DOUBLE:
+        ops(odouble)
+    else:
+        quit(1)
 
     return scope.status()
     
 
-proc Dilation2D(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: ptr OutList): Status {.grad.} =
-    var strides_64: array[0..3, int64]
-    op.getSliceAttr_i("strides", 4, strides_64)
+proc dilation2DGrad*(scope: Scope, 
+                 op: Operation[oinvalid], 
+                 gradInputs: olist[oinvalid], 
+                 gradOutputs: ptr olist[oinvalid]): Status {.grad:dilation2D.} =
+    let attrs = op.node[].attrs()
 
-    var strides_32: array[0..3, cint]
-
-    for i in 0..3:
-        strides_32[i] = cast[int32](strides_64[i])
-
-    var rates_64: array[0..3, int64]
-    op.getSliceAttr_i("strides", 4, rates_64)
-
-    var rates_32: array[0..3, cint]
+    let strides_attr = attrs["strides"]
+    var strides: array[0..3, int]
 
     for i in 0..3:
-        rates_32[i] = cast[int32](rates_64[i])
+        strides[i] = strides_attr.listi(i)
 
-    let strides = newArraySlice(strides_32)
-    let rates = newArraySlice(rates_32)
-    let padding = op.getStrAttr("padding")
+    let rates_attr = attrs["rates"]
+    var rates: array[0..3, int]
 
-    gradOutputs[].add Dilation2DBackpropInput(scope, 
+    for i in 0..3:
+        rates[i] = rates_attr.listi(i)
+
+    let padding = attrs["padding"].s()
+
+    gradOutputs[].add dilation2DBackpropInput(scope, 
                                             op.input(0), 
                                             op.input(1), 
                                             gradInputs[0],
@@ -120,7 +155,7 @@ proc Dilation2D(scope: Scope, op: Operation, gradInputs: OutList, gradOutputs: p
                                             rates,
                                             padding)
 
-    gradOutputs[].add Dilation2DBackpropFilter(scope, 
+    gradOutputs[].add dilation2DBackpropFilter(scope, 
                                             op.input(0), 
                                             op.input(1), 
                                             gradInputs[0],
