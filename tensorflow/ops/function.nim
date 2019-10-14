@@ -4,7 +4,9 @@ import macros,
        tables,
        ../utils/utils,
        ../core/core,
-       ./newop/newop
+       ./newop/newop,
+       ./make/makeutils,
+       ./extendedMacros
 
 proc itfclosureFromScopes(name: cppstring, fn: Scope, scope: Scope): NameAttrList {.
   header:"tensorflow/core/framework/graph_to_functiondef.h",
@@ -24,40 +26,42 @@ proc itfclosureFromScopes(name: cppstring, fn: Scope, scope: Scope): NameAttrLis
   """
   .}
 
-proc tfclosureFromScopes(scope: Scope, fn: Scope, name: string): NameAttrList =
+proc tfclosureFromScopes*(scope: Scope, fn: Scope, name: string): NameAttrList =
   return itfclosureFromScopes(newCPPString(name), fn, scope)
 
 proc processArgs(fn: NimNode): OrderedTable[string, string] =
-  let argNodes = fn[3][1..^1]
+  let argNodes = fn[3][0..^1]
   var args = initOrderedTable[string, string]()
 
+  let generics = fn[2][0..^1]
+  var gen = initTable[string, string]()
+
+  for g in generics:
+    gen[$g[0]] = $g[1]
   
   for i, node in argNodes[0..^1]:
-      let name = $node[0]
-      let dtype = $node[1]
 
-      # switch types to Out
-      #if typeLookUp.hasKey(dtype):
-      #  fn[3][i+1][1] = ident("Out")
+      case node.kind:
+      of nnkIdentDefs:
+        args[$node[0]] = gen.getOrReturn($node[1])
+      
+      of nnkPar:
+        args["RET"] = "("
+        for n in node:
+          args["RET"] &= gen.getOrReturn($n) & ", "
+        args["RET"] = args["RET"][0..^3] & ")"     
 
-      args[name] = dtype
+      of nnkEmpty:
+        args["RET"] = ""
+      
+      else:
+        args["RET"] = gen.getOrReturn($node)
   
   return args
 
-proc newDiscardStmt(arg: NimNode): NimNode =
-  let disc = newNimNode(nnkDiscardStmt)
-  return disc.add(arg)
-
-proc newReturnStmt(arg: NimNode): NimNode =
-  let ret = newNimNode(nnkReturnStmt)
-  return ret.add(arg)
-
-var def {.compileTime.} = false
-
-macro tfclosure(scope: Scope, x: untyped): untyped =
+macro tfclosure*(scope: Scope, x: untyped): untyped =
   let name = $name(x)
   let args = processArgs(x)
-  let returnType = x[3][0]
 
   let wrapperName = name & "Wrapper"
   var wrapperBody: seq[NimNode]
@@ -69,26 +73,43 @@ macro tfclosure(scope: Scope, x: untyped): untyped =
 
   var i = 0
   for name, dtype in args:
-      if dtype == "Scope":
-        callArgs.add newIdentNode(scopeName)
-      elif dtype == "Out" or dtype == "OutList" : #elif typeLookUp.hasKey(dtype):
-        wrapperBody.add newLetStmt(ident(name), newCall(ident("Arg"),    
-                                                    ident(scopeName), 
-                                                    #newLit(typeLookUp[dtype]), 
-                                                    newIntLitNode(i)))
-        callArgs.add ident(name)
-        inc(i)
-      else:
-        echo "Your using an unsupported type!"
+    if name == "RET":
+      continue
+
+    if dtype == "Scope":
+      callArgs.add newIdentNode(scopeName)
+    elif tfdict.hasKey(dtype) or dtype.find("olist") != -1 or dtype == "oall": 
+      wrapperBody.add newLetStmt(ident(name), newCall(ident("iArg"),
+                                                  ident(scopeName), 
+                                                  ident(dtype.replace("oall", "oinvalid")),
+                                                  newIntLitNode(i)))
+      callArgs.add ident(name)
+      inc(i)
+    else:
+      echo "Your using an unsupported type!"
       
   wrapperBody.add x
 
-  if returnType.kind != nnkEmpty:
-      wrapperBody.add newLetStmt(ident("retVal"), newCall(ident(name), callArgs))
-      wrapperBody.add newDiscardStmt(newCall(ident("Retval"),    
-                                              ident(scopeName), 
-                                              ident("retVal"), 
-                                              newIntLitNode(0)))
+  if args["RET"][0] == '(':
+      var names: seq[NimNode] 
+
+      var retlen = args["RET"].split(", ").len
+      for i in 0..retlen-1:
+        names.add ident("retVal" & $i)
+
+      wrapperBody.add newMultiLet(names, newCall(ident(name), callArgs))
+
+      for i in 0..retlen-1:
+        wrapperBody.add newDiscardStmt(newCall(ident("iRetval"),    
+                                                ident(scopeName), 
+                                                ident("retVal" & $i), 
+                                                newIntLitNode(i)))
+  elif args["RET"] != "":
+    wrapperBody.add newLetStmt(ident("retVal"), newCall(ident(name), callArgs))
+    wrapperBody.add newDiscardStmt(newCall(ident("iRetval"),    
+                                            ident(scopeName), 
+                                            ident("retVal"), 
+                                            newIntLitNode(0)))
   else:
       wrapperBody.add newCall(ident(name), callArgs)
 
@@ -98,23 +119,12 @@ macro tfclosure(scope: Scope, x: untyped): untyped =
                                         newStrLitNode(name)))
 
   let wrapper = newProc(ident(wrapperName), 
-                        [ident("NameAttrList"),
-                        newIdentDefs(ident("scope"), ident("Scope"))],
+                        [ident("NameAttrList")],
                         newStmtList(wrapperBody))
 
   let res = newStmtList(
       wrapper,
-      newLetStmt(ident(name), newCall(ident(wrapperName), ident($scope)))
+      newLetStmt(ident(name), newCall(ident(wrapperName)))
   )
 
-  if not def:
-      def = true
-      return newStmtList(
-          makeExsistingOpProc("_Arg", "(scope: Scope, index: int64): Out", true),
-          makeExsistingOpProc("_Retval", "(scope: Scope, input: Out, index: int64): Out"),
-          res)
-  else:
-      return res
-
-export tfclosureFromScopes,
-       tfclosure
+  return res
