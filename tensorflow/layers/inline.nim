@@ -32,35 +32,35 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Inline = ref object of Layer
-    ffunc: proc(rt: Scope, input: Out): Out
+type Inline[T] = ref object of Layer[T]
+    ffunc: proc(rt: Scope, input: oall): oall
 
-method `$`(layer: Inline): string = "Inline"
+method `$`[T](layer: Inline[T]): string = "Inline"
 
-method make(layer: Inline, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Inline[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     return layer.ffunc
 
-proc newInline*(model: var seq[Layer], inlineFunc: proc(rt: Scope, input: Out): Out) =
-    var inline = new Inline
+proc newInline*[T](model: var seq[Layer], inlineFunc: proc(rt: Scope, input: oall): oall) =
+    var inline = new Inline[T]
     
     inline.ffunc = inlineFunc
 
     model.add(inline)
 
 
-type InlineJoin = ref object of Layer
-    ffunc: proc(rt: Scope, input: OutList): Out
+type InlineJoin[T] = ref object of Layer[T]
+    ffunc: proc(rt: Scope, input: olist[oall]): oall
 
-method `$`(layer: InlineJoin): string = "InlineJoin"
+method `$`[T](layer: InlineJoin[T]): string = "InlineJoin"
 
-method makeJoin(layer: InlineJoin, root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: OutList): Out = 
+method makeJoin[T](layer: InlineJoin[T], root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: olist[oall]): oall = 
     shape = @[shape[0]]
     return layer.ffunc
 
-method isJoin*(layer: InlineJoin): bool = true
+method isJoin*[T](layer: InlineJoin[T]): bool = true
 
-proc newInlineJoin*(model: var seq[Layer], inlineFunc: proc(rt: Scope, input: OutList): Out) =
-    var inlineJoin = new InlineJoin
+proc newInlineJoin*[T](model: var seq[Layer], inlineFunc: proc(rt: Scope, input: olist[oall]): oall) =
+    var inlineJoin = new InlineJoin[T]
     
     inlineJoin.ffunc = inlineFunc
     

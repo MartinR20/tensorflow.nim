@@ -7,6 +7,7 @@ import ../ops/ops
 import ../core/core
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
+{.warning[Deprecated]:off.}
 
 type Optim*[N: static[int]] = ref object of RootObj
     init*: array[N, OutList]
@@ -15,13 +16,13 @@ type Optim*[N: static[int]] = ref object of RootObj
 
 method `$`[N](optim: Optim[N]): string {.base.} = "Optim"
 
-method make*[N](optim: Optim[N], root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) {.base.} = 
+method make*[N](optim: Optim[N], root: Scope, vars: seq[HVariable]): (proc(rt: Scope, input: seq[HVariable], grads: olist[oall]): olist[oall]) {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for your optim")
 
     ## The make method is intended for all the setup of your optimizer that requires a scope and should
     ## be overloaded for all optimizers functions.
 
-method vars*[N](optim: Optim[N]): array[N, OutList] = 
+method vars*[N](optim: Optim[N]): array[N, olist[oall]] = 
     raise newException(ValueError, "Not Implemented. Please overload `vars` for your optim")
 
 type Adadelta = ref object of Optim[0]
@@ -54,18 +55,18 @@ proc newAdagrad*(lr = 0.01, epsilon = 1e-7, decay = 0.0): Adagrad =
 
     return adagrad
 
-type Adam = ref object of Optim[2]
+type Adam[T: oall] = ref object of Optim[2]
     lr*: float
     beta1*: float
     beta2*: float
     epsilon*: float
     decay*: float
     amsgrad*: bool
-    m: OutList
-    v: OutList
+    m: olist[T]
+    v: olist[T]
 
-proc newAdam*(lr = 1e-4, beta1 = 0.9, beta2 = 0.99, epsilon = 10e-8, decay = 0.0, amsgrad = false): Adam =
-    let adam = new Adam
+proc newAdam*[T](lr = 1e-4, beta1 = 0.9, beta2 = 0.99, epsilon = 10e-8, decay = 0.0, amsgrad = false): Adam =
+    let adam = new Adam[T]
 
     adam.lr = lr
     adam.beta1 = beta1
@@ -76,18 +77,18 @@ proc newAdam*(lr = 1e-4, beta1 = 0.9, beta2 = 0.99, epsilon = 10e-8, decay = 0.0
 
     return adam
 
-method `$`(optim: Adam): string = "Adam(lr: " & $optim.lr & ", beta1: " & $optim.beta1 & ", beta2: " & $optim.beta2 & ")"
+method `$`[T: oall](optim: Adam[T]): string = "Adam(lr: " & $optim.lr & ", beta1: " & $optim.beta1 & ", beta2: " & $optim.beta2 & ")"
 
-method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
+method make[T: oall](optim: Adam[T], root: Scope, vars: seq[HVariable[T]]): (proc(rt: Scope, input: seq[HVariable[T]], grads: olist[T]): olist[T]) = 
     let rootNamed = root.newSubScope("Adam_setup")
 
     with rootNamed:
-        let lr = optim.lr.float32
-        let beta1 = optim.beta1.float32
-        let beta2 = optim.beta2.float32
-        let epsilon = optim.epsilon.float32
-        let beta1Power = 0.float32
-        let beta2Power = 0.float32
+        let lr = optim.lr.T
+        let beta1 = optim.beta1.T
+        let beta2 = optim.beta2.T
+        let epsilon = optim.epsilon.T
+        let beta1Power = 0.T
+        let beta2Power = 0.T
 
     let scalarShape = shape([])
 
@@ -95,8 +96,8 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         let currVar = vars[i]
 
         with rootNamed:
-            let im = newVariable(ZerosLike(currVar.vvar), currVar.shape, DT_FLOAT)
-            let iv = newVariable(ZerosLike(currVar.vvar), currVar.shape, DT_FLOAT)
+            let im = newVariable(zerosLike(currVar.vvar), currVar.shape, T)
+            let iv = newVariable(zerosLike(currVar.vvar), currVar.shape, T)
 
         optim.m.add im.vvar
         optim.v.add iv.vvar
@@ -104,18 +105,18 @@ method make(optim: Adam, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, in
         optim.init[0].add im.assign
         optim.init[1].add iv.assign
 
-    return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
+    return proc(rt: Scope, input: seq[HVariable[T]], grads: olist[T]): olist[T] = 
                 let rtNamed = rt.newSubScope("Adam")
-                var outp: OutList
+                var outp: olist[T]
 
                 for i in 0..input.len-1:
                     with rtNamed:
-                        outp.add ApplyAdam(input[i].vvar, optim.m[i], optim.v[i], beta1Power, 
+                        outp.add applyAdam(input[i].vvar, optim.m[i], optim.v[i], beta1Power, 
                                            beta2Power, lr, beta1, beta2, epsilon, grads[i])
                                         
                 return outp
 
-method vars(optim: Adam): array[2, OutList] =
+method vars[T: oall](optim: Adam[T]): array[2, olist[T]] =
     return [
         optim.m,
         optim.v
@@ -137,14 +138,14 @@ proc newRMSProp*(lr = 0.001, rho = 0.9, epsilon = 1e-7, decay = 0.0): RMSProp =
 
     return rmsprop
 
-type SGD = ref object of Optim[0]
+type SGD[T: oall] = ref object of Optim[0]
     lr*: float
     momentum*: float
     decay*: float
     nesterov*: bool
 
-proc newSGD*(lr = 0.01, momentum = 0.0, decay = 0.0, nesterov = false): SGD = 
-    let sgd = new SGD
+proc newSGD*[T: oall](lr = 0.01, momentum = 0.0, decay = 0.0, nesterov = false): SGD[T] = 
+    let sgd = new SGD[T]
 
     sgd.lr = lr
     sgd.momentum = momentum
@@ -153,22 +154,22 @@ proc newSGD*(lr = 0.01, momentum = 0.0, decay = 0.0, nesterov = false): SGD =
 
     return sgd
 
-method `$`(optim: SGD): string = "SGD(lr: " & $optim.lr & ")"
+method `$`[T: oall](optim: SGD[T]): string = "SGD(lr: " & $optim.lr & ")"
 
-method make(optim: SGD, root: Scope, vars: seq[TVariable]): (proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList) = 
+method make[T: oall](optim: SGD[T], root: Scope, vars: seq[HVariable[T]]): (proc(rt: Scope, input: seq[HVariable[T]], grads: olist[T]): olist[T]) = 
     with root.newSubScope("SGD_setup"):
-        let lr = optim.lr.float32 
+        let lr = optim.lr.T 
 
-    return proc(rt: Scope, input: seq[TVariable], grads: OutList): OutList = 
+    return proc(rt: Scope, input: seq[HVariable[T]], grads: olist[T]): olist[T] = 
                 let rtNamed = rt.newSubScope("SGD")
-                var outp: OutList
+                var outp: olist[T]
 
                 for i in 0..input.len-1:
                     outp.add rtNamed.ApplyGradientDescent(input[i].vvar, lr, grads[i])
 
                 return outp
 
-method vars(optim: SGD): array[0, OutList] =
+method vars[T: oall](optim: SGD[T]): array[0, olist[T]] =
     return []
 
 export Optim,

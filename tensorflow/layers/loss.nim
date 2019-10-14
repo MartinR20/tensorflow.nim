@@ -7,6 +7,7 @@ import ../core/core
 import ./variable
 import macros
 {.hint[XDeclaredButNotUsed]:off.}
+{.warning[Deprecated]:off.}
 
 type Loss* = ref object of RootObj
 
@@ -14,7 +15,7 @@ type Loss* = ref object of RootObj
 
 method `$`*(loss: Loss): string {.base.} = "Loss"
 
-method fn*(loss: Loss, rt: Scope, y_true, y_pred: Out): Out {.base.} = 
+method fn*[T: oall](loss: Loss, rt: Scope, y_true, y_pred: T): T {.base.} = 
     raise newException(ValueError, "Not Implemented. Please overload `make` for your loss function")
 
     ## The make method is intended for all the setup of your loss function that requires a scope and should
@@ -35,15 +36,15 @@ macro loss*(x: untyped): untyped =
         x
     )
 
-method MSE*(rt: Scope, y_true, y_pred: Out): Out {.loss.} =
+method MSE*[T: oall](rt: Scope, y_true, y_pred: T): T {.loss.} =
     with rt.newSubScope("MSE"): 
-        return Mean(Square(y_true - y_pred), 0.int32)
+        return mean(square(y_true - y_pred), 0.int32)
 
 
-method CrossEntropy*(rt: Scope, y_pred, y_true: Out): Out {.loss.} = 
+method CrossEntropy*[T: oall](rt: Scope, y_pred, y_true: T): T {.loss.} = 
     with rt.newSubScope("CrossEntropy"):
-        return Negate(Sum(y_true * Log(ClipByValue(y_pred, 1e-7, 0.9999999)), 1.int32))
+        return negate(sum(y_true * log(clipByValue(y_pred, 1e-7.ofloat, 0.9999999.ofloat)), 1.oint32))
 
-method Mock*(rt: Scope, y_pred, y_true: Out): Out {.loss.} =
+method Mock*[T: oall](rt: Scope, y_pred, y_true: T): T {.loss.} =
     return y_pred
     

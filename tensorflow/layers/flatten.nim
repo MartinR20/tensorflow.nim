@@ -3,11 +3,11 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Flatten = ref object of Layer
+type Flatten[T] = ref object of Layer[T]
 
-method `$`(layer: Flatten): string = "Flatten"
+method `$`[T](layer: Flatten[T]): string = "Flatten"
 
-method make(layer: Flatten, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Flatten[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     var flatsize = 1
 
     for s in shape[1..^1]:
@@ -19,11 +19,11 @@ method make(layer: Flatten, root: Scope, shape: var seq[int]): proc(rt: Scope, i
     flatten[0] = shape[0]
     flatten[1] = flatsize
 
-    return proc(rt: Scope, input: Out): Out = 
-            return rt.Reshape(input, rt.Const(flatten, int32))
+    return proc(rt: Scope, input: oall): oall = 
+            return rt.reshape(input, rt.nconst(flatten, oint32))
 
-proc newFlatten*(model: var seq[Layer]) =
-    var flatten = new Flatten
+proc newFlatten*[T](model: var seq[Layer]) =
+    var flatten = new Flatten[T]
     model.add(flatten)
 
 export Flatten,

@@ -30,12 +30,12 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Concat = ref object of Layer
+type Concat[T] = ref object of Layer[T]
     axis: int
 
-method `$`(layer: Concat): string = "Concat"
+method `$`[T](layer: Concat[T]): string = "Concat"
 
-method makeJoin(layer: Concat, root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: OutList): Out = 
+method makeJoin[T](layer: Concat[T], root: Scope, shape: var seq[seq[int]]): proc(rt: Scope, input: olist[oall]): oall = 
     var tmp = shape[0]
 
     for s in shape[1..^1]:
@@ -51,10 +51,10 @@ method makeJoin(layer: Concat, root: Scope, shape: var seq[seq[int]]): proc(rt: 
     return proc(rt: Scope, input: OutList): Out =
                 return rt.Concat(input, axis)
 
-method isJoin(layer: Concat): bool = true
+method isJoin[T](layer: Concat[T]): bool = true
 
-proc newConcat*(model: var seq[Layer], axis: int) =
-    var concat = new Concat
+proc newConcat*[T](model: var seq[Layer], axis: int) =
+    var concat = new Concat[T]
     
     concat.axis = axis
 

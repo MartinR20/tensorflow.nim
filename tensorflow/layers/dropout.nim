@@ -16,13 +16,13 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Dropout = ref object of Layer
+type Dropout[T] = ref object of Layer[T]
     rate*: float
     shape*: Out
 
-method `$`(layer: Dropout): string = "Dropout(rate:" & $layer.rate & ")"
+method `$`[T](layer: Dropout[T]): string = "Dropout(rate:" & $layer.rate & ")"
 
-method make(layer: Dropout, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Dropout[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
         with root:
             let rrate = layer.rate.float32
 
@@ -37,8 +37,8 @@ method make(layer: Dropout, root: Scope, shape: var seq[int]): proc(rt: Scope, i
 
                         return input * scale * Cast(mask, float32)
 
-proc newDropout*(model: var seq[Layer], rate: float) =
-    var dropout = new Dropout
+proc newDropout*[T](model: var seq[Layer], rate: float) =
+    var dropout = new Dropout[T]
 
     dropout.rate = rate    
 

@@ -14,23 +14,26 @@ import ../core/core
 import ../ops/ops
 {.hint[XDeclaredButNotUsed]:off.}
 
-type TVariable = ref object
-  vvar*: Out
-  assign*: Out
+type HVariable[T] = ref object
+  vvar*: oall
+  assign*: oall
   shape*: TensorShape
   name*: string
 
-proc newVariable*(root: Scope, value: Out, shape: TensorShape, dtype: DType, name = "Variable"): TVariable =
-  let v = new TVariable
+proc newVariable*[T](root: Scope, value: T, shape: TensorShape | openArray[int], name = "Variable"): HVariable[T] =
+  let v = new HVariable[T]
   v.name = name
-  v.shape = shape
+
+  when shape.type is TensorShape:
+    v.shape = shape
+  else:
+    v.shape = shape.shape
 
   with root.newSubScope(name):
-    v.vvar = Variable(shape, dtype)
-    v.assign = Assign(v.vvar, value)
+    v.vvar = variable(name.cstring, name.cstring, v.shape, T)
+    v.assign = assign(v.vvar, value)
 
   return v
 
-export TVariable,
-       newVariable,
-       Assign
+export HVariable,
+       newVariable

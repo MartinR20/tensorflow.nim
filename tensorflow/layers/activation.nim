@@ -14,16 +14,16 @@ import ../core/core
 import ./layer
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Activation = ref object of Layer
-    ffunc: proc(rt: Scope, input: Out): Out
+type Activation[T] = ref object of Layer
+    ffunc: proc(rt: Scope, input: T): T
 
-method `$`(layer: Activation): string = "Activation"
+method `$`[T: oall](layer: Activation[T]): string = "Activation"
 
-method make(layer: Activation, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T: oall](layer: Activation[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: T): T = 
     return layer.ffunc
 
-proc newActivation*(model: var seq[Layer], activation: proc(rt: Scope, input: Out): Out) =
-    var activ = new Activation
+proc newActivation*[T: oall](model: var seq[Layer], activation: proc(rt: Scope, input: T): T) =
+    var activ = new Activation[T]
     
     activ.ffunc = activation
 

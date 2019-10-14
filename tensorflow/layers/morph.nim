@@ -15,33 +15,32 @@ import ../utils/utils
 import ../ops/ops
 import ../core/core
 import ./layer
+import ../ops/make/makeutils
+import macros
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Dilation2D = ref object of Layer
-    kernel: Tensor
+type Dilation2D[T] = ref object of Layer[T]
+    kernel: Tensor[T]
     strides: array[0..3, cint]
     rates: array[0..3, cint]
     padding: string
     
-method `$`(layer: Dilation2D): string = "Dilation2D(kernel:" & $layer.kernel & 
+method `$`[T](layer: Dilation2D[T]): string = "Dilation2D(kernel:" & $layer.kernel & 
                                                  ", strides:" & $layer.strides[1..^2] & ")"
 
-method make(layer: Dilation2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Dilation2D[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     layer.dimCheck(shape, 4)
     let shortLayerName = "Dilation2D"
 
-    let strides = newArraySlice(layer.strides)
-    let rates = newArraySlice(layer.rates)
-
     with root.newSubScope(shortLayerName & "_setup"):
-        let kernel = Const(layer.kernel)
+        let kernel = nconst(layer.kernel)
 
     return proc(rt: Scope, input: Out): Out =
                 with rt.newSubScope(shortLayerName):
                     return Dilation2D(input, 
                                       kernel, 
-                                      strides,
-                                      rates, 
+                                      layer.strides,
+                                      layer.rates, 
                                       layer.padding)
 
 const c1: cint = 1
@@ -63,29 +62,30 @@ proc newDilation2D*[N,T](model: var seq[Layer],
     
     model.add(dilation2d)
 
-template inheritDilation(name: untyped, varname: untyped) =
-    type name = ref object of Dilation2D
+macro inheritDilation(name: static[string]): untyped =
+    let varname = firstCharToLower(name)
+    return parseStmt("""type """ & name & """[T] = ref object of Dilation2D[T]
         
-    method `$`(layer: name): string = $name & "(strides:" & $layer.strides[1..^2] & ")"
-        
-    proc `new name`*[N,M](model: var seq[Layer], 
-                          kernel: array[N,M], 
-                          strides: array[0..1, int], 
-                          rates: array[0..1, int], 
-                          padding="SAME") =
+method `$`[T](layer: """ & name & """[T]): string = """" & name & """(strides:" & $layer.strides[1..^2] & ")"
+    
+proc new""" & name & """*[T,N,M](model: var seq[Layer], 
+                        kernel: array[N,M], 
+                        strides: array[0..1, int], 
+                        rates: array[0..1, int], 
+                        padding="SAME") =
 
-        var varname = new name
+    var """ & varname & """ = new """ & name & """[T]
 
-        varname.kernel = tensor(kernel, float32)
+    """ & varname & """.kernel = tensor(kernel, float32)
 
-        varname.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
-        varname.rates = [c1, cast[cint](rates[0]), cast[cint](rates[1]), c1]
+    """ & varname & """.strides = [c1, cast[cint](strides[0]), cast[cint](strides[1]), c1]
+    """ & varname & """.rates = [c1, cast[cint](rates[0]), cast[cint](rates[1]), c1]
 
-        varname.padding = padding
-        
-        model.add(varname)
+    """ & varname & """.padding = padding
+    
+    model.add(""" & varname & """)""")
 
-inheritDilation(Erosion2D, erosion2d)
+inheritDilation("Erosion2D")
 
 method make(layer: Erosion2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     layer.dimCheck(shape, 4)
@@ -105,7 +105,7 @@ method make(layer: Erosion2D, root: Scope, shape: var seq[int]): proc(rt: Scope,
                                       rates, 
                                       layer.padding)
 
-inheritDilation(Opening2D, opening2d)
+inheritDilation("Opening2D")
 
 method make(layer: Opening2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     layer.dimCheck(shape, 4)
@@ -133,7 +133,7 @@ method make(layer: Opening2D, root: Scope, shape: var seq[int]): proc(rt: Scope,
 
                     return dilation
 
-inheritDilation(Closing2D, closing2d)
+inheritDilation("Closing2D")
 
 method make(layer: Closing2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     layer.dimCheck(shape, 4)

@@ -13,13 +13,12 @@
 import options
 import ../utils/utils
 import ../ops/ops
-import ../ops/generated/structs
 import ../core/core
 import ./layer
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Conv2d = ref object of Layer
+type Conv2d[T] = ref object of Layer[T]
     inChannels: int
     outChannels: int
     kernel: array[0..1, int]
@@ -29,16 +28,12 @@ type Conv2d = ref object of Layer
     dilations: array[0..3, cint]
     useCudnnOnGpu: bool
     
-method `$`(layer: Conv2d): string = "Conv2d(in:" & $layer.inChannels & 
+method `$`[T](layer: Conv2d[T]): string = "Conv2d(in:" & $layer.inChannels & 
                                              ", out:" & $layer.outChannels & 
                                              ", kernel:" & $layer.kernel & 
                                              ", strides:" & $layer.strides[1..^2] & ")"
 
-# Has to be globally allocated because it seqfaults otherwise
-var padding: cppstring
-var dataformat: cppstring
-
-method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out =
+method make[T](layer: Conv2d[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall =
     layer.dimCheck(shape, 4)
     layer.inChannels = shape[3]
     
@@ -63,30 +58,21 @@ method make(layer: Conv2d, root: Scope, shape: var seq[int]): proc(rt: Scope, in
     
     with root.newSubScope(shortLayerName & "_setup"):
         let shape = [layer.kernel[0], layer.kernel[1], layer.inChannels, layer.outChannels].int32
-        let filter = RandomNormal(shape, float32.tf)
-        let variable = newVariable(filter, varShape, float32.tf, "Conv2D_filter")
+        let filter = statelessRandomNormal(shape, ofloat, 0)
+        let variable = newVariable(filter, varShape, "Conv2D_filter")
 
     layer.train.add(variable) 
-
-    let strides = newArraySlice(layer.strides)
-    # TODO: fix wrappes to not use cppString in the wrapper
-    padding = newCPPString(layer.padding)
-    dataformat = newCPPString(layer.dataFormat)
 
     return proc(rt: Scope, input: Out): Out =
                 let rtNamed = rt.newSubScope(shortLayerName)
 
-                # TODO: make cppstring not go out of scope in the wrapper
-                var attrs = Conv2DAttrs()
-                attrs = attrs.DataFormat(dataformat)
-                attrs = attrs.Dilations(newArraySlice(layer.dilations))
-                attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
-
-                return rtNamed.Conv2D(input, 
+                return rtNamed.conv2D(input, 
                                       layer.train[0].vvar, 
-                                      strides, 
-                                      padding, 
-                                      attrs)
+                                      layer.strides, 
+                                      layer.padding, 
+                                      layer.useCudnnOnGpu,
+                                      layer.dataformat,
+                                      layer.dilations)
 
 const c1: cint = 1
 
@@ -113,9 +99,9 @@ proc newConv2d*(model: var seq[Layer],
 
     model.add(conv2d)
 
-type TransposeConv2D = ref object of Conv2d
+type TransposeConv2D[T] = ref object of Conv2d[T]
 
-method `$`(layer: TransposeConv2D): string = "TransposeConv2D(in:" & $layer.inChannels & 
+method `$`[T](layer: TransposeConv2D[T]): string = "TransposeConv2D(in:" & $layer.inChannels & 
                                                            ", out:" & $layer.outChannels & 
                                                            ", kernel:" & $layer.kernel & 
                                                            ", strides:" & $layer.strides[1..^2] & ")"
@@ -124,7 +110,7 @@ method `$`(layer: TransposeConv2D): string = "TransposeConv2D(in:" & $layer.inCh
 var paddingT: cppstring
 var dataformatT: cppstring
 
-method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: TransposeConv2D[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     layer.dimCheck(shape, 4)
     layer.inChannels = shape[3]
 
@@ -162,28 +148,19 @@ method make(layer: TransposeConv2D, root: Scope, shape: var seq[int]): proc(rt: 
 
     layer.train.add(variable) 
 
-    let strides = newArraySlice(layer.strides)
-    # TODO: fix wrappes to not use cppString in the wrapper
-    paddingT = newCPPString(layer.padding)
-    dataformatT = newCPPString(layer.dataFormat)
-
     return proc(rt: Scope, input: Out): Out =
                 let rtNamed = rt.newSubScope(shortLayerName)
 
-                # TODO: make cppstring not go out of scope in the wrapper
-                var attrs = Conv2DBackpropInputAttrs()
-                attrs = attrs.DataFormat(dataformatT)
-                attrs = attrs.Dilations(newArraySlice(layer.dilations))
-                attrs = attrs.UseCudnnOnGpu(layer.useCudnnOnGpu)
-
-                return rtNamed.Conv2DBackpropInput(sshape,
+                return rtNamed.conv2DBackpropInput(sshape,
                                                     layer.train[0].vvar, 
                                                     input, 
-                                                    strides, 
+                                                    layer.strides, 
                                                     paddingT, 
-                                                    attrs)
+                                                    layer.useCudnnOnGpu,
+                                                    dataformatT,
+                                                    layer.dilations)
 
-proc newTransposeConv2D*(model: var seq[Layer], 
+proc newTransposeConv2D*[T](model: var seq[Layer], 
                          outChannels: int,
                          kernel: array[0..1, int], 
                          strides: array[0..1, int], 
@@ -192,7 +169,7 @@ proc newTransposeConv2D*(model: var seq[Layer],
                          dilations=[1,1], 
                          useCudnnOnGpu=true) =
 
-    var tconv2d = new TransposeConv2D
+    var tconv2d = new TransposeConv2D[T]
 
     tconv2d.outChannels = outChannels
     tconv2d.kernel = kernel
@@ -223,14 +200,14 @@ proc getInterpolName(interpol: Interpolation): string =
     of NearestNeighbor:
         return "NearestNeighbor"
 
-type UpSampling2D = ref object of Layer
+type UpSampling2D[T] = ref object of Layer
     size: array[0..1, float]
     interpol: Interpolation
 
-method `$`(layer: UpSampling2D): string = "UpSampling2D(size:" & $layer.size & 
+method `$`[T](layer: UpSampling2D[T]): string = "UpSampling2D(size:" & $layer.size & 
                                                      ", interpolation:" & getInterpolName(layer.interpol) & ")"
 
-method make(layer: UpSampling2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: UpSampling2D[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     layer.dimCheck(shape, 4)
     layer.size[0] *= shape[1].float
     layer.size[1] *= shape[2].float
@@ -263,11 +240,11 @@ method make(layer: UpSampling2D, root: Scope, shape: var seq[int]): proc(rt: Sco
                 return ResizeNearestNeighbor(input, shape)
     
 
-proc newUpSampling2D*(model: var seq[Layer], 
+proc newUpSampling2D*[T](model: var seq[Layer], 
                       size: array[0..1, float],
                       interpol=NearestNeighbor) =
 
-    var upsampling2D = new UpSampling2D
+    var upsampling2D = new UpSampling2D[T]
 
     upsampling2D.size = size
     upsampling2D.interpol = interpol
@@ -286,14 +263,14 @@ proc newUpSampling2D*(model: var seq[Layer],
     ##    # Resize Image to twice the size with Area Interpolation
     ##    proto.newResize([2, 2], Area)
 
-type Resize2D = ref object of Layer
+type Resize2D[T] = ref object of Layer[T]
     size: array[0..1, int]
     interpol: Interpolation
 
-method `$`(layer: Resize2D): string = "Resize2D(size:" & $layer.size & 
+method `$`[T](layer: Resize2D[T]): string = "Resize2D(size:" & $layer.size & 
                                                      ", interpolation:" & getInterpolName(layer.interpol) & ")"
 
-method make(layer: Resize2D, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Resize2D[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: oall): oall = 
     layer.dimCheck(shape, 4)
 
     shape = @[shape[0], 
@@ -324,11 +301,11 @@ method make(layer: Resize2D, root: Scope, shape: var seq[int]): proc(rt: Scope, 
                 return ResizeNearestNeighbor(input, shape)
     
 
-proc newResize2D*(model: var seq[Layer], 
+proc newResize2D*[T](model: var seq[Layer], 
                       size: array[0..1, int],
                       interpol=NearestNeighbor) =
 
-    var resize2d = new Resize2D
+    var resize2d = new Resize2D[T]
 
     resize2d.size = size
     resize2d.interpol = interpol

@@ -16,15 +16,15 @@ import ./layer
 import ./variable
 {.hint[XDeclaredButNotUsed]:off.}
 
-type Dense = ref object of Layer
+type Dense[T] = ref object of Layer[T]
     inFeatures*: int
     outFeatures*: int
     bias*: bool
 
-method `$`(layer: Dense): string = "Dense(in:" & $layer.inFeatures & 
+method `$`[T](layer: Dense[T]): string = "Dense(in:" & $layer.inFeatures & 
                                         ", out:" & $layer.outFeatures & ")"
 
-method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
+method make[T](layer: Dense[T], root: Scope, shape: var seq[int]): proc(rt: Scope, input: Out): Out = 
     layer.dimCheck(shape, 2)
 
     layer.inFeatures = shape[1]
@@ -36,13 +36,13 @@ method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, inp
     let wVarShape = shape([layer.inFeatures, layer.outFeatures])
 
     with rootNamed:
-        let w = RandomNormal([layer.inFeatures, layer.outFeatures].int32, DT_FLOAT)
-        let wVar = newVariable(w, wVarShape, DT_FLOAT, "weights")
+        let w = statelessRandomNormal([layer.inFeatures, layer.outFeatures].oint32, [0, 0].oint32)
+        let wVar = newVariable(w, wVarShape, ofloat, "weights")
 
     layer.train.add(wVar)
 
     if not layer.bias:
-        return proc(rt: Scope, input: Out): Out =
+        return proc(rt: Scope, input: oall): oall =
                     with rt.newSubScope(shortLayerName):
                         return input @ layer.train[0].vvar
 
@@ -50,17 +50,17 @@ method make(layer: Dense, root: Scope, shape: var seq[int]): proc(rt: Scope, inp
         let bVarShape = shape([1, layer.outFeatures])
 
         with rootNamed:
-            let b = RandomNormal([1, layer.outFeatures].int32, DT_FLOAT)
-            let bVar = newVariable(b, bVarShape, DT_FLOAT, "bias")
+            let b = statelessRandomNormal([1, layer.outFeatures].oint32, [0, 0].oint32)
+            let bVar = newVariable(b, bVarShape, ofloat, "bias")
 
         layer.train.add(bVar)
         
-        return proc(rt: Scope, input: Out): Out =
+        return proc(rt: Scope, input: oall): oall =
                     with rt.newSubScope(shortLayerName):
                         return input @ layer.train[0].vvar + layer.train[1].vvar
 
-proc newDense*(model: var seq[Layer], outFeatures: int, bias = true) =
-    var dense = new Dense
+proc newDense*[T](model: var seq[Layer[T]], outFeatures: int, bias = true) =
+    var dense = new Dense[T]
     
     dense.outFeatures = outFeatures
 
