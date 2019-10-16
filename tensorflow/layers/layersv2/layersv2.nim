@@ -78,8 +78,6 @@ macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped 
 
         cdown += 1
 
-    echo repr prgm
-
     return prgm
 
 when isMainModule:
