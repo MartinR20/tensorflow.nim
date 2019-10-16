@@ -1,6 +1,6 @@
 import ../core/core,
        ../utils/utils,
-       ./newop/newop,
+       ./make/newgrad,
        ./make/wrapper,
        ./generated,
        ./custom_ops

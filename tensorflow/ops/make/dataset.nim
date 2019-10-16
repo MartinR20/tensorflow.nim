@@ -1,6 +1,6 @@
 import macros, strutils, sequtils, sugar, ../../core/core, ../../utils/utils,
-       makev2, exportOp, registerv2, ./makeutils, ../newop/register_context,
-       ../newop/shapeFunctions, ../function, ../generated
+       makev2, exportOp, registerv2, ./makeutils, register_context,
+       shapeFunctions, ../function, ../generated
 include ../../core/with
 {.hint[XDeclaredButNotUsed]:off.}
 

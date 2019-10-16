@@ -1,5 +1,5 @@
 import 
-    wrapper, strutils, makeutils, ../../core/core, ../newop/register_context,
+    wrapper, strutils, makeutils, ../../core/core, register_context,
     macros, tables, json, hashes
 
 proc make_shared(T: static[string], args: varargs[string], move = true): static[string] =

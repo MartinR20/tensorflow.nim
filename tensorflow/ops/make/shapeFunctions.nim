@@ -1,5 +1,5 @@
-import ./register_context
-import ../../core/core
+import 
+    register_context, ../../core/core
 
 proc scalarShape*(ctx: ptr InferenceContext): Status {.
     header:"tensorflow/core/framework/common_shape_fns.h",

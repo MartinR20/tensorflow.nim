@@ -4,7 +4,6 @@ import macros,
        tables,
        ../utils/utils,
        ../core/core,
-       ./newop/newop,
        ./make/makeutils,
        ./extendedMacros
 

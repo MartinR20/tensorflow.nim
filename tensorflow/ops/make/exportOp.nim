@@ -1,5 +1,5 @@
 import 
-  ../../core/core, ../generated,  makev2,  registerv2, ../newop/register_context,
+  ../../core/core, ../generated,  makev2,  registerv2, register_context,
   macros, strutils, makeutils, tables
 include ../../core/with
 

@@ -1,5 +1,4 @@
-import ../../core/core
-import ../../utils/utils
+import ../../core/core, ../../utils/utils
 {.hint[XDeclaredButNotUsed]:off.}
 
 type

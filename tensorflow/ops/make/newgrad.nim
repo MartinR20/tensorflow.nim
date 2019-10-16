@@ -1,6 +1,5 @@
-
-import macros
-import ../make/makeutils
+import 
+  macros, ../make/makeutils
 {.hint[XDeclaredButNotUsed]:off.}
 
 const gradInclude = "\"\"#include \"tensorflow/cc/framework/grad_op_registry.h\" \n" &
