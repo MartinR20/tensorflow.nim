@@ -68,7 +68,7 @@ proc iwith(scope: NimNode, x: NimNode) {.compileTime.} =
         if x[i].kind == nnkDotExpr and reversedict.hasKey($x[i][1]):
             x[i] = newCall("nconst", scope, newDerefExpr(newCall("gc", newCall("tensor", x[i][0], x[i][1]))))
 
-macro with*(scope: Scope, x: untyped): untyped =
+macro with(scope: Scope, x: untyped): untyped =
     case scope.kind:
     of nnkCall:
         let sym = genSym(nskLet, "genscope")
