@@ -23,7 +23,7 @@ proc valuecppstr[T](ten: Tensor[T], len: int): cppstring {.importcpp: "#->Summar
   ## Returns:
   ##   A new cppstring representing the first 100 Values of the Tensor.
 
-proc valuestr*[T](ten: Tensor[T], len: int) : string =
+proc valuestr*[T](ten: Tensor[T], len: int = -1) : string =
   return $valuecppstr(ten, len)
 
   ## A Method to get a string representation of the first 100 Values of the Tensor.
@@ -53,8 +53,8 @@ proc dtype*[T](ten: Tensor[T]) : DType {.header: tensorh,
   ## Returns:
   ##   The Dtype of the Tensor.
 
-proc otype*[T](ten: Tensor[T]): typedesc {.compileTime.} = 
-    return T
+macro otype*[T](ten: Tensor[T]): typedesc = 
+    return ten.getImpl[^1][^1]
 
 proc toDebugCPPStr[T](ten: Tensor[T]): cppstring {.importcpp: "#->DebugString()".} 
 
