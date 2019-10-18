@@ -1,2 +1,2 @@
 import 
-    buffers, shape
+    tensor, shape
