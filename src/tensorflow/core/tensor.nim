@@ -14,7 +14,7 @@ type
 
 converter tensorToAll*[T](ten: Tensor[T]): T {.importcpp:"tensorflow::Input(*#)".}
 
-proc toValueCPPStr[T](ten: Tensor[T], len: int): cppstring {.importcpp: "#->SummarizeValue(#, true)".} 
+proc valuecppstr[T](ten: Tensor[T], len: int): cppstring {.importcpp: "#->SummarizeValue(#, true)".} 
 
   ## A Method to get a cppstring representation of the first 100 Values of the Tensor.
   ##
@@ -23,8 +23,8 @@ proc toValueCPPStr[T](ten: Tensor[T], len: int): cppstring {.importcpp: "#->Summ
   ## Returns:
   ##   A new cppstring representing the first 100 Values of the Tensor.
 
-proc toValueStr*[T](ten: Tensor[T], len: int) : string =
-  return $toValueCPPStr(ten, len)
+proc valuestr*[T](ten: Tensor[T], len: int) : string =
+  return $valuecppstr(ten, len)
 
   ## A Method to get a string representation of the first 100 Values of the Tensor.
   ## 
