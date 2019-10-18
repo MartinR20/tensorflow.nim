@@ -1,5 +1,5 @@
 import 
-    unittest, tensorflow/core, tensorflow/utils, random, tables
+    unittest, tensorflow/core, tensorflow/utils, random, tables, streams
 
 test "debug print":
     let ten = tensor([1,2,3,4,5,6], oint32)
@@ -86,6 +86,23 @@ test "copy":
 
     delete src
     delete dest
+
+test "read binary":
+    let data = [0x00FF0FF0, 0x00FFEAD5, 0x33C9EE4F, 0x6E7F8355, 0x00FF0FF0, 0x00FFEAD5, 0x33C9EE4F, 0x6E7F8355]
+
+    let ten = tensor(DT_UINT8, [64], ouint8)
+
+    let binary = newFileStream("test.binary", fmWrite)
+    binary.write data
+    binary.flush()
+
+    discard ten.readBytes("test.binary", 0, 64)
+    let buf = cast[ptr int64](ten.data)
+
+    for i in 0..7:
+        check buf[i] == data[i]
+
+    delete ten
 
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:

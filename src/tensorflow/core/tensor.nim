@@ -192,7 +192,7 @@ proc copy*[T](ten: Tensor[T]): Tensor[T] =
 
     return newTen
 
-proc readBytes*(ten: Tensor[ouint8], file: string, start: int, len: static[int]) =
+proc readBytes*(ten: Tensor[ouint8], file: string, start: int, len: static[int]): int =
   var readFile: File
 
   if not readFile.open(file, fmRead): 
@@ -200,9 +200,9 @@ proc readBytes*(ten: Tensor[ouint8], file: string, start: int, len: static[int])
 
   readFile.setFilePos(start)
 
-  var buf = ten.flat()
+  var buf = ten.data()
   
-  echo "read " & $readFile.readBuffer(buf, len) & "b"
+  return readFile.readBuffer(buf, len)
 
   ## Proc to read a byte file directly into the underlying databuffer of a Tensor. 
   ## 
@@ -212,7 +212,7 @@ proc readBytes*(ten: Tensor[ouint8], file: string, start: int, len: static[int])
   ##   start: The position to start reading from.
   ##   len: The number of bytes to read.
   ## Returns:
-  ##   A new Tensor holding the files content.
+  ##   The number of bytes read.
 
 ## TensorVec related definitions
 type
