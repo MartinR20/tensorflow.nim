@@ -24,6 +24,15 @@ test "shape access":
     check $b.shape == "[]"
     delete b
 
+test "dtype access":
+    let ten = tensor([[1,2],[3,4],[7,8]], oint32)
+
+    # runtime
+    check ten.dtype == DT_INT32 
+    # compiletime
+    check (ten.otype is oint32)
+
+    delete ten
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
         type T = oT.To
