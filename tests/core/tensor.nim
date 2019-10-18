@@ -33,6 +33,21 @@ test "dtype access":
     check (ten.otype is oint32)
 
     delete ten
+
+test "tensor slice":
+    let ten = tensor([[1,2],[3,4],[7,8]], oint32)
+
+    let s0 = ten.slice(0,2)
+    let s1 = ten.slice(1,3)
+
+    check s0.valuestr == """[[1 2]
+ [3 4]]"""
+
+    check s1.valuestr == """[[3 4]
+ [7 8]]"""
+
+    delete ten
+
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
         type T = oT.To
