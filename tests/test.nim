@@ -1,150 +1,114 @@
-import ../tensorflow/tensorflow
-import ../tensorflow/utils/utils
-import ../tensorflow/ops/generated/structs
-import options
-import macros
-import times
-import matplotlib
+import 
+    core/core
 
-macro test(x: untyped): untyped =
-  let name = $name(x)
-  let node = nnkCommand.newTree(newIdentNode("echo"), parseStmt("\"\\n\" & $now() & \" \" & \"" & $name(x) & ":\""))
-  insert(body(x), 0, node)
-  result = newStmtList(x, newCall(name))
+# proc tensor_test() {.test.} =
+#     let ten = tensor([[1,2,3,4,5,6]], oint32)
+#     let scalar = tensor(0, oint32)
 
-proc tensorShape_test() {.test.} = 
-    let tshape = newTensorShape([2,2])
+#     echo ten
+#     echo scalar
 
-    echo tshape
+#     echo ten.shape
+#     echo scalar.shape
 
-proc tensor_test() {.test.} =
-    let ten = newTensor([[1,2,3,4,5,6]])
-    let scalar = newTensor(0)
+# proc arraySlice_test() {.test.} =
+#     let aSlice = newArraySlice(["text", "btext", "textc"])
 
-    echo ten
-    echo scalar
+#     echo aSlice[0]
+#     echo aSlice[1]
+#     echo aSlice[2]
 
-    echo ten.shape
-    echo scalar.shape
+#     let bSlice = newArraySlice[cppstring](aSlice)
 
-proc arraySlice_test() {.test.} =
-    let aSlice = newArraySlice(["text", "btext", "textc"])
+#     bSlice[0].print()
+#     bSlice[1].print()
+#     bSlice[2].print()
 
-    echo aSlice[0]
-    echo aSlice[1]
-    echo aSlice[2]
+# proc basicOp_test() {.test.} =
+#     with newRootScope():
+#         let sess = newSession()
 
-    let bSlice = newArraySlice[cppstring](aSlice)
+#         let a = [[1.0,3.0],
+#                  [1.0,3.0],
+#                  [1.0,3.0]].ofloat
 
-    bSlice[0].print()
-    bSlice[1].print()
-    bSlice[2].print()
+#         let c = T(a) @ a
 
-proc basicOp_test() {.test.} =
-    with newRootScope():
-        let sess = newSession()
+#     let outputs = sess.runSession(c)
+#     echo outputs[0]
 
-        let a = Const([[1.0,3.0],
-                       [1.0,3.0],
-                       [1.0,3.0]], float32)
+# proc inputListOp_test() {.test.} =  
+#     let scope = newRootScope()
 
-        let c = T(a) @ a
+#     with scope:
+#         let inpList = newOutList([1].oint32.output, [4, 3].oint32.output)
+#         let sess = newSession()
+#         let d = shapeN(inpList)
 
-    let outputs = sess.runSession(c)
-    echo outputs[0]
+#     let outputs = sess.runSession(d)
+#     echo outputs[0]
 
-proc var_test() {.test.} =
-    let v_shape = newTensorShape([2,2])
+# proc rawDense_test() {.test.} =  
+#     with newRootScope():
+#         let sess = newSession()
 
-    with newRootScope():
-        let v = newVariable(Const([[2,2], [2,2]], float32), v_shape, TF_FLOAT)
-        let m = T(v.vvar) @ v.vvar
-        
-        let sess = newSession()
+#         let input = [[1, 2, 4, 2, 3, 5, 6, 3, 4, 1]].ofloat
 
-    with sess:
-        runSessionVoid(v.assign)
-        runSessionVoid(m)
-        let outputs = runSession(m)
-        echo outputs[0]
+#         let w0 = statelessRandomNormal([10, 10].oint32, [0, 0].oint32)
+#         let b0 = statelessRandomNormal([1, 10].oint32, [0, 0].oint32)
 
-proc inputListOp_test() {.test.} =  
-    let inpList = newInList($@[1], $@[2], $@[0], $@[4])
+#         let h0 = relu(input @ w0 + b0)
 
-    with newRootScope():
-        let sess = newSession()
+#         let w1 = statelessRandomNormal([10, 10].oint32, [0, 0].oint32)
+#         let b1 = statelessRandomNormal([1, 10].oint32, [0, 0].oint32)
 
-        let d = ShapeN(inpList)
+#         let h1 = softmax(h0 @ w1 + b1)
 
-    let outputs = sess.runSession(d)
-    echo outputs[0]
+#     let outputs = sess.runSession(h1)
+#     echo outputs[0]
 
-proc attrOp_test() {.test.} = 
-    with newRootScope():
-        let sess = newSession()
+# proc dense_test() {.test.} =  
+#     let scope = newRootScope()
+#     let sess = scope.newSession()
 
-        let a = Const([[0,1,2,3],[3,2,1,0]], int32)
-        let d = Unstack(a, 2)
+#     let ten = tensor([[1, 1, 1],
+#                       [2, 2, 2],
+#                       [3, 3, 3]], ofloat)
+    
+#     model m0, scope, sess:
+#         input ten, [3,3], ofloat
+#         dense 100, true
+#         vars m
+#         vars v
+#         optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
+#         init
+#         run 
 
-    let outputs = sess.runSession(d)
-    echo outputs[0]
+# proc AE_test() {.test.} =  
+#     let scope = newRootScope()
+#     let sess = scope.newSession()
 
-proc rawDense_test() {.test.} =  
-    with newRootScope():
-        let sess = newSession()
+#     let ten = tensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+#                       [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
+#                       [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], ofloat)
 
-        let input = Const([[1, 2, 4, 2, 3, 
-                            5, 6, 3, 4, 1]], float32)
+#     model m1, scope, sess:
+#         input ten, [3,3], ofloat
+#         dense 10
+#         activation relu
+#         dense 4
+#         activation relu
+#         dense 4
+#         activation relu
+#         dense 10
+#         activation sigmoid
+#         vars m
+#         vars v
+#         optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
+#         init
+#         run 
 
-        let w0 = RandomNormal(Const([10, 10], int32), TF_FLOAT)
-        let b0 = RandomNormal(Const([1,10], int32), TF_FLOAT)
-
-        let h0 = Relu(input @ w0 + b0)
-
-        let w1 = RandomNormal(Const([10, 10], int32), TF_FLOAT)
-        let b1 = RandomNormal(Const([1,10], int32), TF_FLOAT)
-
-        let h1 = Softmax(h0 @ w1 + b1)
-
-    let outputs = sess.runSession(h1)
-    echo outputs[0]
-
-proc dense_test() {.test.} =  
-    var proto: seq[Layer] = @[]
-
-    proto.newDense(20)
-    proto.newActivation(Relu)
-    proto.newDense(10)
-    proto.newActivation(Sigmoid)
-
-    let rt = newRootScope()
-    let model = proto.compile(rt, newMSE(), newSGD(), [1, 10])
-
-    let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
-
-    model.fit(input, input, 100, batch=1)
-    echo model.eval(input)[0]
-
-proc AE_test() {.test.} =  
-    var proto: seq[Layer] = @[]
-
-    proto.newDense(4)
-    proto.newActivation(Relu)
-    proto.newDense(4)
-    proto.newActivation(Relu)
-    proto.newDense(10)
-    proto.newActivation(Sigmoid)
-
-    let rt = newRootScope()
-
-    let input = newTensor([[0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
-                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1],
-                           [0.1, 0.2, 0.4, 0.2, 0.3, 0.5, 0.6, 0.3, 0.4, 0.1]], float32)
-
-    let model = proto.compile(rt, newMSE(), newAdam(), [3, 10])
-
-    model.fit(input, input, 5, batch=1)
-
+#[
 proc x_test() {.test.} =
     let rt = newRootScope()
 
@@ -549,7 +513,7 @@ proc inception_resnet_v2_test() {.test.} =
 
     let rt = newRootScope()
 
-    let input = rt.Const(newTensor(TF_FLOAT, newTensorShape([1,480,640,3])))
+    let input = rt.Const(newTensor(DT_FLOAT, newTensorShape([1,480,640,3])))
 
     var proto: seq[Layer] = @[]
 
@@ -658,4 +622,5 @@ proc inception_resnet_v2_test() {.test.} =
 
     let outputs = rt.runSession(model)
     echo outputs[0]
+]#
 ]#

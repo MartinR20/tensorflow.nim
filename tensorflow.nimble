@@ -46,3 +46,9 @@ before install:
       raise newException(OSError, "Sorry prebuilt librarys currently are not available for your operating system!") 
   
     exec "nim c -r -d:ssl ./setup.nim " & platform
+
+task test, "runs all unit tests":
+    if not system.dirExists "build":
+        mkDir "build"
+
+    exec "nim cpp -r tests/test.nim"

@@ -7,6 +7,6 @@
 # Unignore all dirs
 !*/
 
-tensorflow/include/*
-tensorflow/lib/*
+src/include/*
+src/lib/*
 tests/pdf_doc
