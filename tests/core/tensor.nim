@@ -48,6 +48,18 @@ test "tensor slice":
 
     delete ten
 
+test "gced/ref tensor":
+    var ten: ref Tensor[oint32]
+
+    GC_fullCollect()
+
+    for _ in 0..100:
+        ten = gc tensor([[1,2],[3,4],[7,8]], oint32) # TODO: find prettier way of interfacing with the gc
+    
+    GC_fullCollect()
+    check getOccupiedMem() == 66320
+
+
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
         type T = oT.To
