@@ -59,6 +59,33 @@ test "gced/ref tensor":
     GC_fullCollect()
     check getOccupiedMem() == 66320
 
+test "copyFrom":
+    let src = tensor([[1,2],[3,4],[7,8]], oint32) 
+    let dest = tensor(DT_INT32, src.shape, oint32) # TODO: make this call prettier
+    
+    check dest.copyFrom(src, src.shape)
+
+    check src.valuestr == dest.valuestr
+
+    dest.data[0] = 0
+
+    check src.valuestr == dest.valuestr
+
+    delete src
+    delete dest
+
+test "copy":
+    let src = tensor([[1,2],[3,4],[7,8]], oint32) 
+    let dest = copy src
+
+    check src.valuestr == dest.valuestr
+
+    dest.data[0] = 0
+
+    check src.valuestr == dest.valuestr
+
+    delete src
+    delete dest
 
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
