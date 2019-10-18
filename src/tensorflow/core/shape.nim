@@ -77,3 +77,13 @@ proc dims*(shape: TensorShape): int {.importcpp:"#.dims()".}
   ##   shape: The TensorShape it is applied on. 
   ## Returns:
   ##   The number of dimensions.
+
+proc num_elements*(sh: TensorShape): int {.importcpp:"#.num_elements()".}
+
+  ## A proc that returns the product of all dimensions the shape is holding
+  ## e.g: the total number of elements in a Tensor
+  ## 
+  ## Args:
+  ##   sh: The shape it is applied on
+  ## Returns:
+  ##   The product of all dimensions
