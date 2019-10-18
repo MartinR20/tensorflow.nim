@@ -13,6 +13,13 @@ test "value print":
  [2 0]
  [3 0]]"""
 
+test "shape access":
+    let a = tensor([[1,2],[3,4],[7,8]], oint32)
+    check $a.shape == "[3,2]"
+
+    let b = tensor(0, oint32)
+    check $b.shape == "[]"
+
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
         type T = oT.To

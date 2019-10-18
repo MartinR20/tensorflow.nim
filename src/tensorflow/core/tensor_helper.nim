@@ -140,12 +140,8 @@ proc tensor*[N,T](data: array[N,T], OT: static[typedesc]): auto =
 proc tensor*[T: SomeNumber](data: T, OT: static[typedesc]): auto =
     let DT = OT.oTF
     
-    type bT = T.getBaseType
-    type oT = OT.To
-
     let ten = tensor(DT, [], OT)
-
-    ten.data[0] = data
+    ten.data[0] = (OT.To)(data)
 
     return ten
 
