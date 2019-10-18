@@ -1,136 +1,10 @@
 import 
-    ../utils/utils, tensor, macros, otypes, complex
-
-## Flat related definitions
-type
-  Flat*[T] {.header: tensorh,
-             importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Flat>".} = object
-    ## The Flat Type is a way of accessing the underlying memory of a tensor as flat buffer without any dimensionality.
-
-proc iflat*[T](ten: Tensor[T], R: type): Flat[R] {.
-    header: tensorh,
-    importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Flat>(std::move(#->flat<'*0>()))".}
-
-  ## A method returning the flat buffer of a Tensor with the given type.
-  ## 
-  ## Args:
-  ##   flat: A Flat variable to initalize.
-  ##   ten: The tensor it is applied on.
-  ## Returns:
-  ##   A new Flat object "referencing" the data of the Tensor.
-
-proc flat*[T](ten: Tensor[T]): auto =
-  return ten.iflat(T[].To)
-
-proc len*[T](flat: Flat[T]): int {.importcpp:"#->size()".}
-
-  ## Size method to get the number of elements in the Flat object.
-  ## 
-  ## Args:
-  ##   flat: The Flat object it is applied on.
-  ## Returns:
-  ##   The number of elements.
-
-proc asPtr*[T](flat: Flat[T]): ptr T {.importcpp:"#->data()".}
-
-  ## Proc converting the Flat type to raw buffer.
-  ## 
-  ## Args:
-  ##   flat: The Flat object it is applied on.
-  ## Returns:
-  ##   A pointer to the Flat buffer memory.
-
-proc `[]`*[T](flat: Flat[T], i: int): T {.importcpp:"(*#)(#)".}
-
-proc `[]=`*[T](flat: Flat[T], i: int, val: T) {.importcpp:"(*#)(#) = #".}
-
-proc mean*[T](flat: Flat[T]) : T = 
-  let size = flat.len()
-  var sum: T = 0
-
-  for i in 0..size-1:
-    sum += flat[i]
-
-  return sum / size.T 
-
-  ## Calculates the mean of all elements in the buffer.
-  ## 
-  ## Args:
-  ##   flat: The Flat object it is applied on.
-  ## Returns:
-  ##   Returns the mean.
-
-## Matrix related definitions
-type
-  Matrix*[T] {.header: tensorh,
-               importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Matrix>".} = object
-    ## The Matrx Type is a way of accessing the underlying memory of a tensor as a Matirx.
-
-
-proc matrix*[T](ten: Tensor[T]): Matrix[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Matrix>(std::move(#->matrix<'*0>()))".}
-
-  ## A method returning the Matrix from a Tensor with the given type.
-  ## 
-  ## Args:
-  ##   mat: A Matrix variable to initalize.
-  ##   ten: The tensor it is applied on.
-  ## Returns:
-  ##   A new Flat object "referencing" the data of the Tensor.
-
-proc `[]`*[T](flat: Matrix[T], i: int, j: int): T {.importcpp:"(*#)(#, #)".}
-
-proc `[]=`*[T](flat: Matrix[T], i: int, j: int, val: T) {.importcpp:"(*#)(#, #) = #".}
-
-
-## Scalar related definitions
-type
-  Scalar*[T] {.header: tensorh,
-               importcpp: "std::shared_ptr<tensorflow::TTypes<'0>::Scalar>".} = object
-    ## The Scalar Type is a way of accessing the underlying memory of a tensor as a Scalar.
-
-proc scalar*[T](ten: Tensor[T]): Scalar[T] {.importcpp:"std::make_shared<tensorflow::TTypes<'*0>::Scalar>(std::move(#->scalar<'*0>()))".}
-
-  ## A method returning the Scalar from a Tensor with the given type.
-  ## 
-  ## Args:
-  ##   scal: A Scalar variable to initalize.
-  ##   ten: The tensor it is applied on.
-  ## Returns:
-  ##   A new Scalar object "referencing" the data of the Tensor.
-
-proc set*[T](flat: Scalar[T], val: T) {.importcpp:"(*#)(0) = #".}
-
-proc get*[T](flat: Scalar[T]): T {.importcpp:"(*#)(0)".}
-
-#[
-## TensorMap related definitions
-type
-  TensorMap*[T, N] {.header: tensorh,
-                  importcpp: "tensorflow::TTypes<'0, '1>::Matirx".} = object
-    ## The TensorMap Type is a way of accessing the underlying memory of a tensor as a tensor.
-
-proc tensorMap*[T, N](map: TensorMap[T, N], ten: Tensor) {.importcpp:"# = #->tensor<'0, '1>()".}
-
-  ## A method returning the TensorMap from a Tensor with the given type.
-  ## 
-  ## Args:
-  ##   map: A TensorMap variable to initalize.
-  ##   ten: The tensor it is applied on.
-  ## Returns:
-  ##   A new TensorMap object "referencing" the data of the Tensor.
-
-proc `[]`*[T, N](map: TensorMap[T, N], idxs: varargs[int]): T {.importcpp:"[](){ auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); return _map->(_idx); }()".}
-
-proc `[]=`*[T, N](map: TensorMap[T, N], idxs: varargs[int], val: T) {.importcpp:"auto _map = #; auto _idxs = #; std::array<Eigen::DenseIndex, '1> _idx; std::copy(std::begin(_idxs), std::end(_idxs), _idx.begin()); _map->(_idx) = #;".}
-]#
-
+    ../utils/utils, tensor
 
 type 
   cArray[T] {.importcpp:"'0*".} = object
 
-proc newCArray[T, TT](carray: cArray[T], len: int, x: TT) {.importcpp: "# = new '3[#]".}
-
-proc cArrayFromNim[T,N,TT](c: cArray[T], nim: array[N, TT]) {.importcpp:"# = ('1)#".}
+proc new[T](carray: cArray[T], len: int) {.importcpp: "# = new '*1[#]".}
 
 proc `[]`[T](arr: cArray[T], i: int): T {.importcpp:"#[#]".}
 
@@ -211,33 +85,13 @@ proc `$`*[T](slice: ArraySlice[T]): string =
 proc newArraySlice*[cppstring](slice: ArraySlice[string]): ArraySlice[cppstring] = 
     let size = slice.len
     var buffer: cArray[cppstring] 
-    buffer.newCArray(size, newCPPString(""))
+    buffer.new(size) # doesn't have to be deleted because gtl will take care of that
 
     for i in 0..size-1:
       buffer[i] = newCPPString(slice[i])
 
     return newArraySlice(buffer, size)
-#[
-  {.header: "<algorithm>",
-    importcpp:"""
-    [&](){    
-      auto _slice = #; 
-      int _len = _slice.size(); 
 
-      std::vector<std::string> _buffer;
-      _buffer.reserve(_len);
-      
-      for(int i = 0; i < _len; i++) {
-        int size = _slice[i]->len;
-        _buffer[i].reserve(size);
-        std::copy_n((char*)(&_slice[i][0]), size, &_buffer[i][0]);
-      } 
-
-      return tensorflow::gtl::ArraySlice<std::string>(_buffer);
-    }()
-  """
-  .}
-]#
   ## Method for converting an ArraySlice[string] to an ArraySlice[cppstring].
   ## 
   ## Args:
