@@ -5,6 +5,7 @@ test "debug print":
     let ten = tensor([1,2,3,4,5,6], oint32)
 
     check $ten == "Tensor<type: int32 shape: [6] values: 1 0 2...>"
+    delete ten
 
 test "value print":
     let ten = tensor([[1,2],[3,4],[7,8]], oint32)
@@ -12,13 +13,16 @@ test "value print":
     check ten.valuestr(-1) == """[[1 0]
  [2 0]
  [3 0]]"""
+    delete ten
 
 test "shape access":
     let a = tensor([[1,2],[3,4],[7,8]], oint32)
     check $a.shape == "[3,2]"
+    delete a
 
     let b = tensor(0, oint32)
     check $b.shape == "[]"
+    delete b
 
 template access_with_t(oT: untyped) =
     test "access " & $oT[]:
@@ -43,6 +47,7 @@ template access_with_t(oT: untyped) =
         let ten = tensor([r0,r1], oT)
 
         check ten.data[1] == r1
+        delete ten
 
 access_with_t odouble   
 access_with_t ofloat    
