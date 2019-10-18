@@ -128,12 +128,12 @@ proc tensor*[N,T](data: array[N,T], OT: static[typedesc]): auto =
 
     let ten = tensor(DT, shape, OT)
 
-    when $(bT[][]) == $(oT[]):
+    when $(bT[][]) == $(oT[]) or $(bT[][]) == "Complex": # just trust that complex has the right value for now
         var dptr = data.asPtr
-        copyMem(ten.data, dptr, (prod(shape)) * sizeof(oT))
+        copyMem(ten.data, dptr, (prod(shape)) * sizeof(oT[]))
     else:
         for i in 0..prod(shape)-1:
-            ten.data[i] = data.flat_idx_cast(i, oT)  
+            ten.data[i] = (oT)(data.flat_idx_cast(i, bT[][]))
 
     return ten
 
