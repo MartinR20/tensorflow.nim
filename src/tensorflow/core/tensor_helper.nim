@@ -109,6 +109,10 @@ proc flat_idx_cast[N,T](arr: array[N,T], i: int, R: type): R {.importcpp:"((('0*
 
 macro `[]`*(x: typedesc): untyped = 
   let impl = x.getTypeInst[^1].getImpl
+  
+  if impl.kind == nnkNilLit:
+    return x.getTypeInst[^1]
+
   case impl[2].kind:
   of nnkDotExpr:
     return impl[2]
