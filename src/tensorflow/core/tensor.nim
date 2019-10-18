@@ -71,7 +71,7 @@ proc `$`*[T](ten: Tensor[T]) : string =
 proc slice*[T](ten: Tensor[T], start: int, stop: int): Tensor[T]
   {.header: tensorh,
     header: memory,
-    importcpp:"#->Slice(#, #)".}
+    importcpp:"new tensorflow::Tensor(#->Slice(#, #))".}
 
   ## A Method to get a slice of a Tensor along the first dimension.
   ## 
@@ -296,11 +296,11 @@ proc data*[T](ten: Tensor[T]): auto =
 
 proc data*(ten: Tensor[ocomplex64]): ptr complex.Complex32 {.
   header: tensorh,
-  importcpp:"#->flat<tensorflow::complex64>().data()".}
+  importcpp:"('0)#->flat<tensorflow::complex64>().data()".}
 
 proc data*(ten: Tensor[ocomplex128]): ptr complex.Complex64 {.
   header: tensorh,
-  importcpp:"#->flat<tensorflow::complex128>().data()".}
+  importcpp:"('0)#->flat<tensorflow::complex128>().data()".}
 
 proc data*(ten: Tensor[oqint8]): ptr qint8 {.
   header: tensorh,
