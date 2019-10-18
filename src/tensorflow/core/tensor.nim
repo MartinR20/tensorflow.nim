@@ -53,8 +53,8 @@ proc dtype*[T](ten: Tensor[T]) : DType {.header: tensorh,
   ## Returns:
   ##   The Dtype of the Tensor.
 
-macro otype*[T](ten: Tensor[T]): typedesc = 
-    return ten.getImpl[^1][^1]
+template otype*[T](ten: Tensor[T]): untyped =
+    T
 
 proc toDebugCPPStr[T](ten: Tensor[T]): cppstring {.importcpp: "#->DebugString()".} 
 
@@ -181,23 +181,14 @@ proc tensor*(alloc: ptr Allocator, dtype: DType, shape: openArray[int], T: type)
   ## Returns:
   ##   A new Tensor with given dtype and shape.
   
-proc num_elements*(sh: TensorShape): int {.importcpp:"#.num_elements()".}
-
-  ## A proc that returns the product of all dimensions the shape is holding
-  ## e.g: the total number of elements in a Tensor
-  ## 
-  ## Args:
-  ##   sh: The shape it is applied on
-  ## Returns:
-  ##   The product of all dimensions
-
 proc copyFrom*[T](to: Tensor[T], ffrom: Tensor[T], shape: TensorShape): bool {.importcpp:"#->CopyFrom(*#, #)".}
 
-proc copy*[T](ten: Tensor[T]): Tensor[T] = 
-    let sh = ten.shape
-    var newTen = tensor(ten.dtype, sh)
+  ## share the data buffer with the Tensor
 
-    discard newTen.copyFrom(ten, ten.shape)
+proc copy*[T](ten: Tensor[T]): Tensor[T] = 
+    var newTen = tensor(ten.dtype, ten.shape, ten.otype)
+
+    assert newTen.copyFrom(ten, ten.shape), "Error during copy!"
 
     return newTen
 
