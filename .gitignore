@@ -9,5 +9,10 @@
 
 src/include/*
 src/lib/*
+
+# local tmp files
 tests/pdf_doc
+tests/tmp
+tests/tmp.nim
+test.binary
 TODO.md
