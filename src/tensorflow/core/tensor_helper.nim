@@ -107,40 +107,29 @@ proc asPtr[N,T](arr: array[N,T]): pointer {.importcpp:"&#[0]".}
 
 proc flat_idx_cast[N,T](arr: array[N,T], i: int, R: type): R {.importcpp:"((('0*)#)[#])".}
 
-macro `[]`*(x: typedesc): untyped = 
-  let impl = x.getTypeInst[^1].getImpl
-  
-  if impl.kind == nnkNilLit:
-    return x.getTypeInst[^1]
-
-  case impl[2].kind:
-  of nnkDotExpr:
-    return impl[2]
-  else:
-    return x.getTypeInst[^1]
+proc cmp*[A, B](a: typedesc[A], b: typedesc[B]): bool {.compileTime.} =
+  result = ($A == $B)
 
 proc tensor*[N,T](data: array[N,T], OT: static[typedesc]): auto =
     let shape = data.getShape
     let DT = OT.oTF
     
-    type bT = T.getBaseType
-    type oT = OT.To
+    template bT(): untyped = T.getBaseType
+    template oT(): untyped = OT.To
 
     let ten = tensor(DT, shape, OT)
 
-    when $(bT[][]) == $(oT[]) or $(bT[][]) == "Complex": # just trust that complex has the right value for now
+    when cmp(bT, oT) or cmp(bT, Complex): # just trust that complex has the right value for now
         var dptr = data.asPtr
-        copyMem(ten.data, dptr, (prod(shape)) * sizeof(oT[]))
+        copyMem(ten.data, dptr, (prod(shape)) * sizeof(oT))
     else:
         for i in 0..prod(shape)-1:
-            ten.data[i] = (oT)(data.flat_idx_cast(i, bT[][]))
+            ten.data[i] = (oT)(data.flat_idx_cast(i, bT))
 
     return ten
 
 proc tensor*[T: SomeNumber](data: T, OT: static[typedesc]): auto =
-    let DT = OT.oTF
-    
-    let ten = tensor(DT, [], OT)
+    let ten = tensor(OT.oTF, [], OT)
     ten.data[0] = (OT.To)(data)
 
     return ten

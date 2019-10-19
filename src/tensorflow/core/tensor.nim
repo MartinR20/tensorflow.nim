@@ -283,7 +283,7 @@ proc idata[T](ten: Tensor[T], R: type): ptr R {.
   importcpp:"#->flat<'2>().data()".}
 
 proc data*[T](ten: Tensor[T]): auto =
-  return ten.idata(T[].To)
+  return ten.idata(T.To)
 
 proc data*(ten: Tensor[ocomplex64]): ptr complex.Complex32 {.
   header: tensorh,
