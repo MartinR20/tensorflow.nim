@@ -104,27 +104,27 @@ test "read binary":
 
     delete ten
 
-template access_with_t(oT: untyped) =
-    test "access " & $oT[]:
-        type T = oT.To
+template access_with_t(oT: typedesc) =
+    test "access " & $oT:
+        template T(): untyped = oT.To
 
-        when T[] is Complex32:
-            let r0: T = (complex32(rand(100.3), rand(100.3)))
-            let r1: T = (complex32(rand(100.3), rand(100.3)))
-        elif T[] is Complex64:
-            let r0: T = (complex64(rand(100.3), rand(100.3)))
-            let r1: T = (complex64(rand(100.3), rand(100.3)))
-        elif T[] is bfloat16_t:
-            let r0: T = rand(100.3).bfloat16
-            let r1: T = rand(100.3).bfloat16
-        elif T[] is cppstring:
-            let r0: T = newCPPString $rand(100.3)
-            let r1: T = newCPPString $rand(100.3)
+        when T is Complex32:
+            let r0 = (complex32(rand(100.3), rand(100.3)))
+            let r1 = (complex32(rand(100.3), rand(100.3)))
+        elif T is Complex64:
+            let r0 = (complex64(rand(100.3), rand(100.3)))
+            let r1 = (complex64(rand(100.3), rand(100.3)))
+        elif T is bfloat16_t:
+            let r0 = rand(100.3).bfloat16
+            let r1 = rand(100.3).bfloat16
+        elif T is cppstring:
+            let r0 = newCPPString $rand(100.3)
+            let r1 = newCPPString $rand(100.3)
         else:
-            let r0: T = cast[T] (rand(100.3))
-            let r1: T = cast[T] (rand(100.3))
+            let r0 = (T)(rand(100.3))
+            let r1 = (T)(rand(100.3))
 
-        let ten = tensor([r0,r1], oT)
+        let ten = tensor([[r0],[r1]], oT)
 
         check ten.data[1] == r1
         delete ten
