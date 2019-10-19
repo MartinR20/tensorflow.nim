@@ -41,57 +41,30 @@ proc invalidToAny*[T:oany](o: oinvalid): T {.importcpp:"#".}
 
 converter anyToInvalid*(o: oany): oinvalid {.importcpp:"#".}
 
-const dict* = { 
-    "int"           : "oint64"       , 
-    "int8"          : "oint8"       , 
-    "int16"         : "oint16"      , 
-    "int32"         : "oint32"      , 
-    "int64"         : "oint64"      , 
-    "uint"          : "ouint64"     , 
-    "uint8"         : "ouint8"      , 
-    "uint16"        : "ouint16"     ,  
-    "uint32"        : "ouint32"     ,  
-    "uint64"        : "ouint64"     ,  
-    "float"         : "odouble"     ,  
-    "float32"       : "ofloat"      , 
-    "float64"       : "odouble"     ,  
-    "bool"          : "obool"       ,
-    "char"          : "ouint8"      , 
-    "cppstring"     : "ostring"     ,  
-    "Complex32"     : "ocomplex64"  ,  
-    "Complex64"     : "ocomplex128" ,  
-    "qint8"         : "oqint8"      ,  
-    "quint8"        : "oquint8"     ,  
-    "qint32"        : "oqint32"     ,  
-    "bfloat16_t"    : "obfloat16"   ,  
-    "qint16"        : "oqint16"     ,  
-    "quint16"       : "oquint16"    ,  
-    "half"          : "ohalf"       
-}.toOrderedTable
+type qint8*   = int8
+type quint8*  = uint8
+type qint16*  = int16
+type quint16* = uint16
+type qint32*  = int32
+type half*    = uint16
 
-const reversedict* = { 
-    "oint8"       : "int8"        , 
-    "oint16"      : "int16"       , 
-    "oint32"      : "int32"       , 
-    "oint64"      : "int64"       , 
-    "ouint8"      : "uint8"       , 
-    "ouint16"     : "uint16"      ,  
-    "ouint32"     : "uint32"      ,  
-    "ouint64"     : "uint64"      ,  
-    "ofloat"      : "float32"     , 
-    "odouble"     : "float64"     ,  
-    "obool"       : "bool"        ,
-    "ostring"     : "cppstring"   ,  
-    "ocomplex64"  : "Complex32"   ,   
-    "ocomplex128" : "Complex64"   ,  
-    "oqint8"      : "qint8"       ,  
-    "oquint8"     : "quint8"      ,  
-    "oqint32"     : "qint32"      ,  
-    "obfloat16"   : "bfloat16_t"  ,  
-    "oqint16"     : "qint16"      ,  
-    "oquint16"    : "quint16"     ,  
-    "ohalf"       : "half"       
-}.toOrderedTable
+type bfloat16_t* {.header: tensorh, importcpp:"tensorflow::bfloat16".} = object
+
+proc bfloat16*(f: SomeFloat): bfloat16_t {.
+  header: tensorh,
+  importcpp:"tensorflow::bfloat16::truncate_to_bfloat16(#)".}
+
+proc `[]=`[T](data: ptr T, i: int, val: T) {.importcpp:"(('3*)#)[#] = #".}
+  
+proc touint16(bf: bfloat16_t): uint16 {.importcpp:"(tensorflow::uint16)#".}
+
+proc float*(bf: bfloat16_t): float32 =
+  result = 0
+  let p = cast[ptr uint16](addr(result))
+  p[1] = bf.touint16
+
+proc `$`*(f: bfloat16_t): string =
+  result = $f.float
 
 type
   DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
@@ -111,115 +84,185 @@ type
 const
   DT_COMPLEX = DT_COMPLEX64
 
-const tfdict* = { 
-    "oinvalid"    : DT_INVALID    ,
-    "oresource"   : DT_RESOURCE   ,
-    "ovariant"    : DT_VARIANT    ,
-    "oint8"       : DT_INT8       , 
-    "oint16"      : DT_INT16      , 
-    "oint32"      : DT_INT32      , 
-    "oint64"      : DT_INT64      , 
-    "ouint8"      : DT_UINT8      , 
-    "ouint16"     : DT_UINT16     ,  
-    "ouint32"     : DT_UINT32     ,  
-    "ouint64"     : DT_UINT64     ,  
-    "ofloat"      : DT_FLOAT      , 
-    "odouble"     : DT_DOUBLE     ,  
-    "obool"       : DT_BOOL       ,
-    "ostring"     : DT_STRING     ,  
-    "ocomplex64"  : DT_COMPLEX64  ,  
-    "ocomplex128" : DT_COMPLEX128 ,  
-    "oqint8"      : DT_QINT8      ,  
-    "oquint8"     : DT_QUINT8     ,  
-    "oqint32"     : DT_QINT32     ,  
-    "obfloat16"   : DT_BFLOAT16   ,  
-    "oqint16"     : DT_QINT16     ,  
-    "oquint16"    : DT_QUINT16    ,  
-    "ohalf"       : DT_HALF       
-}.toOrderedTable
-
-const reversetfdict* = { 
-    DT_INVALID    : "oinvalid"    ,
-    DT_RESOURCE   : "oresource"   ,
-    DT_VARIANT    : "ovariant"    ,
-    DT_INT8       : "oint8"       , 
-    DT_INT16      : "oint16"      , 
-    DT_INT32      : "oint32"      , 
-    DT_INT64      : "oint64"      , 
-    DT_UINT8      : "ouint8"      , 
-    DT_UINT16     : "ouint16"     ,  
-    DT_UINT32     : "ouint32"     ,  
-    DT_UINT64     : "ouint64"     ,  
-    DT_FLOAT      : "ofloat"      , 
-    DT_DOUBLE     : "odouble"     ,  
-    DT_BOOL       : "obool"       ,
-    DT_STRING     : "ostring"     ,  
-    DT_COMPLEX64  : "ocomplex64"  ,  
-    DT_COMPLEX128 : "ocomplex128" ,  
-    DT_QINT8      : "oqint8"      ,  
-    DT_QUINT8     : "oquint8"     ,  
-    DT_QINT32     : "oqint32"     ,  
-    DT_BFLOAT16   : "obfloat16"   ,  
-    DT_QINT16     : "oqint16"     ,  
-    DT_QUINT16    : "oquint16"    ,  
-    DT_HALF       : "ohalf"       
-}.toOrderedTable
-
-macro oT*(x: untyped): untyped =
-    if not dict.hasKey($x):
-        var types = ""
-
-        for key in dict.keys:
-            types &= key & ", "
-
-        types = types[0..^3]
-
-        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
-
-    return ident(dict[$x])
+template To*(x: type int8): untyped =
+  oint8
+template To*(x: type int16): untyped =
+  oint16
+template To*(x: type int32): untyped =
+  oint32
+template To*(x: type int64): untyped =
+  oint64
+template To*(x: type uint8): untyped =
+  ouint8
+template To*(x: type uint16): untyped =
+  ouint16
+template To*(x: type uint32): untyped =
+  ouint32
+template To*(x: type uint64): untyped =
+  ouint64
+template To*(x: type float32): untyped =
+  ofloat
+template To*(x: type float64): untyped =
+  odouble
+template To*(x: type bool): untyped =
+  obool
+template To*(x: type cppstring): untyped =
+  ostring
+template To*(x: type Complex32): untyped =
+  ocomplex64
+template To*(x: type Complex64): untyped =
+  ocomplex128
+template To*(x: type qint8): untyped =
+  oqint8
+template To*(x: type quint8): untyped =
+  oquint8
+template To*(x: type qint32): untyped =
+  oqint32
+template To*(x: type bfloat16_t): untyped =
+  obfloat16
+template To*(x: type qint16): untyped =
+  oqint16
+template To*(x: type quint16): untyped =
+  oquint16
+template To*(x: type half): untyped =
+  ohalf
 
   # takes a type and returns the corresponding otype
 
-macro To*(x: untyped): untyped =
-    if not reversedict.hasKey($x):
-        var types = ""
-
-        for key in reversedict.keys:
-            types &= key & ", "
-
-        types = types[0..^3]
-
-        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
-
-    return ident(reversedict[$x])
+template To*(x: type oint8): untyped =
+  int8
+template To*(x: type oint16): untyped =
+  int16
+template To*(x: type oint32): untyped =
+  int32
+template To*(x: type oint64): untyped =
+  int64
+template To*(x: type ouint8): untyped =
+  uint8
+template To*(x: type ouint16): untyped =
+  uint16
+template To*(x: type ouint32): untyped =
+  uint32
+template To*(x: type ouint64): untyped =
+  uint64
+template To*(x: type ofloat): untyped =
+  float32
+template To*(x: type odouble): untyped =
+  float64
+template To*(x: type obool): untyped =
+  bool
+template To*(x: type ostring): untyped =
+  cppstring
+template To*(x: type ocomplex64): untyped =
+  Complex32
+template To*(x: type ocomplex128): untyped =
+  Complex64
+template To*(x: type oqint8): untyped =
+  qint8
+template To*(x: type oquint8): untyped =
+  quint8
+template To*(x: type oqint32): untyped =
+  qint32
+template To*(x: type obfloat16): untyped =
+  bfloat16_t
+template To*(x: type oqint16): untyped =
+  qint16
+template To*(x: type oquint16): untyped =
+  quint16
+template To*(x: type ohalf): untyped =
+  half
 
   # takes an otype and returns the corresponding type
 
-macro oTF*(x: untyped): untyped = 
-    if not tfdict.hasKey($x):
-        var types = ""
+proc TFo*(x: static[DType]): typedesc {.compileTime.} =
+  case x:
+  of DT_INT8:
+    result = oint8
+  of DT_INT16:
+    result = oint16
+  of DT_INT32:
+    result = oint32
+  of DT_INT64:
+    result = oint64
+  of DT_UINT8:
+    result = ouint8
+  of DT_UINT16:
+    result = ouint16
+  of DT_UINT32:
+    result = ouint32
+  of DT_UINT64:
+    result = ouint64
+  of DT_FLOAT:
+    result = ofloat
+  of DT_DOUBLE:
+    result = odouble
+  of DT_BOOL:
+    result = obool
+  of DT_STRING:
+    result = ostring
+  of DT_COMPLEX64:
+    result = ocomplex64
+  of DT_COMPLEX128:
+    result = ocomplex128
+  of DT_QINT8:
+    result = oqint8
+  of DT_QUINT8:
+    result = oquint8
+  of DT_INT32:
+    result = oqint32
+  of DT_BFLOAT16:
+    result = obfloat16
+  of DT_QINT16:
+    result = oqint16
+  of DT_QUINT16:
+    result = oquint16
+  of DT_HALF:
+    result = ohalf
+  else:
+    error("No value type", x)
 
-        for key in tfdict.keys:
-            types &= key & ", "
-
-        types = types[0..^3]
-
-        raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
-
-    return newLit(tfdict[$x])
-
-macro TFo*(x: static[DType]): untyped = 
-  if not reversetfdict.hasKey(x):
-      var types = ""
-
-      for key in reversetfdict.keys:
-          types &= $key & ", "
-
-      types = types[0..^3]
-
-      raise newException(ValueError, "Type " & $x & " not supported. Use one of [" & types & "]")
-
-  return newLit(reversetfdict[x])
+template oTF*(x: type oint8): untyped =
+  DT_INT8
+template oTF*(x: type oint16): untyped =
+  DT_INT16
+template oTF*(x: type oint32): untyped =
+  DT_INT32
+template oTF*(x: type oint64): untyped =
+  DT_INT64
+template oTF*(x: type ouint8): untyped =
+  DT_UINT8
+template oTF*(x: type ouint16): untyped =
+  DT_UINT16
+template oTF*(x: type ouint32): untyped =
+  DT_UINT32
+template oTF*(x: type ouint64): untyped =
+  DT_UINT64
+template oTF*(x: type ofloat): untyped =
+  DT_FLOAT
+template oTF*(x: type odouble): untyped =
+  DT_DOUBLE
+template oTF*(x: type obool): untyped =
+  DT_BOOL
+template oTF*(x: type ostring): untyped =
+  DT_STRING
+template oTF*(x: type ocomplex64): untyped =
+  DT_COMPLEX64
+template oTF*(x: type ocomplex128): untyped =
+  DT_COMPLEX128
+template oTF*(x: type oqint8): untyped =
+  DT_QINT8
+template oTF*(x: type oquint8): untyped =
+  DT_QUINT8
+template oTF*(x: type oqint32): untyped =
+  DT_QINT32
+template oTF*(x: type obfloat16): untyped =
+  DT_BFLOAT16
+template oTF*(x: type oqint16): untyped =
+  DT_QINT16
+template oTF*(x: type oquint16): untyped =
+  DT_QUINT16
+template oTF*(x: type ohalf): untyped =
+  DT_HALF
 
 type Out*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
 type InList*     {.header: std_ops, importcpp:"tensorflow::InputList".} = object
@@ -308,28 +351,3 @@ iterator zip*(l1: olist[oall], l2: olist[oall]): (oall, oall) =
   while i <= len-1:
     yield (l1[i], l2[i])
     inc i
-
-type qint8*   = int8
-type quint8*  = uint8
-type qint16*  = int16
-type quint16* = uint16
-type qint32*  = int32
-type half*    = uint16
-
-type bfloat16_t* {.header: tensorh, importcpp:"tensorflow::bfloat16".} = object
-
-proc bfloat16*(f: SomeFloat): bfloat16_t {.
-  header: tensorh,
-  importcpp:"tensorflow::bfloat16::truncate_to_bfloat16(#)".}
-
-proc `[]=`[T](data: ptr T, i: int, val: T) {.importcpp:"(('3*)#)[#] = #".}
-  
-proc uint16(bf: bfloat16_t): uint16 {.importcpp:"(tensorflow::uint16)#".}
-
-proc float*(bf: bfloat16_t): float32 =
-  result = 0
-  let p = cast[ptr uint16](addr(result))
-  p[1] = bf.uint16
-
-proc `$`*(f: bfloat16_t): string =
-  result = $f.float
