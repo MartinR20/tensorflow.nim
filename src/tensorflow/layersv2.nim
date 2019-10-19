@@ -1,5 +1,5 @@
 import
-    layers/layersv2/register
+    layersv2/register
 
 export 
     register
