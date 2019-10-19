@@ -23,3 +23,11 @@ test "dims":
 
     sh = shape([1,2,4])
     check sh.dims == 3
+
+
+test "num_elements":
+    var sh = shape([])
+    check sh.num_elements == 1
+
+    sh = shape([1,2,4])
+    check sh.num_elements == 8
