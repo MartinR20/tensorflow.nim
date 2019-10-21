@@ -1,7 +1,7 @@
 import 
-  ../../core/core, ../generated,  makev2,  registerv2, register_context,
+  ../../core, ../gen,  makev2,  registerv2, register_context,
   macros, strutils, makeutils, tables
-include ../../core/with
+include ../../with
 
 const
     CPU*: string = "CPU"

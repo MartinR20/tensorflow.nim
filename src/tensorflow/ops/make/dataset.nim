@@ -1,7 +1,8 @@
-import macros, strutils, sequtils, sugar, ../../core/core, ../../utils/utils,
-       makev2, exportOp, registerv2, ./makeutils, register_context,
-       shapeFunctions, ../function, ../generated
-include ../../core/with
+import macros, strutils, sequtils, sugar, ../../core, ../../utils,
+       makev2, exportOp, registerv2, makeutils, register_context,
+       shapeFunctions, ../function, ../data, ../data/iter, ../gen, 
+       ../internal
+include ../../with
 {.hint[XDeclaredButNotUsed]:off.}
 
 proc initList[T](s: seq[T]): string =
@@ -185,7 +186,7 @@ proc iter(d: Dataset): olist[oinvalid] =
     with d.global:
         let iter = oneShotIterator(factory, d.dtypes, d.shapes, "", "")
         check()
-        return iteratorGetNext[oinvalid](iter, d.dtypes, d.shapes).output
+        return iteratorGetNext(iter, d.dtypes, d.shapes, oinvalid).output
 
 when isMainModule:
     var i = 0
@@ -195,7 +196,7 @@ when isMainModule:
                                                          dataset: (@[DT_STRING], @[@[1,2]]).} =
 
         let ten = tensor(ctx.allocator(), DT_STRING, [1, 2], ostring)
-        let buf = ten.flat()
+        let buf = ten.data()
         buf[0] = newCPPString("MyDataSet")
         buf[1] = newCPPString($i)
         i += 1

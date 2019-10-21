@@ -1,6 +1,6 @@
 import 
-    ../../core, wrapper, procdef, makeutils, conversions, macros,
-    tables, sequtils, sugar, os, strutils, opmap, algorithm
+    ../../core, ../../utils, wrapper, procdef, makeutils, conversions, 
+    macros, tables, sequtils, sugar, os, strutils, opmap, algorithm
 {.hint[XDeclaredButNotUsed]:off.}
 
 proc getRegisteredOps(): vector[MutOpDef] {.
@@ -22,6 +22,8 @@ proc countOccs(s: string, c: char): int =
     return count
 
 proc makeOp(name: string, 
+            corePath: string,
+            headerFile: string,
             headerFileName: string, 
             sourceFileName: string, 
             shouldGenerateIncludes = false): (string, string, string) =
@@ -38,7 +40,7 @@ proc makeOp(name: string,
 
     if shouldGenerateIncludes:
         let slashes = headerFileName.countOccs('/')
-        nimSource = "import " & "../".repeat(slashes - 3) & "core\n\n"
+        nimSource &= "import " & corePath & "\n\n"
         nimSource &= "{.compile:" & quote(sourceFileName) & ".}\n\n"
 
         var includes = ""
@@ -48,7 +50,7 @@ proc makeOp(name: string,
         includes &= "\n"
 
         cppsource = "#include " & quote("tensorflow/cc/ops/const_op.h") & "\n" &
-                    "#include " & quote(headerFileName) & "\n\n" &
+                    "#include " & quote(headerFile) & "\n\n" &
                     cppsource
 
         cppheader = includes & """
@@ -62,6 +64,8 @@ tensorflow::Tensor _to_tensor(std::initializer_list<T> _list, std::initializer_l
 }
 #endif
 """ & cppheader
+
+    cppheader = "#pragma once\n" & cppheader
 
     nimSource &= makeTemplateTypes(def) & "\n"
     nimSource &= makeNimType(def, headerFileName) & "\n\n"
@@ -88,10 +92,10 @@ type Writer = object
     cc: File 
     nim: File
 
-proc writer(cname: string, nname: string): Writer = 
-        return Writer(h: open(cname & ".h", fmWrite), 
-                      cc: open(cname & ".cc", fmWrite), 
-                      nim: open(nname & ".nim", fmWrite))
+proc writer(nname: string, cname: string): Writer = 
+        return Writer(h:    open(cname & ".h", fmWrite), 
+                      cc:   open(cname & ".cc", fmWrite), 
+                      nim:  open(nname & ".nim", fmWrite))
 
 proc write(writer: Writer, source: (string, string, string)) = 
     writer.h.write source[0]
@@ -113,7 +117,7 @@ when isMainModule:
 
             for op in ["Const", "_Arg", "Shape", "HostConst", "ParallelInterleaveDatasetV2", "EagerPyFunc", 
                         "_While", "ResourceApplyAddSign", "IteratorGetNext", "ShapeN", "Conv2DBackpropInput"]: 
-                writer.write(makeOp(op, name & ".h", name & ".cc", includes))
+                writer.write(makeOp(op, "../core", name & ".h", name & ".h", name & ".cc", includes))
 
                 includes = false
         elif paramStr(1) == "run":
@@ -130,25 +134,27 @@ when isMainModule:
             for op in ops:
                 if opsmap.hasKey(op):
                     let optype = opsmap[op]
-                    var dirname = toLowerAscii($optype)
+                    var nname = toLowerAscii($optype)
 
-                    let path = dirname.split("_")
+                    let path = nname.split("_")
 
                     if path.len > 1:
-                        dirname = path[0..^2].join("/") & "/" & path[^1]
+                        nname = path[0..^2].join("/") & "/" & path[^1]
 
-                    var fname = dirname & "/" & path[^1]
-                    var importFname = dirname & "/../" & path[^1]
+                    let cname = nname & "/" & path[^1]
 
                     if not writers.hasKey(optype):
-                        createDir(dirname)
+                        createDir(nname)
 
-                        writers[optype] = writer(fname, importFname)
+                        writers[optype] = writer(nname, cname)
                         includes = true
 
+                    let pad = "../".repeat(path.len - 1)
                     writers[optype].write(makeOp(op, 
-                                                 "../../ops/" & fname & ".h", 
-                                                 "../../ops/" & fname & ".cc", 
+                                                 pad & "../core", 
+                                                 path[^1] & ".h", 
+                                                 pkgPath & "/src/tensorflow/ops/" & cname & ".h", 
+                                                 path[^1] & "/" & path[^1] & ".cc", 
                                                  includes))
                     includes = false
 

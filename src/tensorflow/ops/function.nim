@@ -58,9 +58,15 @@ proc processArgs(fn: NimNode): OrderedTable[string, string] =
   
   return args
 
+proc composingTypes(x: NimNode) {.compileTime.} =
+  echo treerepr x
+
 macro tfclosure*(scope: Scope, x: untyped): untyped =
   let name = $name(x)
   let args = processArgs(x)
+  let sym = bindSym("oall")
+  composingTypes(sym)
+  echo "test"
 
   let wrapperName = name & "Wrapper"
   var wrapperBody: seq[NimNode]
@@ -77,7 +83,7 @@ macro tfclosure*(scope: Scope, x: untyped): untyped =
 
     if dtype == "Scope":
       callArgs.add newIdentNode(scopeName)
-    elif tfdict.hasKey(dtype) or dtype.find("olist") != -1 or dtype == "oall": 
+    elif dtype.find("olist") != -1 or dtype == "oall": 
       wrapperBody.add newLetStmt(ident(name), newCall(ident("iArg"),
                                                   ident(scopeName), 
                                                   ident(dtype.replace("oall", "oinvalid")),
