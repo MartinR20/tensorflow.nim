@@ -1,7 +1,11 @@
 import 
     globals, activations, commands, conv2d as cv2d, dense as d, inputs, losses, optims,
-    vars as v, macros, json, tables, ../../core, ../../ops, ../../ops/nn,
-    ../../ops/prob, ../../ops/nn/optim as opt
+    vars as v, macros, json, tables, ../core, ../ops, ../ops/nn,
+    ../ops/prob, ../ops/nn/optim as opt, ../ops/math
+
+export
+    core, ops, nn, prob, optim, math
+
 
 var functionmap* {.compileTime.} = 
     initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()
