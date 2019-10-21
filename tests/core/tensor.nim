@@ -50,14 +50,24 @@ test "tensor slice":
 
 test "gced/ref tensor":
     var ten: ref Tensor[oint32]
+    var lastmem = 0
+    var failcount = 0
+    var passed: bool
 
-    GC_fullCollect()
-
-    for _ in 0..100:
+    for i in 0..100:
+        GC_fullCollect()
         ten = gc tensor([[1,2],[3,4],[7,8]], oint32) # TODO: find prettier way of interfacing with the gc
-    
-    GC_fullCollect()
-    check getOccupiedMem() == 66320
+      
+        let currmem = getOccupiedMem()
+        passed = currmem == lastmem
+        lastmem = currmem
+
+        failcount += cast[int](not passed)
+
+        GC_fullCollect()
+
+    check failcount == 2 # expecting memory to grow two times
+
 
 test "copyFrom":
     let src = tensor([[1,2],[3,4],[7,8]], oint32) 
