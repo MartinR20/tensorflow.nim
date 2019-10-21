@@ -64,6 +64,6 @@ proc install(dir: string, compressedName: string, displayName: string) {.async.}
     # removing archive
     removeFile(compressedPath)
 
-waitFor install("./tensorflow/lib/", platform & ".tar.gz", "tensorflow library")
-waitFor install("./tensorflow/include/", "include.tar.gz", "include files")
+waitFor install("./src/lib", platform & ".tar.gz", "tensorflow library")
+waitFor install("./src/include", "include.tar.gz", "include files")
 

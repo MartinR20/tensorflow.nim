@@ -1,4 +1,5 @@
 import os
+import strutils
 
 # Package
 
@@ -8,11 +9,6 @@ description   = "A wrapper for the tensorflow cpp api"
 license       = "Apache License, Version 2.0"
 backend       = "cpp"
 
-skipDirs = @["scrape", "tests"]
-
-## Install files
-srcDir = "tensorflow"
-
 # Dependencies
 
 requires "nim >= 0.17.2"
@@ -21,14 +17,17 @@ requires "nim >= 0.17.2"
 
 before install:
     withDir "..":
-        exec "nimble install untar -y"
+        let untarInstalled = staticExec "nimble path untar"
+
+        if untarInstalled.find("Error") != -1:
+            exec "nimble install untar -y"
     
     const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
     const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/include/"
 
     try:
-      exec "mkdir ./tensorflow/lib/"
-      exec "mkdir ./tensorflow/include/" 
+      exec "mkdir ./src/lib/"
+      exec "mkdir ./src/include/" 
     except:
       discard
 
