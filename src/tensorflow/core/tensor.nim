@@ -82,43 +82,14 @@ proc slice*[T](ten: Tensor[T], start: int, stop: int): Tensor[T]
 
 proc delete*[T](x: T) {.importcpp: "(delete #)", nodecl.}
 
-template finals(T: untyped) =
-  proc final(x: ref Tensor[T]) = 
-    delete x[]
-
-finals oinvalid  
-finals odouble
-finals ofloat     
-finals oint64     
-finals oint32     
-finals ouint8     
-finals oint16     
-finals oint8      
-finals ostring    
-finals obool      
-finals ouint16    
-finals ouint32    
-finals ouint64    
-finals ocomplex64 
-finals ocomplex128
-finals oqint8     
-finals oquint8    
-finals oqint32    
-finals obfloat16  
-finals oqint16    
-finals oquint16   
-finals ohalf      
-finals oresource  
-finals ovariant
-
 proc gc*[T: oall](Ten: type Tensor[T]): ref Tensor[T] =
   var reften: ref Tensor[T]
-  new(reften, final) 
+  new(reften)
   return reften
 
 proc gc*[T](ten: Tensor[T]): ref Tensor[T] = 
   var reften: ref Tensor[T]
-  new(reften, final) 
+  new(reften)
   reften[] = ten
   return reften
 
