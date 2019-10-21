@@ -1,5 +1,17 @@
 import 
-    globals, json, macros, tables
+    globals
+    
+from ../ops/prob import
+    statelessRandomNormal, statelessRandomNormalToOut
+
+from ../ops/nn import
+    conv2D, conv2DToOut,
+    conv2DBackpropInput, conv2DBackpropInputToOut
+
+export 
+    conv2D, conv2DToOut,
+    conv2DBackpropInput, conv2DBackpropInputToOut,
+    statelessRandomNormal, statelessRandomNormalToOut
     
 proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "conv2d_" & $i

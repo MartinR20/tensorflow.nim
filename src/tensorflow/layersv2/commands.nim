@@ -1,5 +1,5 @@
 import 
-    globals, json, macros, tables
+    globals
 
 proc init*(prgm: NimNode, model: string, sess: NimNode) =
     let init = newNimNode(nnkCall)

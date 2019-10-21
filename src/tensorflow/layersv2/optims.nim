@@ -1,5 +1,15 @@
 import 
-    globals, json, macros, tables
+    globals
+    
+from ../ops/nn/optim import
+    applyAdam, applyAdamToOut
+
+from ../ops/gradients import
+    addSymbolicGradients
+
+export
+    applyAdam, applyAdamToOut,
+    addSymbolicGradients
 
 proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let gradCall = newNimNode(nnkCall)

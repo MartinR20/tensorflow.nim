@@ -1,5 +1,11 @@
 import 
-    globals, json, macros, tables
+    globals
+
+from ../ops/gen import
+    placeholder, placeholderToOut
+
+export 
+    placeholder, placeholderToOut
     
 proc input*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "input_" & $i

@@ -1,5 +1,5 @@
 import 
-    globals, json, macros, tables
+    globals
 
 proc vars*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = $command[1]

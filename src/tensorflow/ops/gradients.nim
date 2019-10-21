@@ -1,6 +1,19 @@
 import 
-    ../core, ../utils/utils, make/newgrad, make/wrapper,
-    gen, custom_ops, nn
+    ../core, make/newgrad, make/wrapper, custom_ops
+
+from ../utils/utils import 
+    gradients
+
+from gen import 
+    concat, rank, rankToOut, shape, shapeToOut,
+    concatV2, concatOffset, slice, sliceToOut
+
+from nn import 
+    conv2D, conv2DToOut, conv2DBackpropFilter, 
+    conv2DBackpropFilterToOut, dilation2DBackpropInput,
+    dilation2DBackpropInputToOut, dilation2DBackpropFilter,
+    dilation2DBackpropFilterToOut
+
 include ../with
 
 ## Gradient Related definitions
@@ -56,7 +69,7 @@ proc concatV2Grad*(scope: Scope,
 
     var out_grads: olist[oinvalid]
         
-    for (begin, size) in zip(offset, sizes):
+    for (begin, size) in zip(offset.output, sizes):
         with scope:
             let slice = slice(gradInputs[0], 
                               begin, 

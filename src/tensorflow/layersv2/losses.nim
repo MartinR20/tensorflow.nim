@@ -1,6 +1,6 @@
 import 
-    globals, json, macros, tables
-
+    globals
+    
 proc loss*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "loss_" & $i
     let inname = metadata[model][i-1]["name"].to(string)

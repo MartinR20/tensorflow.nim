@@ -1,8 +1,13 @@
-import ../core,
-       ../utils,
-       gen,
-       math,
-       typetraits
+from ../core import
+    oall
+
+from gen import 
+    transpose
+
+from math import 
+    matMul, add, sub, mul, ndiv, greater, less, greaterEqual,
+    lessEqual, equal, notEqual, nmod 
+
 include ../with
 {.hint[XDeclaredButNotUsed]:off.}
 
@@ -21,22 +26,22 @@ proc `/`*[T: oall](root: Scope, A, B: T): T =
 proc `@`*[T: oall](root: Scope, A, B: T): T =
   return matMul(root, A, B).output
 
-proc `>`*[T: GreaterT](root: Scope, A, B: T): T =
+proc `>`*[T: oall](root: Scope, A, B: T): T =
   return greater(root, A, B).output
 
-proc `<`*[T: LessT](root: Scope, A, B: T): T =
+proc `<`*[T: oall](root: Scope, A, B: T): T =
   return less(root, A, B).output
 
-proc `>=`*[T: GreaterEqualT](root: Scope, A, B: T): T =
+proc `>=`*[T: oall](root: Scope, A, B: T): T =
   return greaterEqual(root, A, B).output
  
-proc `<=`*[T: LessEqualT](root: Scope, A, B: T): T =
+proc `<=`*[T: oall](root: Scope, A, B: T): T =
   return lessEqual(root, A, B).output
   
-proc `==`*[T: EqualT](root: Scope, A, B: T): T =
+proc `==`*[T: oall](root: Scope, A, B: T): T =
   return equal(root, A, B).output
   
-proc `!=`*[T: NotEqualT](root: Scope, A, B: T): T =
+proc `!=`*[T: oall](root: Scope, A, B: T): T =
   return notEqual(root, A, B).output
 
 proc `%%`*[T: oall](root: Scope, A, B: T): T =

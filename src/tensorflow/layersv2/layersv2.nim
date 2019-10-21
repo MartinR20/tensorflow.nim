@@ -1,11 +1,18 @@
 import 
     globals, activations, commands, conv2d as cv2d, dense as d, inputs, losses, optims,
-    vars as v, macros, json, tables, ../core, ../ops, ../ops/nn,
-    ../ops/prob, ../ops/nn/optim as opt, ../ops/math
+    vars as v
 
+from ../ops/gen import 
+    variableV2, variableV2ToOut, 
+    assign, assignToOut,
+    empty, emptyToOut,
+    nconst, nconstToOut
+    
 export
-    core, ops, nn, prob, optim, math
-
+    variableV2, variableV2ToOut, 
+    assign, assignToOut,
+    empty, emptyToOut,
+    nconst, nconstToOut
 
 var functionmap* {.compileTime.} = 
     initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()
@@ -84,29 +91,29 @@ macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped 
     return prgm
 
 
-when isMainModule:
-    let scope = newRootScope()
-    let sess = scope.newSession()
+# when isMainModule:
+#     let scope = newRootScope()
+#     let sess = scope.newSession()
 
-    let ten = tensor([[[[1], [1], [1]],
-                       [[2], [2], [2]],
-                       [[3], [3], [3]]]], ofloat)
+#     let ten = tensor([[[[1], [1], [1]],
+#                        [[2], [2], [2]],
+#                        [[3], [3], [3]]]], ofloat)
     
-    model m0, scope, sess:
-        input ten, [1,3,3,1], ofloat
-        conv2d 3, [2, 2], [2, 2]
-        conv2d_transpose 3, [2, 2], [2, 2]
-        # dense 100, true
-        # activation relu
-        # dense 50, false 
-        # activation sigmoid
-        # dense 10
-        # activation softmax
-        # loss l2Loss
-        vars m
-        vars v
-        optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
+#     model m0, scope, sess:
+#         input ten, [1,3,3,1], ofloat
+#         conv2d 3, [2, 2], [2, 2]
+#         conv2d_transpose 3, [2, 2], [2, 2]
+#         # dense 100, true
+#         # activation relu
+#         # dense 50, false 
+#         # activation sigmoid
+#         # dense 10
+#         # activation softmax
+#         # loss l2Loss
+#         vars m
+#         vars v
+#         optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
 
-    model m0, scope, sess:
-        init
-        run 
+#     model m0, scope, sess:
+#         init
+#         run 

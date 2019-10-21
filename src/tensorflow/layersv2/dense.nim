@@ -1,5 +1,17 @@
 import 
-    globals, json, macros, tables
+    globals
+    
+from ../ops/math import
+    matMul, matMulToOut,
+    add, addToOut
+
+from ../ops/prob import
+    statelessRandomNormal, statelessRandomNormalToOut
+
+export
+    matMul, matMulToOut,
+    add, addToOut,
+    statelessRandomNormal, statelessRandomNormalToOut
 
 proc dense*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "dense_" & $i
