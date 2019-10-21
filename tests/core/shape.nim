@@ -1,6 +1,5 @@
-import unittest
 import 
-    tensorflow/core
+    tensorflow/core, unittest
 
 test "shape creation":
     let sh = shape([2,2])
