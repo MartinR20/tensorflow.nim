@@ -174,52 +174,56 @@ template To*(x: type ohalf): untyped =
 
   # takes an otype and returns the corresponding type
 
-proc TFo*(x: static[DType]): typedesc {.compileTime.} =
+macro TFo*(x: static(DType)): typedesc =
   case x:
   of DT_INT8:
-    result = oint8
+    result = ident "oint8"
   of DT_INT16:
-    result = oint16
+    result = ident "oint16"
   of DT_INT32:
-    result = oint32
+    result = ident "oint32"
   of DT_INT64:
-    result = oint64
+    result = ident "oint64"
   of DT_UINT8:
-    result = ouint8
+    result = ident "ouint8"
   of DT_UINT16:
-    result = ouint16
+    result = ident "ouint16"
   of DT_UINT32:
-    result = ouint32
+    result = ident "ouint32"
   of DT_UINT64:
-    result = ouint64
+    result = ident "ouint64"
   of DT_FLOAT:
-    result = ofloat
+    result = ident "ofloat"
   of DT_DOUBLE:
-    result = odouble
+    result = ident "odouble"
   of DT_BOOL:
-    result = obool
+    result = ident "obool"
   of DT_STRING:
-    result = ostring
+    result = ident "ostring"
   of DT_COMPLEX64:
-    result = ocomplex64
+    result = ident "ocomplex64"
   of DT_COMPLEX128:
-    result = ocomplex128
+    result = ident "ocomplex128"
   of DT_QINT8:
-    result = oqint8
+    result = ident "oqint8"
   of DT_QUINT8:
-    result = oquint8
-  of DT_INT32:
-    result = oqint32
+    result = ident "oquint8"
+  of DT_QINT32:
+    result = ident "oqint32"
   of DT_BFLOAT16:
-    result = obfloat16
+    result = ident "obfloat16"
   of DT_QINT16:
-    result = oqint16
+    result = ident "oqint16"
   of DT_QUINT16:
-    result = oquint16
+    result = ident "oquint16"
   of DT_HALF:
-    result = ohalf
-  else:
-    error("No value type", x)
+    result = ident "ohalf"
+  of DT_INVALID:
+    result = ident "oinvalid"
+  of DT_RESOURCE:
+    result = ident "oresource"
+  of DT_VARIANT:
+    result = ident "ovariant"
 
 template oTF*(x: type oint8): untyped =
   DT_INT8
@@ -263,7 +267,13 @@ template oTF*(x: type oquint16): untyped =
   DT_QUINT16
 template oTF*(x: type ohalf): untyped =
   DT_HALF
-
+template oTF*(x: type oinvalid): untyped =
+  DT_INVALID
+template oTF*(x: type oresource): untyped =
+  DT_RESOURCE
+template oTF*(x: type ovariant): untyped =
+  DT_VARIANT
+  
 type Out*     {.header: std_ops, importcpp:"tensorflow::Output".} = object
 type InList*     {.header: std_ops, importcpp:"tensorflow::InputList".} = object
 type OutList*     {.header: std_ops, importcpp:"tensorflow::OutputList".} = object
