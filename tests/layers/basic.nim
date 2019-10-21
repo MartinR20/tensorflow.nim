@@ -1,6 +1,9 @@
 import 
-    tensorflow/core, tensorflow/layersv2, unittest,
-    tensorflow/ops/nn/optim
+    tensorflow/core, 
+    tensorflow/layersv2,
+    tensorflow/layersv2/dense, 
+    tensorflow/layersv2/optims, 
+    unittest
 
 test "basic":
     let scope = newRootScope()

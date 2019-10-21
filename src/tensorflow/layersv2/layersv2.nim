@@ -1,6 +1,6 @@
 import 
     globals, activations, commands, conv2d as cv2d, dense as d, inputs, losses, optims,
-    vars as v
+    vars as v, inputs
 
 from ../ops/gen import 
     variableV2, variableV2ToOut, 
@@ -12,7 +12,8 @@ export
     variableV2, variableV2ToOut, 
     assign, assignToOut,
     empty, emptyToOut,
-    nconst, nconstToOut
+    nconst, nconstToOut,
+    inputs
 
 var functionmap* {.compileTime.} = 
     initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()

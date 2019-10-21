@@ -8,8 +8,11 @@ from ../ops/nn import
     conv2D, conv2DToOut,
     conv2DBackpropInput, conv2DBackpropInputToOut
 
+template conv2DOp(scope, input, filter, stride, padding, cudnn, format, dilation): untyped = 
+    conv2D(scope, input, filter, stride, padding, cudnn, format, dilation)
+
 export 
-    conv2D, conv2DToOut,
+    conv2DOp, conv2DToOut,
     conv2DBackpropInput, conv2DBackpropInputToOut,
     statelessRandomNormal, statelessRandomNormalToOut
     
@@ -61,7 +64,7 @@ proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimN
                     outchannels.intVal.int]
 
     let varshape = [kernel[1].intVal.int, kernel[2].intVal.int, inchannels, outchannels.intVal.int]
-    echo repr kernel, varshape
+
     let f = newLit varshape
     let f_name = "f_var_" & $i
     let f_asgn = "f_asgn_" & $i
@@ -87,14 +90,14 @@ proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimN
                   ident f_asgn)
 
     prgm.add newLetStmt(ident name,
-                        newCall("conv2D", scope, 
-                                          ident inname, 
-                                          ident f_name,
-                                          strides,
-                                          padding,
-                                          use_cudnn_on_gpu,
-                                          data_format,
-                                          dilations))
+                        newCall("conv2DOp", scope, 
+                                            ident inname, 
+                                            ident f_name,
+                                            strides,
+                                            padding,
+                                            use_cudnn_on_gpu,
+                                            data_format,
+                                            dilations))
 
 proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "conv2d_" & $i
@@ -144,7 +147,7 @@ proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, com
                     outchannels.intVal.int]
 
     let varshape = [kernel[1].intVal.int, kernel[2].intVal.int, inchannels, outchannels.intVal.int]
-    echo repr kernel, varshape
+
     let f = newLit varshape
     let f_name = "f_var_" & $i
     let f_asgn = "f_asgn_" & $i
