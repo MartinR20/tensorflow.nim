@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/data/data.h"
+#include "data.h"
 
 BatchDataset::BatchDataset(tensorflow::Scope& scope, 
            tensorflow::Input input_dataset, 

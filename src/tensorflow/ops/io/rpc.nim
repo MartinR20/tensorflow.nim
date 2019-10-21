@@ -1,9 +1,9 @@
 import ../../core
 
-{.compile:"../../ops/io/rpc/rpc.cc".}
+{.compile:"rpc/rpc.cc".}
 
 
-type Rpc* {.header:"../../ops/io/rpc/rpc.h", importcpp:"Rpc/*'0*/".} = object
+type Rpc* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/rpc/rpc.h", importcpp:"Rpc/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -13,7 +13,7 @@ proc iirpc(scope: Scope,
           request: ostring,
           protocol: cstring,
           fail_fast: bool,
-          timeout_in_ms: int64): Rpc {.header:"../../ops/io/rpc/rpc.h", importcpp:"Rpc(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
+          timeout_in_ms: int64): Rpc {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/rpc/rpc.h", importcpp:"Rpc(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc rpc*(scope: Scope,
           address: ostring,
@@ -33,7 +33,7 @@ proc rpc*(scope: Scope,
 converter rpcToOut*(op: Rpc): ostring {.inline.} = return op.output
 
 
-type TryRpc* {.header:"../../ops/io/rpc/rpc.h", importcpp:"TryRpc/*'0*/".} = object
+type TryRpc* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/rpc/rpc.h", importcpp:"TryRpc/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -43,7 +43,7 @@ proc iitryRpc(scope: Scope,
              request: ostring,
              protocol: cstring,
              fail_fast: bool,
-             timeout_in_ms: int64): TryRpc {.header:"../../ops/io/rpc/rpc.h", importcpp:"TryRpc(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
+             timeout_in_ms: int64): TryRpc {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/rpc/rpc.h", importcpp:"TryRpc(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc tryRpc*(scope: Scope,
              address: ostring,

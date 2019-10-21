@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -28,6 +29,7 @@ class AddManySparseToTensorsMap{
     tensorflow::Output output;
 };
 
+#pragma once
 class AddSparseToTensorsMap{
   public:
     AddSparseToTensorsMap() {}
@@ -41,6 +43,7 @@ class AddSparseToTensorsMap{
     tensorflow::Output output;
 };
 
+#pragma once
 class CropAndResizeGradBoxes{
   public:
     CropAndResizeGradBoxes() {}
@@ -54,6 +57,7 @@ class CropAndResizeGradBoxes{
     tensorflow::Output output;
 };
 
+#pragma once
 class DataFormatVecPermute{
   public:
     DataFormatVecPermute() {}
@@ -66,6 +70,7 @@ class DataFormatVecPermute{
     tensorflow::Output output;
 };
 
+#pragma once
 class HashTable{
   public:
     HashTable() {}
@@ -79,6 +84,7 @@ class HashTable{
     tensorflow::Output output;
 };
 
+#pragma once
 class HashTableV2{
   public:
     HashTableV2() {}
@@ -92,6 +98,7 @@ class HashTableV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class InitializeTable{
   public:
     InitializeTable() {}
@@ -102,6 +109,7 @@ class InitializeTable{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class InitializeTableFromTextFile{
   public:
     InitializeTableFromTextFile() {}
@@ -115,6 +123,7 @@ class InitializeTableFromTextFile{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class InitializeTableFromTextFileV2{
   public:
     InitializeTableFromTextFileV2() {}
@@ -128,6 +137,7 @@ class InitializeTableFromTextFileV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class InitializeTableV2{
   public:
     InitializeTableV2() {}
@@ -138,6 +148,7 @@ class InitializeTableV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class MapClear{
   public:
     MapClear() {}
@@ -150,6 +161,7 @@ class MapClear{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class MapIncompleteSize{
   public:
     MapIncompleteSize() {}
@@ -163,6 +175,7 @@ class MapIncompleteSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class MapPeek{
   public:
     MapPeek() {}
@@ -178,6 +191,7 @@ class MapPeek{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class MapSize{
   public:
     MapSize() {}
@@ -191,6 +205,7 @@ class MapSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class MapStage{
   public:
     MapStage() {}
@@ -207,6 +222,7 @@ class MapStage{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class MapUnstage{
   public:
     MapUnstage() {}
@@ -222,6 +238,7 @@ class MapUnstage{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class MapUnstageNoKey{
   public:
     MapUnstageNoKey() {}
@@ -236,6 +253,7 @@ class MapUnstageNoKey{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableDenseHashTable{
   public:
     MutableDenseHashTable() {}
@@ -252,6 +270,7 @@ class MutableDenseHashTable{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableDenseHashTableV2{
   public:
     MutableDenseHashTableV2() {}
@@ -269,6 +288,7 @@ class MutableDenseHashTableV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableHashTable{
   public:
     MutableHashTable() {}
@@ -282,6 +302,7 @@ class MutableHashTable{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableHashTableOfTensors{
   public:
     MutableHashTableOfTensors() {}
@@ -296,6 +317,7 @@ class MutableHashTableOfTensors{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableHashTableOfTensorsV2{
   public:
     MutableHashTableOfTensorsV2() {}
@@ -310,6 +332,7 @@ class MutableHashTableOfTensorsV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class OrderedMapClear{
   public:
     OrderedMapClear() {}
@@ -322,6 +345,7 @@ class OrderedMapClear{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class OrderedMapIncompleteSize{
   public:
     OrderedMapIncompleteSize() {}
@@ -335,6 +359,7 @@ class OrderedMapIncompleteSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class OrderedMapPeek{
   public:
     OrderedMapPeek() {}
@@ -350,6 +375,7 @@ class OrderedMapPeek{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class OrderedMapSize{
   public:
     OrderedMapSize() {}
@@ -363,6 +389,7 @@ class OrderedMapSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class OrderedMapStage{
   public:
     OrderedMapStage() {}
@@ -379,6 +406,7 @@ class OrderedMapStage{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class OrderedMapUnstage{
   public:
     OrderedMapUnstage() {}
@@ -394,6 +422,7 @@ class OrderedMapUnstage{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class OrderedMapUnstageNoKey{
   public:
     OrderedMapUnstageNoKey() {}
@@ -408,6 +437,7 @@ class OrderedMapUnstageNoKey{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParallelDynamicStitch{
   public:
     ParallelDynamicStitch() {}
@@ -419,6 +449,7 @@ class ParallelDynamicStitch{
     tensorflow::Output output;
 };
 
+#pragma once
 class StackClose{
   public:
     StackClose() {}
@@ -427,6 +458,7 @@ class StackClose{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class StackCloseV2{
   public:
     StackCloseV2() {}
@@ -435,6 +467,7 @@ class StackCloseV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class StackPop{
   public:
     StackPop() {}
@@ -445,6 +478,7 @@ class StackPop{
     tensorflow::Output output;
 };
 
+#pragma once
 class StackPopV2{
   public:
     StackPopV2() {}
@@ -455,6 +489,7 @@ class StackPopV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class StackPushV2{
   public:
     StackPushV2() {}
@@ -467,6 +502,7 @@ class StackPushV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TakeManySparseFromTensorsMap{
   public:
     TakeManySparseFromTensorsMap() {}
@@ -479,6 +515,7 @@ class TakeManySparseFromTensorsMap{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArray{
   public:
     TensorArray() {}
@@ -493,6 +530,7 @@ class TensorArray{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayClose{
   public:
     TensorArrayClose() {}
@@ -501,6 +539,7 @@ class TensorArrayClose{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class TensorArrayCloseV2{
   public:
     TensorArrayCloseV2() {}
@@ -509,6 +548,7 @@ class TensorArrayCloseV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class TensorArrayCloseV3{
   public:
     TensorArrayCloseV3() {}
@@ -517,6 +557,7 @@ class TensorArrayCloseV3{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class TensorArrayConcat{
   public:
     TensorArrayConcat() {}
@@ -529,6 +570,7 @@ class TensorArrayConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayConcatV2{
   public:
     TensorArrayConcatV2() {}
@@ -541,6 +583,7 @@ class TensorArrayConcatV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayConcatV3{
   public:
     TensorArrayConcatV3() {}
@@ -553,6 +596,7 @@ class TensorArrayConcatV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGather{
   public:
     TensorArrayGather() {}
@@ -566,6 +610,7 @@ class TensorArrayGather{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGatherV2{
   public:
     TensorArrayGatherV2() {}
@@ -579,6 +624,7 @@ class TensorArrayGatherV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGatherV3{
   public:
     TensorArrayGatherV3() {}
@@ -592,6 +638,7 @@ class TensorArrayGatherV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGrad{
   public:
     TensorArrayGrad() {}
@@ -603,6 +650,7 @@ class TensorArrayGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGradV2{
   public:
     TensorArrayGradV2() {}
@@ -614,6 +662,7 @@ class TensorArrayGradV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGradV3{
   public:
     TensorArrayGradV3() {}
@@ -625,6 +674,7 @@ class TensorArrayGradV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayGradWithShape{
   public:
     TensorArrayGradWithShape() {}
@@ -637,6 +687,7 @@ class TensorArrayGradWithShape{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayPack{
   public:
     TensorArrayPack() {}
@@ -649,6 +700,7 @@ class TensorArrayPack{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayRead{
   public:
     TensorArrayRead() {}
@@ -661,6 +713,7 @@ class TensorArrayRead{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayReadV2{
   public:
     TensorArrayReadV2() {}
@@ -673,6 +726,7 @@ class TensorArrayReadV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayReadV3{
   public:
     TensorArrayReadV3() {}
@@ -685,6 +739,7 @@ class TensorArrayReadV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayScatter{
   public:
     TensorArrayScatter() {}
@@ -697,6 +752,7 @@ class TensorArrayScatter{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayScatterV2{
   public:
     TensorArrayScatterV2() {}
@@ -709,6 +765,7 @@ class TensorArrayScatterV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayScatterV3{
   public:
     TensorArrayScatterV3() {}
@@ -721,6 +778,7 @@ class TensorArrayScatterV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySize{
   public:
     TensorArraySize() {}
@@ -731,6 +789,7 @@ class TensorArraySize{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySizeV2{
   public:
     TensorArraySizeV2() {}
@@ -741,6 +800,7 @@ class TensorArraySizeV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySizeV3{
   public:
     TensorArraySizeV3() {}
@@ -751,6 +811,7 @@ class TensorArraySizeV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySplit{
   public:
     TensorArraySplit() {}
@@ -763,6 +824,7 @@ class TensorArraySplit{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySplitV2{
   public:
     TensorArraySplitV2() {}
@@ -775,6 +837,7 @@ class TensorArraySplitV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArraySplitV3{
   public:
     TensorArraySplitV3() {}
@@ -787,6 +850,7 @@ class TensorArraySplitV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayUnpack{
   public:
     TensorArrayUnpack() {}
@@ -798,6 +862,7 @@ class TensorArrayUnpack{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayV2{
   public:
     TensorArrayV2() {}
@@ -812,6 +877,7 @@ class TensorArrayV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayV3{
   public:
     TensorArrayV3() {}
@@ -827,6 +893,7 @@ class TensorArrayV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayWrite{
   public:
     TensorArrayWrite() {}
@@ -839,6 +906,7 @@ class TensorArrayWrite{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayWriteV2{
   public:
     TensorArrayWriteV2() {}
@@ -851,6 +919,7 @@ class TensorArrayWriteV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorArrayWriteV3{
   public:
     TensorArrayWriteV3() {}

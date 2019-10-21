@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/nn/optim/optim.h"
+#include "optim.h"
 
 AccumulatorApplyGradient::AccumulatorApplyGradient(tensorflow::Scope& scope, 
            tensorflow::Input handle, 

@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/datastructure/datastructure.h"
+#include "datastructure.h"
 
 AddManySparseToTensorsMap::AddManySparseToTensorsMap(tensorflow::Scope& scope, 
            tensorflow::Input sparse_indices, 

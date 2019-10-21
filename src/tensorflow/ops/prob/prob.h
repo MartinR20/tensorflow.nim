@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -29,6 +30,7 @@ class AllCandidateSampler{
     tensorflow::Output output;
 };
 
+#pragma once
 class FixedUnigramCandidateSampler{
   public:
     FixedUnigramCandidateSampler() {}
@@ -50,6 +52,7 @@ class FixedUnigramCandidateSampler{
     tensorflow::Output output;
 };
 
+#pragma once
 class LearnedUnigramCandidateSampler{
   public:
     LearnedUnigramCandidateSampler() {}
@@ -65,6 +68,7 @@ class LearnedUnigramCandidateSampler{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogUniformCandidateSampler{
   public:
     LogUniformCandidateSampler() {}
@@ -80,6 +84,7 @@ class LogUniformCandidateSampler{
     tensorflow::Output output;
 };
 
+#pragma once
 class Multinomial{
   public:
     Multinomial() {}
@@ -93,6 +98,7 @@ class Multinomial{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParameterizedTruncatedNormal{
   public:
     ParameterizedTruncatedNormal() {}
@@ -109,6 +115,7 @@ class ParameterizedTruncatedNormal{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomGamma{
   public:
     RandomGamma() {}
@@ -122,6 +129,7 @@ class RandomGamma{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomGammaGrad{
   public:
     RandomGammaGrad() {}
@@ -133,6 +141,7 @@ class RandomGammaGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomPoisson{
   public:
     RandomPoisson() {}
@@ -146,6 +155,7 @@ class RandomPoisson{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomPoissonV2{
   public:
     RandomPoissonV2() {}
@@ -159,6 +169,7 @@ class RandomPoissonV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomShuffle{
   public:
     RandomShuffle() {}
@@ -171,6 +182,7 @@ class RandomShuffle{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomStandardNormal{
   public:
     RandomStandardNormal() {}
@@ -183,6 +195,7 @@ class RandomStandardNormal{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomUniform{
   public:
     RandomUniform() {}
@@ -195,6 +208,7 @@ class RandomUniform{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomUniformInt{
   public:
     RandomUniformInt() {}
@@ -209,6 +223,7 @@ class RandomUniformInt{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseAccumulatorTakeGradient{
   public:
     SparseAccumulatorTakeGradient() {}
@@ -220,6 +235,7 @@ class SparseAccumulatorTakeGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class StatelessMultinomial{
   public:
     StatelessMultinomial() {}
@@ -232,6 +248,7 @@ class StatelessMultinomial{
     tensorflow::Output output;
 };
 
+#pragma once
 class StatelessRandomNormal{
   public:
     StatelessRandomNormal() {}
@@ -243,6 +260,7 @@ class StatelessRandomNormal{
     tensorflow::Output output;
 };
 
+#pragma once
 class StatelessRandomUniform{
   public:
     StatelessRandomUniform() {}
@@ -254,6 +272,7 @@ class StatelessRandomUniform{
     tensorflow::Output output;
 };
 
+#pragma once
 class StatelessRandomUniformInt{
   public:
     StatelessRandomUniformInt() {}
@@ -267,6 +286,7 @@ class StatelessRandomUniformInt{
     tensorflow::Output output;
 };
 
+#pragma once
 class StatelessTruncatedNormal{
   public:
     StatelessTruncatedNormal() {}
@@ -278,6 +298,7 @@ class StatelessTruncatedNormal{
     tensorflow::Output output;
 };
 
+#pragma once
 class ThreadUnsafeUnigramCandidateSampler{
   public:
     ThreadUnsafeUnigramCandidateSampler() {}
@@ -293,6 +314,7 @@ class ThreadUnsafeUnigramCandidateSampler{
     tensorflow::Output output;
 };
 
+#pragma once
 class TruncatedNormal{
   public:
     TruncatedNormal() {}
@@ -305,6 +327,7 @@ class TruncatedNormal{
     tensorflow::Output output;
 };
 
+#pragma once
 class UniformCandidateSampler{
   public:
     UniformCandidateSampler() {}

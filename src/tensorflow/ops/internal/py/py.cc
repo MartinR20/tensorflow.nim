@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/internal/py/py.h"
+#include "py.h"
 
 EagerPyFunc::EagerPyFunc(tensorflow::Scope& scope, 
            tensorflow::InputList input, 

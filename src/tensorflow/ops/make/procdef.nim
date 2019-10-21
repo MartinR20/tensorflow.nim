@@ -53,7 +53,7 @@ proc templateT(def: ProcDef, arg: Arg, nolist = false): string =
         ret = def.namesT[def.oT[arg]]
     else:
         if arg.dtype != DT_INVALID:
-            ret = reversetfdict[arg.dtype]
+            ret = d_to_o[arg.dtype]
         else:
             ret = "oall"
 
@@ -287,12 +287,12 @@ proc makeNimType*(def: ProcDef,
                 opType &= "  output*: oT"
         else:
             opType = "type " & convertedName & "* " & importcppStmt(def.name & "/*'0*/", header) & 
-                     " = object\n  operation*: Operation[" & reversetfdict[def.output.dtype] & "]\n"
+                     " = object\n  operation*: Operation[" & d_to_o[def.output.dtype] & "]\n"
             
             if def.templateT(def.output).find("olist") != -1:
-                opType &= "  output*: olist[" & reversetfdict[def.output.dtype] & "]"
+                opType &= "  output*: olist[" & d_to_o[def.output.dtype] & "]"
             else:
-                opType &= "  output*: " & reversetfdict[def.output.dtype]
+                opType &= "  output*: " & d_to_o[def.output.dtype]
     else:
         opType = "type " & convertedName & "*" & 
                  importcppStmt(def.name & "/*'0*/", header) & " = object\n  operation*: Operation[oinvalid]\n"
@@ -437,10 +437,10 @@ proc makeNimProc*(def: ProcDef, header: string): string =
         of LISTCONV:
             opProc &= "newArraySlice(" & attr.name("nim") & ")" 
         of TYPECONV:
-            if opProc.find("oT") == -1:
-                opProc &= attr.name("nim") & "[].oTF"
+            if opProc.find("[oT:") == -1:
+                opProc &= attr.name("nim") & ".oTF"
             else:            
-                opProc &= "oT[].oTF"
+                opProc &= "oT.oTF"
             
         opProc &= nimParamSeperator
 
@@ -470,7 +470,7 @@ proc makeNimConverter*(def: ProcDef): string =
             else:
                 return "converter " & opname & "ToOut*[oT: " & oT & "](op: " & typename & "[oT]): oT {.inline.} = return op.output\n\n"
         else:
-            var oT = reversetfdict[def.output.dtype]
+            var oT = d_to_o[def.output.dtype]
 
             if def.templateT(def.output).find("olist") != -1:
                 return "converter " & opname & "ToOutList*(op: " & typename & "): olist[" & oT & "] {.inline.} = return op.output\n\n"

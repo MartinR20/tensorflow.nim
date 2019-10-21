@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/prob/prob.h"
+#include "prob.h"
 
 AllCandidateSampler::AllCandidateSampler(tensorflow::Scope& scope, 
            tensorflow::Input true_classes, 

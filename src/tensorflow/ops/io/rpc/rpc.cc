@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/io/rpc/rpc.h"
+#include "rpc.h"
 
 Rpc::Rpc(tensorflow::Scope& scope, 
            tensorflow::Input address, 

@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/math/math.h"
+#include "math.h"
 
 Abs::Abs(tensorflow::Scope& scope, 
            tensorflow::Input x, 

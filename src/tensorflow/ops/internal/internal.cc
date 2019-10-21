@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/internal/internal.h"
+#include "internal.h"
 
 All::All(tensorflow::Scope& scope, 
            tensorflow::Input input, 

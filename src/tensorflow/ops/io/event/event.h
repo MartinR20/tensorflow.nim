@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -27,6 +28,7 @@ class AudioSpectrogram{
     tensorflow::Output output;
 };
 
+#pragma once
 class AudioSummary{
   public:
     AudioSummary() {}
@@ -39,6 +41,7 @@ class AudioSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class AudioSummaryV2{
   public:
     AudioSummaryV2() {}
@@ -51,6 +54,7 @@ class AudioSummaryV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesMakeStatsSummary{
   public:
     BoostedTreesMakeStatsSummary() {}
@@ -66,6 +70,7 @@ class BoostedTreesMakeStatsSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class CloseSummaryWriter{
   public:
     CloseSummaryWriter() {}
@@ -74,6 +79,7 @@ class CloseSummaryWriter{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class CreateSummaryDbWriter{
   public:
     CreateSummaryDbWriter() {}
@@ -86,6 +92,7 @@ class CreateSummaryDbWriter{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class CreateSummaryFileWriter{
   public:
     CreateSummaryFileWriter() {}
@@ -98,6 +105,7 @@ class CreateSummaryFileWriter{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ExperimentalStatsAggregatorHandle{
   public:
     ExperimentalStatsAggregatorHandle() {}
@@ -108,6 +116,7 @@ class ExperimentalStatsAggregatorHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalStatsAggregatorSummary{
   public:
     ExperimentalStatsAggregatorSummary() {}
@@ -117,6 +126,7 @@ class ExperimentalStatsAggregatorSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class FlushSummaryWriter{
   public:
     FlushSummaryWriter() {}
@@ -125,6 +135,7 @@ class FlushSummaryWriter{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class HistogramSummary{
   public:
     HistogramSummary() {}
@@ -135,6 +146,7 @@ class HistogramSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class ImageSummary{
   public:
     ImageSummary() {}
@@ -147,6 +159,7 @@ class ImageSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class ImportEvent{
   public:
     ImportEvent() {}
@@ -156,6 +169,7 @@ class ImportEvent{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class MergeSummary{
   public:
     MergeSummary() {}
@@ -165,6 +179,7 @@ class MergeSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScalarSummary{
   public:
     ScalarSummary() {}
@@ -175,6 +190,7 @@ class ScalarSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class SummaryWriter{
   public:
     SummaryWriter() {}
@@ -185,6 +201,7 @@ class SummaryWriter{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorSummary{
   public:
     TensorSummary() {}
@@ -197,6 +214,7 @@ class TensorSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorSummaryV2{
   public:
     TensorSummaryV2() {}
@@ -208,6 +226,7 @@ class TensorSummaryV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class WriteAudioSummary{
   public:
     WriteAudioSummary() {}
@@ -221,6 +240,7 @@ class WriteAudioSummary{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class WriteGraphSummary{
   public:
     WriteGraphSummary() {}
@@ -231,6 +251,7 @@ class WriteGraphSummary{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class WriteHistogramSummary{
   public:
     WriteHistogramSummary() {}
@@ -242,6 +263,7 @@ class WriteHistogramSummary{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class WriteImageSummary{
   public:
     WriteImageSummary() {}
@@ -255,6 +277,7 @@ class WriteImageSummary{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class WriteScalarSummary{
   public:
     WriteScalarSummary() {}
@@ -266,6 +289,7 @@ class WriteScalarSummary{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class WriteSummary{
   public:
     WriteSummary() {}

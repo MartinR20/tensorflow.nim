@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -27,6 +28,7 @@ class EagerPyFunc{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class PyFunc{
   public:
     PyFunc() {}
@@ -39,6 +41,7 @@ class PyFunc{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class PyFuncStateless{
   public:
     PyFuncStateless() {}

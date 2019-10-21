@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/string/string.h"
+#include "string.h"
 
 AsString::AsString(tensorflow::Scope& scope, 
            tensorflow::Input input, 

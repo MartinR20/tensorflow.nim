@@ -1,16 +1,16 @@
 import ../core
 
-{.compile:"../../ops/audio/audio.cc".}
+{.compile:"audio/audio.cc".}
 
 
-type DecodeWav* {.header:"../../ops/audio/audio.h", importcpp:"DecodeWav/*'0*/".} = object
+type DecodeWav* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/audio/audio.h", importcpp:"DecodeWav/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iidecodeWav(scope: Scope,
                 contents: ostring,
                 desired_channels: int64,
-                desired_samples: int64): DecodeWav {.header:"../../ops/audio/audio.h", importcpp:"DecodeWav(*#, #, #, #)", constructor.}
+                desired_samples: int64): DecodeWav {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/audio/audio.h", importcpp:"DecodeWav(*#, #, #, #)", constructor.}
 
 proc decodeWav*(scope: Scope,
                 contents: ostring,
@@ -24,13 +24,13 @@ proc decodeWav*(scope: Scope,
 converter decodeWavToOut*(op: DecodeWav): ofloat {.inline.} = return op.output
 
 
-type EncodeWav* {.header:"../../ops/audio/audio.h", importcpp:"EncodeWav/*'0*/".} = object
+type EncodeWav* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/audio/audio.h", importcpp:"EncodeWav/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiencodeWav(scope: Scope,
                 audio: ofloat,
-                sample_rate: oint32): EncodeWav {.header:"../../ops/audio/audio.h", importcpp:"EncodeWav(*#, #, #)", constructor.}
+                sample_rate: oint32): EncodeWav {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/audio/audio.h", importcpp:"EncodeWav(*#, #, #)", constructor.}
 
 proc encodeWav*(scope: Scope,
                 audio: ofloat,

@@ -1,9 +1,9 @@
 import ../core
 
-{.compile:"../../ops/nn/nn.cc".}
+{.compile:"nn/nn.cc".}
 
 
-type AvgPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool/*'0*/".} = object
+type AvgPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -13,7 +13,7 @@ proc iiavgPool[oT: oall](scope: Scope,
               strides: ArraySlice[int],
               padding: cstring,
               data_format: cstring,
-              T: DType): AvgPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+              T: DType): AvgPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc avgPool*[oT: oall](scope: Scope,
               value: oT,
@@ -27,12 +27,12 @@ proc avgPool*[oT: oall](scope: Scope,
                    newArraySlice(strides),
                    padding,
                    data_format,
-                   oT[].oTF)
+                   oT.oTF)
 
 converter avgPoolToOut*[oT: oall](op: AvgPool[oT]): oT {.inline.} = return op.output
 
 
-type AvgPool3D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool3D/*'0*/".} = object
+type AvgPool3D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool3D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -42,7 +42,7 @@ proc iiavgPool3D[oT: oall](scope: Scope,
                 strides: ArraySlice[int],
                 padding: cstring,
                 data_format: cstring,
-                T: DType): AvgPool3D[oT] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool3D(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                T: DType): AvgPool3D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool3D(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc avgPool3D*[oT: oall](scope: Scope,
                 input: oT,
@@ -56,12 +56,12 @@ proc avgPool3D*[oT: oall](scope: Scope,
                      newArraySlice(strides),
                      padding,
                      data_format,
-                     oT[].oTF)
+                     oT.oTF)
 
 converter avgPool3DToOut*[oT: oall](op: AvgPool3D[oT]): oT {.inline.} = return op.output
 
 
-type AvgPool3DGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool3DGrad/*'0*/".} = object
+type AvgPool3DGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool3DGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -72,7 +72,7 @@ proc iiavgPool3DGrad[oT: oall](scope: Scope,
                     strides: ArraySlice[int],
                     padding: cstring,
                     data_format: cstring,
-                    T: DType): AvgPool3DGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"AvgPool3DGrad(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                    T: DType): AvgPool3DGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPool3DGrad(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc avgPool3DGrad*[oT: oall](scope: Scope,
                     orig_input_shape: oint32,
@@ -88,12 +88,12 @@ proc avgPool3DGrad*[oT: oall](scope: Scope,
                          newArraySlice(strides),
                          padding,
                          data_format,
-                         oT[].oTF)
+                         oT.oTF)
 
 converter avgPool3DGradToOut*[oT: oall](op: AvgPool3DGrad[oT]): oT {.inline.} = return op.output
 
 
-type AvgPoolGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"AvgPoolGrad/*'0*/".} = object
+type AvgPoolGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPoolGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -104,7 +104,7 @@ proc iiavgPoolGrad[oT: oall](scope: Scope,
                   strides: ArraySlice[int],
                   padding: cstring,
                   data_format: cstring,
-                  T: DType): AvgPoolGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"AvgPoolGrad(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                  T: DType): AvgPoolGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"AvgPoolGrad(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc avgPoolGrad*[oT: oall](scope: Scope,
                   orig_input_shape: oint32,
@@ -120,12 +120,12 @@ proc avgPoolGrad*[oT: oall](scope: Scope,
                        newArraySlice(strides),
                        padding,
                        data_format,
-                       oT[].oTF)
+                       oT.oTF)
 
 converter avgPoolGradToOut*[oT: oall](op: AvgPoolGrad[oT]): oT {.inline.} = return op.output
 
 
-type BatchNormWithGlobalNormalization*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalization/*'0*/".} = object
+type BatchNormWithGlobalNormalization*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalization/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -137,7 +137,7 @@ proc iibatchNormWithGlobalNormalization[oT: oall](scope: Scope,
                                        gamma: oT,
                                        T: DType,
                                        variance_epsilon: float32,
-                                       scale_after_normalization: bool): BatchNormWithGlobalNormalization[oT] {.header:"../../ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalization(*#, #, #, #, #, #, #, #, #)", constructor.}
+                                       scale_after_normalization: bool): BatchNormWithGlobalNormalization[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalization(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc batchNormWithGlobalNormalization*[oT: oall](scope: Scope,
                                        t: oT,
@@ -153,14 +153,14 @@ proc batchNormWithGlobalNormalization*[oT: oall](scope: Scope,
                                             v,
                                             beta,
                                             gamma,
-                                            oT[].oTF,
+                                            oT.oTF,
                                             variance_epsilon,
                                             scale_after_normalization)
 
 converter batchNormWithGlobalNormalizationToOut*[oT: oall](op: BatchNormWithGlobalNormalization[oT]): oT {.inline.} = return op.output
 
 
-type BatchNormWithGlobalNormalizationGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalizationGrad/*'0*/".} = object
+type BatchNormWithGlobalNormalizationGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalizationGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -172,7 +172,7 @@ proc iibatchNormWithGlobalNormalizationGrad[oT: oall](scope: Scope,
                                            backprop: oT,
                                            T: DType,
                                            variance_epsilon: float32,
-                                           scale_after_normalization: bool): BatchNormWithGlobalNormalizationGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalizationGrad(*#, #, #, #, #, #, #, #, #)", constructor.}
+                                           scale_after_normalization: bool): BatchNormWithGlobalNormalizationGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BatchNormWithGlobalNormalizationGrad(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc batchNormWithGlobalNormalizationGrad*[oT: oall](scope: Scope,
                                            t: oT,
@@ -188,14 +188,14 @@ proc batchNormWithGlobalNormalizationGrad*[oT: oall](scope: Scope,
                                                 v,
                                                 gamma,
                                                 backprop,
-                                                oT[].oTF,
+                                                oT.oTF,
                                                 variance_epsilon,
                                                 scale_after_normalization)
 
 converter batchNormWithGlobalNormalizationGradToOut*[oT: oall](op: BatchNormWithGlobalNormalizationGrad[oT]): oT {.inline.} = return op.output
 
 
-type BiasAdd*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"BiasAdd/*'0*/".} = object
+type BiasAdd*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAdd/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -203,7 +203,7 @@ proc iibiasAdd[oT: oall](scope: Scope,
               value: oT,
               bias: oT,
               T: DType,
-              data_format: cstring): BiasAdd[oT] {.header:"../../ops/nn/nn.h", importcpp:"BiasAdd(*#, #, #, #, tensorflow::string(#))", constructor.}
+              data_format: cstring): BiasAdd[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAdd(*#, #, #, #, tensorflow::string(#))", constructor.}
 
 proc biasAdd*[oT: oall](scope: Scope,
               value: oT,
@@ -212,40 +212,40 @@ proc biasAdd*[oT: oall](scope: Scope,
   return iibiasAdd(scope,
                    value,
                    bias,
-                   oT[].oTF,
+                   oT.oTF,
                    data_format)
 
 converter biasAddToOut*[oT: oall](op: BiasAdd[oT]): oT {.inline.} = return op.output
 
 
-type BiasAddGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"BiasAddGrad/*'0*/".} = object
+type BiasAddGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAddGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iibiasAddGrad[oT: oall](scope: Scope,
                   out_backprop: oT,
                   T: DType,
-                  data_format: cstring): BiasAddGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"BiasAddGrad(*#, #, #, tensorflow::string(#))", constructor.}
+                  data_format: cstring): BiasAddGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAddGrad(*#, #, #, tensorflow::string(#))", constructor.}
 
 proc biasAddGrad*[oT: oall](scope: Scope,
                   out_backprop: oT,
                   data_format: cstring = "NHWC"): BiasAddGrad[oT] =
   return iibiasAddGrad(scope,
                        out_backprop,
-                       oT[].oTF,
+                       oT.oTF,
                        data_format)
 
 converter biasAddGradToOut*[oT: oall](op: BiasAddGrad[oT]): oT {.inline.} = return op.output
 
 
-type BiasAddV1*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"BiasAddV1/*'0*/".} = object
+type BiasAddV1*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAddV1/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iibiasAddV1[oT: oall](scope: Scope,
                 value: oT,
                 bias: oT,
-                T: DType): BiasAddV1[oT] {.header:"../../ops/nn/nn.h", importcpp:"BiasAddV1(*#, #, #, #)", constructor.}
+                T: DType): BiasAddV1[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"BiasAddV1(*#, #, #, #)", constructor.}
 
 proc biasAddV1*[oT: oall](scope: Scope,
                 value: oT,
@@ -253,12 +253,12 @@ proc biasAddV1*[oT: oall](scope: Scope,
   return iibiasAddV1(scope,
                      value,
                      bias,
-                     oT[].oTF)
+                     oT.oTF)
 
 converter biasAddV1ToOut*[oT: oall](op: BiasAddV1[oT]): oT {.inline.} = return op.output
 
 
-type CTCBeamSearchDecoder* {.header:"../../ops/nn/nn.h", importcpp:"CTCBeamSearchDecoder/*'0*/".} = object
+type CTCBeamSearchDecoder* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CTCBeamSearchDecoder/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -267,7 +267,7 @@ proc iicTCBeamSearchDecoder(scope: Scope,
                            sequence_length: oint32,
                            beam_width: int64,
                            top_paths: int64,
-                           merge_repeated: bool): CTCBeamSearchDecoder {.header:"../../ops/nn/nn.h", importcpp:"CTCBeamSearchDecoder(*#, #, #, #, #, #)", constructor.}
+                           merge_repeated: bool): CTCBeamSearchDecoder {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CTCBeamSearchDecoder(*#, #, #, #, #, #)", constructor.}
 
 proc cTCBeamSearchDecoder*(scope: Scope,
                            inputs: ofloat,
@@ -285,14 +285,14 @@ proc cTCBeamSearchDecoder*(scope: Scope,
 converter cTCBeamSearchDecoderToOut*(op: CTCBeamSearchDecoder): oint64 {.inline.} = return op.output
 
 
-type CTCGreedyDecoder* {.header:"../../ops/nn/nn.h", importcpp:"CTCGreedyDecoder/*'0*/".} = object
+type CTCGreedyDecoder* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CTCGreedyDecoder/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iicTCGreedyDecoder(scope: Scope,
                        inputs: ofloat,
                        sequence_length: oint32,
-                       merge_repeated: bool): CTCGreedyDecoder {.header:"../../ops/nn/nn.h", importcpp:"CTCGreedyDecoder(*#, #, #, #)", constructor.}
+                       merge_repeated: bool): CTCGreedyDecoder {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CTCGreedyDecoder(*#, #, #, #)", constructor.}
 
 proc cTCGreedyDecoder*(scope: Scope,
                        inputs: ofloat,
@@ -306,7 +306,7 @@ proc cTCGreedyDecoder*(scope: Scope,
 converter cTCGreedyDecoderToOut*(op: CTCGreedyDecoder): oint64 {.inline.} = return op.output
 
 
-type Conv2D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv2D/*'0*/".} = object
+type Conv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -318,7 +318,7 @@ proc iiconv2D[oT: oall](scope: Scope,
              T: DType,
              use_cudnn_on_gpu: bool,
              data_format: cstring,
-             dilations: ArraySlice[int]): Conv2D[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv2D(*#, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
+             dilations: ArraySlice[int]): Conv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2D(*#, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
 
 proc conv2D*[oT: oall](scope: Scope,
              input: oT,
@@ -333,7 +333,7 @@ proc conv2D*[oT: oall](scope: Scope,
                   filter,
                   newArraySlice(strides),
                   padding,
-                  oT[].oTF,
+                  oT.oTF,
                   use_cudnn_on_gpu,
                   data_format,
                   newArraySlice(dilations))
@@ -341,7 +341,7 @@ proc conv2D*[oT: oall](scope: Scope,
 converter conv2DToOut*[oT: oall](op: Conv2D[oT]): oT {.inline.} = return op.output
 
 
-type Conv2DBackpropFilter*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv2DBackpropFilter/*'0*/".} = object
+type Conv2DBackpropFilter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2DBackpropFilter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -354,7 +354,7 @@ proc iiconv2DBackpropFilter[oT: oall](scope: Scope,
                            T: DType,
                            use_cudnn_on_gpu: bool,
                            data_format: cstring,
-                           dilations: ArraySlice[int]): Conv2DBackpropFilter[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv2DBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
+                           dilations: ArraySlice[int]): Conv2DBackpropFilter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2DBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
 
 proc conv2DBackpropFilter*[oT: oall](scope: Scope,
                            input: oT,
@@ -371,7 +371,7 @@ proc conv2DBackpropFilter*[oT: oall](scope: Scope,
                                 out_backprop,
                                 newArraySlice(strides),
                                 padding,
-                                oT[].oTF,
+                                oT.oTF,
                                 use_cudnn_on_gpu,
                                 data_format,
                                 newArraySlice(dilations))
@@ -379,7 +379,7 @@ proc conv2DBackpropFilter*[oT: oall](scope: Scope,
 converter conv2DBackpropFilterToOut*[oT: oall](op: Conv2DBackpropFilter[oT]): oT {.inline.} = return op.output
 
 
-type Conv2DBackpropInput*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv2DBackpropInput/*'0*/".} = object
+type Conv2DBackpropInput*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2DBackpropInput/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -392,7 +392,7 @@ proc iiconv2DBackpropInput[oT: oall](scope: Scope,
                           T: DType,
                           use_cudnn_on_gpu: bool,
                           data_format: cstring,
-                          dilations: ArraySlice[int]): Conv2DBackpropInput[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv2DBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
+                          dilations: ArraySlice[int]): Conv2DBackpropInput[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv2DBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, #, tensorflow::string(#), #)", constructor.}
 
 proc conv2DBackpropInput*[oT: oall](scope: Scope,
                           input_sizes: oint32,
@@ -409,7 +409,7 @@ proc conv2DBackpropInput*[oT: oall](scope: Scope,
                                out_backprop,
                                newArraySlice(strides),
                                padding,
-                               oT[].oTF,
+                               oT.oTF,
                                use_cudnn_on_gpu,
                                data_format,
                                newArraySlice(dilations))
@@ -417,7 +417,7 @@ proc conv2DBackpropInput*[oT: oall](scope: Scope,
 converter conv2DBackpropInputToOut*[oT: oall](op: Conv2DBackpropInput[oT]): oT {.inline.} = return op.output
 
 
-type Conv3D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv3D/*'0*/".} = object
+type Conv3D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -428,7 +428,7 @@ proc iiconv3D[oT: oall](scope: Scope,
              padding: cstring,
              T: DType,
              data_format: cstring,
-             dilations: ArraySlice[int]): Conv3D[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv3D(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+             dilations: ArraySlice[int]): Conv3D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3D(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc conv3D*[oT: oall](scope: Scope,
              input: oT,
@@ -442,14 +442,14 @@ proc conv3D*[oT: oall](scope: Scope,
                   filter,
                   newArraySlice(strides),
                   padding,
-                  oT[].oTF,
+                  oT.oTF,
                   data_format,
                   newArraySlice(dilations))
 
 converter conv3DToOut*[oT: oall](op: Conv3D[oT]): oT {.inline.} = return op.output
 
 
-type Conv3DBackpropFilter*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropFilter/*'0*/".} = object
+type Conv3DBackpropFilter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropFilter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -460,7 +460,7 @@ proc iiconv3DBackpropFilter[oT: oall](scope: Scope,
                            strides: ArraySlice[int],
                            padding: cstring,
                            T: DType,
-                           dilations: ArraySlice[int]): Conv3DBackpropFilter[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
+                           dilations: ArraySlice[int]): Conv3DBackpropFilter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc conv3DBackpropFilter*[oT: oall](scope: Scope,
                            input: oT,
@@ -475,13 +475,13 @@ proc conv3DBackpropFilter*[oT: oall](scope: Scope,
                                 out_backprop,
                                 newArraySlice(strides),
                                 padding,
-                                oT[].oTF,
+                                oT.oTF,
                                 newArraySlice(dilations))
 
 converter conv3DBackpropFilterToOut*[oT: oall](op: Conv3DBackpropFilter[oT]): oT {.inline.} = return op.output
 
 
-type Conv3DBackpropFilterV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropFilterV2/*'0*/".} = object
+type Conv3DBackpropFilterV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropFilterV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -493,7 +493,7 @@ proc iiconv3DBackpropFilterV2[oT: oall](scope: Scope,
                              padding: cstring,
                              T: DType,
                              data_format: cstring,
-                             dilations: ArraySlice[int]): Conv3DBackpropFilterV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropFilterV2(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                             dilations: ArraySlice[int]): Conv3DBackpropFilterV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropFilterV2(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc conv3DBackpropFilterV2*[oT: oall](scope: Scope,
                              input: oT,
@@ -509,14 +509,14 @@ proc conv3DBackpropFilterV2*[oT: oall](scope: Scope,
                                   out_backprop,
                                   newArraySlice(strides),
                                   padding,
-                                  oT[].oTF,
+                                  oT.oTF,
                                   data_format,
                                   newArraySlice(dilations))
 
 converter conv3DBackpropFilterV2ToOut*[oT: oall](op: Conv3DBackpropFilterV2[oT]): oT {.inline.} = return op.output
 
 
-type Conv3DBackpropInput*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropInput/*'0*/".} = object
+type Conv3DBackpropInput*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropInput/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -527,7 +527,7 @@ proc iiconv3DBackpropInput[oT: oall](scope: Scope,
                           strides: ArraySlice[int],
                           padding: cstring,
                           T: DType,
-                          dilations: ArraySlice[int]): Conv3DBackpropInput[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
+                          dilations: ArraySlice[int]): Conv3DBackpropInput[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc conv3DBackpropInput*[oT: oall](scope: Scope,
                           input: oT,
@@ -542,14 +542,14 @@ proc conv3DBackpropInput*[oT: oall](scope: Scope,
                                out_backprop,
                                newArraySlice(strides),
                                padding,
-                               oT[].oTF,
+                               oT.oTF,
                                newArraySlice(dilations))
 
 converter conv3DBackpropInputToOut*[oT: oall](op: Conv3DBackpropInput[oT]): oT {.inline.} = return op.output
 
 type Conv3DBackpropInputV2Tshape* = oint32 | oint64
 
-type Conv3DBackpropInputV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropInputV2/*'0*/".} = object
+type Conv3DBackpropInputV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropInputV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -561,7 +561,7 @@ proc iiconv3DBackpropInputV2[oT: oall](scope: Scope,
                             padding: cstring,
                             T: DType,
                             data_format: cstring,
-                            dilations: ArraySlice[int]): Conv3DBackpropInputV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"Conv3DBackpropInputV2(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                            dilations: ArraySlice[int]): Conv3DBackpropInputV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Conv3DBackpropInputV2(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc conv3DBackpropInputV2*[oT: oall](scope: Scope,
                             input_sizes: Conv3DBackpropInputV2Tshape,
@@ -577,14 +577,14 @@ proc conv3DBackpropInputV2*[oT: oall](scope: Scope,
                                  out_backprop,
                                  newArraySlice(strides),
                                  padding,
-                                 oT[].oTF,
+                                 oT.oTF,
                                  data_format,
                                  newArraySlice(dilations))
 
 converter conv3DBackpropInputV2ToOut*[oT: oall](op: Conv3DBackpropInputV2[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNN*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNN/*'0*/".} = object
+type CudnnRNN*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNN/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -600,7 +600,7 @@ proc iicudnnRNN[oT: oall](scope: Scope,
                dropout: float32,
                seed: int64,
                seed2: int64,
-               is_training: bool): CudnnRNN[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNN(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+               is_training: bool): CudnnRNN[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNN(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc cudnnRNN*[oT: oall](scope: Scope,
                input: oT,
@@ -619,7 +619,7 @@ proc cudnnRNN*[oT: oall](scope: Scope,
                     input_h,
                     input_c,
                     params,
-                    oT[].oTF,
+                    oT.oTF,
                     rnn_mode,
                     input_mode,
                     direction,
@@ -631,7 +631,7 @@ proc cudnnRNN*[oT: oall](scope: Scope,
 converter cudnnRNNToOut*[oT: oall](op: CudnnRNN[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNBackprop*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNBackprop/*'0*/".} = object
+type CudnnRNNBackprop*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNBackprop/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -653,7 +653,7 @@ proc iicudnnRNNBackprop[oT: oall](scope: Scope,
                        direction: cstring,
                        dropout: float32,
                        seed: int64,
-                       seed2: int64): CudnnRNNBackprop[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNBackprop(*#, #, #, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                       seed2: int64): CudnnRNNBackprop[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNBackprop(*#, #, #, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc cudnnRNNBackprop*[oT: oall](scope: Scope,
                        input: oT,
@@ -685,7 +685,7 @@ proc cudnnRNNBackprop*[oT: oall](scope: Scope,
                             output_h_backprop,
                             output_c_backprop,
                             reserve_space,
-                            oT[].oTF,
+                            oT.oTF,
                             rnn_mode,
                             input_mode,
                             direction,
@@ -696,7 +696,7 @@ proc cudnnRNNBackprop*[oT: oall](scope: Scope,
 converter cudnnRNNBackpropToOut*[oT: oall](op: CudnnRNNBackprop[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNBackpropV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNBackpropV2/*'0*/".} = object
+type CudnnRNNBackpropV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNBackpropV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -719,7 +719,7 @@ proc iicudnnRNNBackpropV2[oT: oall](scope: Scope,
                          direction: cstring,
                          dropout: float32,
                          seed: int64,
-                         seed2: int64): CudnnRNNBackpropV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNBackpropV2(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                         seed2: int64): CudnnRNNBackpropV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNBackpropV2(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc cudnnRNNBackpropV2*[oT: oall](scope: Scope,
                          input: oT,
@@ -753,7 +753,7 @@ proc cudnnRNNBackpropV2*[oT: oall](scope: Scope,
                               output_c_backprop,
                               reserve_space,
                               host_reserved,
-                              oT[].oTF,
+                              oT.oTF,
                               rnn_mode,
                               input_mode,
                               direction,
@@ -764,7 +764,7 @@ proc cudnnRNNBackpropV2*[oT: oall](scope: Scope,
 converter cudnnRNNBackpropV2ToOut*[oT: oall](op: CudnnRNNBackpropV2[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNCanonicalToParams*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNCanonicalToParams/*'0*/".} = object
+type CudnnRNNCanonicalToParams*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNCanonicalToParams/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -781,7 +781,7 @@ proc iicudnnRNNCanonicalToParams[oT: oall](scope: Scope,
                                 direction: cstring,
                                 dropout: float32,
                                 seed: int64,
-                                seed2: int64): CudnnRNNCanonicalToParams[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNCanonicalToParams(*#, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                                seed2: int64): CudnnRNNCanonicalToParams[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNCanonicalToParams(*#, #, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc cudnnRNNCanonicalToParams*[oT: oall](scope: Scope,
                                 num_layers: oint32,
@@ -802,7 +802,7 @@ proc cudnnRNNCanonicalToParams*[oT: oall](scope: Scope,
                                      input_size,
                                      weights,
                                      biases,
-                                     oT[].oTF,
+                                     oT.oTF,
                                      num_params,
                                      rnn_mode,
                                      input_mode,
@@ -814,7 +814,7 @@ proc cudnnRNNCanonicalToParams*[oT: oall](scope: Scope,
 converter cudnnRNNCanonicalToParamsToOut*[oT: oall](op: CudnnRNNCanonicalToParams[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNParamsSize*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNParamsSize/*'0*/".} = object
+type CudnnRNNParamsSize*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNParamsSize/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -830,7 +830,7 @@ proc iicudnnRNNParamsSize[oT: oall](scope: Scope,
                          dropout: float32,
                          seed: int64,
                          seed2: int64,
-                         explicitT: type(oT)): CudnnRNNParamsSize[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNParamsSize(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                         explicitT: type(oT)): CudnnRNNParamsSize[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNParamsSize(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc cudnnRNNParamsSize*(scope: Scope,
                          num_layers: oint32,
@@ -848,8 +848,8 @@ proc cudnnRNNParamsSize*(scope: Scope,
                               num_layers,
                               num_units,
                               input_size,
-                              T[].oTF,
-                              oT[].oTF,
+                              T.oTF,
+                              S.oTF,
                               rnn_mode,
                               input_mode,
                               direction,
@@ -861,7 +861,7 @@ proc cudnnRNNParamsSize*(scope: Scope,
 converter cudnnRNNParamsSizeToOut*[oT: oall](op: CudnnRNNParamsSize[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNParamsToCanonical*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNParamsToCanonical/*'0*/".} = object
+type CudnnRNNParamsToCanonical*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNParamsToCanonical/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -877,7 +877,7 @@ proc iicudnnRNNParamsToCanonical[oT: oall](scope: Scope,
                                 direction: cstring,
                                 dropout: float32,
                                 seed: int64,
-                                seed2: int64): CudnnRNNParamsToCanonical[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNParamsToCanonical(*#, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                                seed2: int64): CudnnRNNParamsToCanonical[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNParamsToCanonical(*#, #, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc cudnnRNNParamsToCanonical*[oT: oall](scope: Scope,
                                 num_layers: oint32,
@@ -896,7 +896,7 @@ proc cudnnRNNParamsToCanonical*[oT: oall](scope: Scope,
                                      num_units,
                                      input_size,
                                      params,
-                                     oT[].oTF,
+                                     oT.oTF,
                                      num_params,
                                      rnn_mode,
                                      input_mode,
@@ -908,7 +908,7 @@ proc cudnnRNNParamsToCanonical*[oT: oall](scope: Scope,
 converter cudnnRNNParamsToCanonicalToOut*[oT: oall](op: CudnnRNNParamsToCanonical[oT]): oT {.inline.} = return op.output
 
 
-type CudnnRNNV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNV2/*'0*/".} = object
+type CudnnRNNV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -924,7 +924,7 @@ proc iicudnnRNNV2[oT: oall](scope: Scope,
                  dropout: float32,
                  seed: int64,
                  seed2: int64,
-                 is_training: bool): CudnnRNNV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"CudnnRNNV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+                 is_training: bool): CudnnRNNV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc cudnnRNNV2*[oT: oall](scope: Scope,
                  input: oT,
@@ -943,7 +943,7 @@ proc cudnnRNNV2*[oT: oall](scope: Scope,
                       input_h,
                       input_c,
                       params,
-                      oT[].oTF,
+                      oT.oTF,
                       rnn_mode,
                       input_mode,
                       direction,
@@ -955,7 +955,7 @@ proc cudnnRNNV2*[oT: oall](scope: Scope,
 converter cudnnRNNV2ToOut*[oT: oall](op: CudnnRNNV2[oT]): oT {.inline.} = return op.output
 
 
-type DepthwiseConv2dNative*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNative/*'0*/".} = object
+type DepthwiseConv2dNative*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNative/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -966,7 +966,7 @@ proc iidepthwiseConv2dNative[oT: oall](scope: Scope,
                             padding: cstring,
                             T: DType,
                             data_format: cstring,
-                            dilations: ArraySlice[int]): DepthwiseConv2dNative[oT] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNative(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                            dilations: ArraySlice[int]): DepthwiseConv2dNative[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNative(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc depthwiseConv2dNative*[oT: oall](scope: Scope,
                             input: oT,
@@ -980,14 +980,14 @@ proc depthwiseConv2dNative*[oT: oall](scope: Scope,
                                  filter,
                                  newArraySlice(strides),
                                  padding,
-                                 oT[].oTF,
+                                 oT.oTF,
                                  data_format,
                                  newArraySlice(dilations))
 
 converter depthwiseConv2dNativeToOut*[oT: oall](op: DepthwiseConv2dNative[oT]): oT {.inline.} = return op.output
 
 
-type DepthwiseConv2dNativeBackpropFilter*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropFilter/*'0*/".} = object
+type DepthwiseConv2dNativeBackpropFilter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropFilter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -999,7 +999,7 @@ proc iidepthwiseConv2dNativeBackpropFilter[oT: oall](scope: Scope,
                                           padding: cstring,
                                           T: DType,
                                           data_format: cstring,
-                                          dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropFilter[oT] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                                          dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropFilter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropFilter(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc depthwiseConv2dNativeBackpropFilter*[oT: oall](scope: Scope,
                                           input: oT,
@@ -1015,14 +1015,14 @@ proc depthwiseConv2dNativeBackpropFilter*[oT: oall](scope: Scope,
                                                out_backprop,
                                                newArraySlice(strides),
                                                padding,
-                                               oT[].oTF,
+                                               oT.oTF,
                                                data_format,
                                                newArraySlice(dilations))
 
 converter depthwiseConv2dNativeBackpropFilterToOut*[oT: oall](op: DepthwiseConv2dNativeBackpropFilter[oT]): oT {.inline.} = return op.output
 
 
-type DepthwiseConv2dNativeBackpropInput*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropInput/*'0*/".} = object
+type DepthwiseConv2dNativeBackpropInput*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropInput/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1034,7 +1034,7 @@ proc iidepthwiseConv2dNativeBackpropInput[oT: oall](scope: Scope,
                                          padding: cstring,
                                          T: DType,
                                          data_format: cstring,
-                                         dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropInput[oT] {.header:"../../ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                                         dilations: ArraySlice[int]): DepthwiseConv2dNativeBackpropInput[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"DepthwiseConv2dNativeBackpropInput(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc depthwiseConv2dNativeBackpropInput*[oT: oall](scope: Scope,
                                          input_sizes: oint32,
@@ -1050,14 +1050,14 @@ proc depthwiseConv2dNativeBackpropInput*[oT: oall](scope: Scope,
                                               out_backprop,
                                               newArraySlice(strides),
                                               padding,
-                                              oT[].oTF,
+                                              oT.oTF,
                                               data_format,
                                               newArraySlice(dilations))
 
 converter depthwiseConv2dNativeBackpropInputToOut*[oT: oall](op: DepthwiseConv2dNativeBackpropInput[oT]): oT {.inline.} = return op.output
 
 
-type Dilation2D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2D/*'0*/".} = object
+type Dilation2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1067,7 +1067,7 @@ proc iidilation2D[oT: oall](scope: Scope,
                  strides: ArraySlice[int],
                  rates: ArraySlice[int],
                  padding: cstring,
-                 T: DType): Dilation2D[oT] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2D(*#, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                 T: DType): Dilation2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2D(*#, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc dilation2D*[oT: oall](scope: Scope,
                  input: oT,
@@ -1081,12 +1081,12 @@ proc dilation2D*[oT: oall](scope: Scope,
                       newArraySlice(strides),
                       newArraySlice(rates),
                       padding,
-                      oT[].oTF)
+                      oT.oTF)
 
 converter dilation2DToOut*[oT: oall](op: Dilation2D[oT]): oT {.inline.} = return op.output
 
 
-type Dilation2DBackpropFilter*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2DBackpropFilter/*'0*/".} = object
+type Dilation2DBackpropFilter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2DBackpropFilter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1097,7 +1097,7 @@ proc iidilation2DBackpropFilter[oT: oall](scope: Scope,
                                strides: ArraySlice[int],
                                rates: ArraySlice[int],
                                padding: cstring,
-                               T: DType): Dilation2DBackpropFilter[oT] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2DBackpropFilter(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                               T: DType): Dilation2DBackpropFilter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2DBackpropFilter(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc dilation2DBackpropFilter*[oT: oall](scope: Scope,
                                input: oT,
@@ -1113,12 +1113,12 @@ proc dilation2DBackpropFilter*[oT: oall](scope: Scope,
                                     newArraySlice(strides),
                                     newArraySlice(rates),
                                     padding,
-                                    oT[].oTF)
+                                    oT.oTF)
 
 converter dilation2DBackpropFilterToOut*[oT: oall](op: Dilation2DBackpropFilter[oT]): oT {.inline.} = return op.output
 
 
-type Dilation2DBackpropInput*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2DBackpropInput/*'0*/".} = object
+type Dilation2DBackpropInput*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2DBackpropInput/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1129,7 +1129,7 @@ proc iidilation2DBackpropInput[oT: oall](scope: Scope,
                               strides: ArraySlice[int],
                               rates: ArraySlice[int],
                               padding: cstring,
-                              T: DType): Dilation2DBackpropInput[oT] {.header:"../../ops/nn/nn.h", importcpp:"Dilation2DBackpropInput(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                              T: DType): Dilation2DBackpropInput[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"Dilation2DBackpropInput(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc dilation2DBackpropInput*[oT: oall](scope: Scope,
                               input: oT,
@@ -1145,12 +1145,12 @@ proc dilation2DBackpropInput*[oT: oall](scope: Scope,
                                    newArraySlice(strides),
                                    newArraySlice(rates),
                                    padding,
-                                   oT[].oTF)
+                                   oT.oTF)
 
 converter dilation2DBackpropInputToOut*[oT: oall](op: Dilation2DBackpropInput[oT]): oT {.inline.} = return op.output
 
 
-type FractionalAvgPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FractionalAvgPool/*'0*/".} = object
+type FractionalAvgPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalAvgPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1162,7 +1162,7 @@ proc iifractionalAvgPool[oT: oall](scope: Scope,
                         deterministic: bool,
                         seed: int64,
                         seed2: int64,
-                        T: DType): FractionalAvgPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"FractionalAvgPool(*#, #, #, #, #, #, #, #, #)", constructor.}
+                        T: DType): FractionalAvgPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalAvgPool(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc fractionalAvgPool*[oT: oall](scope: Scope,
                         value: oT,
@@ -1180,12 +1180,12 @@ proc fractionalAvgPool*[oT: oall](scope: Scope,
                              deterministic,
                              seed,
                              seed2,
-                             oT[].oTF)
+                             oT.oTF)
 
 converter fractionalAvgPoolToOut*[oT: oall](op: FractionalAvgPool[oT]): oT {.inline.} = return op.output
 
 
-type FractionalAvgPoolGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FractionalAvgPoolGrad/*'0*/".} = object
+type FractionalAvgPoolGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalAvgPoolGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1195,7 +1195,7 @@ proc iifractionalAvgPoolGrad[oT: oall](scope: Scope,
                             row_pooling_sequence: oint64,
                             col_pooling_sequence: oint64,
                             overlapping: bool,
-                            T: DType): FractionalAvgPoolGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"FractionalAvgPoolGrad(*#, #, #, #, #, #, #)", constructor.}
+                            T: DType): FractionalAvgPoolGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalAvgPoolGrad(*#, #, #, #, #, #, #)", constructor.}
 
 proc fractionalAvgPoolGrad*[oT: oall](scope: Scope,
                             orig_input_tensor_shape: oint64,
@@ -1209,12 +1209,12 @@ proc fractionalAvgPoolGrad*[oT: oall](scope: Scope,
                                  row_pooling_sequence,
                                  col_pooling_sequence,
                                  overlapping,
-                                 oT[].oTF)
+                                 oT.oTF)
 
 converter fractionalAvgPoolGradToOut*[oT: oall](op: FractionalAvgPoolGrad[oT]): oT {.inline.} = return op.output
 
 
-type FractionalMaxPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FractionalMaxPool/*'0*/".} = object
+type FractionalMaxPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalMaxPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1226,7 +1226,7 @@ proc iifractionalMaxPool[oT: oall](scope: Scope,
                         deterministic: bool,
                         seed: int64,
                         seed2: int64,
-                        T: DType): FractionalMaxPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"FractionalMaxPool(*#, #, #, #, #, #, #, #, #)", constructor.}
+                        T: DType): FractionalMaxPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalMaxPool(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc fractionalMaxPool*[oT: oall](scope: Scope,
                         value: oT,
@@ -1244,12 +1244,12 @@ proc fractionalMaxPool*[oT: oall](scope: Scope,
                              deterministic,
                              seed,
                              seed2,
-                             oT[].oTF)
+                             oT.oTF)
 
 converter fractionalMaxPoolToOut*[oT: oall](op: FractionalMaxPool[oT]): oT {.inline.} = return op.output
 
 
-type FractionalMaxPoolGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FractionalMaxPoolGrad/*'0*/".} = object
+type FractionalMaxPoolGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalMaxPoolGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1260,7 +1260,7 @@ proc iifractionalMaxPoolGrad[oT: oall](scope: Scope,
                             row_pooling_sequence: oint64,
                             col_pooling_sequence: oint64,
                             overlapping: bool,
-                            T: DType): FractionalMaxPoolGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"FractionalMaxPoolGrad(*#, #, #, #, #, #, #, #)", constructor.}
+                            T: DType): FractionalMaxPoolGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FractionalMaxPoolGrad(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc fractionalMaxPoolGrad*[oT: oall](scope: Scope,
                             orig_input: oT,
@@ -1276,12 +1276,12 @@ proc fractionalMaxPoolGrad*[oT: oall](scope: Scope,
                                  row_pooling_sequence,
                                  col_pooling_sequence,
                                  overlapping,
-                                 oT[].oTF)
+                                 oT.oTF)
 
 converter fractionalMaxPoolGradToOut*[oT: oall](op: FractionalMaxPoolGrad[oT]): oT {.inline.} = return op.output
 
 
-type FusedBatchNorm*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FusedBatchNorm/*'0*/".} = object
+type FusedBatchNorm*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedBatchNorm/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1294,7 +1294,7 @@ proc iifusedBatchNorm[oT: oall](scope: Scope,
                      T: DType,
                      epsilon: float32,
                      data_format: cstring,
-                     is_training: bool): FusedBatchNorm[oT] {.header:"../../ops/nn/nn.h", importcpp:"FusedBatchNorm(*#, #, #, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                     is_training: bool): FusedBatchNorm[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedBatchNorm(*#, #, #, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc fusedBatchNorm*[oT: oall](scope: Scope,
                      x: oT,
@@ -1311,7 +1311,7 @@ proc fusedBatchNorm*[oT: oall](scope: Scope,
                           offset,
                           mean,
                           variance,
-                          oT[].oTF,
+                          oT.oTF,
                           epsilon,
                           data_format,
                           is_training)
@@ -1320,7 +1320,7 @@ converter fusedBatchNormToOut*[oT: oall](op: FusedBatchNorm[oT]): oT {.inline.} 
 
 type FusedBatchNormV2U* = ofloat
 
-type FusedBatchNormV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FusedBatchNormV2/*'0*/".} = object
+type FusedBatchNormV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedBatchNormV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1333,7 +1333,7 @@ proc iifusedBatchNormV2[oT: oall](scope: Scope,
                        T: DType,
                        is_training: bool,
                        epsilon: float32,
-                       data_format: cstring): FusedBatchNormV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"FusedBatchNormV2(*#, #, #, #, #, #, #, #, #, tensorflow::string(#))", constructor.}
+                       data_format: cstring): FusedBatchNormV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedBatchNormV2(*#, #, #, #, #, #, #, #, #, tensorflow::string(#))", constructor.}
 
 proc fusedBatchNormV2*[oT: oall](scope: Scope,
                        x: oT,
@@ -1350,7 +1350,7 @@ proc fusedBatchNormV2*[oT: oall](scope: Scope,
                             offset,
                             mean,
                             variance,
-                            oT[].oTF,
+                            oT.oTF,
                             is_training,
                             epsilon,
                             data_format)
@@ -1358,7 +1358,7 @@ proc fusedBatchNormV2*[oT: oall](scope: Scope,
 converter fusedBatchNormV2ToOut*[oT: oall](op: FusedBatchNormV2[oT]): oT {.inline.} = return op.output
 
 
-type FusedPadConv2D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FusedPadConv2D/*'0*/".} = object
+type FusedPadConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedPadConv2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1369,7 +1369,7 @@ proc iifusedPadConv2D[oT: oall](scope: Scope,
                      mode: cstring,
                      strides: ArraySlice[int],
                      padding: cstring,
-                     T: DType): FusedPadConv2D[oT] {.header:"../../ops/nn/nn.h", importcpp:"FusedPadConv2D(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                     T: DType): FusedPadConv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedPadConv2D(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc fusedPadConv2D*[oT: oall](scope: Scope,
                      input: oT,
@@ -1385,12 +1385,12 @@ proc fusedPadConv2D*[oT: oall](scope: Scope,
                           mode,
                           newArraySlice(strides),
                           padding,
-                          oT[].oTF)
+                          oT.oTF)
 
 converter fusedPadConv2DToOut*[oT: oall](op: FusedPadConv2D[oT]): oT {.inline.} = return op.output
 
 
-type FusedResizeAndPadConv2D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"FusedResizeAndPadConv2D/*'0*/".} = object
+type FusedResizeAndPadConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedResizeAndPadConv2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1403,7 +1403,7 @@ proc iifusedResizeAndPadConv2D[oT: oall](scope: Scope,
                               strides: ArraySlice[int],
                               padding: cstring,
                               T: DType,
-                              resize_align_corners: bool): FusedResizeAndPadConv2D[oT] {.header:"../../ops/nn/nn.h", importcpp:"FusedResizeAndPadConv2D(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #, #)", constructor.}
+                              resize_align_corners: bool): FusedResizeAndPadConv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"FusedResizeAndPadConv2D(*#, #, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #, #)", constructor.}
 
 proc fusedResizeAndPadConv2D*[oT: oall](scope: Scope,
                               input: oT,
@@ -1422,13 +1422,13 @@ proc fusedResizeAndPadConv2D*[oT: oall](scope: Scope,
                                    mode,
                                    newArraySlice(strides),
                                    padding,
-                                   oT[].oTF,
+                                   oT.oTF,
                                    resize_align_corners)
 
 converter fusedResizeAndPadConv2DToOut*[oT: oall](op: FusedResizeAndPadConv2D[oT]): oT {.inline.} = return op.output
 
 
-type GenerateVocabRemapping* {.header:"../../ops/nn/nn.h", importcpp:"GenerateVocabRemapping/*'0*/".} = object
+type GenerateVocabRemapping* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"GenerateVocabRemapping/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -1437,7 +1437,7 @@ proc iigenerateVocabRemapping(scope: Scope,
                              old_vocab_file: ostring,
                              new_vocab_offset: int64,
                              num_new_vocab: int64,
-                             old_vocab_size: int64): GenerateVocabRemapping {.header:"../../ops/nn/nn.h", importcpp:"GenerateVocabRemapping(*#, #, #, #, #, #)", constructor.}
+                             old_vocab_size: int64): GenerateVocabRemapping {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"GenerateVocabRemapping(*#, #, #, #, #, #)", constructor.}
 
 proc generateVocabRemapping*(scope: Scope,
                              new_vocab_file: ostring,
@@ -1455,7 +1455,7 @@ proc generateVocabRemapping*(scope: Scope,
 converter generateVocabRemappingToOut*(op: GenerateVocabRemapping): oint64 {.inline.} = return op.output
 
 
-type LRN*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"LRN/*'0*/".} = object
+type LRN*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"LRN/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1465,7 +1465,7 @@ proc iilRN[oT: oall](scope: Scope,
           bias: float32,
           alpha: float32,
           beta: float32,
-          T: DType): LRN[oT] {.header:"../../ops/nn/nn.h", importcpp:"LRN(*#, #, #, #, #, #, #)", constructor.}
+          T: DType): LRN[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"LRN(*#, #, #, #, #, #, #)", constructor.}
 
 proc lRN*[oT: oall](scope: Scope,
           input: oT,
@@ -1479,12 +1479,12 @@ proc lRN*[oT: oall](scope: Scope,
                bias,
                alpha,
                beta,
-               oT[].oTF)
+               oT.oTF)
 
 converter lRNToOut*[oT: oall](op: LRN[oT]): oT {.inline.} = return op.output
 
 
-type LRNGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"LRNGrad/*'0*/".} = object
+type LRNGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"LRNGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1496,7 +1496,7 @@ proc iilRNGrad[oT: oall](scope: Scope,
               bias: float32,
               alpha: float32,
               beta: float32,
-              T: DType): LRNGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"LRNGrad(*#, #, #, #, #, #, #, #, #)", constructor.}
+              T: DType): LRNGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"LRNGrad(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc lRNGrad*[oT: oall](scope: Scope,
               input_grads: oT,
@@ -1514,12 +1514,12 @@ proc lRNGrad*[oT: oall](scope: Scope,
                    bias,
                    alpha,
                    beta,
-                   oT[].oTF)
+                   oT.oTF)
 
 converter lRNGradToOut*[oT: oall](op: LRNGrad[oT]): oT {.inline.} = return op.output
 
 
-type MaxPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool/*'0*/".} = object
+type MaxPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1529,7 +1529,7 @@ proc iimaxPool[oT: oall](scope: Scope,
               strides: ArraySlice[int],
               padding: cstring,
               T: DType,
-              data_format: cstring): MaxPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
+              data_format: cstring): MaxPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
 
 proc maxPool*[oT: oall](scope: Scope,
               input: oT,
@@ -1542,13 +1542,13 @@ proc maxPool*[oT: oall](scope: Scope,
                    newArraySlice(ksize),
                    newArraySlice(strides),
                    padding,
-                   oT[].oTF,
+                   oT.oTF,
                    data_format)
 
 converter maxPoolToOut*[oT: oall](op: MaxPool[oT]): oT {.inline.} = return op.output
 
 
-type MaxPool3D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3D/*'0*/".} = object
+type MaxPool3D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1558,7 +1558,7 @@ proc iimaxPool3D[oT: oall](scope: Scope,
                 strides: ArraySlice[int],
                 padding: cstring,
                 data_format: cstring,
-                T: DType): MaxPool3D[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3D(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                T: DType): MaxPool3D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3D(*#, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPool3D*[oT: oall](scope: Scope,
                 input: oT,
@@ -1572,13 +1572,13 @@ proc maxPool3D*[oT: oall](scope: Scope,
                      newArraySlice(strides),
                      padding,
                      data_format,
-                     oT[].oTF)
+                     oT.oTF)
 
 converter maxPool3DToOut*[oT: oall](op: MaxPool3D[oT]): oT {.inline.} = return op.output
 
 type MaxPool3DGradTInput* = ohalf | obfloat16 | ofloat
 
-type MaxPool3DGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3DGrad/*'0*/".} = object
+type MaxPool3DGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3DGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1590,7 +1590,7 @@ proc iimaxPool3DGrad[oT: oall](scope: Scope,
                     strides: ArraySlice[int],
                     padding: cstring,
                     data_format: cstring,
-                    T: DType): MaxPool3DGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3DGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                    T: DType): MaxPool3DGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3DGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPool3DGrad*[oT: oall](scope: Scope,
                     orig_input: MaxPool3DGradTInput,
@@ -1608,12 +1608,12 @@ proc maxPool3DGrad*[oT: oall](scope: Scope,
                          newArraySlice(strides),
                          padding,
                          data_format,
-                         oT[].oTF)
+                         oT.oTF)
 
 converter maxPool3DGradToOut*[oT: oall](op: MaxPool3DGrad[oT]): oT {.inline.} = return op.output
 
 
-type MaxPool3DGradGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3DGradGrad/*'0*/".} = object
+type MaxPool3DGradGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3DGradGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1625,7 +1625,7 @@ proc iimaxPool3DGradGrad[oT: oall](scope: Scope,
                         strides: ArraySlice[int],
                         padding: cstring,
                         data_format: cstring,
-                        T: DType): MaxPool3DGradGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPool3DGradGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                        T: DType): MaxPool3DGradGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPool3DGradGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPool3DGradGrad*[oT: oall](scope: Scope,
                         orig_input: oT,
@@ -1643,12 +1643,12 @@ proc maxPool3DGradGrad*[oT: oall](scope: Scope,
                              newArraySlice(strides),
                              padding,
                              data_format,
-                             oT[].oTF)
+                             oT.oTF)
 
 converter maxPool3DGradGradToOut*[oT: oall](op: MaxPool3DGradGrad[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGrad/*'0*/".} = object
+type MaxPoolGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1660,7 +1660,7 @@ proc iimaxPoolGrad[oT: oall](scope: Scope,
                   strides: ArraySlice[int],
                   padding: cstring,
                   data_format: cstring,
-                  T: DType): MaxPoolGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                  T: DType): MaxPoolGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGrad*[oT: oall](scope: Scope,
                   orig_input: oT,
@@ -1678,12 +1678,12 @@ proc maxPoolGrad*[oT: oall](scope: Scope,
                        newArraySlice(strides),
                        padding,
                        data_format,
-                       oT[].oTF)
+                       oT.oTF)
 
 converter maxPoolGradToOut*[oT: oall](op: MaxPoolGrad[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolGradGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGrad/*'0*/".} = object
+type MaxPoolGradGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1695,7 +1695,7 @@ proc iimaxPoolGradGrad[oT: oall](scope: Scope,
                       strides: ArraySlice[int],
                       padding: cstring,
                       data_format: cstring,
-                      T: DType): MaxPoolGradGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                      T: DType): MaxPoolGradGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGrad(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGradGrad*[oT: oall](scope: Scope,
                       orig_input: oT,
@@ -1713,12 +1713,12 @@ proc maxPoolGradGrad*[oT: oall](scope: Scope,
                            newArraySlice(strides),
                            padding,
                            data_format,
-                           oT[].oTF)
+                           oT.oTF)
 
 converter maxPoolGradGradToOut*[oT: oall](op: MaxPoolGradGrad[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolGradGradV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGradV2/*'0*/".} = object
+type MaxPoolGradGradV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGradV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1730,7 +1730,7 @@ proc iimaxPoolGradGradV2[oT: oall](scope: Scope,
                         strides: oint32,
                         padding: cstring,
                         data_format: cstring,
-                        T: DType): MaxPoolGradGradV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGradV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                        T: DType): MaxPoolGradGradV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGradV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGradGradV2*[oT: oall](scope: Scope,
                         orig_input: oT,
@@ -1748,13 +1748,13 @@ proc maxPoolGradGradV2*[oT: oall](scope: Scope,
                              strides,
                              padding,
                              data_format,
-                             oT[].oTF)
+                             oT.oTF)
 
 converter maxPoolGradGradV2ToOut*[oT: oall](op: MaxPoolGradGradV2[oT]): oT {.inline.} = return op.output
 
 type MaxPoolGradGradWithArgmaxTargmax* = oint32 | oint64
 
-type MaxPoolGradGradWithArgmax*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGradWithArgmax/*'0*/".} = object
+type MaxPoolGradGradWithArgmax*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGradWithArgmax/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1765,7 +1765,7 @@ proc iimaxPoolGradGradWithArgmax[oT: oall](scope: Scope,
                                 ksize: ArraySlice[int],
                                 strides: ArraySlice[int],
                                 padding: cstring,
-                                T: DType): MaxPoolGradGradWithArgmax[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradGradWithArgmax(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                                T: DType): MaxPoolGradGradWithArgmax[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradGradWithArgmax(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGradGradWithArgmax*[oT: oall](scope: Scope,
                                 input: oT,
@@ -1781,12 +1781,12 @@ proc maxPoolGradGradWithArgmax*[oT: oall](scope: Scope,
                                      newArraySlice(ksize),
                                      newArraySlice(strides),
                                      padding,
-                                     oT[].oTF)
+                                     oT.oTF)
 
 converter maxPoolGradGradWithArgmaxToOut*[oT: oall](op: MaxPoolGradGradWithArgmax[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolGradV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradV2/*'0*/".} = object
+type MaxPoolGradV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1798,7 +1798,7 @@ proc iimaxPoolGradV2[oT: oall](scope: Scope,
                     strides: oint32,
                     padding: cstring,
                     data_format: cstring,
-                    T: DType): MaxPoolGradV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                    T: DType): MaxPoolGradV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradV2(*#, #, #, #, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGradV2*[oT: oall](scope: Scope,
                     orig_input: oT,
@@ -1816,13 +1816,13 @@ proc maxPoolGradV2*[oT: oall](scope: Scope,
                          strides,
                          padding,
                          data_format,
-                         oT[].oTF)
+                         oT.oTF)
 
 converter maxPoolGradV2ToOut*[oT: oall](op: MaxPoolGradV2[oT]): oT {.inline.} = return op.output
 
 type MaxPoolGradWithArgmaxTargmax* = oint32 | oint64
 
-type MaxPoolGradWithArgmax*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradWithArgmax/*'0*/".} = object
+type MaxPoolGradWithArgmax*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradWithArgmax/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1833,7 +1833,7 @@ proc iimaxPoolGradWithArgmax[oT: oall](scope: Scope,
                             ksize: ArraySlice[int],
                             strides: ArraySlice[int],
                             padding: cstring,
-                            T: DType): MaxPoolGradWithArgmax[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolGradWithArgmax(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                            T: DType): MaxPoolGradWithArgmax[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolGradWithArgmax(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc maxPoolGradWithArgmax*[oT: oall](scope: Scope,
                             input: oT,
@@ -1849,12 +1849,12 @@ proc maxPoolGradWithArgmax*[oT: oall](scope: Scope,
                                  newArraySlice(ksize),
                                  newArraySlice(strides),
                                  padding,
-                                 oT[].oTF)
+                                 oT.oTF)
 
 converter maxPoolGradWithArgmaxToOut*[oT: oall](op: MaxPoolGradWithArgmax[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolV2*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolV2/*'0*/".} = object
+type MaxPoolV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1864,7 +1864,7 @@ proc iimaxPoolV2[oT: oall](scope: Scope,
                 strides: oint32,
                 padding: cstring,
                 T: DType,
-                data_format: cstring): MaxPoolV2[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolV2(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
+                data_format: cstring): MaxPoolV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolV2(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
 
 proc maxPoolV2*[oT: oall](scope: Scope,
                 input: oT,
@@ -1877,13 +1877,13 @@ proc maxPoolV2*[oT: oall](scope: Scope,
                      ksize,
                      strides,
                      padding,
-                     oT[].oTF,
+                     oT.oTF,
                      data_format)
 
 converter maxPoolV2ToOut*[oT: oall](op: MaxPoolV2[oT]): oT {.inline.} = return op.output
 
 
-type MaxPoolWithArgmax*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolWithArgmax/*'0*/".} = object
+type MaxPoolWithArgmax*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolWithArgmax/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1893,7 +1893,7 @@ proc iimaxPoolWithArgmax[oT: oall](scope: Scope,
                         strides: ArraySlice[int],
                         padding: cstring,
                         Targmax: DType,
-                        T: DType): MaxPoolWithArgmax[oT] {.header:"../../ops/nn/nn.h", importcpp:"MaxPoolWithArgmax(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
+                        T: DType): MaxPoolWithArgmax[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MaxPoolWithArgmax(*#, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc maxPoolWithArgmax*[oT: oall](scope: Scope,
                         input: oT,
@@ -1906,14 +1906,14 @@ proc maxPoolWithArgmax*[oT: oall](scope: Scope,
                              newArraySlice(ksize),
                              newArraySlice(strides),
                              padding,
-                             oT[].oTF,
-                             oT[].oTF)
+                             oT.oTF,
+                             oT.oTF)
 
 converter maxPoolWithArgmaxToOut*[oT: oall](op: MaxPoolWithArgmax[oT]): oT {.inline.} = return op.output
 
 type MirrorPadGradTpaddings* = oint32 | oint64
 
-type MirrorPadGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"MirrorPadGrad/*'0*/".} = object
+type MirrorPadGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MirrorPadGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1921,7 +1921,7 @@ proc iimirrorPadGrad[oT: oall](scope: Scope,
                     input: oT,
                     paddings: MirrorPadGradTpaddings,
                     mode: cstring,
-                    T: DType): MirrorPadGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"MirrorPadGrad(*#, #, #, tensorflow::string(#), #)", constructor.}
+                    T: DType): MirrorPadGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"MirrorPadGrad(*#, #, #, tensorflow::string(#), #)", constructor.}
 
 proc mirrorPadGrad*[oT: oall](scope: Scope,
                     input: oT,
@@ -1931,12 +1931,12 @@ proc mirrorPadGrad*[oT: oall](scope: Scope,
                          input,
                          paddings,
                          mode,
-                         oT[].oTF)
+                         oT.oTF)
 
 converter mirrorPadGradToOut*[oT: oall](op: MirrorPadGrad[oT]): oT {.inline.} = return op.output
 
 
-type NegTrain*{.header:"../../ops/nn/nn.h", importcpp:"NegTrain/*'0*/".} = object
+type NegTrain*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"NegTrain/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -1947,7 +1947,7 @@ proc iinegTrain(scope: Scope,
                labels: oint32,
                lr: ofloat,
                vocab_count: ArraySlice[int],
-               num_negative_samples: int64): NegTrain {.header:"../../ops/nn/nn.h", importcpp:"NegTrain(*#, #, #, #, #, #, #, #)", constructor.}
+               num_negative_samples: int64): NegTrain {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"NegTrain(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc negTrain*(scope: Scope,
                w_in: ofloat,
@@ -1967,7 +1967,7 @@ proc negTrain*(scope: Scope,
                     num_negative_samples)
 
 
-type QuantizedAvgPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedAvgPool/*'0*/".} = object
+type QuantizedAvgPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedAvgPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1978,7 +1978,7 @@ proc iiquantizedAvgPool[oT: oall](scope: Scope,
                        ksize: ArraySlice[int],
                        strides: ArraySlice[int],
                        padding: cstring,
-                       T: DType): QuantizedAvgPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedAvgPool(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                       T: DType): QuantizedAvgPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedAvgPool(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc quantizedAvgPool*[oT: oall](scope: Scope,
                        input: oT,
@@ -1994,13 +1994,13 @@ proc quantizedAvgPool*[oT: oall](scope: Scope,
                             newArraySlice(ksize),
                             newArraySlice(strides),
                             padding,
-                            oT[].oTF)
+                            oT.oTF)
 
 converter quantizedAvgPoolToOut*[oT: oall](op: QuantizedAvgPool[oT]): oT {.inline.} = return op.output
 
 type QuantizedBatchNormWithGlobalNormalizationTinput* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 
-type QuantizedBatchNormWithGlobalNormalization*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedBatchNormWithGlobalNormalization/*'0*/".} = object
+type QuantizedBatchNormWithGlobalNormalization*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedBatchNormWithGlobalNormalization/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -2023,7 +2023,7 @@ proc iiquantizedBatchNormWithGlobalNormalization[oT: oall](scope: Scope,
                                                 scale_after_normalization: bool,
                                                 out_type: DType,
                                                 variance_epsilon: float32,
-                                                explicitT: type(oT)): QuantizedBatchNormWithGlobalNormalization[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedBatchNormWithGlobalNormalization(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                                explicitT: type(oT)): QuantizedBatchNormWithGlobalNormalization[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedBatchNormWithGlobalNormalization(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc quantizedBatchNormWithGlobalNormalization*(scope: Scope,
                                                 t: QuantizedBatchNormWithGlobalNormalizationTinput,
@@ -2061,7 +2061,7 @@ proc quantizedBatchNormWithGlobalNormalization*(scope: Scope,
                                                      gamma_min,
                                                      gamma_max,
                                                      scale_after_normalization,
-                                                     out_type[].oTF,
+                                                     out_type.oTF,
                                                      variance_epsilon,
                                                      out_type)
 
@@ -2070,7 +2070,7 @@ converter quantizedBatchNormWithGlobalNormalizationToOut*[oT: oall](op: Quantize
 type QuantizedBiasAddT1* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 type QuantizedBiasAddT2* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 
-type QuantizedBiasAdd*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedBiasAdd/*'0*/".} = object
+type QuantizedBiasAdd*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedBiasAdd/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -2082,7 +2082,7 @@ proc iiquantizedBiasAdd[oT: oall](scope: Scope,
                        min_bias: ofloat,
                        max_bias: ofloat,
                        out_type: DType,
-                       explicitT: type(oT)): QuantizedBiasAdd[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedBiasAdd(*#, #, #, #, #, #, #, #)", constructor.}
+                       explicitT: type(oT)): QuantizedBiasAdd[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedBiasAdd(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc quantizedBiasAdd*(scope: Scope,
                        input: QuantizedBiasAddT1,
@@ -2099,7 +2099,7 @@ proc quantizedBiasAdd*(scope: Scope,
                             max_input,
                             min_bias,
                             max_bias,
-                            out_type[].oTF,
+                            out_type.oTF,
                             out_type)
 
 converter quantizedBiasAddToOut*[oT: oall](op: QuantizedBiasAdd[oT]): oT {.inline.} = return op.output
@@ -2107,7 +2107,7 @@ converter quantizedBiasAddToOut*[oT: oall](op: QuantizedBiasAdd[oT]): oT {.inlin
 type QuantizedConv2DTinput* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 type QuantizedConv2DTfilter* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 
-type QuantizedConv2D*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedConv2D/*'0*/".} = object
+type QuantizedConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedConv2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -2122,7 +2122,7 @@ proc iiquantizedConv2D[oT: oall](scope: Scope,
                       padding: cstring,
                       dilations: ArraySlice[int],
                       out_type: DType,
-                      explicitT: type(oT)): QuantizedConv2D[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedConv2D(*#, #, #, #, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
+                      explicitT: type(oT)): QuantizedConv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedConv2D(*#, #, #, #, #, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc quantizedConv2D*(scope: Scope,
                       input: QuantizedConv2DTinput,
@@ -2145,13 +2145,13 @@ proc quantizedConv2D*(scope: Scope,
                            newArraySlice(strides),
                            padding,
                            newArraySlice(dilations),
-                           out_type[].oTF,
+                           out_type.oTF,
                            out_type)
 
 converter quantizedConv2DToOut*[oT: oall](op: QuantizedConv2D[oT]): oT {.inline.} = return op.output
 
 
-type QuantizedMaxPool*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedMaxPool/*'0*/".} = object
+type QuantizedMaxPool*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedMaxPool/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -2162,7 +2162,7 @@ proc iiquantizedMaxPool[oT: oall](scope: Scope,
                        ksize: ArraySlice[int],
                        strides: ArraySlice[int],
                        padding: cstring,
-                       T: DType): QuantizedMaxPool[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedMaxPool(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                       T: DType): QuantizedMaxPool[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedMaxPool(*#, #, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc quantizedMaxPool*[oT: oall](scope: Scope,
                        input: oT,
@@ -2178,13 +2178,13 @@ proc quantizedMaxPool*[oT: oall](scope: Scope,
                             newArraySlice(ksize),
                             newArraySlice(strides),
                             padding,
-                            oT[].oTF)
+                            oT.oTF)
 
 converter quantizedMaxPoolToOut*[oT: oall](op: QuantizedMaxPool[oT]): oT {.inline.} = return op.output
 
 type QuantizedRelu6Tinput* = oqint8 | oquint8 | oqint32 | oqint16 | oquint16
 
-type QuantizedRelu6*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedRelu6/*'0*/".} = object
+type QuantizedRelu6*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedRelu6/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -2193,7 +2193,7 @@ proc iiquantizedRelu6[oT: oall](scope: Scope,
                      min_features: ofloat,
                      max_features: ofloat,
                      out_type: DType,
-                     explicitT: type(oT)): QuantizedRelu6[oT] {.header:"../../ops/nn/nn.h", importcpp:"QuantizedRelu6(*#, #, #, #, #)", constructor.}
+                     explicitT: type(oT)): QuantizedRelu6[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"QuantizedRelu6(*#, #, #, #, #)", constructor.}
 
 proc quantizedRelu6*(scope: Scope,
                      features: QuantizedRelu6Tinput,
@@ -2204,20 +2204,20 @@ proc quantizedRelu6*(scope: Scope,
                           features,
                           min_features,
                           max_features,
-                          out_type[].oTF,
+                          out_type.oTF,
                           out_type)
 
 converter quantizedRelu6ToOut*[oT: oall](op: QuantizedRelu6[oT]): oT {.inline.} = return op.output
 
 
-type SeluGrad*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"SeluGrad/*'0*/".} = object
+type SeluGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"SeluGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiseluGrad[oT: oall](scope: Scope,
                gradients: oT,
                outputs: oT,
-               T: DType): SeluGrad[oT] {.header:"../../ops/nn/nn.h", importcpp:"SeluGrad(*#, #, #, #)", constructor.}
+               T: DType): SeluGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"SeluGrad(*#, #, #, #)", constructor.}
 
 proc seluGrad*[oT: oall](scope: Scope,
                gradients: oT,
@@ -2225,20 +2225,20 @@ proc seluGrad*[oT: oall](scope: Scope,
   return iiseluGrad(scope,
                     gradients,
                     outputs,
-                    oT[].oTF)
+                    oT.oTF)
 
 converter seluGradToOut*[oT: oall](op: SeluGrad[oT]): oT {.inline.} = return op.output
 
 type SparseSoftmaxCrossEntropyWithLogitsTlabels* = oint32 | oint64
 
-type SparseSoftmaxCrossEntropyWithLogits*[oT:oall] {.header:"../../ops/nn/nn.h", importcpp:"SparseSoftmaxCrossEntropyWithLogits/*'0*/".} = object
+type SparseSoftmaxCrossEntropyWithLogits*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"SparseSoftmaxCrossEntropyWithLogits/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iisparseSoftmaxCrossEntropyWithLogits[oT: oall](scope: Scope,
                                           features: oT,
                                           labels: SparseSoftmaxCrossEntropyWithLogitsTlabels,
-                                          T: DType): SparseSoftmaxCrossEntropyWithLogits[oT] {.header:"../../ops/nn/nn.h", importcpp:"SparseSoftmaxCrossEntropyWithLogits(*#, #, #, #)", constructor.}
+                                          T: DType): SparseSoftmaxCrossEntropyWithLogits[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/nn.h", importcpp:"SparseSoftmaxCrossEntropyWithLogits(*#, #, #, #)", constructor.}
 
 proc sparseSoftmaxCrossEntropyWithLogits*[oT: oall](scope: Scope,
                                           features: oT,
@@ -2246,7 +2246,7 @@ proc sparseSoftmaxCrossEntropyWithLogits*[oT: oall](scope: Scope,
   return iisparseSoftmaxCrossEntropyWithLogits(scope,
                                                features,
                                                labels,
-                                               oT[].oTF)
+                                               oT.oTF)
 
 converter sparseSoftmaxCrossEntropyWithLogitsToOut*[oT: oall](op: SparseSoftmaxCrossEntropyWithLogits[oT]): oT {.inline.} = return op.output
 

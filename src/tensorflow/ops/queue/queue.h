@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -28,6 +29,7 @@ class FIFOQueue{
     tensorflow::Output output;
 };
 
+#pragma once
 class FIFOQueueV2{
   public:
     FIFOQueueV2() {}
@@ -41,6 +43,7 @@ class FIFOQueueV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQueue{
   public:
     FakeQueue() {}
@@ -50,6 +53,7 @@ class FakeQueue{
     tensorflow::Output output;
 };
 
+#pragma once
 class PaddingFIFOQueue{
   public:
     PaddingFIFOQueue() {}
@@ -63,6 +67,7 @@ class PaddingFIFOQueue{
     tensorflow::Output output;
 };
 
+#pragma once
 class PaddingFIFOQueueV2{
   public:
     PaddingFIFOQueueV2() {}
@@ -76,6 +81,7 @@ class PaddingFIFOQueueV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class PriorityQueue{
   public:
     PriorityQueue() {}
@@ -89,6 +95,7 @@ class PriorityQueue{
     tensorflow::Output output;
 };
 
+#pragma once
 class PriorityQueueV2{
   public:
     PriorityQueueV2() {}
@@ -102,6 +109,7 @@ class PriorityQueueV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class QueueClose{
   public:
     QueueClose() {}
@@ -111,6 +119,7 @@ class QueueClose{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueCloseV2{
   public:
     QueueCloseV2() {}
@@ -120,6 +129,7 @@ class QueueCloseV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueDequeue{
   public:
     QueueDequeue() {}
@@ -131,6 +141,7 @@ class QueueDequeue{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueDequeueMany{
   public:
     QueueDequeueMany() {}
@@ -143,6 +154,7 @@ class QueueDequeueMany{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueDequeueManyV2{
   public:
     QueueDequeueManyV2() {}
@@ -155,6 +167,7 @@ class QueueDequeueManyV2{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueDequeueUpTo{
   public:
     QueueDequeueUpTo() {}
@@ -167,6 +180,7 @@ class QueueDequeueUpTo{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueDequeueUpToV2{
   public:
     QueueDequeueUpToV2() {}
@@ -179,6 +193,7 @@ class QueueDequeueUpToV2{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueDequeueV2{
   public:
     QueueDequeueV2() {}
@@ -190,6 +205,7 @@ class QueueDequeueV2{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class QueueEnqueue{
   public:
     QueueEnqueue() {}
@@ -201,6 +217,7 @@ class QueueEnqueue{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueEnqueueMany{
   public:
     QueueEnqueueMany() {}
@@ -212,6 +229,7 @@ class QueueEnqueueMany{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueEnqueueManyV2{
   public:
     QueueEnqueueManyV2() {}
@@ -223,6 +241,7 @@ class QueueEnqueueManyV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueEnqueueV2{
   public:
     QueueEnqueueV2() {}
@@ -234,6 +253,7 @@ class QueueEnqueueV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QueueIsClosed{
   public:
     QueueIsClosed() {}
@@ -243,6 +263,7 @@ class QueueIsClosed{
     tensorflow::Output output;
 };
 
+#pragma once
 class QueueIsClosedV2{
   public:
     QueueIsClosedV2() {}
@@ -252,6 +273,7 @@ class QueueIsClosedV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class QueueSize{
   public:
     QueueSize() {}
@@ -261,6 +283,7 @@ class QueueSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class QueueSizeV2{
   public:
     QueueSizeV2() {}
@@ -270,6 +293,7 @@ class QueueSizeV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomShuffleQueue{
   public:
     RandomShuffleQueue() {}
@@ -286,6 +310,7 @@ class RandomShuffleQueue{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomShuffleQueueV2{
   public:
     RandomShuffleQueueV2() {}

@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/image/image.h"
+#include "image.h"
 
 AdjustContrast::AdjustContrast(tensorflow::Scope& scope, 
            tensorflow::Input images, 

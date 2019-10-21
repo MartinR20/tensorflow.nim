@@ -1,6 +1,8 @@
 when defined(linux) or defined(macosx):
-  const includeDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/include/"
-  const libDir = "$HOME/.nimble/pkgs/tensorflow-0.1.0/lib/"
+  import os
+  const pkgPath* = getHomeDir() & "/.nimble/pkgs/tensorflow-0.1.0/"
+  const includeDir = pkgPath & "src/include/"
+  const libDir = pkgPath & "src/lib/"
 
 {.passC:"-I" & includeDir & "tensorflow " &
          "-I" & includeDir & "genfiles " &
@@ -26,6 +28,7 @@ const
   vector             * = "<vector>"
   writer             * = "<tensorflow/core/util/events_writer.h>"
   dataset            * = "tensorflow/core/framework/dataset.h"
+  op                 * = "tensorflow/core/framework/op.h"
 
   ## header definitions used across the library
 

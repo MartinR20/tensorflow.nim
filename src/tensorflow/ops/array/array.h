@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -26,6 +27,7 @@ class AccumulateNV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class AccumulatorNumAccumulated{
   public:
     AccumulatorNumAccumulated() {}
@@ -35,6 +37,7 @@ class AccumulatorNumAccumulated{
     tensorflow::Output output;
 };
 
+#pragma once
 class AccumulatorSetGlobalStep{
   public:
     AccumulatorSetGlobalStep() {}
@@ -44,6 +47,7 @@ class AccumulatorSetGlobalStep{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class AccumulatorTakeGradient{
   public:
     AccumulatorTakeGradient() {}
@@ -55,6 +59,7 @@ class AccumulatorTakeGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class Any{
   public:
     Any() {}
@@ -66,6 +71,7 @@ class Any{
     tensorflow::Output output;
 };
 
+#pragma once
 class AssignAddVariableOp{
   public:
     AssignAddVariableOp() {}
@@ -75,6 +81,7 @@ class AssignAddVariableOp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class AssignSub{
   public:
     AssignSub() {}
@@ -87,6 +94,7 @@ class AssignSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class AssignSubVariableOp{
   public:
     AssignSubVariableOp() {}
@@ -96,6 +104,7 @@ class AssignSubVariableOp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class AssignVariableOp{
   public:
     AssignVariableOp() {}
@@ -105,6 +114,7 @@ class AssignVariableOp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class Barrier{
   public:
     Barrier() {}
@@ -118,6 +128,7 @@ class Barrier{
     tensorflow::Output output;
 };
 
+#pragma once
 class BarrierClose{
   public:
     BarrierClose() {}
@@ -127,6 +138,7 @@ class BarrierClose{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BarrierIncompleteSize{
   public:
     BarrierIncompleteSize() {}
@@ -136,6 +148,7 @@ class BarrierIncompleteSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class BarrierInsertMany{
   public:
     BarrierInsertMany() {}
@@ -147,6 +160,7 @@ class BarrierInsertMany{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BarrierReadySize{
   public:
     BarrierReadySize() {}
@@ -156,6 +170,7 @@ class BarrierReadySize{
     tensorflow::Output output;
 };
 
+#pragma once
 class BarrierTakeMany{
   public:
     BarrierTakeMany() {}
@@ -170,6 +185,7 @@ class BarrierTakeMany{
     tensorflow::Output output;
 };
 
+#pragma once
 class Batch{
   public:
     Batch() {}
@@ -189,6 +205,7 @@ class Batch{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class BatchSelfAdjointEigV2{
   public:
     BatchSelfAdjointEigV2() {}
@@ -200,6 +217,7 @@ class BatchSelfAdjointEigV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchToSpaceND{
   public:
     BatchToSpaceND() {}
@@ -212,6 +230,7 @@ class BatchToSpaceND{
     tensorflow::Output output;
 };
 
+#pragma once
 class Bincount{
   public:
     Bincount() {}
@@ -224,6 +243,7 @@ class Bincount{
     tensorflow::Output output;
 };
 
+#pragma once
 class Bucketize{
   public:
     Bucketize() {}
@@ -234,6 +254,7 @@ class Bucketize{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cast{
   public:
     Cast() {}
@@ -245,6 +266,7 @@ class Cast{
     tensorflow::Output output;
 };
 
+#pragma once
 class CollectiveBcastSend{
   public:
     CollectiveBcastSend() {}
@@ -259,6 +281,7 @@ class CollectiveBcastSend{
     tensorflow::Output output;
 };
 
+#pragma once
 class CollectiveReduce{
   public:
     CollectiveReduce() {}
@@ -275,6 +298,7 @@ class CollectiveReduce{
     tensorflow::Output output;
 };
 
+#pragma once
 class CompareAndBitpack{
   public:
     CompareAndBitpack() {}
@@ -285,6 +309,7 @@ class CompareAndBitpack{
     tensorflow::Output output;
 };
 
+#pragma once
 class ComputeAccidentalHits{
   public:
     ComputeAccidentalHits() {}
@@ -298,6 +323,7 @@ class ComputeAccidentalHits{
     tensorflow::Output output;
 };
 
+#pragma once
 class ConditionalAccumulator{
   public:
     ConditionalAccumulator() {}
@@ -311,6 +337,7 @@ class ConditionalAccumulator{
     tensorflow::Output output;
 };
 
+#pragma once
 class Copy{
   public:
     Copy() {}
@@ -323,6 +350,7 @@ class Copy{
     tensorflow::Output output;
 };
 
+#pragma once
 class CopyHost{
   public:
     CopyHost() {}
@@ -335,6 +363,7 @@ class CopyHost{
     tensorflow::Output output;
 };
 
+#pragma once
 class DataFormatDimMap{
   public:
     DataFormatDimMap() {}
@@ -347,6 +376,7 @@ class DataFormatDimMap{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeProtoV2{
   public:
     DecodeProtoV2() {}
@@ -362,6 +392,7 @@ class DecodeProtoV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class DeepCopy{
   public:
     DeepCopy() {}
@@ -372,6 +403,7 @@ class DeepCopy{
     tensorflow::Output output;
 };
 
+#pragma once
 class DeleteSessionTensor{
   public:
     DeleteSessionTensor() {}
@@ -380,6 +412,7 @@ class DeleteSessionTensor{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class DenseToDenseSetOperation{
   public:
     DenseToDenseSetOperation() {}
@@ -392,6 +425,7 @@ class DenseToDenseSetOperation{
     tensorflow::Output output;
 };
 
+#pragma once
 class DenseToSparseSetOperation{
   public:
     DenseToSparseSetOperation() {}
@@ -406,6 +440,7 @@ class DenseToSparseSetOperation{
     tensorflow::Output output;
 };
 
+#pragma once
 class DepthToSpace{
   public:
     DepthToSpace() {}
@@ -418,6 +453,7 @@ class DepthToSpace{
     tensorflow::Output output;
 };
 
+#pragma once
 class DeserializeManySparse{
   public:
     DeserializeManySparse() {}
@@ -428,6 +464,7 @@ class DeserializeManySparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class DestroyResourceOp{
   public:
     DestroyResourceOp() {}
@@ -437,6 +474,7 @@ class DestroyResourceOp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class DestroyTemporaryVariable{
   public:
     DestroyTemporaryVariable() {}
@@ -448,6 +486,7 @@ class DestroyTemporaryVariable{
     tensorflow::Output output;
 };
 
+#pragma once
 class EmptyTensorList{
   public:
     EmptyTensorList() {}
@@ -459,6 +498,7 @@ class EmptyTensorList{
     tensorflow::Output output;
 };
 
+#pragma once
 class EncodeProto{
   public:
     EncodeProto() {}
@@ -473,6 +513,7 @@ class EncodeProto{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalThreadPoolHandle{
   public:
     ExperimentalThreadPoolHandle() {}
@@ -486,6 +527,7 @@ class ExperimentalThreadPoolHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxArgs{
   public:
     FakeQuantWithMinMaxArgs() {}
@@ -499,6 +541,7 @@ class FakeQuantWithMinMaxArgs{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxArgsGradient{
   public:
     FakeQuantWithMinMaxArgsGradient() {}
@@ -513,6 +556,7 @@ class FakeQuantWithMinMaxArgsGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxVars{
   public:
     FakeQuantWithMinMaxVars() {}
@@ -526,6 +570,7 @@ class FakeQuantWithMinMaxVars{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxVarsGradient{
   public:
     FakeQuantWithMinMaxVarsGradient() {}
@@ -540,6 +585,7 @@ class FakeQuantWithMinMaxVarsGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxVarsPerChannel{
   public:
     FakeQuantWithMinMaxVarsPerChannel() {}
@@ -553,6 +599,7 @@ class FakeQuantWithMinMaxVarsPerChannel{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeQuantWithMinMaxVarsPerChannelGradient{
   public:
     FakeQuantWithMinMaxVarsPerChannelGradient() {}
@@ -567,6 +614,7 @@ class FakeQuantWithMinMaxVarsPerChannelGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedBatchNormGrad{
   public:
     FusedBatchNormGrad() {}
@@ -584,6 +632,7 @@ class FusedBatchNormGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedBatchNormGradV2{
   public:
     FusedBatchNormGradV2() {}
@@ -601,6 +650,7 @@ class FusedBatchNormGradV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class GatherV2{
   public:
     GatherV2() {}
@@ -613,6 +663,7 @@ class GatherV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class GetSessionHandle{
   public:
     GetSessionHandle() {}
@@ -622,6 +673,7 @@ class GetSessionHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class GetSessionHandleV2{
   public:
     GetSessionHandleV2() {}
@@ -631,6 +683,7 @@ class GetSessionHandleV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class GetSessionTensor{
   public:
     GetSessionTensor() {}
@@ -641,6 +694,7 @@ class GetSessionTensor{
     tensorflow::Output output;
 };
 
+#pragma once
 class HostConst{
   public:
     HostConst() {}
@@ -651,6 +705,7 @@ class HostConst{
     tensorflow::Output output;
 };
 
+#pragma once
 class ImmutableConst{
   public:
     ImmutableConst() {}
@@ -662,6 +717,7 @@ class ImmutableConst{
     tensorflow::Output output;
 };
 
+#pragma once
 class InplaceUpdate{
   public:
     InplaceUpdate() {}
@@ -674,6 +730,7 @@ class InplaceUpdate{
     tensorflow::Output output;
 };
 
+#pragma once
 class InvertPermutation{
   public:
     InvertPermutation() {}
@@ -684,6 +741,7 @@ class InvertPermutation{
     tensorflow::Output output;
 };
 
+#pragma once
 class IsVariableInitialized{
   public:
     IsVariableInitialized() {}
@@ -693,6 +751,7 @@ class IsVariableInitialized{
     tensorflow::Output output;
 };
 
+#pragma once
 class ListDiff{
   public:
     ListDiff() {}
@@ -705,6 +764,7 @@ class ListDiff{
     tensorflow::Output output;
 };
 
+#pragma once
 class LoadAndRemapMatrix{
   public:
     LoadAndRemapMatrix() {}
@@ -721,6 +781,7 @@ class LoadAndRemapMatrix{
     tensorflow::Output output;
 };
 
+#pragma once
 class MirrorPad{
   public:
     MirrorPad() {}
@@ -733,6 +794,7 @@ class MirrorPad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutableHashTableV2{
   public:
     MutableHashTableV2() {}
@@ -746,6 +808,7 @@ class MutableHashTableV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class NcclReduce{
   public:
     NcclReduce() {}
@@ -758,6 +821,7 @@ class NcclReduce{
     tensorflow::Output output;
 };
 
+#pragma once
 class NoOp{
   public:
     NoOp() {}
@@ -765,6 +829,7 @@ class NoOp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class NonMaxSuppressionV3{
   public:
     NonMaxSuppressionV3() {}
@@ -778,6 +843,7 @@ class NonMaxSuppressionV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class NonMaxSuppressionV4{
   public:
     NonMaxSuppressionV4() {}
@@ -792,6 +858,7 @@ class NonMaxSuppressionV4{
     tensorflow::Output output;
 };
 
+#pragma once
 class NonMaxSuppressionWithOverlaps{
   public:
     NonMaxSuppressionWithOverlaps() {}
@@ -805,6 +872,7 @@ class NonMaxSuppressionWithOverlaps{
     tensorflow::Output output;
 };
 
+#pragma once
 class NthElement{
   public:
     NthElement() {}
@@ -817,6 +885,7 @@ class NthElement{
     tensorflow::Output output;
 };
 
+#pragma once
 class OneHot{
   public:
     OneHot() {}
@@ -831,6 +900,7 @@ class OneHot{
     tensorflow::Output output;
 };
 
+#pragma once
 class OptionalFromValue{
   public:
     OptionalFromValue() {}
@@ -841,6 +911,7 @@ class OptionalFromValue{
     tensorflow::Output output;
 };
 
+#pragma once
 class OptionalGetValue{
   public:
     OptionalGetValue() {}
@@ -852,6 +923,7 @@ class OptionalGetValue{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class OptionalHasValue{
   public:
     OptionalHasValue() {}
@@ -861,6 +933,7 @@ class OptionalHasValue{
     tensorflow::Output output;
 };
 
+#pragma once
 class OptionalNone{
   public:
     OptionalNone() {}
@@ -869,6 +942,7 @@ class OptionalNone{
     tensorflow::Output output;
 };
 
+#pragma once
 class Pack{
   public:
     Pack() {}
@@ -880,6 +954,7 @@ class Pack{
     tensorflow::Output output;
 };
 
+#pragma once
 class PaddedBatchDataset{
   public:
     PaddedBatchDataset() {}
@@ -894,6 +969,7 @@ class PaddedBatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParallelConcat{
   public:
     ParallelConcat() {}
@@ -905,6 +981,7 @@ class ParallelConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class PlaceholderV2{
   public:
     PlaceholderV2() {}
@@ -915,6 +992,7 @@ class PlaceholderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class PlaceholderWithDefault{
   public:
     PlaceholderWithDefault() {}
@@ -926,6 +1004,7 @@ class PlaceholderWithDefault{
     tensorflow::Output output;
 };
 
+#pragma once
 class PopulationCount{
   public:
     PopulationCount() {}
@@ -935,6 +1014,7 @@ class PopulationCount{
     tensorflow::Output output;
 };
 
+#pragma once
 class PrintV2{
   public:
     PrintV2() {}
@@ -944,6 +1024,7 @@ class PrintV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QuantizeAndDequantize{
   public:
     QuantizeAndDequantize() {}
@@ -959,6 +1040,7 @@ class QuantizeAndDequantize{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizeAndDequantizeV2{
   public:
     QuantizeAndDequantizeV2() {}
@@ -975,6 +1057,7 @@ class QuantizeAndDequantizeV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizeAndDequantizeV3{
   public:
     QuantizeAndDequantizeV3() {}
@@ -990,6 +1073,7 @@ class QuantizeAndDequantizeV3{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizeDownAndShrinkRange{
   public:
     QuantizeDownAndShrinkRange() {}
@@ -1002,6 +1086,7 @@ class QuantizeDownAndShrinkRange{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedConcat{
   public:
     QuantizedConcat() {}
@@ -1015,6 +1100,7 @@ class QuantizedConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedReshape{
   public:
     QuantizedReshape() {}
@@ -1028,6 +1114,7 @@ class QuantizedReshape{
     tensorflow::Output output;
 };
 
+#pragma once
 class RaggedGather{
   public:
     RaggedGather() {}
@@ -1041,6 +1128,7 @@ class RaggedGather{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefMerge{
   public:
     RefMerge() {}
@@ -1051,6 +1139,7 @@ class RefMerge{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResourceGather{
   public:
     ResourceGather() {}
@@ -1063,6 +1152,7 @@ class ResourceGather{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResourceScatterMax{
   public:
     ResourceScatterMax() {}
@@ -1073,6 +1163,7 @@ class ResourceScatterMax{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterMin{
   public:
     ResourceScatterMin() {}
@@ -1083,6 +1174,7 @@ class ResourceScatterMin{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterNdUpdate{
   public:
     ResourceScatterNdUpdate() {}
@@ -1094,6 +1186,7 @@ class ResourceScatterNdUpdate{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterUpdate{
   public:
     ResourceScatterUpdate() {}
@@ -1104,6 +1197,7 @@ class ResourceScatterUpdate{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceStridedSliceAssign{
   public:
     ResourceStridedSliceAssign() {}
@@ -1121,6 +1215,7 @@ class ResourceStridedSliceAssign{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ReverseSequence{
   public:
     ReverseSequence() {}
@@ -1134,6 +1229,7 @@ class ReverseSequence{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReverseV2{
   public:
     ReverseV2() {}
@@ -1145,6 +1241,7 @@ class ReverseV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterNdSub{
   public:
     ScatterNdSub() {}
@@ -1158,6 +1255,7 @@ class ScatterNdSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterNdUpdate{
   public:
     ScatterNdUpdate() {}
@@ -1171,6 +1269,7 @@ class ScatterNdUpdate{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterUpdate{
   public:
     ScatterUpdate() {}
@@ -1184,6 +1283,7 @@ class ScatterUpdate{
     tensorflow::Output output;
 };
 
+#pragma once
 class Select{
   public:
     Select() {}
@@ -1196,6 +1296,7 @@ class Select{
     tensorflow::Output output;
 };
 
+#pragma once
 class SelfAdjointEigV2{
   public:
     SelfAdjointEigV2() {}
@@ -1207,6 +1308,7 @@ class SelfAdjointEigV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class SerializeManySparse{
   public:
     SerializeManySparse() {}
@@ -1219,6 +1321,7 @@ class SerializeManySparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class SerializeSparse{
   public:
     SerializeSparse() {}
@@ -1231,6 +1334,7 @@ class SerializeSparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class SetSize{
   public:
     SetSize() {}
@@ -1243,6 +1347,7 @@ class SetSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class Skipgram{
   public:
     Skipgram() {}
@@ -1256,6 +1361,7 @@ class Skipgram{
     tensorflow::Output output;
 };
 
+#pragma once
 class Snapshot{
   public:
     Snapshot() {}
@@ -1266,6 +1372,7 @@ class Snapshot{
     tensorflow::Output output;
 };
 
+#pragma once
 class SpaceToDepth{
   public:
     SpaceToDepth() {}
@@ -1278,6 +1385,7 @@ class SpaceToDepth{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseAddGrad{
   public:
     SparseAddGrad() {}
@@ -1291,6 +1399,7 @@ class SparseAddGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseConcat{
   public:
     SparseConcat() {}
@@ -1303,6 +1412,7 @@ class SparseConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseConditionalAccumulator{
   public:
     SparseConditionalAccumulator() {}
@@ -1316,6 +1426,7 @@ class SparseConditionalAccumulator{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseCross{
   public:
     SparseCross() {}
@@ -1335,6 +1446,7 @@ class SparseCross{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseDenseCwiseAdd{
   public:
     SparseDenseCwiseAdd() {}
@@ -1348,6 +1460,7 @@ class SparseDenseCwiseAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseDenseCwiseDiv{
   public:
     SparseDenseCwiseDiv() {}
@@ -1361,6 +1474,7 @@ class SparseDenseCwiseDiv{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseFillEmptyRows{
   public:
     SparseFillEmptyRows() {}
@@ -1373,6 +1487,7 @@ class SparseFillEmptyRows{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseFillEmptyRowsGrad{
   public:
     SparseFillEmptyRowsGrad() {}
@@ -1384,6 +1499,7 @@ class SparseFillEmptyRowsGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReduceMax{
   public:
     SparseReduceMax() {}
@@ -1398,6 +1514,7 @@ class SparseReduceMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReorder{
   public:
     SparseReorder() {}
@@ -1409,6 +1526,7 @@ class SparseReorder{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReshape{
   public:
     SparseReshape() {}
@@ -1420,6 +1538,7 @@ class SparseReshape{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSlice{
   public:
     SparseSlice() {}
@@ -1433,6 +1552,7 @@ class SparseSlice{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSliceGrad{
   public:
     SparseSliceGrad() {}
@@ -1446,6 +1566,7 @@ class SparseSliceGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSparseMaximum{
   public:
     SparseSparseMaximum() {}
@@ -1460,6 +1581,7 @@ class SparseSparseMaximum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSparseMinimum{
   public:
     SparseSparseMinimum() {}
@@ -1474,6 +1596,7 @@ class SparseSparseMinimum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSplit{
   public:
     SparseSplit() {}
@@ -1487,6 +1610,7 @@ class SparseSplit{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseToDense{
   public:
     SparseToDense() {}
@@ -1501,6 +1625,7 @@ class SparseToDense{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseToSparseSetOperation{
   public:
     SparseToSparseSetOperation() {}
@@ -1517,6 +1642,7 @@ class SparseToSparseSetOperation{
     tensorflow::Output output;
 };
 
+#pragma once
 class SplitV{
   public:
     SplitV() {}
@@ -1530,6 +1656,7 @@ class SplitV{
     tensorflow::Output output;
 };
 
+#pragma once
 class StackPush{
   public:
     StackPush() {}
@@ -1542,6 +1669,7 @@ class StackPush{
     tensorflow::Output output;
 };
 
+#pragma once
 class StackV2{
   public:
     StackV2() {}
@@ -1553,6 +1681,7 @@ class StackV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Stage{
   public:
     Stage() {}
@@ -1566,6 +1695,7 @@ class Stage{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class StagePeek{
   public:
     StagePeek() {}
@@ -1580,6 +1710,7 @@ class StagePeek{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class StageSize{
   public:
     StageSize() {}
@@ -1593,6 +1724,7 @@ class StageSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class StridedSliceAssign{
   public:
     StridedSliceAssign() {}
@@ -1612,6 +1744,7 @@ class StridedSliceAssign{
     tensorflow::Output output;
 };
 
+#pragma once
 class StridedSliceGrad{
   public:
     StridedSliceGrad() {}
@@ -1631,6 +1764,7 @@ class StridedSliceGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class TemporaryVariable{
   public:
     TemporaryVariable() {}
@@ -1642,6 +1776,7 @@ class TemporaryVariable{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListConcat{
   public:
     TensorListConcat() {}
@@ -1652,6 +1787,7 @@ class TensorListConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListConcatLists{
   public:
     TensorListConcatLists() {}
@@ -1663,6 +1799,7 @@ class TensorListConcatLists{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListElementShape{
   public:
     TensorListElementShape() {}
@@ -1673,6 +1810,7 @@ class TensorListElementShape{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListFromTensor{
   public:
     TensorListFromTensor() {}
@@ -1683,6 +1821,7 @@ class TensorListFromTensor{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListGather{
   public:
     TensorListGather() {}
@@ -1694,6 +1833,7 @@ class TensorListGather{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListGetItem{
   public:
     TensorListGetItem() {}
@@ -1705,6 +1845,7 @@ class TensorListGetItem{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListLength{
   public:
     TensorListLength() {}
@@ -1714,6 +1855,7 @@ class TensorListLength{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListPopBack{
   public:
     TensorListPopBack() {}
@@ -1724,6 +1866,7 @@ class TensorListPopBack{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListPushBack{
   public:
     TensorListPushBack() {}
@@ -1734,6 +1877,7 @@ class TensorListPushBack{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListPushBackBatch{
   public:
     TensorListPushBackBatch() {}
@@ -1744,6 +1888,7 @@ class TensorListPushBackBatch{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListReserve{
   public:
     TensorListReserve() {}
@@ -1755,6 +1900,7 @@ class TensorListReserve{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListScatter{
   public:
     TensorListScatter() {}
@@ -1766,6 +1912,7 @@ class TensorListScatter{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListSetItem{
   public:
     TensorListSetItem() {}
@@ -1777,6 +1924,7 @@ class TensorListSetItem{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListSplit{
   public:
     TensorListSplit() {}
@@ -1788,6 +1936,7 @@ class TensorListSplit{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorListStack{
   public:
     TensorListStack() {}
@@ -1799,6 +1948,7 @@ class TensorListStack{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorScatterAdd{
   public:
     TensorScatterAdd() {}
@@ -1811,6 +1961,7 @@ class TensorScatterAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorScatterUpdate{
   public:
     TensorScatterUpdate() {}
@@ -1823,6 +1974,7 @@ class TensorScatterUpdate{
     tensorflow::Output output;
 };
 
+#pragma once
 class TileGrad{
   public:
     TileGrad() {}
@@ -1834,6 +1986,7 @@ class TileGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Unbatch{
   public:
     Unbatch() {}
@@ -1849,6 +2002,7 @@ class Unbatch{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnbatchGrad{
   public:
     UnbatchGrad() {}
@@ -1864,6 +2018,7 @@ class UnbatchGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class UniqueV2{
   public:
     UniqueV2() {}
@@ -1876,6 +2031,7 @@ class UniqueV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class UniqueWithCountsV2{
   public:
     UniqueWithCountsV2() {}
@@ -1888,6 +2044,7 @@ class UniqueWithCountsV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Unpack{
   public:
     Unpack() {}
@@ -1900,6 +2057,7 @@ class Unpack{
     tensorflow::Output output;
 };
 
+#pragma once
 class Unstage{
   public:
     Unstage() {}
@@ -1913,6 +2071,7 @@ class Unstage{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class VarHandleOp{
   public:
     VarHandleOp() {}
@@ -1925,6 +2084,7 @@ class VarHandleOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class VarIsInitializedOp{
   public:
     VarIsInitializedOp() {}
@@ -1934,6 +2094,7 @@ class VarIsInitializedOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class VariableShape{
   public:
     VariableShape() {}

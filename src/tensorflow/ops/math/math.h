@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -25,6 +26,7 @@ class Abs{
     tensorflow::Output output;
 };
 
+#pragma once
 class Acos{
   public:
     Acos() {}
@@ -35,6 +37,7 @@ class Acos{
     tensorflow::Output output;
 };
 
+#pragma once
 class Acosh{
   public:
     Acosh() {}
@@ -45,6 +48,7 @@ class Acosh{
     tensorflow::Output output;
 };
 
+#pragma once
 class Add{
   public:
     Add() {}
@@ -56,6 +60,7 @@ class Add{
     tensorflow::Output output;
 };
 
+#pragma once
 class AddN{
   public:
     AddN() {}
@@ -66,6 +71,7 @@ class AddN{
     tensorflow::Output output;
 };
 
+#pragma once
 class AddV2{
   public:
     AddV2() {}
@@ -77,6 +83,7 @@ class AddV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Angle{
   public:
     Angle() {}
@@ -87,6 +94,7 @@ class Angle{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApproximateEqual{
   public:
     ApproximateEqual() {}
@@ -98,6 +106,7 @@ class ApproximateEqual{
     tensorflow::Output output;
 };
 
+#pragma once
 class ArgMax{
   public:
     ArgMax() {}
@@ -109,6 +118,7 @@ class ArgMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class ArgMin{
   public:
     ArgMin() {}
@@ -120,6 +130,7 @@ class ArgMin{
     tensorflow::Output output;
 };
 
+#pragma once
 class Asin{
   public:
     Asin() {}
@@ -130,6 +141,7 @@ class Asin{
     tensorflow::Output output;
 };
 
+#pragma once
 class Asinh{
   public:
     Asinh() {}
@@ -140,6 +152,7 @@ class Asinh{
     tensorflow::Output output;
 };
 
+#pragma once
 class AssignAdd{
   public:
     AssignAdd() {}
@@ -152,6 +165,7 @@ class AssignAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class Atan{
   public:
     Atan() {}
@@ -162,6 +176,7 @@ class Atan{
     tensorflow::Output output;
 };
 
+#pragma once
 class Atan2{
   public:
     Atan2() {}
@@ -173,6 +188,7 @@ class Atan2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Atanh{
   public:
     Atanh() {}
@@ -183,6 +199,7 @@ class Atanh{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchCholesky{
   public:
     BatchCholesky() {}
@@ -193,6 +210,7 @@ class BatchCholesky{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchCholeskyGrad{
   public:
     BatchCholeskyGrad() {}
@@ -204,6 +222,7 @@ class BatchCholeskyGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchFFT{
   public:
     BatchFFT() {}
@@ -213,6 +232,7 @@ class BatchFFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchFFT2D{
   public:
     BatchFFT2D() {}
@@ -222,6 +242,7 @@ class BatchFFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchFFT3D{
   public:
     BatchFFT3D() {}
@@ -231,6 +252,7 @@ class BatchFFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchIFFT{
   public:
     BatchIFFT() {}
@@ -240,6 +262,7 @@ class BatchIFFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchIFFT2D{
   public:
     BatchIFFT2D() {}
@@ -249,6 +272,7 @@ class BatchIFFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchIFFT3D{
   public:
     BatchIFFT3D() {}
@@ -258,6 +282,7 @@ class BatchIFFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatMul{
   public:
     BatchMatMul() {}
@@ -271,6 +296,7 @@ class BatchMatMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixBandPart{
   public:
     BatchMatrixBandPart() {}
@@ -283,6 +309,7 @@ class BatchMatrixBandPart{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixDeterminant{
   public:
     BatchMatrixDeterminant() {}
@@ -293,6 +320,7 @@ class BatchMatrixDeterminant{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixDiag{
   public:
     BatchMatrixDiag() {}
@@ -303,6 +331,7 @@ class BatchMatrixDiag{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixDiagPart{
   public:
     BatchMatrixDiagPart() {}
@@ -313,6 +342,7 @@ class BatchMatrixDiagPart{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixInverse{
   public:
     BatchMatrixInverse() {}
@@ -324,6 +354,7 @@ class BatchMatrixInverse{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixSetDiag{
   public:
     BatchMatrixSetDiag() {}
@@ -335,6 +366,7 @@ class BatchMatrixSetDiag{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixSolve{
   public:
     BatchMatrixSolve() {}
@@ -347,6 +379,7 @@ class BatchMatrixSolve{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixSolveLs{
   public:
     BatchMatrixSolveLs() {}
@@ -360,6 +393,7 @@ class BatchMatrixSolveLs{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchMatrixTriangularSolve{
   public:
     BatchMatrixTriangularSolve() {}
@@ -373,6 +407,7 @@ class BatchMatrixTriangularSolve{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchSelfAdjointEig{
   public:
     BatchSelfAdjointEig() {}
@@ -383,6 +418,7 @@ class BatchSelfAdjointEig{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchSvd{
   public:
     BatchSvd() {}
@@ -395,6 +431,7 @@ class BatchSvd{
     tensorflow::Output output;
 };
 
+#pragma once
 class BesselI0e{
   public:
     BesselI0e() {}
@@ -405,6 +442,7 @@ class BesselI0e{
     tensorflow::Output output;
 };
 
+#pragma once
 class BesselI1e{
   public:
     BesselI1e() {}
@@ -415,6 +453,7 @@ class BesselI1e{
     tensorflow::Output output;
 };
 
+#pragma once
 class Betainc{
   public:
     Betainc() {}
@@ -427,6 +466,7 @@ class Betainc{
     tensorflow::Output output;
 };
 
+#pragma once
 class Ceil{
   public:
     Ceil() {}
@@ -437,6 +477,7 @@ class Ceil{
     tensorflow::Output output;
 };
 
+#pragma once
 class CheckNumerics{
   public:
     CheckNumerics() {}
@@ -448,6 +489,7 @@ class CheckNumerics{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cholesky{
   public:
     Cholesky() {}
@@ -458,6 +500,7 @@ class Cholesky{
     tensorflow::Output output;
 };
 
+#pragma once
 class CholeskyGrad{
   public:
     CholeskyGrad() {}
@@ -469,6 +512,7 @@ class CholeskyGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Complex{
   public:
     Complex() {}
@@ -480,6 +524,7 @@ class Complex{
     tensorflow::Output output;
 };
 
+#pragma once
 class ComplexAbs{
   public:
     ComplexAbs() {}
@@ -490,6 +535,7 @@ class ComplexAbs{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conj{
   public:
     Conj() {}
@@ -500,6 +546,7 @@ class Conj{
     tensorflow::Output output;
 };
 
+#pragma once
 class ConjugateTranspose{
   public:
     ConjugateTranspose() {}
@@ -511,6 +558,7 @@ class ConjugateTranspose{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cos{
   public:
     Cos() {}
@@ -521,6 +569,7 @@ class Cos{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cosh{
   public:
     Cosh() {}
@@ -531,6 +580,7 @@ class Cosh{
     tensorflow::Output output;
 };
 
+#pragma once
 class CountUpTo{
   public:
     CountUpTo() {}
@@ -542,6 +592,7 @@ class CountUpTo{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cross{
   public:
     Cross() {}
@@ -553,6 +604,7 @@ class Cross{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cumprod{
   public:
     Cumprod() {}
@@ -566,6 +618,7 @@ class Cumprod{
     tensorflow::Output output;
 };
 
+#pragma once
 class Cumsum{
   public:
     Cumsum() {}
@@ -579,6 +632,7 @@ class Cumsum{
     tensorflow::Output output;
 };
 
+#pragma once
 class Dequantize{
   public:
     Dequantize() {}
@@ -591,6 +645,7 @@ class Dequantize{
     tensorflow::Output output;
 };
 
+#pragma once
 class Diag{
   public:
     Diag() {}
@@ -601,6 +656,7 @@ class Diag{
     tensorflow::Output output;
 };
 
+#pragma once
 class DiagPart{
   public:
     DiagPart() {}
@@ -611,6 +667,7 @@ class DiagPart{
     tensorflow::Output output;
 };
 
+#pragma once
 class Digamma{
   public:
     Digamma() {}
@@ -621,6 +678,7 @@ class Digamma{
     tensorflow::Output output;
 };
 
+#pragma once
 class Div{
   public:
     Div() {}
@@ -632,6 +690,7 @@ class Div{
     tensorflow::Output output;
 };
 
+#pragma once
 class DivNoNan{
   public:
     DivNoNan() {}
@@ -643,6 +702,7 @@ class DivNoNan{
     tensorflow::Output output;
 };
 
+#pragma once
 class Equal{
   public:
     Equal() {}
@@ -653,6 +713,7 @@ class Equal{
     tensorflow::Output output;
 };
 
+#pragma once
 class Erf{
   public:
     Erf() {}
@@ -663,6 +724,7 @@ class Erf{
     tensorflow::Output output;
 };
 
+#pragma once
 class Erfc{
   public:
     Erfc() {}
@@ -673,6 +735,7 @@ class Erfc{
     tensorflow::Output output;
 };
 
+#pragma once
 class Exp{
   public:
     Exp() {}
@@ -683,6 +746,7 @@ class Exp{
     tensorflow::Output output;
 };
 
+#pragma once
 class Expm1{
   public:
     Expm1() {}
@@ -693,6 +757,7 @@ class Expm1{
     tensorflow::Output output;
 };
 
+#pragma once
 class FFT{
   public:
     FFT() {}
@@ -703,6 +768,7 @@ class FFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class FFT2D{
   public:
     FFT2D() {}
@@ -713,6 +779,7 @@ class FFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class FFT3D{
   public:
     FFT3D() {}
@@ -723,6 +790,7 @@ class FFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Floor{
   public:
     Floor() {}
@@ -733,6 +801,7 @@ class Floor{
     tensorflow::Output output;
 };
 
+#pragma once
 class FloorDiv{
   public:
     FloorDiv() {}
@@ -744,6 +813,7 @@ class FloorDiv{
     tensorflow::Output output;
 };
 
+#pragma once
 class FloorMod{
   public:
     FloorMod() {}
@@ -755,6 +825,7 @@ class FloorMod{
     tensorflow::Output output;
 };
 
+#pragma once
 class Greater{
   public:
     Greater() {}
@@ -765,6 +836,7 @@ class Greater{
     tensorflow::Output output;
 };
 
+#pragma once
 class GreaterEqual{
   public:
     GreaterEqual() {}
@@ -775,6 +847,7 @@ class GreaterEqual{
     tensorflow::Output output;
 };
 
+#pragma once
 class IFFT{
   public:
     IFFT() {}
@@ -785,6 +858,7 @@ class IFFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class IFFT2D{
   public:
     IFFT2D() {}
@@ -795,6 +869,7 @@ class IFFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class IFFT3D{
   public:
     IFFT3D() {}
@@ -805,6 +880,7 @@ class IFFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class IRFFT{
   public:
     IRFFT() {}
@@ -815,6 +891,7 @@ class IRFFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class IRFFT2D{
   public:
     IRFFT2D() {}
@@ -825,6 +902,7 @@ class IRFFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class IRFFT3D{
   public:
     IRFFT3D() {}
@@ -835,6 +913,7 @@ class IRFFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Igamma{
   public:
     Igamma() {}
@@ -846,6 +925,7 @@ class Igamma{
     tensorflow::Output output;
 };
 
+#pragma once
 class IgammaGradA{
   public:
     IgammaGradA() {}
@@ -857,6 +937,7 @@ class IgammaGradA{
     tensorflow::Output output;
 };
 
+#pragma once
 class Igammac{
   public:
     Igammac() {}
@@ -868,6 +949,7 @@ class Igammac{
     tensorflow::Output output;
 };
 
+#pragma once
 class Imag{
   public:
     Imag() {}
@@ -878,6 +960,7 @@ class Imag{
     tensorflow::Output output;
 };
 
+#pragma once
 class InTopK{
   public:
     InTopK() {}
@@ -889,6 +972,7 @@ class InTopK{
     tensorflow::Output output;
 };
 
+#pragma once
 class InTopKV2{
   public:
     InTopKV2() {}
@@ -900,6 +984,7 @@ class InTopKV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class InplaceAdd{
   public:
     InplaceAdd() {}
@@ -912,6 +997,7 @@ class InplaceAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class InplaceSub{
   public:
     InplaceSub() {}
@@ -924,6 +1010,7 @@ class InplaceSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class Inv{
   public:
     Inv() {}
@@ -934,6 +1021,7 @@ class Inv{
     tensorflow::Output output;
 };
 
+#pragma once
 class InvGrad{
   public:
     InvGrad() {}
@@ -945,6 +1033,7 @@ class InvGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class IsFinite{
   public:
     IsFinite() {}
@@ -954,6 +1043,7 @@ class IsFinite{
     tensorflow::Output output;
 };
 
+#pragma once
 class IsInf{
   public:
     IsInf() {}
@@ -963,6 +1053,7 @@ class IsInf{
     tensorflow::Output output;
 };
 
+#pragma once
 class IsNan{
   public:
     IsNan() {}
@@ -972,6 +1063,7 @@ class IsNan{
     tensorflow::Output output;
 };
 
+#pragma once
 class Less{
   public:
     Less() {}
@@ -982,6 +1074,7 @@ class Less{
     tensorflow::Output output;
 };
 
+#pragma once
 class LessEqual{
   public:
     LessEqual() {}
@@ -992,6 +1085,7 @@ class LessEqual{
     tensorflow::Output output;
 };
 
+#pragma once
 class Lgamma{
   public:
     Lgamma() {}
@@ -1002,6 +1096,7 @@ class Lgamma{
     tensorflow::Output output;
 };
 
+#pragma once
 class LinSpace{
   public:
     LinSpace() {}
@@ -1014,6 +1109,7 @@ class LinSpace{
     tensorflow::Output output;
 };
 
+#pragma once
 class Log{
   public:
     Log() {}
@@ -1024,6 +1120,7 @@ class Log{
     tensorflow::Output output;
 };
 
+#pragma once
 class Log1p{
   public:
     Log1p() {}
@@ -1034,6 +1131,7 @@ class Log1p{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogMatrixDeterminant{
   public:
     LogMatrixDeterminant() {}
@@ -1044,6 +1142,7 @@ class LogMatrixDeterminant{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogicalAnd{
   public:
     LogicalAnd() {}
@@ -1054,6 +1153,7 @@ class LogicalAnd{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogicalNot{
   public:
     LogicalNot() {}
@@ -1063,6 +1163,7 @@ class LogicalNot{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogicalOr{
   public:
     LogicalOr() {}
@@ -1073,6 +1174,7 @@ class LogicalOr{
     tensorflow::Output output;
 };
 
+#pragma once
 class LowerBound{
   public:
     LowerBound() {}
@@ -1084,6 +1186,7 @@ class LowerBound{
     tensorflow::Output output;
 };
 
+#pragma once
 class Lu{
   public:
     Lu() {}
@@ -1095,6 +1198,7 @@ class Lu{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatMul{
   public:
     MatMul() {}
@@ -1108,6 +1212,7 @@ class MatMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixBandPart{
   public:
     MatrixBandPart() {}
@@ -1120,6 +1225,7 @@ class MatrixBandPart{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixDeterminant{
   public:
     MatrixDeterminant() {}
@@ -1130,6 +1236,7 @@ class MatrixDeterminant{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixDiag{
   public:
     MatrixDiag() {}
@@ -1140,6 +1247,7 @@ class MatrixDiag{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixDiagPart{
   public:
     MatrixDiagPart() {}
@@ -1150,6 +1258,7 @@ class MatrixDiagPart{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixExponential{
   public:
     MatrixExponential() {}
@@ -1160,6 +1269,7 @@ class MatrixExponential{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixInverse{
   public:
     MatrixInverse() {}
@@ -1171,6 +1281,7 @@ class MatrixInverse{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixLogarithm{
   public:
     MatrixLogarithm() {}
@@ -1181,6 +1292,7 @@ class MatrixLogarithm{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixSetDiag{
   public:
     MatrixSetDiag() {}
@@ -1192,6 +1304,7 @@ class MatrixSetDiag{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixSolve{
   public:
     MatrixSolve() {}
@@ -1204,6 +1317,7 @@ class MatrixSolve{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixSolveLs{
   public:
     MatrixSolveLs() {}
@@ -1217,6 +1331,7 @@ class MatrixSolveLs{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixSquareRoot{
   public:
     MatrixSquareRoot() {}
@@ -1227,6 +1342,7 @@ class MatrixSquareRoot{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatrixTriangularSolve{
   public:
     MatrixTriangularSolve() {}
@@ -1240,6 +1356,7 @@ class MatrixTriangularSolve{
     tensorflow::Output output;
 };
 
+#pragma once
 class Max{
   public:
     Max() {}
@@ -1252,6 +1369,7 @@ class Max{
     tensorflow::Output output;
 };
 
+#pragma once
 class Maximum{
   public:
     Maximum() {}
@@ -1263,6 +1381,7 @@ class Maximum{
     tensorflow::Output output;
 };
 
+#pragma once
 class Mean{
   public:
     Mean() {}
@@ -1275,6 +1394,7 @@ class Mean{
     tensorflow::Output output;
 };
 
+#pragma once
 class Mfcc{
   public:
     Mfcc() {}
@@ -1289,6 +1409,7 @@ class Mfcc{
     tensorflow::Output output;
 };
 
+#pragma once
 class Min{
   public:
     Min() {}
@@ -1301,6 +1422,7 @@ class Min{
     tensorflow::Output output;
 };
 
+#pragma once
 class Minimum{
   public:
     Minimum() {}
@@ -1312,6 +1434,7 @@ class Minimum{
     tensorflow::Output output;
 };
 
+#pragma once
 class Mod{
   public:
     Mod() {}
@@ -1323,6 +1446,7 @@ class Mod{
     tensorflow::Output output;
 };
 
+#pragma once
 class Mul{
   public:
     Mul() {}
@@ -1334,6 +1458,7 @@ class Mul{
     tensorflow::Output output;
 };
 
+#pragma once
 class Neg{
   public:
     Neg() {}
@@ -1344,6 +1469,7 @@ class Neg{
     tensorflow::Output output;
 };
 
+#pragma once
 class NotEqual{
   public:
     NotEqual() {}
@@ -1354,6 +1480,7 @@ class NotEqual{
     tensorflow::Output output;
 };
 
+#pragma once
 class PadV2{
   public:
     PadV2() {}
@@ -1366,6 +1493,7 @@ class PadV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Polygamma{
   public:
     Polygamma() {}
@@ -1377,6 +1505,7 @@ class Polygamma{
     tensorflow::Output output;
 };
 
+#pragma once
 class Pow{
   public:
     Pow() {}
@@ -1388,6 +1517,7 @@ class Pow{
     tensorflow::Output output;
 };
 
+#pragma once
 class Prod{
   public:
     Prod() {}
@@ -1400,6 +1530,7 @@ class Prod{
     tensorflow::Output output;
 };
 
+#pragma once
 class Qr{
   public:
     Qr() {}
@@ -1411,6 +1542,7 @@ class Qr{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizeV2{
   public:
     QuantizeV2() {}
@@ -1425,6 +1557,7 @@ class QuantizeV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedAdd{
   public:
     QuantizedAdd() {}
@@ -1440,6 +1573,7 @@ class QuantizedAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedInstanceNorm{
   public:
     QuantizedInstanceNorm() {}
@@ -1457,6 +1591,7 @@ class QuantizedInstanceNorm{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedMatMul{
   public:
     QuantizedMatMul() {}
@@ -1475,6 +1610,7 @@ class QuantizedMatMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedMul{
   public:
     QuantizedMul() {}
@@ -1490,6 +1626,7 @@ class QuantizedMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class RFFT{
   public:
     RFFT() {}
@@ -1500,6 +1637,7 @@ class RFFT{
     tensorflow::Output output;
 };
 
+#pragma once
 class RFFT2D{
   public:
     RFFT2D() {}
@@ -1510,6 +1648,7 @@ class RFFT2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class RFFT3D{
   public:
     RFFT3D() {}
@@ -1520,6 +1659,7 @@ class RFFT3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Real{
   public:
     Real() {}
@@ -1530,6 +1670,7 @@ class Real{
     tensorflow::Output output;
 };
 
+#pragma once
 class Reciprocal{
   public:
     Reciprocal() {}
@@ -1540,6 +1681,7 @@ class Reciprocal{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReciprocalGrad{
   public:
     ReciprocalGrad() {}
@@ -1551,6 +1693,7 @@ class ReciprocalGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefIdentity{
   public:
     RefIdentity() {}
@@ -1561,6 +1704,7 @@ class RefIdentity{
     tensorflow::Output output;
 };
 
+#pragma once
 class RequantizationRange{
   public:
     RequantizationRange() {}
@@ -1572,6 +1716,7 @@ class RequantizationRange{
     tensorflow::Output output;
 };
 
+#pragma once
 class Requantize{
   public:
     Requantize() {}
@@ -1586,6 +1731,7 @@ class Requantize{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResourceCountUpTo{
   public:
     ResourceCountUpTo() {}
@@ -1597,6 +1743,7 @@ class ResourceCountUpTo{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResourceScatterAdd{
   public:
     ResourceScatterAdd() {}
@@ -1607,6 +1754,7 @@ class ResourceScatterAdd{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterDiv{
   public:
     ResourceScatterDiv() {}
@@ -1617,6 +1765,7 @@ class ResourceScatterDiv{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterMul{
   public:
     ResourceScatterMul() {}
@@ -1627,6 +1776,7 @@ class ResourceScatterMul{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterNdAdd{
   public:
     ResourceScatterNdAdd() {}
@@ -1638,6 +1788,7 @@ class ResourceScatterNdAdd{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceScatterSub{
   public:
     ResourceScatterSub() {}
@@ -1648,6 +1799,7 @@ class ResourceScatterSub{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class Rint{
   public:
     Rint() {}
@@ -1658,6 +1810,7 @@ class Rint{
     tensorflow::Output output;
 };
 
+#pragma once
 class Round{
   public:
     Round() {}
@@ -1668,6 +1821,7 @@ class Round{
     tensorflow::Output output;
 };
 
+#pragma once
 class Rsqrt{
   public:
     Rsqrt() {}
@@ -1678,6 +1832,7 @@ class Rsqrt{
     tensorflow::Output output;
 };
 
+#pragma once
 class RsqrtGrad{
   public:
     RsqrtGrad() {}
@@ -1689,6 +1844,7 @@ class RsqrtGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterAdd{
   public:
     ScatterAdd() {}
@@ -1702,6 +1858,7 @@ class ScatterAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterDiv{
   public:
     ScatterDiv() {}
@@ -1715,6 +1872,7 @@ class ScatterDiv{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterMax{
   public:
     ScatterMax() {}
@@ -1728,6 +1886,7 @@ class ScatterMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterMin{
   public:
     ScatterMin() {}
@@ -1741,6 +1900,7 @@ class ScatterMin{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterMul{
   public:
     ScatterMul() {}
@@ -1754,6 +1914,7 @@ class ScatterMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterNdAdd{
   public:
     ScatterNdAdd() {}
@@ -1767,6 +1928,7 @@ class ScatterNdAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterNdNonAliasingAdd{
   public:
     ScatterNdNonAliasingAdd() {}
@@ -1779,6 +1941,7 @@ class ScatterNdNonAliasingAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterSub{
   public:
     ScatterSub() {}
@@ -1792,6 +1955,7 @@ class ScatterSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class SegmentMax{
   public:
     SegmentMax() {}
@@ -1803,6 +1967,7 @@ class SegmentMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class SegmentMean{
   public:
     SegmentMean() {}
@@ -1814,6 +1979,7 @@ class SegmentMean{
     tensorflow::Output output;
 };
 
+#pragma once
 class SegmentMin{
   public:
     SegmentMin() {}
@@ -1825,6 +1991,7 @@ class SegmentMin{
     tensorflow::Output output;
 };
 
+#pragma once
 class SegmentProd{
   public:
     SegmentProd() {}
@@ -1836,6 +2003,7 @@ class SegmentProd{
     tensorflow::Output output;
 };
 
+#pragma once
 class SegmentSum{
   public:
     SegmentSum() {}
@@ -1847,6 +2015,7 @@ class SegmentSum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SelfAdjointEig{
   public:
     SelfAdjointEig() {}
@@ -1857,6 +2026,7 @@ class SelfAdjointEig{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sign{
   public:
     Sign() {}
@@ -1867,6 +2037,7 @@ class Sign{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sin{
   public:
     Sin() {}
@@ -1877,6 +2048,7 @@ class Sin{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sinh{
   public:
     Sinh() {}
@@ -1887,6 +2059,7 @@ class Sinh{
     tensorflow::Output output;
 };
 
+#pragma once
 class Softsign{
   public:
     Softsign() {}
@@ -1897,6 +2070,7 @@ class Softsign{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseAdd{
   public:
     SparseAdd() {}
@@ -1912,6 +2086,7 @@ class SparseAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseDenseCwiseMul{
   public:
     SparseDenseCwiseMul() {}
@@ -1925,6 +2100,7 @@ class SparseDenseCwiseMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseMatMul{
   public:
     SparseMatMul() {}
@@ -1939,6 +2115,7 @@ class SparseMatMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReduceMaxSparse{
   public:
     SparseReduceMaxSparse() {}
@@ -1952,6 +2129,7 @@ class SparseReduceMaxSparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReduceSum{
   public:
     SparseReduceSum() {}
@@ -1966,6 +2144,7 @@ class SparseReduceSum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseReduceSumSparse{
   public:
     SparseReduceSumSparse() {}
@@ -1979,6 +2158,7 @@ class SparseReduceSumSparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentMean{
   public:
     SparseSegmentMean() {}
@@ -1991,6 +2171,7 @@ class SparseSegmentMean{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentMeanGrad{
   public:
     SparseSegmentMeanGrad() {}
@@ -2004,6 +2185,7 @@ class SparseSegmentMeanGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentMeanWithNumSegments{
   public:
     SparseSegmentMeanWithNumSegments() {}
@@ -2017,6 +2199,7 @@ class SparseSegmentMeanWithNumSegments{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentSqrtN{
   public:
     SparseSegmentSqrtN() {}
@@ -2029,6 +2212,7 @@ class SparseSegmentSqrtN{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentSqrtNGrad{
   public:
     SparseSegmentSqrtNGrad() {}
@@ -2042,6 +2226,7 @@ class SparseSegmentSqrtNGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentSqrtNWithNumSegments{
   public:
     SparseSegmentSqrtNWithNumSegments() {}
@@ -2055,6 +2240,7 @@ class SparseSegmentSqrtNWithNumSegments{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentSum{
   public:
     SparseSegmentSum() {}
@@ -2067,6 +2253,7 @@ class SparseSegmentSum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSegmentSumWithNumSegments{
   public:
     SparseSegmentSumWithNumSegments() {}
@@ -2080,6 +2267,7 @@ class SparseSegmentSumWithNumSegments{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseTensorDenseAdd{
   public:
     SparseTensorDenseAdd() {}
@@ -2093,6 +2281,7 @@ class SparseTensorDenseAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseTensorDenseMatMul{
   public:
     SparseTensorDenseMatMul() {}
@@ -2108,6 +2297,7 @@ class SparseTensorDenseMatMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sqrt{
   public:
     Sqrt() {}
@@ -2118,6 +2308,7 @@ class Sqrt{
     tensorflow::Output output;
 };
 
+#pragma once
 class SqrtGrad{
   public:
     SqrtGrad() {}
@@ -2129,6 +2320,7 @@ class SqrtGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Square{
   public:
     Square() {}
@@ -2139,6 +2331,7 @@ class Square{
     tensorflow::Output output;
 };
 
+#pragma once
 class SquaredDifference{
   public:
     SquaredDifference() {}
@@ -2150,6 +2343,7 @@ class SquaredDifference{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sub{
   public:
     Sub() {}
@@ -2161,6 +2355,7 @@ class Sub{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sum{
   public:
     Sum() {}
@@ -2173,6 +2368,7 @@ class Sum{
     tensorflow::Output output;
 };
 
+#pragma once
 class Svd{
   public:
     Svd() {}
@@ -2185,6 +2381,7 @@ class Svd{
     tensorflow::Output output;
 };
 
+#pragma once
 class SymbolicGradient{
   public:
     SymbolicGradient() {}
@@ -2197,6 +2394,7 @@ class SymbolicGradient{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class Tan{
   public:
     Tan() {}
@@ -2207,6 +2405,7 @@ class Tan{
     tensorflow::Output output;
 };
 
+#pragma once
 class Tanh{
   public:
     Tanh() {}
@@ -2217,6 +2416,7 @@ class Tanh{
     tensorflow::Output output;
 };
 
+#pragma once
 class TanhGrad{
   public:
     TanhGrad() {}
@@ -2228,6 +2428,7 @@ class TanhGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorScatterSub{
   public:
     TensorScatterSub() {}
@@ -2240,6 +2441,7 @@ class TensorScatterSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class TopK{
   public:
     TopK() {}
@@ -2252,6 +2454,7 @@ class TopK{
     tensorflow::Output output;
 };
 
+#pragma once
 class TopKV2{
   public:
     TopKV2() {}
@@ -2264,6 +2467,7 @@ class TopKV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnsortedSegmentMax{
   public:
     UnsortedSegmentMax() {}
@@ -2276,6 +2480,7 @@ class UnsortedSegmentMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnsortedSegmentMin{
   public:
     UnsortedSegmentMin() {}
@@ -2288,6 +2493,7 @@ class UnsortedSegmentMin{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnsortedSegmentProd{
   public:
     UnsortedSegmentProd() {}
@@ -2300,6 +2506,7 @@ class UnsortedSegmentProd{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnsortedSegmentSum{
   public:
     UnsortedSegmentSum() {}
@@ -2312,6 +2519,7 @@ class UnsortedSegmentSum{
     tensorflow::Output output;
 };
 
+#pragma once
 class UpperBound{
   public:
     UpperBound() {}
@@ -2323,6 +2531,7 @@ class UpperBound{
     tensorflow::Output output;
 };
 
+#pragma once
 class Xdivy{
   public:
     Xdivy() {}
@@ -2334,6 +2543,7 @@ class Xdivy{
     tensorflow::Output output;
 };
 
+#pragma once
 class Xlogy{
   public:
     Xlogy() {}
@@ -2345,6 +2555,7 @@ class Xlogy{
     tensorflow::Output output;
 };
 
+#pragma once
 class Zeta{
   public:
     Zeta() {}

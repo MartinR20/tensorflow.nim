@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -27,6 +28,7 @@ class BatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchDatasetV2{
   public:
     BatchDatasetV2() {}
@@ -40,6 +42,7 @@ class BatchDatasetV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchFunction{
   public:
     BatchFunction() {}
@@ -62,6 +65,7 @@ class BatchFunction{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class CacheDataset{
   public:
     CacheDataset() {}
@@ -74,6 +78,7 @@ class CacheDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ConcatenateDataset{
   public:
     ConcatenateDataset() {}
@@ -86,6 +91,7 @@ class ConcatenateDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class DatasetToGraph{
   public:
     DatasetToGraph() {}
@@ -95,6 +101,7 @@ class DatasetToGraph{
     tensorflow::Output output;
 };
 
+#pragma once
 class DatasetToSingleElement{
   public:
     DatasetToSingleElement() {}
@@ -106,6 +113,7 @@ class DatasetToSingleElement{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class ExperimentalAssertNextDataset{
   public:
     ExperimentalAssertNextDataset() {}
@@ -118,6 +126,7 @@ class ExperimentalAssertNextDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalBytesProducedStatsDataset{
   public:
     ExperimentalBytesProducedStatsDataset() {}
@@ -130,6 +139,7 @@ class ExperimentalBytesProducedStatsDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalCSVDataset{
   public:
     ExperimentalCSVDataset() {}
@@ -149,6 +159,7 @@ class ExperimentalCSVDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalDatasetCardinality{
   public:
     ExperimentalDatasetCardinality() {}
@@ -158,6 +169,7 @@ class ExperimentalDatasetCardinality{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalDatasetToTFRecord{
   public:
     ExperimentalDatasetToTFRecord() {}
@@ -168,6 +180,7 @@ class ExperimentalDatasetToTFRecord{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ExperimentalDenseToSparseBatchDataset{
   public:
     ExperimentalDenseToSparseBatchDataset() {}
@@ -181,6 +194,7 @@ class ExperimentalDenseToSparseBatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalDirectedInterleaveDataset{
   public:
     ExperimentalDirectedInterleaveDataset() {}
@@ -193,6 +207,7 @@ class ExperimentalDirectedInterleaveDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalGroupByReducerDataset{
   public:
     ExperimentalGroupByReducerDataset() {}
@@ -216,6 +231,7 @@ class ExperimentalGroupByReducerDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalGroupByWindowDataset{
   public:
     ExperimentalGroupByWindowDataset() {}
@@ -236,6 +252,7 @@ class ExperimentalGroupByWindowDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalIdentityIndexedDataset{
   public:
     ExperimentalIdentityIndexedDataset() {}
@@ -245,6 +262,7 @@ class ExperimentalIdentityIndexedDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalIgnoreErrorsDataset{
   public:
     ExperimentalIgnoreErrorsDataset() {}
@@ -256,6 +274,7 @@ class ExperimentalIgnoreErrorsDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalIndexedDatasetGet{
   public:
     ExperimentalIndexedDatasetGet() {}
@@ -268,6 +287,7 @@ class ExperimentalIndexedDatasetGet{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class ExperimentalIndexedDatasetMaterialize{
   public:
     ExperimentalIndexedDatasetMaterialize() {}
@@ -277,6 +297,7 @@ class ExperimentalIndexedDatasetMaterialize{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ExperimentalLMDBDataset{
   public:
     ExperimentalLMDBDataset() {}
@@ -288,6 +309,7 @@ class ExperimentalLMDBDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalLatencyStatsDataset{
   public:
     ExperimentalLatencyStatsDataset() {}
@@ -300,6 +322,7 @@ class ExperimentalLatencyStatsDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalMapAndBatchDataset{
   public:
     ExperimentalMapAndBatchDataset() {}
@@ -318,6 +341,7 @@ class ExperimentalMapAndBatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalMapDataset{
   public:
     ExperimentalMapDataset() {}
@@ -334,6 +358,7 @@ class ExperimentalMapDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalMatchingFilesDataset{
   public:
     ExperimentalMatchingFilesDataset() {}
@@ -343,6 +368,7 @@ class ExperimentalMatchingFilesDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalMaterializedIndexDatasetHandle{
   public:
     ExperimentalMaterializedIndexDatasetHandle() {}
@@ -355,6 +381,7 @@ class ExperimentalMaterializedIndexDatasetHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalMaxIntraOpParallelismDataset{
   public:
     ExperimentalMaxIntraOpParallelismDataset() {}
@@ -367,6 +394,7 @@ class ExperimentalMaxIntraOpParallelismDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalNonSerializableDataset{
   public:
     ExperimentalNonSerializableDataset() {}
@@ -378,6 +406,7 @@ class ExperimentalNonSerializableDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalNumaMapAndBatchDataset{
   public:
     ExperimentalNumaMapAndBatchDataset() {}
@@ -396,6 +425,7 @@ class ExperimentalNumaMapAndBatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalParallelInterleaveDataset{
   public:
     ExperimentalParallelInterleaveDataset() {}
@@ -415,6 +445,7 @@ class ExperimentalParallelInterleaveDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalPrivateThreadPoolDataset{
   public:
     ExperimentalPrivateThreadPoolDataset() {}
@@ -427,6 +458,7 @@ class ExperimentalPrivateThreadPoolDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalRandomDataset{
   public:
     ExperimentalRandomDataset() {}
@@ -439,6 +471,7 @@ class ExperimentalRandomDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalScanDataset{
   public:
     ExperimentalScanDataset() {}
@@ -456,6 +489,7 @@ class ExperimentalScanDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalSetStatsAggregatorDataset{
   public:
     ExperimentalSetStatsAggregatorDataset() {}
@@ -470,6 +504,7 @@ class ExperimentalSetStatsAggregatorDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalSleepDataset{
   public:
     ExperimentalSleepDataset() {}
@@ -482,6 +517,7 @@ class ExperimentalSleepDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalSlidingWindowDataset{
   public:
     ExperimentalSlidingWindowDataset() {}
@@ -496,6 +532,7 @@ class ExperimentalSlidingWindowDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalSqlDataset{
   public:
     ExperimentalSqlDataset() {}
@@ -509,6 +546,7 @@ class ExperimentalSqlDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalThreadPoolDataset{
   public:
     ExperimentalThreadPoolDataset() {}
@@ -521,6 +559,7 @@ class ExperimentalThreadPoolDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalUnbatchDataset{
   public:
     ExperimentalUnbatchDataset() {}
@@ -532,6 +571,7 @@ class ExperimentalUnbatchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalUniqueDataset{
   public:
     ExperimentalUniqueDataset() {}
@@ -543,6 +583,7 @@ class ExperimentalUniqueDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class FilterByLastComponentDataset{
   public:
     FilterByLastComponentDataset() {}
@@ -554,6 +595,7 @@ class FilterByLastComponentDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class FilterDataset{
   public:
     FilterDataset() {}
@@ -568,6 +610,7 @@ class FilterDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class FixedLengthRecordDataset{
   public:
     FixedLengthRecordDataset() {}
@@ -581,6 +624,7 @@ class FixedLengthRecordDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class FixedLengthRecordDatasetV2{
   public:
     FixedLengthRecordDatasetV2() {}
@@ -595,6 +639,7 @@ class FixedLengthRecordDatasetV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class FlatMapDataset{
   public:
     FlatMapDataset() {}
@@ -609,6 +654,7 @@ class FlatMapDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class GeneratorDataset{
   public:
     GeneratorDataset() {}
@@ -628,6 +674,7 @@ class GeneratorDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class InterleaveDataset{
   public:
     InterleaveDataset() {}
@@ -644,6 +691,7 @@ class InterleaveDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class MapDataset{
   public:
     MapDataset() {}
@@ -660,6 +708,7 @@ class MapDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class MapDefun{
   public:
     MapDefun() {}
@@ -675,6 +724,7 @@ class MapDefun{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class ModelDataset{
   public:
     ModelDataset() {}
@@ -686,6 +736,7 @@ class ModelDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class OptimizeDataset{
   public:
     OptimizeDataset() {}
@@ -698,6 +749,7 @@ class OptimizeDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class PaddedBatchDatasetV2{
   public:
     PaddedBatchDatasetV2() {}
@@ -713,6 +765,7 @@ class PaddedBatchDatasetV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParallelInterleaveDatasetV2{
   public:
     ParallelInterleaveDatasetV2() {}
@@ -731,6 +784,7 @@ class ParallelInterleaveDatasetV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParallelMapDataset{
   public:
     ParallelMapDataset() {}
@@ -749,6 +803,7 @@ class ParallelMapDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class PrefetchDataset{
   public:
     PrefetchDataset() {}
@@ -761,6 +816,7 @@ class PrefetchDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class RangeDataset{
   public:
     RangeDataset() {}
@@ -774,6 +830,7 @@ class RangeDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReduceDataset{
   public:
     ReduceDataset() {}
@@ -791,6 +848,7 @@ class ReduceDataset{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class RepeatDataset{
   public:
     RepeatDataset() {}
@@ -803,6 +861,7 @@ class RepeatDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ShuffleAndRepeatDataset{
   public:
     ShuffleAndRepeatDataset() {}
@@ -818,6 +877,7 @@ class ShuffleAndRepeatDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class ShuffleDataset{
   public:
     ShuffleDataset() {}
@@ -833,6 +893,7 @@ class ShuffleDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class SkipDataset{
   public:
     SkipDataset() {}
@@ -845,6 +906,7 @@ class SkipDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseTensorSliceDataset{
   public:
     SparseTensorSliceDataset() {}
@@ -856,6 +918,7 @@ class SparseTensorSliceDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class TFRecordDataset{
   public:
     TFRecordDataset() {}
@@ -867,6 +930,7 @@ class TFRecordDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class TakeDataset{
   public:
     TakeDataset() {}
@@ -879,6 +943,7 @@ class TakeDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorDataset{
   public:
     TensorDataset() {}
@@ -890,6 +955,7 @@ class TensorDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorSliceDataset{
   public:
     TensorSliceDataset() {}
@@ -901,6 +967,7 @@ class TensorSliceDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class TextLineDataset{
   public:
     TextLineDataset() {}
@@ -912,6 +979,7 @@ class TextLineDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnwrapDatasetVariant{
   public:
     UnwrapDatasetVariant() {}
@@ -921,6 +989,7 @@ class UnwrapDatasetVariant{
     tensorflow::Output output;
 };
 
+#pragma once
 class WindowDataset{
   public:
     WindowDataset() {}
@@ -936,6 +1005,7 @@ class WindowDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class WrapDatasetVariant{
   public:
     WrapDatasetVariant() {}
@@ -945,6 +1015,7 @@ class WrapDatasetVariant{
     tensorflow::Output output;
 };
 
+#pragma once
 class ZipDataset{
   public:
     ZipDataset() {}

@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -25,6 +26,7 @@ class DeserializeSparse{
     tensorflow::Output output;
 };
 
+#pragma once
 class FixedLengthRecordReader{
   public:
     FixedLengthRecordReader() {}
@@ -39,6 +41,7 @@ class FixedLengthRecordReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class FixedLengthRecordReaderV2{
   public:
     FixedLengthRecordReaderV2() {}
@@ -54,6 +57,7 @@ class FixedLengthRecordReaderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class GcsConfigureBlockCache{
   public:
     GcsConfigureBlockCache() {}
@@ -64,6 +68,7 @@ class GcsConfigureBlockCache{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class GcsConfigureCredentials{
   public:
     GcsConfigureCredentials() {}
@@ -72,6 +77,7 @@ class GcsConfigureCredentials{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class IdentityReader{
   public:
     IdentityReader() {}
@@ -82,6 +88,7 @@ class IdentityReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class IdentityReaderV2{
   public:
     IdentityReaderV2() {}
@@ -92,6 +99,7 @@ class IdentityReaderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class LMDBReader{
   public:
     LMDBReader() {}
@@ -102,6 +110,7 @@ class LMDBReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class MatchingFiles{
   public:
     MatchingFiles() {}
@@ -111,6 +120,7 @@ class MatchingFiles{
     tensorflow::Output output;
 };
 
+#pragma once
 class MergeV2Checkpoints{
   public:
     MergeV2Checkpoints() {}
@@ -121,6 +131,7 @@ class MergeV2Checkpoints{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ReadFile{
   public:
     ReadFile() {}
@@ -130,6 +141,7 @@ class ReadFile{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderNumRecordsProduced{
   public:
     ReaderNumRecordsProduced() {}
@@ -139,6 +151,7 @@ class ReaderNumRecordsProduced{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderNumRecordsProducedV2{
   public:
     ReaderNumRecordsProducedV2() {}
@@ -148,6 +161,7 @@ class ReaderNumRecordsProducedV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderNumWorkUnitsCompleted{
   public:
     ReaderNumWorkUnitsCompleted() {}
@@ -157,6 +171,7 @@ class ReaderNumWorkUnitsCompleted{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderNumWorkUnitsCompletedV2{
   public:
     ReaderNumWorkUnitsCompletedV2() {}
@@ -166,6 +181,7 @@ class ReaderNumWorkUnitsCompletedV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderRead{
   public:
     ReaderRead() {}
@@ -176,6 +192,7 @@ class ReaderRead{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderReadUpTo{
   public:
     ReaderReadUpTo() {}
@@ -187,6 +204,7 @@ class ReaderReadUpTo{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderReadUpToV2{
   public:
     ReaderReadUpToV2() {}
@@ -198,6 +216,7 @@ class ReaderReadUpToV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderReadV2{
   public:
     ReaderReadV2() {}
@@ -208,6 +227,7 @@ class ReaderReadV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderReset{
   public:
     ReaderReset() {}
@@ -216,6 +236,7 @@ class ReaderReset{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ReaderResetV2{
   public:
     ReaderResetV2() {}
@@ -224,6 +245,7 @@ class ReaderResetV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ReaderRestoreState{
   public:
     ReaderRestoreState() {}
@@ -233,6 +255,7 @@ class ReaderRestoreState{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ReaderSerializeState{
   public:
     ReaderSerializeState() {}
@@ -242,6 +265,7 @@ class ReaderSerializeState{
     tensorflow::Output output;
 };
 
+#pragma once
 class RecordInput{
   public:
     RecordInput() {}
@@ -257,6 +281,7 @@ class RecordInput{
     tensorflow::Output output;
 };
 
+#pragma once
 class Restore{
   public:
     Restore() {}
@@ -269,6 +294,7 @@ class Restore{
     tensorflow::Output output;
 };
 
+#pragma once
 class RestoreSlice{
   public:
     RestoreSlice() {}
@@ -282,6 +308,7 @@ class RestoreSlice{
     tensorflow::Output output;
 };
 
+#pragma once
 class RestoreV2{
   public:
     RestoreV2() {}
@@ -294,6 +321,7 @@ class RestoreV2{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class Save{
   public:
     Save() {}
@@ -305,6 +333,7 @@ class Save{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class SaveSlices{
   public:
     SaveSlices() {}
@@ -317,6 +346,7 @@ class SaveSlices{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class SaveV2{
   public:
     SaveV2() {}
@@ -329,6 +359,7 @@ class SaveV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ShardedFilename{
   public:
     ShardedFilename() {}
@@ -340,6 +371,7 @@ class ShardedFilename{
     tensorflow::Output output;
 };
 
+#pragma once
 class ShardedFilespec{
   public:
     ShardedFilespec() {}
@@ -350,6 +382,7 @@ class ShardedFilespec{
     tensorflow::Output output;
 };
 
+#pragma once
 class TFRecordReader{
   public:
     TFRecordReader() {}
@@ -361,6 +394,7 @@ class TFRecordReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class TFRecordReaderV2{
   public:
     TFRecordReaderV2() {}
@@ -372,6 +406,7 @@ class TFRecordReaderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class TextLineReader{
   public:
     TextLineReader() {}
@@ -383,6 +418,7 @@ class TextLineReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class TextLineReaderV2{
   public:
     TextLineReaderV2() {}
@@ -394,6 +430,7 @@ class TextLineReaderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnicodeDecode{
   public:
     UnicodeDecode() {}
@@ -407,6 +444,7 @@ class UnicodeDecode{
     tensorflow::Output output;
 };
 
+#pragma once
 class WholeFileReader{
   public:
     WholeFileReader() {}
@@ -417,6 +455,7 @@ class WholeFileReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class WholeFileReaderV2{
   public:
     WholeFileReaderV2() {}
@@ -427,6 +466,7 @@ class WholeFileReaderV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class WriteFile{
   public:
     WriteFile() {}

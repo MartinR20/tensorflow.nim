@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -27,6 +28,7 @@ class AdjustContrast{
     tensorflow::Output output;
 };
 
+#pragma once
 class AdjustContrastv2{
   public:
     AdjustContrastv2() {}
@@ -37,6 +39,7 @@ class AdjustContrastv2{
     tensorflow::Output output;
 };
 
+#pragma once
 class AdjustHue{
   public:
     AdjustHue() {}
@@ -47,6 +50,7 @@ class AdjustHue{
     tensorflow::Output output;
 };
 
+#pragma once
 class AdjustSaturation{
   public:
     AdjustSaturation() {}
@@ -57,6 +61,7 @@ class AdjustSaturation{
     tensorflow::Output output;
 };
 
+#pragma once
 class CropAndResize{
   public:
     CropAndResize() {}
@@ -71,6 +76,7 @@ class CropAndResize{
     tensorflow::Output output;
 };
 
+#pragma once
 class CropAndResizeGradImage{
   public:
     CropAndResizeGradImage() {}
@@ -85,6 +91,7 @@ class CropAndResizeGradImage{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeAndCropJpeg{
   public:
     DecodeAndCropJpeg() {}
@@ -101,6 +108,7 @@ class DecodeAndCropJpeg{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeBmp{
   public:
     DecodeBmp() {}
@@ -111,6 +119,7 @@ class DecodeBmp{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeCSV{
   public:
     DecodeCSV() {}
@@ -126,6 +135,7 @@ class DecodeCSV{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class DecodeGif{
   public:
     DecodeGif() {}
@@ -135,6 +145,7 @@ class DecodeGif{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeJpeg{
   public:
     DecodeJpeg() {}
@@ -150,6 +161,7 @@ class DecodeJpeg{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodePng{
   public:
     DecodePng() {}
@@ -161,6 +173,7 @@ class DecodePng{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeRaw{
   public:
     DecodeRaw() {}
@@ -172,6 +185,7 @@ class DecodeRaw{
     tensorflow::Output output;
 };
 
+#pragma once
 class DrawBoundingBoxes{
   public:
     DrawBoundingBoxes() {}
@@ -183,6 +197,7 @@ class DrawBoundingBoxes{
     tensorflow::Output output;
 };
 
+#pragma once
 class EncodeJpeg{
   public:
     EncodeJpeg() {}
@@ -201,6 +216,7 @@ class EncodeJpeg{
     tensorflow::Output output;
 };
 
+#pragma once
 class EncodePng{
   public:
     EncodePng() {}
@@ -211,6 +227,7 @@ class EncodePng{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExtractGlimpse{
   public:
     ExtractGlimpse() {}
@@ -225,6 +242,7 @@ class ExtractGlimpse{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExtractImagePatches{
   public:
     ExtractImagePatches() {}
@@ -239,6 +257,7 @@ class ExtractImagePatches{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExtractJpegShape{
   public:
     ExtractJpegShape() {}
@@ -249,6 +268,7 @@ class ExtractJpegShape{
     tensorflow::Output output;
 };
 
+#pragma once
 class HSVToRGB{
   public:
     HSVToRGB() {}
@@ -259,6 +279,7 @@ class HSVToRGB{
     tensorflow::Output output;
 };
 
+#pragma once
 class NonMaxSuppression{
   public:
     NonMaxSuppression() {}
@@ -271,6 +292,7 @@ class NonMaxSuppression{
     tensorflow::Output output;
 };
 
+#pragma once
 class NonMaxSuppressionV2{
   public:
     NonMaxSuppressionV2() {}
@@ -283,6 +305,7 @@ class NonMaxSuppressionV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedResizeBilinear{
   public:
     QuantizedResizeBilinear() {}
@@ -297,6 +320,7 @@ class QuantizedResizeBilinear{
     tensorflow::Output output;
 };
 
+#pragma once
 class RGBToHSV{
   public:
     RGBToHSV() {}
@@ -307,6 +331,7 @@ class RGBToHSV{
     tensorflow::Output output;
 };
 
+#pragma once
 class RandomCrop{
   public:
     RandomCrop() {}
@@ -320,6 +345,7 @@ class RandomCrop{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeArea{
   public:
     ResizeArea() {}
@@ -331,6 +357,7 @@ class ResizeArea{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeBicubic{
   public:
     ResizeBicubic() {}
@@ -342,6 +369,7 @@ class ResizeBicubic{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeBicubicGrad{
   public:
     ResizeBicubicGrad() {}
@@ -354,6 +382,7 @@ class ResizeBicubicGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeBilinear{
   public:
     ResizeBilinear() {}
@@ -365,6 +394,7 @@ class ResizeBilinear{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeBilinearGrad{
   public:
     ResizeBilinearGrad() {}
@@ -377,6 +407,7 @@ class ResizeBilinearGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeNearestNeighbor{
   public:
     ResizeNearestNeighbor() {}
@@ -389,6 +420,7 @@ class ResizeNearestNeighbor{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResizeNearestNeighborGrad{
   public:
     ResizeNearestNeighborGrad() {}
@@ -401,6 +433,7 @@ class ResizeNearestNeighborGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SampleDistortedBoundingBox{
   public:
     SampleDistortedBoundingBox() {}
@@ -419,6 +452,7 @@ class SampleDistortedBoundingBox{
     tensorflow::Output output;
 };
 
+#pragma once
 class SampleDistortedBoundingBoxV2{
   public:
     SampleDistortedBoundingBoxV2() {}

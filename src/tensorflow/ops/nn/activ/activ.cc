@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/nn/activ/activ.h"
+#include "activ.h"
 
 Elu::Elu(tensorflow::Scope& scope, 
            tensorflow::Input features, 

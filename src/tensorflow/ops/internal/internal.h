@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -26,6 +27,7 @@ class All{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesExampleDebugOutputs{
   public:
     BoostedTreesExampleDebugOutputs() {}
@@ -38,6 +40,7 @@ class BoostedTreesExampleDebugOutputs{
     tensorflow::Output output;
 };
 
+#pragma once
 class DebugGradientIdentity{
   public:
     DebugGradientIdentity() {}
@@ -48,6 +51,7 @@ class DebugGradientIdentity{
     tensorflow::Output output;
 };
 
+#pragma once
 class DebugGradientRefIdentity{
   public:
     DebugGradientRefIdentity() {}
@@ -58,6 +62,7 @@ class DebugGradientRefIdentity{
     tensorflow::Output output;
 };
 
+#pragma once
 class DebugIdentity{
   public:
     DebugIdentity() {}
@@ -72,6 +77,7 @@ class DebugIdentity{
     tensorflow::Output output;
 };
 
+#pragma once
 class DebugNanCount{
   public:
     DebugNanCount() {}
@@ -85,6 +91,7 @@ class DebugNanCount{
     tensorflow::Output output;
 };
 
+#pragma once
 class DebugNumericSummary{
   public:
     DebugNumericSummary() {}
@@ -101,6 +108,7 @@ class DebugNumericSummary{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeJSONExample{
   public:
     DecodeJSONExample() {}
@@ -110,6 +118,7 @@ class DecodeJSONExample{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExperimentalParseExampleDataset{
   public:
     ExperimentalParseExampleDataset() {}
@@ -129,6 +138,7 @@ class ExperimentalParseExampleDataset{
     tensorflow::Output output;
 };
 
+#pragma once
 class Fact{
   public:
     Fact() {}
@@ -137,6 +147,7 @@ class Fact{
     tensorflow::Output output;
 };
 
+#pragma once
 class NcclAllReduce{
   public:
     NcclAllReduce() {}
@@ -150,6 +161,7 @@ class NcclAllReduce{
     tensorflow::Output output;
 };
 
+#pragma once
 class NcclBroadcast{
   public:
     NcclBroadcast() {}
@@ -161,6 +173,7 @@ class NcclBroadcast{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParseExample{
   public:
     ParseExample() {}
@@ -179,6 +192,7 @@ class ParseExample{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParseSequenceExample{
   public:
     ParseSequenceExample() {}
@@ -205,6 +219,7 @@ class ParseSequenceExample{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParseSingleExample{
   public:
     ParseSingleExample() {}
@@ -221,6 +236,7 @@ class ParseSingleExample{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParseSingleSequenceExample{
   public:
     ParseSingleSequenceExample() {}
@@ -247,6 +263,7 @@ class ParseSingleSequenceExample{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReadVariableOp{
   public:
     ReadVariableOp() {}
@@ -257,6 +274,7 @@ class ReadVariableOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class _Arg{
   public:
     _Arg() {}
@@ -267,6 +285,7 @@ class _Arg{
     tensorflow::Output output;
 };
 
+#pragma once
 class _ArrayToList{
   public:
     _ArrayToList() {}
@@ -277,6 +296,7 @@ class _ArrayToList{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _DeviceArg{
   public:
     _DeviceArg() {}
@@ -287,6 +307,7 @@ class _DeviceArg{
     tensorflow::Output output;
 };
 
+#pragma once
 class _DeviceRetval{
   public:
     _DeviceRetval() {}
@@ -296,6 +317,7 @@ class _DeviceRetval{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _FusedConv2D{
   public:
     _FusedConv2D() {}
@@ -315,6 +337,7 @@ class _FusedConv2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class _HostCast{
   public:
     _HostCast() {}
@@ -326,6 +349,7 @@ class _HostCast{
     tensorflow::Output output;
 };
 
+#pragma once
 class _HostRecv{
   public:
     _HostRecv() {}
@@ -340,6 +364,7 @@ class _HostRecv{
     tensorflow::Output output;
 };
 
+#pragma once
 class _HostSend{
   public:
     _HostSend() {}
@@ -353,6 +378,7 @@ class _HostSend{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _If{
   public:
     _If() {}
@@ -367,6 +393,7 @@ class _If{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _ListToArray{
   public:
     _ListToArray() {}
@@ -378,6 +405,7 @@ class _ListToArray{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _MklAdd{
   public:
     _MklAdd() {}
@@ -391,6 +419,7 @@ class _MklAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class _MklMaximum{
   public:
     _MklMaximum() {}
@@ -404,6 +433,7 @@ class _MklMaximum{
     tensorflow::Output output;
 };
 
+#pragma once
 class _MklMul{
   public:
     _MklMul() {}
@@ -417,6 +447,7 @@ class _MklMul{
     tensorflow::Output output;
 };
 
+#pragma once
 class _MklSquaredDifference{
   public:
     _MklSquaredDifference() {}
@@ -430,6 +461,7 @@ class _MklSquaredDifference{
     tensorflow::Output output;
 };
 
+#pragma once
 class _MklSub{
   public:
     _MklSub() {}
@@ -443,6 +475,7 @@ class _MklSub{
     tensorflow::Output output;
 };
 
+#pragma once
 class _NcclBroadcastRecv{
   public:
     _NcclBroadcastRecv() {}
@@ -455,6 +488,7 @@ class _NcclBroadcastRecv{
     tensorflow::Output output;
 };
 
+#pragma once
 class _NcclBroadcastSend{
   public:
     _NcclBroadcastSend() {}
@@ -465,6 +499,7 @@ class _NcclBroadcastSend{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _NcclReduceRecv{
   public:
     _NcclReduceRecv() {}
@@ -478,6 +513,7 @@ class _NcclReduceRecv{
     tensorflow::Output output;
 };
 
+#pragma once
 class _NcclReduceSend{
   public:
     _NcclReduceSend() {}
@@ -489,6 +525,7 @@ class _NcclReduceSend{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _ParallelConcatStart{
   public:
     _ParallelConcatStart() {}
@@ -499,6 +536,7 @@ class _ParallelConcatStart{
     tensorflow::Output output;
 };
 
+#pragma once
 class _ParallelConcatUpdate{
   public:
     _ParallelConcatUpdate() {}
@@ -511,6 +549,7 @@ class _ParallelConcatUpdate{
     tensorflow::Output output;
 };
 
+#pragma once
 class _ReadVariablesOp{
   public:
     _ReadVariablesOp() {}
@@ -521,6 +560,7 @@ class _ReadVariablesOp{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _Recv{
   public:
     _Recv() {}
@@ -535,6 +575,7 @@ class _Recv{
     tensorflow::Output output;
 };
 
+#pragma once
 class _Retval{
   public:
     _Retval() {}
@@ -544,6 +585,7 @@ class _Retval{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _ScopedAllocator{
   public:
     _ScopedAllocator() {}
@@ -558,6 +600,7 @@ class _ScopedAllocator{
     tensorflow::Output output;
 };
 
+#pragma once
 class _ScopedAllocatorConcat{
   public:
     _ScopedAllocatorConcat() {}
@@ -573,6 +616,7 @@ class _ScopedAllocatorConcat{
     tensorflow::Output output;
 };
 
+#pragma once
 class _ScopedAllocatorSplit{
   public:
     _ScopedAllocatorSplit() {}
@@ -587,6 +631,7 @@ class _ScopedAllocatorSplit{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _Send{
   public:
     _Send() {}
@@ -600,6 +645,7 @@ class _Send{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class _UnaryOpsComposition{
   public:
     _UnaryOpsComposition() {}
@@ -611,6 +657,7 @@ class _UnaryOpsComposition{
     tensorflow::Output output;
 };
 
+#pragma once
 class _VarHandlesOp{
   public:
     _VarHandlesOp() {}
@@ -623,6 +670,7 @@ class _VarHandlesOp{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class _While{
   public:
     _While() {}

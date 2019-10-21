@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/data/iter/iter.h"
+#include "iter.h"
 
 AnonymousIterator::AnonymousIterator(tensorflow::Scope& scope, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> output_types, 

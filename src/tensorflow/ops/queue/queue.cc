@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/queue/queue.h"
+#include "queue.h"
 
 FIFOQueue::FIFOQueue(tensorflow::Scope& scope, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> component_types, 

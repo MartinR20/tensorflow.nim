@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/array/array.h"
+#include "array.h"
 
 AccumulateNV2::AccumulateNV2(tensorflow::Scope& scope, 
            tensorflow::InputList inputs, 

@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -29,6 +30,7 @@ class AvgPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class AvgPool3D{
   public:
     AvgPool3D() {}
@@ -43,6 +45,7 @@ class AvgPool3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class AvgPool3DGrad{
   public:
     AvgPool3DGrad() {}
@@ -58,6 +61,7 @@ class AvgPool3DGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class AvgPoolGrad{
   public:
     AvgPoolGrad() {}
@@ -73,6 +77,7 @@ class AvgPoolGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchNormWithGlobalNormalization{
   public:
     BatchNormWithGlobalNormalization() {}
@@ -89,6 +94,7 @@ class BatchNormWithGlobalNormalization{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchNormWithGlobalNormalizationGrad{
   public:
     BatchNormWithGlobalNormalizationGrad() {}
@@ -105,6 +111,7 @@ class BatchNormWithGlobalNormalizationGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class BiasAdd{
   public:
     BiasAdd() {}
@@ -117,6 +124,7 @@ class BiasAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class BiasAddGrad{
   public:
     BiasAddGrad() {}
@@ -128,6 +136,7 @@ class BiasAddGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class BiasAddV1{
   public:
     BiasAddV1() {}
@@ -139,6 +148,7 @@ class BiasAddV1{
     tensorflow::Output output;
 };
 
+#pragma once
 class CTCBeamSearchDecoder{
   public:
     CTCBeamSearchDecoder() {}
@@ -152,6 +162,7 @@ class CTCBeamSearchDecoder{
     tensorflow::Output output;
 };
 
+#pragma once
 class CTCGreedyDecoder{
   public:
     CTCGreedyDecoder() {}
@@ -163,6 +174,7 @@ class CTCGreedyDecoder{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv2D{
   public:
     Conv2D() {}
@@ -179,6 +191,7 @@ class Conv2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv2DBackpropFilter{
   public:
     Conv2DBackpropFilter() {}
@@ -196,6 +209,7 @@ class Conv2DBackpropFilter{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv2DBackpropInput{
   public:
     Conv2DBackpropInput() {}
@@ -213,6 +227,7 @@ class Conv2DBackpropInput{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv3D{
   public:
     Conv3D() {}
@@ -228,6 +243,7 @@ class Conv3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv3DBackpropFilter{
   public:
     Conv3DBackpropFilter() {}
@@ -243,6 +259,7 @@ class Conv3DBackpropFilter{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv3DBackpropFilterV2{
   public:
     Conv3DBackpropFilterV2() {}
@@ -259,6 +276,7 @@ class Conv3DBackpropFilterV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv3DBackpropInput{
   public:
     Conv3DBackpropInput() {}
@@ -274,6 +292,7 @@ class Conv3DBackpropInput{
     tensorflow::Output output;
 };
 
+#pragma once
 class Conv3DBackpropInputV2{
   public:
     Conv3DBackpropInputV2() {}
@@ -290,6 +309,7 @@ class Conv3DBackpropInputV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNN{
   public:
     CudnnRNN() {}
@@ -310,6 +330,7 @@ class CudnnRNN{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNBackprop{
   public:
     CudnnRNNBackprop() {}
@@ -336,6 +357,7 @@ class CudnnRNNBackprop{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNBackpropV2{
   public:
     CudnnRNNBackpropV2() {}
@@ -363,6 +385,7 @@ class CudnnRNNBackpropV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNCanonicalToParams{
   public:
     CudnnRNNCanonicalToParams() {}
@@ -384,6 +407,7 @@ class CudnnRNNCanonicalToParams{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNParamsSize{
   public:
     CudnnRNNParamsSize() {}
@@ -403,6 +427,7 @@ class CudnnRNNParamsSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNParamsToCanonical{
   public:
     CudnnRNNParamsToCanonical() {}
@@ -423,6 +448,7 @@ class CudnnRNNParamsToCanonical{
     tensorflow::Output output;
 };
 
+#pragma once
 class CudnnRNNV2{
   public:
     CudnnRNNV2() {}
@@ -443,6 +469,7 @@ class CudnnRNNV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class DepthwiseConv2dNative{
   public:
     DepthwiseConv2dNative() {}
@@ -458,6 +485,7 @@ class DepthwiseConv2dNative{
     tensorflow::Output output;
 };
 
+#pragma once
 class DepthwiseConv2dNativeBackpropFilter{
   public:
     DepthwiseConv2dNativeBackpropFilter() {}
@@ -474,6 +502,7 @@ class DepthwiseConv2dNativeBackpropFilter{
     tensorflow::Output output;
 };
 
+#pragma once
 class DepthwiseConv2dNativeBackpropInput{
   public:
     DepthwiseConv2dNativeBackpropInput() {}
@@ -490,6 +519,7 @@ class DepthwiseConv2dNativeBackpropInput{
     tensorflow::Output output;
 };
 
+#pragma once
 class Dilation2D{
   public:
     Dilation2D() {}
@@ -504,6 +534,7 @@ class Dilation2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class Dilation2DBackpropFilter{
   public:
     Dilation2DBackpropFilter() {}
@@ -519,6 +550,7 @@ class Dilation2DBackpropFilter{
     tensorflow::Output output;
 };
 
+#pragma once
 class Dilation2DBackpropInput{
   public:
     Dilation2DBackpropInput() {}
@@ -534,6 +566,7 @@ class Dilation2DBackpropInput{
     tensorflow::Output output;
 };
 
+#pragma once
 class FractionalAvgPool{
   public:
     FractionalAvgPool() {}
@@ -550,6 +583,7 @@ class FractionalAvgPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class FractionalAvgPoolGrad{
   public:
     FractionalAvgPoolGrad() {}
@@ -564,6 +598,7 @@ class FractionalAvgPoolGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class FractionalMaxPool{
   public:
     FractionalMaxPool() {}
@@ -580,6 +615,7 @@ class FractionalMaxPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class FractionalMaxPoolGrad{
   public:
     FractionalMaxPoolGrad() {}
@@ -595,6 +631,7 @@ class FractionalMaxPoolGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedBatchNorm{
   public:
     FusedBatchNorm() {}
@@ -612,6 +649,7 @@ class FusedBatchNorm{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedBatchNormV2{
   public:
     FusedBatchNormV2() {}
@@ -629,6 +667,7 @@ class FusedBatchNormV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedPadConv2D{
   public:
     FusedPadConv2D() {}
@@ -644,6 +683,7 @@ class FusedPadConv2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class FusedResizeAndPadConv2D{
   public:
     FusedResizeAndPadConv2D() {}
@@ -661,6 +701,7 @@ class FusedResizeAndPadConv2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class GenerateVocabRemapping{
   public:
     GenerateVocabRemapping() {}
@@ -674,6 +715,7 @@ class GenerateVocabRemapping{
     tensorflow::Output output;
 };
 
+#pragma once
 class LRN{
   public:
     LRN() {}
@@ -688,6 +730,7 @@ class LRN{
     tensorflow::Output output;
 };
 
+#pragma once
 class LRNGrad{
   public:
     LRNGrad() {}
@@ -704,6 +747,7 @@ class LRNGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPool{
   public:
     MaxPool() {}
@@ -718,6 +762,7 @@ class MaxPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPool3D{
   public:
     MaxPool3D() {}
@@ -732,6 +777,7 @@ class MaxPool3D{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPool3DGrad{
   public:
     MaxPool3DGrad() {}
@@ -748,6 +794,7 @@ class MaxPool3DGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPool3DGradGrad{
   public:
     MaxPool3DGradGrad() {}
@@ -764,6 +811,7 @@ class MaxPool3DGradGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGrad{
   public:
     MaxPoolGrad() {}
@@ -780,6 +828,7 @@ class MaxPoolGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGradGrad{
   public:
     MaxPoolGradGrad() {}
@@ -796,6 +845,7 @@ class MaxPoolGradGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGradGradV2{
   public:
     MaxPoolGradGradV2() {}
@@ -812,6 +862,7 @@ class MaxPoolGradGradV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGradGradWithArgmax{
   public:
     MaxPoolGradGradWithArgmax() {}
@@ -827,6 +878,7 @@ class MaxPoolGradGradWithArgmax{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGradV2{
   public:
     MaxPoolGradV2() {}
@@ -843,6 +895,7 @@ class MaxPoolGradV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolGradWithArgmax{
   public:
     MaxPoolGradWithArgmax() {}
@@ -858,6 +911,7 @@ class MaxPoolGradWithArgmax{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolV2{
   public:
     MaxPoolV2() {}
@@ -872,6 +926,7 @@ class MaxPoolV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class MaxPoolWithArgmax{
   public:
     MaxPoolWithArgmax() {}
@@ -886,6 +941,7 @@ class MaxPoolWithArgmax{
     tensorflow::Output output;
 };
 
+#pragma once
 class MirrorPadGrad{
   public:
     MirrorPadGrad() {}
@@ -898,6 +954,7 @@ class MirrorPadGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class NegTrain{
   public:
     NegTrain() {}
@@ -912,6 +969,7 @@ class NegTrain{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class QuantizedAvgPool{
   public:
     QuantizedAvgPool() {}
@@ -927,6 +985,7 @@ class QuantizedAvgPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedBatchNormWithGlobalNormalization{
   public:
     QuantizedBatchNormWithGlobalNormalization() {}
@@ -953,6 +1012,7 @@ class QuantizedBatchNormWithGlobalNormalization{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedBiasAdd{
   public:
     QuantizedBiasAdd() {}
@@ -968,6 +1028,7 @@ class QuantizedBiasAdd{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedConv2D{
   public:
     QuantizedConv2D() {}
@@ -986,6 +1047,7 @@ class QuantizedConv2D{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedMaxPool{
   public:
     QuantizedMaxPool() {}
@@ -1001,6 +1063,7 @@ class QuantizedMaxPool{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedRelu6{
   public:
     QuantizedRelu6() {}
@@ -1013,6 +1076,7 @@ class QuantizedRelu6{
     tensorflow::Output output;
 };
 
+#pragma once
 class SeluGrad{
   public:
     SeluGrad() {}
@@ -1024,6 +1088,7 @@ class SeluGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSoftmaxCrossEntropyWithLogits{
   public:
     SparseSoftmaxCrossEntropyWithLogits() {}

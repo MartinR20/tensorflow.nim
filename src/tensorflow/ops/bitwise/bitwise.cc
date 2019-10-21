@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/bitwise/bitwise.h"
+#include "bitwise.h"
 
 BitwiseAnd::BitwiseAnd(tensorflow::Scope& scope, 
            tensorflow::Input x, 

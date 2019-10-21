@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/nn/boosted/boosted.h"
+#include "boosted.h"
 
 BoostedTreesBucketize::BoostedTreesBucketize(tensorflow::Scope& scope, 
            tensorflow::Input float_values, 

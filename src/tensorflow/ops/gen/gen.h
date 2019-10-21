@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -28,6 +29,7 @@ class Assign{
     tensorflow::Output output;
 };
 
+#pragma once
 class BatchToSpace{
   public:
     BatchToSpace() {}
@@ -40,6 +42,7 @@ class BatchToSpace{
     tensorflow::Output output;
 };
 
+#pragma once
 class Bitcast{
   public:
     Bitcast() {}
@@ -50,6 +53,7 @@ class Bitcast{
     tensorflow::Output output;
 };
 
+#pragma once
 class BroadcastArgs{
   public:
     BroadcastArgs() {}
@@ -61,6 +65,7 @@ class BroadcastArgs{
     tensorflow::Output output;
 };
 
+#pragma once
 class BroadcastGradientArgs{
   public:
     BroadcastGradientArgs() {}
@@ -72,6 +77,7 @@ class BroadcastGradientArgs{
     tensorflow::Output output;
 };
 
+#pragma once
 class BroadcastTo{
   public:
     BroadcastTo() {}
@@ -83,6 +89,7 @@ class BroadcastTo{
     tensorflow::Output output;
 };
 
+#pragma once
 class ClipByValue{
   public:
     ClipByValue() {}
@@ -95,6 +102,7 @@ class ClipByValue{
     tensorflow::Output output;
 };
 
+#pragma once
 class Concat{
   public:
     Concat() {}
@@ -106,6 +114,7 @@ class Concat{
     tensorflow::Output output;
 };
 
+#pragma once
 class ConcatOffset{
   public:
     ConcatOffset() {}
@@ -116,6 +125,7 @@ class ConcatOffset{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class ConcatV2{
   public:
     ConcatV2() {}
@@ -127,6 +137,7 @@ class ConcatV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Const{
   public:
     Const() {}
@@ -137,6 +148,7 @@ class Const{
     tensorflow::Output output;
 };
 
+#pragma once
 class DynamicPartition{
   public:
     DynamicPartition() {}
@@ -149,6 +161,7 @@ class DynamicPartition{
     tensorflow::Output output;
 };
 
+#pragma once
 class DynamicStitch{
   public:
     DynamicStitch() {}
@@ -160,6 +173,7 @@ class DynamicStitch{
     tensorflow::Output output;
 };
 
+#pragma once
 class EditDistance{
   public:
     EditDistance() {}
@@ -175,6 +189,7 @@ class EditDistance{
     tensorflow::Output output;
 };
 
+#pragma once
 class Empty{
   public:
     Empty() {}
@@ -186,6 +201,7 @@ class Empty{
     tensorflow::Output output;
 };
 
+#pragma once
 class EnsureShape{
   public:
     EnsureShape() {}
@@ -197,6 +213,7 @@ class EnsureShape{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExpandDims{
   public:
     ExpandDims() {}
@@ -208,6 +225,7 @@ class ExpandDims{
     tensorflow::Output output;
 };
 
+#pragma once
 class ExtractVolumePatches{
   public:
     ExtractVolumePatches() {}
@@ -221,6 +239,7 @@ class ExtractVolumePatches{
     tensorflow::Output output;
 };
 
+#pragma once
 class Fill{
   public:
     Fill() {}
@@ -232,6 +251,7 @@ class Fill{
     tensorflow::Output output;
 };
 
+#pragma once
 class Gather{
   public:
     Gather() {}
@@ -244,6 +264,7 @@ class Gather{
     tensorflow::Output output;
 };
 
+#pragma once
 class GatherNd{
   public:
     GatherNd() {}
@@ -255,6 +276,7 @@ class GatherNd{
     tensorflow::Output output;
 };
 
+#pragma once
 class GuaranteeConst{
   public:
     GuaranteeConst() {}
@@ -265,6 +287,7 @@ class GuaranteeConst{
     tensorflow::Output output;
 };
 
+#pragma once
 class HistogramFixedWidth{
   public:
     HistogramFixedWidth() {}
@@ -277,6 +300,7 @@ class HistogramFixedWidth{
     tensorflow::Output output;
 };
 
+#pragma once
 class Identity{
   public:
     Identity() {}
@@ -287,6 +311,7 @@ class Identity{
     tensorflow::Output output;
 };
 
+#pragma once
 class IdentityN{
   public:
     IdentityN() {}
@@ -297,6 +322,7 @@ class IdentityN{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class OnesLike{
   public:
     OnesLike() {}
@@ -307,6 +333,7 @@ class OnesLike{
     tensorflow::Output output;
 };
 
+#pragma once
 class Pad{
   public:
     Pad() {}
@@ -318,6 +345,7 @@ class Pad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Placeholder{
   public:
     Placeholder() {}
@@ -328,6 +356,7 @@ class Placeholder{
     tensorflow::Output output;
 };
 
+#pragma once
 class Print{
   public:
     Print() {}
@@ -343,6 +372,7 @@ class Print{
     tensorflow::Output output;
 };
 
+#pragma once
 class Range{
   public:
     Range() {}
@@ -355,6 +385,7 @@ class Range{
     tensorflow::Output output;
 };
 
+#pragma once
 class Rank{
   public:
     Rank() {}
@@ -364,6 +395,7 @@ class Rank{
     tensorflow::Output output;
 };
 
+#pragma once
 class RealDiv{
   public:
     RealDiv() {}
@@ -375,6 +407,7 @@ class RealDiv{
     tensorflow::Output output;
 };
 
+#pragma once
 class Reshape{
   public:
     Reshape() {}
@@ -386,6 +419,7 @@ class Reshape{
     tensorflow::Output output;
 };
 
+#pragma once
 class Reverse{
   public:
     Reverse() {}
@@ -397,6 +431,7 @@ class Reverse{
     tensorflow::Output output;
 };
 
+#pragma once
 class Roll{
   public:
     Roll() {}
@@ -409,6 +444,7 @@ class Roll{
     tensorflow::Output output;
 };
 
+#pragma once
 class ScatterNd{
   public:
     ScatterNd() {}
@@ -421,6 +457,7 @@ class ScatterNd{
     tensorflow::Output output;
 };
 
+#pragma once
 class Shape{
   public:
     Shape() {}
@@ -431,6 +468,7 @@ class Shape{
     tensorflow::Output output;
 };
 
+#pragma once
 class ShapeN{
   public:
     ShapeN() {}
@@ -441,6 +479,7 @@ class ShapeN{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class Size{
   public:
     Size() {}
@@ -451,6 +490,7 @@ class Size{
     tensorflow::Output output;
 };
 
+#pragma once
 class Slice{
   public:
     Slice() {}
@@ -463,6 +503,7 @@ class Slice{
     tensorflow::Output output;
 };
 
+#pragma once
 class SpaceToBatch{
   public:
     SpaceToBatch() {}
@@ -475,6 +516,7 @@ class SpaceToBatch{
     tensorflow::Output output;
 };
 
+#pragma once
 class SpaceToBatchND{
   public:
     SpaceToBatchND() {}
@@ -487,6 +529,7 @@ class SpaceToBatchND{
     tensorflow::Output output;
 };
 
+#pragma once
 class Split{
   public:
     Split() {}
@@ -499,6 +542,7 @@ class Split{
     tensorflow::Output output;
 };
 
+#pragma once
 class Squeeze{
   public:
     Squeeze() {}
@@ -510,6 +554,7 @@ class Squeeze{
     tensorflow::Output output;
 };
 
+#pragma once
 class Stack{
   public:
     Stack() {}
@@ -520,6 +565,7 @@ class Stack{
     tensorflow::Output output;
 };
 
+#pragma once
 class StridedSlice{
   public:
     StridedSlice() {}
@@ -538,6 +584,7 @@ class StridedSlice{
     tensorflow::Output output;
 };
 
+#pragma once
 class Tile{
   public:
     Tile() {}
@@ -549,6 +596,7 @@ class Tile{
     tensorflow::Output output;
 };
 
+#pragma once
 class Timestamp{
   public:
     Timestamp() {}
@@ -557,6 +605,7 @@ class Timestamp{
     tensorflow::Output output;
 };
 
+#pragma once
 class Transpose{
   public:
     Transpose() {}
@@ -568,6 +617,7 @@ class Transpose{
     tensorflow::Output output;
 };
 
+#pragma once
 class TruncateDiv{
   public:
     TruncateDiv() {}
@@ -579,6 +629,7 @@ class TruncateDiv{
     tensorflow::Output output;
 };
 
+#pragma once
 class TruncateMod{
   public:
     TruncateMod() {}
@@ -590,6 +641,7 @@ class TruncateMod{
     tensorflow::Output output;
 };
 
+#pragma once
 class Unique{
   public:
     Unique() {}
@@ -601,6 +653,7 @@ class Unique{
     tensorflow::Output output;
 };
 
+#pragma once
 class UniqueWithCounts{
   public:
     UniqueWithCounts() {}
@@ -612,6 +665,7 @@ class UniqueWithCounts{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnravelIndex{
   public:
     UnravelIndex() {}
@@ -623,6 +677,7 @@ class UnravelIndex{
     tensorflow::Output output;
 };
 
+#pragma once
 class Variable{
   public:
     Variable() {}
@@ -635,6 +690,7 @@ class Variable{
     tensorflow::Output output;
 };
 
+#pragma once
 class VariableV2{
   public:
     VariableV2() {}
@@ -647,6 +703,7 @@ class VariableV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class Where{
   public:
     Where() {}
@@ -656,6 +713,7 @@ class Where{
     tensorflow::Output output;
 };
 
+#pragma once
 class While{
   public:
     While() {}
@@ -669,6 +727,7 @@ class While{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class ZerosLike{
   public:
     ZerosLike() {}

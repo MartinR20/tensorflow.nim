@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/control/sdca/sdca.h"
+#include "sdca.h"
 
 SdcaFprint::SdcaFprint(tensorflow::Scope& scope, 
            tensorflow::Input input) {

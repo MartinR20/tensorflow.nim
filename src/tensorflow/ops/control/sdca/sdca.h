@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -24,6 +25,7 @@ class SdcaFprint{
     tensorflow::Output output;
 };
 
+#pragma once
 class SdcaOptimizer{
   public:
     SdcaOptimizer() {}
@@ -51,6 +53,7 @@ class SdcaOptimizer{
     tensorflow::Output output;
 };
 
+#pragma once
 class SdcaOptimizerV2{
   public:
     SdcaOptimizerV2() {}
@@ -78,6 +81,7 @@ class SdcaOptimizerV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class SdcaShrinkL1{
   public:
     SdcaShrinkL1() {}

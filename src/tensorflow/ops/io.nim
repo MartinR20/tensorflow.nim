@@ -1,28 +1,28 @@
 import ../core
 
-{.compile:"../../ops/io/io.cc".}
+{.compile:"io/io.cc".}
 
 type DeserializeSparseTserialized* = ostring | ovariant
 
-type DeserializeSparse* {.header:"../../ops/io/io.h", importcpp:"DeserializeSparse/*'0*/".} = object
+type DeserializeSparse* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"DeserializeSparse/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iideserializeSparse(scope: Scope,
                         serialized_sparse: DeserializeSparseTserialized,
-                        dtype: DType): DeserializeSparse {.header:"../../ops/io/io.h", importcpp:"DeserializeSparse(*#, #, #)", constructor.}
+                        dtype: DType): DeserializeSparse {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"DeserializeSparse(*#, #, #)", constructor.}
 
 proc deserializeSparse*(scope: Scope,
                         serialized_sparse: DeserializeSparseTserialized,
                         dtype: type oall = oinvalid): DeserializeSparse =
   return iideserializeSparse(scope,
                              serialized_sparse,
-                             dtype[].oTF)
+                             dtype.oTF)
 
 converter deserializeSparseToOut*(op: DeserializeSparse): oint64 {.inline.} = return op.output
 
 
-type FixedLengthRecordReader* {.header:"../../ops/io/io.h", importcpp:"FixedLengthRecordReader/*'0*/".} = object
+type FixedLengthRecordReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"FixedLengthRecordReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -32,7 +32,7 @@ proc iifixedLengthRecordReader(scope: Scope,
                               header_bytes: int64,
                               record_bytes: int64,
                               footer_bytes: int64,
-                              hop_bytes: int64): FixedLengthRecordReader {.header:"../../ops/io/io.h", importcpp:"FixedLengthRecordReader(*#, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+                              hop_bytes: int64): FixedLengthRecordReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"FixedLengthRecordReader(*#, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc fixedLengthRecordReader*(scope: Scope,
                               container: cstring,
@@ -52,7 +52,7 @@ proc fixedLengthRecordReader*(scope: Scope,
 converter fixedLengthRecordReaderToOut*(op: FixedLengthRecordReader): ostring {.inline.} = return op.output
 
 
-type FixedLengthRecordReaderV2* {.header:"../../ops/io/io.h", importcpp:"FixedLengthRecordReaderV2/*'0*/".} = object
+type FixedLengthRecordReaderV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"FixedLengthRecordReaderV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -63,7 +63,7 @@ proc iifixedLengthRecordReaderV2(scope: Scope,
                                 header_bytes: int64,
                                 record_bytes: int64,
                                 footer_bytes: int64,
-                                hop_bytes: int64): FixedLengthRecordReaderV2 {.header:"../../ops/io/io.h", importcpp:"FixedLengthRecordReaderV2(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+                                hop_bytes: int64): FixedLengthRecordReaderV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"FixedLengthRecordReaderV2(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc fixedLengthRecordReaderV2*(scope: Scope,
                                 container: cstring,
@@ -85,14 +85,14 @@ proc fixedLengthRecordReaderV2*(scope: Scope,
 converter fixedLengthRecordReaderV2ToOut*(op: FixedLengthRecordReaderV2): oresource {.inline.} = return op.output
 
 
-type GcsConfigureBlockCache*{.header:"../../ops/io/io.h", importcpp:"GcsConfigureBlockCache/*'0*/".} = object
+type GcsConfigureBlockCache*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"GcsConfigureBlockCache/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iigcsConfigureBlockCache(scope: Scope,
                              max_cache_size: ouint64,
                              block_size: ouint64,
-                             max_staleness: ouint64): GcsConfigureBlockCache {.header:"../../ops/io/io.h", importcpp:"GcsConfigureBlockCache(*#, #, #, #)", constructor.}
+                             max_staleness: ouint64): GcsConfigureBlockCache {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"GcsConfigureBlockCache(*#, #, #, #)", constructor.}
 
 proc gcsConfigureBlockCache*(scope: Scope,
                              max_cache_size: ouint64,
@@ -108,12 +108,12 @@ proc gcsConfigureBlockCache*(scope: Scope,
     # new block cache is created fresh.
 
 
-type GcsConfigureCredentials*{.header:"../../ops/io/io.h", importcpp:"GcsConfigureCredentials/*'0*/".} = object
+type GcsConfigureCredentials*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"GcsConfigureCredentials/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iigcsConfigureCredentials(scope: Scope,
-                              json: ostring): GcsConfigureCredentials {.header:"../../ops/io/io.h", importcpp:"GcsConfigureCredentials(*#, #)", constructor.}
+                              json: ostring): GcsConfigureCredentials {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"GcsConfigureCredentials(*#, #)", constructor.}
 
 proc gcsConfigureCredentials*(scope: Scope,
                               json: ostring): GcsConfigureCredentials =
@@ -149,13 +149,13 @@ proc gcsConfigureCredentials*(scope: Scope,
     # or in other ways be persisted or exfiltrated.
 
 
-type IdentityReader* {.header:"../../ops/io/io.h", importcpp:"IdentityReader/*'0*/".} = object
+type IdentityReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"IdentityReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiidentityReader(scope: Scope,
                      container: cstring,
-                     shared_name: cstring): IdentityReader {.header:"../../ops/io/io.h", importcpp:"IdentityReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                     shared_name: cstring): IdentityReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"IdentityReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc identityReader*(scope: Scope,
                      container: cstring,
@@ -167,13 +167,13 @@ proc identityReader*(scope: Scope,
 converter identityReaderToOut*(op: IdentityReader): ostring {.inline.} = return op.output
 
 
-type IdentityReaderV2* {.header:"../../ops/io/io.h", importcpp:"IdentityReaderV2/*'0*/".} = object
+type IdentityReaderV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"IdentityReaderV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iiidentityReaderV2(scope: Scope,
                        container: cstring,
-                       shared_name: cstring): IdentityReaderV2 {.header:"../../ops/io/io.h", importcpp:"IdentityReaderV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                       shared_name: cstring): IdentityReaderV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"IdentityReaderV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc identityReaderV2*(scope: Scope,
                        container: cstring,
@@ -185,13 +185,13 @@ proc identityReaderV2*(scope: Scope,
 converter identityReaderV2ToOut*(op: IdentityReaderV2): oresource {.inline.} = return op.output
 
 
-type LMDBReader* {.header:"../../ops/io/io.h", importcpp:"LMDBReader/*'0*/".} = object
+type LMDBReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"LMDBReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iilMDBReader(scope: Scope,
                  container: cstring,
-                 shared_name: cstring): LMDBReader {.header:"../../ops/io/io.h", importcpp:"LMDBReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                 shared_name: cstring): LMDBReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"LMDBReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc lMDBReader*(scope: Scope,
                  container: cstring,
@@ -203,12 +203,12 @@ proc lMDBReader*(scope: Scope,
 converter lMDBReaderToOut*(op: LMDBReader): ostring {.inline.} = return op.output
 
 
-type MatchingFiles* {.header:"../../ops/io/io.h", importcpp:"MatchingFiles/*'0*/".} = object
+type MatchingFiles* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"MatchingFiles/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iimatchingFiles(scope: Scope,
-                    pattern: ostring): MatchingFiles {.header:"../../ops/io/io.h", importcpp:"MatchingFiles(*#, #)", constructor.}
+                    pattern: ostring): MatchingFiles {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"MatchingFiles(*#, #)", constructor.}
 
 proc matchingFiles*(scope: Scope,
                     pattern: ostring): MatchingFiles =
@@ -218,14 +218,14 @@ proc matchingFiles*(scope: Scope,
 converter matchingFilesToOut*(op: MatchingFiles): ostring {.inline.} = return op.output
 
 
-type MergeV2Checkpoints*{.header:"../../ops/io/io.h", importcpp:"MergeV2Checkpoints/*'0*/".} = object
+type MergeV2Checkpoints*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"MergeV2Checkpoints/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iimergeV2Checkpoints(scope: Scope,
                          checkpoint_prefixes: ostring,
                          destination_prefix: ostring,
-                         delete_old_dirs: bool): MergeV2Checkpoints {.header:"../../ops/io/io.h", importcpp:"MergeV2Checkpoints(*#, #, #, #)", constructor.}
+                         delete_old_dirs: bool): MergeV2Checkpoints {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"MergeV2Checkpoints(*#, #, #, #)", constructor.}
 
 proc mergeV2Checkpoints*(scope: Scope,
                          checkpoint_prefixes: ostring,
@@ -237,12 +237,12 @@ proc mergeV2Checkpoints*(scope: Scope,
                               delete_old_dirs)
 
 
-type ReadFile* {.header:"../../ops/io/io.h", importcpp:"ReadFile/*'0*/".} = object
+type ReadFile* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReadFile/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireadFile(scope: Scope,
-               filename: ostring): ReadFile {.header:"../../ops/io/io.h", importcpp:"ReadFile(*#, #)", constructor.}
+               filename: ostring): ReadFile {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReadFile(*#, #)", constructor.}
 
 proc readFile*(scope: Scope,
                filename: ostring): ReadFile =
@@ -252,12 +252,12 @@ proc readFile*(scope: Scope,
 converter readFileToOut*(op: ReadFile): ostring {.inline.} = return op.output
 
 
-type ReaderNumRecordsProduced* {.header:"../../ops/io/io.h", importcpp:"ReaderNumRecordsProduced/*'0*/".} = object
+type ReaderNumRecordsProduced* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumRecordsProduced/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iireaderNumRecordsProduced(scope: Scope,
-                               reader_handle: ostring): ReaderNumRecordsProduced {.header:"../../ops/io/io.h", importcpp:"ReaderNumRecordsProduced(*#, #)", constructor.}
+                               reader_handle: ostring): ReaderNumRecordsProduced {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumRecordsProduced(*#, #)", constructor.}
 
 proc readerNumRecordsProduced*(scope: Scope,
                                reader_handle: ostring): ReaderNumRecordsProduced =
@@ -267,12 +267,12 @@ proc readerNumRecordsProduced*(scope: Scope,
 converter readerNumRecordsProducedToOut*(op: ReaderNumRecordsProduced): oint64 {.inline.} = return op.output
 
 
-type ReaderNumRecordsProducedV2* {.header:"../../ops/io/io.h", importcpp:"ReaderNumRecordsProducedV2/*'0*/".} = object
+type ReaderNumRecordsProducedV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumRecordsProducedV2/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iireaderNumRecordsProducedV2(scope: Scope,
-                                 reader_handle: oresource): ReaderNumRecordsProducedV2 {.header:"../../ops/io/io.h", importcpp:"ReaderNumRecordsProducedV2(*#, #)", constructor.}
+                                 reader_handle: oresource): ReaderNumRecordsProducedV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumRecordsProducedV2(*#, #)", constructor.}
 
 proc readerNumRecordsProducedV2*(scope: Scope,
                                  reader_handle: oresource): ReaderNumRecordsProducedV2 =
@@ -282,12 +282,12 @@ proc readerNumRecordsProducedV2*(scope: Scope,
 converter readerNumRecordsProducedV2ToOut*(op: ReaderNumRecordsProducedV2): oint64 {.inline.} = return op.output
 
 
-type ReaderNumWorkUnitsCompleted* {.header:"../../ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompleted/*'0*/".} = object
+type ReaderNumWorkUnitsCompleted* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompleted/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iireaderNumWorkUnitsCompleted(scope: Scope,
-                                  reader_handle: ostring): ReaderNumWorkUnitsCompleted {.header:"../../ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompleted(*#, #)", constructor.}
+                                  reader_handle: ostring): ReaderNumWorkUnitsCompleted {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompleted(*#, #)", constructor.}
 
 proc readerNumWorkUnitsCompleted*(scope: Scope,
                                   reader_handle: ostring): ReaderNumWorkUnitsCompleted =
@@ -297,12 +297,12 @@ proc readerNumWorkUnitsCompleted*(scope: Scope,
 converter readerNumWorkUnitsCompletedToOut*(op: ReaderNumWorkUnitsCompleted): oint64 {.inline.} = return op.output
 
 
-type ReaderNumWorkUnitsCompletedV2* {.header:"../../ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompletedV2/*'0*/".} = object
+type ReaderNumWorkUnitsCompletedV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompletedV2/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iireaderNumWorkUnitsCompletedV2(scope: Scope,
-                                    reader_handle: oresource): ReaderNumWorkUnitsCompletedV2 {.header:"../../ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompletedV2(*#, #)", constructor.}
+                                    reader_handle: oresource): ReaderNumWorkUnitsCompletedV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderNumWorkUnitsCompletedV2(*#, #)", constructor.}
 
 proc readerNumWorkUnitsCompletedV2*(scope: Scope,
                                     reader_handle: oresource): ReaderNumWorkUnitsCompletedV2 =
@@ -312,13 +312,13 @@ proc readerNumWorkUnitsCompletedV2*(scope: Scope,
 converter readerNumWorkUnitsCompletedV2ToOut*(op: ReaderNumWorkUnitsCompletedV2): oint64 {.inline.} = return op.output
 
 
-type ReaderRead* {.header:"../../ops/io/io.h", importcpp:"ReaderRead/*'0*/".} = object
+type ReaderRead* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderRead/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireaderRead(scope: Scope,
                  reader_handle: ostring,
-                 queue_handle: ostring): ReaderRead {.header:"../../ops/io/io.h", importcpp:"ReaderRead(*#, #, #)", constructor.}
+                 queue_handle: ostring): ReaderRead {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderRead(*#, #, #)", constructor.}
 
 proc readerRead*(scope: Scope,
                  reader_handle: ostring,
@@ -330,14 +330,14 @@ proc readerRead*(scope: Scope,
 converter readerReadToOut*(op: ReaderRead): ostring {.inline.} = return op.output
 
 
-type ReaderReadUpTo* {.header:"../../ops/io/io.h", importcpp:"ReaderReadUpTo/*'0*/".} = object
+type ReaderReadUpTo* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadUpTo/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireaderReadUpTo(scope: Scope,
                      reader_handle: ostring,
                      queue_handle: ostring,
-                     num_records: oint64): ReaderReadUpTo {.header:"../../ops/io/io.h", importcpp:"ReaderReadUpTo(*#, #, #, #)", constructor.}
+                     num_records: oint64): ReaderReadUpTo {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadUpTo(*#, #, #, #)", constructor.}
 
 proc readerReadUpTo*(scope: Scope,
                      reader_handle: ostring,
@@ -351,14 +351,14 @@ proc readerReadUpTo*(scope: Scope,
 converter readerReadUpToToOut*(op: ReaderReadUpTo): ostring {.inline.} = return op.output
 
 
-type ReaderReadUpToV2* {.header:"../../ops/io/io.h", importcpp:"ReaderReadUpToV2/*'0*/".} = object
+type ReaderReadUpToV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadUpToV2/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireaderReadUpToV2(scope: Scope,
                        reader_handle: oresource,
                        queue_handle: oresource,
-                       num_records: oint64): ReaderReadUpToV2 {.header:"../../ops/io/io.h", importcpp:"ReaderReadUpToV2(*#, #, #, #)", constructor.}
+                       num_records: oint64): ReaderReadUpToV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadUpToV2(*#, #, #, #)", constructor.}
 
 proc readerReadUpToV2*(scope: Scope,
                        reader_handle: oresource,
@@ -372,13 +372,13 @@ proc readerReadUpToV2*(scope: Scope,
 converter readerReadUpToV2ToOut*(op: ReaderReadUpToV2): ostring {.inline.} = return op.output
 
 
-type ReaderReadV2* {.header:"../../ops/io/io.h", importcpp:"ReaderReadV2/*'0*/".} = object
+type ReaderReadV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadV2/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireaderReadV2(scope: Scope,
                    reader_handle: oresource,
-                   queue_handle: oresource): ReaderReadV2 {.header:"../../ops/io/io.h", importcpp:"ReaderReadV2(*#, #, #)", constructor.}
+                   queue_handle: oresource): ReaderReadV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReadV2(*#, #, #)", constructor.}
 
 proc readerReadV2*(scope: Scope,
                    reader_handle: oresource,
@@ -390,12 +390,12 @@ proc readerReadV2*(scope: Scope,
 converter readerReadV2ToOut*(op: ReaderReadV2): ostring {.inline.} = return op.output
 
 
-type ReaderReset*{.header:"../../ops/io/io.h", importcpp:"ReaderReset/*'0*/".} = object
+type ReaderReset*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReset/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iireaderReset(scope: Scope,
-                  reader_handle: ostring): ReaderReset {.header:"../../ops/io/io.h", importcpp:"ReaderReset(*#, #)", constructor.}
+                  reader_handle: ostring): ReaderReset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderReset(*#, #)", constructor.}
 
 proc readerReset*(scope: Scope,
                   reader_handle: ostring): ReaderReset =
@@ -403,12 +403,12 @@ proc readerReset*(scope: Scope,
                        reader_handle)
 
 
-type ReaderResetV2*{.header:"../../ops/io/io.h", importcpp:"ReaderResetV2/*'0*/".} = object
+type ReaderResetV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderResetV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iireaderResetV2(scope: Scope,
-                    reader_handle: oresource): ReaderResetV2 {.header:"../../ops/io/io.h", importcpp:"ReaderResetV2(*#, #)", constructor.}
+                    reader_handle: oresource): ReaderResetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderResetV2(*#, #)", constructor.}
 
 proc readerResetV2*(scope: Scope,
                     reader_handle: oresource): ReaderResetV2 =
@@ -416,13 +416,13 @@ proc readerResetV2*(scope: Scope,
                          reader_handle)
 
 
-type ReaderRestoreState*{.header:"../../ops/io/io.h", importcpp:"ReaderRestoreState/*'0*/".} = object
+type ReaderRestoreState*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderRestoreState/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iireaderRestoreState(scope: Scope,
                          reader_handle: ostring,
-                         state: ostring): ReaderRestoreState {.header:"../../ops/io/io.h", importcpp:"ReaderRestoreState(*#, #, #)", constructor.}
+                         state: ostring): ReaderRestoreState {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderRestoreState(*#, #, #)", constructor.}
 
 proc readerRestoreState*(scope: Scope,
                          reader_handle: ostring,
@@ -432,12 +432,12 @@ proc readerRestoreState*(scope: Scope,
                               state)
 
 
-type ReaderSerializeState* {.header:"../../ops/io/io.h", importcpp:"ReaderSerializeState/*'0*/".} = object
+type ReaderSerializeState* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderSerializeState/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iireaderSerializeState(scope: Scope,
-                           reader_handle: ostring): ReaderSerializeState {.header:"../../ops/io/io.h", importcpp:"ReaderSerializeState(*#, #)", constructor.}
+                           reader_handle: ostring): ReaderSerializeState {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ReaderSerializeState(*#, #)", constructor.}
 
 proc readerSerializeState*(scope: Scope,
                            reader_handle: ostring): ReaderSerializeState =
@@ -447,7 +447,7 @@ proc readerSerializeState*(scope: Scope,
 converter readerSerializeStateToOut*(op: ReaderSerializeState): ostring {.inline.} = return op.output
 
 
-type RecordInput* {.header:"../../ops/io/io.h", importcpp:"RecordInput/*'0*/".} = object
+type RecordInput* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RecordInput/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -458,7 +458,7 @@ proc iirecordInput(scope: Scope,
                   file_shuffle_shift_ratio: float32,
                   file_buffer_size: int64,
                   file_parallelism: int64,
-                  batch_size: int64): RecordInput {.header:"../../ops/io/io.h", importcpp:"RecordInput(*#, tensorflow::string(#), tensorflow::string(#), #, #, #, #, #)", constructor.}
+                  batch_size: int64): RecordInput {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RecordInput(*#, tensorflow::string(#), tensorflow::string(#), #, #, #, #, #)", constructor.}
 
 proc recordInput*(scope: Scope,
                   file_pattern: cstring,
@@ -480,7 +480,7 @@ proc recordInput*(scope: Scope,
 converter recordInputToOut*(op: RecordInput): ostring {.inline.} = return op.output
 
 
-type Restore*[oT:oall] {.header:"../../ops/io/io.h", importcpp:"Restore/*'0*/".} = object
+type Restore*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"Restore/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -489,7 +489,7 @@ proc iirestore[oT: oall](scope: Scope,
               tensor_name: ostring,
               dt: DType,
               preferred_shard: int64,
-              explicitT: type(oT)): Restore[oT] {.header:"../../ops/io/io.h", importcpp:"Restore(*#, #, #, #, #)", constructor.}
+              explicitT: type(oT)): Restore[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"Restore(*#, #, #, #, #)", constructor.}
 
 proc restore*(scope: Scope,
               file_pattern: ostring,
@@ -499,14 +499,14 @@ proc restore*(scope: Scope,
   return iirestore(scope,
                    file_pattern,
                    tensor_name,
-                   dt[].oTF,
+                   dt.oTF,
                    preferred_shard,
                    dt)
 
 converter restoreToOut*[oT: oall](op: Restore[oT]): oT {.inline.} = return op.output
 
 
-type RestoreSlice*[oT:oall] {.header:"../../ops/io/io.h", importcpp:"RestoreSlice/*'0*/".} = object
+type RestoreSlice*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RestoreSlice/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -516,7 +516,7 @@ proc iirestoreSlice[oT: oall](scope: Scope,
                    shape_and_slice: ostring,
                    dt: DType,
                    preferred_shard: int64,
-                   explicitT: type(oT)): RestoreSlice[oT] {.header:"../../ops/io/io.h", importcpp:"RestoreSlice(*#, #, #, #, #, #)", constructor.}
+                   explicitT: type(oT)): RestoreSlice[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RestoreSlice(*#, #, #, #, #, #)", constructor.}
 
 proc restoreSlice*(scope: Scope,
                    file_pattern: ostring,
@@ -528,14 +528,14 @@ proc restoreSlice*(scope: Scope,
                         file_pattern,
                         tensor_name,
                         shape_and_slice,
-                        dt[].oTF,
+                        dt.oTF,
                         preferred_shard,
                         dt)
 
 converter restoreSliceToOut*[oT: oall](op: RestoreSlice[oT]): oT {.inline.} = return op.output
 
 
-type RestoreV2*[oT:oall] {.header:"../../ops/io/io.h", importcpp:"RestoreV2/*'0*/".} = object
+type RestoreV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RestoreV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -544,7 +544,7 @@ proc iirestoreV2[oT: oall](scope: Scope,
                 tensor_names: ostring,
                 shape_and_slices: ostring,
                 dtypes: ArraySlice[DType],
-                explicitT: type(oT)): RestoreV2[oT] {.header:"../../ops/io/io.h", importcpp:"RestoreV2(*#, #, #, #, #)", constructor.}
+                explicitT: type(oT)): RestoreV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"RestoreV2(*#, #, #, #, #)", constructor.}
 
 proc restoreV2*(scope: Scope,
                 prefix: ostring,
@@ -562,7 +562,7 @@ proc restoreV2*(scope: Scope,
 converter restoreV2ToOutList*[oT: oall](op: RestoreV2[oT]): olist[oT] {.inline.} = return op.output
 
 
-type Save*{.header:"../../ops/io/io.h", importcpp:"Save/*'0*/".} = object
+type Save*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"Save/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -570,7 +570,7 @@ proc iisave(scope: Scope,
            filename: ostring,
            tensor_names: ostring,
            data: olist[oall],
-           T: ArraySlice[DType]): Save {.header:"../../ops/io/io.h", importcpp:"Save(*#, #, #, #, #)", constructor.}
+           T: ArraySlice[DType]): Save {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"Save(*#, #, #, #, #)", constructor.}
 
 proc save*(scope: Scope,
            filename: ostring,
@@ -584,7 +584,7 @@ proc save*(scope: Scope,
                 newArraySlice(T))
 
 
-type SaveSlices*{.header:"../../ops/io/io.h", importcpp:"SaveSlices/*'0*/".} = object
+type SaveSlices*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"SaveSlices/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -593,7 +593,7 @@ proc iisaveSlices(scope: Scope,
                  tensor_names: ostring,
                  shapes_and_slices: ostring,
                  data: olist[oall],
-                 T: ArraySlice[DType]): SaveSlices {.header:"../../ops/io/io.h", importcpp:"SaveSlices(*#, #, #, #, #, #)", constructor.}
+                 T: ArraySlice[DType]): SaveSlices {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"SaveSlices(*#, #, #, #, #, #)", constructor.}
 
 proc saveSlices*(scope: Scope,
                  filename: ostring,
@@ -609,7 +609,7 @@ proc saveSlices*(scope: Scope,
                       newArraySlice(T))
 
 
-type SaveV2*{.header:"../../ops/io/io.h", importcpp:"SaveV2/*'0*/".} = object
+type SaveV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"SaveV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -618,7 +618,7 @@ proc iisaveV2(scope: Scope,
              tensor_names: ostring,
              shape_and_slices: ostring,
              tensors: olist[oall],
-             dtypes: ArraySlice[DType]): SaveV2 {.header:"../../ops/io/io.h", importcpp:"SaveV2(*#, #, #, #, #, #)", constructor.}
+             dtypes: ArraySlice[DType]): SaveV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"SaveV2(*#, #, #, #, #, #)", constructor.}
 
 proc saveV2*(scope: Scope,
              prefix: ostring,
@@ -634,14 +634,14 @@ proc saveV2*(scope: Scope,
                   newArraySlice(dtypes))
 
 
-type ShardedFilename* {.header:"../../ops/io/io.h", importcpp:"ShardedFilename/*'0*/".} = object
+type ShardedFilename* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ShardedFilename/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iishardedFilename(scope: Scope,
                       basename: ostring,
                       shard: oint32,
-                      num_shards: oint32): ShardedFilename {.header:"../../ops/io/io.h", importcpp:"ShardedFilename(*#, #, #, #)", constructor.}
+                      num_shards: oint32): ShardedFilename {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ShardedFilename(*#, #, #, #)", constructor.}
 
 proc shardedFilename*(scope: Scope,
                       basename: ostring,
@@ -655,13 +655,13 @@ proc shardedFilename*(scope: Scope,
 converter shardedFilenameToOut*(op: ShardedFilename): ostring {.inline.} = return op.output
 
 
-type ShardedFilespec* {.header:"../../ops/io/io.h", importcpp:"ShardedFilespec/*'0*/".} = object
+type ShardedFilespec* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ShardedFilespec/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iishardedFilespec(scope: Scope,
                       basename: ostring,
-                      num_shards: oint32): ShardedFilespec {.header:"../../ops/io/io.h", importcpp:"ShardedFilespec(*#, #, #)", constructor.}
+                      num_shards: oint32): ShardedFilespec {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"ShardedFilespec(*#, #, #)", constructor.}
 
 proc shardedFilespec*(scope: Scope,
                       basename: ostring,
@@ -673,14 +673,14 @@ proc shardedFilespec*(scope: Scope,
 converter shardedFilespecToOut*(op: ShardedFilespec): ostring {.inline.} = return op.output
 
 
-type TFRecordReader* {.header:"../../ops/io/io.h", importcpp:"TFRecordReader/*'0*/".} = object
+type TFRecordReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TFRecordReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iitFRecordReader(scope: Scope,
                      container: cstring,
                      shared_name: cstring,
-                     compression_type: cstring): TFRecordReader {.header:"../../ops/io/io.h", importcpp:"TFRecordReader(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
+                     compression_type: cstring): TFRecordReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TFRecordReader(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc tFRecordReader*(scope: Scope,
                      container: cstring,
@@ -694,14 +694,14 @@ proc tFRecordReader*(scope: Scope,
 converter tFRecordReaderToOut*(op: TFRecordReader): ostring {.inline.} = return op.output
 
 
-type TFRecordReaderV2* {.header:"../../ops/io/io.h", importcpp:"TFRecordReaderV2/*'0*/".} = object
+type TFRecordReaderV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TFRecordReaderV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iitFRecordReaderV2(scope: Scope,
                        container: cstring,
                        shared_name: cstring,
-                       compression_type: cstring): TFRecordReaderV2 {.header:"../../ops/io/io.h", importcpp:"TFRecordReaderV2(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
+                       compression_type: cstring): TFRecordReaderV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TFRecordReaderV2(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc tFRecordReaderV2*(scope: Scope,
                        container: cstring,
@@ -715,14 +715,14 @@ proc tFRecordReaderV2*(scope: Scope,
 converter tFRecordReaderV2ToOut*(op: TFRecordReaderV2): oresource {.inline.} = return op.output
 
 
-type TextLineReader* {.header:"../../ops/io/io.h", importcpp:"TextLineReader/*'0*/".} = object
+type TextLineReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TextLineReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iitextLineReader(scope: Scope,
                      container: cstring,
                      shared_name: cstring,
-                     skip_header_lines: int64): TextLineReader {.header:"../../ops/io/io.h", importcpp:"TextLineReader(*#, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                     skip_header_lines: int64): TextLineReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TextLineReader(*#, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc textLineReader*(scope: Scope,
                      container: cstring,
@@ -736,14 +736,14 @@ proc textLineReader*(scope: Scope,
 converter textLineReaderToOut*(op: TextLineReader): ostring {.inline.} = return op.output
 
 
-type TextLineReaderV2* {.header:"../../ops/io/io.h", importcpp:"TextLineReaderV2/*'0*/".} = object
+type TextLineReaderV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TextLineReaderV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iitextLineReaderV2(scope: Scope,
                        container: cstring,
                        shared_name: cstring,
-                       skip_header_lines: int64): TextLineReaderV2 {.header:"../../ops/io/io.h", importcpp:"TextLineReaderV2(*#, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                       skip_header_lines: int64): TextLineReaderV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"TextLineReaderV2(*#, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc textLineReaderV2*(scope: Scope,
                        container: cstring,
@@ -757,7 +757,7 @@ proc textLineReaderV2*(scope: Scope,
 converter textLineReaderV2ToOut*(op: TextLineReaderV2): oresource {.inline.} = return op.output
 
 
-type UnicodeDecode* {.header:"../../ops/io/io.h", importcpp:"UnicodeDecode/*'0*/".} = object
+type UnicodeDecode* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"UnicodeDecode/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -766,7 +766,7 @@ proc iiunicodeDecode(scope: Scope,
                     input_encoding: cstring,
                     errors: cstring,
                     replacement_char: int64,
-                    replace_control_characters: bool): UnicodeDecode {.header:"../../ops/io/io.h", importcpp:"UnicodeDecode(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                    replace_control_characters: bool): UnicodeDecode {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"UnicodeDecode(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc unicodeDecode*(scope: Scope,
                     input: ostring,
@@ -784,13 +784,13 @@ proc unicodeDecode*(scope: Scope,
 converter unicodeDecodeToOut*(op: UnicodeDecode): oint64 {.inline.} = return op.output
 
 
-type WholeFileReader* {.header:"../../ops/io/io.h", importcpp:"WholeFileReader/*'0*/".} = object
+type WholeFileReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WholeFileReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiwholeFileReader(scope: Scope,
                       container: cstring,
-                      shared_name: cstring): WholeFileReader {.header:"../../ops/io/io.h", importcpp:"WholeFileReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                      shared_name: cstring): WholeFileReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WholeFileReader(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc wholeFileReader*(scope: Scope,
                       container: cstring,
@@ -802,13 +802,13 @@ proc wholeFileReader*(scope: Scope,
 converter wholeFileReaderToOut*(op: WholeFileReader): ostring {.inline.} = return op.output
 
 
-type WholeFileReaderV2* {.header:"../../ops/io/io.h", importcpp:"WholeFileReaderV2/*'0*/".} = object
+type WholeFileReaderV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WholeFileReaderV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iiwholeFileReaderV2(scope: Scope,
                         container: cstring,
-                        shared_name: cstring): WholeFileReaderV2 {.header:"../../ops/io/io.h", importcpp:"WholeFileReaderV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                        shared_name: cstring): WholeFileReaderV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WholeFileReaderV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc wholeFileReaderV2*(scope: Scope,
                         container: cstring,
@@ -820,13 +820,13 @@ proc wholeFileReaderV2*(scope: Scope,
 converter wholeFileReaderV2ToOut*(op: WholeFileReaderV2): oresource {.inline.} = return op.output
 
 
-type WriteFile*{.header:"../../ops/io/io.h", importcpp:"WriteFile/*'0*/".} = object
+type WriteFile*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WriteFile/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiwriteFile(scope: Scope,
                 filename: ostring,
-                contents: ostring): WriteFile {.header:"../../ops/io/io.h", importcpp:"WriteFile(*#, #, #)", constructor.}
+                contents: ostring): WriteFile {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/io.h", importcpp:"WriteFile(*#, #, #)", constructor.}
 
 proc writeFile*(scope: Scope,
                 filename: ostring,

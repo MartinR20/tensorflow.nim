@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -26,6 +27,7 @@ class BoostedTreesBucketize{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesCalculateBestGainsPerFeature{
   public:
     BoostedTreesCalculateBestGainsPerFeature() {}
@@ -42,6 +44,7 @@ class BoostedTreesCalculateBestGainsPerFeature{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesCenterBias{
   public:
     BoostedTreesCenterBias() {}
@@ -55,6 +58,7 @@ class BoostedTreesCenterBias{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesCreateEnsemble{
   public:
     BoostedTreesCreateEnsemble() {}
@@ -65,6 +69,7 @@ class BoostedTreesCreateEnsemble{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesCreateQuantileStreamResource{
   public:
     BoostedTreesCreateQuantileStreamResource() {}
@@ -76,6 +81,7 @@ class BoostedTreesCreateQuantileStreamResource{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesDeserializeEnsemble{
   public:
     BoostedTreesDeserializeEnsemble() {}
@@ -86,6 +92,7 @@ class BoostedTreesDeserializeEnsemble{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesEnsembleResourceHandleOp{
   public:
     BoostedTreesEnsembleResourceHandleOp() {}
@@ -96,6 +103,7 @@ class BoostedTreesEnsembleResourceHandleOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesGetEnsembleStates{
   public:
     BoostedTreesGetEnsembleStates() {}
@@ -105,6 +113,7 @@ class BoostedTreesGetEnsembleStates{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesMakeQuantileSummaries{
   public:
     BoostedTreesMakeQuantileSummaries() {}
@@ -117,6 +126,7 @@ class BoostedTreesMakeQuantileSummaries{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesPredict{
   public:
     BoostedTreesPredict() {}
@@ -129,6 +139,7 @@ class BoostedTreesPredict{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesQuantileStreamResourceAddSummaries{
   public:
     BoostedTreesQuantileStreamResourceAddSummaries() {}
@@ -139,6 +150,7 @@ class BoostedTreesQuantileStreamResourceAddSummaries{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesQuantileStreamResourceDeserialize{
   public:
     BoostedTreesQuantileStreamResourceDeserialize() {}
@@ -149,6 +161,7 @@ class BoostedTreesQuantileStreamResourceDeserialize{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesQuantileStreamResourceFlush{
   public:
     BoostedTreesQuantileStreamResourceFlush() {}
@@ -159,6 +172,7 @@ class BoostedTreesQuantileStreamResourceFlush{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class BoostedTreesQuantileStreamResourceGetBucketBoundaries{
   public:
     BoostedTreesQuantileStreamResourceGetBucketBoundaries() {}
@@ -169,6 +183,7 @@ class BoostedTreesQuantileStreamResourceGetBucketBoundaries{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesQuantileStreamResourceHandleOp{
   public:
     BoostedTreesQuantileStreamResourceHandleOp() {}
@@ -179,6 +194,7 @@ class BoostedTreesQuantileStreamResourceHandleOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesSerializeEnsemble{
   public:
     BoostedTreesSerializeEnsemble() {}
@@ -188,6 +204,7 @@ class BoostedTreesSerializeEnsemble{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesTrainingPredict{
   public:
     BoostedTreesTrainingPredict() {}
@@ -202,6 +219,7 @@ class BoostedTreesTrainingPredict{
     tensorflow::Output output;
 };
 
+#pragma once
 class BoostedTreesUpdateEnsemble{
   public:
     BoostedTreesUpdateEnsemble() {}
@@ -220,6 +238,7 @@ class BoostedTreesUpdateEnsemble{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class IsBoostedTreesEnsembleInitialized{
   public:
     IsBoostedTreesEnsembleInitialized() {}
@@ -229,6 +248,7 @@ class IsBoostedTreesEnsembleInitialized{
     tensorflow::Output output;
 };
 
+#pragma once
 class IsBoostedTreesQuantileStreamResourceInitialized{
   public:
     IsBoostedTreesQuantileStreamResourceInitialized() {}
@@ -238,6 +258,7 @@ class IsBoostedTreesQuantileStreamResourceInitialized{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorForestCreateTreeVariable{
   public:
     TensorForestCreateTreeVariable() {}
@@ -247,6 +268,7 @@ class TensorForestCreateTreeVariable{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class TensorForestTreeDeserialize{
   public:
     TensorForestTreeDeserialize() {}
@@ -256,6 +278,7 @@ class TensorForestTreeDeserialize{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class TensorForestTreeIsInitializedOp{
   public:
     TensorForestTreeIsInitializedOp() {}
@@ -265,6 +288,7 @@ class TensorForestTreeIsInitializedOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorForestTreePredict{
   public:
     TensorForestTreePredict() {}
@@ -276,6 +300,7 @@ class TensorForestTreePredict{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorForestTreeResourceHandleOp{
   public:
     TensorForestTreeResourceHandleOp() {}
@@ -286,6 +311,7 @@ class TensorForestTreeResourceHandleOp{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorForestTreeSerialize{
   public:
     TensorForestTreeSerialize() {}
@@ -295,6 +321,7 @@ class TensorForestTreeSerialize{
     tensorflow::Output output;
 };
 
+#pragma once
 class TensorForestTreeSize{
   public:
     TensorForestTreeSize() {}

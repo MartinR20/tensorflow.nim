@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -25,6 +26,7 @@ class AnonymousIterator{
     tensorflow::Output output;
 };
 
+#pragma once
 class DeserializeIterator{
   public:
     DeserializeIterator() {}
@@ -34,6 +36,7 @@ class DeserializeIterator{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ExperimentalIteratorGetDevice{
   public:
     ExperimentalIteratorGetDevice() {}
@@ -43,6 +46,7 @@ class ExperimentalIteratorGetDevice{
     tensorflow::Output output;
 };
 
+#pragma once
 class Iterator{
   public:
     Iterator() {}
@@ -55,6 +59,7 @@ class Iterator{
     tensorflow::Output output;
 };
 
+#pragma once
 class IteratorFromStringHandle{
   public:
     IteratorFromStringHandle() {}
@@ -66,6 +71,7 @@ class IteratorFromStringHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class IteratorFromStringHandleV2{
   public:
     IteratorFromStringHandleV2() {}
@@ -77,6 +83,7 @@ class IteratorFromStringHandleV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class IteratorGetNext{
   public:
     IteratorGetNext() {}
@@ -88,6 +95,7 @@ class IteratorGetNext{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class IteratorGetNextAsOptional{
   public:
     IteratorGetNextAsOptional() {}
@@ -99,6 +107,7 @@ class IteratorGetNextAsOptional{
     tensorflow::Output output;
 };
 
+#pragma once
 class IteratorGetNextSync{
   public:
     IteratorGetNextSync() {}
@@ -110,6 +119,7 @@ class IteratorGetNextSync{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class IteratorToStringHandle{
   public:
     IteratorToStringHandle() {}
@@ -119,6 +129,7 @@ class IteratorToStringHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class IteratorV2{
   public:
     IteratorV2() {}
@@ -131,6 +142,7 @@ class IteratorV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class MakeIterator{
   public:
     MakeIterator() {}
@@ -140,6 +152,7 @@ class MakeIterator{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class MultiDeviceIterator{
   public:
     MultiDeviceIterator() {}
@@ -153,6 +166,7 @@ class MultiDeviceIterator{
     tensorflow::Output output;
 };
 
+#pragma once
 class MultiDeviceIteratorFromStringHandle{
   public:
     MultiDeviceIteratorFromStringHandle() {}
@@ -164,6 +178,7 @@ class MultiDeviceIteratorFromStringHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class MultiDeviceIteratorGetNextFromShard{
   public:
     MultiDeviceIteratorGetNextFromShard() {}
@@ -177,6 +192,7 @@ class MultiDeviceIteratorGetNextFromShard{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class MultiDeviceIteratorInit{
   public:
     MultiDeviceIteratorInit() {}
@@ -188,6 +204,7 @@ class MultiDeviceIteratorInit{
     tensorflow::Output output;
 };
 
+#pragma once
 class MultiDeviceIteratorToStringHandle{
   public:
     MultiDeviceIteratorToStringHandle() {}
@@ -197,6 +214,7 @@ class MultiDeviceIteratorToStringHandle{
     tensorflow::Output output;
 };
 
+#pragma once
 class NextIteration{
   public:
     NextIteration() {}
@@ -207,6 +225,7 @@ class NextIteration{
     tensorflow::Output output;
 };
 
+#pragma once
 class OneShotIterator{
   public:
     OneShotIterator() {}
@@ -220,6 +239,7 @@ class OneShotIterator{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefNextIteration{
   public:
     RefNextIteration() {}
@@ -230,6 +250,7 @@ class RefNextIteration{
     tensorflow::Output output;
 };
 
+#pragma once
 class SerializeIterator{
   public:
     SerializeIterator() {}

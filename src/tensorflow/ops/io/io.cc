@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/io/io.h"
+#include "io.h"
 
 DeserializeSparse::DeserializeSparse(tensorflow::Scope& scope, 
            tensorflow::Input serialized_sparse, 

@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/gen/gen.h"
+#include "gen.h"
 
 Assign::Assign(tensorflow::Scope& scope, 
            tensorflow::Input ref, 

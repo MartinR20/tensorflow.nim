@@ -12,6 +12,33 @@ type conversions* = enum
     TYPECONV = 5
     #SHAPECONV = 6
 
+const d_to_o* = {
+    DT_INT8         : "oint8"        ,
+    DT_INT16        : "oint16"       ,
+    DT_INT32        : "oint32"       ,
+    DT_INT64        : "oint64"       ,
+    DT_UINT8        : "ouint8"       ,
+    DT_UINT16       : "ouint16"      , 
+    DT_UINT32       : "ouint32"      , 
+    DT_UINT64       : "ouint64"      , 
+    DT_FLOAT        : "ofloat"       ,
+    DT_DOUBLE       : "odouble"      , 
+    DT_BOOL         : "obool"        ,
+    DT_STRING       : "ostring"      , 
+    DT_COMPLEX64    : "ocomplex64"   ,
+    DT_COMPLEX128   : "ocomplex128"  ,
+    DT_QINT8        : "oqint8"       , 
+    DT_QUINT8       : "oquint8"      , 
+    DT_QINT32       : "oqint32"      , 
+    DT_BFLOAT16     : "obfloat16"    , 
+    DT_QINT16       : "oqint16"      ,  
+    DT_QUINT16      : "oquint16"     , 
+    DT_HALF         : "ohalf"        , 
+    DT_INVALID      : "oinvalid"     , 
+    DT_RESOURCE     : "oresource"    , 
+    DT_VARIANT      : "ovariant"     
+}.toTable
+
 const needsConversion* = {
     "Out"                     : NONE,
     "OutList"                 : NONE,
@@ -112,7 +139,7 @@ proc nim*(x: TensorShape): string =
         return $x & ".shape"
 
 proc cpp*(x: ref Tensor[oinvalid]): string =
-    let ten = x[].toValueStr(-1)[1..^2].replace(" ", ", ")
+    let ten = x[].valuestr(-1)[1..^2].replace(" ", ", ")
 
     if ten == "": return ""
 
@@ -120,11 +147,11 @@ proc cpp*(x: ref Tensor[oinvalid]): string =
                 "}, {tensorflow::" & $x[].dtype & "})"
 
 proc nim*(x: ref Tensor[oinvalid]): string =
-    let ten = x[].toValueStr(-1).replace(" ", ", ")
+    let ten = x[].valuestr(-1).replace(" ", ", ")
  
     if ten == "[]": return ""
 
-    return "tensor(" & ten & ", " & typeLookUpReverse[x[].dtype] & ")"
+    return "tensor(" & ten & ", " & d_to_o[x[].dtype] & ")"
                 
 proc cpp*(x: NameAttrList): string =
     return ""
@@ -218,6 +245,33 @@ const otypeLookUp* = {
     DT_HALF          : "ohalf"       ,  
     DT_RESOURCE      : "oresource"   ,  
     DT_VARIANT       : "ovariant"  
+}.toTable
+
+const dtypeLookUp* = { 
+    "oinvalid"     : DT_INVALID    ,  
+    "odouble"      : DT_DOUBLE     ,  
+    "ofloat"       : DT_FLOAT      , 
+    "oint64"       : DT_INT64      , 
+    "oint32"       : DT_INT32      , 
+    "ouint8"       : DT_UINT8      , 
+    "oint16"       : DT_INT16      , 
+    "oint8"        : DT_INT8       , 
+    "ostring"      : DT_STRING     ,  
+    "obool"        : DT_BOOL       ,
+    "ouint16"      : DT_UINT16     ,  
+    "ouint32"      : DT_UINT32     ,  
+    "ouint64"      : DT_UINT64     ,  
+    "ocomplex64"   : DT_COMPLEX64  ,  
+    "ocomplex128"  : DT_COMPLEX128 ,  
+    "oqint8"       : DT_QINT8      ,  
+    "oquint8"      : DT_QUINT8     ,  
+    "oqint32"      : DT_QINT32     ,  
+    "obfloat16"    : DT_BFLOAT16   ,  
+    "oqint16"      : DT_QINT16     ,  
+    "oquint16"     : DT_QUINT16    ,  
+    "ohalf"        : DT_HALF       ,  
+    "oresource"    : DT_RESOURCE   ,  
+    "ovariant"     : DT_VARIANT   
 }.toTable
 
 const stringtypeLookUp* = { 

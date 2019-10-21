@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -26,6 +27,7 @@ class LookupTableExport{
     tensorflow::Output output;
 };
 
+#pragma once
 class LookupTableExportV2{
   public:
     LookupTableExportV2() {}
@@ -37,6 +39,7 @@ class LookupTableExportV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class LookupTableFind{
   public:
     LookupTableFind() {}
@@ -49,6 +52,7 @@ class LookupTableFind{
     tensorflow::Output output;
 };
 
+#pragma once
 class LookupTableFindV2{
   public:
     LookupTableFindV2() {}
@@ -61,6 +65,7 @@ class LookupTableFindV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class LookupTableImport{
   public:
     LookupTableImport() {}
@@ -71,6 +76,7 @@ class LookupTableImport{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class LookupTableImportV2{
   public:
     LookupTableImportV2() {}
@@ -81,6 +87,7 @@ class LookupTableImportV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class LookupTableInsert{
   public:
     LookupTableInsert() {}
@@ -91,6 +98,7 @@ class LookupTableInsert{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class LookupTableInsertV2{
   public:
     LookupTableInsertV2() {}
@@ -101,6 +109,7 @@ class LookupTableInsertV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class LookupTableRemoveV2{
   public:
     LookupTableRemoveV2() {}
@@ -110,6 +119,7 @@ class LookupTableRemoveV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class LookupTableSize{
   public:
     LookupTableSize() {}
@@ -119,6 +129,7 @@ class LookupTableSize{
     tensorflow::Output output;
 };
 
+#pragma once
 class LookupTableSizeV2{
   public:
     LookupTableSizeV2() {}

@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/ragged/ragged.h"
+#include "ragged.h"
 
 RaggedRange::RaggedRange(tensorflow::Scope& scope, 
            tensorflow::Input starts, 

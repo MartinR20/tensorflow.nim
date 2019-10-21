@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -31,6 +32,7 @@ class BigQueryReader{
     tensorflow::Output output;
 };
 
+#pragma once
 class GenerateBigQueryReaderPartitions{
   public:
     GenerateBigQueryReaderPartitions() {}

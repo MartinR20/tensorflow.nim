@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/io/event/event.h"
+#include "event.h"
 
 AudioSpectrogram::AudioSpectrogram(tensorflow::Scope& scope, 
            tensorflow::Input input, 

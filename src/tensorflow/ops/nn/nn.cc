@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/nn/nn.h"
+#include "nn.h"
 
 AvgPool::AvgPool(tensorflow::Scope& scope, 
            tensorflow::Input value, 

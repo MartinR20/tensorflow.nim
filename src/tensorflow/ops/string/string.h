@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -29,6 +30,7 @@ class AsString{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeBase64{
   public:
     DecodeBase64() {}
@@ -38,6 +40,7 @@ class DecodeBase64{
     tensorflow::Output output;
 };
 
+#pragma once
 class DecodeCompressed{
   public:
     DecodeCompressed() {}
@@ -48,6 +51,7 @@ class DecodeCompressed{
     tensorflow::Output output;
 };
 
+#pragma once
 class EncodeBase64{
   public:
     EncodeBase64() {}
@@ -58,6 +62,7 @@ class EncodeBase64{
     tensorflow::Output output;
 };
 
+#pragma once
 class ParseTensor{
   public:
     ParseTensor() {}
@@ -68,6 +73,7 @@ class ParseTensor{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderSerializeStateV2{
   public:
     ReaderSerializeStateV2() {}
@@ -77,6 +83,7 @@ class ReaderSerializeStateV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReduceJoin{
   public:
     ReduceJoin() {}
@@ -89,6 +96,7 @@ class ReduceJoin{
     tensorflow::Output output;
 };
 
+#pragma once
 class RegexFullMatch{
   public:
     RegexFullMatch() {}
@@ -99,6 +107,7 @@ class RegexFullMatch{
     tensorflow::Output output;
 };
 
+#pragma once
 class RegexReplace{
   public:
     RegexReplace() {}
@@ -111,6 +120,7 @@ class RegexReplace{
     tensorflow::Output output;
 };
 
+#pragma once
 class SerializeTensor{
   public:
     SerializeTensor() {}
@@ -120,6 +130,7 @@ class SerializeTensor{
     tensorflow::Output output;
 };
 
+#pragma once
 class StaticRegexFullMatch{
   public:
     StaticRegexFullMatch() {}
@@ -130,6 +141,7 @@ class StaticRegexFullMatch{
     tensorflow::Output output;
 };
 
+#pragma once
 class StaticRegexReplace{
   public:
     StaticRegexReplace() {}
@@ -142,6 +154,7 @@ class StaticRegexReplace{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringFormat{
   public:
     StringFormat() {}
@@ -155,6 +168,7 @@ class StringFormat{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringJoin{
   public:
     StringJoin() {}
@@ -165,6 +179,7 @@ class StringJoin{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringLength{
   public:
     StringLength() {}
@@ -175,6 +190,7 @@ class StringLength{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringSplit{
   public:
     StringSplit() {}
@@ -186,6 +202,7 @@ class StringSplit{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringSplitV2{
   public:
     StringSplitV2() {}
@@ -197,6 +214,7 @@ class StringSplitV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringStrip{
   public:
     StringStrip() {}
@@ -206,6 +224,7 @@ class StringStrip{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringToHashBucket{
   public:
     StringToHashBucket() {}
@@ -216,6 +235,7 @@ class StringToHashBucket{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringToHashBucketFast{
   public:
     StringToHashBucketFast() {}
@@ -226,6 +246,7 @@ class StringToHashBucketFast{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringToHashBucketStrong{
   public:
     StringToHashBucketStrong() {}
@@ -237,6 +258,7 @@ class StringToHashBucketStrong{
     tensorflow::Output output;
 };
 
+#pragma once
 class StringToNumber{
   public:
     StringToNumber() {}
@@ -247,6 +269,7 @@ class StringToNumber{
     tensorflow::Output output;
 };
 
+#pragma once
 class Substr{
   public:
     Substr() {}
@@ -259,6 +282,7 @@ class Substr{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnicodeDecodeWithOffsets{
   public:
     UnicodeDecodeWithOffsets() {}
@@ -272,6 +296,7 @@ class UnicodeDecodeWithOffsets{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnicodeEncode{
   public:
     UnicodeEncode() {}
@@ -285,6 +310,7 @@ class UnicodeEncode{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnicodeScript{
   public:
     UnicodeScript() {}
@@ -294,6 +320,7 @@ class UnicodeScript{
     tensorflow::Output output;
 };
 
+#pragma once
 class UnicodeTranscode{
   public:
     UnicodeTranscode() {}

@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -26,6 +27,7 @@ class BitwiseAnd{
     tensorflow::Output output;
 };
 
+#pragma once
 class BitwiseOr{
   public:
     BitwiseOr() {}
@@ -37,6 +39,7 @@ class BitwiseOr{
     tensorflow::Output output;
 };
 
+#pragma once
 class BitwiseXor{
   public:
     BitwiseXor() {}
@@ -48,6 +51,7 @@ class BitwiseXor{
     tensorflow::Output output;
 };
 
+#pragma once
 class Invert{
   public:
     Invert() {}
@@ -58,6 +62,7 @@ class Invert{
     tensorflow::Output output;
 };
 
+#pragma once
 class LeftShift{
   public:
     LeftShift() {}
@@ -69,6 +74,7 @@ class LeftShift{
     tensorflow::Output output;
 };
 
+#pragma once
 class RightShift{
   public:
     RightShift() {}

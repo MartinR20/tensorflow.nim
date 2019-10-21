@@ -1,9 +1,9 @@
 import ../../core
 
-{.compile:"../../ops/io/event/event.cc".}
+{.compile:"event/event.cc".}
 
 
-type AudioSpectrogram* {.header:"../../ops/io/event/event.h", importcpp:"AudioSpectrogram/*'0*/".} = object
+type AudioSpectrogram* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSpectrogram/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -11,7 +11,7 @@ proc iiaudioSpectrogram(scope: Scope,
                        input: ofloat,
                        window_size: int64,
                        stride: int64,
-                       magnitude_squared: bool): AudioSpectrogram {.header:"../../ops/io/event/event.h", importcpp:"AudioSpectrogram(*#, #, #, #, #)", constructor.}
+                       magnitude_squared: bool): AudioSpectrogram {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSpectrogram(*#, #, #, #, #)", constructor.}
 
 proc audioSpectrogram*(scope: Scope,
                        input: ofloat,
@@ -27,7 +27,7 @@ proc audioSpectrogram*(scope: Scope,
 converter audioSpectrogramToOut*(op: AudioSpectrogram): ofloat {.inline.} = return op.output
 
 
-type AudioSummary* {.header:"../../ops/io/event/event.h", importcpp:"AudioSummary/*'0*/".} = object
+type AudioSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -35,7 +35,7 @@ proc iiaudioSummary(scope: Scope,
                    tag: ostring,
                    tensor: ofloat,
                    sample_rate: float32,
-                   max_outputs: int64): AudioSummary {.header:"../../ops/io/event/event.h", importcpp:"AudioSummary(*#, #, #, #, #)", constructor.}
+                   max_outputs: int64): AudioSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSummary(*#, #, #, #, #)", constructor.}
 
 proc audioSummary*(scope: Scope,
                    tag: ostring,
@@ -51,7 +51,7 @@ proc audioSummary*(scope: Scope,
 converter audioSummaryToOut*(op: AudioSummary): ostring {.inline.} = return op.output
 
 
-type AudioSummaryV2* {.header:"../../ops/io/event/event.h", importcpp:"AudioSummaryV2/*'0*/".} = object
+type AudioSummaryV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSummaryV2/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -59,7 +59,7 @@ proc iiaudioSummaryV2(scope: Scope,
                      tag: ostring,
                      tensor: ofloat,
                      sample_rate: ofloat,
-                     max_outputs: int64): AudioSummaryV2 {.header:"../../ops/io/event/event.h", importcpp:"AudioSummaryV2(*#, #, #, #, #)", constructor.}
+                     max_outputs: int64): AudioSummaryV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"AudioSummaryV2(*#, #, #, #, #)", constructor.}
 
 proc audioSummaryV2*(scope: Scope,
                      tag: ostring,
@@ -75,7 +75,7 @@ proc audioSummaryV2*(scope: Scope,
 converter audioSummaryV2ToOut*(op: AudioSummaryV2): ostring {.inline.} = return op.output
 
 
-type BoostedTreesMakeStatsSummary* {.header:"../../ops/io/event/event.h", importcpp:"BoostedTreesMakeStatsSummary/*'0*/".} = object
+type BoostedTreesMakeStatsSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"BoostedTreesMakeStatsSummary/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -86,7 +86,7 @@ proc iiboostedTreesMakeStatsSummary(scope: Scope,
                                    bucketized_features_list: oint32,
                                    max_splits: int64,
                                    num_buckets: int64,
-                                   num_features: int64): BoostedTreesMakeStatsSummary {.header:"../../ops/io/event/event.h", importcpp:"BoostedTreesMakeStatsSummary(*#, #, #, #, #, #, #, #)", constructor.}
+                                   num_features: int64): BoostedTreesMakeStatsSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"BoostedTreesMakeStatsSummary(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc boostedTreesMakeStatsSummary*(scope: Scope,
                                    node_ids: oint32,
@@ -108,12 +108,12 @@ proc boostedTreesMakeStatsSummary*(scope: Scope,
 converter boostedTreesMakeStatsSummaryToOut*(op: BoostedTreesMakeStatsSummary): ofloat {.inline.} = return op.output
 
 
-type CloseSummaryWriter*{.header:"../../ops/io/event/event.h", importcpp:"CloseSummaryWriter/*'0*/".} = object
+type CloseSummaryWriter*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CloseSummaryWriter/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iicloseSummaryWriter(scope: Scope,
-                         writer: oresource): CloseSummaryWriter {.header:"../../ops/io/event/event.h", importcpp:"CloseSummaryWriter(*#, #)", constructor.}
+                         writer: oresource): CloseSummaryWriter {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CloseSummaryWriter(*#, #)", constructor.}
 
 proc closeSummaryWriter*(scope: Scope,
                          writer: oresource): CloseSummaryWriter =
@@ -121,7 +121,7 @@ proc closeSummaryWriter*(scope: Scope,
                               writer)
 
 
-type CreateSummaryDbWriter*{.header:"../../ops/io/event/event.h", importcpp:"CreateSummaryDbWriter/*'0*/".} = object
+type CreateSummaryDbWriter*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CreateSummaryDbWriter/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -130,7 +130,7 @@ proc iicreateSummaryDbWriter(scope: Scope,
                             db_uri: ostring,
                             experiment_name: ostring,
                             run_name: ostring,
-                            user_name: ostring): CreateSummaryDbWriter {.header:"../../ops/io/event/event.h", importcpp:"CreateSummaryDbWriter(*#, #, #, #, #, #)", constructor.}
+                            user_name: ostring): CreateSummaryDbWriter {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CreateSummaryDbWriter(*#, #, #, #, #, #)", constructor.}
 
 proc createSummaryDbWriter*(scope: Scope,
                             writer: oresource,
@@ -146,7 +146,7 @@ proc createSummaryDbWriter*(scope: Scope,
                                  user_name)
 
 
-type CreateSummaryFileWriter*{.header:"../../ops/io/event/event.h", importcpp:"CreateSummaryFileWriter/*'0*/".} = object
+type CreateSummaryFileWriter*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CreateSummaryFileWriter/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -155,7 +155,7 @@ proc iicreateSummaryFileWriter(scope: Scope,
                               logdir: ostring,
                               max_queue: oint32,
                               flush_millis: oint32,
-                              filename_suffix: ostring): CreateSummaryFileWriter {.header:"../../ops/io/event/event.h", importcpp:"CreateSummaryFileWriter(*#, #, #, #, #, #)", constructor.}
+                              filename_suffix: ostring): CreateSummaryFileWriter {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"CreateSummaryFileWriter(*#, #, #, #, #, #)", constructor.}
 
 proc createSummaryFileWriter*(scope: Scope,
                               writer: oresource,
@@ -171,13 +171,13 @@ proc createSummaryFileWriter*(scope: Scope,
                                    filename_suffix)
 
 
-type ExperimentalStatsAggregatorHandle* {.header:"../../ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorHandle/*'0*/".} = object
+type ExperimentalStatsAggregatorHandle* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorHandle/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iiexperimentalStatsAggregatorHandle(scope: Scope,
                                         container: cstring,
-                                        shared_name: cstring): ExperimentalStatsAggregatorHandle {.header:"../../ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorHandle(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                                        shared_name: cstring): ExperimentalStatsAggregatorHandle {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorHandle(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc experimentalStatsAggregatorHandle*(scope: Scope,
                                         container: cstring,
@@ -189,12 +189,12 @@ proc experimentalStatsAggregatorHandle*(scope: Scope,
 converter experimentalStatsAggregatorHandleToOut*(op: ExperimentalStatsAggregatorHandle): oresource {.inline.} = return op.output
 
 
-type ExperimentalStatsAggregatorSummary* {.header:"../../ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorSummary/*'0*/".} = object
+type ExperimentalStatsAggregatorSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiexperimentalStatsAggregatorSummary(scope: Scope,
-                                         niterator: oresource): ExperimentalStatsAggregatorSummary {.header:"../../ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorSummary(*#, #)", constructor.}
+                                         niterator: oresource): ExperimentalStatsAggregatorSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ExperimentalStatsAggregatorSummary(*#, #)", constructor.}
 
 proc experimentalStatsAggregatorSummary*(scope: Scope,
                                          niterator: oresource): ExperimentalStatsAggregatorSummary =
@@ -204,12 +204,12 @@ proc experimentalStatsAggregatorSummary*(scope: Scope,
 converter experimentalStatsAggregatorSummaryToOut*(op: ExperimentalStatsAggregatorSummary): ostring {.inline.} = return op.output
 
 
-type FlushSummaryWriter*{.header:"../../ops/io/event/event.h", importcpp:"FlushSummaryWriter/*'0*/".} = object
+type FlushSummaryWriter*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"FlushSummaryWriter/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiflushSummaryWriter(scope: Scope,
-                         writer: oresource): FlushSummaryWriter {.header:"../../ops/io/event/event.h", importcpp:"FlushSummaryWriter(*#, #)", constructor.}
+                         writer: oresource): FlushSummaryWriter {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"FlushSummaryWriter(*#, #)", constructor.}
 
 proc flushSummaryWriter*(scope: Scope,
                          writer: oresource): FlushSummaryWriter =
@@ -218,13 +218,13 @@ proc flushSummaryWriter*(scope: Scope,
 
 type HistogramSummaryT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 
-type HistogramSummary* {.header:"../../ops/io/event/event.h", importcpp:"HistogramSummary/*'0*/".} = object
+type HistogramSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"HistogramSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iihistogramSummary(scope: Scope,
                        tag: ostring,
-                       values: HistogramSummaryT): HistogramSummary {.header:"../../ops/io/event/event.h", importcpp:"HistogramSummary(*#, #, #)", constructor.}
+                       values: HistogramSummaryT): HistogramSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"HistogramSummary(*#, #, #)", constructor.}
 
 proc histogramSummary*(scope: Scope,
                        tag: ostring,
@@ -237,7 +237,7 @@ converter histogramSummaryToOut*(op: HistogramSummary): ostring {.inline.} = ret
 
 type ImageSummaryT* = ouint8 | ofloat | ohalf | odouble
 
-type ImageSummary* {.header:"../../ops/io/event/event.h", importcpp:"ImageSummary/*'0*/".} = object
+type ImageSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ImageSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -245,13 +245,13 @@ proc iiimageSummary(scope: Scope,
                    tag: ostring,
                    tensor: ImageSummaryT,
                    max_images: int64,
-                   bad_color: Tensor[oall]): ImageSummary {.header:"../../ops/io/event/event.h", importcpp:"ImageSummary(*#, #, #, #, *#)", constructor.}
+                   bad_color: Tensor[oall]): ImageSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ImageSummary(*#, #, #, #, *#)", constructor.}
 
 proc imageSummary*(scope: Scope,
                    tag: ostring,
                    tensor: ImageSummaryT,
                    max_images: int64 = 3.int,
-                   bad_color: Tensor[oall] = tensor([255, 0, 0, 255], uint8)): ImageSummary =
+                   bad_color: Tensor[oall] = tensor([255, 0, 0, 255], ouint8)): ImageSummary =
   return iiimageSummary(scope,
                         tag,
                         tensor,
@@ -261,13 +261,13 @@ proc imageSummary*(scope: Scope,
 converter imageSummaryToOut*(op: ImageSummary): ostring {.inline.} = return op.output
 
 
-type ImportEvent*{.header:"../../ops/io/event/event.h", importcpp:"ImportEvent/*'0*/".} = object
+type ImportEvent*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ImportEvent/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiimportEvent(scope: Scope,
                   writer: oresource,
-                  event: ostring): ImportEvent {.header:"../../ops/io/event/event.h", importcpp:"ImportEvent(*#, #, #)", constructor.}
+                  event: ostring): ImportEvent {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ImportEvent(*#, #, #)", constructor.}
 
 proc importEvent*(scope: Scope,
                   writer: oresource,
@@ -277,12 +277,12 @@ proc importEvent*(scope: Scope,
                        event)
 
 
-type MergeSummary* {.header:"../../ops/io/event/event.h", importcpp:"MergeSummary/*'0*/".} = object
+type MergeSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"MergeSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iimergeSummary(scope: Scope,
-                   inputs: olist[ostring]): MergeSummary {.header:"../../ops/io/event/event.h", importcpp:"MergeSummary(*#, #)", constructor.}
+                   inputs: olist[ostring]): MergeSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"MergeSummary(*#, #)", constructor.}
 
 proc mergeSummary*(scope: Scope,
                    inputs: olist[ostring]): MergeSummary =
@@ -293,13 +293,13 @@ converter mergeSummaryToOut*(op: MergeSummary): ostring {.inline.} = return op.o
 
 type ScalarSummaryT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 
-type ScalarSummary* {.header:"../../ops/io/event/event.h", importcpp:"ScalarSummary/*'0*/".} = object
+type ScalarSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ScalarSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiscalarSummary(scope: Scope,
                     tags: ostring,
-                    values: ScalarSummaryT): ScalarSummary {.header:"../../ops/io/event/event.h", importcpp:"ScalarSummary(*#, #, #)", constructor.}
+                    values: ScalarSummaryT): ScalarSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"ScalarSummary(*#, #, #)", constructor.}
 
 proc scalarSummary*(scope: Scope,
                     tags: ostring,
@@ -311,13 +311,13 @@ proc scalarSummary*(scope: Scope,
 converter scalarSummaryToOut*(op: ScalarSummary): ostring {.inline.} = return op.output
 
 
-type SummaryWriter* {.header:"../../ops/io/event/event.h", importcpp:"SummaryWriter/*'0*/".} = object
+type SummaryWriter* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"SummaryWriter/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iisummaryWriter(scope: Scope,
                     shared_name: cstring,
-                    container: cstring): SummaryWriter {.header:"../../ops/io/event/event.h", importcpp:"SummaryWriter(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                    container: cstring): SummaryWriter {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"SummaryWriter(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc summaryWriter*(scope: Scope,
                     shared_name: cstring,
@@ -330,7 +330,7 @@ converter summaryWriterToOut*(op: SummaryWriter): oresource {.inline.} = return 
 
 type TensorSummaryT* = oall
 
-type TensorSummary* {.header:"../../ops/io/event/event.h", importcpp:"TensorSummary/*'0*/".} = object
+type TensorSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"TensorSummary/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -338,7 +338,7 @@ proc iitensorSummary(scope: Scope,
                     tensor: TensorSummaryT,
                     description: cstring,
                     labels: ArraySlice[cstring],
-                    display_name: cstring): TensorSummary {.header:"../../ops/io/event/event.h", importcpp:"TensorSummary(*#, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
+                    display_name: cstring): TensorSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"TensorSummary(*#, #, tensorflow::string(#), #, tensorflow::string(#))", constructor.}
 
 proc tensorSummary*(scope: Scope,
                     tensor: TensorSummaryT,
@@ -355,14 +355,14 @@ converter tensorSummaryToOut*(op: TensorSummary): ostring {.inline.} = return op
 
 type TensorSummaryV2T* = oall
 
-type TensorSummaryV2* {.header:"../../ops/io/event/event.h", importcpp:"TensorSummaryV2/*'0*/".} = object
+type TensorSummaryV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"TensorSummaryV2/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iitensorSummaryV2(scope: Scope,
                       tag: ostring,
                       tensor: TensorSummaryV2T,
-                      serialized_summary_metadata: ostring): TensorSummaryV2 {.header:"../../ops/io/event/event.h", importcpp:"TensorSummaryV2(*#, #, #, #)", constructor.}
+                      serialized_summary_metadata: ostring): TensorSummaryV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"TensorSummaryV2(*#, #, #, #)", constructor.}
 
 proc tensorSummaryV2*(scope: Scope,
                       tag: ostring,
@@ -376,7 +376,7 @@ proc tensorSummaryV2*(scope: Scope,
 converter tensorSummaryV2ToOut*(op: TensorSummaryV2): ostring {.inline.} = return op.output
 
 
-type WriteAudioSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteAudioSummary/*'0*/".} = object
+type WriteAudioSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteAudioSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -386,7 +386,7 @@ proc iiwriteAudioSummary(scope: Scope,
                         tag: ostring,
                         tensor: ofloat,
                         sample_rate: ofloat,
-                        max_outputs: int64): WriteAudioSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteAudioSummary(*#, #, #, #, #, #, #)", constructor.}
+                        max_outputs: int64): WriteAudioSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteAudioSummary(*#, #, #, #, #, #, #)", constructor.}
 
 proc writeAudioSummary*(scope: Scope,
                         writer: oresource,
@@ -404,14 +404,14 @@ proc writeAudioSummary*(scope: Scope,
                              max_outputs)
 
 
-type WriteGraphSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteGraphSummary/*'0*/".} = object
+type WriteGraphSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteGraphSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiwriteGraphSummary(scope: Scope,
                         writer: oresource,
                         step: oint64,
-                        tensor: ostring): WriteGraphSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteGraphSummary(*#, #, #, #)", constructor.}
+                        tensor: ostring): WriteGraphSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteGraphSummary(*#, #, #, #)", constructor.}
 
 proc writeGraphSummary*(scope: Scope,
                         writer: oresource,
@@ -424,7 +424,7 @@ proc writeGraphSummary*(scope: Scope,
 
 type WriteHistogramSummaryT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 
-type WriteHistogramSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteHistogramSummary/*'0*/".} = object
+type WriteHistogramSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteHistogramSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -432,7 +432,7 @@ proc iiwriteHistogramSummary(scope: Scope,
                             writer: oresource,
                             step: oint64,
                             tag: ostring,
-                            values: WriteHistogramSummaryT): WriteHistogramSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteHistogramSummary(*#, #, #, #, #)", constructor.}
+                            values: WriteHistogramSummaryT): WriteHistogramSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteHistogramSummary(*#, #, #, #, #)", constructor.}
 
 proc writeHistogramSummary*(scope: Scope,
                             writer: oresource,
@@ -447,7 +447,7 @@ proc writeHistogramSummary*(scope: Scope,
 
 type WriteImageSummaryT* = ouint8 | ofloat | ohalf
 
-type WriteImageSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteImageSummary/*'0*/".} = object
+type WriteImageSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteImageSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -457,7 +457,7 @@ proc iiwriteImageSummary(scope: Scope,
                         tag: ostring,
                         tensor: WriteImageSummaryT,
                         bad_color: ouint8,
-                        max_images: int64): WriteImageSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteImageSummary(*#, #, #, #, #, #, #)", constructor.}
+                        max_images: int64): WriteImageSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteImageSummary(*#, #, #, #, #, #, #)", constructor.}
 
 proc writeImageSummary*(scope: Scope,
                         writer: oresource,
@@ -476,7 +476,7 @@ proc writeImageSummary*(scope: Scope,
 
 type WriteScalarSummaryT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 
-type WriteScalarSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteScalarSummary/*'0*/".} = object
+type WriteScalarSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteScalarSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -484,7 +484,7 @@ proc iiwriteScalarSummary(scope: Scope,
                          writer: oresource,
                          step: oint64,
                          tag: ostring,
-                         value: WriteScalarSummaryT): WriteScalarSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteScalarSummary(*#, #, #, #, #)", constructor.}
+                         value: WriteScalarSummaryT): WriteScalarSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteScalarSummary(*#, #, #, #, #)", constructor.}
 
 proc writeScalarSummary*(scope: Scope,
                          writer: oresource,
@@ -499,7 +499,7 @@ proc writeScalarSummary*(scope: Scope,
 
 type WriteSummaryT* = oall
 
-type WriteSummary*{.header:"../../ops/io/event/event.h", importcpp:"WriteSummary/*'0*/".} = object
+type WriteSummary*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteSummary/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -508,7 +508,7 @@ proc iiwriteSummary(scope: Scope,
                    step: oint64,
                    tensor: WriteSummaryT,
                    tag: ostring,
-                   summary_metadata: ostring): WriteSummary {.header:"../../ops/io/event/event.h", importcpp:"WriteSummary(*#, #, #, #, #, #)", constructor.}
+                   summary_metadata: ostring): WriteSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/event/event.h", importcpp:"WriteSummary(*#, #, #, #, #, #)", constructor.}
 
 proc writeSummary*(scope: Scope,
                    writer: oresource,

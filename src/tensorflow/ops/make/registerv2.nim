@@ -1,5 +1,5 @@
 import 
-    wrapper, strutils, makeutils, ../../core/core, register_context,
+    wrapper, strutils, makeutils, ../../core, ../../utils, register_context,
     macros, tables, json, hashes
 
 proc make_shared(T: static[string], args: varargs[string], move = true): static[string] =
@@ -18,7 +18,7 @@ proc shared(T: static[string]): static[string] =
 
 const WrapperT = "tensorflow::register_op::OpDefBuilderWrapper<true>"
 
-type OpDefBuilderWrapper {.importcpp: shared(WrapperT), header:op.} = object
+type OpDefBuilderWrapper {.importcpp: shared(WrapperT), header:utils.op.} = object
 
 proc opDefBuilderWrapper*(name: cstring): OpDefBuilderWrapper {.
     importcpp: make_shared(WrapperT, "#", false)
@@ -205,18 +205,18 @@ proc registerOp*(funheader: NimNode, exportName: string, source: string): NimNod
     let currhash = h1 xor h2
     var ops = parseJson(readFile("opcache.json"))
 
-    if not ops.contains(filename) or $currhash != $ops[filename]:
+    if not ops.contains(filename) or $currhash != $ops[filename] or true:
         ops{filename} = newJInt(currhash)
         writeFile("opcache.json", $ops)
 
         writeFile("tmp.nim", """
 import ./registerv2,
-       ../newop/register_context,
-       ../../utils/utils,
-       ../../core/core,
-       ./makev2,
-       ./makeutils,
-       ./exportOp
+       register_context,
+       ../../utils,
+       ../../core,
+       makev2,
+       makeutils,
+       exportOp
 
 let headerName = """" & filename & """.h"
 let sourceName = """" & filename & """.cc"

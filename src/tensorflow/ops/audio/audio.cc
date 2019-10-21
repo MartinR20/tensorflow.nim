@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/audio/audio.h"
+#include "audio.h"
 
 DecodeWav::DecodeWav(tensorflow::Scope& scope, 
            tensorflow::Input contents, 

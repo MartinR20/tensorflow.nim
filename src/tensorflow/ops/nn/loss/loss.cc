@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/nn/loss/loss.h"
+#include "loss.h"
 
 CTCLoss::CTCLoss(tensorflow::Scope& scope, 
            tensorflow::Input inputs, 

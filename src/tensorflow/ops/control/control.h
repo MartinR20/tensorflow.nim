@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -24,6 +25,7 @@ class Abort{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class Assert{
   public:
     Assert() {}
@@ -35,6 +37,7 @@ class Assert{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class CollectiveBcastRecv{
   public:
     CollectiveBcastRecv() {}
@@ -48,6 +51,7 @@ class CollectiveBcastRecv{
     tensorflow::Output output;
 };
 
+#pragma once
 class ConsumeMutexLock{
   public:
     ConsumeMutexLock() {}
@@ -56,6 +60,7 @@ class ConsumeMutexLock{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ControlTrigger{
   public:
     ControlTrigger() {}
@@ -63,6 +68,7 @@ class ControlTrigger{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class Enter{
   public:
     Enter() {}
@@ -76,6 +82,7 @@ class Enter{
     tensorflow::Output output;
 };
 
+#pragma once
 class Exit{
   public:
     Exit() {}
@@ -86,6 +93,7 @@ class Exit{
     tensorflow::Output output;
 };
 
+#pragma once
 class FakeParam{
   public:
     FakeParam() {}
@@ -96,6 +104,7 @@ class FakeParam{
     tensorflow::Output output;
 };
 
+#pragma once
 class For{
   public:
     For() {}
@@ -110,6 +119,7 @@ class For{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class If{
   public:
     If() {}
@@ -125,6 +135,7 @@ class If{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class LoopCond{
   public:
     LoopCond() {}
@@ -134,6 +145,7 @@ class LoopCond{
     tensorflow::Output output;
 };
 
+#pragma once
 class Merge{
   public:
     Merge() {}
@@ -144,6 +156,7 @@ class Merge{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutexLock{
   public:
     MutexLock() {}
@@ -153,6 +166,7 @@ class MutexLock{
     tensorflow::Output output;
 };
 
+#pragma once
 class MutexV2{
   public:
     MutexV2() {}
@@ -163,6 +177,7 @@ class MutexV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class PartitionedCall{
   public:
     PartitionedCall() {}
@@ -178,6 +193,7 @@ class PartitionedCall{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class PreventGradient{
   public:
     PreventGradient() {}
@@ -189,6 +205,7 @@ class PreventGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReaderRestoreStateV2{
   public:
     ReaderRestoreStateV2() {}
@@ -198,6 +215,7 @@ class ReaderRestoreStateV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class RefEnter{
   public:
     RefEnter() {}
@@ -211,6 +229,7 @@ class RefEnter{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefExit{
   public:
     RefExit() {}
@@ -221,6 +240,7 @@ class RefExit{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefSelect{
   public:
     RefSelect() {}
@@ -232,6 +252,7 @@ class RefSelect{
     tensorflow::Output output;
 };
 
+#pragma once
 class RefSwitch{
   public:
     RefSwitch() {}
@@ -243,6 +264,7 @@ class RefSwitch{
     tensorflow::Output output;
 };
 
+#pragma once
 class RemoteCall{
   public:
     RemoteCall() {}
@@ -256,6 +278,7 @@ class RemoteCall{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class RemoteFusedGraphExecute{
   public:
     RemoteFusedGraphExecute() {}
@@ -268,6 +291,7 @@ class RemoteFusedGraphExecute{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class StageClear{
   public:
     StageClear() {}
@@ -280,6 +304,7 @@ class StageClear{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class StatefulPartitionedCall{
   public:
     StatefulPartitionedCall() {}
@@ -295,6 +320,7 @@ class StatefulPartitionedCall{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class StatelessIf{
   public:
     StatelessIf() {}
@@ -309,6 +335,7 @@ class StatelessIf{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class StatelessWhile{
   public:
     StatelessWhile() {}
@@ -321,6 +348,7 @@ class StatelessWhile{
     tensorflow::OutputList output;
 };
 
+#pragma once
 class StopGradient{
   public:
     StopGradient() {}
@@ -331,6 +359,7 @@ class StopGradient{
     tensorflow::Output output;
 };
 
+#pragma once
 class Switch{
   public:
     Switch() {}

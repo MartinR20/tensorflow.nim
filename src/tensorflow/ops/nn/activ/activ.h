@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -25,6 +26,7 @@ class Elu{
     tensorflow::Output output;
 };
 
+#pragma once
 class EluGrad{
   public:
     EluGrad() {}
@@ -36,6 +38,7 @@ class EluGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class LeakyRelu{
   public:
     LeakyRelu() {}
@@ -47,6 +50,7 @@ class LeakyRelu{
     tensorflow::Output output;
 };
 
+#pragma once
 class LeakyReluGrad{
   public:
     LeakyReluGrad() {}
@@ -59,6 +63,7 @@ class LeakyReluGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class LogSoftmax{
   public:
     LogSoftmax() {}
@@ -69,6 +74,7 @@ class LogSoftmax{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedRelu{
   public:
     QuantizedRelu() {}
@@ -81,6 +87,7 @@ class QuantizedRelu{
     tensorflow::Output output;
 };
 
+#pragma once
 class QuantizedReluX{
   public:
     QuantizedReluX() {}
@@ -94,6 +101,7 @@ class QuantizedReluX{
     tensorflow::Output output;
 };
 
+#pragma once
 class Relu{
   public:
     Relu() {}
@@ -104,6 +112,7 @@ class Relu{
     tensorflow::Output output;
 };
 
+#pragma once
 class Relu6{
   public:
     Relu6() {}
@@ -114,6 +123,7 @@ class Relu6{
     tensorflow::Output output;
 };
 
+#pragma once
 class Relu6Grad{
   public:
     Relu6Grad() {}
@@ -125,6 +135,7 @@ class Relu6Grad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ReluGrad{
   public:
     ReluGrad() {}
@@ -136,6 +147,7 @@ class ReluGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Selu{
   public:
     Selu() {}
@@ -146,6 +158,7 @@ class Selu{
     tensorflow::Output output;
 };
 
+#pragma once
 class Sigmoid{
   public:
     Sigmoid() {}
@@ -156,6 +169,7 @@ class Sigmoid{
     tensorflow::Output output;
 };
 
+#pragma once
 class SigmoidGrad{
   public:
     SigmoidGrad() {}
@@ -167,6 +181,7 @@ class SigmoidGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class Softmax{
   public:
     Softmax() {}
@@ -177,6 +192,7 @@ class Softmax{
     tensorflow::Output output;
 };
 
+#pragma once
 class SoftmaxCrossEntropyWithLogits{
   public:
     SoftmaxCrossEntropyWithLogits() {}
@@ -188,6 +204,7 @@ class SoftmaxCrossEntropyWithLogits{
     tensorflow::Output output;
 };
 
+#pragma once
 class Softplus{
   public:
     Softplus() {}
@@ -198,6 +215,7 @@ class Softplus{
     tensorflow::Output output;
 };
 
+#pragma once
 class SoftplusGrad{
   public:
     SoftplusGrad() {}
@@ -209,6 +227,7 @@ class SoftplusGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SoftsignGrad{
   public:
     SoftsignGrad() {}
@@ -220,6 +239,7 @@ class SoftsignGrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseSoftmax{
   public:
     SparseSoftmax() {}

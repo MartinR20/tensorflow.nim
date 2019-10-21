@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/control/control.h"
+#include "control.h"
 
 Abort::Abort(tensorflow::Scope& scope, 
            tensorflow::string error_msg, 

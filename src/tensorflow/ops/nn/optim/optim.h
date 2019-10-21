@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -25,6 +26,7 @@ class AccumulatorApplyGradient{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ApplyAdaMax{
   public:
     ApplyAdaMax() {}
@@ -44,6 +46,7 @@ class ApplyAdaMax{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyAdadelta{
   public:
     ApplyAdadelta() {}
@@ -61,6 +64,7 @@ class ApplyAdadelta{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyAdagrad{
   public:
     ApplyAdagrad() {}
@@ -76,6 +80,7 @@ class ApplyAdagrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyAdagradDA{
   public:
     ApplyAdagradDA() {}
@@ -94,6 +99,7 @@ class ApplyAdagradDA{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyAdam{
   public:
     ApplyAdam() {}
@@ -115,6 +121,7 @@ class ApplyAdam{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyAddSign{
   public:
     ApplyAddSign() {}
@@ -132,6 +139,7 @@ class ApplyAddSign{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyCenteredRMSProp{
   public:
     ApplyCenteredRMSProp() {}
@@ -151,6 +159,7 @@ class ApplyCenteredRMSProp{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyFtrl{
   public:
     ApplyFtrl() {}
@@ -169,6 +178,7 @@ class ApplyFtrl{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyFtrlV2{
   public:
     ApplyFtrlV2() {}
@@ -188,6 +198,7 @@ class ApplyFtrlV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyGradientDescent{
   public:
     ApplyGradientDescent() {}
@@ -201,6 +212,7 @@ class ApplyGradientDescent{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyMomentum{
   public:
     ApplyMomentum() {}
@@ -217,6 +229,7 @@ class ApplyMomentum{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyPowerSign{
   public:
     ApplyPowerSign() {}
@@ -234,6 +247,7 @@ class ApplyPowerSign{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyProximalAdagrad{
   public:
     ApplyProximalAdagrad() {}
@@ -250,6 +264,7 @@ class ApplyProximalAdagrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyProximalGradientDescent{
   public:
     ApplyProximalGradientDescent() {}
@@ -265,6 +280,7 @@ class ApplyProximalGradientDescent{
     tensorflow::Output output;
 };
 
+#pragma once
 class ApplyRMSProp{
   public:
     ApplyRMSProp() {}
@@ -283,6 +299,7 @@ class ApplyRMSProp{
     tensorflow::Output output;
 };
 
+#pragma once
 class ResourceApplyAdaMax{
   public:
     ResourceApplyAdaMax() {}
@@ -300,6 +317,7 @@ class ResourceApplyAdaMax{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAdadelta{
   public:
     ResourceApplyAdadelta() {}
@@ -315,6 +333,7 @@ class ResourceApplyAdadelta{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAdagrad{
   public:
     ResourceApplyAdagrad() {}
@@ -328,6 +347,7 @@ class ResourceApplyAdagrad{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAdagradDA{
   public:
     ResourceApplyAdagradDA() {}
@@ -344,6 +364,7 @@ class ResourceApplyAdagradDA{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAdam{
   public:
     ResourceApplyAdam() {}
@@ -363,6 +384,7 @@ class ResourceApplyAdam{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAdamWithAmsgrad{
   public:
     ResourceApplyAdamWithAmsgrad() {}
@@ -382,6 +404,7 @@ class ResourceApplyAdamWithAmsgrad{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyAddSign{
   public:
     ResourceApplyAddSign() {}
@@ -397,6 +420,7 @@ class ResourceApplyAddSign{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyCenteredRMSProp{
   public:
     ResourceApplyCenteredRMSProp() {}
@@ -414,6 +438,7 @@ class ResourceApplyCenteredRMSProp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyFtrl{
   public:
     ResourceApplyFtrl() {}
@@ -430,6 +455,7 @@ class ResourceApplyFtrl{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyFtrlV2{
   public:
     ResourceApplyFtrlV2() {}
@@ -447,6 +473,7 @@ class ResourceApplyFtrlV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyGradientDescent{
   public:
     ResourceApplyGradientDescent() {}
@@ -458,6 +485,7 @@ class ResourceApplyGradientDescent{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyKerasMomentum{
   public:
     ResourceApplyKerasMomentum() {}
@@ -472,6 +500,7 @@ class ResourceApplyKerasMomentum{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyMomentum{
   public:
     ResourceApplyMomentum() {}
@@ -486,6 +515,7 @@ class ResourceApplyMomentum{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyPowerSign{
   public:
     ResourceApplyPowerSign() {}
@@ -501,6 +531,7 @@ class ResourceApplyPowerSign{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyProximalAdagrad{
   public:
     ResourceApplyProximalAdagrad() {}
@@ -515,6 +546,7 @@ class ResourceApplyProximalAdagrad{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyProximalGradientDescent{
   public:
     ResourceApplyProximalGradientDescent() {}
@@ -528,6 +560,7 @@ class ResourceApplyProximalGradientDescent{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceApplyRMSProp{
   public:
     ResourceApplyRMSProp() {}
@@ -544,6 +577,7 @@ class ResourceApplyRMSProp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyAdadelta{
   public:
     ResourceSparseApplyAdadelta() {}
@@ -560,6 +594,7 @@ class ResourceSparseApplyAdadelta{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyAdagrad{
   public:
     ResourceSparseApplyAdagrad() {}
@@ -574,6 +609,7 @@ class ResourceSparseApplyAdagrad{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyAdagradDA{
   public:
     ResourceSparseApplyAdagradDA() {}
@@ -591,6 +627,7 @@ class ResourceSparseApplyAdagradDA{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyCenteredRMSProp{
   public:
     ResourceSparseApplyCenteredRMSProp() {}
@@ -609,6 +646,7 @@ class ResourceSparseApplyCenteredRMSProp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyFtrl{
   public:
     ResourceSparseApplyFtrl() {}
@@ -626,6 +664,7 @@ class ResourceSparseApplyFtrl{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyFtrlV2{
   public:
     ResourceSparseApplyFtrlV2() {}
@@ -644,6 +683,7 @@ class ResourceSparseApplyFtrlV2{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyKerasMomentum{
   public:
     ResourceSparseApplyKerasMomentum() {}
@@ -659,6 +699,7 @@ class ResourceSparseApplyKerasMomentum{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyMomentum{
   public:
     ResourceSparseApplyMomentum() {}
@@ -674,6 +715,7 @@ class ResourceSparseApplyMomentum{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyProximalAdagrad{
   public:
     ResourceSparseApplyProximalAdagrad() {}
@@ -689,6 +731,7 @@ class ResourceSparseApplyProximalAdagrad{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyProximalGradientDescent{
   public:
     ResourceSparseApplyProximalGradientDescent() {}
@@ -703,6 +746,7 @@ class ResourceSparseApplyProximalGradientDescent{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class ResourceSparseApplyRMSProp{
   public:
     ResourceSparseApplyRMSProp() {}
@@ -720,6 +764,7 @@ class ResourceSparseApplyRMSProp{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class SparseAccumulatorApplyGradient{
   public:
     SparseAccumulatorApplyGradient() {}
@@ -733,6 +778,7 @@ class SparseAccumulatorApplyGradient{
     tensorflow::Operation operation;
 };
 
+#pragma once
 class SparseApplyAdadelta{
   public:
     SparseApplyAdadelta() {}
@@ -751,6 +797,7 @@ class SparseApplyAdadelta{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyAdagrad{
   public:
     SparseApplyAdagrad() {}
@@ -767,6 +814,7 @@ class SparseApplyAdagrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyAdagradDA{
   public:
     SparseApplyAdagradDA() {}
@@ -786,6 +834,7 @@ class SparseApplyAdagradDA{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyCenteredRMSProp{
   public:
     SparseApplyCenteredRMSProp() {}
@@ -806,6 +855,7 @@ class SparseApplyCenteredRMSProp{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyFtrl{
   public:
     SparseApplyFtrl() {}
@@ -825,6 +875,7 @@ class SparseApplyFtrl{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyFtrlV2{
   public:
     SparseApplyFtrlV2() {}
@@ -845,6 +896,7 @@ class SparseApplyFtrlV2{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyMomentum{
   public:
     SparseApplyMomentum() {}
@@ -862,6 +914,7 @@ class SparseApplyMomentum{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyProximalAdagrad{
   public:
     SparseApplyProximalAdagrad() {}
@@ -879,6 +932,7 @@ class SparseApplyProximalAdagrad{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyProximalGradientDescent{
   public:
     SparseApplyProximalGradientDescent() {}
@@ -895,6 +949,7 @@ class SparseApplyProximalGradientDescent{
     tensorflow::Output output;
 };
 
+#pragma once
 class SparseApplyRMSProp{
   public:
     SparseApplyRMSProp() {}

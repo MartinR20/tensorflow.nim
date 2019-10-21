@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/io/bigquery/bigquery.h"
+#include "bigquery.h"
 
 BigQueryReader::BigQueryReader(tensorflow::Scope& scope, 
            tensorflow::string container, 

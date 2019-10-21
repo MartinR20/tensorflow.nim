@@ -1,3 +1,4 @@
+#pragma once
 #include "tensorflow/cc/framework/ops.h"
 #include "tensorflow/cc/framework/scope.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -29,6 +30,7 @@ class Rpc{
     tensorflow::Output output;
 };
 
+#pragma once
 class TryRpc{
   public:
     TryRpc() {}

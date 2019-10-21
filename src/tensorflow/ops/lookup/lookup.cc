@@ -1,5 +1,5 @@
 #include "tensorflow/cc/ops/const_op.h"
-#include "../../ops/lookup/lookup.h"
+#include "lookup.h"
 
 LookupTableExport::LookupTableExport(tensorflow::Scope& scope, 
            tensorflow::Input table_handle, 
