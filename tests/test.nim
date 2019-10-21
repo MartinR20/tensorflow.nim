@@ -1,5 +1,5 @@
 import 
-    core/core
+    core/core, layers/layers
 
 # proc tensor_test() {.test.} =
 #     let ten = tensor([[1,2,3,4,5,6]], oint32)
