@@ -1,6 +1,8 @@
 import macros,
        ../core,
-       tables
+       tables,
+       ../ops/make/conversions,
+       strutils
 {.experimental: "dynamicBindSym".}
 
 proc newDerefExpr(node: NimNode): NimNode {.compileTime.} =
@@ -65,7 +67,7 @@ proc iwith(scope: NimNode, x: NimNode) {.compileTime.} =
     for i in 0..x.len-1:
         iwith(scope, x[i])
         
-        if x[i].kind == nnkDotExpr and reversedict.hasKey($x[i][1]):
+        if x[i].kind == nnkDotExpr and dtypeLookUp.hasKey($x[i][1]):
             x[i] = newCall("nconst", scope, newDerefExpr(newCall("gc", newCall("tensor", x[i][0], x[i][1]))))
 
 macro with(scope: Scope, x: untyped): untyped =
