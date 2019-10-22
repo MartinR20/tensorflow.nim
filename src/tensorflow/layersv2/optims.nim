@@ -4,14 +4,33 @@ import
 from strutils import 
     replace
     
+# TODO: applyAdagradDA, applyAdagradDAToOut
+# TODO: applyFrtl, applyFrtlToOut
+
 from ../ops/nn/optim import
-    applyAdam, applyAdamToOut
+    applyAdam, applyAdamToOut,
+    applyAdaMax, applyAdaMaxToOut,
+    applyAdadelta, applyAdadeltaToOut,
+    applyAdagrad, applyAdagradToOut,
+    applyCenteredRMSProp, applyCenteredRMSPropToOut,
+    applyGradientDescent, applyGradientDescentToOut,
+    applyProximalAdagrad, applyProximalAdagradToOut,
+    applyProximalGradientDescent, applyProximalGradientDescentToOut,
+    applyRMSProp, applyRMSPropToOut
 
 from ../ops/gradients import
     addSymbolicGradients
 
 export
     applyAdam, applyAdamToOut,
+    applyAdaMax, applyAdaMaxToOut,
+    applyAdadelta, applyAdadeltaToOut,
+    applyAdagrad, applyAdagradToOut,
+    applyCenteredRMSProp, applyCenteredRMSPropToOut,
+    applyGradientDescent, applyGradientDescentToOut,
+    applyProximalAdagrad, applyProximalAdagradToOut,
+    applyProximalGradientDescent, applyProximalGradientDescentToOut,
+    applyRMSProp, applyRMSPropToOut,
     addSymbolicGradients
 
 proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
