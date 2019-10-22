@@ -1,5 +1,11 @@
 import 
     globals
+
+from ../ops/nn/loss import 
+    l2Loss, l2LossToOut
+
+export 
+    l2Loss, l2LossToOut
     
 proc loss*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = "loss_" & $i
