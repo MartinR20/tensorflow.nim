@@ -13,7 +13,8 @@ export
     assign, assignToOut,
     empty, emptyToOut,
     nconst, nconstToOut,
-    inputs
+    inputs, 
+    globals, `[]=` , `%*` # used for registration table
 
 var functionmap* {.compileTime.} = 
     initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()
@@ -61,12 +62,14 @@ macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped 
         metadata[model] = newJArray()
         constLookUp[model] = initTable[string, NimNode]()
 
+    var func_count = 0
     for i, command in x:
         case command.kind:
         of nnkCommand:
             let fn = $command[0]
             if functionmap.hasKey(fn):
-                functionmap[fn](prgm, model, scope, i, command)
+                functionmap[fn](prgm, model, scope, func_count, command)
+                func_count += 1
             else:
                 raise newException(ValueError, "Well..., you fucked up!?")
         of nnkIdent:
