@@ -3,9 +3,10 @@ import
     tensorflow/layersv2, 
     tensorflow/layersv2/dense, 
     tensorflow/layersv2/optims, 
+    tensorflow/layersv2/losses, 
     unittest
 
-test "l1loss":
+test "loss":
     let scope = newRootScope()
     let sess = scope.newSession
 
@@ -15,6 +16,7 @@ test "l1loss":
     model m2, scope, sess:
         input data, [2,3], ofloat
         dense 100
+        loss l2Loss
         vars m
         vars v
         optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
