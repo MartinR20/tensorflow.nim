@@ -1,8 +1,8 @@
 import 
-    globals
+    globals, strutils
 
 proc vars*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = $command[1]
+    let name = ($command[1]).replace('_', 'u')
 
     metadata[model].add %*{
                     "name": name,

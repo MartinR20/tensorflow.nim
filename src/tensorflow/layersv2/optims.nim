@@ -1,6 +1,9 @@
 import 
     globals
     
+from strutils import 
+    replace
+    
 from ../ops/nn/optim import
     applyAdam, applyAdamToOut
 
@@ -29,7 +32,7 @@ proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
 
         of nnkIdent:
             for v in optimVars[model]:
-                if v.name.strVal.fromTo(0, '_') == $arg:
+                if v.name.strVal.fromTo(0, '_') == ($arg).replace('_', 'u'):
                     vars[i].add v.name
                     dtypes.add v.dtype
 
