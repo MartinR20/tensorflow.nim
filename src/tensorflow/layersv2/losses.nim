@@ -8,7 +8,7 @@ export
     l2Loss, l2LossToOut
     
 proc loss*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = "loss_" & $i
+    let name = unique_name("loss", model, i)
     let inname = metadata[model][i-1]["name"].to(string)
 
     let call = newNimNode(nnkCall)

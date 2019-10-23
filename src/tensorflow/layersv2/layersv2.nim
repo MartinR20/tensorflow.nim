@@ -81,16 +81,10 @@ macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped 
         else:
             raise newException(ValueError, "Well..., you fucked up!?")
 
-    let i = metadata[model].len
-    var cdown = 1
-    while i >= cdown:
-        if metadata[model][i-cdown].hasKey("output"):
+    firstmatch model, "output", i:
             prgm.add newNimNode(nnkAsgn)
                         .add(name)
-                        .add(newCall("anyToInvalid", ident metadata[model][i-cdown]["output"].to(string)))
-            break
-
-        cdown += 1
+            .add(newCall("anyToInvalid", ident metadata[model][i]["output"].to(string)))
 
     return prgm
 

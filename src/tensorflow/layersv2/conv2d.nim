@@ -17,7 +17,7 @@ export
     statelessRandomNormal, statelessRandomNormalToOut
     
 proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = "conv2d_" & $i
+    let name = unique_name("conv2d", model, i)
 
     let inname = metadata[model][i-1]["name"].to(string)
 
@@ -66,8 +66,8 @@ proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimN
     let varshape = [kernel[1].intVal.int, kernel[2].intVal.int, inchannels, outchannels.intVal.int]
 
     let f = newLit varshape
-    let f_name = "f_var_" & $i
-    let f_asgn = "f_asgn_" & $i
+    let f_name = unique_name("f_var", model, i)
+    let f_asgn = unique_name("f_asgn", model, i)
     let seed = prgm.nconst(model, scope, newLit [0, 0], ident "oint32")
 
     metadata[model].add %*{
@@ -100,7 +100,7 @@ proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimN
                                             dilations))
 
 proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = "conv2d_" & $i
+    let name = unique_name("conv2d_transpose", model, i)
 
     let inname = metadata[model][i-1]["name"].to(string)
 
@@ -149,8 +149,8 @@ proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, com
     let varshape = [kernel[1].intVal.int, kernel[2].intVal.int, inchannels, outchannels.intVal.int]
 
     let f = newLit varshape
-    let f_name = "f_var_" & $i
-    let f_asgn = "f_asgn_" & $i
+    let f_name = unique_name("f_var", model, i)
+    let f_asgn = unique_name("f_asgn", model, i)
     let seed = prgm.nconst(model, scope, newLit [0, 0], ident "oint32")
 
     metadata[model].add %*{

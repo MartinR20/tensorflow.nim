@@ -60,20 +60,15 @@ proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
         else:
             discard
 
-    let grads = ident "grads"
+    let grads = ident unique_name("grads", model, i)
     prgm.add newNimNode(nnkVarSection).add(newIdentDefs(grads, bracketExpr("olist", "oinvalid")))
 
     let gradvars = newNimNode(nnkCall)
     gradvars.add ident "addSymbolicGradients"
     gradvars.add scope
     
-    var cdown = 1
-    while i >= cdown:
-        if metadata[model][i-cdown].hasKey("output"):
-            gradvars.add ident metadata[model][i-cdown]["name"].to(string)
-            break
-
-        cdown += 1
+    firstmatch model, "output", idx:
+        gradvars.add ident metadata[model][idx]["name"].to(string)
 
     gradvars.add gradCall
     gradvars.add grads 
@@ -81,7 +76,7 @@ proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
     prgm.add gradvars
     
     metadata[model].add %*{
-                            "name": "optim_" & $i,
+                            "name": unique_name("optim", model, i),
                             "shape": metadata[model][i-1]["shape"],
                             "dtype": metadata[model][i-1]["dtype"],
                             "optim": []
@@ -101,7 +96,7 @@ proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
         call.add newCall(newNimNode(nnkBracketExpr).add(ident "invalidToAny").add(dtypes[a]),
                             newNimNode(nnkBracketExpr).add(grads).add(newLit a))
 
-        let name = "optim_" & $i & "_" & $a
+        let name = unique_name("optim", model, i) & "_" & $a
         prgm.add newLetStmt(ident name, call)
 
         metadata[model][i]["optim"].add newJString name

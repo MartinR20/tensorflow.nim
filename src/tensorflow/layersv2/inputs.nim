@@ -8,7 +8,7 @@ export
     placeholder, placeholderToOut
     
 proc input*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = "input_" & $i
+    let name = unique_name("input", model, i)
     prgm.add newLetStmt(ident name,
                         newCall("placeholder", scope,
                                                command[3],

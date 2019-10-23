@@ -14,13 +14,13 @@ export
     statelessRandomNormal, statelessRandomNormalToOut
 
 proc dense*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
-    let name = "dense_" & $i
+    let name = unique_name("dense", model, i)
             
-    let weight_name = "w_var_" & $i
-    let weight_asgn = "w_asgn_" & $i
+    let weight_name = unique_name("w_var", model, i)
+    let weight_asgn = unique_name("w_asgn", model, i)
 
-    let bias_name = "b_var_" & $i
-    let bias_asgn = "b_asgn_" & $i
+    let bias_name = unique_name("b_var", model, i)
+    let bias_asgn = unique_name("b_asgn", model, i)
 
     let inname = metadata[model][i-1]["name"].to(string)
 

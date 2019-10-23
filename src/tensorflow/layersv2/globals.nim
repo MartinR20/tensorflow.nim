@@ -114,3 +114,15 @@ proc fromTo*(str: string, start: int, eend: char): string =
     let e = str.find(eend)-1
 
     return str[start..e]
+
+template firstmatch*(model: string, cmd: string, i: untyped, x: untyped) = 
+    var i = metadata[model].len - 1
+    while i > -1:
+        if metadata[model][i].hasKey(cmd):
+            x
+            break
+
+        i -= 1
+
+proc unique_name*(name: string, model: string, i: int): string =
+    return name & "_" & model & "_" & $i

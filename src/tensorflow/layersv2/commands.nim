@@ -33,7 +33,7 @@ proc run*(prgm: NimNode, model: string, sess: NimNode) =
 
         cdown += 1
 
-    let res = ident "res"
+    let res = ident unique_name("res", model, i)
     prgm.add feedvar
     prgm.add newLetStmt(res, newCall("runSession", sess, feed, run))
     prgm.add newNimNode(nnkCommand).add(ident "echo").add(newNimNode(nnkBracketExpr).add(res).add(newLit 0))
