@@ -1,6 +1,9 @@
 import 
     globals, activations, commands, conv2d as cv2d, dense as d, inputs, losses, optims,
     vars as v, inputs
+    
+from ../core import
+    Scope, Session
 
 from ../ops/gen import 
     variableV2, variableV2ToOut, 
@@ -50,7 +53,23 @@ macro register_command*(name: untyped): untyped =
 register_command(init)
 register_command(run)
 
-macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped = 
+proc blank*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
+    let name = unique_name("blank", model, i)
+
+    prgm.add newLetStmt(ident name, ident command[3].strVal)
+    echo treerepr prgm
+
+    metadata[model].add %*{
+        "name": newJString name,
+        "shape": %*command[1].seqFromAst,
+        "dtype": newJString command[2].strVal,
+        "output": newJString command[3].strVal
+    }
+
+register_function(blank)
+
+
+proc model(name: NimNode, scope: NimNode, sess: NimNode, x: NimNode): NimNode = 
     let prgm = newStmtList()
 
     let model = $name
@@ -69,25 +88,64 @@ macro model*(name: untyped, scope: untyped, sess: untyped, x: untyped): untyped 
             let fn = $command[0]
             if functionmap.hasKey(fn):
                 functionmap[fn](prgm, model, scope, func_count, command)
-                func_count += 1
+
+            elif fn == "model":
+                let model_name = $command[1]
+                let cmds = command[2]
+
+                var make_blank = false
+
+                firstmatch model, "output", idx:
+                    make_blank = true
+
+                if make_blank:
+                    let curr_meta = metadata[model][func_count-1]
+                    let shape = newLit curr_meta["shape"].to(seq[int])
+
+                    cmds.insert(0, newNimNode(nnkCommand)
+                                        .add(ident "blank")
+                                        .add(shape[1])
+                                        .add(ident curr_meta["dtype"].to(string))
+                                        .add(ident curr_meta["output"].to(string)))
+
+                prgm.add model(ident model_name, scope, sess, cmds)
+
+                var meta: JsonNode
+
+                firstmatch model_name, "output", idx1:
+                    meta = metadata[model_name][idx1]
+
+                metadata[model].add %*{
+                    "name": newJString("model_" & $i),
+                    "shape": meta["shape"],
+                    "dtype": meta["dtype"],
+                    "output": meta["output"],
+                    "metadata": metadata[model_name]
+                }
+
             else:
-                raise newException(ValueError, "Well..., you fucked up!?")
+                error("Trying to use unkown function " & fn & ".", command)
+
+            func_count += 1
+
         of nnkIdent:
             let cmd = $command
             if commandmap.hasKey(cmd):
                 commandmap[cmd](prgm, model, sess)
             else:
-                raise newException(ValueError, "Well..., you fucked up!?")
+                error("Trying to use unkown command " & cmd & ".", command)
         else:
-            raise newException(ValueError, "Well..., you fucked up!?")
+            error("Invalid Syntax.", command)
 
     firstmatch model, "output", i:
-            prgm.add newNimNode(nnkAsgn)
-                        .add(name)
+        prgm.add newNimNode(nnkAsgn)
+            .add(name)
             .add(newCall("anyToInvalid", ident metadata[model][i]["output"].to(string)))
 
     return prgm
 
+macro model*(name: untyped, scope: Scope, sess: Session, x: untyped): untyped =
+    return model(name, scope, sess, x)    
 
 # when isMainModule:
 #     let scope = newRootScope()

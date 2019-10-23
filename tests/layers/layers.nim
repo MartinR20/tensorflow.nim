@@ -1,2 +1,2 @@
 import 
-    basic, conv2d, losses, optims, register
+    basic, conv2d, losses, optims, register, multiflow
