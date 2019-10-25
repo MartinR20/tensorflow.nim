@@ -37,9 +37,9 @@ type oall* = oinvalid | odouble | ofloat | oint64 | oint32 | ouint8 | oint16 | o
               oqint32 | obfloat16 | oqint16 | oquint16 | ohalf | oresource | ovariant
 
 #converter invalidToAny*(o: oinvalid): oany {.importcpp:"#".}
-proc invalidToAny*[T:oany](o: oinvalid): T {.importcpp:"#".}
+proc invalidToAny*[T:oall](o: oinvalid): T {.importcpp:"#".}
 
-converter anyToInvalid*(o: oany): oinvalid {.importcpp:"#".}
+converter anyToInvalid*(o: oall): oinvalid {.importcpp:"#".}
 
 type qint8*   = int8
 type quint8*  = uint8
@@ -289,9 +289,9 @@ proc index(o: oall): int {.importcpp:"#.index()".}
 
 type olist*[oall] {.header: std_ops, importcpp:"tensorflow::OutputList/*'0*/".} = object
 
-proc invalidToAny*[T:oany](o: olist[oinvalid]): olist[T] {.importcpp:"#".}
+proc invalidToAny*[T:oall](o: olist[oinvalid]): olist[T] {.importcpp:"#".}
 
-converter anyToInvalid*(o: olist[oany]): olist[oinvalid] {.importcpp:"#".}
+converter anyToInvalid*(o: olist[oall]): olist[oinvalid] {.importcpp:"#".}
 
 proc inewOutList(outs: openArray[oall], len: int): olist[oinvalid] {.
   header:std_ops, 
