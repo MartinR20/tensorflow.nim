@@ -11,6 +11,7 @@ backend       = "cpp"
 
 # Dependencies
 
+srcDir = "src"
 requires "nim >= 0.17.2"
 
 # Specify tasks
