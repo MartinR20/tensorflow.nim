@@ -38,3 +38,5 @@ proc run*(prgm: NimNode, model: string, sess: NimNode) =
     prgm.add newLetStmt(res, newCall("runSession", sess, feed, run))
     prgm.add newNimNode(nnkCommand).add(ident "echo").add(newNimNode(nnkBracketExpr).add(res).add(newLit 0))
 
+register_command(init)
+register_command(run)

@@ -21,3 +21,5 @@ proc input*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
                     "feed": $command[1],
                     "output": name
                    }
+
+register_function(input)

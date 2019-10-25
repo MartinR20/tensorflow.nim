@@ -3,6 +3,7 @@ import
     tensorflow/layersv2,
     tensorflow/layersv2/dense, 
     tensorflow/layersv2/optims, 
+    tensorflow/layersv2/concat, 
     unittest
 
 test "multiflow two pass one input":
@@ -67,34 +68,34 @@ test "multiflow two pass two input":
     delete data1
 
 
-test "multiflow crossref models":
-    let scope = newRootScope()
-    let sess = scope.newSession
+# test "multiflow crossref models":
+#     let scope = newRootScope()
+#     let sess = scope.newSession
 
-    let data0 = tensor([[1.0, 0.5, 0.0],
-                        [1.0, 0.5, 0.0]], ofloat)
+#     let data0 = tensor([[1.0, 0.5, 0.0],
+#                         [1.0, 0.5, 0.0]], ofloat)
 
-    let data1 = tensor([[1.0, 0.5, 0.0],
-                        [1.0, 0.5, 0.0]], ofloat)
+#     let data1 = tensor([[1.0, 0.5, 0.0],
+#                         [1.0, 0.5, 0.0]], ofloat)
 
-    model m5x3x1, scope, sess:
-        input data0, [2,3], ofloat
-        dense 100
-        vars m
-        vars v
+#     model m5x3x1, scope, sess:
+#         input data0, [2,3], ofloat
+#         dense 100
+#         vars m
+#         vars v
 
-    model m5x3x2, scope, sess:
-        input data1, [2,3], ofloat
-        dense 100
-        vars m
-        vars v
+#     model m5x3x2, scope, sess:
+#         input data1, [2,3], ofloat
+#         dense 100
+#         vars m
+#         vars v
         
 
-    model m5x3, scope, sess:
-        concat m5x3x1, m5x3x2
-        optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
-        init
-        run 
+#     model m5x3, scope, sess:
+#         concat m5x3x1, m5x3x2
+#         optim applyAdam vars, m, v, 0, 0, 1e-4, 0.9, 0.99, 10e-8
+#         init
+#         run 
 
-    delete data0
-    delete data1
+#     delete data0
+#     delete data1

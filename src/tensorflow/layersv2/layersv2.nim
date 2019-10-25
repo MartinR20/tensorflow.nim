@@ -1,6 +1,5 @@
 import 
-    globals, activations, commands, conv2d as cv2d, dense as d, inputs, losses, optims,
-    vars as v, inputs
+    globals, inputs, vars, commands
     
 from ../core import
     Scope, Session
@@ -16,55 +15,25 @@ export
     assign, assignToOut,
     empty, emptyToOut,
     nconst, nconstToOut,
-    inputs, 
+    inputs, commands, vars,
     globals, `[]=` , `%*` # used for registration table
-
-var functionmap* {.compileTime.} = 
-    initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()
-
-macro register_function*(name: untyped): untyped =
-    return newNimNode(nnkStaticStmt)
-                .add(newNimNode(nnkAsgn)
-                    .add(newNimNode(nnkBracketExpr)
-                            .add(ident "functionmap")
-                            .add(newLit $name))
-                    .add(name))
-
-register_function(input)
-register_function(dense)
-register_function(activation)
-register_function(loss)
-register_function(optim)
-register_function(vars)
-register_function(conv2d)
-register_function(conv2d_transpose)
-
-var commandmap* {.compileTime.} = 
-    initTable[string, proc(prgm: NimNode, model: string, sess: NimNode)]()
-
-macro register_command*(name: untyped): untyped =
-    return newNimNode(nnkStaticStmt)
-                .add(newNimNode(nnkAsgn)
-                    .add(newNimNode(nnkBracketExpr)
-                            .add(ident "commandmap")
-                            .add(newLit $name))
-                    .add(name))
-
-register_command(init)
-register_command(run)
 
 proc blank*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = unique_name("blank", model, i)
 
     prgm.add newLetStmt(ident name, ident command[3].strVal)
-    echo treerepr prgm
 
     metadata[model].add %*{
-        "name": newJString name,
-        "shape": %*command[1].seqFromAst,
-        "dtype": newJString command[2].strVal,
-        "output": newJString command[3].strVal
-    }
+            "name": newJString name,
+            "shape": %*command[1].seqFromAst,
+            "dtype": newJString command[2].strVal,
+            "output": newJString command[3].strVal
+        }
+
+    let val = command.getOrDefault(4, "").strVal
+
+    if val != "":
+        metadata[model][i]["feed"] = newJString val
 
 register_function(blank)
 
@@ -102,11 +71,16 @@ proc model(name: NimNode, scope: NimNode, sess: NimNode, x: NimNode): NimNode =
                     let curr_meta = metadata[model][func_count-1]
                     let shape = newLit curr_meta["shape"].to(seq[int])
 
-                    cmds.insert(0, newNimNode(nnkCommand)
-                                        .add(ident "blank")
-                                        .add(shape[1])
-                                        .add(ident curr_meta["dtype"].to(string))
-                                        .add(ident curr_meta["output"].to(string)))
+                    let cmd = newNimNode(nnkCommand)
+                                .add(ident "blank")
+                                .add(shape[1])
+                                .add(ident curr_meta["dtype"].to(string))
+                                .add(ident curr_meta["output"].to(string))
+
+                    firstmatch model, "feed", idx:
+                        cmd.add newLit metadata[model][idx]["feed"].to(string)
+                        
+                    cmds.insert(0, cmd)
 
                 prgm.add model(ident model_name, scope, sess, cmds)
 
@@ -142,6 +116,7 @@ proc model(name: NimNode, scope: NimNode, sess: NimNode, x: NimNode): NimNode =
             .add(name)
             .add(newCall("anyToInvalid", ident metadata[model][i]["output"].to(string)))
 
+    echo repr prgm
     return prgm
 
 macro model*(name: untyped, scope: Scope, sess: Session, x: untyped): untyped =

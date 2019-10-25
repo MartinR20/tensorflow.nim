@@ -88,3 +88,5 @@ proc dense*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
                             newCall("matMul", scope, 
                                               ident inname, 
                                               ident weight_name))
+
+register_function(dense)

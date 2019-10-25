@@ -1,7 +1,7 @@
 import 
     globals
 
-from ../ops/nn/loss import 
+from ../ops/nn/loss as loss_ops import 
     l2Loss, l2LossToOut
 
 export 
@@ -27,3 +27,5 @@ proc loss*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNod
                     "dtype": metadata[model][i-1]["dtype"],
                     "output": name
                    }
+
+register_function(loss)

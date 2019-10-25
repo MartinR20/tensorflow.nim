@@ -99,6 +99,9 @@ proc conv2d*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimN
                                             data_format,
                                             dilations))
 
+register_function(conv2d)
+
+
 proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode) =
     let name = unique_name("conv2d_transpose", model, i)
 
@@ -182,3 +185,5 @@ proc conv2d_transpose*(prgm: NimNode, model: string, scope: NimNode, i: int, com
                                                        use_cudnn_on_gpu,
                                                        data_format,
                                                        dilations))
+
+register_function(conv2d_transpose)

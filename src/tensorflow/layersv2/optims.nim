@@ -7,7 +7,7 @@ from strutils import
 # TODO: applyAdagradDA, applyAdagradDAToOut
 # TODO: applyFrtl, applyFrtlToOut
 
-from ../ops/nn/optim import
+from ../ops/nn/optim as opt import
     applyAdam, applyAdamToOut,
     applyAdaMax, applyAdaMaxToOut,
     applyAdadelta, applyAdadeltaToOut,
@@ -100,3 +100,5 @@ proc optim*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNo
         prgm.add newLetStmt(ident name, call)
 
         metadata[model][i]["optim"].add newJString name
+
+register_function(optim)

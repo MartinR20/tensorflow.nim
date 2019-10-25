@@ -27,3 +27,5 @@ proc vars*(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNod
                     ident name & "_" & $v.name,
                     ident name & "_" & $v.asgn,
                     optim=true)
+
+register_function(vars)

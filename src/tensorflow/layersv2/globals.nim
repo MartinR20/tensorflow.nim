@@ -15,6 +15,11 @@ proc dimCheck*(layer: string, insize: JsonNode, dims: int) =
     assert insize.len == dims, "The input shape for the layer " & layer & " should have " & 
                                 $dims & " dimensions but has " & $insize.len & "!"
 
+proc dimCheck*(layer: string, insize: int, dims: int) = 
+    assert insize == dims, "The input shape for the layer " & layer & " should have " & 
+                            $dims & " dimensions but has " & $insize & "!"
+
+
 proc seqFromAst*(ast: NimNode): seq[int] =
     var s = newSeq[int](ast.len)
 
@@ -126,3 +131,27 @@ template firstmatch*(model: string, cmd: string, i: untyped, x: untyped) =
 
 proc unique_name*(name: string, model: string, i: int): string =
     return name & "_" & model & "_" & $i
+
+
+var functionmap* {.compileTime.} = 
+    initTable[string, proc(prgm: NimNode, model: string, scope: NimNode, i: int, command: NimNode)]()
+
+macro register_function*(name: untyped): untyped =
+    return newNimNode(nnkStaticStmt)
+                .add(newNimNode(nnkAsgn)
+                    .add(newNimNode(nnkBracketExpr)
+                            .add(ident "functionmap")
+                            .add(newLit $name))
+                    .add(name))
+
+
+var commandmap* {.compileTime.} = 
+    initTable[string, proc(prgm: NimNode, model: string, sess: NimNode)]()
+
+macro register_command*(name: untyped): untyped =
+    return newNimNode(nnkStaticStmt)
+                .add(newNimNode(nnkAsgn)
+                    .add(newNimNode(nnkBracketExpr)
+                            .add(ident "commandmap")
+                            .add(newLit $name))
+                    .add(name))

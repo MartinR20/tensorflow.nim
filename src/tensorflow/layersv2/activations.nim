@@ -15,3 +15,5 @@ proc activation*(prgm: NimNode, model: string, scope: NimNode, i: int, command: 
                     "dtype": metadata[model][i-1]["dtype"],
                     "output": name
                    }
+
+register_function(activation)
