@@ -27,6 +27,9 @@ proc ierrorMsg(status: Status): cppstring {.importcpp:"#.error_message()".}
 proc errorMsg*(status: Status): string =
   return $status.ierrorMsg
 
+proc `$`*(status: Status): string =
+  return status.errorMsg
+
 proc ok*(status: Status): bool {.
   header: std_ops,
   importcpp: "#.ok()".}
