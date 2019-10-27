@@ -3,7 +3,7 @@ import ../core
 {.compile:"queue/queue.cc".}
 
 
-type FIFOQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueue/*'0*/".} = object
+type FIFOQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueue/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -12,7 +12,7 @@ proc iifIFOQueue(scope: Scope,
                 shapes: ArraySlice[TensorShape],
                 container: cstring,
                 shared_name: cstring,
-                capacity: int64): FIFOQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                capacity: int64): FIFOQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc fIFOQueue*(scope: Scope,
                 component_types: openArray[DType],
@@ -30,7 +30,7 @@ proc fIFOQueue*(scope: Scope,
 converter fIFOQueueToOut*(op: FIFOQueue): ostring {.inline.} = return op.output
 
 
-type FIFOQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueueV2/*'0*/".} = object
+type FIFOQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueueV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -39,7 +39,7 @@ proc iifIFOQueueV2(scope: Scope,
                   shapes: ArraySlice[TensorShape],
                   container: cstring,
                   shared_name: cstring,
-                  capacity: int64): FIFOQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                  capacity: int64): FIFOQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FIFOQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc fIFOQueueV2*(scope: Scope,
                   component_types: openArray[DType],
@@ -57,12 +57,12 @@ proc fIFOQueueV2*(scope: Scope,
 converter fIFOQueueV2ToOut*(op: FIFOQueueV2): oresource {.inline.} = return op.output
 
 
-type FakeQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FakeQueue/*'0*/".} = object
+type FakeQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FakeQueue/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iifakeQueue(scope: Scope,
-                resource: oresource): FakeQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"FakeQueue(*#, #)", constructor.}
+                resource: oresource): FakeQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"FakeQueue(*#, #)", constructor.}
 
 proc fakeQueue*(scope: Scope,
                 resource: oresource): FakeQueue =
@@ -72,7 +72,7 @@ proc fakeQueue*(scope: Scope,
 converter fakeQueueToOut*(op: FakeQueue): ostring {.inline.} = return op.output
 
 
-type PaddingFIFOQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueue/*'0*/".} = object
+type PaddingFIFOQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueue/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -81,7 +81,7 @@ proc iipaddingFIFOQueue(scope: Scope,
                        shapes: ArraySlice[TensorShape],
                        container: cstring,
                        shared_name: cstring,
-                       capacity: int64): PaddingFIFOQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                       capacity: int64): PaddingFIFOQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc paddingFIFOQueue*(scope: Scope,
                        component_types: openArray[DType],
@@ -99,7 +99,7 @@ proc paddingFIFOQueue*(scope: Scope,
 converter paddingFIFOQueueToOut*(op: PaddingFIFOQueue): ostring {.inline.} = return op.output
 
 
-type PaddingFIFOQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueueV2/*'0*/".} = object
+type PaddingFIFOQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueueV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -108,7 +108,7 @@ proc iipaddingFIFOQueueV2(scope: Scope,
                          shapes: ArraySlice[TensorShape],
                          container: cstring,
                          shared_name: cstring,
-                         capacity: int64): PaddingFIFOQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                         capacity: int64): PaddingFIFOQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PaddingFIFOQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc paddingFIFOQueueV2*(scope: Scope,
                          component_types: openArray[DType],
@@ -126,7 +126,7 @@ proc paddingFIFOQueueV2*(scope: Scope,
 converter paddingFIFOQueueV2ToOut*(op: PaddingFIFOQueueV2): oresource {.inline.} = return op.output
 
 
-type PriorityQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueue/*'0*/".} = object
+type PriorityQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueue/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -135,7 +135,7 @@ proc iipriorityQueue(scope: Scope,
                     shapes: ArraySlice[TensorShape],
                     container: cstring,
                     shared_name: cstring,
-                    capacity: int64): PriorityQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                    capacity: int64): PriorityQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc priorityQueue*(scope: Scope,
                     component_types: openArray[DType],
@@ -153,7 +153,7 @@ proc priorityQueue*(scope: Scope,
 converter priorityQueueToOut*(op: PriorityQueue): ostring {.inline.} = return op.output
 
 
-type PriorityQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueueV2/*'0*/".} = object
+type PriorityQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueueV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -162,7 +162,7 @@ proc iipriorityQueueV2(scope: Scope,
                       shapes: ArraySlice[TensorShape],
                       container: cstring,
                       shared_name: cstring,
-                      capacity: int64): PriorityQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                      capacity: int64): PriorityQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"PriorityQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc priorityQueueV2*(scope: Scope,
                       component_types: openArray[DType],
@@ -180,13 +180,13 @@ proc priorityQueueV2*(scope: Scope,
 converter priorityQueueV2ToOut*(op: PriorityQueueV2): oresource {.inline.} = return op.output
 
 
-type QueueClose*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueClose/*'0*/".} = object
+type QueueClose*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueClose/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiqueueClose(scope: Scope,
                  handle: ostring,
-                 cancel_pending_enqueues: bool): QueueClose {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueClose(*#, #, #)", constructor.}
+                 cancel_pending_enqueues: bool): QueueClose {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueClose(*#, #, #)", constructor.}
 
 proc queueClose*(scope: Scope,
                  handle: ostring,
@@ -196,13 +196,13 @@ proc queueClose*(scope: Scope,
                       cancel_pending_enqueues)
 
 
-type QueueCloseV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueCloseV2/*'0*/".} = object
+type QueueCloseV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueCloseV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiqueueCloseV2(scope: Scope,
                    handle: oresource,
-                   cancel_pending_enqueues: bool): QueueCloseV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueCloseV2(*#, #, #)", constructor.}
+                   cancel_pending_enqueues: bool): QueueCloseV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueCloseV2(*#, #, #)", constructor.}
 
 proc queueCloseV2*(scope: Scope,
                    handle: oresource,
@@ -212,7 +212,7 @@ proc queueCloseV2*(scope: Scope,
                         cancel_pending_enqueues)
 
 
-type QueueDequeue*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeue/*'0*/".} = object
+type QueueDequeue*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeue/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -220,7 +220,7 @@ proc iiqueueDequeue[oT: oall](scope: Scope,
                    handle: ostring,
                    component_types: ArraySlice[DType],
                    timeout_ms: int64,
-                   explicitT: type(oT)): QueueDequeue[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeue(*#, #, #, #)", constructor.}
+                   explicitT: type(oT)): QueueDequeue[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeue(*#, #, #, #)", constructor.}
 
 proc queueDequeue*(scope: Scope,
                    handle: ostring,
@@ -236,7 +236,7 @@ proc queueDequeue*(scope: Scope,
 converter queueDequeueToOutList*[oT: oall](op: QueueDequeue[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueDequeueMany*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueMany/*'0*/".} = object
+type QueueDequeueMany*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueMany/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -245,7 +245,7 @@ proc iiqueueDequeueMany[oT: oall](scope: Scope,
                        n: oint32,
                        component_types: ArraySlice[DType],
                        timeout_ms: int64,
-                       explicitT: type(oT)): QueueDequeueMany[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueMany(*#, #, #, #, #)", constructor.}
+                       explicitT: type(oT)): QueueDequeueMany[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueMany(*#, #, #, #, #)", constructor.}
 
 proc queueDequeueMany*(scope: Scope,
                        handle: ostring,
@@ -263,7 +263,7 @@ proc queueDequeueMany*(scope: Scope,
 converter queueDequeueManyToOutList*[oT: oall](op: QueueDequeueMany[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueDequeueManyV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueManyV2/*'0*/".} = object
+type QueueDequeueManyV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueManyV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -272,7 +272,7 @@ proc iiqueueDequeueManyV2[oT: oall](scope: Scope,
                          n: oint32,
                          component_types: ArraySlice[DType],
                          timeout_ms: int64,
-                         explicitT: type(oT)): QueueDequeueManyV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueManyV2(*#, #, #, #, #)", constructor.}
+                         explicitT: type(oT)): QueueDequeueManyV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueManyV2(*#, #, #, #, #)", constructor.}
 
 proc queueDequeueManyV2*(scope: Scope,
                          handle: oresource,
@@ -290,7 +290,7 @@ proc queueDequeueManyV2*(scope: Scope,
 converter queueDequeueManyV2ToOutList*[oT: oall](op: QueueDequeueManyV2[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueDequeueUpTo*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpTo/*'0*/".} = object
+type QueueDequeueUpTo*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpTo/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -299,7 +299,7 @@ proc iiqueueDequeueUpTo[oT: oall](scope: Scope,
                        n: oint32,
                        component_types: ArraySlice[DType],
                        timeout_ms: int64,
-                       explicitT: type(oT)): QueueDequeueUpTo[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpTo(*#, #, #, #, #)", constructor.}
+                       explicitT: type(oT)): QueueDequeueUpTo[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpTo(*#, #, #, #, #)", constructor.}
 
 proc queueDequeueUpTo*(scope: Scope,
                        handle: ostring,
@@ -317,7 +317,7 @@ proc queueDequeueUpTo*(scope: Scope,
 converter queueDequeueUpToToOutList*[oT: oall](op: QueueDequeueUpTo[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueDequeueUpToV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpToV2/*'0*/".} = object
+type QueueDequeueUpToV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpToV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -326,7 +326,7 @@ proc iiqueueDequeueUpToV2[oT: oall](scope: Scope,
                          n: oint32,
                          component_types: ArraySlice[DType],
                          timeout_ms: int64,
-                         explicitT: type(oT)): QueueDequeueUpToV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpToV2(*#, #, #, #, #)", constructor.}
+                         explicitT: type(oT)): QueueDequeueUpToV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueUpToV2(*#, #, #, #, #)", constructor.}
 
 proc queueDequeueUpToV2*(scope: Scope,
                          handle: oresource,
@@ -344,7 +344,7 @@ proc queueDequeueUpToV2*(scope: Scope,
 converter queueDequeueUpToV2ToOutList*[oT: oall](op: QueueDequeueUpToV2[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueDequeueV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueV2/*'0*/".} = object
+type QueueDequeueV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -352,7 +352,7 @@ proc iiqueueDequeueV2[oT: oall](scope: Scope,
                      handle: oresource,
                      component_types: ArraySlice[DType],
                      timeout_ms: int64,
-                     explicitT: type(oT)): QueueDequeueV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueV2(*#, #, #, #)", constructor.}
+                     explicitT: type(oT)): QueueDequeueV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueDequeueV2(*#, #, #, #)", constructor.}
 
 proc queueDequeueV2*(scope: Scope,
                      handle: oresource,
@@ -368,7 +368,7 @@ proc queueDequeueV2*(scope: Scope,
 converter queueDequeueV2ToOutList*[oT: oall](op: QueueDequeueV2[oT]): olist[oT] {.inline.} = return op.output
 
 
-type QueueEnqueue*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueue/*'0*/".} = object
+type QueueEnqueue*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueue/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -376,7 +376,7 @@ proc iiqueueEnqueue(scope: Scope,
                    handle: ostring,
                    components: olist[oall],
                    Tcomponents: ArraySlice[DType],
-                   timeout_ms: int64): QueueEnqueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueue(*#, #, #, #, #)", constructor.}
+                   timeout_ms: int64): QueueEnqueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueue(*#, #, #, #, #)", constructor.}
 
 proc queueEnqueue*(scope: Scope,
                    handle: ostring,
@@ -390,7 +390,7 @@ proc queueEnqueue*(scope: Scope,
                         timeout_ms)
 
 
-type QueueEnqueueMany*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueMany/*'0*/".} = object
+type QueueEnqueueMany*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueMany/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -398,7 +398,7 @@ proc iiqueueEnqueueMany(scope: Scope,
                        handle: ostring,
                        components: olist[oall],
                        Tcomponents: ArraySlice[DType],
-                       timeout_ms: int64): QueueEnqueueMany {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueMany(*#, #, #, #, #)", constructor.}
+                       timeout_ms: int64): QueueEnqueueMany {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueMany(*#, #, #, #, #)", constructor.}
 
 proc queueEnqueueMany*(scope: Scope,
                        handle: ostring,
@@ -412,7 +412,7 @@ proc queueEnqueueMany*(scope: Scope,
                             timeout_ms)
 
 
-type QueueEnqueueManyV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueManyV2/*'0*/".} = object
+type QueueEnqueueManyV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueManyV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -420,7 +420,7 @@ proc iiqueueEnqueueManyV2(scope: Scope,
                          handle: oresource,
                          components: olist[oall],
                          Tcomponents: ArraySlice[DType],
-                         timeout_ms: int64): QueueEnqueueManyV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueManyV2(*#, #, #, #, #)", constructor.}
+                         timeout_ms: int64): QueueEnqueueManyV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueManyV2(*#, #, #, #, #)", constructor.}
 
 proc queueEnqueueManyV2*(scope: Scope,
                          handle: oresource,
@@ -434,7 +434,7 @@ proc queueEnqueueManyV2*(scope: Scope,
                               timeout_ms)
 
 
-type QueueEnqueueV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueV2/*'0*/".} = object
+type QueueEnqueueV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -442,7 +442,7 @@ proc iiqueueEnqueueV2(scope: Scope,
                      handle: oresource,
                      components: olist[oall],
                      Tcomponents: ArraySlice[DType],
-                     timeout_ms: int64): QueueEnqueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueV2(*#, #, #, #, #)", constructor.}
+                     timeout_ms: int64): QueueEnqueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueEnqueueV2(*#, #, #, #, #)", constructor.}
 
 proc queueEnqueueV2*(scope: Scope,
                      handle: oresource,
@@ -456,12 +456,12 @@ proc queueEnqueueV2*(scope: Scope,
                           timeout_ms)
 
 
-type QueueIsClosed* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosed/*'0*/".} = object
+type QueueIsClosed* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosed/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiqueueIsClosed(scope: Scope,
-                    handle: ostring): QueueIsClosed {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosed(*#, #)", constructor.}
+                    handle: ostring): QueueIsClosed {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosed(*#, #)", constructor.}
 
 proc queueIsClosed*(scope: Scope,
                     handle: ostring): QueueIsClosed =
@@ -471,12 +471,12 @@ proc queueIsClosed*(scope: Scope,
 converter queueIsClosedToOut*(op: QueueIsClosed): obool {.inline.} = return op.output
 
 
-type QueueIsClosedV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosedV2/*'0*/".} = object
+type QueueIsClosedV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosedV2/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiqueueIsClosedV2(scope: Scope,
-                      handle: oresource): QueueIsClosedV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosedV2(*#, #)", constructor.}
+                      handle: oresource): QueueIsClosedV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueIsClosedV2(*#, #)", constructor.}
 
 proc queueIsClosedV2*(scope: Scope,
                       handle: oresource): QueueIsClosedV2 =
@@ -486,12 +486,12 @@ proc queueIsClosedV2*(scope: Scope,
 converter queueIsClosedV2ToOut*(op: QueueIsClosedV2): obool {.inline.} = return op.output
 
 
-type QueueSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueSize/*'0*/".} = object
+type QueueSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueSize/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
 proc iiqueueSize(scope: Scope,
-                handle: ostring): QueueSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueSize(*#, #)", constructor.}
+                handle: ostring): QueueSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueSize(*#, #)", constructor.}
 
 proc queueSize*(scope: Scope,
                 handle: ostring): QueueSize =
@@ -501,12 +501,12 @@ proc queueSize*(scope: Scope,
 converter queueSizeToOut*(op: QueueSize): oint32 {.inline.} = return op.output
 
 
-type QueueSizeV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueSizeV2/*'0*/".} = object
+type QueueSizeV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueSizeV2/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
 proc iiqueueSizeV2(scope: Scope,
-                  handle: oresource): QueueSizeV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"QueueSizeV2(*#, #)", constructor.}
+                  handle: oresource): QueueSizeV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"QueueSizeV2(*#, #)", constructor.}
 
 proc queueSizeV2*(scope: Scope,
                   handle: oresource): QueueSizeV2 =
@@ -516,7 +516,7 @@ proc queueSizeV2*(scope: Scope,
 converter queueSizeV2ToOut*(op: QueueSizeV2): oint32 {.inline.} = return op.output
 
 
-type RandomShuffleQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueue/*'0*/".} = object
+type RandomShuffleQueue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueue/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -528,7 +528,7 @@ proc iirandomShuffleQueue(scope: Scope,
                          capacity: int64,
                          min_after_dequeue: int64,
                          seed: int64,
-                         seed2: int64): RandomShuffleQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+                         seed2: int64): RandomShuffleQueue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueue(*#, #, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc randomShuffleQueue*(scope: Scope,
                          component_types: openArray[DType],
@@ -552,7 +552,7 @@ proc randomShuffleQueue*(scope: Scope,
 converter randomShuffleQueueToOut*(op: RandomShuffleQueue): ostring {.inline.} = return op.output
 
 
-type RandomShuffleQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueueV2/*'0*/".} = object
+type RandomShuffleQueueV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueueV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -564,7 +564,7 @@ proc iirandomShuffleQueueV2(scope: Scope,
                            capacity: int64,
                            min_after_dequeue: int64,
                            seed: int64,
-                           seed2: int64): RandomShuffleQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
+                           seed2: int64): RandomShuffleQueueV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/queue/queue.h", importcpp:"RandomShuffleQueueV2(*#, #, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc randomShuffleQueueV2*(scope: Scope,
                            component_types: openArray[DType],

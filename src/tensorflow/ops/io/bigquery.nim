@@ -3,7 +3,7 @@ import ../../core
 {.compile:"bigquery/bigquery.cc".}
 
 
-type BigQueryReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"BigQueryReader/*'0*/".} = object
+type BigQueryReader* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"BigQueryReader/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -15,7 +15,7 @@ proc iibigQueryReader(scope: Scope,
                      table_id: cstring,
                      columns: ArraySlice[cstring],
                      test_end_point: cstring,
-                     timestamp_millis: int64): BigQueryReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"BigQueryReader(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                     timestamp_millis: int64): BigQueryReader {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"BigQueryReader(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc bigQueryReader*(scope: Scope,
                      container: cstring,
@@ -39,7 +39,7 @@ proc bigQueryReader*(scope: Scope,
 converter bigQueryReaderToOut*(op: BigQueryReader): ostring {.inline.} = return op.output
 
 
-type GenerateBigQueryReaderPartitions* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"GenerateBigQueryReaderPartitions/*'0*/".} = object
+type GenerateBigQueryReaderPartitions* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"GenerateBigQueryReaderPartitions/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -50,7 +50,7 @@ proc iigenerateBigQueryReaderPartitions(scope: Scope,
                                        columns: ArraySlice[cstring],
                                        test_end_point: cstring,
                                        timestamp_millis: int64,
-                                       num_partitions: int64): GenerateBigQueryReaderPartitions {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"GenerateBigQueryReaderPartitions(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, tensorflow::string(#), #, #)", constructor.}
+                                       num_partitions: int64): GenerateBigQueryReaderPartitions {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/io/bigquery/bigquery.h", importcpp:"GenerateBigQueryReaderPartitions(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, tensorflow::string(#), #, #)", constructor.}
 
 proc generateBigQueryReaderPartitions*(scope: Scope,
                                        project_id: cstring,

@@ -3,7 +3,7 @@ import ../core
 {.compile:"prob/prob.cc".}
 
 
-type AllCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"AllCandidateSampler/*'0*/".} = object
+type AllCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"AllCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -13,7 +13,7 @@ proc iiallCandidateSampler(scope: Scope,
                           num_sampled: int64,
                           unique: bool,
                           seed: int64,
-                          seed2: int64): AllCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"AllCandidateSampler(*#, #, #, #, #, #, #)", constructor.}
+                          seed2: int64): AllCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"AllCandidateSampler(*#, #, #, #, #, #, #)", constructor.}
 
 proc allCandidateSampler*(scope: Scope,
                           true_classes: oint64,
@@ -33,7 +33,7 @@ proc allCandidateSampler*(scope: Scope,
 converter allCandidateSamplerToOut*(op: AllCandidateSampler): oint64 {.inline.} = return op.output
 
 
-type FixedUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"FixedUnigramCandidateSampler/*'0*/".} = object
+type FixedUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"FixedUnigramCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -50,7 +50,7 @@ proc iifixedUnigramCandidateSampler(scope: Scope,
                                    num_shards: int64,
                                    shard: int64,
                                    seed: int64,
-                                   seed2: int64): FixedUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"FixedUnigramCandidateSampler(*#, #, tensorflow::string(#), #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                   seed2: int64): FixedUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"FixedUnigramCandidateSampler(*#, #, tensorflow::string(#), #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc fixedUnigramCandidateSampler*(scope: Scope,
                                    true_classes: oint64,
@@ -84,7 +84,7 @@ proc fixedUnigramCandidateSampler*(scope: Scope,
 converter fixedUnigramCandidateSamplerToOut*(op: FixedUnigramCandidateSampler): oint64 {.inline.} = return op.output
 
 
-type LearnedUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"LearnedUnigramCandidateSampler/*'0*/".} = object
+type LearnedUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"LearnedUnigramCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -95,7 +95,7 @@ proc iilearnedUnigramCandidateSampler(scope: Scope,
                                      unique: bool,
                                      range_max: int64,
                                      seed: int64,
-                                     seed2: int64): LearnedUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"LearnedUnigramCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
+                                     seed2: int64): LearnedUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"LearnedUnigramCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc learnedUnigramCandidateSampler*(scope: Scope,
                                      true_classes: oint64,
@@ -117,7 +117,7 @@ proc learnedUnigramCandidateSampler*(scope: Scope,
 converter learnedUnigramCandidateSamplerToOut*(op: LearnedUnigramCandidateSampler): oint64 {.inline.} = return op.output
 
 
-type LogUniformCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"LogUniformCandidateSampler/*'0*/".} = object
+type LogUniformCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"LogUniformCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -128,7 +128,7 @@ proc iilogUniformCandidateSampler(scope: Scope,
                                  unique: bool,
                                  range_max: int64,
                                  seed: int64,
-                                 seed2: int64): LogUniformCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"LogUniformCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
+                                 seed2: int64): LogUniformCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"LogUniformCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc logUniformCandidateSampler*(scope: Scope,
                                  true_classes: oint64,
@@ -151,7 +151,7 @@ converter logUniformCandidateSamplerToOut*(op: LogUniformCandidateSampler): oint
 
 type MultinomialT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 
-type Multinomial*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"Multinomial/*'0*/".} = object
+type Multinomial*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"Multinomial/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -161,7 +161,7 @@ proc iimultinomial[oT: oall](scope: Scope,
                   seed: int64,
                   seed2: int64,
                   output_dtype: DType,
-                  explicitT: type(oT)): Multinomial[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"Multinomial(*#, #, #, #, #, #)", constructor.}
+                  explicitT: type(oT)): Multinomial[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"Multinomial(*#, #, #, #, #, #)", constructor.}
 
 proc multinomial*(scope: Scope,
                   logits: MultinomialT,
@@ -181,7 +181,7 @@ converter multinomialToOut*[oT: oall](op: Multinomial[oT]): oT {.inline.} = retu
 
 type ParameterizedTruncatedNormalT* = oint32 | oint64
 
-type ParameterizedTruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"ParameterizedTruncatedNormal/*'0*/".} = object
+type ParameterizedTruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"ParameterizedTruncatedNormal/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -193,7 +193,7 @@ proc iiparameterizedTruncatedNormal[oT: oall](scope: Scope,
                                    maxvals: oT,
                                    seed: int64,
                                    seed2: int64,
-                                   dtype: DType): ParameterizedTruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"ParameterizedTruncatedNormal(*#, #, #, #, #, #, #, #, #)", constructor.}
+                                   dtype: DType): ParameterizedTruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"ParameterizedTruncatedNormal(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parameterizedTruncatedNormal*[oT: oall](scope: Scope,
                                    shape: ParameterizedTruncatedNormalT,
@@ -217,7 +217,7 @@ converter parameterizedTruncatedNormalToOut*[oT: oall](op: ParameterizedTruncate
 
 type RandomGammaS* = oint32 | oint64
 
-type RandomGamma*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomGamma/*'0*/".} = object
+type RandomGamma*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomGamma/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -226,7 +226,7 @@ proc iirandomGamma[oT: oall](scope: Scope,
                   alpha: oT,
                   seed: int64,
                   seed2: int64,
-                  T: DType): RandomGamma[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomGamma(*#, #, #, #, #, #)", constructor.}
+                  T: DType): RandomGamma[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomGamma(*#, #, #, #, #, #)", constructor.}
 
 proc randomGamma*[oT: oall](scope: Scope,
                   shape: RandomGammaS,
@@ -243,14 +243,14 @@ proc randomGamma*[oT: oall](scope: Scope,
 converter randomGammaToOut*[oT: oall](op: RandomGamma[oT]): oT {.inline.} = return op.output
 
 
-type RandomGammaGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomGammaGrad/*'0*/".} = object
+type RandomGammaGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomGammaGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iirandomGammaGrad[oT: oall](scope: Scope,
                       alpha: oT,
                       sample: oT,
-                      T: DType): RandomGammaGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomGammaGrad(*#, #, #, #)", constructor.}
+                      T: DType): RandomGammaGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomGammaGrad(*#, #, #, #)", constructor.}
 
 proc randomGammaGrad*[oT: oall](scope: Scope,
                       alpha: oT,
@@ -264,7 +264,7 @@ converter randomGammaGradToOut*[oT: oall](op: RandomGammaGrad[oT]): oT {.inline.
 
 type RandomPoissonS* = oint32 | oint64
 
-type RandomPoisson*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomPoisson/*'0*/".} = object
+type RandomPoisson*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomPoisson/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -273,7 +273,7 @@ proc iirandomPoisson[oT: oall](scope: Scope,
                     rate: oT,
                     seed: int64,
                     seed2: int64,
-                    dtype: DType): RandomPoisson[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomPoisson(*#, #, #, #, #, #)", constructor.}
+                    dtype: DType): RandomPoisson[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomPoisson(*#, #, #, #, #, #)", constructor.}
 
 proc randomPoisson*[oT: oall](scope: Scope,
                     shape: RandomPoissonS,
@@ -292,7 +292,7 @@ converter randomPoissonToOut*[oT: oall](op: RandomPoisson[oT]): oT {.inline.} = 
 type RandomPoissonV2S* = oint32 | oint64
 type RandomPoissonV2R* = ohalf | ofloat | odouble | oint32 | oint64
 
-type RandomPoissonV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomPoissonV2/*'0*/".} = object
+type RandomPoissonV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomPoissonV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -302,7 +302,7 @@ proc iirandomPoissonV2[oT: oall](scope: Scope,
                       seed: int64,
                       seed2: int64,
                       dtype: DType,
-                      explicitT: type(oT)): RandomPoissonV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomPoissonV2(*#, #, #, #, #, #)", constructor.}
+                      explicitT: type(oT)): RandomPoissonV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomPoissonV2(*#, #, #, #, #, #)", constructor.}
 
 proc randomPoissonV2*(scope: Scope,
                       shape: RandomPoissonV2S,
@@ -321,7 +321,7 @@ proc randomPoissonV2*(scope: Scope,
 converter randomPoissonV2ToOut*[oT: oall](op: RandomPoissonV2[oT]): oT {.inline.} = return op.output
 
 
-type RandomShuffle*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomShuffle/*'0*/".} = object
+type RandomShuffle*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomShuffle/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -329,7 +329,7 @@ proc iirandomShuffle[oT: oall](scope: Scope,
                     value: oT,
                     seed: int64,
                     seed2: int64,
-                    T: DType): RandomShuffle[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomShuffle(*#, #, #, #, #)", constructor.}
+                    T: DType): RandomShuffle[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomShuffle(*#, #, #, #, #)", constructor.}
 
 proc randomShuffle*[oT: oall](scope: Scope,
                     value: oT,
@@ -345,7 +345,7 @@ converter randomShuffleToOut*[oT: oall](op: RandomShuffle[oT]): oT {.inline.} = 
 
 type RandomStandardNormalT* = oint32 | oint64
 
-type RandomStandardNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomStandardNormal/*'0*/".} = object
+type RandomStandardNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomStandardNormal/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -354,7 +354,7 @@ proc iirandomStandardNormal[oT: oall](scope: Scope,
                            seed: int64,
                            seed2: int64,
                            dtype: DType,
-                           explicitT: type(oT)): RandomStandardNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomStandardNormal(*#, #, #, #, #)", constructor.}
+                           explicitT: type(oT)): RandomStandardNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomStandardNormal(*#, #, #, #, #)", constructor.}
 
 proc randomStandardNormal*(scope: Scope,
                            shape: RandomStandardNormalT,
@@ -372,7 +372,7 @@ converter randomStandardNormalToOut*[oT: oall](op: RandomStandardNormal[oT]): oT
 
 type RandomUniformT* = oint32 | oint64
 
-type RandomUniform*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomUniform/*'0*/".} = object
+type RandomUniform*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomUniform/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -381,7 +381,7 @@ proc iirandomUniform[oT: oall](scope: Scope,
                     seed: int64,
                     seed2: int64,
                     dtype: DType,
-                    explicitT: type(oT)): RandomUniform[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomUniform(*#, #, #, #, #)", constructor.}
+                    explicitT: type(oT)): RandomUniform[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomUniform(*#, #, #, #, #)", constructor.}
 
 proc randomUniform*(scope: Scope,
                     shape: RandomUniformT,
@@ -399,7 +399,7 @@ converter randomUniformToOut*[oT: oall](op: RandomUniform[oT]): oT {.inline.} = 
 
 type RandomUniformIntT* = oint32 | oint64
 
-type RandomUniformInt*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomUniformInt/*'0*/".} = object
+type RandomUniformInt*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomUniformInt/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -409,7 +409,7 @@ proc iirandomUniformInt[oT: oall](scope: Scope,
                        maxval: oT,
                        seed: int64,
                        seed2: int64,
-                       Tout: DType): RandomUniformInt[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"RandomUniformInt(*#, #, #, #, #, #, #)", constructor.}
+                       Tout: DType): RandomUniformInt[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"RandomUniformInt(*#, #, #, #, #, #, #)", constructor.}
 
 proc randomUniformInt*[oT: oall](scope: Scope,
                        shape: RandomUniformIntT,
@@ -428,14 +428,14 @@ proc randomUniformInt*[oT: oall](scope: Scope,
 converter randomUniformIntToOut*[oT: oall](op: RandomUniformInt[oT]): oT {.inline.} = return op.output
 
 
-type SparseAccumulatorTakeGradient* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"SparseAccumulatorTakeGradient/*'0*/".} = object
+type SparseAccumulatorTakeGradient* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"SparseAccumulatorTakeGradient/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iisparseAccumulatorTakeGradient(scope: Scope,
                                     handle: ostring,
                                     num_required: oint32,
-                                    dtype: DType): SparseAccumulatorTakeGradient {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"SparseAccumulatorTakeGradient(*#, #, #, #)", constructor.}
+                                    dtype: DType): SparseAccumulatorTakeGradient {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"SparseAccumulatorTakeGradient(*#, #, #, #)", constructor.}
 
 proc sparseAccumulatorTakeGradient*(scope: Scope,
                                     handle: ostring,
@@ -451,7 +451,7 @@ converter sparseAccumulatorTakeGradientToOut*(op: SparseAccumulatorTakeGradient)
 type StatelessMultinomialT* = ofloat | odouble | oint32 | ouint8 | oint16 | oint8 | oint64 | obfloat16 | ouint16 | ohalf | ouint32 | ouint64
 type StatelessMultinomialTseed* = oint32 | oint64
 
-type StatelessMultinomial*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessMultinomial/*'0*/".} = object
+type StatelessMultinomial*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessMultinomial/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -460,7 +460,7 @@ proc iistatelessMultinomial[oT: oall](scope: Scope,
                            num_samples: oint32,
                            seed: StatelessMultinomialTseed,
                            output_dtype: DType,
-                           explicitT: type(oT)): StatelessMultinomial[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessMultinomial(*#, #, #, #, #)", constructor.}
+                           explicitT: type(oT)): StatelessMultinomial[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessMultinomial(*#, #, #, #, #)", constructor.}
 
 proc statelessMultinomial*(scope: Scope,
                            logits: StatelessMultinomialT,
@@ -479,7 +479,7 @@ converter statelessMultinomialToOut*[oT: oall](op: StatelessMultinomial[oT]): oT
 type StatelessRandomNormalT* = oint32 | oint64
 type StatelessRandomNormalTseed* = oint32 | oint64
 
-type StatelessRandomNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomNormal/*'0*/".} = object
+type StatelessRandomNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomNormal/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -487,7 +487,7 @@ proc iistatelessRandomNormal[oT: oall](scope: Scope,
                             shape: StatelessRandomNormalT,
                             seed: StatelessRandomNormalTseed,
                             dtype: DType,
-                            explicitT: type(oT)): StatelessRandomNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomNormal(*#, #, #, #)", constructor.}
+                            explicitT: type(oT)): StatelessRandomNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomNormal(*#, #, #, #)", constructor.}
 
 proc statelessRandomNormal*(scope: Scope,
                             shape: StatelessRandomNormalT,
@@ -504,7 +504,7 @@ converter statelessRandomNormalToOut*[oT: oall](op: StatelessRandomNormal[oT]): 
 type StatelessRandomUniformT* = oint32 | oint64
 type StatelessRandomUniformTseed* = oint32 | oint64
 
-type StatelessRandomUniform*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniform/*'0*/".} = object
+type StatelessRandomUniform*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniform/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -512,7 +512,7 @@ proc iistatelessRandomUniform[oT: oall](scope: Scope,
                              shape: StatelessRandomUniformT,
                              seed: StatelessRandomUniformTseed,
                              dtype: DType,
-                             explicitT: type(oT)): StatelessRandomUniform[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniform(*#, #, #, #)", constructor.}
+                             explicitT: type(oT)): StatelessRandomUniform[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniform(*#, #, #, #)", constructor.}
 
 proc statelessRandomUniform*(scope: Scope,
                              shape: StatelessRandomUniformT,
@@ -529,7 +529,7 @@ converter statelessRandomUniformToOut*[oT: oall](op: StatelessRandomUniform[oT])
 type StatelessRandomUniformIntT* = oint32 | oint64
 type StatelessRandomUniformIntTseed* = oint32 | oint64
 
-type StatelessRandomUniformInt*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniformInt/*'0*/".} = object
+type StatelessRandomUniformInt*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniformInt/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -538,7 +538,7 @@ proc iistatelessRandomUniformInt[oT: oall](scope: Scope,
                                 seed: StatelessRandomUniformIntTseed,
                                 minval: oT,
                                 maxval: oT,
-                                dtype: DType): StatelessRandomUniformInt[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniformInt(*#, #, #, #, #, #)", constructor.}
+                                dtype: DType): StatelessRandomUniformInt[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessRandomUniformInt(*#, #, #, #, #, #)", constructor.}
 
 proc statelessRandomUniformInt*[oT: oall](scope: Scope,
                                 shape: StatelessRandomUniformIntT,
@@ -557,7 +557,7 @@ converter statelessRandomUniformIntToOut*[oT: oall](op: StatelessRandomUniformIn
 type StatelessTruncatedNormalT* = oint32 | oint64
 type StatelessTruncatedNormalTseed* = oint32 | oint64
 
-type StatelessTruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessTruncatedNormal/*'0*/".} = object
+type StatelessTruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessTruncatedNormal/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -565,7 +565,7 @@ proc iistatelessTruncatedNormal[oT: oall](scope: Scope,
                                shape: StatelessTruncatedNormalT,
                                seed: StatelessTruncatedNormalTseed,
                                dtype: DType,
-                               explicitT: type(oT)): StatelessTruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"StatelessTruncatedNormal(*#, #, #, #)", constructor.}
+                               explicitT: type(oT)): StatelessTruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"StatelessTruncatedNormal(*#, #, #, #)", constructor.}
 
 proc statelessTruncatedNormal*(scope: Scope,
                                shape: StatelessTruncatedNormalT,
@@ -580,7 +580,7 @@ proc statelessTruncatedNormal*(scope: Scope,
 converter statelessTruncatedNormalToOut*[oT: oall](op: StatelessTruncatedNormal[oT]): oT {.inline.} = return op.output
 
 
-type ThreadUnsafeUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"ThreadUnsafeUnigramCandidateSampler/*'0*/".} = object
+type ThreadUnsafeUnigramCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"ThreadUnsafeUnigramCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -591,7 +591,7 @@ proc iithreadUnsafeUnigramCandidateSampler(scope: Scope,
                                           unique: bool,
                                           range_max: int64,
                                           seed: int64,
-                                          seed2: int64): ThreadUnsafeUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"ThreadUnsafeUnigramCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
+                                          seed2: int64): ThreadUnsafeUnigramCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"ThreadUnsafeUnigramCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc threadUnsafeUnigramCandidateSampler*(scope: Scope,
                                           true_classes: oint64,
@@ -614,7 +614,7 @@ converter threadUnsafeUnigramCandidateSamplerToOut*(op: ThreadUnsafeUnigramCandi
 
 type TruncatedNormalT* = oint32 | oint64
 
-type TruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"TruncatedNormal/*'0*/".} = object
+type TruncatedNormal*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"TruncatedNormal/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -623,7 +623,7 @@ proc iitruncatedNormal[oT: oall](scope: Scope,
                       seed: int64,
                       seed2: int64,
                       dtype: DType,
-                      explicitT: type(oT)): TruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"TruncatedNormal(*#, #, #, #, #)", constructor.}
+                      explicitT: type(oT)): TruncatedNormal[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"TruncatedNormal(*#, #, #, #, #)", constructor.}
 
 proc truncatedNormal*(scope: Scope,
                       shape: TruncatedNormalT,
@@ -640,7 +640,7 @@ proc truncatedNormal*(scope: Scope,
 converter truncatedNormalToOut*[oT: oall](op: TruncatedNormal[oT]): oT {.inline.} = return op.output
 
 
-type UniformCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"UniformCandidateSampler/*'0*/".} = object
+type UniformCandidateSampler* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"UniformCandidateSampler/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -651,7 +651,7 @@ proc iiuniformCandidateSampler(scope: Scope,
                               unique: bool,
                               range_max: int64,
                               seed: int64,
-                              seed2: int64): UniformCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/prob/prob.h", importcpp:"UniformCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
+                              seed2: int64): UniformCandidateSampler {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/prob/prob.h", importcpp:"UniformCandidateSampler(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc uniformCandidateSampler*(scope: Scope,
                               true_classes: oint64,

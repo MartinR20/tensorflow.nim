@@ -3,7 +3,7 @@ import ../core
 {.compile:"data/data.cc".}
 
 
-type BatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchDataset/*'0*/".} = object
+type BatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -11,7 +11,7 @@ proc iibatchDataset(scope: Scope,
                    input_dataset: ovariant,
                    batch_size: oint64,
                    output_types: ArraySlice[DType],
-                   output_shapes: ArraySlice[TensorShape]): BatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchDataset(*#, #, #, #, #)", constructor.}
+                   output_shapes: ArraySlice[TensorShape]): BatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchDataset(*#, #, #, #, #)", constructor.}
 
 proc batchDataset*(scope: Scope,
                    input_dataset: ovariant,
@@ -27,7 +27,7 @@ proc batchDataset*(scope: Scope,
 converter batchDatasetToOut*(op: BatchDataset): ovariant {.inline.} = return op.output
 
 
-type BatchDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchDatasetV2/*'0*/".} = object
+type BatchDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchDatasetV2/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -36,7 +36,7 @@ proc iibatchDatasetV2(scope: Scope,
                      batch_size: oint64,
                      drop_remainder: obool,
                      output_types: ArraySlice[DType],
-                     output_shapes: ArraySlice[TensorShape]): BatchDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchDatasetV2(*#, #, #, #, #, #)", constructor.}
+                     output_shapes: ArraySlice[TensorShape]): BatchDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchDatasetV2(*#, #, #, #, #, #)", constructor.}
 
 proc batchDatasetV2*(scope: Scope,
                      input_dataset: ovariant,
@@ -54,7 +54,7 @@ proc batchDatasetV2*(scope: Scope,
 converter batchDatasetV2ToOut*(op: BatchDatasetV2): ovariant {.inline.} = return op.output
 
 
-type BatchFunction*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchFunction/*'0*/".} = object
+type BatchFunction*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchFunction/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -73,7 +73,7 @@ proc iibatchFunction[oT: oall](scope: Scope,
                     max_batch_size: int64,
                     batch_timeout_micros: int64,
                     max_enqueued_batches: int64,
-                    explicitT: type(oT)): BatchFunction[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"BatchFunction(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #, #, #, #)", constructor.}
+                    explicitT: type(oT)): BatchFunction[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"BatchFunction(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #, #, #, #, #)", constructor.}
 
 proc batchFunction*(scope: Scope,
                     in_tensors: olist[oall],
@@ -111,7 +111,7 @@ proc batchFunction*(scope: Scope,
 converter batchFunctionToOutList*[oT: oall](op: BatchFunction[oT]): olist[oT] {.inline.} = return op.output
 
 
-type CacheDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"CacheDataset/*'0*/".} = object
+type CacheDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"CacheDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -119,7 +119,7 @@ proc iicacheDataset(scope: Scope,
                    input_dataset: ovariant,
                    filename: ostring,
                    output_types: ArraySlice[DType],
-                   output_shapes: ArraySlice[TensorShape]): CacheDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"CacheDataset(*#, #, #, #, #)", constructor.}
+                   output_shapes: ArraySlice[TensorShape]): CacheDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"CacheDataset(*#, #, #, #, #)", constructor.}
 
 proc cacheDataset*(scope: Scope,
                    input_dataset: ovariant,
@@ -135,7 +135,7 @@ proc cacheDataset*(scope: Scope,
 converter cacheDatasetToOut*(op: CacheDataset): ovariant {.inline.} = return op.output
 
 
-type ConcatenateDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ConcatenateDataset/*'0*/".} = object
+type ConcatenateDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ConcatenateDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -143,7 +143,7 @@ proc iiconcatenateDataset(scope: Scope,
                          input_dataset: ovariant,
                          another_dataset: ovariant,
                          output_types: ArraySlice[DType],
-                         output_shapes: ArraySlice[TensorShape]): ConcatenateDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ConcatenateDataset(*#, #, #, #, #)", constructor.}
+                         output_shapes: ArraySlice[TensorShape]): ConcatenateDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ConcatenateDataset(*#, #, #, #, #)", constructor.}
 
 proc concatenateDataset*(scope: Scope,
                          input_dataset: ovariant,
@@ -159,12 +159,12 @@ proc concatenateDataset*(scope: Scope,
 converter concatenateDatasetToOut*(op: ConcatenateDataset): ovariant {.inline.} = return op.output
 
 
-type DatasetToGraph* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"DatasetToGraph/*'0*/".} = object
+type DatasetToGraph* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"DatasetToGraph/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iidatasetToGraph(scope: Scope,
-                     input_dataset: ovariant): DatasetToGraph {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"DatasetToGraph(*#, #)", constructor.}
+                     input_dataset: ovariant): DatasetToGraph {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"DatasetToGraph(*#, #)", constructor.}
 
 proc datasetToGraph*(scope: Scope,
                      input_dataset: ovariant): DatasetToGraph =
@@ -174,7 +174,7 @@ proc datasetToGraph*(scope: Scope,
 converter datasetToGraphToOut*(op: DatasetToGraph): ostring {.inline.} = return op.output
 
 
-type DatasetToSingleElement*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"DatasetToSingleElement/*'0*/".} = object
+type DatasetToSingleElement*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"DatasetToSingleElement/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -182,7 +182,7 @@ proc iidatasetToSingleElement[oT: oall](scope: Scope,
                              dataset: ovariant,
                              output_types: ArraySlice[DType],
                              output_shapes: ArraySlice[TensorShape],
-                             explicitT: type(oT)): DatasetToSingleElement[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"DatasetToSingleElement(*#, #, #, #)", constructor.}
+                             explicitT: type(oT)): DatasetToSingleElement[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"DatasetToSingleElement(*#, #, #, #)", constructor.}
 
 proc datasetToSingleElement*(scope: Scope,
                              dataset: ovariant,
@@ -198,7 +198,7 @@ proc datasetToSingleElement*(scope: Scope,
 converter datasetToSingleElementToOutList*[oT: oall](op: DatasetToSingleElement[oT]): olist[oT] {.inline.} = return op.output
 
 
-type ExperimentalAssertNextDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalAssertNextDataset/*'0*/".} = object
+type ExperimentalAssertNextDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalAssertNextDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -206,7 +206,7 @@ proc iiexperimentalAssertNextDataset(scope: Scope,
                                     input_dataset: ovariant,
                                     transformations: ostring,
                                     output_types: ArraySlice[DType],
-                                    output_shapes: ArraySlice[TensorShape]): ExperimentalAssertNextDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalAssertNextDataset(*#, #, #, #, #)", constructor.}
+                                    output_shapes: ArraySlice[TensorShape]): ExperimentalAssertNextDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalAssertNextDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalAssertNextDataset*(scope: Scope,
                                     input_dataset: ovariant,
@@ -222,7 +222,7 @@ proc experimentalAssertNextDataset*(scope: Scope,
 converter experimentalAssertNextDatasetToOut*(op: ExperimentalAssertNextDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalBytesProducedStatsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalBytesProducedStatsDataset/*'0*/".} = object
+type ExperimentalBytesProducedStatsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalBytesProducedStatsDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -230,7 +230,7 @@ proc iiexperimentalBytesProducedStatsDataset(scope: Scope,
                                             input_dataset: ovariant,
                                             tag: ostring,
                                             output_types: ArraySlice[DType],
-                                            output_shapes: ArraySlice[TensorShape]): ExperimentalBytesProducedStatsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalBytesProducedStatsDataset(*#, #, #, #, #)", constructor.}
+                                            output_shapes: ArraySlice[TensorShape]): ExperimentalBytesProducedStatsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalBytesProducedStatsDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalBytesProducedStatsDataset*(scope: Scope,
                                             input_dataset: ovariant,
@@ -246,7 +246,7 @@ proc experimentalBytesProducedStatsDataset*(scope: Scope,
 converter experimentalBytesProducedStatsDatasetToOut*(op: ExperimentalBytesProducedStatsDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalCSVDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalCSVDataset/*'0*/".} = object
+type ExperimentalCSVDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalCSVDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -261,7 +261,7 @@ proc iiexperimentalCSVDataset(scope: Scope,
                              select_cols: oint64,
                              record_defaults: olist[oall],
                              output_types: ArraySlice[DType],
-                             output_shapes: ArraySlice[TensorShape]): ExperimentalCSVDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalCSVDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                             output_shapes: ArraySlice[TensorShape]): ExperimentalCSVDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalCSVDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalCSVDataset*(scope: Scope,
                              filenames: ostring,
@@ -291,12 +291,12 @@ proc experimentalCSVDataset*(scope: Scope,
 converter experimentalCSVDatasetToOut*(op: ExperimentalCSVDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalDatasetCardinality* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetCardinality/*'0*/".} = object
+type ExperimentalDatasetCardinality* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetCardinality/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iiexperimentalDatasetCardinality(scope: Scope,
-                                     input_dataset: ovariant): ExperimentalDatasetCardinality {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetCardinality(*#, #)", constructor.}
+                                     input_dataset: ovariant): ExperimentalDatasetCardinality {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetCardinality(*#, #)", constructor.}
 
 proc experimentalDatasetCardinality*(scope: Scope,
                                      input_dataset: ovariant): ExperimentalDatasetCardinality =
@@ -306,14 +306,14 @@ proc experimentalDatasetCardinality*(scope: Scope,
 converter experimentalDatasetCardinalityToOut*(op: ExperimentalDatasetCardinality): oint64 {.inline.} = return op.output
 
 
-type ExperimentalDatasetToTFRecord*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetToTFRecord/*'0*/".} = object
+type ExperimentalDatasetToTFRecord*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetToTFRecord/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiexperimentalDatasetToTFRecord(scope: Scope,
                                     input_dataset: ovariant,
                                     filename: ostring,
-                                    compression_type: ostring): ExperimentalDatasetToTFRecord {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetToTFRecord(*#, #, #, #)", constructor.}
+                                    compression_type: ostring): ExperimentalDatasetToTFRecord {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDatasetToTFRecord(*#, #, #, #)", constructor.}
 
 proc experimentalDatasetToTFRecord*(scope: Scope,
                                     input_dataset: ovariant,
@@ -325,7 +325,7 @@ proc experimentalDatasetToTFRecord*(scope: Scope,
                                          compression_type)
 
 
-type ExperimentalDenseToSparseBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDenseToSparseBatchDataset/*'0*/".} = object
+type ExperimentalDenseToSparseBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDenseToSparseBatchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -334,7 +334,7 @@ proc iiexperimentalDenseToSparseBatchDataset(scope: Scope,
                                             batch_size: oint64,
                                             row_shape: oint64,
                                             output_types: ArraySlice[DType],
-                                            output_shapes: ArraySlice[TensorShape]): ExperimentalDenseToSparseBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDenseToSparseBatchDataset(*#, #, #, #, #, #)", constructor.}
+                                            output_shapes: ArraySlice[TensorShape]): ExperimentalDenseToSparseBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDenseToSparseBatchDataset(*#, #, #, #, #, #)", constructor.}
 
 proc experimentalDenseToSparseBatchDataset*(scope: Scope,
                                             input_dataset: ovariant,
@@ -352,7 +352,7 @@ proc experimentalDenseToSparseBatchDataset*(scope: Scope,
 converter experimentalDenseToSparseBatchDatasetToOut*(op: ExperimentalDenseToSparseBatchDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalDirectedInterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDirectedInterleaveDataset/*'0*/".} = object
+type ExperimentalDirectedInterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDirectedInterleaveDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -360,7 +360,7 @@ proc iiexperimentalDirectedInterleaveDataset(scope: Scope,
                                             selector_input_dataset: ovariant,
                                             data_input_datasets: olist[ovariant],
                                             output_types: ArraySlice[DType],
-                                            output_shapes: ArraySlice[TensorShape]): ExperimentalDirectedInterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalDirectedInterleaveDataset(*#, #, #, #, #)", constructor.}
+                                            output_shapes: ArraySlice[TensorShape]): ExperimentalDirectedInterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalDirectedInterleaveDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalDirectedInterleaveDataset*(scope: Scope,
                                             selector_input_dataset: ovariant,
@@ -376,7 +376,7 @@ proc experimentalDirectedInterleaveDataset*(scope: Scope,
 converter experimentalDirectedInterleaveDatasetToOut*(op: ExperimentalDirectedInterleaveDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalGroupByReducerDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByReducerDataset/*'0*/".} = object
+type ExperimentalGroupByReducerDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByReducerDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -395,7 +395,7 @@ proc iiexperimentalGroupByReducerDataset(scope: Scope,
                                         Treduce_func_other_arguments: ArraySlice[DType],
                                         Tfinalize_func_other_arguments: ArraySlice[DType],
                                         output_types: ArraySlice[DType],
-                                        output_shapes: ArraySlice[TensorShape]): ExperimentalGroupByReducerDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByReducerDataset(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                        output_shapes: ArraySlice[TensorShape]): ExperimentalGroupByReducerDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByReducerDataset(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalGroupByReducerDataset*(scope: Scope,
                                         input_dataset: ovariant,
@@ -433,7 +433,7 @@ proc experimentalGroupByReducerDataset*(scope: Scope,
 converter experimentalGroupByReducerDatasetToOut*(op: ExperimentalGroupByReducerDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalGroupByWindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByWindowDataset/*'0*/".} = object
+type ExperimentalGroupByWindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByWindowDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -449,7 +449,7 @@ proc iiexperimentalGroupByWindowDataset(scope: Scope,
                                        Treduce_func_other_arguments: ArraySlice[DType],
                                        Twindow_size_func_other_arguments: ArraySlice[DType],
                                        output_types: ArraySlice[DType],
-                                       output_shapes: ArraySlice[TensorShape]): ExperimentalGroupByWindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByWindowDataset(*#, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                       output_shapes: ArraySlice[TensorShape]): ExperimentalGroupByWindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalGroupByWindowDataset(*#, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalGroupByWindowDataset*(scope: Scope,
                                        input_dataset: ovariant,
@@ -481,12 +481,12 @@ proc experimentalGroupByWindowDataset*(scope: Scope,
 converter experimentalGroupByWindowDatasetToOut*(op: ExperimentalGroupByWindowDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalIdentityIndexedDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIdentityIndexedDataset/*'0*/".} = object
+type ExperimentalIdentityIndexedDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIdentityIndexedDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalIdentityIndexedDataset(scope: Scope,
-                                         size: ouint64): ExperimentalIdentityIndexedDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIdentityIndexedDataset(*#, #)", constructor.}
+                                         size: ouint64): ExperimentalIdentityIndexedDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIdentityIndexedDataset(*#, #)", constructor.}
 
 proc experimentalIdentityIndexedDataset*(scope: Scope,
                                          size: ouint64): ExperimentalIdentityIndexedDataset =
@@ -496,14 +496,14 @@ proc experimentalIdentityIndexedDataset*(scope: Scope,
 converter experimentalIdentityIndexedDatasetToOut*(op: ExperimentalIdentityIndexedDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalIgnoreErrorsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIgnoreErrorsDataset/*'0*/".} = object
+type ExperimentalIgnoreErrorsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIgnoreErrorsDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalIgnoreErrorsDataset(scope: Scope,
                                       input_dataset: ovariant,
                                       output_types: ArraySlice[DType],
-                                      output_shapes: ArraySlice[TensorShape]): ExperimentalIgnoreErrorsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIgnoreErrorsDataset(*#, #, #, #)", constructor.}
+                                      output_shapes: ArraySlice[TensorShape]): ExperimentalIgnoreErrorsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIgnoreErrorsDataset(*#, #, #, #)", constructor.}
 
 proc experimentalIgnoreErrorsDataset*(scope: Scope,
                                       input_dataset: ovariant,
@@ -517,7 +517,7 @@ proc experimentalIgnoreErrorsDataset*(scope: Scope,
 converter experimentalIgnoreErrorsDatasetToOut*(op: ExperimentalIgnoreErrorsDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalIndexedDatasetGet*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetGet/*'0*/".} = object
+type ExperimentalIndexedDatasetGet*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetGet/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -526,7 +526,7 @@ proc iiexperimentalIndexedDatasetGet[oT: oall](scope: Scope,
                                     index: ouint64,
                                     output_types: ArraySlice[DType],
                                     output_shapes: ArraySlice[TensorShape],
-                                    explicitT: type(oT)): ExperimentalIndexedDatasetGet[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetGet(*#, #, #, #, #)", constructor.}
+                                    explicitT: type(oT)): ExperimentalIndexedDatasetGet[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetGet(*#, #, #, #, #)", constructor.}
 
 proc experimentalIndexedDatasetGet*(scope: Scope,
                                     materialized: oresource,
@@ -544,13 +544,13 @@ proc experimentalIndexedDatasetGet*(scope: Scope,
 converter experimentalIndexedDatasetGetToOutList*[oT: oall](op: ExperimentalIndexedDatasetGet[oT]): olist[oT] {.inline.} = return op.output
 
 
-type ExperimentalIndexedDatasetMaterialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetMaterialize/*'0*/".} = object
+type ExperimentalIndexedDatasetMaterialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetMaterialize/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiexperimentalIndexedDatasetMaterialize(scope: Scope,
                                             dataset: ovariant,
-                                            materialized: oresource): ExperimentalIndexedDatasetMaterialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetMaterialize(*#, #, #)", constructor.}
+                                            materialized: oresource): ExperimentalIndexedDatasetMaterialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalIndexedDatasetMaterialize(*#, #, #)", constructor.}
 
 proc experimentalIndexedDatasetMaterialize*(scope: Scope,
                                             dataset: ovariant,
@@ -560,14 +560,14 @@ proc experimentalIndexedDatasetMaterialize*(scope: Scope,
                                                  materialized)
 
 
-type ExperimentalLMDBDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalLMDBDataset/*'0*/".} = object
+type ExperimentalLMDBDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalLMDBDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalLMDBDataset(scope: Scope,
                               filenames: ostring,
                               output_types: ArraySlice[DType],
-                              output_shapes: ArraySlice[TensorShape]): ExperimentalLMDBDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalLMDBDataset(*#, #, #, #)", constructor.}
+                              output_shapes: ArraySlice[TensorShape]): ExperimentalLMDBDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalLMDBDataset(*#, #, #, #)", constructor.}
 
 proc experimentalLMDBDataset*(scope: Scope,
                               filenames: ostring,
@@ -581,7 +581,7 @@ proc experimentalLMDBDataset*(scope: Scope,
 converter experimentalLMDBDatasetToOut*(op: ExperimentalLMDBDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalLatencyStatsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalLatencyStatsDataset/*'0*/".} = object
+type ExperimentalLatencyStatsDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalLatencyStatsDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -589,7 +589,7 @@ proc iiexperimentalLatencyStatsDataset(scope: Scope,
                                       input_dataset: ovariant,
                                       tag: ostring,
                                       output_types: ArraySlice[DType],
-                                      output_shapes: ArraySlice[TensorShape]): ExperimentalLatencyStatsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalLatencyStatsDataset(*#, #, #, #, #)", constructor.}
+                                      output_shapes: ArraySlice[TensorShape]): ExperimentalLatencyStatsDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalLatencyStatsDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalLatencyStatsDataset*(scope: Scope,
                                       input_dataset: ovariant,
@@ -605,7 +605,7 @@ proc experimentalLatencyStatsDataset*(scope: Scope,
 converter experimentalLatencyStatsDatasetToOut*(op: ExperimentalLatencyStatsDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalMapAndBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapAndBatchDataset/*'0*/".} = object
+type ExperimentalMapAndBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapAndBatchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -619,7 +619,7 @@ proc iiexperimentalMapAndBatchDataset(scope: Scope,
                                      Targuments: ArraySlice[DType],
                                      output_types: ArraySlice[DType],
                                      output_shapes: ArraySlice[TensorShape],
-                                     preserve_cardinality: bool): ExperimentalMapAndBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapAndBatchDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                     preserve_cardinality: bool): ExperimentalMapAndBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapAndBatchDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalMapAndBatchDataset*(scope: Scope,
                                      input_dataset: ovariant,
@@ -647,7 +647,7 @@ proc experimentalMapAndBatchDataset*(scope: Scope,
 converter experimentalMapAndBatchDatasetToOut*(op: ExperimentalMapAndBatchDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapDataset/*'0*/".} = object
+type ExperimentalMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -659,7 +659,7 @@ proc iiexperimentalMapDataset(scope: Scope,
                              output_types: ArraySlice[DType],
                              output_shapes: ArraySlice[TensorShape],
                              use_inter_op_parallelism: bool,
-                             preserve_cardinality: bool): ExperimentalMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
+                             preserve_cardinality: bool): ExperimentalMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMapDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalMapDataset*(scope: Scope,
                              input_dataset: ovariant,
@@ -683,12 +683,12 @@ proc experimentalMapDataset*(scope: Scope,
 converter experimentalMapDatasetToOut*(op: ExperimentalMapDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalMatchingFilesDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMatchingFilesDataset/*'0*/".} = object
+type ExperimentalMatchingFilesDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMatchingFilesDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalMatchingFilesDataset(scope: Scope,
-                                       patterns: ostring): ExperimentalMatchingFilesDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMatchingFilesDataset(*#, #)", constructor.}
+                                       patterns: ostring): ExperimentalMatchingFilesDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMatchingFilesDataset(*#, #)", constructor.}
 
 proc experimentalMatchingFilesDataset*(scope: Scope,
                                        patterns: ostring): ExperimentalMatchingFilesDataset =
@@ -698,7 +698,7 @@ proc experimentalMatchingFilesDataset*(scope: Scope,
 converter experimentalMatchingFilesDatasetToOut*(op: ExperimentalMatchingFilesDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalMaterializedIndexDatasetHandle* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaterializedIndexDatasetHandle/*'0*/".} = object
+type ExperimentalMaterializedIndexDatasetHandle* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaterializedIndexDatasetHandle/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
@@ -706,7 +706,7 @@ proc iiexperimentalMaterializedIndexDatasetHandle(scope: Scope,
                                                  container: cstring,
                                                  shared_name: cstring,
                                                  output_types: ArraySlice[DType],
-                                                 output_shapes: ArraySlice[TensorShape]): ExperimentalMaterializedIndexDatasetHandle {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaterializedIndexDatasetHandle(*#, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                                                 output_shapes: ArraySlice[TensorShape]): ExperimentalMaterializedIndexDatasetHandle {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaterializedIndexDatasetHandle(*#, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc experimentalMaterializedIndexDatasetHandle*(scope: Scope,
                                                  container: cstring,
@@ -722,7 +722,7 @@ proc experimentalMaterializedIndexDatasetHandle*(scope: Scope,
 converter experimentalMaterializedIndexDatasetHandleToOut*(op: ExperimentalMaterializedIndexDatasetHandle): oresource {.inline.} = return op.output
 
 
-type ExperimentalMaxIntraOpParallelismDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaxIntraOpParallelismDataset/*'0*/".} = object
+type ExperimentalMaxIntraOpParallelismDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaxIntraOpParallelismDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -730,7 +730,7 @@ proc iiexperimentalMaxIntraOpParallelismDataset(scope: Scope,
                                                input_dataset: ovariant,
                                                max_intra_op_parallelism: oint64,
                                                output_types: ArraySlice[DType],
-                                               output_shapes: ArraySlice[TensorShape]): ExperimentalMaxIntraOpParallelismDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaxIntraOpParallelismDataset(*#, #, #, #, #)", constructor.}
+                                               output_shapes: ArraySlice[TensorShape]): ExperimentalMaxIntraOpParallelismDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalMaxIntraOpParallelismDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalMaxIntraOpParallelismDataset*(scope: Scope,
                                                input_dataset: ovariant,
@@ -746,14 +746,14 @@ proc experimentalMaxIntraOpParallelismDataset*(scope: Scope,
 converter experimentalMaxIntraOpParallelismDatasetToOut*(op: ExperimentalMaxIntraOpParallelismDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalNonSerializableDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalNonSerializableDataset/*'0*/".} = object
+type ExperimentalNonSerializableDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalNonSerializableDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalNonSerializableDataset(scope: Scope,
                                          input_dataset: ovariant,
                                          output_types: ArraySlice[DType],
-                                         output_shapes: ArraySlice[TensorShape]): ExperimentalNonSerializableDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalNonSerializableDataset(*#, #, #, #)", constructor.}
+                                         output_shapes: ArraySlice[TensorShape]): ExperimentalNonSerializableDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalNonSerializableDataset(*#, #, #, #)", constructor.}
 
 proc experimentalNonSerializableDataset*(scope: Scope,
                                          input_dataset: ovariant,
@@ -767,7 +767,7 @@ proc experimentalNonSerializableDataset*(scope: Scope,
 converter experimentalNonSerializableDatasetToOut*(op: ExperimentalNonSerializableDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalNumaMapAndBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalNumaMapAndBatchDataset/*'0*/".} = object
+type ExperimentalNumaMapAndBatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalNumaMapAndBatchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -781,7 +781,7 @@ proc iiexperimentalNumaMapAndBatchDataset(scope: Scope,
                                          Targuments: ArraySlice[DType],
                                          output_types: ArraySlice[DType],
                                          output_shapes: ArraySlice[TensorShape],
-                                         preserve_cardinality: bool): ExperimentalNumaMapAndBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalNumaMapAndBatchDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                         preserve_cardinality: bool): ExperimentalNumaMapAndBatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalNumaMapAndBatchDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalNumaMapAndBatchDataset*(scope: Scope,
                                          input_dataset: ovariant,
@@ -809,7 +809,7 @@ proc experimentalNumaMapAndBatchDataset*(scope: Scope,
 converter experimentalNumaMapAndBatchDatasetToOut*(op: ExperimentalNumaMapAndBatchDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalParallelInterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalParallelInterleaveDataset/*'0*/".} = object
+type ExperimentalParallelInterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalParallelInterleaveDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -824,7 +824,7 @@ proc iiexperimentalParallelInterleaveDataset(scope: Scope,
                                             f: NameAttrList,
                                             Targuments: ArraySlice[DType],
                                             output_types: ArraySlice[DType],
-                                            output_shapes: ArraySlice[TensorShape]): ExperimentalParallelInterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalParallelInterleaveDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                            output_shapes: ArraySlice[TensorShape]): ExperimentalParallelInterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalParallelInterleaveDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalParallelInterleaveDataset*(scope: Scope,
                                             input_dataset: ovariant,
@@ -854,7 +854,7 @@ proc experimentalParallelInterleaveDataset*(scope: Scope,
 converter experimentalParallelInterleaveDatasetToOut*(op: ExperimentalParallelInterleaveDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalPrivateThreadPoolDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalPrivateThreadPoolDataset/*'0*/".} = object
+type ExperimentalPrivateThreadPoolDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalPrivateThreadPoolDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -862,7 +862,7 @@ proc iiexperimentalPrivateThreadPoolDataset(scope: Scope,
                                            input_dataset: ovariant,
                                            num_threads: oint64,
                                            output_types: ArraySlice[DType],
-                                           output_shapes: ArraySlice[TensorShape]): ExperimentalPrivateThreadPoolDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalPrivateThreadPoolDataset(*#, #, #, #, #)", constructor.}
+                                           output_shapes: ArraySlice[TensorShape]): ExperimentalPrivateThreadPoolDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalPrivateThreadPoolDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalPrivateThreadPoolDataset*(scope: Scope,
                                            input_dataset: ovariant,
@@ -878,7 +878,7 @@ proc experimentalPrivateThreadPoolDataset*(scope: Scope,
 converter experimentalPrivateThreadPoolDatasetToOut*(op: ExperimentalPrivateThreadPoolDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalRandomDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalRandomDataset/*'0*/".} = object
+type ExperimentalRandomDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalRandomDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -886,7 +886,7 @@ proc iiexperimentalRandomDataset(scope: Scope,
                                 seed: oint64,
                                 seed2: oint64,
                                 output_types: ArraySlice[DType],
-                                output_shapes: ArraySlice[TensorShape]): ExperimentalRandomDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalRandomDataset(*#, #, #, #, #)", constructor.}
+                                output_shapes: ArraySlice[TensorShape]): ExperimentalRandomDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalRandomDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalRandomDataset*(scope: Scope,
                                 seed: oint64,
@@ -902,7 +902,7 @@ proc experimentalRandomDataset*(scope: Scope,
 converter experimentalRandomDatasetToOut*(op: ExperimentalRandomDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalScanDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalScanDataset/*'0*/".} = object
+type ExperimentalScanDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalScanDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -915,7 +915,7 @@ proc iiexperimentalScanDataset(scope: Scope,
                               Targuments: ArraySlice[DType],
                               output_types: ArraySlice[DType],
                               output_shapes: ArraySlice[TensorShape],
-                              preserve_cardinality: bool): ExperimentalScanDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalScanDataset(*#, #, #, #, #, #, #, #, #, #)", constructor.}
+                              preserve_cardinality: bool): ExperimentalScanDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalScanDataset(*#, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalScanDataset*(scope: Scope,
                               input_dataset: ovariant,
@@ -941,7 +941,7 @@ proc experimentalScanDataset*(scope: Scope,
 converter experimentalScanDatasetToOut*(op: ExperimentalScanDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalSetStatsAggregatorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSetStatsAggregatorDataset/*'0*/".} = object
+type ExperimentalSetStatsAggregatorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSetStatsAggregatorDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -951,7 +951,7 @@ proc iiexperimentalSetStatsAggregatorDataset(scope: Scope,
                                             tag: ostring,
                                             counter_prefix: ostring,
                                             output_types: ArraySlice[DType],
-                                            output_shapes: ArraySlice[TensorShape]): ExperimentalSetStatsAggregatorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSetStatsAggregatorDataset(*#, #, #, #, #, #, #)", constructor.}
+                                            output_shapes: ArraySlice[TensorShape]): ExperimentalSetStatsAggregatorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSetStatsAggregatorDataset(*#, #, #, #, #, #, #)", constructor.}
 
 proc experimentalSetStatsAggregatorDataset*(scope: Scope,
                                             input_dataset: ovariant,
@@ -971,7 +971,7 @@ proc experimentalSetStatsAggregatorDataset*(scope: Scope,
 converter experimentalSetStatsAggregatorDatasetToOut*(op: ExperimentalSetStatsAggregatorDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalSleepDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSleepDataset/*'0*/".} = object
+type ExperimentalSleepDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSleepDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -979,7 +979,7 @@ proc iiexperimentalSleepDataset(scope: Scope,
                                input_dataset: ovariant,
                                sleep_microseconds: oint64,
                                output_types: ArraySlice[DType],
-                               output_shapes: ArraySlice[TensorShape]): ExperimentalSleepDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSleepDataset(*#, #, #, #, #)", constructor.}
+                               output_shapes: ArraySlice[TensorShape]): ExperimentalSleepDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSleepDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalSleepDataset*(scope: Scope,
                                input_dataset: ovariant,
@@ -995,7 +995,7 @@ proc experimentalSleepDataset*(scope: Scope,
 converter experimentalSleepDatasetToOut*(op: ExperimentalSleepDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalSlidingWindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSlidingWindowDataset/*'0*/".} = object
+type ExperimentalSlidingWindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSlidingWindowDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1005,7 +1005,7 @@ proc iiexperimentalSlidingWindowDataset(scope: Scope,
                                        window_shift: oint64,
                                        window_stride: oint64,
                                        output_types: ArraySlice[DType],
-                                       output_shapes: ArraySlice[TensorShape]): ExperimentalSlidingWindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSlidingWindowDataset(*#, #, #, #, #, #, #)", constructor.}
+                                       output_shapes: ArraySlice[TensorShape]): ExperimentalSlidingWindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSlidingWindowDataset(*#, #, #, #, #, #, #)", constructor.}
 
 proc experimentalSlidingWindowDataset*(scope: Scope,
                                        input_dataset: ovariant,
@@ -1025,7 +1025,7 @@ proc experimentalSlidingWindowDataset*(scope: Scope,
 converter experimentalSlidingWindowDatasetToOut*(op: ExperimentalSlidingWindowDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalSqlDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSqlDataset/*'0*/".} = object
+type ExperimentalSqlDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSqlDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1034,7 +1034,7 @@ proc iiexperimentalSqlDataset(scope: Scope,
                              data_source_name: ostring,
                              query: ostring,
                              output_types: ArraySlice[DType],
-                             output_shapes: ArraySlice[TensorShape]): ExperimentalSqlDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalSqlDataset(*#, #, #, #, #, #)", constructor.}
+                             output_shapes: ArraySlice[TensorShape]): ExperimentalSqlDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalSqlDataset(*#, #, #, #, #, #)", constructor.}
 
 proc experimentalSqlDataset*(scope: Scope,
                              driver_name: ostring,
@@ -1052,7 +1052,7 @@ proc experimentalSqlDataset*(scope: Scope,
 converter experimentalSqlDatasetToOut*(op: ExperimentalSqlDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalThreadPoolDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalThreadPoolDataset/*'0*/".} = object
+type ExperimentalThreadPoolDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalThreadPoolDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1060,7 +1060,7 @@ proc iiexperimentalThreadPoolDataset(scope: Scope,
                                     input_dataset: ovariant,
                                     thread_pool: oresource,
                                     output_types: ArraySlice[DType],
-                                    output_shapes: ArraySlice[TensorShape]): ExperimentalThreadPoolDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalThreadPoolDataset(*#, #, #, #, #)", constructor.}
+                                    output_shapes: ArraySlice[TensorShape]): ExperimentalThreadPoolDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalThreadPoolDataset(*#, #, #, #, #)", constructor.}
 
 proc experimentalThreadPoolDataset*(scope: Scope,
                                     input_dataset: ovariant,
@@ -1076,14 +1076,14 @@ proc experimentalThreadPoolDataset*(scope: Scope,
 converter experimentalThreadPoolDatasetToOut*(op: ExperimentalThreadPoolDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalUnbatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalUnbatchDataset/*'0*/".} = object
+type ExperimentalUnbatchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalUnbatchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalUnbatchDataset(scope: Scope,
                                  input_dataset: ovariant,
                                  output_types: ArraySlice[DType],
-                                 output_shapes: ArraySlice[TensorShape]): ExperimentalUnbatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalUnbatchDataset(*#, #, #, #)", constructor.}
+                                 output_shapes: ArraySlice[TensorShape]): ExperimentalUnbatchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalUnbatchDataset(*#, #, #, #)", constructor.}
 
 proc experimentalUnbatchDataset*(scope: Scope,
                                  input_dataset: ovariant,
@@ -1097,14 +1097,14 @@ proc experimentalUnbatchDataset*(scope: Scope,
 converter experimentalUnbatchDatasetToOut*(op: ExperimentalUnbatchDataset): ovariant {.inline.} = return op.output
 
 
-type ExperimentalUniqueDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalUniqueDataset/*'0*/".} = object
+type ExperimentalUniqueDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalUniqueDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiexperimentalUniqueDataset(scope: Scope,
                                 input_dataset: ovariant,
                                 output_types: ArraySlice[DType],
-                                output_shapes: ArraySlice[TensorShape]): ExperimentalUniqueDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ExperimentalUniqueDataset(*#, #, #, #)", constructor.}
+                                output_shapes: ArraySlice[TensorShape]): ExperimentalUniqueDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ExperimentalUniqueDataset(*#, #, #, #)", constructor.}
 
 proc experimentalUniqueDataset*(scope: Scope,
                                 input_dataset: ovariant,
@@ -1118,14 +1118,14 @@ proc experimentalUniqueDataset*(scope: Scope,
 converter experimentalUniqueDatasetToOut*(op: ExperimentalUniqueDataset): ovariant {.inline.} = return op.output
 
 
-type FilterByLastComponentDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FilterByLastComponentDataset/*'0*/".} = object
+type FilterByLastComponentDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FilterByLastComponentDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iifilterByLastComponentDataset(scope: Scope,
                                    input_dataset: ovariant,
                                    output_types: ArraySlice[DType],
-                                   output_shapes: ArraySlice[TensorShape]): FilterByLastComponentDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FilterByLastComponentDataset(*#, #, #, #)", constructor.}
+                                   output_shapes: ArraySlice[TensorShape]): FilterByLastComponentDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FilterByLastComponentDataset(*#, #, #, #)", constructor.}
 
 proc filterByLastComponentDataset*(scope: Scope,
                                    input_dataset: ovariant,
@@ -1139,7 +1139,7 @@ proc filterByLastComponentDataset*(scope: Scope,
 converter filterByLastComponentDatasetToOut*(op: FilterByLastComponentDataset): ovariant {.inline.} = return op.output
 
 
-type FilterDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FilterDataset/*'0*/".} = object
+type FilterDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FilterDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1149,7 +1149,7 @@ proc iifilterDataset(scope: Scope,
                     predicate: NameAttrList,
                     Targuments: ArraySlice[DType],
                     output_types: ArraySlice[DType],
-                    output_shapes: ArraySlice[TensorShape]): FilterDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FilterDataset(*#, #, #, #, #, #, #)", constructor.}
+                    output_shapes: ArraySlice[TensorShape]): FilterDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FilterDataset(*#, #, #, #, #, #, #)", constructor.}
 
 proc filterDataset*(scope: Scope,
                     input_dataset: ovariant,
@@ -1169,7 +1169,7 @@ proc filterDataset*(scope: Scope,
 converter filterDatasetToOut*(op: FilterDataset): ovariant {.inline.} = return op.output
 
 
-type FixedLengthRecordDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDataset/*'0*/".} = object
+type FixedLengthRecordDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1178,7 +1178,7 @@ proc iifixedLengthRecordDataset(scope: Scope,
                                header_bytes: oint64,
                                record_bytes: oint64,
                                footer_bytes: oint64,
-                               buffer_size: oint64): FixedLengthRecordDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDataset(*#, #, #, #, #, #)", constructor.}
+                               buffer_size: oint64): FixedLengthRecordDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDataset(*#, #, #, #, #, #)", constructor.}
 
 proc fixedLengthRecordDataset*(scope: Scope,
                                filenames: ostring,
@@ -1196,7 +1196,7 @@ proc fixedLengthRecordDataset*(scope: Scope,
 converter fixedLengthRecordDatasetToOut*(op: FixedLengthRecordDataset): ovariant {.inline.} = return op.output
 
 
-type FixedLengthRecordDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDatasetV2/*'0*/".} = object
+type FixedLengthRecordDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDatasetV2/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1206,7 +1206,7 @@ proc iifixedLengthRecordDatasetV2(scope: Scope,
                                  record_bytes: oint64,
                                  footer_bytes: oint64,
                                  buffer_size: oint64,
-                                 compression_type: ostring): FixedLengthRecordDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDatasetV2(*#, #, #, #, #, #, #)", constructor.}
+                                 compression_type: ostring): FixedLengthRecordDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FixedLengthRecordDatasetV2(*#, #, #, #, #, #, #)", constructor.}
 
 proc fixedLengthRecordDatasetV2*(scope: Scope,
                                  filenames: ostring,
@@ -1226,7 +1226,7 @@ proc fixedLengthRecordDatasetV2*(scope: Scope,
 converter fixedLengthRecordDatasetV2ToOut*(op: FixedLengthRecordDatasetV2): ovariant {.inline.} = return op.output
 
 
-type FlatMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FlatMapDataset/*'0*/".} = object
+type FlatMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FlatMapDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1236,7 +1236,7 @@ proc iiflatMapDataset(scope: Scope,
                      f: NameAttrList,
                      Targuments: ArraySlice[DType],
                      output_types: ArraySlice[DType],
-                     output_shapes: ArraySlice[TensorShape]): FlatMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"FlatMapDataset(*#, #, #, #, #, #, #)", constructor.}
+                     output_shapes: ArraySlice[TensorShape]): FlatMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"FlatMapDataset(*#, #, #, #, #, #, #)", constructor.}
 
 proc flatMapDataset*(scope: Scope,
                      input_dataset: ovariant,
@@ -1256,7 +1256,7 @@ proc flatMapDataset*(scope: Scope,
 converter flatMapDatasetToOut*(op: FlatMapDataset): ovariant {.inline.} = return op.output
 
 
-type GeneratorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"GeneratorDataset/*'0*/".} = object
+type GeneratorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"GeneratorDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1271,7 +1271,7 @@ proc iigeneratorDataset(scope: Scope,
                        Tnext_func_args: ArraySlice[DType],
                        Tfinalize_func_args: ArraySlice[DType],
                        output_types: ArraySlice[DType],
-                       output_shapes: ArraySlice[TensorShape]): GeneratorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"GeneratorDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                       output_shapes: ArraySlice[TensorShape]): GeneratorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"GeneratorDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc generatorDataset*(scope: Scope,
                        init_func_other_args: olist[oall],
@@ -1301,7 +1301,7 @@ proc generatorDataset*(scope: Scope,
 converter generatorDatasetToOut*(op: GeneratorDataset): ovariant {.inline.} = return op.output
 
 
-type InterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"InterleaveDataset/*'0*/".} = object
+type InterleaveDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"InterleaveDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1313,7 +1313,7 @@ proc iiinterleaveDataset(scope: Scope,
                         f: NameAttrList,
                         Targuments: ArraySlice[DType],
                         output_types: ArraySlice[DType],
-                        output_shapes: ArraySlice[TensorShape]): InterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"InterleaveDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
+                        output_shapes: ArraySlice[TensorShape]): InterleaveDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"InterleaveDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc interleaveDataset*(scope: Scope,
                         input_dataset: ovariant,
@@ -1337,7 +1337,7 @@ proc interleaveDataset*(scope: Scope,
 converter interleaveDatasetToOut*(op: InterleaveDataset): ovariant {.inline.} = return op.output
 
 
-type MapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"MapDataset/*'0*/".} = object
+type MapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"MapDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1349,7 +1349,7 @@ proc iimapDataset(scope: Scope,
                  output_types: ArraySlice[DType],
                  output_shapes: ArraySlice[TensorShape],
                  use_inter_op_parallelism: bool,
-                 preserve_cardinality: bool): MapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"MapDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
+                 preserve_cardinality: bool): MapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"MapDataset(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc mapDataset*(scope: Scope,
                  input_dataset: ovariant,
@@ -1373,7 +1373,7 @@ proc mapDataset*(scope: Scope,
 converter mapDatasetToOut*(op: MapDataset): ovariant {.inline.} = return op.output
 
 
-type MapDefun*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"MapDefun/*'0*/".} = object
+type MapDefun*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"MapDefun/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -1385,7 +1385,7 @@ proc iimapDefun[oT: oall](scope: Scope,
                output_types: ArraySlice[DType],
                output_shapes: ArraySlice[TensorShape],
                f: NameAttrList,
-               explicitT: type(oT)): MapDefun[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"MapDefun(*#, #, #, #, #, #, #, #)", constructor.}
+               explicitT: type(oT)): MapDefun[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"MapDefun(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc mapDefun*(scope: Scope,
                arguments: olist[oall],
@@ -1409,14 +1409,14 @@ proc mapDefun*(scope: Scope,
 converter mapDefunToOutList*[oT: oall](op: MapDefun[oT]): olist[oT] {.inline.} = return op.output
 
 
-type ModelDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ModelDataset/*'0*/".} = object
+type ModelDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ModelDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iimodelDataset(scope: Scope,
                    input_dataset: ovariant,
                    output_types: ArraySlice[DType],
-                   output_shapes: ArraySlice[TensorShape]): ModelDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ModelDataset(*#, #, #, #)", constructor.}
+                   output_shapes: ArraySlice[TensorShape]): ModelDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ModelDataset(*#, #, #, #)", constructor.}
 
 proc modelDataset*(scope: Scope,
                    input_dataset: ovariant,
@@ -1430,7 +1430,7 @@ proc modelDataset*(scope: Scope,
 converter modelDatasetToOut*(op: ModelDataset): ovariant {.inline.} = return op.output
 
 
-type OptimizeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"OptimizeDataset/*'0*/".} = object
+type OptimizeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"OptimizeDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1438,7 +1438,7 @@ proc iioptimizeDataset(scope: Scope,
                       input_dataset: ovariant,
                       optimizations: ostring,
                       output_types: ArraySlice[DType],
-                      output_shapes: ArraySlice[TensorShape]): OptimizeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"OptimizeDataset(*#, #, #, #, #)", constructor.}
+                      output_shapes: ArraySlice[TensorShape]): OptimizeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"OptimizeDataset(*#, #, #, #, #)", constructor.}
 
 proc optimizeDataset*(scope: Scope,
                       input_dataset: ovariant,
@@ -1454,7 +1454,7 @@ proc optimizeDataset*(scope: Scope,
 converter optimizeDatasetToOut*(op: OptimizeDataset): ovariant {.inline.} = return op.output
 
 
-type PaddedBatchDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"PaddedBatchDatasetV2/*'0*/".} = object
+type PaddedBatchDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"PaddedBatchDatasetV2/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1465,7 +1465,7 @@ proc iipaddedBatchDatasetV2(scope: Scope,
                            padding_values: olist[oall],
                            drop_remainder: obool,
                            Toutput_types: ArraySlice[DType],
-                           output_shapes: ArraySlice[TensorShape]): PaddedBatchDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"PaddedBatchDatasetV2(*#, #, #, #, #, #, #, #)", constructor.}
+                           output_shapes: ArraySlice[TensorShape]): PaddedBatchDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"PaddedBatchDatasetV2(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc paddedBatchDatasetV2*(scope: Scope,
                            input_dataset: ovariant,
@@ -1487,7 +1487,7 @@ proc paddedBatchDatasetV2*(scope: Scope,
 converter paddedBatchDatasetV2ToOut*(op: PaddedBatchDatasetV2): ovariant {.inline.} = return op.output
 
 
-type ParallelInterleaveDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ParallelInterleaveDatasetV2/*'0*/".} = object
+type ParallelInterleaveDatasetV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ParallelInterleaveDatasetV2/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1501,7 +1501,7 @@ proc iiparallelInterleaveDatasetV2(scope: Scope,
                                   Targuments: ArraySlice[DType],
                                   output_types: ArraySlice[DType],
                                   output_shapes: ArraySlice[TensorShape],
-                                  sloppy: bool): ParallelInterleaveDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ParallelInterleaveDatasetV2(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                  sloppy: bool): ParallelInterleaveDatasetV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ParallelInterleaveDatasetV2(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parallelInterleaveDatasetV2*(scope: Scope,
                                   input_dataset: ovariant,
@@ -1529,7 +1529,7 @@ proc parallelInterleaveDatasetV2*(scope: Scope,
 converter parallelInterleaveDatasetV2ToOut*(op: ParallelInterleaveDatasetV2): ovariant {.inline.} = return op.output
 
 
-type ParallelMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ParallelMapDataset/*'0*/".} = object
+type ParallelMapDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ParallelMapDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1543,7 +1543,7 @@ proc iiparallelMapDataset(scope: Scope,
                          output_shapes: ArraySlice[TensorShape],
                          use_inter_op_parallelism: bool,
                          sloppy: bool,
-                         preserve_cardinality: bool): ParallelMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ParallelMapDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                         preserve_cardinality: bool): ParallelMapDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ParallelMapDataset(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parallelMapDataset*(scope: Scope,
                          input_dataset: ovariant,
@@ -1571,7 +1571,7 @@ proc parallelMapDataset*(scope: Scope,
 converter parallelMapDatasetToOut*(op: ParallelMapDataset): ovariant {.inline.} = return op.output
 
 
-type PrefetchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"PrefetchDataset/*'0*/".} = object
+type PrefetchDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"PrefetchDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1579,7 +1579,7 @@ proc iiprefetchDataset(scope: Scope,
                       input_dataset: ovariant,
                       buffer_size: oint64,
                       output_types: ArraySlice[DType],
-                      output_shapes: ArraySlice[TensorShape]): PrefetchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"PrefetchDataset(*#, #, #, #, #)", constructor.}
+                      output_shapes: ArraySlice[TensorShape]): PrefetchDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"PrefetchDataset(*#, #, #, #, #)", constructor.}
 
 proc prefetchDataset*(scope: Scope,
                       input_dataset: ovariant,
@@ -1595,7 +1595,7 @@ proc prefetchDataset*(scope: Scope,
 converter prefetchDatasetToOut*(op: PrefetchDataset): ovariant {.inline.} = return op.output
 
 
-type RangeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"RangeDataset/*'0*/".} = object
+type RangeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"RangeDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1604,7 +1604,7 @@ proc iirangeDataset(scope: Scope,
                    stop: oint64,
                    step: oint64,
                    output_types: ArraySlice[DType],
-                   output_shapes: ArraySlice[TensorShape]): RangeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"RangeDataset(*#, #, #, #, #, #)", constructor.}
+                   output_shapes: ArraySlice[TensorShape]): RangeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"RangeDataset(*#, #, #, #, #, #)", constructor.}
 
 proc rangeDataset*(scope: Scope,
                    start: oint64,
@@ -1622,7 +1622,7 @@ proc rangeDataset*(scope: Scope,
 converter rangeDatasetToOut*(op: RangeDataset): ovariant {.inline.} = return op.output
 
 
-type ReduceDataset*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ReduceDataset/*'0*/".} = object
+type ReduceDataset*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ReduceDataset/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -1636,7 +1636,7 @@ proc iireduceDataset[oT: oall](scope: Scope,
                     output_types: ArraySlice[DType],
                     output_shapes: ArraySlice[TensorShape],
                     use_inter_op_parallelism: bool,
-                    explicitT: type(oT)): ReduceDataset[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ReduceDataset(*#, #, #, #, #, #, #, #, #, #)", constructor.}
+                    explicitT: type(oT)): ReduceDataset[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ReduceDataset(*#, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc reduceDataset*(scope: Scope,
                     input_dataset: ovariant,
@@ -1664,7 +1664,7 @@ proc reduceDataset*(scope: Scope,
 converter reduceDatasetToOutList*[oT: oall](op: ReduceDataset[oT]): olist[oT] {.inline.} = return op.output
 
 
-type RepeatDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"RepeatDataset/*'0*/".} = object
+type RepeatDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"RepeatDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1672,7 +1672,7 @@ proc iirepeatDataset(scope: Scope,
                     input_dataset: ovariant,
                     count: oint64,
                     output_types: ArraySlice[DType],
-                    output_shapes: ArraySlice[TensorShape]): RepeatDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"RepeatDataset(*#, #, #, #, #)", constructor.}
+                    output_shapes: ArraySlice[TensorShape]): RepeatDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"RepeatDataset(*#, #, #, #, #)", constructor.}
 
 proc repeatDataset*(scope: Scope,
                     input_dataset: ovariant,
@@ -1688,7 +1688,7 @@ proc repeatDataset*(scope: Scope,
 converter repeatDatasetToOut*(op: RepeatDataset): ovariant {.inline.} = return op.output
 
 
-type ShuffleAndRepeatDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ShuffleAndRepeatDataset/*'0*/".} = object
+type ShuffleAndRepeatDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ShuffleAndRepeatDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1699,7 +1699,7 @@ proc iishuffleAndRepeatDataset(scope: Scope,
                               seed2: oint64,
                               count: oint64,
                               output_types: ArraySlice[DType],
-                              output_shapes: ArraySlice[TensorShape]): ShuffleAndRepeatDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ShuffleAndRepeatDataset(*#, #, #, #, #, #, #, #)", constructor.}
+                              output_shapes: ArraySlice[TensorShape]): ShuffleAndRepeatDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ShuffleAndRepeatDataset(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc shuffleAndRepeatDataset*(scope: Scope,
                               input_dataset: ovariant,
@@ -1721,7 +1721,7 @@ proc shuffleAndRepeatDataset*(scope: Scope,
 converter shuffleAndRepeatDatasetToOut*(op: ShuffleAndRepeatDataset): ovariant {.inline.} = return op.output
 
 
-type ShuffleDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ShuffleDataset/*'0*/".} = object
+type ShuffleDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ShuffleDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1732,7 +1732,7 @@ proc iishuffleDataset(scope: Scope,
                      seed2: oint64,
                      output_types: ArraySlice[DType],
                      output_shapes: ArraySlice[TensorShape],
-                     reshuffle_each_iteration: bool): ShuffleDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ShuffleDataset(*#, #, #, #, #, #, #, #)", constructor.}
+                     reshuffle_each_iteration: bool): ShuffleDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ShuffleDataset(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc shuffleDataset*(scope: Scope,
                      input_dataset: ovariant,
@@ -1754,7 +1754,7 @@ proc shuffleDataset*(scope: Scope,
 converter shuffleDatasetToOut*(op: ShuffleDataset): ovariant {.inline.} = return op.output
 
 
-type SkipDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"SkipDataset/*'0*/".} = object
+type SkipDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"SkipDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1762,7 +1762,7 @@ proc iiskipDataset(scope: Scope,
                   input_dataset: ovariant,
                   count: oint64,
                   output_types: ArraySlice[DType],
-                  output_shapes: ArraySlice[TensorShape]): SkipDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"SkipDataset(*#, #, #, #, #)", constructor.}
+                  output_shapes: ArraySlice[TensorShape]): SkipDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"SkipDataset(*#, #, #, #, #)", constructor.}
 
 proc skipDataset*(scope: Scope,
                   input_dataset: ovariant,
@@ -1779,14 +1779,14 @@ converter skipDatasetToOut*(op: SkipDataset): ovariant {.inline.} = return op.ou
 
 type SparseTensorSliceDatasetTvalues* = oall
 
-type SparseTensorSliceDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"SparseTensorSliceDataset/*'0*/".} = object
+type SparseTensorSliceDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"SparseTensorSliceDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iisparseTensorSliceDataset(scope: Scope,
                                indices: oint64,
                                values: SparseTensorSliceDatasetTvalues,
-                               dense_shape: oint64): SparseTensorSliceDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"SparseTensorSliceDataset(*#, #, #, #)", constructor.}
+                               dense_shape: oint64): SparseTensorSliceDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"SparseTensorSliceDataset(*#, #, #, #)", constructor.}
 
 proc sparseTensorSliceDataset*(scope: Scope,
                                indices: oint64,
@@ -1800,14 +1800,14 @@ proc sparseTensorSliceDataset*(scope: Scope,
 converter sparseTensorSliceDatasetToOut*(op: SparseTensorSliceDataset): ovariant {.inline.} = return op.output
 
 
-type TFRecordDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TFRecordDataset/*'0*/".} = object
+type TFRecordDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TFRecordDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iitFRecordDataset(scope: Scope,
                       filenames: ostring,
                       compression_type: ostring,
-                      buffer_size: oint64): TFRecordDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TFRecordDataset(*#, #, #, #)", constructor.}
+                      buffer_size: oint64): TFRecordDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TFRecordDataset(*#, #, #, #)", constructor.}
 
 proc tFRecordDataset*(scope: Scope,
                       filenames: ostring,
@@ -1821,7 +1821,7 @@ proc tFRecordDataset*(scope: Scope,
 converter tFRecordDatasetToOut*(op: TFRecordDataset): ovariant {.inline.} = return op.output
 
 
-type TakeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TakeDataset/*'0*/".} = object
+type TakeDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TakeDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1829,7 +1829,7 @@ proc iitakeDataset(scope: Scope,
                   input_dataset: ovariant,
                   count: oint64,
                   output_types: ArraySlice[DType],
-                  output_shapes: ArraySlice[TensorShape]): TakeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TakeDataset(*#, #, #, #, #)", constructor.}
+                  output_shapes: ArraySlice[TensorShape]): TakeDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TakeDataset(*#, #, #, #, #)", constructor.}
 
 proc takeDataset*(scope: Scope,
                   input_dataset: ovariant,
@@ -1845,14 +1845,14 @@ proc takeDataset*(scope: Scope,
 converter takeDatasetToOut*(op: TakeDataset): ovariant {.inline.} = return op.output
 
 
-type TensorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TensorDataset/*'0*/".} = object
+type TensorDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TensorDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iitensorDataset(scope: Scope,
                     components: olist[oall],
                     Toutput_types: ArraySlice[DType],
-                    output_shapes: ArraySlice[TensorShape]): TensorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TensorDataset(*#, #, #, #)", constructor.}
+                    output_shapes: ArraySlice[TensorShape]): TensorDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TensorDataset(*#, #, #, #)", constructor.}
 
 proc tensorDataset*(scope: Scope,
                     components: olist[oall],
@@ -1866,14 +1866,14 @@ proc tensorDataset*(scope: Scope,
 converter tensorDatasetToOut*(op: TensorDataset): ovariant {.inline.} = return op.output
 
 
-type TensorSliceDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TensorSliceDataset/*'0*/".} = object
+type TensorSliceDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TensorSliceDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iitensorSliceDataset(scope: Scope,
                          components: olist[oall],
                          Toutput_types: ArraySlice[DType],
-                         output_shapes: ArraySlice[TensorShape]): TensorSliceDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TensorSliceDataset(*#, #, #, #)", constructor.}
+                         output_shapes: ArraySlice[TensorShape]): TensorSliceDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TensorSliceDataset(*#, #, #, #)", constructor.}
 
 proc tensorSliceDataset*(scope: Scope,
                          components: olist[oall],
@@ -1887,14 +1887,14 @@ proc tensorSliceDataset*(scope: Scope,
 converter tensorSliceDatasetToOut*(op: TensorSliceDataset): ovariant {.inline.} = return op.output
 
 
-type TextLineDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TextLineDataset/*'0*/".} = object
+type TextLineDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TextLineDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iitextLineDataset(scope: Scope,
                       filenames: ostring,
                       compression_type: ostring,
-                      buffer_size: oint64): TextLineDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"TextLineDataset(*#, #, #, #)", constructor.}
+                      buffer_size: oint64): TextLineDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"TextLineDataset(*#, #, #, #)", constructor.}
 
 proc textLineDataset*(scope: Scope,
                       filenames: ostring,
@@ -1908,12 +1908,12 @@ proc textLineDataset*(scope: Scope,
 converter textLineDatasetToOut*(op: TextLineDataset): ovariant {.inline.} = return op.output
 
 
-type UnwrapDatasetVariant* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"UnwrapDatasetVariant/*'0*/".} = object
+type UnwrapDatasetVariant* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"UnwrapDatasetVariant/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiunwrapDatasetVariant(scope: Scope,
-                           input_handle: ovariant): UnwrapDatasetVariant {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"UnwrapDatasetVariant(*#, #)", constructor.}
+                           input_handle: ovariant): UnwrapDatasetVariant {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"UnwrapDatasetVariant(*#, #)", constructor.}
 
 proc unwrapDatasetVariant*(scope: Scope,
                            input_handle: ovariant): UnwrapDatasetVariant =
@@ -1923,7 +1923,7 @@ proc unwrapDatasetVariant*(scope: Scope,
 converter unwrapDatasetVariantToOut*(op: UnwrapDatasetVariant): ovariant {.inline.} = return op.output
 
 
-type WindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"WindowDataset/*'0*/".} = object
+type WindowDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"WindowDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -1934,7 +1934,7 @@ proc iiwindowDataset(scope: Scope,
                     stride: oint64,
                     drop_remainder: obool,
                     output_types: ArraySlice[DType],
-                    output_shapes: ArraySlice[TensorShape]): WindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"WindowDataset(*#, #, #, #, #, #, #, #)", constructor.}
+                    output_shapes: ArraySlice[TensorShape]): WindowDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"WindowDataset(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc windowDataset*(scope: Scope,
                     input_dataset: ovariant,
@@ -1956,12 +1956,12 @@ proc windowDataset*(scope: Scope,
 converter windowDatasetToOut*(op: WindowDataset): ovariant {.inline.} = return op.output
 
 
-type WrapDatasetVariant* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"WrapDatasetVariant/*'0*/".} = object
+type WrapDatasetVariant* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"WrapDatasetVariant/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iiwrapDatasetVariant(scope: Scope,
-                         input_handle: ovariant): WrapDatasetVariant {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"WrapDatasetVariant(*#, #)", constructor.}
+                         input_handle: ovariant): WrapDatasetVariant {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"WrapDatasetVariant(*#, #)", constructor.}
 
 proc wrapDatasetVariant*(scope: Scope,
                          input_handle: ovariant): WrapDatasetVariant =
@@ -1971,14 +1971,14 @@ proc wrapDatasetVariant*(scope: Scope,
 converter wrapDatasetVariantToOut*(op: WrapDatasetVariant): ovariant {.inline.} = return op.output
 
 
-type ZipDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ZipDataset/*'0*/".} = object
+type ZipDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ZipDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iizipDataset(scope: Scope,
                  input_datasets: olist[ovariant],
                  output_types: ArraySlice[DType],
-                 output_shapes: ArraySlice[TensorShape]): ZipDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/data/data.h", importcpp:"ZipDataset(*#, #, #, #)", constructor.}
+                 output_shapes: ArraySlice[TensorShape]): ZipDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/data/data.h", importcpp:"ZipDataset(*#, #, #, #)", constructor.}
 
 proc zipDataset*(scope: Scope,
                  input_datasets: olist[ovariant],

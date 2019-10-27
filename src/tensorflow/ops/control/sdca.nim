@@ -3,12 +3,12 @@ import ../../core
 {.compile:"sdca/sdca.cc".}
 
 
-type SdcaFprint* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaFprint/*'0*/".} = object
+type SdcaFprint* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaFprint/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iisdcaFprint(scope: Scope,
-                 input: ostring): SdcaFprint {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaFprint(*#, #)", constructor.}
+                 input: ostring): SdcaFprint {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaFprint(*#, #)", constructor.}
 
 proc sdcaFprint*(scope: Scope,
                  input: ostring): SdcaFprint =
@@ -18,7 +18,7 @@ proc sdcaFprint*(scope: Scope,
 converter sdcaFprintToOut*(op: SdcaFprint): oint64 {.inline.} = return op.output
 
 
-type SdcaOptimizer* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizer/*'0*/".} = object
+type SdcaOptimizer* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizer/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -41,7 +41,7 @@ proc iisdcaOptimizer(scope: Scope,
                     l1: float32,
                     l2: float32,
                     num_loss_partitions: int64,
-                    num_inner_iterations: int64): SdcaOptimizer {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizer(*#, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), #, #, #, #, #, #, #, #)", constructor.}
+                    num_inner_iterations: int64): SdcaOptimizer {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizer(*#, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), #, #, #, #, #, #, #, #)", constructor.}
 
 proc sdcaOptimizer*(scope: Scope,
                     sparse_example_indices: oint64,
@@ -87,7 +87,7 @@ proc sdcaOptimizer*(scope: Scope,
 converter sdcaOptimizerToOut*(op: SdcaOptimizer): ofloat {.inline.} = return op.output
 
 
-type SdcaOptimizerV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizerV2/*'0*/".} = object
+type SdcaOptimizerV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizerV2/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -110,7 +110,7 @@ proc iisdcaOptimizerV2(scope: Scope,
                       l1: float32,
                       l2: float32,
                       num_loss_partitions: int64,
-                      num_inner_iterations: int64): SdcaOptimizerV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizerV2(*#, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), #, #, #, #, #, #, #, #)", constructor.}
+                      num_inner_iterations: int64): SdcaOptimizerV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaOptimizerV2(*#, #, #, #, #, #, #, #, #, #, #, tensorflow::string(#), #, #, #, #, #, #, #, #)", constructor.}
 
 proc sdcaOptimizerV2*(scope: Scope,
                       sparse_example_indices: oint64,
@@ -156,7 +156,7 @@ proc sdcaOptimizerV2*(scope: Scope,
 converter sdcaOptimizerV2ToOut*(op: SdcaOptimizerV2): ofloat {.inline.} = return op.output
 
 
-type SdcaShrinkL1*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaShrinkL1/*'0*/".} = object
+type SdcaShrinkL1*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaShrinkL1/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -164,7 +164,7 @@ proc iisdcaShrinkL1(scope: Scope,
                    weights: ofloat,
                    num_features: int64,
                    l1: float32,
-                   l2: float32): SdcaShrinkL1 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaShrinkL1(*#, #, #, #, #)", constructor.}
+                   l2: float32): SdcaShrinkL1 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/sdca/sdca.h", importcpp:"SdcaShrinkL1(*#, #, #, #, #)", constructor.}
 
 proc sdcaShrinkL1*(scope: Scope,
                    weights: ofloat,

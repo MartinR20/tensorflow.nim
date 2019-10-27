@@ -3,7 +3,7 @@ import ../../core
 {.compile:"py/py.cc".}
 
 
-type EagerPyFunc*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"EagerPyFunc/*'0*/".} = object
+type EagerPyFunc*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"EagerPyFunc/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -12,7 +12,7 @@ proc iieagerPyFunc[oT: oall](scope: Scope,
                   token: cstring,
                   Tin: ArraySlice[DType],
                   Tout: ArraySlice[DType],
-                  explicitT: type(oT)): EagerPyFunc[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"EagerPyFunc(*#, #, tensorflow::string(#), #, #)", constructor.}
+                  explicitT: type(oT)): EagerPyFunc[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"EagerPyFunc(*#, #, tensorflow::string(#), #, #)", constructor.}
 
 proc eagerPyFunc*(scope: Scope,
                   input: olist[oall],
@@ -30,7 +30,7 @@ proc eagerPyFunc*(scope: Scope,
 converter eagerPyFuncToOutList*[oT: oall](op: EagerPyFunc[oT]): olist[oT] {.inline.} = return op.output
 
 
-type PyFunc*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"PyFunc/*'0*/".} = object
+type PyFunc*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"PyFunc/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -39,7 +39,7 @@ proc iipyFunc[oT: oall](scope: Scope,
              token: cstring,
              Tin: ArraySlice[DType],
              Tout: ArraySlice[DType],
-             explicitT: type(oT)): PyFunc[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"PyFunc(*#, #, tensorflow::string(#), #, #)", constructor.}
+             explicitT: type(oT)): PyFunc[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"PyFunc(*#, #, tensorflow::string(#), #, #)", constructor.}
 
 proc pyFunc*(scope: Scope,
              input: olist[oall],
@@ -57,7 +57,7 @@ proc pyFunc*(scope: Scope,
 converter pyFuncToOutList*[oT: oall](op: PyFunc[oT]): olist[oT] {.inline.} = return op.output
 
 
-type PyFuncStateless*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"PyFuncStateless/*'0*/".} = object
+type PyFuncStateless*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"PyFuncStateless/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -66,7 +66,7 @@ proc iipyFuncStateless[oT: oall](scope: Scope,
                       token: cstring,
                       Tin: ArraySlice[DType],
                       Tout: ArraySlice[DType],
-                      explicitT: type(oT)): PyFuncStateless[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/py/py.h", importcpp:"PyFuncStateless(*#, #, tensorflow::string(#), #, #)", constructor.}
+                      explicitT: type(oT)): PyFuncStateless[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/py/py.h", importcpp:"PyFuncStateless(*#, #, tensorflow::string(#), #, #)", constructor.}
 
 proc pyFuncStateless*(scope: Scope,
                       input: olist[oall],

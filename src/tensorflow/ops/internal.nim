@@ -4,14 +4,14 @@ import ../core
 
 type AllTidx* = oint32 | oint64
 
-type All* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"All/*'0*/".} = object
+type All* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"All/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiall(scope: Scope,
           input: obool,
           reduction_indices: AllTidx,
-          keep_dims: bool): All {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"All(*#, #, #, #)", constructor.}
+          keep_dims: bool): All {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"All(*#, #, #, #)", constructor.}
 
 proc all*(scope: Scope,
           input: obool,
@@ -25,7 +25,7 @@ proc all*(scope: Scope,
 converter allToOut*(op: All): obool {.inline.} = return op.output
 
 
-type BoostedTreesExampleDebugOutputs* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"BoostedTreesExampleDebugOutputs/*'0*/".} = object
+type BoostedTreesExampleDebugOutputs* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"BoostedTreesExampleDebugOutputs/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -33,7 +33,7 @@ proc iiboostedTreesExampleDebugOutputs(scope: Scope,
                                       tree_ensemble_handle: oresource,
                                       bucketized_features: oint32,
                                       num_bucketized_features: int64,
-                                      logits_dimension: int64): BoostedTreesExampleDebugOutputs {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"BoostedTreesExampleDebugOutputs(*#, #, #, #, #)", constructor.}
+                                      logits_dimension: int64): BoostedTreesExampleDebugOutputs {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"BoostedTreesExampleDebugOutputs(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesExampleDebugOutputs*(scope: Scope,
                                       tree_ensemble_handle: oresource,
@@ -49,13 +49,13 @@ proc boostedTreesExampleDebugOutputs*(scope: Scope,
 converter boostedTreesExampleDebugOutputsToOut*(op: BoostedTreesExampleDebugOutputs): ostring {.inline.} = return op.output
 
 
-type DebugGradientIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientIdentity/*'0*/".} = object
+type DebugGradientIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientIdentity/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iidebugGradientIdentity[oT: oall](scope: Scope,
                             input: oT,
-                            T: DType): DebugGradientIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientIdentity(*#, #, #)", constructor.}
+                            T: DType): DebugGradientIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientIdentity(*#, #, #)", constructor.}
 
 proc debugGradientIdentity*[oT: oall](scope: Scope,
                             input: oT): DebugGradientIdentity[oT] =
@@ -66,13 +66,13 @@ proc debugGradientIdentity*[oT: oall](scope: Scope,
 converter debugGradientIdentityToOut*[oT: oall](op: DebugGradientIdentity[oT]): oT {.inline.} = return op.output
 
 
-type DebugGradientRefIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientRefIdentity/*'0*/".} = object
+type DebugGradientRefIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientRefIdentity/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iidebugGradientRefIdentity[oT: oall](scope: Scope,
                                input: oT,
-                               T: DType): DebugGradientRefIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientRefIdentity(*#, #, #)", constructor.}
+                               T: DType): DebugGradientRefIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugGradientRefIdentity(*#, #, #)", constructor.}
 
 proc debugGradientRefIdentity*[oT: oall](scope: Scope,
                                input: oT): DebugGradientRefIdentity[oT] =
@@ -83,7 +83,7 @@ proc debugGradientRefIdentity*[oT: oall](scope: Scope,
 converter debugGradientRefIdentityToOut*[oT: oall](op: DebugGradientRefIdentity[oT]): oT {.inline.} = return op.output
 
 
-type DebugIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugIdentity/*'0*/".} = object
+type DebugIdentity*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugIdentity/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -93,7 +93,7 @@ proc iidebugIdentity[oT: oall](scope: Scope,
                     tensor_name: cstring,
                     debug_urls: ArraySlice[cstring],
                     T: DType,
-                    gated_grpc: bool): DebugIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugIdentity(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                    gated_grpc: bool): DebugIdentity[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugIdentity(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc debugIdentity*[oT: oall](scope: Scope,
                     input: oT,
@@ -115,7 +115,7 @@ converter debugIdentityToOut*[oT: oall](op: DebugIdentity[oT]): oT {.inline.} = 
 
 type DebugNanCountT* = oall
 
-type DebugNanCount* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugNanCount/*'0*/".} = object
+type DebugNanCount* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugNanCount/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -124,7 +124,7 @@ proc iidebugNanCount(scope: Scope,
                     device_name: cstring,
                     tensor_name: cstring,
                     debug_urls: ArraySlice[cstring],
-                    gated_grpc: bool): DebugNanCount {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugNanCount(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                    gated_grpc: bool): DebugNanCount {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugNanCount(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc debugNanCount*(scope: Scope,
                     input: DebugNanCountT,
@@ -145,7 +145,7 @@ converter debugNanCountToOut*(op: DebugNanCount): oint64 {.inline.} = return op.
 
 type DebugNumericSummaryT* = oall
 
-type DebugNumericSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugNumericSummary/*'0*/".} = object
+type DebugNumericSummary* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugNumericSummary/*'0*/".} = object
   operation*: Operation[odouble]
   output*: odouble
 
@@ -157,7 +157,7 @@ proc iidebugNumericSummary(scope: Scope,
                           gated_grpc: bool,
                           lower_bound: float32,
                           upper_bound: float32,
-                          mute_if_healthy: bool): DebugNumericSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DebugNumericSummary(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #, #)", constructor.}
+                          mute_if_healthy: bool): DebugNumericSummary {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DebugNumericSummary(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #, #)", constructor.}
 
 proc debugNumericSummary*(scope: Scope,
                           input: DebugNumericSummaryT,
@@ -183,12 +183,12 @@ converter debugNumericSummaryToOut*(op: DebugNumericSummary): odouble {.inline.}
     # Provide a basic summary of numeric value types, range and distribution.
 
 
-type DecodeJSONExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DecodeJSONExample/*'0*/".} = object
+type DecodeJSONExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DecodeJSONExample/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iidecodeJSONExample(scope: Scope,
-                        json_examples: ostring): DecodeJSONExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"DecodeJSONExample(*#, #)", constructor.}
+                        json_examples: ostring): DecodeJSONExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"DecodeJSONExample(*#, #)", constructor.}
 
 proc decodeJSONExample*(scope: Scope,
                         json_examples: ostring): DecodeJSONExample =
@@ -198,7 +198,7 @@ proc decodeJSONExample*(scope: Scope,
 converter decodeJSONExampleToOut*(op: DecodeJSONExample): ostring {.inline.} = return op.output
 
 
-type ExperimentalParseExampleDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ExperimentalParseExampleDataset/*'0*/".} = object
+type ExperimentalParseExampleDataset* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ExperimentalParseExampleDataset/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
@@ -213,7 +213,7 @@ proc iiexperimentalParseExampleDataset(scope: Scope,
                                       dense_shapes: ArraySlice[TensorShape],
                                       output_types: ArraySlice[DType],
                                       output_shapes: ArraySlice[TensorShape],
-                                      sloppy: bool): ExperimentalParseExampleDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ExperimentalParseExampleDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                      sloppy: bool): ExperimentalParseExampleDataset {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ExperimentalParseExampleDataset(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc experimentalParseExampleDataset*(scope: Scope,
                                       input_dataset: ovariant,
@@ -243,11 +243,11 @@ proc experimentalParseExampleDataset*(scope: Scope,
 converter experimentalParseExampleDatasetToOut*(op: ExperimentalParseExampleDataset): ovariant {.inline.} = return op.output
 
 
-type Fact* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"Fact/*'0*/".} = object
+type Fact* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"Fact/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
-proc iifact(scope: Scope): Fact {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"Fact(*#)", constructor.}
+proc iifact(scope: Scope): Fact {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"Fact(*#)", constructor.}
 
 proc fact*(scope: Scope): Fact =
   return iifact(scope)
@@ -255,7 +255,7 @@ proc fact*(scope: Scope): Fact =
 converter factToOut*(op: Fact): ostring {.inline.} = return op.output
 
 
-type NcclAllReduce*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"NcclAllReduce/*'0*/".} = object
+type NcclAllReduce*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"NcclAllReduce/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -264,7 +264,7 @@ proc iincclAllReduce[oT: oall](scope: Scope,
                     reduction: cstring,
                     shared_name: cstring,
                     T: DType,
-                    num_devices: int64): NcclAllReduce[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"NcclAllReduce(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                    num_devices: int64): NcclAllReduce[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"NcclAllReduce(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc ncclAllReduce*[oT: oall](scope: Scope,
                     input: oT,
@@ -281,14 +281,14 @@ proc ncclAllReduce*[oT: oall](scope: Scope,
 converter ncclAllReduceToOut*[oT: oall](op: NcclAllReduce[oT]): oT {.inline.} = return op.output
 
 
-type NcclBroadcast*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"NcclBroadcast/*'0*/".} = object
+type NcclBroadcast*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"NcclBroadcast/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iincclBroadcast[oT: oall](scope: Scope,
                     input: oT,
                     T: DType,
-                    shape: TensorShape): NcclBroadcast[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"NcclBroadcast(*#, #, #, #)", constructor.}
+                    shape: TensorShape): NcclBroadcast[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"NcclBroadcast(*#, #, #, #)", constructor.}
 
 proc ncclBroadcast*[oT: oall](scope: Scope,
                     input: oT,
@@ -301,7 +301,7 @@ proc ncclBroadcast*[oT: oall](scope: Scope,
 converter ncclBroadcastToOut*[oT: oall](op: NcclBroadcast[oT]): oT {.inline.} = return op.output
 
 
-type ParseExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseExample/*'0*/".} = object
+type ParseExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseExample/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -315,7 +315,7 @@ proc iiparseExample(scope: Scope,
                    Tdense: ArraySlice[DType],
                    dense_shapes: ArraySlice[TensorShape],
                    Nsparse: int64,
-                   Ndense: int64): ParseExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseExample(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                   Ndense: int64): ParseExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseExample(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parseExample*(scope: Scope,
                    serialized: ostring,
@@ -343,7 +343,7 @@ proc parseExample*(scope: Scope,
 converter parseExampleToOut*(op: ParseExample): oint64 {.inline.} = return op.output
 
 
-type ParseSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSequenceExample/*'0*/".} = object
+type ParseSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSequenceExample/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -365,7 +365,7 @@ proc iiparseSequenceExample(scope: Scope,
                            Ncontext_sparse: int64,
                            Ncontext_dense: int64,
                            Nfeature_list_sparse: int64,
-                           Nfeature_list_dense: int64): ParseSequenceExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSequenceExample(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                           Nfeature_list_dense: int64): ParseSequenceExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSequenceExample(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parseSequenceExample*(scope: Scope,
                            serialized: ostring,
@@ -409,7 +409,7 @@ proc parseSequenceExample*(scope: Scope,
 converter parseSequenceExampleToOut*(op: ParseSequenceExample): oint64 {.inline.} = return op.output
 
 
-type ParseSingleExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleExample/*'0*/".} = object
+type ParseSingleExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleExample/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -421,7 +421,7 @@ proc iiparseSingleExample(scope: Scope,
                          sparse_types: ArraySlice[DType],
                          Tdense: ArraySlice[DType],
                          dense_shapes: ArraySlice[TensorShape],
-                         num_sparse: int64): ParseSingleExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleExample(*#, #, #, #, #, #, #, #, #)", constructor.}
+                         num_sparse: int64): ParseSingleExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleExample(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parseSingleExample*(scope: Scope,
                          serialized: ostring,
@@ -445,7 +445,7 @@ proc parseSingleExample*(scope: Scope,
 converter parseSingleExampleToOut*(op: ParseSingleExample): oint64 {.inline.} = return op.output
 
 
-type ParseSingleSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleSequenceExample/*'0*/".} = object
+type ParseSingleSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleSequenceExample/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
@@ -467,7 +467,7 @@ proc iiparseSingleSequenceExample(scope: Scope,
                                  Ncontext_sparse: int64,
                                  Ncontext_dense: int64,
                                  Nfeature_list_sparse: int64,
-                                 Nfeature_list_dense: int64): ParseSingleSequenceExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleSequenceExample(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                 Nfeature_list_dense: int64): ParseSingleSequenceExample {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleSequenceExample(*#, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc parseSingleSequenceExample*(scope: Scope,
                                  serialized: ostring,
@@ -511,14 +511,14 @@ proc parseSingleSequenceExample*(scope: Scope,
 converter parseSingleSequenceExampleToOut*(op: ParseSingleSequenceExample): oint64 {.inline.} = return op.output
 
 
-type ReadVariableOp*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ReadVariableOp/*'0*/".} = object
+type ReadVariableOp*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ReadVariableOp/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iireadVariableOp[oT: oall](scope: Scope,
                      resource: oresource,
                      dtype: DType,
-                     explicitT: type(oT)): ReadVariableOp[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"ReadVariableOp(*#, #, #)", constructor.}
+                     explicitT: type(oT)): ReadVariableOp[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ReadVariableOp(*#, #, #)", constructor.}
 
 proc readVariableOp*(scope: Scope,
                      resource: oresource,
@@ -531,14 +531,14 @@ proc readVariableOp*(scope: Scope,
 converter readVariableOpToOut*[oT: oall](op: ReadVariableOp[oT]): oT {.inline.} = return op.output
 
 
-type IArg*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Arg/*'0*/".} = object
+type IArg*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Arg/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiiArg[oT: oall](scope: Scope,
            T: DType,
            index: int64,
-           explicitT: type(oT)): IArg[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Arg(*#, #, #)", constructor.}
+           explicitT: type(oT)): IArg[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Arg(*#, #, #)", constructor.}
 
 proc iArg*(scope: Scope,
            T: type = oinvalid,
@@ -552,14 +552,14 @@ converter iArgToOut*[oT: oall](op: IArg[oT]): oT {.inline.} = return op.output
 
 type IArrayToListT* = oall
 
-type IArrayToList*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ArrayToList/*'0*/".} = object
+type IArrayToList*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ArrayToList/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
 proc iiiArrayToList[oT: oall](scope: Scope,
                    input: olist[IArrayToListT],
                    out_types: ArraySlice[DType],
-                   explicitT: type(oT)): IArrayToList[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ArrayToList(*#, #, #)", constructor.}
+                   explicitT: type(oT)): IArrayToList[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ArrayToList(*#, #, #)", constructor.}
 
 proc iArrayToList*(scope: Scope,
                    input: olist[IArrayToListT],
@@ -573,14 +573,14 @@ proc iArrayToList*(scope: Scope,
 converter iArrayToListToOutList*[oT: oall](op: IArrayToList[oT]): olist[oT] {.inline.} = return op.output
 
 
-type IDeviceArg*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_DeviceArg/*'0*/".} = object
+type IDeviceArg*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_DeviceArg/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiiDeviceArg[oT: oall](scope: Scope,
                  T: DType,
                  index: int64,
-                 explicitT: type(oT)): IDeviceArg[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_DeviceArg(*#, #, #)", constructor.}
+                 explicitT: type(oT)): IDeviceArg[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_DeviceArg(*#, #, #)", constructor.}
 
 proc iDeviceArg*(scope: Scope,
                  T: type = oinvalid,
@@ -594,13 +594,13 @@ converter iDeviceArgToOut*[oT: oall](op: IDeviceArg[oT]): oT {.inline.} = return
 
 type IDeviceRetvalT* = oall
 
-type IDeviceRetval*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_DeviceRetval/*'0*/".} = object
+type IDeviceRetval*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_DeviceRetval/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiiDeviceRetval(scope: Scope,
                     input: IDeviceRetvalT,
-                    index: int64): IDeviceRetval {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_DeviceRetval(*#, #, #)", constructor.}
+                    index: int64): IDeviceRetval {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_DeviceRetval(*#, #, #)", constructor.}
 
 proc iDeviceRetval*(scope: Scope,
                     input: IDeviceRetvalT,
@@ -610,7 +610,7 @@ proc iDeviceRetval*(scope: Scope,
                          index)
 
 
-type IFusedConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_FusedConv2D/*'0*/".} = object
+type IFusedConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_FusedConv2D/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -625,7 +625,7 @@ proc iiiFusedConv2D[oT: oall](scope: Scope,
                    num_args: int64,
                    data_format: cstring,
                    dilations: ArraySlice[int],
-                   epsilon: float32): IFusedConv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_FusedConv2D(*#, #, #, #, #, tensorflow::string(#), #, #, #, tensorflow::string(#), #, #)", constructor.}
+                   epsilon: float32): IFusedConv2D[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_FusedConv2D(*#, #, #, #, #, tensorflow::string(#), #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc iFusedConv2D*[oT: oall](scope: Scope,
                    input: oT,
@@ -657,7 +657,7 @@ converter iFusedConv2DToOut*[oT: oall](op: IFusedConv2D[oT]): oT {.inline.} = re
 
 type IHostCastSrcT* = oall
 
-type IHostCast*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostCast/*'0*/".} = object
+type IHostCast*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostCast/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -665,7 +665,7 @@ proc iiiHostCast[oT: oall](scope: Scope,
                 x: IHostCastSrcT,
                 Truncate: bool,
                 DstT: DType,
-                explicitT: type(oT)): IHostCast[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostCast(*#, #, #, #)", constructor.}
+                explicitT: type(oT)): IHostCast[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostCast(*#, #, #, #)", constructor.}
 
 proc iHostCast*(scope: Scope,
                 x: IHostCastSrcT,
@@ -682,7 +682,7 @@ converter iHostCastToOut*[oT: oall](op: IHostCast[oT]): oT {.inline.} = return o
     # _HostCast requires its input and produces its output in host memory.
 
 
-type IHostRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostRecv/*'0*/".} = object
+type IHostRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostRecv/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -693,7 +693,7 @@ proc iiiHostRecv[oT: oall](scope: Scope,
                 tensor_type: DType,
                 send_device_incarnation: int64,
                 client_terminated: bool,
-                explicitT: type(oT)): IHostRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostRecv(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+                explicitT: type(oT)): IHostRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostRecv(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc iHostRecv*(scope: Scope,
                 tensor_name: cstring,
@@ -718,7 +718,7 @@ converter iHostRecvToOut*[oT: oall](op: IHostRecv[oT]): oT {.inline.} = return o
 
 type IHostSendT* = oall
 
-type IHostSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostSend/*'0*/".} = object
+type IHostSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostSend/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -728,7 +728,7 @@ proc iiiHostSend(scope: Scope,
                 send_device: cstring,
                 recv_device: cstring,
                 client_terminated: bool,
-                send_device_incarnation: int64): IHostSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_HostSend(*#, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                send_device_incarnation: int64): IHostSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_HostSend(*#, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc iHostSend*(scope: Scope,
                 tensor: IHostSendT,
@@ -750,7 +750,7 @@ proc iHostSend*(scope: Scope,
 
 type IIfTcond* = oall
 
-type IIf*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_If/*'0*/".} = object
+type IIf*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_If/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -761,7 +761,7 @@ proc iiiIf[oT: oall](scope: Scope,
           Tout: ArraySlice[DType],
           then_branch: NameAttrList,
           else_branch: NameAttrList,
-          explicitT: type(oT)): IIf[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_If(*#, #, #, #, #, #, #)", constructor.}
+          explicitT: type(oT)): IIf[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_If(*#, #, #, #, #, #, #)", constructor.}
 
 proc iIf*(scope: Scope,
           cond: IIfTcond,
@@ -783,7 +783,7 @@ proc iIf*(scope: Scope,
 converter iIfToOutList*[oT: oall](op: IIf[oT]): olist[oT] {.inline.} = return op.output
 
 
-type IListToArray*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ListToArray/*'0*/".} = object
+type IListToArray*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ListToArray/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -791,7 +791,7 @@ proc iiiListToArray[oT: oall](scope: Scope,
                    input: olist[oall],
                    Tin: ArraySlice[DType],
                    T: DType,
-                   explicitT: type(oT)): IListToArray[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ListToArray(*#, #, #, #)", constructor.}
+                   explicitT: type(oT)): IListToArray[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ListToArray(*#, #, #, #)", constructor.}
 
 proc iListToArray*(scope: Scope,
                    input: olist[oall],
@@ -806,7 +806,7 @@ proc iListToArray*(scope: Scope,
 converter iListToArrayToOutList*[oT: oall](op: IListToArray[oT]): olist[oT] {.inline.} = return op.output
 
 
-type IMklAdd*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklAdd/*'0*/".} = object
+type IMklAdd*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklAdd/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -815,7 +815,7 @@ proc iiiMklAdd[oT: oall](scope: Scope,
               y: oT,
               mkl_x: ouint8,
               mkl_y: ouint8,
-              T: DType): IMklAdd[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklAdd(*#, #, #, #, #, #)", constructor.}
+              T: DType): IMklAdd[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklAdd(*#, #, #, #, #, #)", constructor.}
 
 proc iMklAdd*[oT: oall](scope: Scope,
               x: oT,
@@ -835,7 +835,7 @@ converter iMklAddToOut*[oT: oall](op: IMklAdd[oT]): oT {.inline.} = return op.ou
     # [here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 
-type IMklMaximum*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklMaximum/*'0*/".} = object
+type IMklMaximum*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklMaximum/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -844,7 +844,7 @@ proc iiiMklMaximum[oT: oall](scope: Scope,
                   y: oT,
                   mkl_x: ouint8,
                   mkl_y: ouint8,
-                  T: DType): IMklMaximum[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklMaximum(*#, #, #, #, #, #)", constructor.}
+                  T: DType): IMklMaximum[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklMaximum(*#, #, #, #, #, #)", constructor.}
 
 proc iMklMaximum*[oT: oall](scope: Scope,
                   x: oT,
@@ -864,7 +864,7 @@ converter iMklMaximumToOut*[oT: oall](op: IMklMaximum[oT]): oT {.inline.} = retu
     # [here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 
-type IMklMul*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklMul/*'0*/".} = object
+type IMklMul*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklMul/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -873,7 +873,7 @@ proc iiiMklMul[oT: oall](scope: Scope,
               y: oT,
               mkl_x: ouint8,
               mkl_y: ouint8,
-              T: DType): IMklMul[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklMul(*#, #, #, #, #, #)", constructor.}
+              T: DType): IMklMul[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklMul(*#, #, #, #, #, #)", constructor.}
 
 proc iMklMul*[oT: oall](scope: Scope,
               x: oT,
@@ -893,7 +893,7 @@ converter iMklMulToOut*[oT: oall](op: IMklMul[oT]): oT {.inline.} = return op.ou
     # [here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 
-type IMklSquaredDifference*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklSquaredDifference/*'0*/".} = object
+type IMklSquaredDifference*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklSquaredDifference/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -902,7 +902,7 @@ proc iiiMklSquaredDifference[oT: oall](scope: Scope,
                             y: oT,
                             mkl_x: ouint8,
                             mkl_y: ouint8,
-                            T: DType): IMklSquaredDifference[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklSquaredDifference(*#, #, #, #, #, #)", constructor.}
+                            T: DType): IMklSquaredDifference[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklSquaredDifference(*#, #, #, #, #, #)", constructor.}
 
 proc iMklSquaredDifference*[oT: oall](scope: Scope,
                             x: oT,
@@ -922,7 +922,7 @@ converter iMklSquaredDifferenceToOut*[oT: oall](op: IMklSquaredDifference[oT]): 
     # [here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 
-type IMklSub*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklSub/*'0*/".} = object
+type IMklSub*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklSub/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -931,7 +931,7 @@ proc iiiMklSub[oT: oall](scope: Scope,
               y: oT,
               mkl_x: ouint8,
               mkl_y: ouint8,
-              T: DType): IMklSub[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_MklSub(*#, #, #, #, #, #)", constructor.}
+              T: DType): IMklSub[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_MklSub(*#, #, #, #, #, #)", constructor.}
 
 proc iMklSub*[oT: oall](scope: Scope,
               x: oT,
@@ -951,7 +951,7 @@ converter iMklSubToOut*[oT: oall](op: IMklSub[oT]): oT {.inline.} = return op.ou
     # [here](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)
 
 
-type INcclBroadcastRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastRecv/*'0*/".} = object
+type INcclBroadcastRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastRecv/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -960,7 +960,7 @@ proc iiiNcclBroadcastRecv[oT: oall](scope: Scope,
                          shared_name: cstring,
                          T: DType,
                          num_devices: int64,
-                         explicitT: type(oT)): INcclBroadcastRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastRecv(*#, #, tensorflow::string(#), #, #)", constructor.}
+                         explicitT: type(oT)): INcclBroadcastRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastRecv(*#, #, tensorflow::string(#), #, #)", constructor.}
 
 proc iNcclBroadcastRecv*(scope: Scope,
                          shape: oint32,
@@ -984,14 +984,14 @@ converter iNcclBroadcastRecvToOut*[oT: oall](op: INcclBroadcastRecv[oT]): oT {.i
 
 type INcclBroadcastSendT* = ohalf | ofloat | odouble | oint32 | oint64
 
-type INcclBroadcastSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastSend/*'0*/".} = object
+type INcclBroadcastSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastSend/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiiNcclBroadcastSend(scope: Scope,
                          input: INcclBroadcastSendT,
                          shared_name: cstring,
-                         num_devices: int64): INcclBroadcastSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastSend(*#, #, tensorflow::string(#), #)", constructor.}
+                         num_devices: int64): INcclBroadcastSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclBroadcastSend(*#, #, tensorflow::string(#), #)", constructor.}
 
 proc iNcclBroadcastSend*(scope: Scope,
                          input: INcclBroadcastSendT,
@@ -1009,7 +1009,7 @@ proc iNcclBroadcastSend*(scope: Scope,
     # Failure to do so will cause the graph execution to fail to complete.
 
 
-type INcclReduceRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceRecv/*'0*/".} = object
+type INcclReduceRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceRecv/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1018,7 +1018,7 @@ proc iiiNcclReduceRecv[oT: oall](scope: Scope,
                       reduction: cstring,
                       shared_name: cstring,
                       T: DType,
-                      num_devices: int64): INcclReduceRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceRecv(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                      num_devices: int64): INcclReduceRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceRecv(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc iNcclReduceRecv*[oT: oall](scope: Scope,
                       input: oT,
@@ -1042,7 +1042,7 @@ converter iNcclReduceRecvToOut*[oT: oall](op: INcclReduceRecv[oT]): oT {.inline.
 
 type INcclReduceSendT* = ohalf | ofloat | odouble | oint32 | oint64
 
-type INcclReduceSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceSend/*'0*/".} = object
+type INcclReduceSend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceSend/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -1050,7 +1050,7 @@ proc iiiNcclReduceSend(scope: Scope,
                       input: INcclReduceSendT,
                       reduction: cstring,
                       shared_name: cstring,
-                      num_devices: int64): INcclReduceSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceSend(*#, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
+                      num_devices: int64): INcclReduceSend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_NcclReduceSend(*#, #, tensorflow::string(#), tensorflow::string(#), #)", constructor.}
 
 proc iNcclReduceSend*(scope: Scope,
                       input: INcclReduceSendT,
@@ -1069,14 +1069,14 @@ proc iNcclReduceSend*(scope: Scope,
     # `c`. Failure to do so will cause the graph execution to fail to complete.
 
 
-type IParallelConcatStart*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatStart/*'0*/".} = object
+type IParallelConcatStart*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatStart/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiiParallelConcatStart[oT: oall](scope: Scope,
                            shape: TensorShape,
                            dtype: DType,
-                           explicitT: type(oT)): IParallelConcatStart[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatStart(*#, #, #)", constructor.}
+                           explicitT: type(oT)): IParallelConcatStart[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatStart(*#, #, #)", constructor.}
 
 proc iParallelConcatStart*(scope: Scope,
                            shape: TensorShape = [].shape,
@@ -1092,7 +1092,7 @@ converter iParallelConcatStartToOut*[oT: oall](op: IParallelConcatStart[oT]): oT
     # conjunction with inplace operations.
 
 
-type IParallelConcatUpdate*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatUpdate/*'0*/".} = object
+type IParallelConcatUpdate*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatUpdate/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1100,7 +1100,7 @@ proc iiiParallelConcatUpdate[oT: oall](scope: Scope,
                             value: oT,
                             update: oT,
                             T: DType,
-                            loc: int64): IParallelConcatUpdate[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatUpdate(*#, #, #, #, #)", constructor.}
+                            loc: int64): IParallelConcatUpdate[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ParallelConcatUpdate(*#, #, #, #, #)", constructor.}
 
 proc iParallelConcatUpdate*[oT: oall](scope: Scope,
                             value: oT,
@@ -1119,14 +1119,14 @@ converter iParallelConcatUpdateToOut*[oT: oall](op: IParallelConcatUpdate[oT]): 
     # avoid race conditions.
 
 
-type IReadVariablesOp*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ReadVariablesOp/*'0*/".} = object
+type IReadVariablesOp*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ReadVariablesOp/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
 proc iiiReadVariablesOp[oT: oall](scope: Scope,
                        resources: olist[oresource],
                        dtypes: ArraySlice[DType],
-                       explicitT: type(oT)): IReadVariablesOp[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ReadVariablesOp(*#, #, #)", constructor.}
+                       explicitT: type(oT)): IReadVariablesOp[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ReadVariablesOp(*#, #, #)", constructor.}
 
 proc iReadVariablesOp*(scope: Scope,
                        resources: olist[oresource],
@@ -1140,7 +1140,7 @@ proc iReadVariablesOp*(scope: Scope,
 converter iReadVariablesOpToOutList*[oT: oall](op: IReadVariablesOp[oT]): olist[oT] {.inline.} = return op.output
 
 
-type IRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Recv/*'0*/".} = object
+type IRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Recv/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1151,7 +1151,7 @@ proc iiiRecv[oT: oall](scope: Scope,
             tensor_type: DType,
             send_device_incarnation: int64,
             client_terminated: bool,
-            explicitT: type(oT)): IRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Recv(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
+            explicitT: type(oT)): IRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Recv(*#, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #, #)", constructor.}
 
 proc iRecv*(scope: Scope,
             tensor_name: cstring,
@@ -1173,13 +1173,13 @@ converter iRecvToOut*[oT: oall](op: IRecv[oT]): oT {.inline.} = return op.output
 
 type IRetvalT* = oall
 
-type IRetval*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Retval/*'0*/".} = object
+type IRetval*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Retval/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiiRetval(scope: Scope,
               input: IRetvalT,
-              index: int64): IRetval {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Retval(*#, #, #)", constructor.}
+              index: int64): IRetval {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Retval(*#, #, #)", constructor.}
 
 proc iRetval*(scope: Scope,
               input: IRetvalT,
@@ -1189,7 +1189,7 @@ proc iRetval*(scope: Scope,
                    index)
 
 
-type IScopedAllocator*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocator/*'0*/".} = object
+type IScopedAllocator*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocator/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1200,7 +1200,7 @@ proc iiiScopedAllocator[oT: oall](scope: Scope,
                        T: DType,
                        id: int64,
                        expected_call_count: int64,
-                       explicitT: type(oT)): IScopedAllocator[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocator(*#, #, tensorflow::string(#), #, #, #, #)", constructor.}
+                       explicitT: type(oT)): IScopedAllocator[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocator(*#, #, tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc iScopedAllocator*(scope: Scope,
                        shapes: openArray[TensorShape],
@@ -1238,7 +1238,7 @@ converter iScopedAllocatorToOut*[oT: oall](op: IScopedAllocator[oT]): oT {.inlin
     # be allocated from the backing tensor.
 
 
-type IScopedAllocatorConcat*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorConcat/*'0*/".} = object
+type IScopedAllocatorConcat*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorConcat/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -1249,7 +1249,7 @@ proc iiiScopedAllocatorConcat[oT: oall](scope: Scope,
                              shape: TensorShape,
                              T: DType,
                              reshape: bool,
-                             id: int64): IScopedAllocatorConcat[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorConcat(*#, #, #, tensorflow::string(#), #, #, #, #)", constructor.}
+                             id: int64): IScopedAllocatorConcat[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorConcat(*#, #, #, tensorflow::string(#), #, #, #, #)", constructor.}
 
 proc iScopedAllocatorConcat*[oT: oall](scope: Scope,
                              backing: oT,
@@ -1289,7 +1289,7 @@ converter iScopedAllocatorConcatToOut*[oT: oall](op: IScopedAllocatorConcat[oT])
     # 'N' is the number of nominal inputs to be concatenated.
 
 
-type IScopedAllocatorSplit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorSplit/*'0*/".} = object
+type IScopedAllocatorSplit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorSplit/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -1299,7 +1299,7 @@ proc iiiScopedAllocatorSplit[oT: oall](scope: Scope,
                             sa_name: cstring,
                             shapes: ArraySlice[TensorShape],
                             T: DType,
-                            id: int64): IScopedAllocatorSplit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorSplit(*#, #, #, tensorflow::string(#), #, #, #)", constructor.}
+                            id: int64): IScopedAllocatorSplit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_ScopedAllocatorSplit(*#, #, #, tensorflow::string(#), #, #, #)", constructor.}
 
 proc iScopedAllocatorSplit*[oT: oall](scope: Scope,
                             concat: oT,
@@ -1339,7 +1339,7 @@ converter iScopedAllocatorSplitToOutList*[oT: oall](op: IScopedAllocatorSplit[oT
 
 type ISendT* = oall
 
-type ISend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Send/*'0*/".} = object
+type ISend*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Send/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -1349,7 +1349,7 @@ proc iiiSend(scope: Scope,
             send_device: cstring,
             recv_device: cstring,
             client_terminated: bool,
-            send_device_incarnation: int64): ISend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_Send(*#, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+            send_device_incarnation: int64): ISend {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_Send(*#, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc iSend*(scope: Scope,
             tensor: ISendT,
@@ -1367,14 +1367,14 @@ proc iSend*(scope: Scope,
                  send_device_incarnation)
 
 
-type IUnaryOpsComposition*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_UnaryOpsComposition/*'0*/".} = object
+type IUnaryOpsComposition*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_UnaryOpsComposition/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiiUnaryOpsComposition[oT: oall](scope: Scope,
                            x: oT,
                            op_names: ArraySlice[cstring],
-                           T: DType): IUnaryOpsComposition[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_UnaryOpsComposition(*#, #, #, #)", constructor.}
+                           T: DType): IUnaryOpsComposition[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_UnaryOpsComposition(*#, #, #, #)", constructor.}
 
 proc iUnaryOpsComposition*[oT: oall](scope: Scope,
                            x: oT,
@@ -1389,7 +1389,7 @@ converter iUnaryOpsCompositionToOut*[oT: oall](op: IUnaryOpsComposition[oT]): oT
     # expected to create these operators.
 
 
-type IVarHandlesOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_VarHandlesOp/*'0*/".} = object
+type IVarHandlesOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_VarHandlesOp/*'0*/".} = object
   operation*: Operation[oresource]
   output*: olist[oresource]
 
@@ -1397,7 +1397,7 @@ proc iiiVarHandlesOp(scope: Scope,
                     containers: ArraySlice[cstring],
                     shared_names: ArraySlice[cstring],
                     dtypes: ArraySlice[DType],
-                    shapes: ArraySlice[TensorShape]): IVarHandlesOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_VarHandlesOp(*#, #, #, #, #)", constructor.}
+                    shapes: ArraySlice[TensorShape]): IVarHandlesOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_VarHandlesOp(*#, #, #, #, #)", constructor.}
 
 proc iVarHandlesOp*(scope: Scope,
                     containers: openArray[cstring],
@@ -1413,7 +1413,7 @@ proc iVarHandlesOp*(scope: Scope,
 converter iVarHandlesOpToOutList*(op: IVarHandlesOp): olist[oresource] {.inline.} = return op.output
 
 
-type IWhile*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_While/*'0*/".} = object
+type IWhile*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_While/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -1421,7 +1421,7 @@ proc iiiWhile[oT: oall](scope: Scope,
              input: olist[oT],
              T: ArraySlice[DType],
              cond: NameAttrList,
-             body: NameAttrList): IWhile[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/internal/internal.h", importcpp:"_While(*#, #, #, #, #)", constructor.}
+             body: NameAttrList): IWhile[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"_While(*#, #, #, #, #)", constructor.}
 
 proc iWhile*[oT: oall](scope: Scope,
              input: olist[oT],

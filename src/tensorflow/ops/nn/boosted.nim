@@ -3,14 +3,14 @@ import ../../core
 {.compile:"boosted/boosted.cc".}
 
 
-type BoostedTreesBucketize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize/*'0*/".} = object
+type BoostedTreesBucketize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
 proc iiboostedTreesBucketize(scope: Scope,
                             float_values: ofloat,
                             bucket_boundaries: ofloat,
-                            num_features: int64): BoostedTreesBucketize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize(*#, #, #, #)", constructor.}
+                            num_features: int64): BoostedTreesBucketize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize(*#, #, #, #)", constructor.}
 
 proc boostedTreesBucketize*(scope: Scope,
                             float_values: ofloat,
@@ -24,7 +24,7 @@ proc boostedTreesBucketize*(scope: Scope,
 converter boostedTreesBucketizeToOut*(op: BoostedTreesBucketize): oint32 {.inline.} = return op.output
 
 
-type BoostedTreesCalculateBestGainsPerFeature* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCalculateBestGainsPerFeature/*'0*/".} = object
+type BoostedTreesCalculateBestGainsPerFeature* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCalculateBestGainsPerFeature/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
@@ -36,7 +36,7 @@ proc iiboostedTreesCalculateBestGainsPerFeature(scope: Scope,
                                                tree_complexity: ofloat,
                                                min_node_weight: ofloat,
                                                max_splits: int64,
-                                               num_features: int64): BoostedTreesCalculateBestGainsPerFeature {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCalculateBestGainsPerFeature(*#, #, #, #, #, #, #, #, #)", constructor.}
+                                               num_features: int64): BoostedTreesCalculateBestGainsPerFeature {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCalculateBestGainsPerFeature(*#, #, #, #, #, #, #, #, #)", constructor.}
 
 proc boostedTreesCalculateBestGainsPerFeature*(scope: Scope,
                                                node_id_range: oint32,
@@ -60,7 +60,7 @@ proc boostedTreesCalculateBestGainsPerFeature*(scope: Scope,
 converter boostedTreesCalculateBestGainsPerFeatureToOut*(op: BoostedTreesCalculateBestGainsPerFeature): oint32 {.inline.} = return op.output
 
 
-type BoostedTreesCenterBias* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCenterBias/*'0*/".} = object
+type BoostedTreesCenterBias* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCenterBias/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
@@ -69,7 +69,7 @@ proc iiboostedTreesCenterBias(scope: Scope,
                              mean_gradients: ofloat,
                              mean_hessians: ofloat,
                              l1: ofloat,
-                             l2: ofloat): BoostedTreesCenterBias {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCenterBias(*#, #, #, #, #, #)", constructor.}
+                             l2: ofloat): BoostedTreesCenterBias {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCenterBias(*#, #, #, #, #, #)", constructor.}
 
 proc boostedTreesCenterBias*(scope: Scope,
                              tree_ensemble_handle: oresource,
@@ -87,14 +87,14 @@ proc boostedTreesCenterBias*(scope: Scope,
 converter boostedTreesCenterBiasToOut*(op: BoostedTreesCenterBias): obool {.inline.} = return op.output
 
 
-type BoostedTreesCreateEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateEnsemble/*'0*/".} = object
+type BoostedTreesCreateEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateEnsemble/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiboostedTreesCreateEnsemble(scope: Scope,
                                  tree_ensemble_handle: oresource,
                                  stamp_token: oint64,
-                                 tree_ensemble_serialized: ostring): BoostedTreesCreateEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateEnsemble(*#, #, #, #)", constructor.}
+                                 tree_ensemble_serialized: ostring): BoostedTreesCreateEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateEnsemble(*#, #, #, #)", constructor.}
 
 proc boostedTreesCreateEnsemble*(scope: Scope,
                                  tree_ensemble_handle: oresource,
@@ -106,7 +106,7 @@ proc boostedTreesCreateEnsemble*(scope: Scope,
                                       tree_ensemble_serialized)
 
 
-type BoostedTreesCreateQuantileStreamResource*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateQuantileStreamResource/*'0*/".} = object
+type BoostedTreesCreateQuantileStreamResource*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateQuantileStreamResource/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -114,7 +114,7 @@ proc iiboostedTreesCreateQuantileStreamResource(scope: Scope,
                                                quantile_stream_resource_handle: oresource,
                                                epsilon: ofloat,
                                                num_streams: oint64,
-                                               max_elements: int64): BoostedTreesCreateQuantileStreamResource {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateQuantileStreamResource(*#, #, #, #, #)", constructor.}
+                                               max_elements: int64): BoostedTreesCreateQuantileStreamResource {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCreateQuantileStreamResource(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesCreateQuantileStreamResource*(scope: Scope,
                                                quantile_stream_resource_handle: oresource,
@@ -128,14 +128,14 @@ proc boostedTreesCreateQuantileStreamResource*(scope: Scope,
                                                     max_elements)
 
 
-type BoostedTreesDeserializeEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesDeserializeEnsemble/*'0*/".} = object
+type BoostedTreesDeserializeEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesDeserializeEnsemble/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiboostedTreesDeserializeEnsemble(scope: Scope,
                                       tree_ensemble_handle: oresource,
                                       stamp_token: oint64,
-                                      tree_ensemble_serialized: ostring): BoostedTreesDeserializeEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesDeserializeEnsemble(*#, #, #, #)", constructor.}
+                                      tree_ensemble_serialized: ostring): BoostedTreesDeserializeEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesDeserializeEnsemble(*#, #, #, #)", constructor.}
 
 proc boostedTreesDeserializeEnsemble*(scope: Scope,
                                       tree_ensemble_handle: oresource,
@@ -147,13 +147,13 @@ proc boostedTreesDeserializeEnsemble*(scope: Scope,
                                            tree_ensemble_serialized)
 
 
-type BoostedTreesEnsembleResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesEnsembleResourceHandleOp/*'0*/".} = object
+type BoostedTreesEnsembleResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesEnsembleResourceHandleOp/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iiboostedTreesEnsembleResourceHandleOp(scope: Scope,
                                            container: cstring,
-                                           shared_name: cstring): BoostedTreesEnsembleResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesEnsembleResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                                           shared_name: cstring): BoostedTreesEnsembleResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesEnsembleResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc boostedTreesEnsembleResourceHandleOp*(scope: Scope,
                                            container: cstring,
@@ -165,12 +165,12 @@ proc boostedTreesEnsembleResourceHandleOp*(scope: Scope,
 converter boostedTreesEnsembleResourceHandleOpToOut*(op: BoostedTreesEnsembleResourceHandleOp): oresource {.inline.} = return op.output
 
 
-type BoostedTreesGetEnsembleStates* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesGetEnsembleStates/*'0*/".} = object
+type BoostedTreesGetEnsembleStates* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesGetEnsembleStates/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iiboostedTreesGetEnsembleStates(scope: Scope,
-                                    tree_ensemble_handle: oresource): BoostedTreesGetEnsembleStates {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesGetEnsembleStates(*#, #)", constructor.}
+                                    tree_ensemble_handle: oresource): BoostedTreesGetEnsembleStates {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesGetEnsembleStates(*#, #)", constructor.}
 
 proc boostedTreesGetEnsembleStates*(scope: Scope,
                                     tree_ensemble_handle: oresource): BoostedTreesGetEnsembleStates =
@@ -180,7 +180,7 @@ proc boostedTreesGetEnsembleStates*(scope: Scope,
 converter boostedTreesGetEnsembleStatesToOut*(op: BoostedTreesGetEnsembleStates): oint64 {.inline.} = return op.output
 
 
-type BoostedTreesMakeQuantileSummaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries/*'0*/".} = object
+type BoostedTreesMakeQuantileSummaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -188,7 +188,7 @@ proc iiboostedTreesMakeQuantileSummaries(scope: Scope,
                                         float_values: ofloat,
                                         example_weights: ofloat,
                                         epsilon: ofloat,
-                                        num_features: int64): BoostedTreesMakeQuantileSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries(*#, #, #, #, #)", constructor.}
+                                        num_features: int64): BoostedTreesMakeQuantileSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesMakeQuantileSummaries*(scope: Scope,
                                         float_values: ofloat,
@@ -204,7 +204,7 @@ proc boostedTreesMakeQuantileSummaries*(scope: Scope,
 converter boostedTreesMakeQuantileSummariesToOut*(op: BoostedTreesMakeQuantileSummaries): ofloat {.inline.} = return op.output
 
 
-type BoostedTreesPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict/*'0*/".} = object
+type BoostedTreesPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -212,7 +212,7 @@ proc iiboostedTreesPredict(scope: Scope,
                           tree_ensemble_handle: oresource,
                           bucketized_features: oint32,
                           num_bucketized_features: int64,
-                          logits_dimension: int64): BoostedTreesPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict(*#, #, #, #, #)", constructor.}
+                          logits_dimension: int64): BoostedTreesPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesPredict*(scope: Scope,
                           tree_ensemble_handle: oresource,
@@ -228,14 +228,14 @@ proc boostedTreesPredict*(scope: Scope,
 converter boostedTreesPredictToOut*(op: BoostedTreesPredict): ofloat {.inline.} = return op.output
 
 
-type BoostedTreesQuantileStreamResourceAddSummaries*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceAddSummaries/*'0*/".} = object
+type BoostedTreesQuantileStreamResourceAddSummaries*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceAddSummaries/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiboostedTreesQuantileStreamResourceAddSummaries(scope: Scope,
                                                      quantile_stream_resource_handle: oresource,
                                                      summaries: ofloat,
-                                                     num_features: int64): BoostedTreesQuantileStreamResourceAddSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceAddSummaries(*#, #, #, #)", constructor.}
+                                                     num_features: int64): BoostedTreesQuantileStreamResourceAddSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceAddSummaries(*#, #, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceAddSummaries*(scope: Scope,
                                                      quantile_stream_resource_handle: oresource,
@@ -247,14 +247,14 @@ proc boostedTreesQuantileStreamResourceAddSummaries*(scope: Scope,
                                                           num_features)
 
 
-type BoostedTreesQuantileStreamResourceDeserialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceDeserialize/*'0*/".} = object
+type BoostedTreesQuantileStreamResourceDeserialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceDeserialize/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiboostedTreesQuantileStreamResourceDeserialize(scope: Scope,
                                                     quantile_stream_resource_handle: oresource,
                                                     bucket_boundaries: ofloat,
-                                                    num_streams: int64): BoostedTreesQuantileStreamResourceDeserialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceDeserialize(*#, #, #, #)", constructor.}
+                                                    num_streams: int64): BoostedTreesQuantileStreamResourceDeserialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceDeserialize(*#, #, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceDeserialize*(scope: Scope,
                                                     quantile_stream_resource_handle: oresource,
@@ -266,14 +266,14 @@ proc boostedTreesQuantileStreamResourceDeserialize*(scope: Scope,
                                                          num_streams)
 
 
-type BoostedTreesQuantileStreamResourceFlush*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceFlush/*'0*/".} = object
+type BoostedTreesQuantileStreamResourceFlush*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceFlush/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiboostedTreesQuantileStreamResourceFlush(scope: Scope,
                                               quantile_stream_resource_handle: oresource,
                                               num_buckets: oint64,
-                                              generate_quantiles: bool): BoostedTreesQuantileStreamResourceFlush {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceFlush(*#, #, #, #)", constructor.}
+                                              generate_quantiles: bool): BoostedTreesQuantileStreamResourceFlush {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceFlush(*#, #, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceFlush*(scope: Scope,
                                               quantile_stream_resource_handle: oresource,
@@ -285,13 +285,13 @@ proc boostedTreesQuantileStreamResourceFlush*(scope: Scope,
                                                    generate_quantiles)
 
 
-type BoostedTreesQuantileStreamResourceGetBucketBoundaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceGetBucketBoundaries/*'0*/".} = object
+type BoostedTreesQuantileStreamResourceGetBucketBoundaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceGetBucketBoundaries/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiboostedTreesQuantileStreamResourceGetBucketBoundaries(scope: Scope,
                                                             quantile_stream_resource_handle: oresource,
-                                                            num_features: int64): BoostedTreesQuantileStreamResourceGetBucketBoundaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceGetBucketBoundaries(*#, #, #)", constructor.}
+                                                            num_features: int64): BoostedTreesQuantileStreamResourceGetBucketBoundaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceGetBucketBoundaries(*#, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceGetBucketBoundaries*(scope: Scope,
                                                             quantile_stream_resource_handle: oresource,
@@ -303,13 +303,13 @@ proc boostedTreesQuantileStreamResourceGetBucketBoundaries*(scope: Scope,
 converter boostedTreesQuantileStreamResourceGetBucketBoundariesToOut*(op: BoostedTreesQuantileStreamResourceGetBucketBoundaries): ofloat {.inline.} = return op.output
 
 
-type BoostedTreesQuantileStreamResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceHandleOp/*'0*/".} = object
+type BoostedTreesQuantileStreamResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceHandleOp/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iiboostedTreesQuantileStreamResourceHandleOp(scope: Scope,
                                                  container: cstring,
-                                                 shared_name: cstring): BoostedTreesQuantileStreamResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                                                 shared_name: cstring): BoostedTreesQuantileStreamResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc boostedTreesQuantileStreamResourceHandleOp*(scope: Scope,
                                                  container: cstring,
@@ -321,12 +321,12 @@ proc boostedTreesQuantileStreamResourceHandleOp*(scope: Scope,
 converter boostedTreesQuantileStreamResourceHandleOpToOut*(op: BoostedTreesQuantileStreamResourceHandleOp): oresource {.inline.} = return op.output
 
 
-type BoostedTreesSerializeEnsemble* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesSerializeEnsemble/*'0*/".} = object
+type BoostedTreesSerializeEnsemble* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesSerializeEnsemble/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iiboostedTreesSerializeEnsemble(scope: Scope,
-                                    tree_ensemble_handle: oresource): BoostedTreesSerializeEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesSerializeEnsemble(*#, #)", constructor.}
+                                    tree_ensemble_handle: oresource): BoostedTreesSerializeEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesSerializeEnsemble(*#, #)", constructor.}
 
 proc boostedTreesSerializeEnsemble*(scope: Scope,
                                     tree_ensemble_handle: oresource): BoostedTreesSerializeEnsemble =
@@ -336,7 +336,7 @@ proc boostedTreesSerializeEnsemble*(scope: Scope,
 converter boostedTreesSerializeEnsembleToOut*(op: BoostedTreesSerializeEnsemble): oint64 {.inline.} = return op.output
 
 
-type BoostedTreesTrainingPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesTrainingPredict/*'0*/".} = object
+type BoostedTreesTrainingPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesTrainingPredict/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -346,7 +346,7 @@ proc iiboostedTreesTrainingPredict(scope: Scope,
                                   cached_node_ids: oint32,
                                   bucketized_features: oint32,
                                   num_bucketized_features: int64,
-                                  logits_dimension: int64): BoostedTreesTrainingPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesTrainingPredict(*#, #, #, #, #, #, #)", constructor.}
+                                  logits_dimension: int64): BoostedTreesTrainingPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesTrainingPredict(*#, #, #, #, #, #, #)", constructor.}
 
 proc boostedTreesTrainingPredict*(scope: Scope,
                                   tree_ensemble_handle: oresource,
@@ -366,7 +366,7 @@ proc boostedTreesTrainingPredict*(scope: Scope,
 converter boostedTreesTrainingPredictToOut*(op: BoostedTreesTrainingPredict): ofloat {.inline.} = return op.output
 
 
-type BoostedTreesUpdateEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesUpdateEnsemble/*'0*/".} = object
+type BoostedTreesUpdateEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesUpdateEnsemble/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -381,7 +381,7 @@ proc iiboostedTreesUpdateEnsemble(scope: Scope,
                                  max_depth: oint32,
                                  learning_rate: ofloat,
                                  pruning_mode: int64,
-                                 num_features: int64): BoostedTreesUpdateEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesUpdateEnsemble(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                 num_features: int64): BoostedTreesUpdateEnsemble {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesUpdateEnsemble(*#, #, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc boostedTreesUpdateEnsemble*(scope: Scope,
                                  tree_ensemble_handle: oresource,
@@ -409,12 +409,12 @@ proc boostedTreesUpdateEnsemble*(scope: Scope,
                                       num_features)
 
 
-type IsBoostedTreesEnsembleInitialized* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesEnsembleInitialized/*'0*/".} = object
+type IsBoostedTreesEnsembleInitialized* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesEnsembleInitialized/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiisBoostedTreesEnsembleInitialized(scope: Scope,
-                                        tree_ensemble_handle: oresource): IsBoostedTreesEnsembleInitialized {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesEnsembleInitialized(*#, #)", constructor.}
+                                        tree_ensemble_handle: oresource): IsBoostedTreesEnsembleInitialized {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesEnsembleInitialized(*#, #)", constructor.}
 
 proc isBoostedTreesEnsembleInitialized*(scope: Scope,
                                         tree_ensemble_handle: oresource): IsBoostedTreesEnsembleInitialized =
@@ -424,12 +424,12 @@ proc isBoostedTreesEnsembleInitialized*(scope: Scope,
 converter isBoostedTreesEnsembleInitializedToOut*(op: IsBoostedTreesEnsembleInitialized): obool {.inline.} = return op.output
 
 
-type IsBoostedTreesQuantileStreamResourceInitialized* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesQuantileStreamResourceInitialized/*'0*/".} = object
+type IsBoostedTreesQuantileStreamResourceInitialized* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesQuantileStreamResourceInitialized/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiisBoostedTreesQuantileStreamResourceInitialized(scope: Scope,
-                                                      quantile_stream_resource_handle: oresource): IsBoostedTreesQuantileStreamResourceInitialized {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesQuantileStreamResourceInitialized(*#, #)", constructor.}
+                                                      quantile_stream_resource_handle: oresource): IsBoostedTreesQuantileStreamResourceInitialized {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"IsBoostedTreesQuantileStreamResourceInitialized(*#, #)", constructor.}
 
 proc isBoostedTreesQuantileStreamResourceInitialized*(scope: Scope,
                                                       quantile_stream_resource_handle: oresource): IsBoostedTreesQuantileStreamResourceInitialized =
@@ -439,13 +439,13 @@ proc isBoostedTreesQuantileStreamResourceInitialized*(scope: Scope,
 converter isBoostedTreesQuantileStreamResourceInitializedToOut*(op: IsBoostedTreesQuantileStreamResourceInitialized): obool {.inline.} = return op.output
 
 
-type TensorForestCreateTreeVariable*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestCreateTreeVariable/*'0*/".} = object
+type TensorForestCreateTreeVariable*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestCreateTreeVariable/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iitensorForestCreateTreeVariable(scope: Scope,
                                      tree_handle: oresource,
-                                     tree_config: ostring): TensorForestCreateTreeVariable {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestCreateTreeVariable(*#, #, #)", constructor.}
+                                     tree_config: ostring): TensorForestCreateTreeVariable {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestCreateTreeVariable(*#, #, #)", constructor.}
 
 proc tensorForestCreateTreeVariable*(scope: Scope,
                                      tree_handle: oresource,
@@ -455,13 +455,13 @@ proc tensorForestCreateTreeVariable*(scope: Scope,
                                           tree_config)
 
 
-type TensorForestTreeDeserialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeDeserialize/*'0*/".} = object
+type TensorForestTreeDeserialize*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeDeserialize/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iitensorForestTreeDeserialize(scope: Scope,
                                   tree_handle: oresource,
-                                  tree_config: ostring): TensorForestTreeDeserialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeDeserialize(*#, #, #)", constructor.}
+                                  tree_config: ostring): TensorForestTreeDeserialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeDeserialize(*#, #, #)", constructor.}
 
 proc tensorForestTreeDeserialize*(scope: Scope,
                                   tree_handle: oresource,
@@ -471,12 +471,12 @@ proc tensorForestTreeDeserialize*(scope: Scope,
                                        tree_config)
 
 
-type TensorForestTreeIsInitializedOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeIsInitializedOp/*'0*/".} = object
+type TensorForestTreeIsInitializedOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeIsInitializedOp/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iitensorForestTreeIsInitializedOp(scope: Scope,
-                                      tree_handle: oresource): TensorForestTreeIsInitializedOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeIsInitializedOp(*#, #)", constructor.}
+                                      tree_handle: oresource): TensorForestTreeIsInitializedOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeIsInitializedOp(*#, #)", constructor.}
 
 proc tensorForestTreeIsInitializedOp*(scope: Scope,
                                       tree_handle: oresource): TensorForestTreeIsInitializedOp =
@@ -486,14 +486,14 @@ proc tensorForestTreeIsInitializedOp*(scope: Scope,
 converter tensorForestTreeIsInitializedOpToOut*(op: TensorForestTreeIsInitializedOp): obool {.inline.} = return op.output
 
 
-type TensorForestTreePredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreePredict/*'0*/".} = object
+type TensorForestTreePredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreePredict/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iitensorForestTreePredict(scope: Scope,
                               tree_handle: oresource,
                               dense_features: ofloat,
-                              logits_dimension: int64): TensorForestTreePredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreePredict(*#, #, #, #)", constructor.}
+                              logits_dimension: int64): TensorForestTreePredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreePredict(*#, #, #, #)", constructor.}
 
 proc tensorForestTreePredict*(scope: Scope,
                               tree_handle: oresource,
@@ -507,13 +507,13 @@ proc tensorForestTreePredict*(scope: Scope,
 converter tensorForestTreePredictToOut*(op: TensorForestTreePredict): ofloat {.inline.} = return op.output
 
 
-type TensorForestTreeResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeResourceHandleOp/*'0*/".} = object
+type TensorForestTreeResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeResourceHandleOp/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iitensorForestTreeResourceHandleOp(scope: Scope,
                                        container: cstring,
-                                       shared_name: cstring): TensorForestTreeResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+                                       shared_name: cstring): TensorForestTreeResourceHandleOp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeResourceHandleOp(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc tensorForestTreeResourceHandleOp*(scope: Scope,
                                        container: cstring,
@@ -525,12 +525,12 @@ proc tensorForestTreeResourceHandleOp*(scope: Scope,
 converter tensorForestTreeResourceHandleOpToOut*(op: TensorForestTreeResourceHandleOp): oresource {.inline.} = return op.output
 
 
-type TensorForestTreeSerialize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSerialize/*'0*/".} = object
+type TensorForestTreeSerialize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSerialize/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iitensorForestTreeSerialize(scope: Scope,
-                                tree_handle: oresource): TensorForestTreeSerialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSerialize(*#, #)", constructor.}
+                                tree_handle: oresource): TensorForestTreeSerialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSerialize(*#, #)", constructor.}
 
 proc tensorForestTreeSerialize*(scope: Scope,
                                 tree_handle: oresource): TensorForestTreeSerialize =
@@ -540,12 +540,12 @@ proc tensorForestTreeSerialize*(scope: Scope,
 converter tensorForestTreeSerializeToOut*(op: TensorForestTreeSerialize): ostring {.inline.} = return op.output
 
 
-type TensorForestTreeSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSize/*'0*/".} = object
+type TensorForestTreeSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSize/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
 proc iitensorForestTreeSize(scope: Scope,
-                           tree_handle: oresource): TensorForestTreeSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSize(*#, #)", constructor.}
+                           tree_handle: oresource): TensorForestTreeSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"TensorForestTreeSize(*#, #)", constructor.}
 
 proc tensorForestTreeSize*(scope: Scope,
                            tree_handle: oresource): TensorForestTreeSize =

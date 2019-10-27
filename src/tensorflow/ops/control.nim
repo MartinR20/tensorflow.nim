@@ -3,13 +3,13 @@ import ../core
 {.compile:"control/control.cc".}
 
 
-type Abort*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Abort/*'0*/".} = object
+type Abort*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Abort/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiabort(scope: Scope,
             error_msg: cstring,
-            exit_without_error: bool): Abort {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Abort(*#, tensorflow::string(#), #)", constructor.}
+            exit_without_error: bool): Abort {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Abort(*#, tensorflow::string(#), #)", constructor.}
 
 proc abort*(scope: Scope,
             error_msg: cstring,
@@ -19,7 +19,7 @@ proc abort*(scope: Scope,
                  exit_without_error)
 
 
-type Assert*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Assert/*'0*/".} = object
+type Assert*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Assert/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -27,7 +27,7 @@ proc iiassert(scope: Scope,
              condition: obool,
              data: olist[oall],
              T: ArraySlice[DType],
-             summarize: int64): Assert {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Assert(*#, #, #, #, #)", constructor.}
+             summarize: int64): Assert {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Assert(*#, #, #, #, #)", constructor.}
 
 proc assert*(scope: Scope,
              condition: obool,
@@ -41,7 +41,7 @@ proc assert*(scope: Scope,
                   summarize)
 
 
-type CollectiveBcastRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"CollectiveBcastRecv/*'0*/".} = object
+type CollectiveBcastRecv*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"CollectiveBcastRecv/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -51,7 +51,7 @@ proc iicollectiveBcastRecv[oT: oall](scope: Scope,
                           group_key: int64,
                           instance_key: int64,
                           shape: TensorShape,
-                          explicitT: type(oT)): CollectiveBcastRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"CollectiveBcastRecv(*#, #, #, #, #, #)", constructor.}
+                          explicitT: type(oT)): CollectiveBcastRecv[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"CollectiveBcastRecv(*#, #, #, #, #, #)", constructor.}
 
 proc collectiveBcastRecv*(scope: Scope,
                           T: type = oinvalid,
@@ -70,12 +70,12 @@ proc collectiveBcastRecv*(scope: Scope,
 converter collectiveBcastRecvToOut*[oT: oall](op: CollectiveBcastRecv[oT]): oT {.inline.} = return op.output
 
 
-type ConsumeMutexLock*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ConsumeMutexLock/*'0*/".} = object
+type ConsumeMutexLock*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ConsumeMutexLock/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iiconsumeMutexLock(scope: Scope,
-                       mutex_lock: ovariant): ConsumeMutexLock {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ConsumeMutexLock(*#, #)", constructor.}
+                       mutex_lock: ovariant): ConsumeMutexLock {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ConsumeMutexLock(*#, #)", constructor.}
 
 proc consumeMutexLock*(scope: Scope,
                        mutex_lock: ovariant): ConsumeMutexLock =
@@ -83,17 +83,17 @@ proc consumeMutexLock*(scope: Scope,
                             mutex_lock)
 
 
-type ControlTrigger*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ControlTrigger/*'0*/".} = object
+type ControlTrigger*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ControlTrigger/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
-proc iicontrolTrigger(scope: Scope): ControlTrigger {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ControlTrigger(*#)", constructor.}
+proc iicontrolTrigger(scope: Scope): ControlTrigger {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ControlTrigger(*#)", constructor.}
 
 proc controlTrigger*(scope: Scope): ControlTrigger =
   return iicontrolTrigger(scope)
 
 
-type Enter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Enter/*'0*/".} = object
+type Enter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Enter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -102,7 +102,7 @@ proc iienter[oT: oall](scope: Scope,
             frame_name: cstring,
             T: DType,
             is_constant: bool,
-            parallel_iterations: int64): Enter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Enter(*#, #, tensorflow::string(#), #, #, #)", constructor.}
+            parallel_iterations: int64): Enter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Enter(*#, #, tensorflow::string(#), #, #, #)", constructor.}
 
 proc enter*[oT: oall](scope: Scope,
             data: oT,
@@ -119,13 +119,13 @@ proc enter*[oT: oall](scope: Scope,
 converter enterToOut*[oT: oall](op: Enter[oT]): oT {.inline.} = return op.output
 
 
-type Exit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Exit/*'0*/".} = object
+type Exit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Exit/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiexit[oT: oall](scope: Scope,
            data: oT,
-           T: DType): Exit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Exit(*#, #, #)", constructor.}
+           T: DType): Exit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Exit(*#, #, #)", constructor.}
 
 proc exit*[oT: oall](scope: Scope,
            data: oT): Exit[oT] =
@@ -136,14 +136,14 @@ proc exit*[oT: oall](scope: Scope,
 converter exitToOut*[oT: oall](op: Exit[oT]): oT {.inline.} = return op.output
 
 
-type FakeParam*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"FakeParam/*'0*/".} = object
+type FakeParam*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"FakeParam/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iifakeParam[oT: oall](scope: Scope,
                 dtype: DType,
                 shape: TensorShape,
-                explicitT: type(oT)): FakeParam[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"FakeParam(*#, #, #)", constructor.}
+                explicitT: type(oT)): FakeParam[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"FakeParam(*#, #, #)", constructor.}
 
 proc fakeParam*(scope: Scope,
                 dtype: type = oinvalid,
@@ -156,7 +156,7 @@ proc fakeParam*(scope: Scope,
 converter fakeParamToOut*[oT: oall](op: FakeParam[oT]): oT {.inline.} = return op.output
 
 
-type For*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"For/*'0*/".} = object
+type For*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"For/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -166,7 +166,7 @@ proc iinfor[oT: oall](scope: Scope,
            delta: oint32,
            input: olist[oT],
            T: ArraySlice[DType],
-           body: NameAttrList): For[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"For(*#, #, #, #, #, #, #)", constructor.}
+           body: NameAttrList): For[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"For(*#, #, #, #, #, #, #)", constructor.}
 
 proc nfor*[oT: oall](scope: Scope,
            start: oint32,
@@ -187,7 +187,7 @@ converter nforToOutList*[oT: oall](op: For[oT]): olist[oT] {.inline.} = return o
 
 type IfTcond* = oall
 
-type If*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"If/*'0*/".} = object
+type If*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"If/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -199,7 +199,7 @@ proc iinif[oT: oall](scope: Scope,
           then_branch: NameAttrList,
           else_branch: NameAttrList,
           output_shapes: ArraySlice[TensorShape],
-          explicitT: type(oT)): If[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"If(*#, #, #, #, #, #, #, #)", constructor.}
+          explicitT: type(oT)): If[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"If(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc nif*(scope: Scope,
           cond: IfTcond,
@@ -223,12 +223,12 @@ proc nif*(scope: Scope,
 converter nifToOutList*[oT: oall](op: If[oT]): olist[oT] {.inline.} = return op.output
 
 
-type LoopCond* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"LoopCond/*'0*/".} = object
+type LoopCond* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"LoopCond/*'0*/".} = object
   operation*: Operation[obool]
   output*: obool
 
 proc iiloopCond(scope: Scope,
-               input: obool): LoopCond {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"LoopCond(*#, #)", constructor.}
+               input: obool): LoopCond {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"LoopCond(*#, #)", constructor.}
 
 proc loopCond*(scope: Scope,
                input: obool): LoopCond =
@@ -238,13 +238,13 @@ proc loopCond*(scope: Scope,
 converter loopCondToOut*(op: LoopCond): obool {.inline.} = return op.output
 
 
-type Merge*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Merge/*'0*/".} = object
+type Merge*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Merge/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iimerge[oT: oall](scope: Scope,
             inputs: olist[oT],
-            T: DType): Merge[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Merge(*#, #, #)", constructor.}
+            T: DType): Merge[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Merge(*#, #, #)", constructor.}
 
 proc merge*[oT: oall](scope: Scope,
             inputs: olist[oT]): Merge[oT] =
@@ -255,12 +255,12 @@ proc merge*[oT: oall](scope: Scope,
 converter mergeToOut*[oT: oall](op: Merge[oT]): oT {.inline.} = return op.output
 
 
-type MutexLock* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"MutexLock/*'0*/".} = object
+type MutexLock* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"MutexLock/*'0*/".} = object
   operation*: Operation[ovariant]
   output*: ovariant
 
 proc iimutexLock(scope: Scope,
-                mutex: oresource): MutexLock {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"MutexLock(*#, #)", constructor.}
+                mutex: oresource): MutexLock {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"MutexLock(*#, #)", constructor.}
 
 proc mutexLock*(scope: Scope,
                 mutex: oresource): MutexLock =
@@ -270,13 +270,13 @@ proc mutexLock*(scope: Scope,
 converter mutexLockToOut*(op: MutexLock): ovariant {.inline.} = return op.output
 
 
-type MutexV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"MutexV2/*'0*/".} = object
+type MutexV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"MutexV2/*'0*/".} = object
   operation*: Operation[oresource]
   output*: oresource
 
 proc iimutexV2(scope: Scope,
               container: cstring,
-              shared_name: cstring): MutexV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"MutexV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
+              shared_name: cstring): MutexV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"MutexV2(*#, tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc mutexV2*(scope: Scope,
               container: cstring,
@@ -288,7 +288,7 @@ proc mutexV2*(scope: Scope,
 converter mutexV2ToOut*(op: MutexV2): oresource {.inline.} = return op.output
 
 
-type PartitionedCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"PartitionedCall/*'0*/".} = object
+type PartitionedCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"PartitionedCall/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -300,7 +300,7 @@ proc iipartitionedCall[oT: oall](scope: Scope,
                       config: cstring,
                       config_proto: cstring,
                       executor_type: cstring,
-                      explicitT: type(oT)): PartitionedCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"PartitionedCall(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
+                      explicitT: type(oT)): PartitionedCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"PartitionedCall(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc partitionedCall*(scope: Scope,
                       args: olist[oall],
@@ -324,14 +324,14 @@ proc partitionedCall*(scope: Scope,
 converter partitionedCallToOutList*[oT: oall](op: PartitionedCall[oT]): olist[oT] {.inline.} = return op.output
 
 
-type PreventGradient*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"PreventGradient/*'0*/".} = object
+type PreventGradient*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"PreventGradient/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iipreventGradient[oT: oall](scope: Scope,
                       input: oT,
                       message: cstring,
-                      T: DType): PreventGradient[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"PreventGradient(*#, #, tensorflow::string(#), #)", constructor.}
+                      T: DType): PreventGradient[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"PreventGradient(*#, #, tensorflow::string(#), #)", constructor.}
 
 proc preventGradient*[oT: oall](scope: Scope,
                       input: oT,
@@ -344,13 +344,13 @@ proc preventGradient*[oT: oall](scope: Scope,
 converter preventGradientToOut*[oT: oall](op: PreventGradient[oT]): oT {.inline.} = return op.output
 
 
-type ReaderRestoreStateV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ReaderRestoreStateV2/*'0*/".} = object
+type ReaderRestoreStateV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ReaderRestoreStateV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iireaderRestoreStateV2(scope: Scope,
                            reader_handle: oresource,
-                           state: ostring): ReaderRestoreStateV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"ReaderRestoreStateV2(*#, #, #)", constructor.}
+                           state: ostring): ReaderRestoreStateV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"ReaderRestoreStateV2(*#, #, #)", constructor.}
 
 proc readerRestoreStateV2*(scope: Scope,
                            reader_handle: oresource,
@@ -360,7 +360,7 @@ proc readerRestoreStateV2*(scope: Scope,
                                 state)
 
 
-type RefEnter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefEnter/*'0*/".} = object
+type RefEnter*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefEnter/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -369,7 +369,7 @@ proc iirefEnter[oT: oall](scope: Scope,
                frame_name: cstring,
                T: DType,
                is_constant: bool,
-               parallel_iterations: int64): RefEnter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefEnter(*#, #, tensorflow::string(#), #, #, #)", constructor.}
+               parallel_iterations: int64): RefEnter[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefEnter(*#, #, tensorflow::string(#), #, #, #)", constructor.}
 
 proc refEnter*[oT: oall](scope: Scope,
                data: oT,
@@ -386,13 +386,13 @@ proc refEnter*[oT: oall](scope: Scope,
 converter refEnterToOut*[oT: oall](op: RefEnter[oT]): oT {.inline.} = return op.output
 
 
-type RefExit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefExit/*'0*/".} = object
+type RefExit*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefExit/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iirefExit[oT: oall](scope: Scope,
               data: oT,
-              T: DType): RefExit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefExit(*#, #, #)", constructor.}
+              T: DType): RefExit[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefExit(*#, #, #)", constructor.}
 
 proc refExit*[oT: oall](scope: Scope,
               data: oT): RefExit[oT] =
@@ -403,14 +403,14 @@ proc refExit*[oT: oall](scope: Scope,
 converter refExitToOut*[oT: oall](op: RefExit[oT]): oT {.inline.} = return op.output
 
 
-type RefSelect*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefSelect/*'0*/".} = object
+type RefSelect*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefSelect/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iirefSelect[oT: oall](scope: Scope,
                 index: oint32,
                 inputs: olist[oT],
-                T: DType): RefSelect[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefSelect(*#, #, #, #)", constructor.}
+                T: DType): RefSelect[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefSelect(*#, #, #, #)", constructor.}
 
 proc refSelect*[oT: oall](scope: Scope,
                 index: oint32,
@@ -423,14 +423,14 @@ proc refSelect*[oT: oall](scope: Scope,
 converter refSelectToOut*[oT: oall](op: RefSelect[oT]): oT {.inline.} = return op.output
 
 
-type RefSwitch*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefSwitch/*'0*/".} = object
+type RefSwitch*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefSwitch/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iirefSwitch[oT: oall](scope: Scope,
                 data: oT,
                 pred: obool,
-                T: DType): RefSwitch[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RefSwitch(*#, #, #, #)", constructor.}
+                T: DType): RefSwitch[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RefSwitch(*#, #, #, #)", constructor.}
 
 proc refSwitch*[oT: oall](scope: Scope,
                 data: oT,
@@ -443,7 +443,7 @@ proc refSwitch*[oT: oall](scope: Scope,
 converter refSwitchToOut*[oT: oall](op: RefSwitch[oT]): oT {.inline.} = return op.output
 
 
-type RemoteCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RemoteCall/*'0*/".} = object
+type RemoteCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RemoteCall/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -453,7 +453,7 @@ proc iiremoteCall[oT: oall](scope: Scope,
                  Tin: ArraySlice[DType],
                  Tout: ArraySlice[DType],
                  f: NameAttrList,
-                 explicitT: type(oT)): RemoteCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RemoteCall(*#, #, #, #, #, #)", constructor.}
+                 explicitT: type(oT)): RemoteCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RemoteCall(*#, #, #, #, #, #)", constructor.}
 
 proc remoteCall*(scope: Scope,
                  target: ostring,
@@ -473,7 +473,7 @@ proc remoteCall*(scope: Scope,
 converter remoteCallToOutList*[oT: oall](op: RemoteCall[oT]): olist[oT] {.inline.} = return op.output
 
 
-type RemoteFusedGraphExecute*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RemoteFusedGraphExecute/*'0*/".} = object
+type RemoteFusedGraphExecute*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RemoteFusedGraphExecute/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -482,7 +482,7 @@ proc iiremoteFusedGraphExecute[oT: oall](scope: Scope,
                               Tinputs: ArraySlice[DType],
                               Toutputs: ArraySlice[DType],
                               serialized_remote_fused_graph_execute_info: cstring,
-                              explicitT: type(oT)): RemoteFusedGraphExecute[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"RemoteFusedGraphExecute(*#, #, #, #, tensorflow::string(#))", constructor.}
+                              explicitT: type(oT)): RemoteFusedGraphExecute[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"RemoteFusedGraphExecute(*#, #, #, #, tensorflow::string(#))", constructor.}
 
 proc remoteFusedGraphExecute*(scope: Scope,
                               inputs: olist[oall],
@@ -500,7 +500,7 @@ proc remoteFusedGraphExecute*(scope: Scope,
 converter remoteFusedGraphExecuteToOutList*[oT: oall](op: RemoteFusedGraphExecute[oT]): olist[oT] {.inline.} = return op.output
 
 
-type StageClear*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StageClear/*'0*/".} = object
+type StageClear*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StageClear/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
@@ -509,7 +509,7 @@ proc iistageClear(scope: Scope,
                  container: cstring,
                  shared_name: cstring,
                  capacity: int64,
-                 memory_limit: int64): StageClear {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StageClear(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
+                 memory_limit: int64): StageClear {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StageClear(*#, #, tensorflow::string(#), tensorflow::string(#), #, #)", constructor.}
 
 proc stageClear*(scope: Scope,
                  dtypes: openArray[DType],
@@ -525,7 +525,7 @@ proc stageClear*(scope: Scope,
                       memory_limit)
 
 
-type StatefulPartitionedCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatefulPartitionedCall/*'0*/".} = object
+type StatefulPartitionedCall*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatefulPartitionedCall/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -537,7 +537,7 @@ proc iistatefulPartitionedCall[oT: oall](scope: Scope,
                               config: cstring,
                               config_proto: cstring,
                               executor_type: cstring,
-                              explicitT: type(oT)): StatefulPartitionedCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatefulPartitionedCall(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
+                              explicitT: type(oT)): StatefulPartitionedCall[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatefulPartitionedCall(*#, #, #, #, #, tensorflow::string(#), tensorflow::string(#), tensorflow::string(#))", constructor.}
 
 proc statefulPartitionedCall*(scope: Scope,
                               args: olist[oall],
@@ -562,7 +562,7 @@ converter statefulPartitionedCallToOutList*[oT: oall](op: StatefulPartitionedCal
 
 type StatelessIfTcond* = oall
 
-type StatelessIf*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatelessIf/*'0*/".} = object
+type StatelessIf*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatelessIf/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -573,7 +573,7 @@ proc iistatelessIf[oT: oall](scope: Scope,
                   Tout: ArraySlice[DType],
                   then_branch: NameAttrList,
                   else_branch: NameAttrList,
-                  explicitT: type(oT)): StatelessIf[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatelessIf(*#, #, #, #, #, #, #)", constructor.}
+                  explicitT: type(oT)): StatelessIf[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatelessIf(*#, #, #, #, #, #, #)", constructor.}
 
 proc statelessIf*(scope: Scope,
                   cond: StatelessIfTcond,
@@ -595,7 +595,7 @@ proc statelessIf*(scope: Scope,
 converter statelessIfToOutList*[oT: oall](op: StatelessIf[oT]): olist[oT] {.inline.} = return op.output
 
 
-type StatelessWhile*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatelessWhile/*'0*/".} = object
+type StatelessWhile*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatelessWhile/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -603,7 +603,7 @@ proc iistatelessWhile[oT: oall](scope: Scope,
                      input: olist[oT],
                      T: ArraySlice[DType],
                      cond: NameAttrList,
-                     body: NameAttrList): StatelessWhile[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StatelessWhile(*#, #, #, #, #)", constructor.}
+                     body: NameAttrList): StatelessWhile[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StatelessWhile(*#, #, #, #, #)", constructor.}
 
 proc statelessWhile*[oT: oall](scope: Scope,
                      input: olist[oT],
@@ -619,13 +619,13 @@ proc statelessWhile*[oT: oall](scope: Scope,
 converter statelessWhileToOutList*[oT: oall](op: StatelessWhile[oT]): olist[oT] {.inline.} = return op.output
 
 
-type StopGradient*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StopGradient/*'0*/".} = object
+type StopGradient*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StopGradient/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iistopGradient[oT: oall](scope: Scope,
                    input: oT,
-                   T: DType): StopGradient[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"StopGradient(*#, #, #)", constructor.}
+                   T: DType): StopGradient[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"StopGradient(*#, #, #)", constructor.}
 
 proc stopGradient*[oT: oall](scope: Scope,
                    input: oT): StopGradient[oT] =
@@ -636,14 +636,14 @@ proc stopGradient*[oT: oall](scope: Scope,
 converter stopGradientToOut*[oT: oall](op: StopGradient[oT]): oT {.inline.} = return op.output
 
 
-type Switch*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Switch/*'0*/".} = object
+type Switch*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Switch/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiswitch[oT: oall](scope: Scope,
              data: oT,
              pred: obool,
-             T: DType): Switch[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/control/control.h", importcpp:"Switch(*#, #, #, #)", constructor.}
+             T: DType): Switch[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/control/control.h", importcpp:"Switch(*#, #, #, #)", constructor.}
 
 proc switch*[oT: oall](scope: Scope,
              data: oT,

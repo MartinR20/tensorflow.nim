@@ -3,7 +3,7 @@ import ../../core
 {.compile:"loss/loss.cc".}
 
 
-type CTCLoss* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/loss/loss.h", importcpp:"CTCLoss/*'0*/".} = object
+type CTCLoss* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/loss/loss.h", importcpp:"CTCLoss/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -14,7 +14,7 @@ proc iicTCLoss(scope: Scope,
               sequence_length: oint32,
               preprocess_collapse_repeated: bool,
               ctc_merge_repeated: bool,
-              ignore_longer_outputs_than_inputs: bool): CTCLoss {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/loss/loss.h", importcpp:"CTCLoss(*#, #, #, #, #, #, #, #)", constructor.}
+              ignore_longer_outputs_than_inputs: bool): CTCLoss {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/loss/loss.h", importcpp:"CTCLoss(*#, #, #, #, #, #, #, #)", constructor.}
 
 proc cTCLoss*(scope: Scope,
               inputs: ofloat,
@@ -36,13 +36,13 @@ proc cTCLoss*(scope: Scope,
 converter cTCLossToOut*(op: CTCLoss): ofloat {.inline.} = return op.output
 
 
-type L2Loss*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/loss/loss.h", importcpp:"L2Loss/*'0*/".} = object
+type L2Loss*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/loss/loss.h", importcpp:"L2Loss/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iil2Loss[oT: oall](scope: Scope,
              t: oT,
-             T: DType): L2Loss[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/nn/loss/loss.h", importcpp:"L2Loss(*#, #, #)", constructor.}
+             T: DType): L2Loss[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/loss/loss.h", importcpp:"L2Loss(*#, #, #)", constructor.}
 
 proc l2Loss*[oT: oall](scope: Scope,
              t: oT): L2Loss[oT] =

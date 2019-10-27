@@ -3,7 +3,7 @@ import ../core
 {.compile:"lookup/lookup.cc".}
 
 
-type LookupTableExport*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExport/*'0*/".} = object
+type LookupTableExport*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExport/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -11,7 +11,7 @@ proc iilookupTableExport[oT: oall](scope: Scope,
                         table_handle: ostring,
                         Tkeys: DType,
                         Tvalues: DType,
-                        explicitT: type(oT)): LookupTableExport[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExport(*#, #, #, #)", constructor.}
+                        explicitT: type(oT)): LookupTableExport[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExport(*#, #, #, #)", constructor.}
 
 proc lookupTableExport*(scope: Scope,
                         table_handle: ostring,
@@ -26,7 +26,7 @@ proc lookupTableExport*(scope: Scope,
 converter lookupTableExportToOut*[oT: oall](op: LookupTableExport[oT]): oT {.inline.} = return op.output
 
 
-type LookupTableExportV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExportV2/*'0*/".} = object
+type LookupTableExportV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExportV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -34,7 +34,7 @@ proc iilookupTableExportV2[oT: oall](scope: Scope,
                           table_handle: oresource,
                           Tkeys: DType,
                           Tvalues: DType,
-                          explicitT: type(oT)): LookupTableExportV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExportV2(*#, #, #, #)", constructor.}
+                          explicitT: type(oT)): LookupTableExportV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableExportV2(*#, #, #, #)", constructor.}
 
 proc lookupTableExportV2*(scope: Scope,
                           table_handle: oresource,
@@ -50,7 +50,7 @@ converter lookupTableExportV2ToOut*[oT: oall](op: LookupTableExportV2[oT]): oT {
 
 type LookupTableFindTin* = oall
 
-type LookupTableFind*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFind/*'0*/".} = object
+type LookupTableFind*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFind/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -58,7 +58,7 @@ proc iilookupTableFind[oT: oall](scope: Scope,
                       table_handle: ostring,
                       keys: LookupTableFindTin,
                       default_value: oT,
-                      Tout: DType): LookupTableFind[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFind(*#, #, #, #, #)", constructor.}
+                      Tout: DType): LookupTableFind[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFind(*#, #, #, #, #)", constructor.}
 
 proc lookupTableFind*[oT: oall](scope: Scope,
                       table_handle: ostring,
@@ -74,7 +74,7 @@ converter lookupTableFindToOut*[oT: oall](op: LookupTableFind[oT]): oT {.inline.
 
 type LookupTableFindV2Tin* = oall
 
-type LookupTableFindV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFindV2/*'0*/".} = object
+type LookupTableFindV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFindV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -82,7 +82,7 @@ proc iilookupTableFindV2[oT: oall](scope: Scope,
                         table_handle: oresource,
                         keys: LookupTableFindV2Tin,
                         default_value: oT,
-                        Tout: DType): LookupTableFindV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFindV2(*#, #, #, #, #)", constructor.}
+                        Tout: DType): LookupTableFindV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableFindV2(*#, #, #, #, #)", constructor.}
 
 proc lookupTableFindV2*[oT: oall](scope: Scope,
                         table_handle: oresource,
@@ -99,14 +99,14 @@ converter lookupTableFindV2ToOut*[oT: oall](op: LookupTableFindV2[oT]): oT {.inl
 type LookupTableImportTout* = oall
 type LookupTableImportTin* = oall
 
-type LookupTableImport*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImport/*'0*/".} = object
+type LookupTableImport*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImport/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iilookupTableImport(scope: Scope,
                         table_handle: ostring,
                         keys: LookupTableImportTin,
-                        values: LookupTableImportTout): LookupTableImport {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImport(*#, #, #, #)", constructor.}
+                        values: LookupTableImportTout): LookupTableImport {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImport(*#, #, #, #)", constructor.}
 
 proc lookupTableImport*(scope: Scope,
                         table_handle: ostring,
@@ -120,14 +120,14 @@ proc lookupTableImport*(scope: Scope,
 type LookupTableImportV2Tout* = oall
 type LookupTableImportV2Tin* = oall
 
-type LookupTableImportV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImportV2/*'0*/".} = object
+type LookupTableImportV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImportV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iilookupTableImportV2(scope: Scope,
                           table_handle: oresource,
                           keys: LookupTableImportV2Tin,
-                          values: LookupTableImportV2Tout): LookupTableImportV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImportV2(*#, #, #, #)", constructor.}
+                          values: LookupTableImportV2Tout): LookupTableImportV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableImportV2(*#, #, #, #)", constructor.}
 
 proc lookupTableImportV2*(scope: Scope,
                           table_handle: oresource,
@@ -141,14 +141,14 @@ proc lookupTableImportV2*(scope: Scope,
 type LookupTableInsertTout* = oall
 type LookupTableInsertTin* = oall
 
-type LookupTableInsert*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsert/*'0*/".} = object
+type LookupTableInsert*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsert/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iilookupTableInsert(scope: Scope,
                         table_handle: ostring,
                         keys: LookupTableInsertTin,
-                        values: LookupTableInsertTout): LookupTableInsert {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsert(*#, #, #, #)", constructor.}
+                        values: LookupTableInsertTout): LookupTableInsert {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsert(*#, #, #, #)", constructor.}
 
 proc lookupTableInsert*(scope: Scope,
                         table_handle: ostring,
@@ -162,14 +162,14 @@ proc lookupTableInsert*(scope: Scope,
 type LookupTableInsertV2Tout* = oall
 type LookupTableInsertV2Tin* = oall
 
-type LookupTableInsertV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsertV2/*'0*/".} = object
+type LookupTableInsertV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsertV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iilookupTableInsertV2(scope: Scope,
                           table_handle: oresource,
                           keys: LookupTableInsertV2Tin,
-                          values: LookupTableInsertV2Tout): LookupTableInsertV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsertV2(*#, #, #, #)", constructor.}
+                          values: LookupTableInsertV2Tout): LookupTableInsertV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableInsertV2(*#, #, #, #)", constructor.}
 
 proc lookupTableInsertV2*(scope: Scope,
                           table_handle: oresource,
@@ -182,13 +182,13 @@ proc lookupTableInsertV2*(scope: Scope,
 
 type LookupTableRemoveV2Tin* = oall
 
-type LookupTableRemoveV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableRemoveV2/*'0*/".} = object
+type LookupTableRemoveV2*{.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableRemoveV2/*'0*/".} = object
   operation*: Operation[oinvalid]
 
 
 proc iilookupTableRemoveV2(scope: Scope,
                           table_handle: oresource,
-                          keys: LookupTableRemoveV2Tin): LookupTableRemoveV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableRemoveV2(*#, #, #)", constructor.}
+                          keys: LookupTableRemoveV2Tin): LookupTableRemoveV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableRemoveV2(*#, #, #)", constructor.}
 
 proc lookupTableRemoveV2*(scope: Scope,
                           table_handle: oresource,
@@ -198,12 +198,12 @@ proc lookupTableRemoveV2*(scope: Scope,
                                keys)
 
 
-type LookupTableSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSize/*'0*/".} = object
+type LookupTableSize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSize/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iilookupTableSize(scope: Scope,
-                      table_handle: ostring): LookupTableSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSize(*#, #)", constructor.}
+                      table_handle: ostring): LookupTableSize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSize(*#, #)", constructor.}
 
 proc lookupTableSize*(scope: Scope,
                       table_handle: ostring): LookupTableSize =
@@ -213,12 +213,12 @@ proc lookupTableSize*(scope: Scope,
 converter lookupTableSizeToOut*(op: LookupTableSize): oint64 {.inline.} = return op.output
 
 
-type LookupTableSizeV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSizeV2/*'0*/".} = object
+type LookupTableSizeV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSizeV2/*'0*/".} = object
   operation*: Operation[oint64]
   output*: oint64
 
 proc iilookupTableSizeV2(scope: Scope,
-                        table_handle: oresource): LookupTableSizeV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSizeV2(*#, #)", constructor.}
+                        table_handle: oresource): LookupTableSizeV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/lookup/lookup.h", importcpp:"LookupTableSizeV2(*#, #)", constructor.}
 
 proc lookupTableSizeV2*(scope: Scope,
                         table_handle: oresource): LookupTableSizeV2 =

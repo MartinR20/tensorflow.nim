@@ -4,7 +4,7 @@ import ../core
 
 type AdjustContrastT* = ouint8 | oint8 | oint16 | oint32 | oint64 | ofloat | odouble
 
-type AdjustContrast* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustContrast/*'0*/".} = object
+type AdjustContrast* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustContrast/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -12,7 +12,7 @@ proc iiadjustContrast(scope: Scope,
                      images: AdjustContrastT,
                      contrast_factor: ofloat,
                      min_value: ofloat,
-                     max_value: ofloat): AdjustContrast {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustContrast(*#, #, #, #, #)", constructor.}
+                     max_value: ofloat): AdjustContrast {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustContrast(*#, #, #, #, #)", constructor.}
 
 proc adjustContrast*(scope: Scope,
                      images: AdjustContrastT,
@@ -28,13 +28,13 @@ proc adjustContrast*(scope: Scope,
 converter adjustContrastToOut*(op: AdjustContrast): ofloat {.inline.} = return op.output
 
 
-type AdjustContrastv2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustContrastv2/*'0*/".} = object
+type AdjustContrastv2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustContrastv2/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiadjustContrastv2(scope: Scope,
                        images: ofloat,
-                       contrast_factor: ofloat): AdjustContrastv2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustContrastv2(*#, #, #)", constructor.}
+                       contrast_factor: ofloat): AdjustContrastv2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustContrastv2(*#, #, #)", constructor.}
 
 proc adjustContrastv2*(scope: Scope,
                        images: ofloat,
@@ -46,13 +46,13 @@ proc adjustContrastv2*(scope: Scope,
 converter adjustContrastv2ToOut*(op: AdjustContrastv2): ofloat {.inline.} = return op.output
 
 
-type AdjustHue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustHue/*'0*/".} = object
+type AdjustHue* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustHue/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiadjustHue(scope: Scope,
                 images: ofloat,
-                delta: ofloat): AdjustHue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustHue(*#, #, #)", constructor.}
+                delta: ofloat): AdjustHue {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustHue(*#, #, #)", constructor.}
 
 proc adjustHue*(scope: Scope,
                 images: ofloat,
@@ -64,13 +64,13 @@ proc adjustHue*(scope: Scope,
 converter adjustHueToOut*(op: AdjustHue): ofloat {.inline.} = return op.output
 
 
-type AdjustSaturation* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustSaturation/*'0*/".} = object
+type AdjustSaturation* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustSaturation/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiadjustSaturation(scope: Scope,
                        images: ofloat,
-                       scale: ofloat): AdjustSaturation {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"AdjustSaturation(*#, #, #)", constructor.}
+                       scale: ofloat): AdjustSaturation {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"AdjustSaturation(*#, #, #)", constructor.}
 
 proc adjustSaturation*(scope: Scope,
                        images: ofloat,
@@ -83,7 +83,7 @@ converter adjustSaturationToOut*(op: AdjustSaturation): ofloat {.inline.} = retu
 
 type CropAndResizeT* = ouint8 | ouint16 | oint8 | oint16 | oint32 | oint64 | ohalf | ofloat | odouble
 
-type CropAndResize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"CropAndResize/*'0*/".} = object
+type CropAndResize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"CropAndResize/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -93,7 +93,7 @@ proc iicropAndResize(scope: Scope,
                     box_ind: oint32,
                     crop_size: oint32,
                     extrapolation_value: float32,
-                    nmethod: cstring): CropAndResize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"CropAndResize(*#, #, #, #, #, #, tensorflow::string(#))", constructor.}
+                    nmethod: cstring): CropAndResize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"CropAndResize(*#, #, #, #, #, #, tensorflow::string(#))", constructor.}
 
 proc cropAndResize*(scope: Scope,
                     image: CropAndResizeT,
@@ -113,7 +113,7 @@ proc cropAndResize*(scope: Scope,
 converter cropAndResizeToOut*(op: CropAndResize): ofloat {.inline.} = return op.output
 
 
-type CropAndResizeGradImage*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"CropAndResizeGradImage/*'0*/".} = object
+type CropAndResizeGradImage*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"CropAndResizeGradImage/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -124,7 +124,7 @@ proc iicropAndResizeGradImage[oT: oall](scope: Scope,
                              image_size: oint32,
                              T: DType,
                              nmethod: cstring,
-                             explicitT: type(oT)): CropAndResizeGradImage[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"CropAndResizeGradImage(*#, #, #, #, #, #, tensorflow::string(#))", constructor.}
+                             explicitT: type(oT)): CropAndResizeGradImage[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"CropAndResizeGradImage(*#, #, #, #, #, #, tensorflow::string(#))", constructor.}
 
 proc cropAndResizeGradImage*(scope: Scope,
                              grads: ofloat,
@@ -145,7 +145,7 @@ proc cropAndResizeGradImage*(scope: Scope,
 converter cropAndResizeGradImageToOut*[oT: oall](op: CropAndResizeGradImage[oT]): oT {.inline.} = return op.output
 
 
-type DecodeAndCropJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeAndCropJpeg/*'0*/".} = object
+type DecodeAndCropJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeAndCropJpeg/*'0*/".} = object
   operation*: Operation[ouint8]
   output*: ouint8
 
@@ -157,7 +157,7 @@ proc iidecodeAndCropJpeg(scope: Scope,
                         ratio: int64,
                         fancy_upscaling: bool,
                         try_recover_truncated: bool,
-                        acceptable_fraction: float32): DecodeAndCropJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeAndCropJpeg(*#, #, #, tensorflow::string(#), #, #, #, #, #)", constructor.}
+                        acceptable_fraction: float32): DecodeAndCropJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeAndCropJpeg(*#, #, #, tensorflow::string(#), #, #, #, #, #)", constructor.}
 
 proc decodeAndCropJpeg*(scope: Scope,
                         contents: ostring,
@@ -181,13 +181,13 @@ proc decodeAndCropJpeg*(scope: Scope,
 converter decodeAndCropJpegToOut*(op: DecodeAndCropJpeg): ouint8 {.inline.} = return op.output
 
 
-type DecodeBmp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeBmp/*'0*/".} = object
+type DecodeBmp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeBmp/*'0*/".} = object
   operation*: Operation[ouint8]
   output*: ouint8
 
 proc iidecodeBmp(scope: Scope,
                 contents: ostring,
-                channels: int64): DecodeBmp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeBmp(*#, #, #)", constructor.}
+                channels: int64): DecodeBmp {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeBmp(*#, #, #)", constructor.}
 
 proc decodeBmp*(scope: Scope,
                 contents: ostring,
@@ -199,7 +199,7 @@ proc decodeBmp*(scope: Scope,
 converter decodeBmpToOut*(op: DecodeBmp): ouint8 {.inline.} = return op.output
 
 
-type DecodeCSV*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeCSV/*'0*/".} = object
+type DecodeCSV*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeCSV/*'0*/".} = object
   operation*: Operation[oT]
   output*: olist[oT]
 
@@ -210,7 +210,7 @@ proc iidecodeCSV[oT: oall](scope: Scope,
                 na_value: cstring,
                 select_cols: ArraySlice[int],
                 field_delim: cstring,
-                use_quote_delim: bool): DecodeCSV[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeCSV(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
+                use_quote_delim: bool): DecodeCSV[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeCSV(*#, #, #, #, tensorflow::string(#), #, tensorflow::string(#), #)", constructor.}
 
 proc decodeCSV*[oT: oall](scope: Scope,
                 records: ostring,
@@ -232,12 +232,12 @@ proc decodeCSV*[oT: oall](scope: Scope,
 converter decodeCSVToOutList*[oT: oall](op: DecodeCSV[oT]): olist[oT] {.inline.} = return op.output
 
 
-type DecodeGif* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeGif/*'0*/".} = object
+type DecodeGif* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeGif/*'0*/".} = object
   operation*: Operation[ouint8]
   output*: ouint8
 
 proc iidecodeGif(scope: Scope,
-                contents: ostring): DecodeGif {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeGif(*#, #)", constructor.}
+                contents: ostring): DecodeGif {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeGif(*#, #)", constructor.}
 
 proc decodeGif*(scope: Scope,
                 contents: ostring): DecodeGif =
@@ -247,7 +247,7 @@ proc decodeGif*(scope: Scope,
 converter decodeGifToOut*(op: DecodeGif): ouint8 {.inline.} = return op.output
 
 
-type DecodeJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeJpeg/*'0*/".} = object
+type DecodeJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeJpeg/*'0*/".} = object
   operation*: Operation[ouint8]
   output*: ouint8
 
@@ -258,7 +258,7 @@ proc iidecodeJpeg(scope: Scope,
                  ratio: int64,
                  fancy_upscaling: bool,
                  try_recover_truncated: bool,
-                 acceptable_fraction: float32): DecodeJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeJpeg(*#, #, tensorflow::string(#), #, #, #, #, #)", constructor.}
+                 acceptable_fraction: float32): DecodeJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeJpeg(*#, #, tensorflow::string(#), #, #, #, #, #)", constructor.}
 
 proc decodeJpeg*(scope: Scope,
                  contents: ostring,
@@ -280,7 +280,7 @@ proc decodeJpeg*(scope: Scope,
 converter decodeJpegToOut*(op: DecodeJpeg): ouint8 {.inline.} = return op.output
 
 
-type DecodePng*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodePng/*'0*/".} = object
+type DecodePng*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodePng/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -288,7 +288,7 @@ proc iidecodePng[oT: oall](scope: Scope,
                 contents: ostring,
                 channels: int64,
                 dtype: DType,
-                explicitT: type(oT)): DecodePng[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodePng(*#, #, #, #)", constructor.}
+                explicitT: type(oT)): DecodePng[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodePng(*#, #, #, #)", constructor.}
 
 proc decodePng*(scope: Scope,
                 contents: ostring,
@@ -303,7 +303,7 @@ proc decodePng*(scope: Scope,
 converter decodePngToOut*[oT: oall](op: DecodePng[oT]): oT {.inline.} = return op.output
 
 
-type DecodeRaw*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeRaw/*'0*/".} = object
+type DecodeRaw*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeRaw/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -311,7 +311,7 @@ proc iidecodeRaw[oT: oall](scope: Scope,
                 bytes: ostring,
                 out_type: DType,
                 little_endian: bool,
-                explicitT: type(oT)): DecodeRaw[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DecodeRaw(*#, #, #, #)", constructor.}
+                explicitT: type(oT)): DecodeRaw[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DecodeRaw(*#, #, #, #)", constructor.}
 
 proc decodeRaw*(scope: Scope,
                 bytes: ostring,
@@ -326,14 +326,14 @@ proc decodeRaw*(scope: Scope,
 converter decodeRawToOut*[oT: oall](op: DecodeRaw[oT]): oT {.inline.} = return op.output
 
 
-type DrawBoundingBoxes*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DrawBoundingBoxes/*'0*/".} = object
+type DrawBoundingBoxes*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DrawBoundingBoxes/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iidrawBoundingBoxes[oT: oall](scope: Scope,
                         images: oT,
                         boxes: ofloat,
-                        T: DType): DrawBoundingBoxes[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"DrawBoundingBoxes(*#, #, #, #)", constructor.}
+                        T: DType): DrawBoundingBoxes[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"DrawBoundingBoxes(*#, #, #, #)", constructor.}
 
 proc drawBoundingBoxes*[oT: oall](scope: Scope,
                         images: oT,
@@ -346,7 +346,7 @@ proc drawBoundingBoxes*[oT: oall](scope: Scope,
 converter drawBoundingBoxesToOut*[oT: oall](op: DrawBoundingBoxes[oT]): oT {.inline.} = return op.output
 
 
-type EncodeJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"EncodeJpeg/*'0*/".} = object
+type EncodeJpeg* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"EncodeJpeg/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
@@ -360,7 +360,7 @@ proc iiencodeJpeg(scope: Scope,
                  chroma_downsampling: bool,
                  density_unit: cstring,
                  x_density: int64,
-                 y_density: int64): EncodeJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"EncodeJpeg(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #, tensorflow::string(#), #, #)", constructor.}
+                 y_density: int64): EncodeJpeg {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"EncodeJpeg(*#, #, tensorflow::string(#), tensorflow::string(#), #, #, #, #, tensorflow::string(#), #, #)", constructor.}
 
 proc encodeJpeg*(scope: Scope,
                  image: ouint8,
@@ -389,13 +389,13 @@ converter encodeJpegToOut*(op: EncodeJpeg): ostring {.inline.} = return op.outpu
 
 type EncodePngT* = ouint8 | ouint16
 
-type EncodePng* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"EncodePng/*'0*/".} = object
+type EncodePng* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"EncodePng/*'0*/".} = object
   operation*: Operation[ostring]
   output*: ostring
 
 proc iiencodePng(scope: Scope,
                 image: EncodePngT,
-                compression: int64): EncodePng {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"EncodePng(*#, #, #)", constructor.}
+                compression: int64): EncodePng {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"EncodePng(*#, #, #)", constructor.}
 
 proc encodePng*(scope: Scope,
                 image: EncodePngT,
@@ -407,7 +407,7 @@ proc encodePng*(scope: Scope,
 converter encodePngToOut*(op: EncodePng): ostring {.inline.} = return op.output
 
 
-type ExtractGlimpse* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractGlimpse/*'0*/".} = object
+type ExtractGlimpse* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractGlimpse/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
@@ -417,7 +417,7 @@ proc iiextractGlimpse(scope: Scope,
                      offsets: ofloat,
                      centered: bool,
                      normalized: bool,
-                     uniform_noise: bool): ExtractGlimpse {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractGlimpse(*#, #, #, #, #, #, #)", constructor.}
+                     uniform_noise: bool): ExtractGlimpse {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractGlimpse(*#, #, #, #, #, #, #)", constructor.}
 
 proc extractGlimpse*(scope: Scope,
                      input: ofloat,
@@ -437,7 +437,7 @@ proc extractGlimpse*(scope: Scope,
 converter extractGlimpseToOut*(op: ExtractGlimpse): ofloat {.inline.} = return op.output
 
 
-type ExtractImagePatches*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractImagePatches/*'0*/".} = object
+type ExtractImagePatches*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractImagePatches/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -447,7 +447,7 @@ proc iiextractImagePatches[oT: oall](scope: Scope,
                           strides: ArraySlice[int],
                           rates: ArraySlice[int],
                           padding: cstring,
-                          T: DType): ExtractImagePatches[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractImagePatches(*#, #, #, #, #, tensorflow::string(#), #)", constructor.}
+                          T: DType): ExtractImagePatches[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractImagePatches(*#, #, #, #, #, tensorflow::string(#), #)", constructor.}
 
 proc extractImagePatches*[oT: oall](scope: Scope,
                           images: oT,
@@ -466,14 +466,14 @@ proc extractImagePatches*[oT: oall](scope: Scope,
 converter extractImagePatchesToOut*[oT: oall](op: ExtractImagePatches[oT]): oT {.inline.} = return op.output
 
 
-type ExtractJpegShape*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractJpegShape/*'0*/".} = object
+type ExtractJpegShape*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractJpegShape/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iiextractJpegShape[oT: oall](scope: Scope,
                        contents: ostring,
                        output_type: DType,
-                       explicitT: type(oT)): ExtractJpegShape[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ExtractJpegShape(*#, #, #)", constructor.}
+                       explicitT: type(oT)): ExtractJpegShape[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ExtractJpegShape(*#, #, #)", constructor.}
 
 proc extractJpegShape*(scope: Scope,
                        contents: ostring,
@@ -486,13 +486,13 @@ proc extractJpegShape*(scope: Scope,
 converter extractJpegShapeToOut*[oT: oall](op: ExtractJpegShape[oT]): oT {.inline.} = return op.output
 
 
-type HSVToRGB*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"HSVToRGB/*'0*/".} = object
+type HSVToRGB*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"HSVToRGB/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iihSVToRGB[oT: oall](scope: Scope,
                images: oT,
-               T: DType): HSVToRGB[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"HSVToRGB(*#, #, #)", constructor.}
+               T: DType): HSVToRGB[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"HSVToRGB(*#, #, #)", constructor.}
 
 proc hSVToRGB*[oT: oall](scope: Scope,
                images: oT): HSVToRGB[oT] =
@@ -503,7 +503,7 @@ proc hSVToRGB*[oT: oall](scope: Scope,
 converter hSVToRGBToOut*[oT: oall](op: HSVToRGB[oT]): oT {.inline.} = return op.output
 
 
-type NonMaxSuppression* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppression/*'0*/".} = object
+type NonMaxSuppression* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppression/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
@@ -511,7 +511,7 @@ proc iinonMaxSuppression(scope: Scope,
                         boxes: ofloat,
                         scores: ofloat,
                         max_output_size: oint32,
-                        iou_threshold: float32): NonMaxSuppression {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppression(*#, #, #, #, #)", constructor.}
+                        iou_threshold: float32): NonMaxSuppression {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppression(*#, #, #, #, #)", constructor.}
 
 proc nonMaxSuppression*(scope: Scope,
                         boxes: ofloat,
@@ -528,7 +528,7 @@ converter nonMaxSuppressionToOut*(op: NonMaxSuppression): oint32 {.inline.} = re
 
 type NonMaxSuppressionV2T* = ohalf | ofloat
 
-type NonMaxSuppressionV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppressionV2/*'0*/".} = object
+type NonMaxSuppressionV2* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppressionV2/*'0*/".} = object
   operation*: Operation[oint32]
   output*: oint32
 
@@ -536,7 +536,7 @@ proc iinonMaxSuppressionV2(scope: Scope,
                           boxes: NonMaxSuppressionV2T,
                           scores: NonMaxSuppressionV2T,
                           max_output_size: oint32,
-                          iou_threshold: ofloat): NonMaxSuppressionV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppressionV2(*#, #, #, #, #)", constructor.}
+                          iou_threshold: ofloat): NonMaxSuppressionV2 {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"NonMaxSuppressionV2(*#, #, #, #, #)", constructor.}
 
 proc nonMaxSuppressionV2*(scope: Scope,
                           boxes: NonMaxSuppressionV2T,
@@ -552,7 +552,7 @@ proc nonMaxSuppressionV2*(scope: Scope,
 converter nonMaxSuppressionV2ToOut*(op: NonMaxSuppressionV2): oint32 {.inline.} = return op.output
 
 
-type QuantizedResizeBilinear*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"QuantizedResizeBilinear/*'0*/".} = object
+type QuantizedResizeBilinear*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"QuantizedResizeBilinear/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -562,7 +562,7 @@ proc iiquantizedResizeBilinear[oT: oall](scope: Scope,
                               min: ofloat,
                               max: ofloat,
                               T: DType,
-                              align_corners: bool): QuantizedResizeBilinear[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"QuantizedResizeBilinear(*#, #, #, #, #, #, #)", constructor.}
+                              align_corners: bool): QuantizedResizeBilinear[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"QuantizedResizeBilinear(*#, #, #, #, #, #, #)", constructor.}
 
 proc quantizedResizeBilinear*[oT: oall](scope: Scope,
                               images: oT,
@@ -581,13 +581,13 @@ proc quantizedResizeBilinear*[oT: oall](scope: Scope,
 converter quantizedResizeBilinearToOut*[oT: oall](op: QuantizedResizeBilinear[oT]): oT {.inline.} = return op.output
 
 
-type RGBToHSV*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"RGBToHSV/*'0*/".} = object
+type RGBToHSV*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"RGBToHSV/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
 proc iirGBToHSV[oT: oall](scope: Scope,
                images: oT,
-               T: DType): RGBToHSV[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"RGBToHSV(*#, #, #)", constructor.}
+               T: DType): RGBToHSV[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"RGBToHSV(*#, #, #)", constructor.}
 
 proc rGBToHSV*[oT: oall](scope: Scope,
                images: oT): RGBToHSV[oT] =
@@ -598,7 +598,7 @@ proc rGBToHSV*[oT: oall](scope: Scope,
 converter rGBToHSVToOut*[oT: oall](op: RGBToHSV[oT]): oT {.inline.} = return op.output
 
 
-type RandomCrop*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"RandomCrop/*'0*/".} = object
+type RandomCrop*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"RandomCrop/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -607,7 +607,7 @@ proc iirandomCrop[oT: oall](scope: Scope,
                  size: oint64,
                  T: DType,
                  seed: int64,
-                 seed2: int64): RandomCrop[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"RandomCrop(*#, #, #, #, #, #)", constructor.}
+                 seed2: int64): RandomCrop[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"RandomCrop(*#, #, #, #, #, #)", constructor.}
 
 proc randomCrop*[oT: oall](scope: Scope,
                  image: oT,
@@ -625,14 +625,14 @@ converter randomCropToOut*[oT: oall](op: RandomCrop[oT]): oT {.inline.} = return
 
 type ResizeAreaT* = oint8 | ouint8 | oint16 | ouint16 | oint32 | oint64 | ohalf | ofloat | odouble
 
-type ResizeArea* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeArea/*'0*/".} = object
+type ResizeArea* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeArea/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiresizeArea(scope: Scope,
                  images: ResizeAreaT,
                  size: oint32,
-                 align_corners: bool): ResizeArea {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeArea(*#, #, #, #)", constructor.}
+                 align_corners: bool): ResizeArea {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeArea(*#, #, #, #)", constructor.}
 
 proc resizeArea*(scope: Scope,
                  images: ResizeAreaT,
@@ -647,14 +647,14 @@ converter resizeAreaToOut*(op: ResizeArea): ofloat {.inline.} = return op.output
 
 type ResizeBicubicT* = oint8 | ouint8 | oint16 | ouint16 | oint32 | oint64 | ohalf | ofloat | odouble
 
-type ResizeBicubic* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBicubic/*'0*/".} = object
+type ResizeBicubic* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBicubic/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiresizeBicubic(scope: Scope,
                     images: ResizeBicubicT,
                     size: oint32,
-                    align_corners: bool): ResizeBicubic {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBicubic(*#, #, #, #)", constructor.}
+                    align_corners: bool): ResizeBicubic {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBicubic(*#, #, #, #)", constructor.}
 
 proc resizeBicubic*(scope: Scope,
                     images: ResizeBicubicT,
@@ -668,7 +668,7 @@ proc resizeBicubic*(scope: Scope,
 converter resizeBicubicToOut*(op: ResizeBicubic): ofloat {.inline.} = return op.output
 
 
-type ResizeBicubicGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBicubicGrad/*'0*/".} = object
+type ResizeBicubicGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBicubicGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -676,7 +676,7 @@ proc iiresizeBicubicGrad[oT: oall](scope: Scope,
                         grads: ofloat,
                         original_image: oT,
                         T: DType,
-                        align_corners: bool): ResizeBicubicGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBicubicGrad(*#, #, #, #, #)", constructor.}
+                        align_corners: bool): ResizeBicubicGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBicubicGrad(*#, #, #, #, #)", constructor.}
 
 proc resizeBicubicGrad*[oT: oall](scope: Scope,
                         grads: ofloat,
@@ -692,14 +692,14 @@ converter resizeBicubicGradToOut*[oT: oall](op: ResizeBicubicGrad[oT]): oT {.inl
 
 type ResizeBilinearT* = oint8 | ouint8 | oint16 | ouint16 | oint32 | oint64 | obfloat16 | ohalf | ofloat | odouble
 
-type ResizeBilinear* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBilinear/*'0*/".} = object
+type ResizeBilinear* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBilinear/*'0*/".} = object
   operation*: Operation[ofloat]
   output*: ofloat
 
 proc iiresizeBilinear(scope: Scope,
                      images: ResizeBilinearT,
                      size: oint32,
-                     align_corners: bool): ResizeBilinear {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBilinear(*#, #, #, #)", constructor.}
+                     align_corners: bool): ResizeBilinear {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBilinear(*#, #, #, #)", constructor.}
 
 proc resizeBilinear*(scope: Scope,
                      images: ResizeBilinearT,
@@ -713,7 +713,7 @@ proc resizeBilinear*(scope: Scope,
 converter resizeBilinearToOut*(op: ResizeBilinear): ofloat {.inline.} = return op.output
 
 
-type ResizeBilinearGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBilinearGrad/*'0*/".} = object
+type ResizeBilinearGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBilinearGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -721,7 +721,7 @@ proc iiresizeBilinearGrad[oT: oall](scope: Scope,
                          grads: ofloat,
                          original_image: oT,
                          T: DType,
-                         align_corners: bool): ResizeBilinearGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeBilinearGrad(*#, #, #, #, #)", constructor.}
+                         align_corners: bool): ResizeBilinearGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeBilinearGrad(*#, #, #, #, #)", constructor.}
 
 proc resizeBilinearGrad*[oT: oall](scope: Scope,
                          grads: ofloat,
@@ -736,7 +736,7 @@ proc resizeBilinearGrad*[oT: oall](scope: Scope,
 converter resizeBilinearGradToOut*[oT: oall](op: ResizeBilinearGrad[oT]): oT {.inline.} = return op.output
 
 
-type ResizeNearestNeighbor*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighbor/*'0*/".} = object
+type ResizeNearestNeighbor*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighbor/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -744,7 +744,7 @@ proc iiresizeNearestNeighbor[oT: oall](scope: Scope,
                             images: oT,
                             size: oint32,
                             T: DType,
-                            align_corners: bool): ResizeNearestNeighbor[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighbor(*#, #, #, #, #)", constructor.}
+                            align_corners: bool): ResizeNearestNeighbor[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighbor(*#, #, #, #, #)", constructor.}
 
 proc resizeNearestNeighbor*[oT: oall](scope: Scope,
                             images: oT,
@@ -759,7 +759,7 @@ proc resizeNearestNeighbor*[oT: oall](scope: Scope,
 converter resizeNearestNeighborToOut*[oT: oall](op: ResizeNearestNeighbor[oT]): oT {.inline.} = return op.output
 
 
-type ResizeNearestNeighborGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighborGrad/*'0*/".} = object
+type ResizeNearestNeighborGrad*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighborGrad/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -767,7 +767,7 @@ proc iiresizeNearestNeighborGrad[oT: oall](scope: Scope,
                                 grads: oT,
                                 size: oint32,
                                 T: DType,
-                                align_corners: bool): ResizeNearestNeighborGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighborGrad(*#, #, #, #, #)", constructor.}
+                                align_corners: bool): ResizeNearestNeighborGrad[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"ResizeNearestNeighborGrad(*#, #, #, #, #)", constructor.}
 
 proc resizeNearestNeighborGrad*[oT: oall](scope: Scope,
                                 grads: oT,
@@ -782,7 +782,7 @@ proc resizeNearestNeighborGrad*[oT: oall](scope: Scope,
 converter resizeNearestNeighborGradToOut*[oT: oall](op: ResizeNearestNeighborGrad[oT]): oT {.inline.} = return op.output
 
 
-type SampleDistortedBoundingBox*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBox/*'0*/".} = object
+type SampleDistortedBoundingBox*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBox/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -796,7 +796,7 @@ proc iisampleDistortedBoundingBox[oT: oall](scope: Scope,
                                  aspect_ratio_range: ArraySlice[float32],
                                  area_range: ArraySlice[float32],
                                  max_attempts: int64,
-                                 use_image_if_no_bounding_boxes: bool): SampleDistortedBoundingBox[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBox(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                 use_image_if_no_bounding_boxes: bool): SampleDistortedBoundingBox[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBox(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc sampleDistortedBoundingBox*[oT: oall](scope: Scope,
                                  image_size: oT,
@@ -823,7 +823,7 @@ proc sampleDistortedBoundingBox*[oT: oall](scope: Scope,
 converter sampleDistortedBoundingBoxToOut*[oT: oall](op: SampleDistortedBoundingBox[oT]): oT {.inline.} = return op.output
 
 
-type SampleDistortedBoundingBoxV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBoxV2/*'0*/".} = object
+type SampleDistortedBoundingBoxV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBoxV2/*'0*/".} = object
   operation*: Operation[oT]
   output*: oT
 
@@ -837,7 +837,7 @@ proc iisampleDistortedBoundingBoxV2[oT: oall](scope: Scope,
                                    aspect_ratio_range: ArraySlice[float32],
                                    area_range: ArraySlice[float32],
                                    max_attempts: int64,
-                                   use_image_if_no_bounding_boxes: bool): SampleDistortedBoundingBoxV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0//src/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBoxV2(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
+                                   use_image_if_no_bounding_boxes: bool): SampleDistortedBoundingBoxV2[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/image/image.h", importcpp:"SampleDistortedBoundingBoxV2(*#, #, #, #, #, #, #, #, #, #, #)", constructor.}
 
 proc sampleDistortedBoundingBoxV2*[oT: oall](scope: Scope,
                                    image_size: oT,
