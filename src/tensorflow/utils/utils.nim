@@ -1,8 +1,8 @@
 when defined(linux) or defined(macosx):
   import os
   const pkgPath* = getHomeDir() & "/.nimble/pkgs/tensorflow-0.1.0/"
-  const includeDir = pkgPath & "src/include/"
-  const libDir = pkgPath & "src/lib/"
+  const includeDir = pkgPath & "include/"
+  const libDir = pkgPath & "lib/"
 
 {.passC:"-I" & includeDir & "tensorflow " &
          "-I" & includeDir & "genfiles " &

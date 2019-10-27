@@ -153,7 +153,7 @@ when isMainModule:
                     writers[optype].write(makeOp(op, 
                                                  pad & "../core", 
                                                  path[^1] & ".h", 
-                                                 pkgPath & "/src/tensorflow/ops/" & cname & ".h", 
+                                                 pkgPath & "tensorflow/ops/" & cname & ".h", 
                                                  path[^1] & "/" & path[^1] & ".cc", 
                                                  includes))
                     includes = false
