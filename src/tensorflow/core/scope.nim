@@ -1,5 +1,8 @@
 import 
-    ../utils/utils, buffers, otypes, ops
+    ../utils/utils, buffers
+
+from ops import Operation
+from otypes import oall
 
 ## Scope related definitions
 type
@@ -113,3 +116,54 @@ proc getUniqueNameForOp*(scope: Scope, default_name: string): string =
 
   ## Return a unique name, using default_name if an op name has not been
   ## specified.
+
+template to_oinvalid*   (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oinvalid)).output
+template to_odouble*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, odouble)).output
+template to_ofloat*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ofloat)).output
+template to_oint64*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oint64)).output
+template to_oint32*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oint32)).output
+template to_ouint8*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ouint8)).output
+template to_oint16*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oint16)).output
+template to_oint8*      (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oint8)).output
+template to_ostring*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ostring)).output
+template to_obool*      (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, obool)).output
+template to_ouint16*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ouint16)).output
+template to_ouint32*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ouint32)).output
+template to_ouint64*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ouint64)).output
+template to_ocomplex64* (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ocomplex64)).output
+template to_ocomplex128*(x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ocomplex128)).output
+template to_oqint8*     (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oqint8)).output
+template to_oquint8*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oquint8)).output
+template to_oqint32*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oqint32)).output
+template to_obfloat16*  (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, obfloat16)).output
+template to_oqint16*    (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oqint16)).output
+template to_oquint16*   (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oquint16)).output
+template to_ohalf*      (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ohalf)).output
+template to_oresource*  (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, oresource)).output
+template to_ovariant*   (x: untyped, scope: Scope): untyped = 
+  nconst(scope, tensor(x, ovariant)).output
+template to*   (x: untyped, scope: Scope, dtype: type): untyped = 
+  nconst(scope, tensor(x, dtype)).output
