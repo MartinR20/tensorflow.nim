@@ -2,7 +2,7 @@ import
     ../utils/utils, scope
 
 type
-  Status* {.importcpp:"tensorflow::Status".} = object
+  Status* {.header: tensorh, importcpp:"tensorflow::Status".} = object
 
 proc updateStatus*(scope: Scope, s: Status) {.importcpp:"#->UpdateStatus(#)".}
 
@@ -15,20 +15,20 @@ proc status*(scope: Scope): Status {.importcpp:"#->status()".}
 
   ## Get the status of the given Scope.
 
-proc ok*(): Status {.header: std_ops,
+proc ok*(): Status {.header: tensorh,
                     importcpp: "tensorflow::Status::OK()".}
 
 proc logStatus*(scope: Scope) {.importcpp:"LOG(INFO) << #->status().ToString()".}
 
 proc logStatus*(status: Status) {.importcpp:"LOG(INFO) << #.ToString()".}
 
-proc ierrorMsg(status: Status): cppstring {.importcpp:"#.error_message()".}
+proc ierrorMsg(status: Status): cppstring {.importcpp:"#.error_message()", header: tensorh.}
 
 proc errorMsg*(status: Status): string =
-  return $status.ierrorMsg
+  result = $status.ierrorMsg
 
 proc `$`*(status: Status): string =
-  return status.errorMsg
+  result = status.errorMsg
 
 proc ok*(status: Status): bool {.
   header: std_ops,
