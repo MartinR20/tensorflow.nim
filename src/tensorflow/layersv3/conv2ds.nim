@@ -12,15 +12,12 @@ from ../ops/nn import
 from ../ops/prob import 
     statelessRandomNormal
 
-from ../ops/nn/activ import 
-    sigmoid
-
 from sequtils import 
     toSeq
 
 from nodes import 
     variable, constant, Ctx, nshape, dtype,
-    scope, input, seed, rand_max
+    scope, input, seed
 
 template conv2d*(ctx: static Ctx,
                 channels: static int, 
@@ -39,11 +36,11 @@ template conv2d*(ctx: static Ctx,
         constant: 
             let rand_shape = filter_shape.oint32
             let rand_seed = seed().oint32
-            let rand = sigmoid statelessRandomNormal(rand_shape, rand_seed, ctx.dtype).output 
+            let rand = statelessRandomNormal(rand_shape, rand_seed, ctx.dtype).output 
 
     let filter = variableV2(ctx.scope, "", "kernel", filter_shape.shape, ctx.dtype).output
-    let asgn = assign(ctx.scope, filter, rand.output, false, false).output
-    variable(filter_shape.toSeq, filter, asgn)
+    let asgn = assign(ctx.scope, filter, rand, false, false).output
+    ctx.variable(filter_shape.toSeq, filter, asgn)
 
     const in_shape = ctx.nshape()
 

@@ -14,8 +14,8 @@ proc `[]=`[T](arr: cArray[T], i: int, val: T) {.importcpp:"#[#] = #".}
 ## ArraySlice related definitions
 
 type
-  ArraySlice*{.header: tensorh,
-               importcpp: "tensorflow::gtl::ArraySlice<'0>".}[T] = object
+  ArraySlice*[T]{.header: tensorh,
+                  importcpp: "tensorflow::gtl::ArraySlice<'0>".} = object
 
     ## ArraySlice is a wrapper around the tensorflow::gtl::ArraySlice class
     ## which itself is a wrapper around the absl::Span type from the abseil C++ Library. 

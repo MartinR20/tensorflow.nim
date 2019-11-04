@@ -173,7 +173,7 @@ proc makeOpDef*(name: string, builder: OpDefBuilderWrapper): ptr OpDef =
 
     return opdef
 
-macro make(name: static[string]): untyped =
+macro make*(name: static[string]): untyped =
     return parseStmt(registerOpDef[name])
 
 proc getDefSource*(name: string): string =

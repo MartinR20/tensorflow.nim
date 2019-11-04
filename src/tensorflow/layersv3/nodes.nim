@@ -8,29 +8,12 @@ from ../ops/gradients import
 
 include ../with
 
-# @TODO: make vars and constants only available in current ctx
-type IVar = ref object
-    shape: seq[seq[int]]
-    opt: seq[NimNode]
-    init: seq[NimNode]
-    v: seq[NimNode]
-
-var vars {.compileTime.}: IVar = new IVar
-
 template seed*(): untyped =
     const seed {.intdefine.}: int = 2
     # some prime number fun to get a different value
     const seed2 = (seed * 23) %% 41 
 
     [seed, seed2] 
-
-proc rand_max*(): int {.importcpp:"RAND_MAX@".}   
-
-macro variable*(shape: static seq[int], v: untyped, asgn: untyped) =
-    vars.shape.add shape
-
-    vars.v.add v
-    vars.init.add asgn
 
 var consts {.compileTime.} = initTable[string, NimNode]()
 
@@ -53,6 +36,12 @@ macro constant*(x: untyped): untyped =
 
 type Ctx* = distinct int
 
+type IVar = ref object
+    shape: seq[seq[int]]
+    opt: seq[NimNode]
+    init: seq[NimNode]
+    v: seq[NimNode]
+
 type CtxObj* = ref object
     shape*: seq[int]
     scope*: NimNode
@@ -61,6 +50,7 @@ type CtxObj* = ref object
     feed_translate: Table[string, NimNode]
     input*: NimNode
     dtype*: NimNode
+    vars: IVar
 
     when defined debug:
         loss: NimNode
@@ -75,51 +65,46 @@ macro init_ctx(ctx: static Ctx): untyped =
     result.add newNimNode(nnkVarSection)
                 .add(newIdentDefs(ictx.feed, ident "FeedDict"))
 
+template `[]`(ctx: Ctx): untyped =
+    ctxs[ctx.int]
+
 template new_ctx(ctx: untyped): untyped =
     const ctx = Ctx ctxs.len
 
     static:
         ctxs.add new CtxObj
         
-        ctxs[ctx.int].scope = genSym(nskLet, "scope")
-        ctxs[ctx.int].sess = genSym(nskLet, "sess") 
-        ctxs[ctx.int].feed = genSym(nskVar, "feed")
-        ctxs[ctx.int].feed_translate = initTable[string, NimNode]()
+        ctx[].scope = genSym(nskLet, "scope")
+        ctx[].sess = genSym(nskLet, "sess") 
+        ctx[].feed = genSym(nskVar, "feed")
+        ctx[].feed_translate = initTable[string, NimNode]()
+        ctx[].vars = new IVar
 
     init_ctx(ctx)
+
+macro variable*(ctx: static Ctx, shape: static seq[int], v: untyped, asgn: untyped) =
+    ctx[].vars.shape.add shape
+
+    ctx[].vars.v.add v
+    ctx[].vars.init.add asgn
 
 proc vs(ctx: Ctx): NimNode {.compileTime.} = 
     result = newNimNode(nnkBracket)
     
-    for v in vars.v:
+    for v in ctx[].vars.v:
         result.add newCall("anyToInvalid", v)
-
-macro vs(ctx: static Ctx): untyped = 
-    result = newNimNode(nnkBracket)
-    
-    for v in vars.v:
-        result.add newCall("anyToInvalid", v)
-
-proc vs(ctx: Ctx, i: int): NimNode {.compileTime.} = 
-    result = vars.v[i]
-
-macro shapes(ctx: static Ctx, i: static int): untyped =
-    result = newLit vars.shape[i]
 
 macro inits(ctx: static Ctx): untyped = 
     result = newNimNode(nnkBracket)
 
-    for init in vars.init:
+    for init in ctx[].vars.init:
         result.add newCall("anyToInvalid", init)
 
 macro opts(ctx: static Ctx): untyped = 
     result = newNimNode(nnkBracket)
 
-    for opt in vars.opt:
+    for opt in ctx[].vars.opt:
         result.add newCall("anyToInvalid", opt)
-
-template `[]`(ctx: Ctx): untyped =
-    ctxs[ctx.int]
 
 macro scope*(ctx: static Ctx): untyped = 
     result = ctx[].scope
@@ -240,7 +225,7 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
     result.add newVar("grad_out", "olist"["oinvalid"])
     result.add newCall("addSymbolicGradients", ctx[].scope, ctx[].input, newCall("newOutList"["oinvalid"], ctx.vs), ident "grad_out")
 
-    for i, v in vars.v:
+    for i, v in ctx[].vars.v:
         let ivar = genSym(nskLet, $args[0])
         let grad = genSym(nskLet, $args[1])
 
@@ -251,13 +236,12 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
         result.add newLetStmt(grad, newCall("invalidToAny"["ofloat"], "grad_out"[newLit i]))
 
         for j, arg in args[2..^2]:
-            # @TODO: make shape scoped
             result.add newNimNode(nnkCommand)
             let cmd = result[^1]
             cmd.add ident "with"
             cmd.add ctx[].scope
 
-            let seq_shape = newLit vars.shape[i]
+            let seq_shape = newLit ctx[].vars.shape[i]
             let arr_shape = seq_shape[^1]
 
             cmd.add newStmtList()
@@ -278,12 +262,11 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
             let asgn = genSym(nskLet, "asgn")
             with.add newLetStmt(asgn, newCall("assign", ov, empty).."output")
 
-            result.add newCall("variable", seq_shape, ov, asgn)
+            result.add newCall("variable", (newLit ctx.int).."Ctx", seq_shape, ov, asgn)
 
         let optim = genSym(nskLet, "optim")
         result.add newLetStmt(optim, args[^1])
-        # @TODO: make opt scoped
-        vars.opt.add optim
+        ctx[].vars.opt.add optim
 
 when isMainModule:
     import 

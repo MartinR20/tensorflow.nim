@@ -82,7 +82,7 @@ type
     # An Enum holding the integers corresponding to the Tensorflow DataTypes.
 
 const
-  DT_COMPLEX = DT_COMPLEX64
+  DT_COMPLEX* = DT_COMPLEX64
 
 template To*(x: type int8): untyped =
   oint8
@@ -283,9 +283,9 @@ proc iname(o: oall): cppstring {.importcpp:"#.name()".}
 proc name*(o: oall): string =
   return $o.iname()
     
-proc dtype(o: oall): DType {.importcpp:"#.type()".}
+proc dtype*(o: oall): DType {.importcpp:"#.type()".}
   
-proc index(o: oall): int {.importcpp:"#.index()".}
+proc index*(o: oall): int {.importcpp:"#.index()".}
 
 type olist*[oall] {.header: std_ops, importcpp:"tensorflow::OutputList/*'0*/".} = object
 
