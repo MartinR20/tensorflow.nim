@@ -4,6 +4,7 @@ when defined(linux) or defined(macosx):
   const includeDir = pkgPath & "include/"
   const libDir = pkgPath & "lib/"
 
+{.checks:off.}
 {.passC:"-I" & includeDir & "tensorflow " &
          "-I" & includeDir & "genfiles " &
          "-I" & includeDir & "absl " &
