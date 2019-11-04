@@ -1,57 +1,53 @@
 import 
   ../../core, ../gen,  makev2,  registerv2, register_context,
-  macros, strutils, makeutils, tables
+  macros, strutils, makeutils, tables, strformat
 include ../../with
+
+export 
+  makev2,  registerv2, register_context,
+  macros, strutils, makeutils, tables
 
 const
     CPU*: string = "CPU"
     GPU*: string = "GPU"
 
-proc makeOpKernel(exportName: string, funheader: NimNode): NimNode =
-  let cppSource =  "\"\"class " & exportName & "Op : public tensorflow::OpKernel {\n" &
-                    "  public: \n" &
-                    "    explicit " & exportName & "Op(tensorflow::OpKernelConstruction* context): tensorflow::OpKernel(context) {}\n" &
-                    "    void Compute(tensorflow::OpKernelContext* context) override { " & exportName & "_Compute(context); }\n" &
-                    "}; \n\"\""
+proc makeOpKernel(exportName: string): NimNode =
+  let cppSource =  "class " & exportName & "Op : public tensorflow::OpKernel {\n" &
+                   "  public: \n" &
+                   "    explicit " & exportName & "Op(tensorflow::OpKernelConstruction* context): tensorflow::OpKernel(context) {}\n" &
+                   "    void Compute(tensorflow::OpKernelContext* context) override { " & exportName & "_Compute(context); }\n" &
+                   "}; \n"
 
-  insert(funheader, 1, parseStmt("{.emit:\"" & cppSource & "\".}"))
-  return funheader
-
-proc makeFun(body: NimNode, header: NimNode): NimNode =
-  header[0].del(header[0].len-1, 1)
-  insert(header[0], header[0].len, body)
-  return header
-
-proc makeExportFun(exportName: string, body: NimNode): NimNode =
-  return makeFun(body,
-                  parseStmt("proc export" & exportName & "(ctx: ptr OpKernelContext) {.exportc:\"" & exportName & "_Compute\".}")
-                )
+  result = newNimNode(nnkPragma)
+            .add(newColonExpr(ident "emit", newStrLitNode cppSource))
 
 var op_included* {.compileTime.}: bool
-proc makeNewOpIncludes*(funheader: NimNode, explicit = false): NimNode =
+proc makeNewOpIncludes*(explicit = false): NimNode =
   if not op_included or explicit:
-    var includes = "\"\"#include \"tensorflow/core/framework/op.h\" \n" & 
-                   "#include \"tensorflow/core/framework/shape_inference.h\" \n" & 
-                   "#include \"tensorflow/core/framework/common_shape_fns.h\" \n" & 
-                   "#include \"tensorflow/core/framework/op_kernel.h\" \n" & 
-                   "#include \"tensorflow/cc/framework/scope.h\" \n" & 
-                   "#include \"tensorflow/core/framework/tensor.h\" \n" & 
-                   "#include \"tensorflow/core/framework/tensor_shape.h\" \n" & 
-                   "#include \"tensorflow/cc/ops/standard_ops.h\" \n" & 
-                   "#include \"tensorflow/core/framework/types.h\" \n\"\""
-    insert(funheader, 0, parseStmt("{.emit:\"" & includes & "\".}"))
+    const includes = "#include \"tensorflow/core/framework/op.h\" \n" & 
+                     "#include \"tensorflow/core/framework/shape_inference.h\" \n" & 
+                     "#include \"tensorflow/core/framework/common_shape_fns.h\" \n" & 
+                     "#include \"tensorflow/core/framework/op_kernel.h\" \n" & 
+                     "#include \"tensorflow/cc/framework/scope.h\" \n" & 
+                     "#include \"tensorflow/core/framework/tensor.h\" \n" & 
+                     "#include \"tensorflow/core/framework/tensor_shape.h\" \n" & 
+                     "#include \"tensorflow/cc/ops/standard_ops.h\" \n" & 
+                     "#include \"tensorflow/core/framework/types.h\" \n"
     op_included = true
   
-  return funheader
+    result = newNimNode(nnkPragma)
+              .add(newColonExpr(ident "emit", newStrLitNode includes))
+  else:
+    result = newEmptyNode()
 
-proc REGISTER_KERNEL_BUILDER*(exportName: string, device: string, funheader: NimNode): NimNode =
-  let cppSource = "\"\"REGISTER_KERNEL_BUILDER(Name(\"" & exportName & "\").Device(\"" & device & "\"), " & exportName & "Op);\n\"\""
+proc REGISTER_KERNEL_BUILDER*(exportName: string, device: string): NimNode =
+  let cppSource = "REGISTER_KERNEL_BUILDER(Name(\"" & exportName & "\").Device(\"" & device & "\"), " & exportName & "Op);\n"
                 
-  insert(funheader, 1, parseStmt("{.emit:\"" & cppSource & "\".}"))
-  return funheader
+  result = newNimNode(nnkPragma)
+            .add(newColonExpr(ident "emit", newStrLitNode cppSource))
 
-macro tfexp*(device: string, x: untyped): untyped =
-    let exportName = $name(x)
+macro tfexp*(device: string, fn: untyped): untyped =
+    let exportName = $name(fn)
     
     var ddevice: string
     if $device != "CPU" and $device != "GPU":
@@ -59,15 +55,17 @@ macro tfexp*(device: string, x: untyped): untyped =
     else:
         ddevice = $device
     
-    var funheader = makeExportFun(exportName, body(x))
-    
-    funheader = REGISTER_KERNEL_BUILDER(exportName, ddevice, funheader)
-    funheader = makeOpKernel(exportName, funheader)
-    funheader = makeNewOpIncludes(funheader)
+    result = newStmtList()
 
-    funheader = registerOp(funheader, exportName, repr x)
+    fn[0] = ident exportName & "_Compute" # rename compute procedure
+    fn.addPragma(newColonExpr(ident "exportc", newStrLitNode(exportName & "_Compute")))
 
-    return funheader
+    result.add makeNewOpIncludes()
+    result.add fn
+    result.add makeOpKernel(exportName)
+    result.add REGISTER_KERNEL_BUILDER(exportName, ddevice)
+
+    result = registerOp(result, exportName, repr fn)
 
 when isMainModule:
     proc ZeroOut(ctx: ptr OpKernelContext) {.input:"to_zero: int32",
