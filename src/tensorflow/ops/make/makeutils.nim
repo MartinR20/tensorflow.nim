@@ -44,12 +44,14 @@ proc getOrReturn*[M, N](table: Table[M, N], key: M): N =
 
 proc firstCharToLower*(str: string): string = 
     var lower = str
-    lower[0] = chr(ord(str[0]) + (ord('a') - ord('A')))
+    if ord(str[0]) <= ord('Z'):
+        lower[0] = chr(ord(str[0]) + (ord('a') - ord('A')))
     return lower
 
 proc firstCharToUpper*(str: string): string = 
     var lower = str
-    lower[0] = chr(ord(str[0]) + (ord('A') - ord('a')))
+    if ord(str[0]) >= ord('a'):
+        lower[0] = chr(ord(str[0]) + (ord('A') - ord('a')))
     return lower
 
 proc reinterpretLeadingUnderscore*(str: string): string = 
