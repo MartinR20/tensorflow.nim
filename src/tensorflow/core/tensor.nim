@@ -256,6 +256,9 @@ proc idata[T](ten: Tensor[T], R: type): ptr R {.
 proc data*[T](ten: Tensor[T]): auto =
   return ten.idata(T.To)
 
+proc data*[T](ten: Tensor[T], R: type): auto =
+  return ten.idata(R.To)
+
 proc data*(ten: Tensor[ocomplex64]): ptr complex.Complex32 {.
   header: tensorh,
   importcpp:"('0)#->flat<tensorflow::complex64>().data()".}
