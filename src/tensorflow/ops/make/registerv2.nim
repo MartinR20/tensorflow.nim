@@ -1,6 +1,6 @@
 import 
     wrapper, strutils, makeutils, ../../core, ../../utils, register_context,
-    macros, tables, json, hashes
+    macros, tables, json, hashes, os, strformat
 
 proc make_shared(T: static[string], args: varargs[string], move = true): static[string] =
     var ret = "std::make_shared<" & T & ">("
@@ -179,11 +179,6 @@ macro make(name: static[string]): untyped =
 proc getDefSource*(name: string): string =
     return registerOpDef[name]
     
-proc newImportStmt(name: string): NimNode =
-    var n = newNimNode(nnkImportStmt)
-    n.add(ident(name))
-    return n
-
 proc newIncludeStmt(name: string): NimNode =
     var n = newNimNode(nnkIncludeStmt)
     n.add(ident(name))
@@ -195,6 +190,12 @@ proc staticRmFile(file: string) =
     else:
         discard staticExec("rm " & file)
 
+macro nimscript(x: static string): untyped =
+    let file = getTempDir() & "tmp.nims"
+    writeFile(file, x)
+    result = newLit staticExec("nim " & file).split("\n")[2..^1]
+    staticRmFile(file)
+
 proc registerOp*(funheader: NimNode, exportName: string, source: string): NimNode {.compileTime.} =
     let filename = firstCharToLower(reinterpretLeadingUnderscore(exportName))
 
@@ -203,42 +204,42 @@ proc registerOp*(funheader: NimNode, exportName: string, source: string): NimNod
     let h1 = hash(defsource)
     let h2 = hash(source)
     let currhash = h1 xor h2
-    var ops = parseJson(readFile("opcache.json"))
 
-    if not ops.contains(filename) or $currhash != $ops[filename] or true:
+    const opcachePath = getTempDir() & "opcache.json"
+    let exsists = parseBool(nimscript("echo fileExists(" & opcachePath.quote & ")")[0])
+
+    if not exsists:
+        writeFile(opcachePath, $newJObject())
+
+    const tmpPath = getTempDir() & "tmp.nim"
+    var ops = parseJson(readFile(opcachePath))
+
+    if not ops.contains(filename) or $currhash != $ops[filename]:
+        echo &"Creating Op \"{exportName}\" in folder \"{tmpPath}\"."
         ops{filename} = newJInt(currhash)
-        writeFile("opcache.json", $ops)
+        writeFile(opcachePath, $ops)
 
-        writeFile("tmp.nim", """
-import ./registerv2,
-       register_context,
-       ../../utils,
-       ../../core,
-       makev2,
-       makeutils,
-       exportOp
+        writeFile(tmpPath, &"""
+import 
+    tensorflow/core, tensorflow/ops/make/exportOp
 
-let headerName = """" & filename & """.h"
-let sourceName = """" & filename & """.cc"
-let nimName = """" & filename & """.nim"    
-
-discard makeOpDef("""" & exportName & """", """ & defsource & """)
-let (cppheader, cppsource, nimsource) = makeOp("""" & exportName & """", headerName, sourceName, true)
+discard makeOpDef("{exportName}", {defsource})
+let (cppheader, cppsource, nimsource) = makeOp("{exportName}", "../../core", "{getTempDir()}/debug.h", "{getTempDir()}/debug.h", "{filename}.cc", true)
         
-let h = open(headerName, fmWrite)
-let cc = open(sourceName, fmWrite)
-let nnim = open(nimName, fmWrite)
+let h = open("{getTempDir() & filename}.h", fmWrite)
+let cc = open("{getTempDir() & filename}.cc", fmWrite)
+let nnim = open("{getTempDir() & filename}.nim", fmWrite)
 
 h.write(cppheader)
 cc.write(cppsource)
 nnim.write(nimsource)""")
+    
+        discard staticExec("nim cpp -r " & tmpPath)
+        staticRmFile(tmpPath)
+        staticRmFile(tmpPath)
 
-        discard staticExec("nim cpp -r tmp.nim")
-        staticRmFile("tmp.nim")
-        staticRmFile("tmp")
-
-    insert(funheader, 0, parseStmt("""discard makeOpDef("""" & exportName & """", """ & defsource & """)"""))
-    insert(funheader, 0, newIncludeStmt("./" & filename))
+    insert(funheader, 0, parseStmt(&"discard makeOpDef(\"{exportName}\", {defsource})"))
+    insert(funheader, 0, newIncludeStmt(getTempDir() & filename))
 
     return funheader
 
