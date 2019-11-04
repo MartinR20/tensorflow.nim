@@ -1,410 +1,325 @@
-import macros, tables, hashes, ../core
+import macros, tables, math
 
-from sequtils import 
-    toseq
-
-from strutils import
-    parseEnum,
-    split,
-    join,
-    replace
-    
 from ../ops import
-    nconst, placeholder
+    variableV2, assign, zerosLike, empty
 
-from ../ops/make/conversions import
-    d_to_o
+from ../ops/gradients import
+    addSymbolicGradients
 
-type 
-    NnsKind* = enum
-        nnsVar,
-        nnsLayer,
-        nnsModel,
-        nnsCode,
-        nnsConst,
-        nnsSym,
-        nnsRun
+include ../with
 
-    NnsNode* = ref NnsNodeObj
+# @TODO: make vars and constants only available in current ctx
+type IVar = ref object
+    shape: seq[seq[int]]
+    opt: seq[NimNode]
+    init: seq[NimNode]
+    v: seq[NimNode]
 
-    NnsNodeObj* = object
-        ident: NimNode
+var vars {.compileTime.}: IVar = new IVar
 
-        case kind: NnsKind
-        of nnsModel:
-            m*: string
-            layers*: seq[NnsNode]
-        of nnsLayer:
-            templ: NimNode
-            args: seq[NnsNode]
-        of nnsCode:
-            code*: NimNode    
-        of nnsVar:
-            v*: string
-        of nnsConst:
-            val*: NimNode
-        of nnsSym:
-            sym*: NnsNode
-        of nnsRun:
-            opts: seq[NnsNode]
+template seed*(): untyped =
+    const seed {.intdefine.}: int = 2
+    # some prime number fun to get a different value
+    const seed2 = (seed * 23) %% 41 
 
-proc `$`(node: NnsNode): string =
-    case node.kind:
-    of nnsModel:
-        result = "Model " & node.m
-    of nnsLayer:
-        result = "Layer:\n"
+    [seed, seed2] 
 
-        for arg in node.args:
-            result &= "    " & $arg & "\n"
-    of nnsCode:
-        result = "Code:\n    " & node.code.repr[1..^1].replace("\n", "\n    ")
-    of nnsVar:
-        result = "Var " & node.v
-    of nnsConst:
-        result = "Const " & (repr node.val)
-    of nnsSym:
-        result = "Sym to " & $node.sym
-    of nnsRun:
-        result = "run"
+proc rand_max*(): int {.importcpp:"RAND_MAX@".}   
 
-proc interrepr(node: NnsNode): string =
-    result &= "Model:\n"
-    for n in node.layers:
-        case n.kind:
-        of nnsModel:
-            result &= "    " & interrepr(n).replace("\n", "\n    ")[0..^5]
-        else: 
-            result &= "    " & ($n).replace("\n", "\n    ")[0..^1] & "\n"
+macro variable*(shape: static seq[int], v: untyped, asgn: untyped) =
+    vars.shape.add shape
 
-proc add(model: NnsNode, layer: NnsNode) =
-    model.layers.add layer
+    vars.v.add v
+    vars.init.add asgn
 
-proc seqFromAst*(ast: NimNode, T: type): auto =
-    result = newSeq[T](ast.len)
+var consts {.compileTime.} = initTable[string, NimNode]()
 
-    for i,lit in ast: 
-        when T is int:
-            result[i] = lit.intVal.int 
-        elif T is string:
-            result[i] = lit.strVal
-        else:
-            error("Unsupported type.", ast)
-
-proc dtypeFromONode(node: NimNode): DType =
-    return parseEnum[DType] node.strVal
-
-proc hash(n: NimNode): Hash =
-    return hash(repr n)
-
-var variables {.compileTime.}: seq[NimNode]
-
-macro vars*(x: untyped): untyped =
-    result = x
-
-    for v in x:
-        variables.add v[0][0]
-
-var inits {.compileTime.}: seq[NimNode]
-
-macro initalize*(x: untyped): untyped =
-    result = x
-
-    for v in x:
-        inits.add v[0][0]
-
-var consts {.compileTime.}: Table[NimNode, NimNode]
-
-macro constants*(x: untyped): untyped =
+macro constant*(x: untyped): untyped =
+    # @TODO: adjust cache for statelessRandomNormal in conv2d
     result = x
 
     for c in x:
-        consts[c[0][1]] = c[0][0]
+        case c.kind:
+        of nnkLetSection, nnkVarSection:
+            let key = repr c[0][2]
 
-var snapshottable {.compileTime.}: Table[NimNode, seq[NimNode]]
-
-macro snapshotvars(v_ident: untyped) = 
-    var vars: seq[NimNode]
-
-    for v in variables:
-        vars.add newCall("anyToInvalid", v)
-
-    snapshottable[v_ident] = vars
-
-macro replicate(v_ident: untyped, session: untyped, blueprintast: untyped): untyped =
-    result = newNimNode(nnkStmtList)
-
-    var blueprint = blueprintast
-
-    while blueprint[0] == ident "replicate":
-        blueprint = blueprint[^1]
-
-    for i, val in blueprint[0][^1][6..^1]:
-        if val.kind == nnkIdent:
-            let vars = snapshottable[v_ident]
-            let node = newNimNode(nnkCall)
-            node.add newNimNode(nnkBracketExpr).add(ident "newOutList").add(ident "oinvalid")
-
-            result.add newNimNode(nnkCommand).add(ident "echo").add(newCall("runSessionVoid", session, node))
-
-            for v in vars:
-                blueprint[0][^1][i + 6] = v
-                result.add blueprintast
-            break
-
-macro run(session: untyped, feed: untyped): untyped =
-    let vars = newNimNode(nnkCall)
-    vars.add newNimNode(nnkBracketExpr).add(ident "newOutList").add(ident "oinvalid")
-
-    for v in variables:
-        vars.add v
-
-    let init = newNimNode(nnkCall)
-    init.add newNimNode(nnkBracketExpr).add(ident "newOutList").add(ident "oinvalid")
-
-    for i in inits:
-        init.add i
-
-    result = newNimNode(nnkStmtList)
-    result.add newNimNode(nnkCommand).add(ident "echo").add(newCall("runSessionVoid", session, init))
-    result.add newNimNode(nnkCommand).add(ident "echo").add(newCall("runSession", session, feed, vars))
-    echo repr result
-
-proc parse(available_symbols: Table[string, NnsNode], name: NimNode, cmds: NimNode): NnsNode = 
-    result = NnsNode(kind: nnsModel, m: name.strVal)
-    var current_symbols = available_symbols
-
-    for cmd in cmds:
-        if cmd.len != 0:
-            case $cmd[0]:
-            of "vars":
-                let node = NnsNode(kind: nnsVar,
-                                v: cmd[1].strVal)
-                current_symbols[node.v] = node
-                result.add node
-
-            of "model":
-                let node = parse(current_symbols, cmd[1], cmd[2])
-                current_symbols[node.m] = node
-                result.add node
-
-            of "code":
-                result.add NnsNode(kind: nnsCode,
-                                code: cmd[1])
-
-            of "run":
-                let node = NnsNode(kind: nnsRun)
-                
-                for arg in cmd[1..^1]:
-                    node.opts.add NnsNode(kind: nnsConst,
-                                          val: arg)
-            
-                result.add node
+            if consts.hasKey(key):
+                result.add(newLetStmt(c[0][0], consts[key]))
             else:
-                let node = NnsNode(kind: nnsLayer,
-                                templ: cmd[0])
-                
-                for arg in cmd[1..^1]:
-                    case arg.kind:
-                    of nnkLiterals, nnkBracket:
-                        node.args.add NnsNode(kind: nnsConst,
-                                            val: arg)
-                    of nnkIdent:
-                        let key = arg.strVal
+                consts[key] = c[0][0]
 
-                        if current_symbols.hasKey(key):
-                            node.args.add NnsNode(kind: nnsSym,
-                                                  sym: current_symbols[key])
-                        else:
-                            node.args.add NnsNode(kind: nnsConst,
-                                                  val: arg)
-                    else:
-                        error("Invalid type for argument " & $arg.kind & ".", arg)
+        else:  
+            error("A constant has to consist of asgn stmts!")
 
-                result.add node
-        elif cmd == ident "run":
-            result.add NnsNode(kind: nnsRun)
+type Ctx* = distinct int
+
+type CtxObj* = ref object
+    shape*: seq[int]
+    scope*: NimNode
+    sess*: NimNode
+    feed*: NimNode
+    feed_translate: Table[string, NimNode]
+    input*: NimNode
+    dtype*: NimNode
+
+    when defined debug:
+        loss: NimNode
+
+var ctxs {.compileTime.}: seq[CtxObj]
+
+macro init_ctx(ctx: static Ctx): untyped =
+    let ictx = ctxs[ctx.int]
+    result = newStmtList()
+    result.add newLetStmt(ictx.scope, newCall("newRootScope"))
+    result.add newLetStmt(ictx.sess, newCall("newSession", ictx.scope))
+    result.add newNimNode(nnkVarSection)
+                .add(newIdentDefs(ictx.feed, ident "FeedDict"))
+
+template new_ctx(ctx: untyped): untyped =
+    const ctx = Ctx ctxs.len
+
+    static:
+        ctxs.add new CtxObj
+        
+        ctxs[ctx.int].scope = genSym(nskLet, "scope")
+        ctxs[ctx.int].sess = genSym(nskLet, "sess") 
+        ctxs[ctx.int].feed = genSym(nskVar, "feed")
+        ctxs[ctx.int].feed_translate = initTable[string, NimNode]()
+
+    init_ctx(ctx)
+
+proc vs(ctx: Ctx): NimNode {.compileTime.} = 
+    result = newNimNode(nnkBracket)
+    
+    for v in vars.v:
+        result.add newCall("anyToInvalid", v)
+
+macro vs(ctx: static Ctx): untyped = 
+    result = newNimNode(nnkBracket)
+    
+    for v in vars.v:
+        result.add newCall("anyToInvalid", v)
+
+proc vs(ctx: Ctx, i: int): NimNode {.compileTime.} = 
+    result = vars.v[i]
+
+macro shapes(ctx: static Ctx, i: static int): untyped =
+    result = newLit vars.shape[i]
+
+macro inits(ctx: static Ctx): untyped = 
+    result = newNimNode(nnkBracket)
+
+    for init in vars.init:
+        result.add newCall("anyToInvalid", init)
+
+macro opts(ctx: static Ctx): untyped = 
+    result = newNimNode(nnkBracket)
+
+    for opt in vars.opt:
+        result.add newCall("anyToInvalid", opt)
+
+template `[]`(ctx: Ctx): untyped =
+    ctxs[ctx.int]
+
+macro scope*(ctx: static Ctx): untyped = 
+    result = ctx[].scope
+
+macro sess*(ctx: static Ctx): untyped = 
+    result = ctx[].sess
+
+macro dtype*(ctx: static Ctx, T: type) = 
+    ctx[].dtype = ident $T
+
+macro dtype*(ctx: static Ctx): typedesc =
+    result = ctx[].dtype
+
+macro input*(ctx: static Ctx, x: untyped) = 
+    ctx[].input = x
+
+macro input*(ctx: static Ctx): untyped =
+    ctx[].input
+
+macro feed*(ctx: static Ctx): untyped =
+    result = ctx[].feed
+
+macro feed*(ctx: static Ctx, name: static string, o: oall) =
+    ctx[].feed_translate[name] = o
+
+macro feed*(ctx: static Ctx, name: static string, value: Tensor[oall]) =
+    result = newNimNode(nnkAsgn)
+                .add(newNimNode(nnkBracketExpr)
+                        .add(ctx[].feed)
+                        .add(ctx[].feed_translate[name]))
+                .add(value)
+
+macro nshape*(ctx: static Ctx, x: static seq[int]) = 
+    ctx[].shape = x
+
+macro nshape*(ctx: static Ctx): untyped =
+    result = newLit ctx[].shape
+
+when defined debug:
+    macro loss*(ctx: static Ctx, x: untyped) = 
+        ctx[].loss = x
+
+    macro loss*(ctx: static Ctx): untyped =
+        result = ctx[].loss
+
+template initalize*(ctx: static Ctx): untyped = 
+    var init_vars = newOutList(ctx.inits)
+    error runSessionVoid(ctx.sess, init_vars)
+
+template train*(ctx: static Ctx, iters: static int, x: untyped, y: untyped): untyped = 
+    var opt_vars = newOutList(ctx.opts())
+    # var vars = newOutList(ctx.vs())
+    ctx.feed("x", x)
+    ctx.feed("y", y)
+    
+    when defined debug:
+        echo runSession(ctx.sess, ctx.feed, ctx.loss)[0]
+
+    while runSessionVoid(ctx.sess, ctx.feed, opt_vars) != ok():
+        ctx.initalize()
+
+    for _ in 0..iters-1:
+        discard runSessionVoid(ctx.sess, ctx.feed, opt_vars)
+
+    when defined debug:
+        echo runSession(ctx.sess, ctx.feed, ctx.loss)[0]
+
+proc replace(x: NimNode, target: NimNode, value: NimNode): NimNode {.compileTime.} =
+    result = copy x
+
+    for i,c in result:
+        if c == target:
+            result[i] = value
         else:
-            result.add NnsNode(kind: nnsLayer,
-                                templ: cmd)
+            result[i] = c.replace(target, value)
 
-proc replaceInputResult(input: NimNode, ast: NimNode): NimNode =
-    for i, node in ast:
-        case node.kind:
-        of nnkIdent:
-            if node == ident "input":
-                ast[i] = input
-        of nnkAsgn:
-            if node[0] == ident "result":
-                result = genSym(nskLet, "code")
-                ast[i] = newLetStmt(result, node[1])
-        else:
-            result = replaceInputResult(input, node)
+proc newVar(name: string | NimNode, T: NimNode = newEmptyNode(), val: NimNode = newEmptyNode()): NimNode =
+    result = newNimNode(nnkVarSection)
+    result.add newNimNode(nnkIdentDefs)
 
-proc codegen(ast: NnsNode, input: NimNode,
-             scope: NimNode, session: NimNode, shape: NimNode, dtype: NimNode, feed: NimNode,
-             cache: var Table[NimNode, NimNode]): NimNode = 
-    case ast.kind: 
-    of nnsModel:
-        result = newNimNode(nnkStmtList)
+    when name is NimNode:
+        result[0].add name 
+    else:
+        result[0].add ident name 
 
-        var i = input
-        for layer in ast.layers:
-            let node = layer.codegen(i, scope, session, shape, dtype, feed, cache)
-            result.add node
-            i = layer.ident
+    result[0].add T 
+    result[0].add val 
 
-        ast.ident = ast.layers[^1].ident
-    of nnsLayer:
-        let sym = genSym(nskLet, "Layer")
-        ast.ident = sym
+proc `[]`(a: string | NimNode, b: string | NimNode): NimNode =
+    result = newNimNode(nnkBracketExpr)
 
-        let call = newNimNode(nnkCall)
+    when a is NimNode:
+        result.add a 
+    else:
+        result.add ident a 
 
-        result = newNimNode(nnkLetSection)
-                    .add(newNimNode(nnkIdentDefs)
-                        .add(sym)
-                        .add(newEmptyNode())
-                        .add(call))
+    when b is NimNode:
+        result.add b 
+    else:
+        result.add ident b
 
-        call.add ast.templ
-        call.add scope
-        call.add shape
-        call.add input
-        call.add feed
+proc `..`(a: string | NimNode, b: string | NimNode): NimNode =
+    result = newNimNode(nnkDotExpr)
 
-        for arg in ast.args:
-            case arg.kind:
-            of nnsSym:
-                case arg.sym.kind:
-                of nnsVar:
-                    # replicate code for all vars of the refered Var
-                    result = newCall("replicate", ident arg.sym.v, session, result)
-                    call.add ident arg.sym.v
-                of nnsModel:
-                    # get ident representing output of model
-                    call.add arg.sym.ident
-                else:
-                    discard
-            of nnsConst:
-                call.add arg.codegen(input, scope, session, shape, dtype, feed, cache)
-            else:
-                discard
+    when a is NimNode:
+        result.add a 
+    else:
+        result.add ident a 
 
-    of nnsCode:
-        ast.ident = replaceInputResult(input, ast.code)
-        result = ast.code
-    of nnsVar:
-        # get variables of current scope
-        result = newCall("snapshotvars", ident ast.v)
-        ast.ident = input
-    of nnsConst:
-        result = ast.val
-        ast.ident = nil # explicitly set null to make it obvious that ident is never called
-                        # on this kind of node
-    of nnsSym:
-        ast.ident = nil # explicitly set null to make it obvious that ident is never called
-                        # on this kind of node
-    of nnsRun: 
-        result = newCall("run", session, feed)
-        ast.ident = nil 
+    when b is NimNode:
+        result.add b 
+    else:
+        result.add ident b  
 
-macro model*(name: untyped, cmds: untyped): untyped =
-    var ast = parse(initTable[string, NnsNode](), name, cmds)
-    echo interrepr ast
+macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
+    result = newStmtList()
 
-    var cache: Table[NimNode, NimNode]
+    result.add newVar("grad_out", "olist"["oinvalid"])
+    result.add newCall("addSymbolicGradients", ctx[].scope, ctx[].input, newCall("newOutList"["oinvalid"], ctx.vs), ident "grad_out")
 
-    let scope = genSym(nskLet, "scope")
-    let scope_let = newLetStmt(scope, newCall("newRootScope"))
+    for i, v in vars.v:
+        let ivar = genSym(nskLet, $args[0])
+        let grad = genSym(nskLet, $args[1])
 
-    let session = genSym(nskLet, "session")
-    let session_let = newLetStmt(session, newCall("newSession", scope))
+        args[^1] = args[^1].replace(args[0], ivar)
+        args[^1] = args[^1].replace(args[1], grad)
 
-    let shape = genSym(nskVar, "shape")
-    let shape_var = newNimNode(nnkVarSection)
-                        .add(newNimNode(nnkIdentDefs)
-                                .add(newNimNode(nnkPragmaExpr)
-                                    .add(shape)
-                                    .add(newNimNode(nnkPragma)
-                                        .add(ident "compileTime")))
-                                .add(newNimNode(nnkBracketExpr)
-                                        .add(ident "seq")
-                                        .add(ident "int"))
-                                .add(newEmptyNode()))
+        result.add newLetStmt(ivar, v)
+        result.add newLetStmt(grad, newCall("invalidToAny"["ofloat"], "grad_out"[newLit i]))
 
-    let dtype = genSym(nskVar, "dtype")
-    let dtype_var = newNimNode(nnkVarSection)
-                        .add(newNimNode(nnkIdentDefs)
-                            .add(newNimNode(nnkPragmaExpr)
-                                .add(dtype)
-                                .add(newNimNode(nnkPragma)
-                                    .add(ident "compileTime")))
-                            .add(newEmptyNode())
-                            .add(newLit DT_INVALID))
+        for j, arg in args[2..^2]:
+            # @TODO: make shape scoped
+            result.add newNimNode(nnkCommand)
+            let cmd = result[^1]
+            cmd.add ident "with"
+            cmd.add ctx[].scope
 
-    let feed = genSym(nskVar, "feed")
-    let feed_var = newNimNode(nnkVarSection)
-                        .add(newNimNode(nnkIdentDefs)
-                                .add(feed)
-                                .add(ident "FeedDict")
-                                .add(newEmptyNode()))
+            let seq_shape = newLit vars.shape[i]
+            let arr_shape = seq_shape[^1]
 
-    result = newNimNode(nnkStmtList)
-    result.add scope_let
-    result.add session_let
-    result.add shape_var
-    result.add dtype_var
-    result.add feed_var
-    result.add ast.codegen(newCall "oinvalid", scope, session, shape, dtype, feed, cache)
-    echo repr result
+            cmd.add newStmtList()
+            let with = cmd[^1]
+
+            let empty0 = genSym(nskLet, "empty")
+            with.add newLetStmt(empty0, newCall("empty", arr_shape.."oint32", ctx[].dtype).."output")
+
+            let ov = genSym(nskLet, $arg)
+            with.add newLetStmt(ov, newCall("variableV2", newLit"", newLit($arg & $i & $j), arr_shape.."shape", ctx[].dtype).."output")
+            args[^1] = args[^1].replace(arg, ov)
+
+            # @Improvment: make op that creates a tensor full of zeros instead of using zerosLike 
+            # empty
+            let empty = genSym(nskLet, "empty")
+            with.add newLetStmt(empty, newCall("zerosLike", empty0).."output")
+
+            let asgn = genSym(nskLet, "asgn")
+            with.add newLetStmt(asgn, newCall("assign", ov, empty).."output")
+
+            result.add newCall("variable", seq_shape, ov, asgn)
+
+        let optim = genSym(nskLet, "optim")
+        result.add newLetStmt(optim, args[^1])
+        # @TODO: make opt scoped
+        vars.opt.add optim
 
 when isMainModule:
-    import conv2d
-    import optim
-    include ../with
+    import 
+        inputs, activs, conv2ds, flattens, 
+        denses, losses, optims
 
-    template input*(scope: Scope,
-                 sh: var seq[int],
-                 input: oall, 
-                 feed: FeedDict,
-                 dtype: type,
-                 inshape: static openArray[int]): untyped = 
+    new_ctx(ctx)
+    ctx.input(ofloat, @[1, 9, 9, 3])
+    ctx.activ(relu)
+    ctx.conv2d(3, [2, 2], [2, 2])
+    ctx.activ(relu)
+    ctx.conv2d(3, [2, 2], [2, 2])
+    ctx.activ(relu)
+    ctx.conv2d(3, [3, 3], [2, 2])
+    ctx.activ(relu)
+    ctx.flatten()
+    ctx.dense(12)
 
-        static:
-            sh = inshape.toseq
+    ctx.mse()
+    ctx.adam()
+    ctx.initalize()
 
-        let img = [[
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]],
-            [[100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255], [100, 100, 255]]
-        ]].tensor(ofloat)
+    let x = [[
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]],
+        [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]]
+    ]].tensor(ofloat)
 
-        constants:
-            let o_img = nconst(scope, img).output
+    let y = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]].tensor(ofloat)
 
-        feed[o_img] = img
+    ctx.train(100, x, y)
 
-        placeholder(scope, dtype, inshape.shape).output
-
-    model m0:
-        #load ["x.csv", "y.csv", "pi.csv"]
-
-        input ofloat, [1, 9, 9, 3]
-
-        model m1:
-            conv2d 3, [2, 2], [2, 2]
-            conv2d 3, [2, 2], [2, 2]
-
-        vars m
-        vars v
-
-        adam m, v
-
-        run 100
+    
