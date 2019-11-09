@@ -20,3 +20,10 @@ template flatten*(ctx: static Ctx): untyped =
 
     with ctx.scope:
         ctx.input reshape(ctx.input, new_shape.oint32).output
+
+template reshape*[N](ctx: static Ctx, new_shape: static array[N, int]): untyped =
+    with ctx.scope:
+        ctx.input reshape(ctx.input, new_shape.oint32).output
+
+    ctx.nshape @new_shape
+
