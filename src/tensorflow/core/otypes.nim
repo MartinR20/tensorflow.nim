@@ -56,15 +56,15 @@ proc bfloat16*(f: SomeFloat): bfloat16_t {.
 
 proc `[]=`[T](data: ptr T, i: int, val: T) {.importcpp:"(('3*)#)[#] = #".}
   
-proc touint16(bf: bfloat16_t): uint16 {.importcpp:"(tensorflow::uint16)#".}
+proc to_uint16(bf: bfloat16_t): uint16 {.importcpp:"(tensorflow::uint16)#".}
 
-proc float*(bf: bfloat16_t): float32 =
+proc to_float*(bf: bfloat16_t): float32 =
   result = 0
   let p = cast[ptr uint16](addr(result))
-  p[1] = bf.touint16
+  p[1] = bf.to_uint16
 
 proc `$`*(f: bfloat16_t): string =
-  result = $f.float
+  result = $f.to_float
 
 type
   DType* {.header: client_session, importcpp: "tensorflow::DataType".} = enum 
@@ -361,3 +361,79 @@ iterator zip*(l1: olist[oall], l2: olist[oall]): (oall, oall) =
   while i <= len-1:
     yield (l1[i], l2[i])
     inc i
+
+template dt_switch*(statement: untyped, T: untyped, body: untyped) =
+  case statement:
+  of DT_INT8:
+    type T = oint8
+    body
+  of DT_INT16:
+    type T = oint16
+    body
+  of DT_INT32:
+    type T = oint32
+    body
+  of DT_INT64:
+    type T = oint64
+    body
+  of DT_UINT8:
+    type T = ouint8
+    body
+  of DT_UINT16:
+    type T = ouint16
+    body
+  of DT_UINT32:
+    type T = ouint32
+    body
+  of DT_UINT64:
+    type T = ouint64
+    body
+  of DT_FLOAT:
+    type T = ofloat
+    body
+  of DT_DOUBLE:
+    type T = odouble
+    body
+  of DT_BOOL:
+    type T = obool
+    body
+  of DT_STRING:
+    type T = ostring
+    body
+  of DT_COMPLEX64:
+    type T = ocomplex64
+    body
+  of DT_COMPLEX128:
+    type T = ocomplex128
+    body
+  of DT_QINT8:
+    type T = oqint8
+    body
+  of DT_QUINT8:
+    type T = oquint8
+    body
+  of DT_QINT32:
+    type T = oqint32
+    body
+  of DT_BFLOAT16:
+    type T = obfloat16
+    body
+  of DT_QINT16:
+    type T = oqint16
+    body
+  of DT_QUINT16:
+    type T = oquint16
+    body
+  of DT_HALF:
+    type T = ohalf
+    body
+  of DT_INVALID:
+    type T = oinvalid
+    body
+  of DT_RESOURCE:
+    type T = oresource
+    body
+  of DT_VARIANT:
+    type T = ovariant
+    body
+  

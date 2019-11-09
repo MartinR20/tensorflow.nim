@@ -6,7 +6,7 @@ from ../utils/utils import
 
 from gen import 
     concat, rank, rankToOut, shape, shapeToOut,
-    concatV2, concatOffset, slice, sliceToOut
+    concatV2, concatOffset, slice, assign
 
 from nn import 
     conv2D, conv2DToOut, conv2DBackpropFilter, 
@@ -35,6 +35,8 @@ proc concatV2Grad*(scope: Scope,
                op: Operation[oinvalid], 
                gradInputs: olist[oinvalid], 
                gradOutputs: ptr olist[oinvalid]): Status {.grad: concatV2.} =
+    # @Note: This gradient procedure is pretty much an exact copy of the 
+    # python version
     let input_len = op.num_inputs()
     
     if input_len == 2:
@@ -67,19 +69,21 @@ proc concatV2Grad*(scope: Scope,
     #else:
     let offset = scope.concatOffset(non_neg_concat_dim, sizes)
 
-    var out_grads: olist[oinvalid]
+    # @Hack: workaround for a lack of compileTime knowledge of the type
+    dt_switch(op.input_type(0), oT):
+        var out_grads: olist[oT]
+            
+        for (begin, size) in zip(offset.output, sizes):
+            with scope:
+                let slice = slice(invalidToAny[oT](gradInputs[0]), 
+                                begin, 
+                                size).output
+            out_grads.add(slice)
         
-    for (begin, size) in zip(offset.output, sizes):
-        with scope:
-            let slice = slice(gradInputs[0], 
-                              begin, 
-                              size)
-        out_grads.add(slice)
-    
-    gradOutputs[] = out_grads
-    
-    gradOutputs[].add(oinvalid())
-    
+        gradOutputs[] = out_grads
+        
+        gradOutputs[].add(oinvalid())
+        
     return scope.status()
   
 proc Cast*() {.nograd.} = discard
