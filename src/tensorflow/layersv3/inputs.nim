@@ -1,4 +1,4 @@
-from nodes import
+from layers import
     Ctx, nshape, dtype, input, scope 
 
 from ../ops import 

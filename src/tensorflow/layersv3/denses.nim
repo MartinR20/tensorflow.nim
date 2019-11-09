@@ -1,4 +1,4 @@
-from nodes import 
+from layers import 
     constant, variable, Ctx, input, nshape,
     xavier_init, one_init
 

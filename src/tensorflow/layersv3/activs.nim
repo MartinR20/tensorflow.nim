@@ -1,4 +1,4 @@
-from nodes import
+from layers import
     Ctx, scope, input
 
 import ../ops/nn/activ as activ_fns 

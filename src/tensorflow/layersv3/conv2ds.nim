@@ -12,7 +12,7 @@ from ../ops/nn import
 from sequtils import 
     toSeq
 
-from nodes import 
+from layers import 
     variable, constant, Ctx, nshape, dtype,
     scope, input, seed, xavier_init
 

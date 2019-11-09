@@ -1,4 +1,4 @@
-from nodes import 
+from layers import 
     Ctx, nshape, input, scope
 
 include ../with

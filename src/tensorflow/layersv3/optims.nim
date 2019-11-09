@@ -8,7 +8,7 @@ from ../ops/nn/optim import
 from ../ops import
     variableV2 #TODO: export from however nodes will be named in the future
 
-from nodes import 
+from layers import 
     constant,
     forvarsgrad, Ctx,
     dtype

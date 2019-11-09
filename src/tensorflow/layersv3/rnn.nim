@@ -1,6 +1,6 @@
 import ../core
 
-from nodes import 
+from layers import 
     Ctx, nshape, dtype, scope, input, seed,
     variable, xavier_init, zero_init, one_init,
     get_unique_int
