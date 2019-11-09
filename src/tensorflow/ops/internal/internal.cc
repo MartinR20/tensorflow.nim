@@ -28,7 +28,7 @@ All::All(tensorflow::Scope& scope,
 
 BoostedTreesExampleDebugOutputs::BoostedTreesExampleDebugOutputs(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features, 
            int64_t logits_dimension) {
       if (!scope.ok())
@@ -36,7 +36,7 @@ BoostedTreesExampleDebugOutputs::BoostedTreesExampleDebugOutputs(tensorflow::Sco
       auto _tree_ensemble_handle = ::tensorflow::ops::AsNodeOut(scope, tree_ensemble_handle);
       if (!scope.ok())
           return;
-      auto _bucketized_features = ::tensorflow::ops::AsNodeOut(scope, bucketized_features);
+      auto _bucketized_features = ::tensorflow::ops::AsNodeOutList(scope, bucketized_features);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesExampleDebugOutputs");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesExampleDebugOutputs")
@@ -305,8 +305,8 @@ NcclBroadcast::NcclBroadcast(tensorflow::Scope& scope,
 ParseExample::ParseExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input names, 
-           tensorflow::Input sparse_keys, 
-           tensorflow::Input dense_keys, 
+           tensorflow::InputList sparse_keys, 
+           tensorflow::InputList dense_keys, 
            tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tdense, 
@@ -321,10 +321,10 @@ ParseExample::ParseExample(tensorflow::Scope& scope,
       auto _names = ::tensorflow::ops::AsNodeOut(scope, names);
       if (!scope.ok())
           return;
-      auto _sparse_keys = ::tensorflow::ops::AsNodeOut(scope, sparse_keys);
+      auto _sparse_keys = ::tensorflow::ops::AsNodeOutList(scope, sparse_keys);
       if (!scope.ok())
           return;
-      auto _dense_keys = ::tensorflow::ops::AsNodeOut(scope, dense_keys);
+      auto _dense_keys = ::tensorflow::ops::AsNodeOutList(scope, dense_keys);
       if (!scope.ok())
           return;
       auto _dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, dense_defaults);
@@ -347,7 +347,8 @@ ParseExample::ParseExample(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ParseSequenceExample::ParseSequenceExample(tensorflow::Scope& scope, 
@@ -405,7 +406,8 @@ ParseSequenceExample::ParseSequenceExample(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ParseSingleExample::ParseSingleExample(tensorflow::Scope& scope, 
@@ -440,16 +442,17 @@ ParseSingleExample::ParseSingleExample(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input feature_list_dense_missing_assumed_empty, 
-           tensorflow::Input context_sparse_keys, 
-           tensorflow::Input context_dense_keys, 
-           tensorflow::Input feature_list_sparse_keys, 
-           tensorflow::Input feature_list_dense_keys, 
+           tensorflow::InputList context_sparse_keys, 
+           tensorflow::InputList context_dense_keys, 
+           tensorflow::InputList feature_list_sparse_keys, 
+           tensorflow::InputList feature_list_dense_keys, 
            tensorflow::InputList context_dense_defaults, 
            tensorflow::Input debug_name, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> context_sparse_types, 
@@ -470,16 +473,16 @@ ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope,
       auto _feature_list_dense_missing_assumed_empty = ::tensorflow::ops::AsNodeOut(scope, feature_list_dense_missing_assumed_empty);
       if (!scope.ok())
           return;
-      auto _context_sparse_keys = ::tensorflow::ops::AsNodeOut(scope, context_sparse_keys);
+      auto _context_sparse_keys = ::tensorflow::ops::AsNodeOutList(scope, context_sparse_keys);
       if (!scope.ok())
           return;
-      auto _context_dense_keys = ::tensorflow::ops::AsNodeOut(scope, context_dense_keys);
+      auto _context_dense_keys = ::tensorflow::ops::AsNodeOutList(scope, context_dense_keys);
       if (!scope.ok())
           return;
-      auto _feature_list_sparse_keys = ::tensorflow::ops::AsNodeOut(scope, feature_list_sparse_keys);
+      auto _feature_list_sparse_keys = ::tensorflow::ops::AsNodeOutList(scope, feature_list_sparse_keys);
       if (!scope.ok())
           return;
-      auto _feature_list_dense_keys = ::tensorflow::ops::AsNodeOut(scope, feature_list_dense_keys);
+      auto _feature_list_dense_keys = ::tensorflow::ops::AsNodeOutList(scope, feature_list_dense_keys);
       if (!scope.ok())
           return;
       auto _context_dense_defaults = ::tensorflow::ops::AsNodeOutList(scope, context_dense_defaults);
@@ -513,7 +516,8 @@ ParseSingleSequenceExample::ParseSingleSequenceExample(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 ReadVariableOp::ReadVariableOp(tensorflow::Scope& scope, 
@@ -613,7 +617,7 @@ _DeviceRetval::_DeviceRetval(tensorflow::Scope& scope,
 _FusedConv2D::_FusedConv2D(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input filter, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
            tensorflow::gtl::ArraySlice<tensorflow::string> fused_ops, 
@@ -630,7 +634,7 @@ _FusedConv2D::_FusedConv2D(tensorflow::Scope& scope,
       auto _filter = ::tensorflow::ops::AsNodeOut(scope, filter);
       if (!scope.ok())
           return;
-      auto _args = ::tensorflow::ops::AsNodeOut(scope, args);
+      auto _args = ::tensorflow::ops::AsNodeOutList(scope, args);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("_FusedConv2D");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "_FusedConv2D")

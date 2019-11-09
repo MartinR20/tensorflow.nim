@@ -297,7 +297,8 @@ DynamicPartition::DynamicPartition(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 DynamicStitch::DynamicStitch(tensorflow::Scope& scope, 
@@ -1083,7 +1084,8 @@ Split::Split(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Squeeze::Squeeze(tensorflow::Scope& scope, 

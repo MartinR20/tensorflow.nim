@@ -101,7 +101,7 @@ proc arg*(argdef: OpDefArgDef): Arg =
     elif argdef.type_list_attr != "":
         typeattr = argdef.type_list_attr
 
-    if argdef.number_attr == "N" or typeattr.find("list") != -1:
+    if (argdef.number_attr != "1" and argdef.number_attr != "") or typeattr.find("list") != -1:
         return Arg(iname: argdef.name, iT: "OutList", dtype: argdef.type, typeattr: typeattr)
     else: 
         return Arg(iname: argdef.name, iT: "Out", dtype: argdef.type, typeattr: typeattr)

@@ -260,7 +260,7 @@ converter biasAddV1ToOut*[oT: oall](op: BiasAddV1[oT]): oT {.inline.} = return o
 
 type CTCBeamSearchDecoder* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/nn.h", importcpp:"CTCBeamSearchDecoder/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iicTCBeamSearchDecoder(scope: Scope,
                            inputs: ofloat,
@@ -282,7 +282,7 @@ proc cTCBeamSearchDecoder*(scope: Scope,
                                 top_paths,
                                 merge_repeated)
 
-converter cTCBeamSearchDecoderToOut*(op: CTCBeamSearchDecoder): oint64 {.inline.} = return op.output
+converter cTCBeamSearchDecoderToOutList*(op: CTCBeamSearchDecoder): olist[oint64] {.inline.} = return op.output
 
 
 type CTCGreedyDecoder* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/nn.h", importcpp:"CTCGreedyDecoder/*'0*/".} = object
@@ -772,8 +772,8 @@ proc iicudnnRNNCanonicalToParams[oT: oall](scope: Scope,
                                 num_layers: oint32,
                                 num_units: oint32,
                                 input_size: oint32,
-                                weights: oT,
-                                biases: oT,
+                                weights: olist[oT],
+                                biases: olist[oT],
                                 T: DType,
                                 num_params: int64,
                                 rnn_mode: cstring,
@@ -787,8 +787,8 @@ proc cudnnRNNCanonicalToParams*[oT: oall](scope: Scope,
                                 num_layers: oint32,
                                 num_units: oint32,
                                 input_size: oint32,
-                                weights: oT,
-                                biases: oT,
+                                weights: olist[oT],
+                                biases: olist[oT],
                                 num_params: int64 = 0.int,
                                 rnn_mode: cstring = "lstm",
                                 input_mode: cstring = "linear_input",
@@ -863,7 +863,7 @@ converter cudnnRNNParamsSizeToOut*[oT: oall](op: CudnnRNNParamsSize[oT]): oT {.i
 
 type CudnnRNNParamsToCanonical*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNParamsToCanonical/*'0*/".} = object
   operation*: Operation[oT]
-  output*: oT
+  output*: olist[oT]
 
 proc iicudnnRNNParamsToCanonical[oT: oall](scope: Scope,
                                 num_layers: oint32,
@@ -905,7 +905,7 @@ proc cudnnRNNParamsToCanonical*[oT: oall](scope: Scope,
                                      seed,
                                      seed2)
 
-converter cudnnRNNParamsToCanonicalToOut*[oT: oall](op: CudnnRNNParamsToCanonical[oT]): oT {.inline.} = return op.output
+converter cudnnRNNParamsToCanonicalToOutList*[oT: oall](op: CudnnRNNParamsToCanonical[oT]): olist[oT] {.inline.} = return op.output
 
 
 type CudnnRNNV2*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/nn.h", importcpp:"CudnnRNNV2/*'0*/".} = object

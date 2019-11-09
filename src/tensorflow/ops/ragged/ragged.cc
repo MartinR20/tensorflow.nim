@@ -30,12 +30,12 @@ RaggedRange::RaggedRange(tensorflow::Scope& scope,
 }
 
 RaggedTensorToSparse::RaggedTensorToSparse(tensorflow::Scope& scope, 
-           tensorflow::Input rt_nested_splits, 
+           tensorflow::InputList rt_nested_splits, 
            tensorflow::Input rt_dense_values, 
            int64_t RAGGED_RANK) {
       if (!scope.ok())
           return;
-      auto _rt_nested_splits = ::tensorflow::ops::AsNodeOut(scope, rt_nested_splits);
+      auto _rt_nested_splits = ::tensorflow::ops::AsNodeOutList(scope, rt_nested_splits);
       if (!scope.ok())
           return;
       auto _rt_dense_values = ::tensorflow::ops::AsNodeOut(scope, rt_dense_values);

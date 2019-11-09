@@ -2,15 +2,15 @@
 #include "boosted.h"
 
 BoostedTreesBucketize::BoostedTreesBucketize(tensorflow::Scope& scope, 
-           tensorflow::Input float_values, 
-           tensorflow::Input bucket_boundaries, 
+           tensorflow::InputList float_values, 
+           tensorflow::InputList bucket_boundaries, 
            int64_t num_features) {
       if (!scope.ok())
           return;
-      auto _float_values = ::tensorflow::ops::AsNodeOut(scope, float_values);
+      auto _float_values = ::tensorflow::ops::AsNodeOutList(scope, float_values);
       if (!scope.ok())
           return;
-      auto _bucket_boundaries = ::tensorflow::ops::AsNodeOut(scope, bucket_boundaries);
+      auto _bucket_boundaries = ::tensorflow::ops::AsNodeOutList(scope, bucket_boundaries);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesBucketize");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesBucketize")
@@ -23,12 +23,13 @@ BoostedTreesBucketize::BoostedTreesBucketize(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BoostedTreesCalculateBestGainsPerFeature::BoostedTreesCalculateBestGainsPerFeature(tensorflow::Scope& scope, 
            tensorflow::Input node_id_range, 
-           tensorflow::Input stats_summary_list, 
+           tensorflow::InputList stats_summary_list, 
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input tree_complexity, 
@@ -40,7 +41,7 @@ BoostedTreesCalculateBestGainsPerFeature::BoostedTreesCalculateBestGainsPerFeatu
       auto _node_id_range = ::tensorflow::ops::AsNodeOut(scope, node_id_range);
       if (!scope.ok())
           return;
-      auto _stats_summary_list = ::tensorflow::ops::AsNodeOut(scope, stats_summary_list);
+      auto _stats_summary_list = ::tensorflow::ops::AsNodeOutList(scope, stats_summary_list);
       if (!scope.ok())
           return;
       auto _l1 = ::tensorflow::ops::AsNodeOut(scope, l1);
@@ -70,7 +71,8 @@ BoostedTreesCalculateBestGainsPerFeature::BoostedTreesCalculateBestGainsPerFeatu
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BoostedTreesCenterBias::BoostedTreesCenterBias(tensorflow::Scope& scope, 
@@ -230,13 +232,13 @@ BoostedTreesGetEnsembleStates::BoostedTreesGetEnsembleStates(tensorflow::Scope& 
 }
 
 BoostedTreesMakeQuantileSummaries::BoostedTreesMakeQuantileSummaries(tensorflow::Scope& scope, 
-           tensorflow::Input float_values, 
+           tensorflow::InputList float_values, 
            tensorflow::Input example_weights, 
            tensorflow::Input epsilon, 
            int64_t num_features) {
       if (!scope.ok())
           return;
-      auto _float_values = ::tensorflow::ops::AsNodeOut(scope, float_values);
+      auto _float_values = ::tensorflow::ops::AsNodeOutList(scope, float_values);
       if (!scope.ok())
           return;
       auto _example_weights = ::tensorflow::ops::AsNodeOut(scope, example_weights);
@@ -256,12 +258,13 @@ BoostedTreesMakeQuantileSummaries::BoostedTreesMakeQuantileSummaries(tensorflow:
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BoostedTreesPredict::BoostedTreesPredict(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features, 
            int64_t logits_dimension) {
       if (!scope.ok())
@@ -269,7 +272,7 @@ BoostedTreesPredict::BoostedTreesPredict(tensorflow::Scope& scope,
       auto _tree_ensemble_handle = ::tensorflow::ops::AsNodeOut(scope, tree_ensemble_handle);
       if (!scope.ok())
           return;
-      auto _bucketized_features = ::tensorflow::ops::AsNodeOut(scope, bucketized_features);
+      auto _bucketized_features = ::tensorflow::ops::AsNodeOutList(scope, bucketized_features);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesPredict");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesPredict")
@@ -288,14 +291,14 @@ BoostedTreesPredict::BoostedTreesPredict(tensorflow::Scope& scope,
 
 BoostedTreesQuantileStreamResourceAddSummaries::BoostedTreesQuantileStreamResourceAddSummaries(tensorflow::Scope& scope, 
            tensorflow::Input quantile_stream_resource_handle, 
-           tensorflow::Input summaries, 
+           tensorflow::InputList summaries, 
            int64_t num_features) {
       if (!scope.ok())
           return;
       auto _quantile_stream_resource_handle = ::tensorflow::ops::AsNodeOut(scope, quantile_stream_resource_handle);
       if (!scope.ok())
           return;
-      auto _summaries = ::tensorflow::ops::AsNodeOut(scope, summaries);
+      auto _summaries = ::tensorflow::ops::AsNodeOutList(scope, summaries);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesQuantileStreamResourceAddSummaries");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesQuantileStreamResourceAddSummaries")
@@ -312,14 +315,14 @@ BoostedTreesQuantileStreamResourceAddSummaries::BoostedTreesQuantileStreamResour
 
 BoostedTreesQuantileStreamResourceDeserialize::BoostedTreesQuantileStreamResourceDeserialize(tensorflow::Scope& scope, 
            tensorflow::Input quantile_stream_resource_handle, 
-           tensorflow::Input bucket_boundaries, 
+           tensorflow::InputList bucket_boundaries, 
            int64_t num_streams) {
       if (!scope.ok())
           return;
       auto _quantile_stream_resource_handle = ::tensorflow::ops::AsNodeOut(scope, quantile_stream_resource_handle);
       if (!scope.ok())
           return;
-      auto _bucket_boundaries = ::tensorflow::ops::AsNodeOut(scope, bucket_boundaries);
+      auto _bucket_boundaries = ::tensorflow::ops::AsNodeOutList(scope, bucket_boundaries);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesQuantileStreamResourceDeserialize");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesQuantileStreamResourceDeserialize")
@@ -375,7 +378,8 @@ BoostedTreesQuantileStreamResourceGetBucketBoundaries::BoostedTreesQuantileStrea
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 BoostedTreesQuantileStreamResourceHandleOp::BoostedTreesQuantileStreamResourceHandleOp(tensorflow::Scope& scope, 
@@ -417,7 +421,7 @@ BoostedTreesTrainingPredict::BoostedTreesTrainingPredict(tensorflow::Scope& scop
            tensorflow::Input tree_ensemble_handle, 
            tensorflow::Input cached_tree_ids, 
            tensorflow::Input cached_node_ids, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features, 
            int64_t logits_dimension) {
       if (!scope.ok())
@@ -431,7 +435,7 @@ BoostedTreesTrainingPredict::BoostedTreesTrainingPredict(tensorflow::Scope& scop
       auto _cached_node_ids = ::tensorflow::ops::AsNodeOut(scope, cached_node_ids);
       if (!scope.ok())
           return;
-      auto _bucketized_features = ::tensorflow::ops::AsNodeOut(scope, bucketized_features);
+      auto _bucketized_features = ::tensorflow::ops::AsNodeOutList(scope, bucketized_features);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesTrainingPredict");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesTrainingPredict")
@@ -453,11 +457,11 @@ BoostedTreesTrainingPredict::BoostedTreesTrainingPredict(tensorflow::Scope& scop
 BoostedTreesUpdateEnsemble::BoostedTreesUpdateEnsemble(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
            tensorflow::Input feature_ids, 
-           tensorflow::Input node_ids, 
-           tensorflow::Input gains, 
-           tensorflow::Input thresholds, 
-           tensorflow::Input left_node_contribs, 
-           tensorflow::Input right_node_contribs, 
+           tensorflow::InputList node_ids, 
+           tensorflow::InputList gains, 
+           tensorflow::InputList thresholds, 
+           tensorflow::InputList left_node_contribs, 
+           tensorflow::InputList right_node_contribs, 
            tensorflow::Input max_depth, 
            tensorflow::Input learning_rate, 
            int64_t pruning_mode, 
@@ -470,19 +474,19 @@ BoostedTreesUpdateEnsemble::BoostedTreesUpdateEnsemble(tensorflow::Scope& scope,
       auto _feature_ids = ::tensorflow::ops::AsNodeOut(scope, feature_ids);
       if (!scope.ok())
           return;
-      auto _node_ids = ::tensorflow::ops::AsNodeOut(scope, node_ids);
+      auto _node_ids = ::tensorflow::ops::AsNodeOutList(scope, node_ids);
       if (!scope.ok())
           return;
-      auto _gains = ::tensorflow::ops::AsNodeOut(scope, gains);
+      auto _gains = ::tensorflow::ops::AsNodeOutList(scope, gains);
       if (!scope.ok())
           return;
-      auto _thresholds = ::tensorflow::ops::AsNodeOut(scope, thresholds);
+      auto _thresholds = ::tensorflow::ops::AsNodeOutList(scope, thresholds);
       if (!scope.ok())
           return;
-      auto _left_node_contribs = ::tensorflow::ops::AsNodeOut(scope, left_node_contribs);
+      auto _left_node_contribs = ::tensorflow::ops::AsNodeOutList(scope, left_node_contribs);
       if (!scope.ok())
           return;
-      auto _right_node_contribs = ::tensorflow::ops::AsNodeOut(scope, right_node_contribs);
+      auto _right_node_contribs = ::tensorflow::ops::AsNodeOutList(scope, right_node_contribs);
       if (!scope.ok())
           return;
       auto _max_depth = ::tensorflow::ops::AsNodeOut(scope, max_depth);

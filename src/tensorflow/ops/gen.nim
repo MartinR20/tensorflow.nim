@@ -236,7 +236,7 @@ converter nconstToOut*[oT: oall](op: Const[oT]): oT {.inline.} = return op.outpu
 
 type DynamicPartition*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/gen/gen.h", importcpp:"DynamicPartition/*'0*/".} = object
   operation*: Operation[oT]
-  output*: oT
+  output*: olist[oT]
 
 proc iidynamicPartition[oT: oall](scope: Scope,
                        data: oT,
@@ -254,7 +254,7 @@ proc dynamicPartition*[oT: oall](scope: Scope,
                             num_partitions,
                             oT.oTF)
 
-converter dynamicPartitionToOut*[oT: oall](op: DynamicPartition[oT]): oT {.inline.} = return op.output
+converter dynamicPartitionToOutList*[oT: oall](op: DynamicPartition[oT]): olist[oT] {.inline.} = return op.output
 
 
 type DynamicStitch*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/gen/gen.h", importcpp:"DynamicStitch/*'0*/".} = object
@@ -923,7 +923,7 @@ converter spaceToBatchNDToOut*[oT: oall](op: SpaceToBatchND[oT]): oT {.inline.} 
 
 type Split*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/gen/gen.h", importcpp:"Split/*'0*/".} = object
   operation*: Operation[oT]
-  output*: oT
+  output*: olist[oT]
 
 proc iisplit[oT: oall](scope: Scope,
             split_dim: oint32,
@@ -941,7 +941,7 @@ proc split*[oT: oall](scope: Scope,
                  num_split,
                  oT.oTF)
 
-converter splitToOut*[oT: oall](op: Split[oT]): oT {.inline.} = return op.output
+converter splitToOutList*[oT: oall](op: Split[oT]): olist[oT] {.inline.} = return op.output
 
 
 type Squeeze*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/gen/gen.h", importcpp:"Squeeze/*'0*/".} = object

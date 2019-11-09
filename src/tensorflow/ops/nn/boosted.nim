@@ -5,32 +5,32 @@ import ../../core
 
 type BoostedTreesBucketize* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize/*'0*/".} = object
   operation*: Operation[oint32]
-  output*: oint32
+  output*: olist[oint32]
 
 proc iiboostedTreesBucketize(scope: Scope,
-                            float_values: ofloat,
-                            bucket_boundaries: ofloat,
+                            float_values: olist[ofloat],
+                            bucket_boundaries: olist[ofloat],
                             num_features: int64): BoostedTreesBucketize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesBucketize(*#, #, #, #)", constructor.}
 
 proc boostedTreesBucketize*(scope: Scope,
-                            float_values: ofloat,
-                            bucket_boundaries: ofloat,
+                            float_values: olist[ofloat],
+                            bucket_boundaries: olist[ofloat],
                             num_features: int64 = 0.int): BoostedTreesBucketize =
   return iiboostedTreesBucketize(scope,
                                  float_values,
                                  bucket_boundaries,
                                  num_features)
 
-converter boostedTreesBucketizeToOut*(op: BoostedTreesBucketize): oint32 {.inline.} = return op.output
+converter boostedTreesBucketizeToOutList*(op: BoostedTreesBucketize): olist[oint32] {.inline.} = return op.output
 
 
 type BoostedTreesCalculateBestGainsPerFeature* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCalculateBestGainsPerFeature/*'0*/".} = object
   operation*: Operation[oint32]
-  output*: oint32
+  output*: olist[oint32]
 
 proc iiboostedTreesCalculateBestGainsPerFeature(scope: Scope,
                                                node_id_range: oint32,
-                                               stats_summary_list: ofloat,
+                                               stats_summary_list: olist[ofloat],
                                                l1: ofloat,
                                                l2: ofloat,
                                                tree_complexity: ofloat,
@@ -40,7 +40,7 @@ proc iiboostedTreesCalculateBestGainsPerFeature(scope: Scope,
 
 proc boostedTreesCalculateBestGainsPerFeature*(scope: Scope,
                                                node_id_range: oint32,
-                                               stats_summary_list: ofloat,
+                                               stats_summary_list: olist[ofloat],
                                                l1: ofloat,
                                                l2: ofloat,
                                                tree_complexity: ofloat,
@@ -57,7 +57,7 @@ proc boostedTreesCalculateBestGainsPerFeature*(scope: Scope,
                                                     max_splits,
                                                     num_features)
 
-converter boostedTreesCalculateBestGainsPerFeatureToOut*(op: BoostedTreesCalculateBestGainsPerFeature): oint32 {.inline.} = return op.output
+converter boostedTreesCalculateBestGainsPerFeatureToOutList*(op: BoostedTreesCalculateBestGainsPerFeature): olist[oint32] {.inline.} = return op.output
 
 
 type BoostedTreesCenterBias* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesCenterBias/*'0*/".} = object
@@ -182,16 +182,16 @@ converter boostedTreesGetEnsembleStatesToOut*(op: BoostedTreesGetEnsembleStates)
 
 type BoostedTreesMakeQuantileSummaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries/*'0*/".} = object
   operation*: Operation[ofloat]
-  output*: ofloat
+  output*: olist[ofloat]
 
 proc iiboostedTreesMakeQuantileSummaries(scope: Scope,
-                                        float_values: ofloat,
+                                        float_values: olist[ofloat],
                                         example_weights: ofloat,
                                         epsilon: ofloat,
                                         num_features: int64): BoostedTreesMakeQuantileSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesMakeQuantileSummaries(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesMakeQuantileSummaries*(scope: Scope,
-                                        float_values: ofloat,
+                                        float_values: olist[ofloat],
                                         example_weights: ofloat,
                                         epsilon: ofloat,
                                         num_features: int64 = 0.int): BoostedTreesMakeQuantileSummaries =
@@ -201,7 +201,7 @@ proc boostedTreesMakeQuantileSummaries*(scope: Scope,
                                              epsilon,
                                              num_features)
 
-converter boostedTreesMakeQuantileSummariesToOut*(op: BoostedTreesMakeQuantileSummaries): ofloat {.inline.} = return op.output
+converter boostedTreesMakeQuantileSummariesToOutList*(op: BoostedTreesMakeQuantileSummaries): olist[ofloat] {.inline.} = return op.output
 
 
 type BoostedTreesPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict/*'0*/".} = object
@@ -210,13 +210,13 @@ type BoostedTreesPredict* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0
 
 proc iiboostedTreesPredict(scope: Scope,
                           tree_ensemble_handle: oresource,
-                          bucketized_features: oint32,
+                          bucketized_features: olist[oint32],
                           num_bucketized_features: int64,
                           logits_dimension: int64): BoostedTreesPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesPredict(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesPredict*(scope: Scope,
                           tree_ensemble_handle: oresource,
-                          bucketized_features: oint32,
+                          bucketized_features: olist[oint32],
                           num_bucketized_features: int64 = 0.int,
                           logits_dimension: int64 = 0.int): BoostedTreesPredict =
   return iiboostedTreesPredict(scope,
@@ -234,12 +234,12 @@ type BoostedTreesQuantileStreamResourceAddSummaries*{.header:"/Users/martin//.ni
 
 proc iiboostedTreesQuantileStreamResourceAddSummaries(scope: Scope,
                                                      quantile_stream_resource_handle: oresource,
-                                                     summaries: ofloat,
+                                                     summaries: olist[ofloat],
                                                      num_features: int64): BoostedTreesQuantileStreamResourceAddSummaries {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceAddSummaries(*#, #, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceAddSummaries*(scope: Scope,
                                                      quantile_stream_resource_handle: oresource,
-                                                     summaries: ofloat,
+                                                     summaries: olist[ofloat],
                                                      num_features: int64 = 0.int): BoostedTreesQuantileStreamResourceAddSummaries =
   return iiboostedTreesQuantileStreamResourceAddSummaries(scope,
                                                           quantile_stream_resource_handle,
@@ -253,12 +253,12 @@ type BoostedTreesQuantileStreamResourceDeserialize*{.header:"/Users/martin//.nim
 
 proc iiboostedTreesQuantileStreamResourceDeserialize(scope: Scope,
                                                     quantile_stream_resource_handle: oresource,
-                                                    bucket_boundaries: ofloat,
+                                                    bucket_boundaries: olist[ofloat],
                                                     num_streams: int64): BoostedTreesQuantileStreamResourceDeserialize {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceDeserialize(*#, #, #, #)", constructor.}
 
 proc boostedTreesQuantileStreamResourceDeserialize*(scope: Scope,
                                                     quantile_stream_resource_handle: oresource,
-                                                    bucket_boundaries: ofloat,
+                                                    bucket_boundaries: olist[ofloat],
                                                     num_streams: int64 = 0.int): BoostedTreesQuantileStreamResourceDeserialize =
   return iiboostedTreesQuantileStreamResourceDeserialize(scope,
                                                          quantile_stream_resource_handle,
@@ -287,7 +287,7 @@ proc boostedTreesQuantileStreamResourceFlush*(scope: Scope,
 
 type BoostedTreesQuantileStreamResourceGetBucketBoundaries* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceGetBucketBoundaries/*'0*/".} = object
   operation*: Operation[ofloat]
-  output*: ofloat
+  output*: olist[ofloat]
 
 proc iiboostedTreesQuantileStreamResourceGetBucketBoundaries(scope: Scope,
                                                             quantile_stream_resource_handle: oresource,
@@ -300,7 +300,7 @@ proc boostedTreesQuantileStreamResourceGetBucketBoundaries*(scope: Scope,
                                                                  quantile_stream_resource_handle,
                                                                  num_features)
 
-converter boostedTreesQuantileStreamResourceGetBucketBoundariesToOut*(op: BoostedTreesQuantileStreamResourceGetBucketBoundaries): ofloat {.inline.} = return op.output
+converter boostedTreesQuantileStreamResourceGetBucketBoundariesToOutList*(op: BoostedTreesQuantileStreamResourceGetBucketBoundaries): olist[ofloat] {.inline.} = return op.output
 
 
 type BoostedTreesQuantileStreamResourceHandleOp* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesQuantileStreamResourceHandleOp/*'0*/".} = object
@@ -344,7 +344,7 @@ proc iiboostedTreesTrainingPredict(scope: Scope,
                                   tree_ensemble_handle: oresource,
                                   cached_tree_ids: oint32,
                                   cached_node_ids: oint32,
-                                  bucketized_features: oint32,
+                                  bucketized_features: olist[oint32],
                                   num_bucketized_features: int64,
                                   logits_dimension: int64): BoostedTreesTrainingPredict {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/nn/boosted/boosted.h", importcpp:"BoostedTreesTrainingPredict(*#, #, #, #, #, #, #)", constructor.}
 
@@ -352,7 +352,7 @@ proc boostedTreesTrainingPredict*(scope: Scope,
                                   tree_ensemble_handle: oresource,
                                   cached_tree_ids: oint32,
                                   cached_node_ids: oint32,
-                                  bucketized_features: oint32,
+                                  bucketized_features: olist[oint32],
                                   num_bucketized_features: int64 = 0.int,
                                   logits_dimension: int64 = 0.int): BoostedTreesTrainingPredict =
   return iiboostedTreesTrainingPredict(scope,
@@ -373,11 +373,11 @@ type BoostedTreesUpdateEnsemble*{.header:"/Users/martin//.nimble/pkgs/tensorflow
 proc iiboostedTreesUpdateEnsemble(scope: Scope,
                                  tree_ensemble_handle: oresource,
                                  feature_ids: oint32,
-                                 node_ids: oint32,
-                                 gains: ofloat,
-                                 thresholds: oint32,
-                                 left_node_contribs: ofloat,
-                                 right_node_contribs: ofloat,
+                                 node_ids: olist[oint32],
+                                 gains: olist[ofloat],
+                                 thresholds: olist[oint32],
+                                 left_node_contribs: olist[ofloat],
+                                 right_node_contribs: olist[ofloat],
                                  max_depth: oint32,
                                  learning_rate: ofloat,
                                  pruning_mode: int64,
@@ -386,11 +386,11 @@ proc iiboostedTreesUpdateEnsemble(scope: Scope,
 proc boostedTreesUpdateEnsemble*(scope: Scope,
                                  tree_ensemble_handle: oresource,
                                  feature_ids: oint32,
-                                 node_ids: oint32,
-                                 gains: ofloat,
-                                 thresholds: oint32,
-                                 left_node_contribs: ofloat,
-                                 right_node_contribs: ofloat,
+                                 node_ids: olist[oint32],
+                                 gains: olist[ofloat],
+                                 thresholds: olist[oint32],
+                                 left_node_contribs: olist[ofloat],
+                                 right_node_contribs: olist[ofloat],
                                  max_depth: oint32,
                                  learning_rate: ofloat,
                                  pruning_mode: int64 = 0.int,

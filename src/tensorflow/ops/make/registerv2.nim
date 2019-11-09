@@ -214,7 +214,7 @@ proc registerOp*(funheader: NimNode, exportName: string, source: string): NimNod
     const tmpPath = getTempDir() & "tmp.nim"
     var ops = parseJson(readFile(opcachePath))
 
-    if not ops.contains(filename) or $currhash != $ops[filename]:
+    if not ops.contains(filename) or currhash != ops[filename].to(int):
         echo &"Creating Op \"{exportName}\" in folder \"{tmpPath}\"."
         ops{filename} = newJInt(currhash)
         writeFile(opcachePath, $ops)

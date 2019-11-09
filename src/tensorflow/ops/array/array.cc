@@ -1608,13 +1608,13 @@ MutableHashTableV2::MutableHashTableV2(tensorflow::Scope& scope,
 }
 
 NcclReduce::NcclReduce(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string reduction, 
            tensorflow::DataType T, 
            int64_t num_devices) {
       if (!scope.ok())
           return;
-      auto _input = ::tensorflow::ops::AsNodeOut(scope, input);
+      auto _input = ::tensorflow::ops::AsNodeOutList(scope, input);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("NcclReduce");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "NcclReduce")
@@ -2262,14 +2262,14 @@ QuantizedReshape::QuantizedReshape(tensorflow::Scope& scope,
 }
 
 RaggedGather::RaggedGather(tensorflow::Scope& scope, 
-           tensorflow::Input params_nested_splits, 
+           tensorflow::InputList params_nested_splits, 
            tensorflow::Input params_dense_values, 
            tensorflow::Input indices, 
            int64_t OUTPUT_RAGGED_RANK, 
            int64_t PARAMS_RAGGED_RANK) {
       if (!scope.ok())
           return;
-      auto _params_nested_splits = ::tensorflow::ops::AsNodeOut(scope, params_nested_splits);
+      auto _params_nested_splits = ::tensorflow::ops::AsNodeOutList(scope, params_nested_splits);
       if (!scope.ok())
           return;
       auto _params_dense_values = ::tensorflow::ops::AsNodeOut(scope, params_dense_values);
@@ -2290,7 +2290,8 @@ RaggedGather::RaggedGather(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 RefMerge::RefMerge(tensorflow::Scope& scope, 
@@ -3403,7 +3404,8 @@ SparseSplit::SparseSplit(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 SparseToDense::SparseToDense(tensorflow::Scope& scope, 
@@ -3519,7 +3521,8 @@ SplitV::SplitV(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 StackPush::StackPush(tensorflow::Scope& scope, 
@@ -4357,7 +4360,8 @@ Unpack::Unpack(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 Unstage::Unstage(tensorflow::Scope& scope, 

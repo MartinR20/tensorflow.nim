@@ -62,7 +62,7 @@ class BoostedTreesMakeStatsSummary{
            tensorflow::Input node_ids, 
            tensorflow::Input gradients, 
            tensorflow::Input hessians, 
-           tensorflow::Input bucketized_features_list, 
+           tensorflow::InputList bucketized_features_list, 
            int64_t max_splits = 0, 
            int64_t num_buckets = 0, 
            int64_t num_features = 0);

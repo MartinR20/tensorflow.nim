@@ -1488,13 +1488,13 @@ type NcclReduce*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0
   output*: oT
 
 proc iincclReduce[oT: oall](scope: Scope,
-                 input: oT,
+                 input: olist[oT],
                  reduction: cstring,
                  T: DType,
                  num_devices: int64): NcclReduce[oT] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"NcclReduce(*#, #, tensorflow::string(#), #, #)", constructor.}
 
 proc ncclReduce*[oT: oall](scope: Scope,
-                 input: oT,
+                 input: olist[oT],
                  reduction: cstring,
                  num_devices: int64 = 0.int): NcclReduce[oT] =
   return iincclReduce(scope,
@@ -2049,17 +2049,17 @@ type RaggedGatherTindices* = oint32 | oint64
 
 type RaggedGather* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"RaggedGather/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iiraggedGather(scope: Scope,
-                   params_nested_splits: oint64,
+                   params_nested_splits: olist[oint64],
                    params_dense_values: RaggedGatherTvalues,
                    indices: RaggedGatherTindices,
                    OUTPUT_RAGGED_RANK: int64,
                    PARAMS_RAGGED_RANK: int64): RaggedGather {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"RaggedGather(*#, #, #, #, #, #)", constructor.}
 
 proc raggedGather*(scope: Scope,
-                   params_nested_splits: oint64,
+                   params_nested_splits: olist[oint64],
                    params_dense_values: RaggedGatherTvalues,
                    indices: RaggedGatherTindices,
                    OUTPUT_RAGGED_RANK: int64 = 0.int,
@@ -2071,7 +2071,7 @@ proc raggedGather*(scope: Scope,
                         OUTPUT_RAGGED_RANK,
                         PARAMS_RAGGED_RANK)
 
-converter raggedGatherToOut*(op: RaggedGather): oint64 {.inline.} = return op.output
+converter raggedGatherToOutList*(op: RaggedGather): olist[oint64] {.inline.} = return op.output
 
 
 type RefMerge*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"RefMerge/*'0*/".} = object
@@ -2976,7 +2976,7 @@ type SparseSplitT* = oall
 
 type SparseSplit* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"SparseSplit/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iisparseSplit(scope: Scope,
                   split_dim: oint64,
@@ -2998,7 +2998,7 @@ proc sparseSplit*(scope: Scope,
                        shape,
                        num_split)
 
-converter sparseSplitToOut*(op: SparseSplit): oint64 {.inline.} = return op.output
+converter sparseSplitToOutList*(op: SparseSplit): olist[oint64] {.inline.} = return op.output
 
 type SparseToDenseTindices* = oint32 | oint64
 
@@ -3071,7 +3071,7 @@ type SplitVTlen* = oint32 | oint64
 
 type SplitV*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"SplitV/*'0*/".} = object
   operation*: Operation[oT]
-  output*: oT
+  output*: olist[oT]
 
 proc iisplitV[oT: oall](scope: Scope,
              value: oT,
@@ -3092,7 +3092,7 @@ proc splitV*[oT: oall](scope: Scope,
                   num_split,
                   oT.oTF)
 
-converter splitVToOut*[oT: oall](op: SplitV[oT]): oT {.inline.} = return op.output
+converter splitVToOutList*[oT: oall](op: SplitV[oT]): olist[oT] {.inline.} = return op.output
 
 
 type StackPush*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"StackPush/*'0*/".} = object
@@ -3833,7 +3833,7 @@ converter uniqueWithCountsV2ToOut*[oT: oall](op: UniqueWithCountsV2[oT]): oT {.i
 
 type Unpack*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"Unpack/*'0*/".} = object
   operation*: Operation[oT]
-  output*: oT
+  output*: olist[oT]
 
 proc iiunpack[oT: oall](scope: Scope,
              value: oT,
@@ -3851,7 +3851,7 @@ proc unpack*[oT: oall](scope: Scope,
                   oT.oTF,
                   axis)
 
-converter unpackToOut*[oT: oall](op: Unpack[oT]): oT {.inline.} = return op.output
+converter unpackToOutList*[oT: oall](op: Unpack[oT]): olist[oT] {.inline.} = return op.output
 
 
 type Unstage*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/array/array.h", importcpp:"Unstage/*'0*/".} = object

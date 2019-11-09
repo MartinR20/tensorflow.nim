@@ -32,7 +32,7 @@ class RaggedTensorToSparse{
   public:
     RaggedTensorToSparse() {}
     RaggedTensorToSparse(tensorflow::Scope& scope, 
-           tensorflow::Input rt_nested_splits, 
+           tensorflow::InputList rt_nested_splits, 
            tensorflow::Input rt_dense_values, 
            int64_t RAGGED_RANK = 0);
     tensorflow::Operation operation;

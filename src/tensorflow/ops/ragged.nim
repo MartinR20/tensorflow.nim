@@ -31,12 +31,12 @@ type RaggedTensorToSparse* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.
   output*: oint64
 
 proc iiraggedTensorToSparse(scope: Scope,
-                           rt_nested_splits: oint64,
+                           rt_nested_splits: olist[oint64],
                            rt_dense_values: RaggedTensorToSparseT,
                            RAGGED_RANK: int64): RaggedTensorToSparse {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/ragged/ragged.h", importcpp:"RaggedTensorToSparse(*#, #, #, #)", constructor.}
 
 proc raggedTensorToSparse*(scope: Scope,
-                           rt_nested_splits: oint64,
+                           rt_nested_splits: olist[oint64],
                            rt_dense_values: RaggedTensorToSparseT,
                            RAGGED_RANK: int64 = 0.int): RaggedTensorToSparse =
   return iiraggedTensorToSparse(scope,

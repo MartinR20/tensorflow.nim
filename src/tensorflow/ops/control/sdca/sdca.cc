@@ -20,15 +20,15 @@ SdcaFprint::SdcaFprint(tensorflow::Scope& scope,
 }
 
 SdcaOptimizer::SdcaOptimizer(tensorflow::Scope& scope, 
-           tensorflow::Input sparse_example_indices, 
-           tensorflow::Input sparse_feature_indices, 
-           tensorflow::Input sparse_feature_values, 
-           tensorflow::Input dense_features, 
+           tensorflow::InputList sparse_example_indices, 
+           tensorflow::InputList sparse_feature_indices, 
+           tensorflow::InputList sparse_feature_values, 
+           tensorflow::InputList dense_features, 
            tensorflow::Input example_weights, 
            tensorflow::Input example_labels, 
-           tensorflow::Input sparse_indices, 
-           tensorflow::Input sparse_weights, 
-           tensorflow::Input dense_weights, 
+           tensorflow::InputList sparse_indices, 
+           tensorflow::InputList sparse_weights, 
+           tensorflow::InputList dense_weights, 
            tensorflow::Input example_state_data, 
            tensorflow::string loss_type, 
            bool adaptative, 
@@ -41,16 +41,16 @@ SdcaOptimizer::SdcaOptimizer(tensorflow::Scope& scope,
            int64_t num_inner_iterations) {
       if (!scope.ok())
           return;
-      auto _sparse_example_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_example_indices);
+      auto _sparse_example_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_example_indices);
       if (!scope.ok())
           return;
-      auto _sparse_feature_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_feature_indices);
+      auto _sparse_feature_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_feature_indices);
       if (!scope.ok())
           return;
-      auto _sparse_feature_values = ::tensorflow::ops::AsNodeOut(scope, sparse_feature_values);
+      auto _sparse_feature_values = ::tensorflow::ops::AsNodeOutList(scope, sparse_feature_values);
       if (!scope.ok())
           return;
-      auto _dense_features = ::tensorflow::ops::AsNodeOut(scope, dense_features);
+      auto _dense_features = ::tensorflow::ops::AsNodeOutList(scope, dense_features);
       if (!scope.ok())
           return;
       auto _example_weights = ::tensorflow::ops::AsNodeOut(scope, example_weights);
@@ -59,13 +59,13 @@ SdcaOptimizer::SdcaOptimizer(tensorflow::Scope& scope,
       auto _example_labels = ::tensorflow::ops::AsNodeOut(scope, example_labels);
       if (!scope.ok())
           return;
-      auto _sparse_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_indices);
+      auto _sparse_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_indices);
       if (!scope.ok())
           return;
-      auto _sparse_weights = ::tensorflow::ops::AsNodeOut(scope, sparse_weights);
+      auto _sparse_weights = ::tensorflow::ops::AsNodeOutList(scope, sparse_weights);
       if (!scope.ok())
           return;
-      auto _dense_weights = ::tensorflow::ops::AsNodeOut(scope, dense_weights);
+      auto _dense_weights = ::tensorflow::ops::AsNodeOutList(scope, dense_weights);
       if (!scope.ok())
           return;
       auto _example_state_data = ::tensorflow::ops::AsNodeOut(scope, example_state_data);
@@ -101,15 +101,15 @@ SdcaOptimizer::SdcaOptimizer(tensorflow::Scope& scope,
 }
 
 SdcaOptimizerV2::SdcaOptimizerV2(tensorflow::Scope& scope, 
-           tensorflow::Input sparse_example_indices, 
-           tensorflow::Input sparse_feature_indices, 
-           tensorflow::Input sparse_feature_values, 
-           tensorflow::Input dense_features, 
+           tensorflow::InputList sparse_example_indices, 
+           tensorflow::InputList sparse_feature_indices, 
+           tensorflow::InputList sparse_feature_values, 
+           tensorflow::InputList dense_features, 
            tensorflow::Input example_weights, 
            tensorflow::Input example_labels, 
-           tensorflow::Input sparse_indices, 
-           tensorflow::Input sparse_weights, 
-           tensorflow::Input dense_weights, 
+           tensorflow::InputList sparse_indices, 
+           tensorflow::InputList sparse_weights, 
+           tensorflow::InputList dense_weights, 
            tensorflow::Input example_state_data, 
            tensorflow::string loss_type, 
            bool adaptive, 
@@ -122,16 +122,16 @@ SdcaOptimizerV2::SdcaOptimizerV2(tensorflow::Scope& scope,
            int64_t num_inner_iterations) {
       if (!scope.ok())
           return;
-      auto _sparse_example_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_example_indices);
+      auto _sparse_example_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_example_indices);
       if (!scope.ok())
           return;
-      auto _sparse_feature_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_feature_indices);
+      auto _sparse_feature_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_feature_indices);
       if (!scope.ok())
           return;
-      auto _sparse_feature_values = ::tensorflow::ops::AsNodeOut(scope, sparse_feature_values);
+      auto _sparse_feature_values = ::tensorflow::ops::AsNodeOutList(scope, sparse_feature_values);
       if (!scope.ok())
           return;
-      auto _dense_features = ::tensorflow::ops::AsNodeOut(scope, dense_features);
+      auto _dense_features = ::tensorflow::ops::AsNodeOutList(scope, dense_features);
       if (!scope.ok())
           return;
       auto _example_weights = ::tensorflow::ops::AsNodeOut(scope, example_weights);
@@ -140,13 +140,13 @@ SdcaOptimizerV2::SdcaOptimizerV2(tensorflow::Scope& scope,
       auto _example_labels = ::tensorflow::ops::AsNodeOut(scope, example_labels);
       if (!scope.ok())
           return;
-      auto _sparse_indices = ::tensorflow::ops::AsNodeOut(scope, sparse_indices);
+      auto _sparse_indices = ::tensorflow::ops::AsNodeOutList(scope, sparse_indices);
       if (!scope.ok())
           return;
-      auto _sparse_weights = ::tensorflow::ops::AsNodeOut(scope, sparse_weights);
+      auto _sparse_weights = ::tensorflow::ops::AsNodeOutList(scope, sparse_weights);
       if (!scope.ok())
           return;
-      auto _dense_weights = ::tensorflow::ops::AsNodeOut(scope, dense_weights);
+      auto _dense_weights = ::tensorflow::ops::AsNodeOutList(scope, dense_weights);
       if (!scope.ok())
           return;
       auto _example_state_data = ::tensorflow::ops::AsNodeOut(scope, example_state_data);
@@ -182,13 +182,13 @@ SdcaOptimizerV2::SdcaOptimizerV2(tensorflow::Scope& scope,
 }
 
 SdcaShrinkL1::SdcaShrinkL1(tensorflow::Scope& scope, 
-           tensorflow::Input weights, 
+           tensorflow::InputList weights, 
            int64_t num_features, 
            float l1, 
            float l2) {
       if (!scope.ok())
           return;
-      auto _weights = ::tensorflow::ops::AsNodeOut(scope, weights);
+      auto _weights = ::tensorflow::ops::AsNodeOutList(scope, weights);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("SdcaShrinkL1");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "SdcaShrinkL1")

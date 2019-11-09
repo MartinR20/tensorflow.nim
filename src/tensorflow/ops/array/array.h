@@ -813,7 +813,7 @@ class NcclReduce{
   public:
     NcclReduce() {}
     NcclReduce(tensorflow::Scope& scope, 
-           tensorflow::Input input, 
+           tensorflow::InputList input, 
            tensorflow::string reduction, 
            tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_devices = 0);
@@ -1119,13 +1119,13 @@ class RaggedGather{
   public:
     RaggedGather() {}
     RaggedGather(tensorflow::Scope& scope, 
-           tensorflow::Input params_nested_splits, 
+           tensorflow::InputList params_nested_splits, 
            tensorflow::Input params_dense_values, 
            tensorflow::Input indices, 
            int64_t OUTPUT_RAGGED_RANK = 0, 
            int64_t PARAMS_RAGGED_RANK = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -1607,7 +1607,7 @@ class SparseSplit{
            tensorflow::Input shape, 
            int64_t num_split = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -1653,7 +1653,7 @@ class SplitV{
            int64_t num_split = 0, 
            tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -2054,7 +2054,7 @@ class Unpack{
            tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t axis = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once

@@ -33,7 +33,7 @@ class BoostedTreesExampleDebugOutputs{
     BoostedTreesExampleDebugOutputs() {}
     BoostedTreesExampleDebugOutputs(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features = 0, 
            int64_t logits_dimension = 0);
     tensorflow::Operation operation;
@@ -180,8 +180,8 @@ class ParseExample{
     ParseExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input names, 
-           tensorflow::Input sparse_keys, 
-           tensorflow::Input dense_keys, 
+           tensorflow::InputList sparse_keys, 
+           tensorflow::InputList dense_keys, 
            tensorflow::InputList dense_defaults, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> sparse_types, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> Tdense, 
@@ -189,7 +189,7 @@ class ParseExample{
            int64_t Nsparse = 0, 
            int64_t Ndense = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -216,7 +216,7 @@ class ParseSequenceExample{
            int64_t Nfeature_list_sparse = 0, 
            int64_t Nfeature_list_dense = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -233,7 +233,7 @@ class ParseSingleExample{
            tensorflow::gtl::ArraySlice<tensorflow::PartialTensorShape> dense_shapes, 
            int64_t num_sparse = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -243,10 +243,10 @@ class ParseSingleSequenceExample{
     ParseSingleSequenceExample(tensorflow::Scope& scope, 
            tensorflow::Input serialized, 
            tensorflow::Input feature_list_dense_missing_assumed_empty, 
-           tensorflow::Input context_sparse_keys, 
-           tensorflow::Input context_dense_keys, 
-           tensorflow::Input feature_list_sparse_keys, 
-           tensorflow::Input feature_list_dense_keys, 
+           tensorflow::InputList context_sparse_keys, 
+           tensorflow::InputList context_dense_keys, 
+           tensorflow::InputList feature_list_sparse_keys, 
+           tensorflow::InputList feature_list_dense_keys, 
            tensorflow::InputList context_dense_defaults, 
            tensorflow::Input debug_name, 
            tensorflow::gtl::ArraySlice<tensorflow::DataType> context_sparse_types, 
@@ -260,7 +260,7 @@ class ParseSingleSequenceExample{
            int64_t Nfeature_list_sparse = 0, 
            int64_t Nfeature_list_dense = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -324,7 +324,7 @@ class _FusedConv2D{
     _FusedConv2D(tensorflow::Scope& scope, 
            tensorflow::Input input, 
            tensorflow::Input filter, 
-           tensorflow::Input args, 
+           tensorflow::InputList args, 
            tensorflow::gtl::ArraySlice<int64_t> strides, 
            tensorflow::string padding, 
            tensorflow::gtl::ArraySlice<tensorflow::string> fused_ops, 

@@ -159,7 +159,7 @@ class CTCBeamSearchDecoder{
            int64_t top_paths = 0, 
            bool merge_repeated = true);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -393,8 +393,8 @@ class CudnnRNNCanonicalToParams{
            tensorflow::Input num_layers, 
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
-           tensorflow::Input weights, 
-           tensorflow::Input biases, 
+           tensorflow::InputList weights, 
+           tensorflow::InputList biases, 
            tensorflow::DataType T = tensorflow::DT_INVALID, 
            int64_t num_params = 0, 
            tensorflow::string rnn_mode = "lstm", 
@@ -445,7 +445,7 @@ class CudnnRNNParamsToCanonical{
            int64_t seed = 0, 
            int64_t seed2 = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once

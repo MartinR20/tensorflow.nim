@@ -311,7 +311,8 @@ CTCBeamSearchDecoder::CTCBeamSearchDecoder(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 CTCGreedyDecoder::CTCGreedyDecoder(tensorflow::Scope& scope, 
@@ -857,8 +858,8 @@ CudnnRNNCanonicalToParams::CudnnRNNCanonicalToParams(tensorflow::Scope& scope,
            tensorflow::Input num_layers, 
            tensorflow::Input num_units, 
            tensorflow::Input input_size, 
-           tensorflow::Input weights, 
-           tensorflow::Input biases, 
+           tensorflow::InputList weights, 
+           tensorflow::InputList biases, 
            tensorflow::DataType T, 
            int64_t num_params, 
            tensorflow::string rnn_mode, 
@@ -878,10 +879,10 @@ CudnnRNNCanonicalToParams::CudnnRNNCanonicalToParams(tensorflow::Scope& scope,
       auto _input_size = ::tensorflow::ops::AsNodeOut(scope, input_size);
       if (!scope.ok())
           return;
-      auto _weights = ::tensorflow::ops::AsNodeOut(scope, weights);
+      auto _weights = ::tensorflow::ops::AsNodeOutList(scope, weights);
       if (!scope.ok())
           return;
-      auto _biases = ::tensorflow::ops::AsNodeOut(scope, biases);
+      auto _biases = ::tensorflow::ops::AsNodeOutList(scope, biases);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("CudnnRNNCanonicalToParams");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "CudnnRNNCanonicalToParams")
@@ -997,7 +998,8 @@ CudnnRNNParamsToCanonical::CudnnRNNParamsToCanonical(tensorflow::Scope& scope,
       if (!scope.ok()) return;
       scope.UpdateStatus(scope.DoShapeInference(ret));
       this->operation = ::tensorflow::Operation(ret);
-      this->output = tensorflow::Output(ret, 0);
+      for (tensorflow::int32 i = 0; i < ret->num_outputs(); ++i)
+          this->output.push_back(tensorflow::Output(ret, i));
 }
 
 CudnnRNNV2::CudnnRNNV2(tensorflow::Scope& scope, 

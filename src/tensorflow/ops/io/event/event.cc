@@ -86,7 +86,7 @@ BoostedTreesMakeStatsSummary::BoostedTreesMakeStatsSummary(tensorflow::Scope& sc
            tensorflow::Input node_ids, 
            tensorflow::Input gradients, 
            tensorflow::Input hessians, 
-           tensorflow::Input bucketized_features_list, 
+           tensorflow::InputList bucketized_features_list, 
            int64_t max_splits, 
            int64_t num_buckets, 
            int64_t num_features) {
@@ -101,7 +101,7 @@ BoostedTreesMakeStatsSummary::BoostedTreesMakeStatsSummary(tensorflow::Scope& sc
       auto _hessians = ::tensorflow::ops::AsNodeOut(scope, hessians);
       if (!scope.ok())
           return;
-      auto _bucketized_features_list = ::tensorflow::ops::AsNodeOut(scope, bucketized_features_list);
+      auto _bucketized_features_list = ::tensorflow::ops::AsNodeOutList(scope, bucketized_features_list);
       ::tensorflow::Node *ret;
       const auto unique_name = scope.GetUniqueNameForOp("BoostedTreesMakeStatsSummary");
       auto builder = ::tensorflow::NodeBuilder(unique_name, "BoostedTreesMakeStatsSummary")

@@ -20,11 +20,11 @@ class BoostedTreesBucketize{
   public:
     BoostedTreesBucketize() {}
     BoostedTreesBucketize(tensorflow::Scope& scope, 
-           tensorflow::Input float_values, 
-           tensorflow::Input bucket_boundaries, 
+           tensorflow::InputList float_values, 
+           tensorflow::InputList bucket_boundaries, 
            int64_t num_features = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -33,7 +33,7 @@ class BoostedTreesCalculateBestGainsPerFeature{
     BoostedTreesCalculateBestGainsPerFeature() {}
     BoostedTreesCalculateBestGainsPerFeature(tensorflow::Scope& scope, 
            tensorflow::Input node_id_range, 
-           tensorflow::Input stats_summary_list, 
+           tensorflow::InputList stats_summary_list, 
            tensorflow::Input l1, 
            tensorflow::Input l2, 
            tensorflow::Input tree_complexity, 
@@ -41,7 +41,7 @@ class BoostedTreesCalculateBestGainsPerFeature{
            int64_t max_splits = 0, 
            int64_t num_features = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -118,12 +118,12 @@ class BoostedTreesMakeQuantileSummaries{
   public:
     BoostedTreesMakeQuantileSummaries() {}
     BoostedTreesMakeQuantileSummaries(tensorflow::Scope& scope, 
-           tensorflow::Input float_values, 
+           tensorflow::InputList float_values, 
            tensorflow::Input example_weights, 
            tensorflow::Input epsilon, 
            int64_t num_features = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -132,7 +132,7 @@ class BoostedTreesPredict{
     BoostedTreesPredict() {}
     BoostedTreesPredict(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features = 0, 
            int64_t logits_dimension = 0);
     tensorflow::Operation operation;
@@ -145,7 +145,7 @@ class BoostedTreesQuantileStreamResourceAddSummaries{
     BoostedTreesQuantileStreamResourceAddSummaries() {}
     BoostedTreesQuantileStreamResourceAddSummaries(tensorflow::Scope& scope, 
            tensorflow::Input quantile_stream_resource_handle, 
-           tensorflow::Input summaries, 
+           tensorflow::InputList summaries, 
            int64_t num_features = 0);
     tensorflow::Operation operation;
 };
@@ -156,7 +156,7 @@ class BoostedTreesQuantileStreamResourceDeserialize{
     BoostedTreesQuantileStreamResourceDeserialize() {}
     BoostedTreesQuantileStreamResourceDeserialize(tensorflow::Scope& scope, 
            tensorflow::Input quantile_stream_resource_handle, 
-           tensorflow::Input bucket_boundaries, 
+           tensorflow::InputList bucket_boundaries, 
            int64_t num_streams = 0);
     tensorflow::Operation operation;
 };
@@ -180,7 +180,7 @@ class BoostedTreesQuantileStreamResourceGetBucketBoundaries{
            tensorflow::Input quantile_stream_resource_handle, 
            int64_t num_features = 0);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -212,7 +212,7 @@ class BoostedTreesTrainingPredict{
            tensorflow::Input tree_ensemble_handle, 
            tensorflow::Input cached_tree_ids, 
            tensorflow::Input cached_node_ids, 
-           tensorflow::Input bucketized_features, 
+           tensorflow::InputList bucketized_features, 
            int64_t num_bucketized_features = 0, 
            int64_t logits_dimension = 0);
     tensorflow::Operation operation;
@@ -226,11 +226,11 @@ class BoostedTreesUpdateEnsemble{
     BoostedTreesUpdateEnsemble(tensorflow::Scope& scope, 
            tensorflow::Input tree_ensemble_handle, 
            tensorflow::Input feature_ids, 
-           tensorflow::Input node_ids, 
-           tensorflow::Input gains, 
-           tensorflow::Input thresholds, 
-           tensorflow::Input left_node_contribs, 
-           tensorflow::Input right_node_contribs, 
+           tensorflow::InputList node_ids, 
+           tensorflow::InputList gains, 
+           tensorflow::InputList thresholds, 
+           tensorflow::InputList left_node_contribs, 
+           tensorflow::InputList right_node_contribs, 
            tensorflow::Input max_depth, 
            tensorflow::Input learning_rate, 
            int64_t pruning_mode = 0, 

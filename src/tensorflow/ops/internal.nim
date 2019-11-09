@@ -31,13 +31,13 @@ type BoostedTreesExampleDebugOutputs* {.header:"/Users/martin//.nimble/pkgs/tens
 
 proc iiboostedTreesExampleDebugOutputs(scope: Scope,
                                       tree_ensemble_handle: oresource,
-                                      bucketized_features: oint32,
+                                      bucketized_features: olist[oint32],
                                       num_bucketized_features: int64,
                                       logits_dimension: int64): BoostedTreesExampleDebugOutputs {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"BoostedTreesExampleDebugOutputs(*#, #, #, #, #)", constructor.}
 
 proc boostedTreesExampleDebugOutputs*(scope: Scope,
                                       tree_ensemble_handle: oresource,
-                                      bucketized_features: oint32,
+                                      bucketized_features: olist[oint32],
                                       num_bucketized_features: int64 = 0.int,
                                       logits_dimension: int64 = 0.int): BoostedTreesExampleDebugOutputs =
   return iiboostedTreesExampleDebugOutputs(scope,
@@ -303,13 +303,13 @@ converter ncclBroadcastToOut*[oT: oall](op: NcclBroadcast[oT]): oT {.inline.} = 
 
 type ParseExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseExample/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iiparseExample(scope: Scope,
                    serialized: ostring,
                    names: ostring,
-                   sparse_keys: ostring,
-                   dense_keys: ostring,
+                   sparse_keys: olist[ostring],
+                   dense_keys: olist[ostring],
                    dense_defaults: olist[oall],
                    sparse_types: ArraySlice[DType],
                    Tdense: ArraySlice[DType],
@@ -320,8 +320,8 @@ proc iiparseExample(scope: Scope,
 proc parseExample*(scope: Scope,
                    serialized: ostring,
                    names: ostring,
-                   sparse_keys: ostring,
-                   dense_keys: ostring,
+                   sparse_keys: olist[ostring],
+                   dense_keys: olist[ostring],
                    dense_defaults: olist[oall],
                    sparse_types: openArray[DType],
                    Tdense: openArray[DType],
@@ -340,12 +340,12 @@ proc parseExample*(scope: Scope,
                         Nsparse,
                         Ndense)
 
-converter parseExampleToOut*(op: ParseExample): oint64 {.inline.} = return op.output
+converter parseExampleToOutList*(op: ParseExample): olist[oint64] {.inline.} = return op.output
 
 
 type ParseSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSequenceExample/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iiparseSequenceExample(scope: Scope,
                            serialized: ostring,
@@ -406,12 +406,12 @@ proc parseSequenceExample*(scope: Scope,
                                 Nfeature_list_sparse,
                                 Nfeature_list_dense)
 
-converter parseSequenceExampleToOut*(op: ParseSequenceExample): oint64 {.inline.} = return op.output
+converter parseSequenceExampleToOutList*(op: ParseSequenceExample): olist[oint64] {.inline.} = return op.output
 
 
 type ParseSingleExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleExample/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iiparseSingleExample(scope: Scope,
                          serialized: ostring,
@@ -442,20 +442,20 @@ proc parseSingleExample*(scope: Scope,
                               newArraySlice(dense_shapes),
                               num_sparse)
 
-converter parseSingleExampleToOut*(op: ParseSingleExample): oint64 {.inline.} = return op.output
+converter parseSingleExampleToOutList*(op: ParseSingleExample): olist[oint64] {.inline.} = return op.output
 
 
 type ParseSingleSequenceExample* {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ParseSingleSequenceExample/*'0*/".} = object
   operation*: Operation[oint64]
-  output*: oint64
+  output*: olist[oint64]
 
 proc iiparseSingleSequenceExample(scope: Scope,
                                  serialized: ostring,
                                  feature_list_dense_missing_assumed_empty: ostring,
-                                 context_sparse_keys: ostring,
-                                 context_dense_keys: ostring,
-                                 feature_list_sparse_keys: ostring,
-                                 feature_list_dense_keys: ostring,
+                                 context_sparse_keys: olist[ostring],
+                                 context_dense_keys: olist[ostring],
+                                 feature_list_sparse_keys: olist[ostring],
+                                 feature_list_dense_keys: olist[ostring],
                                  context_dense_defaults: olist[oall],
                                  debug_name: ostring,
                                  context_sparse_types: ArraySlice[DType],
@@ -472,10 +472,10 @@ proc iiparseSingleSequenceExample(scope: Scope,
 proc parseSingleSequenceExample*(scope: Scope,
                                  serialized: ostring,
                                  feature_list_dense_missing_assumed_empty: ostring,
-                                 context_sparse_keys: ostring,
-                                 context_dense_keys: ostring,
-                                 feature_list_sparse_keys: ostring,
-                                 feature_list_dense_keys: ostring,
+                                 context_sparse_keys: olist[ostring],
+                                 context_dense_keys: olist[ostring],
+                                 feature_list_sparse_keys: olist[ostring],
+                                 feature_list_dense_keys: olist[ostring],
                                  context_dense_defaults: olist[oall],
                                  debug_name: ostring,
                                  context_sparse_types: openArray[DType],
@@ -508,7 +508,7 @@ proc parseSingleSequenceExample*(scope: Scope,
                                       Nfeature_list_sparse,
                                       Nfeature_list_dense)
 
-converter parseSingleSequenceExampleToOut*(op: ParseSingleSequenceExample): oint64 {.inline.} = return op.output
+converter parseSingleSequenceExampleToOutList*(op: ParseSingleSequenceExample): olist[oint64] {.inline.} = return op.output
 
 
 type ReadVariableOp*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1.0/tensorflow/ops/internal/internal.h", importcpp:"ReadVariableOp/*'0*/".} = object
@@ -617,7 +617,7 @@ type IFusedConv2D*[oT:oall] {.header:"/Users/martin//.nimble/pkgs/tensorflow-0.1
 proc iiiFusedConv2D[oT: oall](scope: Scope,
                    input: oT,
                    filter: oT,
-                   args: oT,
+                   args: olist[oT],
                    strides: ArraySlice[int],
                    padding: cstring,
                    fused_ops: ArraySlice[cstring],
@@ -630,7 +630,7 @@ proc iiiFusedConv2D[oT: oall](scope: Scope,
 proc iFusedConv2D*[oT: oall](scope: Scope,
                    input: oT,
                    filter: oT,
-                   args: oT,
+                   args: olist[oT],
                    strides: openArray[int],
                    padding: cstring,
                    fused_ops: openArray[cstring],

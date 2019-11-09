@@ -158,7 +158,7 @@ class DynamicPartition{
            int64_t num_partitions = 0, 
            tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
@@ -539,7 +539,7 @@ class Split{
            int64_t num_split = 0, 
            tensorflow::DataType T = tensorflow::DT_INVALID);
     tensorflow::Operation operation;
-    tensorflow::Output output;
+    tensorflow::OutputList output;
 };
 
 #pragma once
