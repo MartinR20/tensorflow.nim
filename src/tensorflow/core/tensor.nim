@@ -223,7 +223,7 @@ proc len*(tensorVec: TensorVec) : int {.importcpp: "#.size()".}
   ## Returns:
   ##   The size of the TensorVec object.
 
-proc `[]`*(tensorVec: TensorVec, idx: cint) : Tensor[oinvalid] {.
+proc `[]`*(tensorVec: TensorVec, idx: int) : Tensor[oinvalid] {.
   header: memory, 
   header: tensorh,
   importcpp: "new tensorflow::Tensor(#[#])".}
