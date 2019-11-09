@@ -9,15 +9,12 @@ from ../ops import
 from ../ops/nn import
     conv2D
 
-from ../ops/prob import 
-    statelessRandomNormal
-
 from sequtils import 
     toSeq
 
 from nodes import 
     variable, constant, Ctx, nshape, dtype,
-    scope, input, seed
+    scope, input, seed, xavier_init
 
 template conv2d*(ctx: static Ctx,
                 channels: static int, 
@@ -30,17 +27,9 @@ template conv2d*(ctx: static Ctx,
 
     const nstrides = [1, strides[0], strides[1], 1]
     const ndilations = [1, dilations[0], dilations[1], 1]
-    const filter_shape = [kernels[0], kernels[1], ctx.nshape[^1], channels]
 
-    with ctx.scope:
-        constant: 
-            let rand_shape = filter_shape.oint32
-            let rand_seed = seed().oint32
-            let rand = statelessRandomNormal(rand_shape, rand_seed, ctx.dtype).output 
-
-    let filter = variableV2(ctx.scope, "", "kernel", filter_shape.shape, ctx.dtype).output
-    let asgn = assign(ctx.scope, filter, rand, false, false).output
-    ctx.variable(filter_shape.toSeq, filter, asgn)
+    let filter = ctx.variable("kernel", 
+        [kernels[0], kernels[1], ctx.nshape[^1], channels], xavier_init)
 
     const in_shape = ctx.nshape()
 
