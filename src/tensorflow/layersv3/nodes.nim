@@ -1,12 +1,17 @@
-import macros, tables, math
+import macros, tables, math, hashes
 
 from ../ops import
     variableV2, assign, zerosLike, empty
 
-from ../ops/gradients import
-    addSymbolicGradients
+from ../ops/prob import 
+    statelessRandomNormal
+
+import ../ops/gradients 
+import ../ops/custom_ops 
 
 include ../with
+
+const _* = 0
 
 template seed*(): untyped =
     const seed {.intdefine.}: int = 2
@@ -51,9 +56,11 @@ type CtxObj* = ref object
     input*: NimNode
     dtype*: NimNode
     vars: IVar
+    storage: Table[string, NimNode]
 
     when defined debug:
         loss: NimNode
+        output: NimNode
 
 var ctxs {.compileTime.}: seq[CtxObj]
 
@@ -82,9 +89,8 @@ template new_ctx(ctx: untyped): untyped =
 
     init_ctx(ctx)
 
-macro variable*(ctx: static Ctx, shape: static seq[int], v: untyped, asgn: untyped) =
+macro register_variable*(ctx: static Ctx, shape: static seq[int], v: untyped, asgn: untyped) =
     ctx[].vars.shape.add shape
-
     ctx[].vars.v.add v
     ctx[].vars.init.add asgn
 
@@ -92,7 +98,11 @@ proc vs(ctx: Ctx): NimNode {.compileTime.} =
     result = newNimNode(nnkBracket)
     
     for v in ctx[].vars.v:
-        result.add newCall("anyToInvalid", v)
+        if $v != "_":
+            result.add newCall("anyToInvalid", v)
+
+macro vs(ctx: static Ctx): untyped = 
+    result = ctx.vs
 
 macro inits(ctx: static Ctx): untyped = 
     result = newNimNode(nnkBracket)
@@ -100,11 +110,14 @@ macro inits(ctx: static Ctx): untyped =
     for init in ctx[].vars.init:
         result.add newCall("anyToInvalid", init)
 
-macro opts(ctx: static Ctx): untyped = 
+proc opts(ctx: Ctx): NimNode {.compileTime.} = 
     result = newNimNode(nnkBracket)
 
     for opt in ctx[].vars.opt:
         result.add newCall("anyToInvalid", opt)
+    
+macro opts(ctx: static Ctx): untyped = 
+    result = ctx.opts
 
 macro scope*(ctx: static Ctx): untyped = 
     result = ctx[].scope
@@ -118,8 +131,10 @@ macro dtype*(ctx: static Ctx, T: type) =
 macro dtype*(ctx: static Ctx): typedesc =
     result = ctx[].dtype
 
-macro input*(ctx: static Ctx, x: untyped) = 
-    ctx[].input = x
+macro input*(ctx: static Ctx, x: untyped): untyped = 
+    let sym = genSym(nskLet, "input")
+    ctx[].input = sym 
+    result = newLetStmt(sym, x)
 
 macro input*(ctx: static Ctx): untyped =
     ctx[].input
@@ -127,10 +142,12 @@ macro input*(ctx: static Ctx): untyped =
 macro feed*(ctx: static Ctx): untyped =
     result = ctx[].feed
 
-macro feed*(ctx: static Ctx, name: static string, o: oall) =
-    ctx[].feed_translate[name] = o
+macro feed*(ctx: static Ctx, name: static string, o: oall): untyped =
+    let sym = genSym(nskLet, "feed_in")
+    ctx[].feed_translate[name] = sym
+    result = newLetStmt(sym, o)
 
-macro feed*(ctx: static Ctx, name: static string, value: Tensor[oall]) =
+macro feed*(ctx: static Ctx, name: static string, value: Tensor[oall]): untyped =
     result = newNimNode(nnkAsgn)
                 .add(newNimNode(nnkBracketExpr)
                         .add(ctx[].feed)
@@ -144,33 +161,49 @@ macro nshape*(ctx: static Ctx): untyped =
     result = newLit ctx[].shape
 
 when defined debug:
-    macro loss*(ctx: static Ctx, x: untyped) = 
-        ctx[].loss = x
+    macro loss*(ctx: static Ctx, x: untyped): untyped = 
+        let sym = genSym(nskLet, "loss")
+        ctx[].loss = sym 
+        result = newLetStmt(sym, x)
 
     macro loss*(ctx: static Ctx): untyped =
         result = ctx[].loss
 
+    macro output*(ctx: static Ctx, x: untyped): untyped = 
+        let sym = genSym(nskLet, "output")
+        ctx[].output = sym 
+        result = newLetStmt(sym, x)
+
+    macro output*(ctx: static Ctx): untyped =
+        result = ctx[].output
+
 template initalize*(ctx: static Ctx): untyped = 
     var init_vars = newOutList(ctx.inits)
+    
     error runSessionVoid(ctx.sess, init_vars)
 
 template train*(ctx: static Ctx, iters: static int, x: untyped, y: untyped): untyped = 
     var opt_vars = newOutList(ctx.opts())
-    # var vars = newOutList(ctx.vs())
+
     ctx.feed("x", x)
     ctx.feed("y", y)
+
+    when defined dweight:
+        var vvar = newOutList(ctx.vs)
+        for o in runSession(ctx.sess, ctx.feed, vvar):
+            echo "init: ", o
     
-    when defined debug:
-        echo runSession(ctx.sess, ctx.feed, ctx.loss)[0]
-
-    while runSessionVoid(ctx.sess, ctx.feed, opt_vars) != ok():
-        ctx.initalize()
-
     for _ in 0..iters-1:
-        discard runSessionVoid(ctx.sess, ctx.feed, opt_vars)
+        when defined debug:
+            echo "loss:    ", runSession(ctx.sess, ctx.feed, ctx.loss)[0].value_str
 
-    when defined debug:
-        echo runSession(ctx.sess, ctx.feed, ctx.loss)[0]
+            when defined dweight:
+                echo "output: ", runSession(ctx.sess, ctx.feed, ctx.output)[0].value_str
+                for o in runSession(ctx.sess, ctx.feed, opt_vars):
+                    echo "opt: ", o
+        else:
+            error runSessionVoid(ctx.sess, ctx.feed, opt_vars)
+        
 
 proc replace(x: NimNode, target: NimNode, value: NimNode): NimNode {.compileTime.} =
     result = copy x
@@ -225,12 +258,18 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
     result.add newVar("grad_out", "olist"["oinvalid"])
     result.add newCall("addSymbolicGradients", ctx[].scope, ctx[].input, newCall("newOutList"["oinvalid"], ctx.vs), ident "grad_out")
 
-    for i, v in ctx[].vars.v:
+    var i = 0
+    for v in ctx[].vars.v:
+        if $v == "_":
+            continue
+
+        var blueprint = args[^1].copy
+        
         let ivar = genSym(nskLet, $args[0])
         let grad = genSym(nskLet, $args[1])
 
-        args[^1] = args[^1].replace(args[0], ivar)
-        args[^1] = args[^1].replace(args[1], grad)
+        blueprint = blueprint.replace(args[0], ivar)
+        blueprint = blueprint.replace(args[1], grad)
 
         result.add newLetStmt(ivar, v)
         result.add newLetStmt(grad, newCall("invalidToAny"["ofloat"], "grad_out"[newLit i]))
@@ -252,7 +291,7 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
 
             let ov = genSym(nskLet, $arg)
             with.add newLetStmt(ov, newCall("variableV2", newLit"", newLit($arg & $i & $j), arr_shape.."shape", ctx[].dtype).."output")
-            args[^1] = args[^1].replace(arg, ov)
+            blueprint = blueprint.replace(arg, ov)
 
             # @Improvment: make op that creates a tensor full of zeros instead of using zerosLike 
             # empty
@@ -262,28 +301,86 @@ macro forvarsgrad*(ctx: static Ctx, args: varargs[untyped]) =
             let asgn = genSym(nskLet, "asgn")
             with.add newLetStmt(asgn, newCall("assign", ov, empty).."output")
 
-            result.add newCall("variable", (newLit ctx.int).."Ctx", seq_shape, ov, asgn)
+            # @Note: need to pass `ident "_" ` if multiple optimizers are allowed
+            result.add newCall("register_variable", (newLit ctx.int).."Ctx", seq_shape, ov, asgn)
 
         let optim = genSym(nskLet, "optim")
-        result.add newLetStmt(optim, args[^1])
+        result.add newLetStmt(optim, blueprint)
         ctx[].vars.opt.add optim
+
+        i += 1
+
+template random_init*[N](ctx: static Ctx, ishape: static array[N, int]): untyped =
+    with ctx.scope:
+        constant:
+            let rand_shape = ishape.oint32
+            let rand_seed = seed().oint32
+            let rand = statelessRandomNormal(rand_shape, rand_seed, ctx.dtype).output
+    rand
+
+template xavier_init*[N](ctx: static Ctx, ishape: static array[N, int]): untyped =
+    template rsqrt(x: float): float =
+        1.0 / x.sqrt
+
+    var units = 1
+    for dim in ishape[0..^2]: units *= dim
+
+    with ctx.scope:
+        constant:
+            let rand_shape = ishape.oint32
+            let rand_seed = seed().oint32
+            let gamma = to(units.float.rsqrt, ctx.dtype)
+            let rand = statelessRandomNormal(rand_shape, rand_seed, ctx.dtype).output * gamma
+    rand
+
+template one_init*[N](ctx: static Ctx, ishape: static array[N, int]): untyped =
+    with ctx.scope:
+        constant:
+            let one_shape = ishape.oint32
+            let one = zerosLike(empty(one_shape, ctx.dtype).output).output + to(1, ctx.dtype)
+    one
+
+template zero_init*[N](ctx: static Ctx, ishape: static array[N, int]): untyped =
+    # @Improvment: make op that creates a tensor full of zeros instead of using zerosLike 
+    # empty
+    with ctx.scope:
+        constant:
+            let zero_shape = ishape.oint32
+            let zero = zerosLike(empty(zero_shape, ctx.dtype).output).output
+    zero
+
+var unique_counter {.compileTime.} = 0
+
+proc get_unique_int*(): int {.compileTime.} =
+    result = unique_counter
+    unique_counter += 1    
+
+template variable*[N](ctx: static Ctx, name: static string, vshape: static array[N, int], initalizer: untyped, opt: static bool = true): untyped = 
+    with ctx.scope:
+        # @Note: getting around name shadowing in tensorflow with a unique identifier at
+        # the end of each variable. This for example avoids that different filters of convolutions
+        # get confused with each other.
+        let v = variableV2("", name & "_" & $get_unique_int(), vshape.shape, ctx.dtype).output
+        let asgn = assign(v, ctx.initalizer(vshape)).output
+    when opt:
+        ctx.register_variable(@vshape, v, asgn)
+    else:
+        # @Volatile: need to check for underscore on every access     
+        ctx.register_variable(@vshape, _, asgn)
+    v
 
 when isMainModule:
     import 
-        inputs, activs, conv2ds, flattens, 
-        denses, losses, optims
+        inputs, activs, conv2ds, reshapes, 
+        denses, losses, optims, rnn
 
     new_ctx(ctx)
     ctx.input(ofloat, @[1, 9, 9, 3])
-    ctx.activ(relu)
-    ctx.conv2d(3, [2, 2], [2, 2])
-    ctx.activ(relu)
-    ctx.conv2d(3, [2, 2], [2, 2])
-    ctx.activ(relu)
-    ctx.conv2d(3, [3, 3], [2, 2])
-    ctx.activ(relu)
+    ctx.reshape([1, 9, 27])
+    ctx.GRU(100, relu)
     ctx.flatten()
     ctx.dense(12)
+    ctx.activ(softmax)
 
     ctx.mse()
     ctx.adam()
@@ -301,8 +398,6 @@ when isMainModule:
         [[0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0], [0.5, 0.5, 1.0]]
     ]].tensor(ofloat)
 
-    let y = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]].tensor(ofloat)
+    let y = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]].tensor(ofloat)
 
-    ctx.train(100, x, y)
-
-    
+    ctx.train(10, x, y)
