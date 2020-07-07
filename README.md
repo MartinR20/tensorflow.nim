@@ -1,5 +1,5 @@
 # Deprecated
-This repo no longer mantained and probably won't wor anymore. 
+This repo is no longer mantained and probably won't work anymore. 
 
 # Tensorflow.nim
 
