@@ -2,14 +2,6 @@
 
 **Tensorflow.nim** is a wrapper around the c++ interface of tensorflow (currently under heavy development). The goal of this project is to bring tensorflow to nim with all its features.
 
-## Installation
-
-To install the current version use (currently only on linux):
-
-```sh
-sudo nimble install https://github.com/MartinR20/tensorflow.nim.git
-```
-
 ## Usage
 
 This package basically consists of two parts. The normal low level c++ wrapper meaning code like this:
