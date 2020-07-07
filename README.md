@@ -1,3 +1,6 @@
+# Deprecated
+This repo no longer mantained and probably won't wor anymore. 
+
 # Tensorflow.nim
 
 **Tensorflow.nim** is a wrapper around the c++ interface of tensorflow (currently under heavy development). The goal of this project is to bring tensorflow to nim with all its features.
